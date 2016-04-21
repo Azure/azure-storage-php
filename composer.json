@@ -32,5 +32,10 @@
     	"psr-4": {
     	    "MicrosoftAzure\\Storage\\Tests\\": "tests/"
     	}
-    }
+    },
+	"extra": {
+	    "branch-alias": {
+		    "dev-master": "0.10.x-dev"
+		}
+	}
 }
