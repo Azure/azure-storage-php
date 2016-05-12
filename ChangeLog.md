@@ -1,3 +1,8 @@
+2016.05 - version 0.10.1
+Blob
+* Fixed the issue that blobs upload with size multiple of 4194304 bytes and larger than 33554432 bytes.
+* Fixed the issue that extra / is appended in blob URL.
+
 2016.04 - version 0.10.0
 ALL
 * Separated Azure Storage APIs in Azure-SDK-for-PHP to establish an independent release cycle.
