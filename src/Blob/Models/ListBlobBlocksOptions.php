@@ -33,7 +33,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.0
+ * @version   Release: 0.10.1
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListBlobBlocksOptions extends BlobServiceOptions

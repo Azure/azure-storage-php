@@ -85,7 +85,7 @@ use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.0
+ * @version   Release: 0.10.1
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlobRestProxy extends ServiceRestProxy implements IBlob
@@ -195,6 +195,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $encodedBlob = $container . '/' . $encodedBlob;
         }
         
+        if (substr($encodedBlob, 0, 1) != '/' && substr($this->getUri(), -1, 1) != '/')
+        {
+            $encodedBlob =  '/' .  $encodedBlob;
+        }
         return $this->getUri() . $encodedBlob;
     }
     
@@ -1352,11 +1356,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                         $content = substr_replace($content, '', 0, $blockSize);
                     }
                 }
-                $block = new Block();
-                $block->setBlockId(base64_encode(str_pad($counter++, 6, '0', STR_PAD_LEFT)));
-                $block->setType('Uncommitted');
-                array_push($blockIds, $block);
-                $this->createBlobBlock($container, $blob, $block->getBlockId(), $body);
+                if (!empty($body)) {
+                    $block = new Block();
+                    $block->setBlockId(base64_encode(str_pad($counter++, 6, '0', STR_PAD_LEFT)));
+                    $block->setType('Uncommitted');
+                    array_push($blockIds, $block);
+                    $this->createBlobBlock($container, $blob, $block->getBlockId(), $body);
+                }
             }
             $response = $this->commitBlobBlocks($container, $blob, $blockIds, $options);
         }

@@ -92,7 +92,7 @@ You can find samples in the [sample folder](samples)
 
 If you are using [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/) to access Azure Storage Service, we highly recommend you to migrate to this SDK for faster issue resolution and quicker feature implementation. We are working on supporting the latest service features (including SAS, CORS, append blob, file service, etc) as well as improvement on existing APIs.
 
-For now, Microsoft Azure Storage SDK for PHP v0.10.0 shares almost the same interface as the storage blobs, tables and queues APIs in Azure SDK for PHP v0.4.1. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
+For now, Microsoft Azure Storage SDK for PHP v0.10.1 shares almost the same interface as the storage blobs, tables and queues APIs in Azure SDK for PHP v0.4.3. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
 
 Please note that this library is still in preview and may contain more breaking changes in upcoming releases.
   
