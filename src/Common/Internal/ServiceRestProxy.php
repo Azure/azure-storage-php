@@ -141,7 +141,7 @@ class ServiceRestProxy extends RestProxy
                 $method, 
                 $uri,
                 $headers,
-                $body);
+                $actualBody);
         
         $client = new \GuzzleHttp\Client(        
             array(
