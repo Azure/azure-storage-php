@@ -132,10 +132,11 @@ class ServicesBuilder
      * Builds a queue object.
      *
      * @param string $connectionString The configuration connection string.
+     * @param array  $guzzleOptions    Array of options to pass to Guzzle client
      *
      * @return MicrosoftAzure\Storage\Queue\Internal\IQueue
      */
-    public function createQueueService($connectionString)
+    public function createQueueService($connectionString, $guzzleOptions = [])
     {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
@@ -149,7 +150,8 @@ class ServicesBuilder
         $queueWrapper = new QueueRestProxy(
             $uri,
             $settings->getName(),
-            $serializer
+            $serializer,
+            $guzzleOptions
         );
 
         // Adding headers filter
@@ -183,10 +185,10 @@ class ServicesBuilder
      * Builds a blob object.
      *
      * @param string $connectionString The configuration connection string.
-     *
+     * @param array  $guzzleOptions    Array of options to pass to Guzzle client
      * @return MicrosoftAzure\Storage\Blob\Internal\IBlob
      */
-    public function createBlobService($connectionString)
+    public function createBlobService($connectionString, $guzzleOptions = [] = [])
     {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
@@ -196,11 +198,12 @@ class ServicesBuilder
         $uri        = Utilities::tryAddUrlScheme(
             $settings->getBlobEndpointUri()
         );
-    
+
         $blobWrapper = new BlobRestProxy(
             $uri,
             $settings->getName(),
-            $serializer
+            $serializer,
+            $guzzleOptions
         );
 
         // Adding headers filter
@@ -233,10 +236,11 @@ class ServicesBuilder
      * Builds a table object.
      *
      * @param string $connectionString The configuration connection string.
+     * @param array  $guzzleOptions    Array of options to pass to Guzzle client
      *
      * @return MicrosoftAzure\Storage\Table\Internal\ITable
      */
-    public function createTableService($connectionString)
+    public function createTableService($connectionString, $guzzleOptions = [])
     {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
@@ -253,7 +257,8 @@ class ServicesBuilder
             $uri,
             $atomSerializer,
             $mimeSerializer,
-            $serializer
+            $serializer,
+            $guzzleOptions
         );
 
         // Adding headers filter
@@ -292,18 +297,18 @@ class ServicesBuilder
 
         return $tableWrapper;
     }
-    
+
     /**
      * Gets the user agent string used in request header.
-     * 
+     *
      * @return string
      */
     private static function getUserAgent()
     {
         // e.g. User-Agent: Azure-Storage/0.10.0 (PHP 5.5.32)
-        return 'Azure-Storage/' . Resources::SDK_VERSION . ' (PHP ' . PHP_VERSION . ')'; 
+        return 'Azure-Storage/' . Resources::SDK_VERSION . ' (PHP ' . PHP_VERSION . ')';
     }
-    
+
     /**
      * Gets the static instance of this class.
      *
