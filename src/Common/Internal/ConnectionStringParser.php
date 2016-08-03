@@ -171,11 +171,11 @@ class ConnectionStringParser
     {
         $arguments = func_get_args();
         
-        // Remove first argument (position)
-        unset($arguments[0]);
+        // Remove first and second arguments (position and error string)
+        unset($arguments[0], $arguments[1]);
         
         // Create a short error message.
-        $errorString = sprintf($errorString, $arguments);
+        $errorString = vsprintf($errorString, $arguments);
         
         // Add position.
         $errorString = sprintf(
