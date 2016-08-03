@@ -175,7 +175,7 @@ class ConnectionStringParser
         unset($arguments[0]);
         
         // Create a short error message.
-        $errorString = sprintf($errorString, $arguments);
+        $errorString = vsprintf($errorString, $arguments);
         
         // Add position.
         $errorString = sprintf(
