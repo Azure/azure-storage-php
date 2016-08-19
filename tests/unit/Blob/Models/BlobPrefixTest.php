@@ -33,7 +33,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.1
+ * @version   Release: 0.10.2
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlobPrefixTest extends \PHPUnit_Framework_TestCase
