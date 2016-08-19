@@ -1,4 +1,4 @@
-2016.07 - version 0.10.2
+2016.08 - version 0.10.2
 
 ALL
 * Allow passing an array of options to a service. Currently only Guzzle options are supported via the `http` parameter.
