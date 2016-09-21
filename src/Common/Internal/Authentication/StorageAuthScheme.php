@@ -181,12 +181,9 @@ abstract class StorageAuthScheme implements IAuthScheme
         // 9. Group query parameters
         // 10. Append a new line character (\n) after each name-value pair.
         foreach ($queryParams as $key => $value) {
-            // Grouping query parameters
-            $values = explode(Resources::SEPARATOR, $value);
-            sort($values);
-            $separated = implode(Resources::SEPARATOR, $values);
-
-            $canonicalizedResource .= "\n" . $key . ':' . $separated;
+            // $value must already be ordered lexicographically
+            // See: ServiceRestProxy::groupQueryValues
+            $canonicalizedResource .= "\n" . $key . ':' . $value;
         }
 
         return $canonicalizedResource;
