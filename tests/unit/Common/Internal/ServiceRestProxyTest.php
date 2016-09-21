@@ -147,16 +147,15 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
-     * @depends test__construct
      */
-    public function testGroupQueryValues($restRestProxy)
+    public function testGroupQueryValues()
     {
         // Setup
         $values = array('A', 'B', 'C');
         $expected = 'A,B,C';
 
         // Test
-        $actual = $restRestProxy->groupQueryValues($values);
+        $actual = ServiceRestProxy::groupQueryValues($values);
 
         // Assert
         $this->assertEquals($expected, $actual);
@@ -164,15 +163,14 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
-     * @depends test__construct
      */
-    public function testGroupQueryValuesWithNulls($restRestProxy)
+    public function testGroupQueryValuesWithNulls()
     {
         // Setup
         $values = array(null, '', null);
 
         // Test
-        $actual = $restRestProxy->groupQueryValues($values);
+        $actual = ServiceRestProxy::groupQueryValues($values);
 
         // Assert
         $this->assertTrue(empty($actual));
@@ -180,16 +178,15 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
-     * @depends test__construct
      */
-    public function testGroupQueryValuesWithMix($restRestProxy)
+    public function testGroupQueryValuesWithMix()
     {
         // Setup
         $values = array(null, 'B', 'C', '');
         $expected = 'B,C';
 
         // Test
-        $actual = $restRestProxy->groupQueryValues($values);
+        $actual = ServiceRestProxy::groupQueryValues($values);
 
         // Assert
         $this->assertEquals($expected, $actual);

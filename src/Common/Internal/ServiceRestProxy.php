@@ -503,7 +503,7 @@ class ServiceRestProxy extends RestProxy
      *
      * @return string
      */
-    public function groupQueryValues($values)
+    public static function groupQueryValues($values)
     {
         Validate::isArray($values, 'values');
         $joined = Resources::EMPTY_STRING;
