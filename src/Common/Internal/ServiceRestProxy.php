@@ -508,6 +508,8 @@ class ServiceRestProxy extends RestProxy
         Validate::isArray($values, 'values');
         $joined = Resources::EMPTY_STRING;
 
+        sort($values);
+
         foreach ($values as $value) {
             if (!is_null($value) && !empty($value)) {
                 $joined .= $value . Resources::SEPARATOR;

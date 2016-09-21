@@ -164,6 +164,22 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
      */
+    public function testGroupQueryValuesWithUnorderedValues()
+    {
+        // Setup
+        $values = array('B', 'C', 'A');
+        $expected = 'A,B,C';
+
+        // Test
+        $actual = ServiceRestProxy::groupQueryValues($values);
+
+        // Assert
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
+     */
     public function testGroupQueryValuesWithNulls()
     {
         // Setup
