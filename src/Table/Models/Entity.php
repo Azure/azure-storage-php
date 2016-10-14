@@ -252,9 +252,7 @@ class Entity
      * 
      * @param string $name    The property name.
      * @param string $edmType The property edm type.
-     * @param mix    $value   The property value.
-     * 
-     * @return none
+     * @param mixed  $value   The property value.
      */
     public function addProperty($name, $edmType, $value)
     {        
