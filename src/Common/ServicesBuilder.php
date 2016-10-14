@@ -238,7 +238,7 @@ class ServicesBuilder
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
      *
-     * @return MicrosoftAzure\Storage\Table\Internal\ITable
+     * @return \MicrosoftAzure\Storage\Table\Internal\ITable
      */
     public function createTableService($connectionString, $options = [])
     {
