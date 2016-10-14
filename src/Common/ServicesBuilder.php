@@ -134,7 +134,7 @@ class ServicesBuilder
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
      *
-     * @return MicrosoftAzure\Storage\Queue\Internal\IQueue
+     * @return \MicrosoftAzure\Storage\Queue\Internal\IQueue
      */
     public function createQueueService($connectionString, $options = [])
     {
