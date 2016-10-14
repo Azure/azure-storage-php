@@ -186,7 +186,7 @@ class ServicesBuilder
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
-     * @return MicrosoftAzure\Storage\Blob\Internal\IBlob
+     * @return \MicrosoftAzure\Storage\Blob\Internal\IBlob
      */
     public function createBlobService($connectionString, $options = [])
     {
