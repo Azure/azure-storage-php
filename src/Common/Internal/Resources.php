@@ -118,6 +118,8 @@ class Resources
     const ERROR_FILE_COULD_NOT_BE_OPENED = 'Error: file with given path could not be opened or created.';
     const ERROR_CONTAINER_NOT_EXIST = 'The specified container does not exist';
     const ERROR_BLOB_NOT_EXIST = 'The specified blob does not exist';
+    const INVALID_PARAM_GENERAL = 'The provided parameter \'%s\' is invalid';
+    const INVALID_NEGATIVE_PARAM = 'The provided parameter \'%s\' should be positive number.';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
@@ -232,8 +234,8 @@ class Resources
     const DSM_XML_NAMESPACE  = 'http://schemas.microsoft.com/ado/2007/08/dataservices/metadata';
     const XSI_XML_NAMESPACE  = 'http://www.w3.org/2001/XMLSchema-instance';
     const NUMBER_OF_CONCURRENCY = 25;//Guzzle's default value
-    const CHUNK_MAX_RETRY = 3;
-
+    const DEFAULT_NUMBER_OF_RETRIES = 3;
+    const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
     const SDK_VERSION                                   = '0.10.2';

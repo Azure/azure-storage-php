@@ -279,8 +279,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $containerName = 'createcontainerwithoutoptions' . $this->createSuffix();
         
         // Test
-        $this->restProxy->createContainer($containerName);
-        $this->_createdContainers[] = $containerName;
+        $this->createContainer($containerName);
         
         // Assert
         $result = $this->restProxy->listContainers();
@@ -347,7 +346,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     {
         // Setup
         $containerName = 'deletecontainer' . $this->createSuffix();
-        $this->restProxy->createContainer($containerName);
+        $this->createContainer($containerName);
         
         // Test
         $this->restProxy->deleteContainer($containerName);
@@ -898,10 +897,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertEquals(BlobType::BLOCK_BLOB, $result->getProperties()->getBlobType());
         $this->assertEquals($metadata, $result->getMetadata());
-        $this->assertEquals(
-            $contentStream,
-            $result->getContentStream()->getContents()
-        );
+        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
     }
     
     /**
@@ -914,7 +910,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Setup
         $name = '$root';
         $blob = 'myblob';
-        $this->restProxy->createContainer($name);
+        $this->createContainer($name);
         $this->_createdContainers[] = '$root';
         $length = 512;
         $range = new PageRange(0, 511);
@@ -933,10 +929,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertEquals(BlobType::PAGE_BLOB, $result->getProperties()->getBlobType());
-        $this->assertEquals(
-            $contentStream,
-            $result->getContentStream()->getContents()
-        );
+        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
     }
     
     /**
@@ -967,10 +960,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertEquals(BlobType::PAGE_BLOB, $result->getProperties()->getBlobType());
-        $this->assertEquals(
-            $contentStream,
-            $result->getContentStream()->getContents()
-        );
+        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
     }
     
     /**
@@ -998,10 +988,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertEquals(BlobType::BLOCK_BLOB, $result->getProperties()->getBlobType());
         $this->assertEquals($metadata, $result->getMetadata());
-        $this->assertEquals(
-            $contentStream,
-            $result->getContentStream()->getContents()
-        );
+        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
     }
     
     /**
@@ -1706,7 +1693,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
 
     /**
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      */
     public function testGetBlockBlobToFile()
     {
@@ -1733,7 +1720,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
         
         // Test
-        $result = $this->restProxy->getBlobToFile($path, $name, $blob);
+        $result = $this->restProxy->saveBlobToFile($path, $name, $blob);
         $contents = file_get_contents($path);
         
         // Assert
@@ -1746,7 +1733,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
 
     /**
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      */
     public function testGetPageBlobToFile()
     {
@@ -1769,7 +1756,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
 
         // Test
-        $result = $this->restProxy->getBlobToFile($path, $name, $blob);
+        $result = $this->restProxy->saveBlobToFile($path, $name, $blob);
         $contents = file_get_contents($path);
 
         // Assert
@@ -1923,7 +1910,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     /**
      * @group large-scale
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
      */
     public function testGetLargeBlockBlobToFile()
@@ -1960,7 +1947,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $downloadPath = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
 
         // Test
-        $result = $this->restProxy->getBlobToFile($downloadPath, $name, $blob);
+        $result = $this->restProxy->saveBlobToFile($downloadPath, $name, $blob);
         
         
         // Assert
@@ -1983,7 +1970,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     /**
      * @group large-scale
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
      */
@@ -2028,7 +2015,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $downloadPath = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
         
         // Test
-        $result = $this->restProxy->getBlobToFile($downloadPath, $name, $blob);
+        $result = $this->restProxy->saveBlobToFile($downloadPath, $name, $blob);
         
         // Assert
         $this->assertEquals(
@@ -2076,9 +2063,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
 
     /**
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      */
-    public function testGetBlobToFileWithInvalidPath()
+    public function testsaveBlobToFileWithInvalidPath()
     {
         $errorMsg = '';
         //Create a random string that is 8MB in size.
@@ -2088,7 +2075,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $metadata = array('m1' => 'v1', 'm2' => 'v2');
         $contentType = 'text/plain; charset=UTF-8';
-        $this->restProxy->createContainer($name);
+        $this->createContainer($name);
         $options = new CreateBlobOptions();
         $options->setContentType($contentType);
         $options->setMetadata($metadata);
@@ -2104,7 +2091,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $downloadPath = 'Zasdf:\\\\\\\\Invalid.PATH'.$uuid.'.txt';
         error_reporting(E_ALL ^ E_WARNING);
         try {
-            $result = $this->restProxy->getBlobToFile($downloadPath, $name, $blob);
+            $result = $this->restProxy->saveBlobToFile($downloadPath, $name, $blob);
         } catch (\Exception $e) {
             $errorMsg = $e->getMessage();
         } finally {
@@ -2114,30 +2101,33 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
     
     /**
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      */
-    public function testGetBlobToFileWithBlobNotExist()
+    public function testsaveBlobToFileWithBlobNotExist()
     {
         $errorMsg = '';
         $name = 'getblob' . $this->createSuffix();
         $blob = 'non_existing_blob';
-        $this->restProxy->createContainer($name);
+        $this->createContainer($name);
         //get the path for the file to be downloaded into.
         $uuid = uniqid('test-file-', true);
         $downloadPath = getcwd().DIRECTORY_SEPARATOR.$uuid.'.txt';
-        $downloadResource = fopen($downloadPath, 'w');
         try {
-            $result = $this->restProxy->getBlobToFile($downloadPath, $name, $blob);
+            $result = $this->restProxy->saveBlobToFile($downloadPath, $name, $blob);
         } catch (\Exception $e) {
             $errorMsg = $e->getMessage();
         }
         $this->assertTrue(strpos($errorMsg, Resources::ERROR_BLOB_NOT_EXIST) != 0);
+
+        if (file_exists($downloadPath)) {
+            unlink($downloadPath);
+        }
     }
     
     /**
-     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobToFile
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      */
-    public function testGetBlobToFileWithContainerNotExist()
+    public function testsaveBlobToFileWithContainerNotExist()
     {
         $errorMsg = '';
         $name = 'nonexistingcontainer';
@@ -2145,12 +2135,15 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         //get the path for the file to be downloaded into.
         $uuid = uniqid('test-file-', true);
         $downloadPath = getcwd().DIRECTORY_SEPARATOR.$uuid.'.txt';
-        $downloadResource = fopen($downloadPath, 'w');
         try {
-            $result = $this->restProxy->getBlobToFile($downloadPath, $name, $blob);
+            $result = $this->restProxy->saveBlobToFile($downloadPath, $name, $blob);
         } catch (\Exception $e) {
             $errorMsg = $e->getMessage();
         }
         $this->assertTrue(strpos($errorMsg, Resources::ERROR_CONTAINER_NOT_EXIST) != 0);
+
+        if (file_exists($downloadPath)) {
+            unlink($downloadPath);
+        }
     }
 }

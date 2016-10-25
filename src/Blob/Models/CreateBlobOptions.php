@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
 
 /**
  * optional parameters for createXXXBlob wrapper
@@ -118,6 +119,11 @@ class CreateBlobOptions extends BlobServiceOptions
      * @var AccessCondition
      */
     private $_accessCondition;
+
+    /**
+     * @var int
+     */
+    private $_numberOfConcurrency;
     
     /**
      * Gets blob ContentType.
@@ -471,5 +477,44 @@ class CreateBlobOptions extends BlobServiceOptions
     public function setLeaseId($leaseId)
     {
         $this->_leaseId = $leaseId;
+    }
+
+    /**
+     * Gets number of concurrency for sending a blob.
+     *
+     * @return int
+     */
+    public function getNumberOfConcurrency()
+    {
+        return $this->_numberOfConcurrency;
+    }
+
+    /**
+     * Sets number of concurrency for sending a blob.
+     *
+     * @param int $numberOfConcurrency the number of concurrent requests.
+     */
+    public function setNumberOfConcurrency($numberOfConcurrency)
+    {
+        $this->_numberOfConcurrency = $numberOfConcurrency;
+    }
+
+    /**
+     * Construct a CreateBlobOptions object from a createBlockBlobOptions.
+     *
+     * @param  CreateBlobBlockOptions $createBlobBlockOptions
+     *
+     * @return CreateBlobOptions
+     */
+    public static function create($createBlobBlockOptions)
+    {
+        $result = new CreateBlobOptions();
+        $result->setTimeout($createBlobBlockOptions->getTimeout());
+        $result->setContentMD5($createBlobBlockOptions->getContentMD5());
+        $result->setLeaseId($createBlobBlockOptions->getLeaseId());
+        $result->setNumberOfConcurrency(
+            $createBlobBlockOptions->getNumberOfConcurrency()
+        );
+        return $result;
     }
 }
