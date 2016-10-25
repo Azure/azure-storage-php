@@ -114,7 +114,7 @@ class Queue
     /**
      * Sets queue metadata.
      *
-     * @param string $metadata value.
+     * @param array $metadata value.
      * 
      * @return none.
      */
