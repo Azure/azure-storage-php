@@ -31,6 +31,10 @@
          depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
          description="Performs static analysis, runs the tests, and generates project documentation"/>
 
+<target name="full-build-large-scale"
+         depends="prepare,static-analysis,phpunit-large-scale,phpdox,-check-failure"
+         description="Performs static analysis, runs the tests (including large scale tests), and generates project documentation"/>
+
  <target name="full-build-parallel"
          depends="prepare,static-analysis-parallel,phpunit,phpdox,-check-failure"
          description="Performs static analysis (executing the tools in parallel), runs the tests, and generates project documentation"/>
@@ -232,6 +236,19 @@
   <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
+   <arg value="--exclude-group=large-scale"/>
+  </exec>
+  
+  <property name="phpunit.done" value="true"/>
+ </target>
+
+  <target name="phpunit-large-scale"
+         unless="phpunit.done"
+         depends="prepare"
+         description="Run unit tests with PHPUnit, including the large-scale tests">
+  <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
+   <arg value="--configuration"/>
+   <arg path="${basedir}/phpunit.xml.dist"/>
   </exec>
 
   <property name="phpunit.done" value="true"/>
@@ -244,6 +261,7 @@
   <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
+   <arg value="--exclude-group=large-scale"/>
    <arg value="--no-coverage"/>
   </exec>
 
@@ -257,6 +275,7 @@
   <exec executable="${phpunit}" resultproperty="result-ft.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.functional.xml.dist"/>
+   <arg value="--exclude-group=large-scale"/>
   </exec>
   
   <property name="phpunit-ft.done" value="true"/>

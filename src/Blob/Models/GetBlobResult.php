@@ -50,7 +50,7 @@ class GetBlobResult
     private $_metadata;
     
     /**
-     * @var resource
+     * @var StreamInterface
      */
     private $_contentStream;
     
@@ -58,7 +58,7 @@ class GetBlobResult
      * Creates GetBlobResult from getBlob call.
      * 
      * @param array  $headers  The HTTP response headers.
-     * @param string $body     The response body.
+     * @param StreamInterface $body     The response body.
      * @param array  $metadata The blob metadata.
      * 
      * @return GetBlobResult
@@ -66,7 +66,7 @@ class GetBlobResult
     public static function create($headers, $body, $metadata)
     {
         $result = new GetBlobResult();
-        $result->setContentStream(Utilities::stringToStream($body));
+        $result->setContentStream($body);
         $result->setProperties(BlobProperties::create($headers));
         $result->setMetadata(is_null($metadata) ? array() : $metadata);
         
@@ -120,7 +120,7 @@ class GetBlobResult
     /**
      * Gets blob contentStream.
      *
-     * @return resource
+     * @return StreamInterface
      */
     public function getContentStream()
     {
@@ -130,8 +130,8 @@ class GetBlobResult
     /**
      * Sets blob contentStream.
      *
-     * @param resource $contentStream The stream handle.
-     * 
+     * @param StreamInterface $contentStream The stream handle.
+     *
      * @return none
      */
     public function setContentStream($contentStream)

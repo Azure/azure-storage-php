@@ -46,6 +46,12 @@ class Block
      * @var string
      */
     private $_type;
+
+    public function __construct($blockId = '', $type = '')
+    {
+        $this->_blockId = $blockId;
+        $this->_type = $type;
+    }
     
     /**
      * Sets the blockId.
