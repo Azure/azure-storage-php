@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -69,7 +69,7 @@ class AccessPolicy
      * Sets start.
      *
      * @param \DateTime $start value.
-     * 
+     *
      * @return none.
      */
     public function setStart($start)
@@ -92,7 +92,7 @@ class AccessPolicy
      * Sets expiry.
      *
      * @param \DateTime $expiry value.
-     * 
+     *
      * @return none.
      */
     public function setExpiry($expiry)
@@ -115,7 +115,7 @@ class AccessPolicy
      * Sets permission.
      *
      * @param string $permission value.
-     * 
+     *
      * @return none.
      */
     public function setPermission($permission)
@@ -125,7 +125,7 @@ class AccessPolicy
     
     /**
      * Converts this current object to XML representation.
-     * 
+     *
      * @return array.
      */
     public function toArray()
@@ -139,5 +139,3 @@ class AccessPolicy
         return $array;
     }
 }
-
-

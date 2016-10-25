@@ -79,11 +79,11 @@ class Utilities
     
     /**
      * Parse storage account name from an endpoint url.
-     * 
+     *
      * @param string $url The endpoint $url
-     * 
+     *
      * @static
-     * 
+     *
      * @return string
      */
     public static function tryParseAccountNameFromUrl($url)

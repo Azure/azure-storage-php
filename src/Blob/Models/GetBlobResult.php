@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -56,11 +57,11 @@ class GetBlobResult
     
     /**
      * Creates GetBlobResult from getBlob call.
-     * 
+     *
      * @param array  $headers  The HTTP response headers.
      * @param StreamInterface $body     The response body.
      * @param array  $metadata The blob metadata.
-     * 
+     *
      * @return GetBlobResult
      */
     public static function create($headers, $body, $metadata)
@@ -109,7 +110,7 @@ class GetBlobResult
      * Sets blob properties.
      *
      * @param BlobProperties $properties value.
-     * 
+     *
      * @return none
      */
     public function setProperties($properties)
@@ -139,5 +140,3 @@ class GetBlobResult
         $this->_contentStream = $contentStream;
     }
 }
-
-

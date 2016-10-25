@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Common;
+
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -39,7 +40,6 @@ use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
-
 
 /**
  * Builds azure service objects.

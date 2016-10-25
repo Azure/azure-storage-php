@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -243,7 +244,7 @@ class CreateBlobOptions extends BlobServiceOptions
      * Sets blob cacheControl.
      *
      * @param string $blobCacheControl value to use.
-     * 
+     *
      * @return none.
      */
     public function setBlobCacheControl($blobCacheControl)
@@ -353,7 +354,7 @@ class CreateBlobOptions extends BlobServiceOptions
      * Sets cacheControl.
      *
      * @param string $cacheControl value to use.
-     * 
+     *
      * @return none.
      */
     public function setCacheControl($cacheControl)
@@ -363,7 +364,7 @@ class CreateBlobOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -373,9 +374,9 @@ class CreateBlobOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -452,7 +453,7 @@ class CreateBlobOptions extends BlobServiceOptions
 
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -462,9 +463,9 @@ class CreateBlobOptions extends BlobServiceOptions
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)

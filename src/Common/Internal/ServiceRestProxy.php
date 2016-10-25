@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -56,7 +57,7 @@ class ServiceRestProxy extends RestProxy
      *
      * @var \Uri
      */
-       private $_psrUri;
+    private $_psrUri;
 
     /**
      * @var array
@@ -73,8 +74,7 @@ class ServiceRestProxy extends RestProxy
      */
     public function __construct($uri, $accountName, $dataSerializer, $options = [])
     {
-        if ($uri[strlen($uri)-1] != '/')
-        {
+        if ($uri[strlen($uri)-1] != '/') {
             $uri = $uri . '/';
         }
 
@@ -485,7 +485,7 @@ class ServiceRestProxy extends RestProxy
         if (is_array($metadata) && !is_null($metadata)) {
             foreach ($metadata as $key => $value) {
                 $headerName = Resources::X_MS_META_HEADER_PREFIX;
-                if (   strpos($value, "\r") !== false
+                if (strpos($value, "\r") !== false
                     || strpos($value, "\n") !== false
                 ) {
                     throw new \InvalidArgumentException(Resources::INVALID_META_MSG);
@@ -551,5 +551,3 @@ class ServiceRestProxy extends RestProxy
         }
     }
 }
-
-

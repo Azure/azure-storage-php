@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -43,23 +43,21 @@ class BlobBlockType
     
     /**
      * Validates the provided type.
-     * 
+     *
      * @param string $type The entry type.
-     * 
+     *
      * @return boolean
      */
     public static function isValid($type)
     {
         switch ($type) {
-        case self::COMMITTED_TYPE:
-        case self::LATEST_TYPE:
-        case self::UNCOMMITTED_TYPE:
-        return true;
+            case self::COMMITTED_TYPE:
+            case self::LATEST_TYPE:
+            case self::UNCOMMITTED_TYPE:
+                return true;
         
-        default:
-        return false;
+            default:
+                return false;
         }
     }
 }
-
-

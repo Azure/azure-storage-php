@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -49,10 +49,10 @@ class PageRange
 
     /**
      * Constructor
-     * 
+     *
      * @param integer $start the page start value
      * @param integer $end   the page end value
-     * 
+     *
      * @return PageRange
      */
     public function __construct($start = null, $end = null)
@@ -63,9 +63,9 @@ class PageRange
     
     /**
      * Sets page start range
-     * 
+     *
      * @param integer $start the page range start
-     * 
+     *
      * @return none.
      */
     public function setStart($start)
@@ -75,7 +75,7 @@ class PageRange
     
     /**
      * Gets page start range
-     * 
+     *
      * @return integer
      */
     public function getStart()
@@ -85,9 +85,9 @@ class PageRange
     
     /**
      * Sets page end range
-     * 
+     *
      * @param integer $end the page range end
-     * 
+     *
      * @return none.
      */
     public function setEnd($end)
@@ -97,7 +97,7 @@ class PageRange
     
     /**
      * Gets page end range
-     * 
+     *
      * @return integer
      */
     public function getEnd()
@@ -107,7 +107,7 @@ class PageRange
     
     /**
      * Gets page range length
-     * 
+     *
      * @return integer
      */
     public function getLength()
@@ -117,9 +117,9 @@ class PageRange
     
     /**
      * Sets page range length
-     * 
+     *
      * @param integer $value new page range
-     * 
+     *
      * @return none
      */
     public function setLength($value)
@@ -127,5 +127,3 @@ class PageRange
         $this->_end = $this->_start + $value - 1;
     }
 }
-
-

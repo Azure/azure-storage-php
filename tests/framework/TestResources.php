@@ -497,6 +497,7 @@ class TestResources
     public static function getTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
+        $entity->setETag('');
         $entity->setPartitionKey($partitionKey);
         $entity->setRowKey($rowKey);
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
@@ -510,6 +511,7 @@ class TestResources
     public static function getExpectedTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
+        $entity->setETag('');
         $entity->addProperty('PartitionKey', EdmType::STRING, $partitionKey);
         $entity->addProperty('RowKey', EdmType::STRING, $rowKey);
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
