@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
+
 use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -48,7 +49,7 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      *
      * @param string $accountName storage account name.
      * @param string $accountKey  storage account primary or secondary key.
-     * 
+     *
      * @return TableSharedKeyLiteAuthScheme
      */
     public function __construct($accountName, $accountKey)
@@ -66,16 +67,17 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      * @param string $url         reuqest url.
      * @param array  $queryParams query variables.
      * @param string $httpMethod  request http method.
-     * 
+     *
      * @see Blob and Queue Services (Shared Key Authentication) at
      *      http://msdn.microsoft.com/en-us/library/windowsazure/dd179428.aspx
-     * 
+     *
      * @return string
      */
     protected function computeSignature($headers, $url, $queryParams, $httpMethod)
     {
         $canonicalizedResource = parent::computeCanonicalizedResourceForTable(
-            $url, $queryParams
+            $url,
+            $queryParams
         );
         
         $stringToSign = array();
@@ -85,7 +87,7 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
         }
 
         $stringToSign[] = $canonicalizedResource;
-        $stringToSign   = implode("\n", $stringToSign);    
+        $stringToSign   = implode("\n", $stringToSign);
         
         return $stringToSign;
     }
@@ -97,16 +99,19 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      * @param string $url         reuqest url.
      * @param array  $queryParams query variables.
      * @param string $httpMethod  request http method.
-     * 
-     * @see Specifying the Authorization Header section at 
+     *
+     * @see Specifying the Authorization Header section at
      *      http://msdn.microsoft.com/en-us/library/windowsazure/dd179428.aspx
-     * 
+     *
      * @return string
      */
     public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
     {
         $signature = $this->computeSignature(
-            $headers, $url, $queryParams, $httpMethod
+            $headers,
+            $url,
+            $queryParams,
+            $httpMethod
         );
 
         return 'SharedKeyLite ' . $this->accountName . ':' . base64_encode(
@@ -114,5 +119,3 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
         );
     }
 }
-
-

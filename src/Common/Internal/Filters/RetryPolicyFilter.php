@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
 use GuzzleHttp\Client;
 
@@ -51,7 +52,7 @@ class RetryPolicyFilter implements IServiceFilter
     
     /**
      * Initializes new object from RetryPolicyFilter.
-     * 
+     *
      * @param \GuzzleHttp\Client $client      The http client to send request.
      * @param RetryPolicy        $retryPolicy The retry policy object.
      */
@@ -63,9 +64,9 @@ class RetryPolicyFilter implements IServiceFilter
 
     /**
      * Handles the request before sending.
-     * 
+     *
      * @param \GuzzleHttp\Psr7\Request $request The HTTP request.
-     * 
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     public function handleRequest($request)
@@ -75,10 +76,10 @@ class RetryPolicyFilter implements IServiceFilter
 
     /**
      * Handles the response after sending.
-     * 
+     *
      * @param \GuzzleHttp\Psr7\Request  $request  The HTTP request.
      * @param \GuzzleHttp\Psr7\Response $response The HTTP response.
-     * 
+     *
      * @return \GuzzleHttp\Psr7\Response
      */
     public function handleResponse($request, $response)
@@ -103,5 +104,3 @@ class RetryPolicyFilter implements IServiceFilter
         }
     }
 }
-
-

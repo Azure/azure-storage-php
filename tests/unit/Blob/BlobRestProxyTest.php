@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Blob;
+
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -897,7 +898,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertEquals(BlobType::BLOCK_BLOB, $result->getProperties()->getBlobType());
         $this->assertEquals($metadata, $result->getMetadata());
-        $this->assertEquals($contentStream, stream_get_contents($result->getContentStream()));
+        $this->assertEquals(
+            $contentStream,
+            $result->getContentStream()->getContents()
+        );
     }
     
     /**
@@ -929,7 +933,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertEquals(BlobType::PAGE_BLOB, $result->getProperties()->getBlobType());
-        $this->assertEquals($contentStream, stream_get_contents($result->getContentStream()));
+        $this->assertEquals(
+            $contentStream,
+            $result->getContentStream()->getContents()
+        );
     }
     
     /**
@@ -960,7 +967,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertEquals(BlobType::PAGE_BLOB, $result->getProperties()->getBlobType());
-        $this->assertEquals($contentStream, stream_get_contents($result->getContentStream()));
+        $this->assertEquals(
+            $contentStream,
+            $result->getContentStream()->getContents()
+        );
     }
     
     /**
@@ -988,7 +998,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertEquals(BlobType::BLOCK_BLOB, $result->getProperties()->getBlobType());
         $this->assertEquals($metadata, $result->getMetadata());
-        $this->assertEquals($contentStream, stream_get_contents($result->getContentStream()));
+        $this->assertEquals(
+            $contentStream,
+            $result->getContentStream()->getContents()
+        );
     }
     
     /**
@@ -1347,29 +1360,29 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
    /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::create
-    * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getContentLength     
+    * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getContentLength
     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getUncommittedBlocks
     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getCommittedBlocks
     */
-   public function testListBlobBlocks()
-   {
-       // Setup
-       $name = 'listblobblocks' . $this->createSuffix();
-       $blob = 'myblob';
-       $id1 = 'AAAAAA==';
-       $id2 = 'ANAAAA==';
-       $this->createContainer($name);
-       $this->restProxy->createBlobBlock($name, $blob, $id1, 'Hello world');
-       $this->restProxy->createBlobBlock($name, $blob, $id2, 'Hello world');
-
-       // Test
-       $result = $this->restProxy->listBlobBlocks($name, $blob);
-
-       // Assert
-       $this->assertNull($result->getETag());
-       $this->assertEquals(0, $result->getContentLength());
-       $this->assertCount(2, $result->getUncommittedBlocks());
-       $this->assertCount(0, $result->getCommittedBlocks());
+    public function testListBlobBlocks()
+    {
+        // Setup
+        $name = 'listblobblocks' . $this->createSuffix();
+        $blob = 'myblob';
+        $id1 = 'AAAAAA==';
+        $id2 = 'ANAAAA==';
+        $this->createContainer($name);
+        $this->restProxy->createBlobBlock($name, $blob, $id1, 'Hello world');
+        $this->restProxy->createBlobBlock($name, $blob, $id2, 'Hello world');
+ 
+        // Test
+        $result = $this->restProxy->listBlobBlocks($name, $blob);
+ 
+        // Assert
+        $this->assertNull($result->getETag());
+        $this->assertEquals(0, $result->getContentLength());
+        $this->assertCount(2, $result->getUncommittedBlocks());
+        $this->assertCount(0, $result->getCommittedBlocks());
     }
       
     /**
@@ -1394,32 +1407,35 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals(strlen($content), $result->getContentLength());
         $this->assertCount(0, $result->getUncommittedBlocks());
         $this->assertCount(0, $result->getCommittedBlocks());
-
     }
 
-    /** 
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob 
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
-     */ 
+     */
     public function testCopyBlobDifferentContainer()
     {
         // Setup
         $sourceContainerName = 'copyblobdiffcontainerssource' . $this->createSuffix();
         $sourceBlobName = 'sourceblob';
-        $blobValue = 'testBlobValue'; 
+        $blobValue = 'testBlobValue';
         $destinationContainerName = 'copyblobdiffcontainersdestination' . $this->createSuffix();
         $destinationBlobName = 'destinationblob';
         $this->createContainer($sourceContainerName);
-        $this->createContainer($destinationContainerName); 
-        $this->restProxy->createBlockBlob($sourceContainerName, $sourceBlobName, $blobValue); 
+        $this->createContainer($destinationContainerName);
+        $this->restProxy->createBlockBlob(
+            $sourceContainerName,
+            $sourceBlobName,
+            $blobValue
+        );
         
         // Test
-        $result = $this->restProxy->copyBlob( 
-            $destinationContainerName, 
-            $destinationBlobName, 
-            $sourceContainerName, 
+        $result = $this->restProxy->copyBlob(
+            $destinationContainerName,
+            $destinationBlobName,
+            $sourceContainerName,
             $sourceBlobName
-        ); 
+        );
         
         // Assert
         $sourceBlob = $this->restProxy->getBlob($sourceContainerName, $sourceBlobName);
@@ -1433,31 +1449,38 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertInstanceOf('\DateTime', $result->getlastModified());
     }
     
-    /** 
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob 
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
-     */ 
+     */
     public function testCopyBlobSameContainer()
     {
         // Setup
         $containerName = 'copyblobsamecontainer' . $this->createSuffix();
         $sourceBlobName = 'sourceblob';
-        $blobValue = 'testBlobValue'; 
+        $blobValue = 'testBlobValue';
         $destinationBlobName = 'destinationblob';
         $this->createContainer($containerName);
-        $this->restProxy->createBlockBlob($containerName, $sourceBlobName, $blobValue); 
+        $this->restProxy->createBlockBlob(
+            $containerName,
+            $sourceBlobName,
+            $blobValue
+        );
         
         // Test
-        $this->restProxy->copyBlob( 
-            $containerName, 
-            $destinationBlobName, 
-            $containerName, 
+        $this->restProxy->copyBlob(
+            $containerName,
+            $destinationBlobName,
+            $containerName,
             $sourceBlobName
-        ); 
+        );
         
         // Assert
         $sourceBlob = $this->restProxy->getBlob($containerName, $sourceBlobName);
-        $destinationBlob = $this->restProxy->getBlob($containerName, $destinationBlobName);
+        $destinationBlob = $this->restProxy->getBlob(
+            $containerName,
+            $destinationBlobName
+        );
 
         $sourceBlobContent =
             $sourceBlob->getContentStream()->getContents();
@@ -1466,29 +1489,37 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
     }
     
-    /** 
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob 
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
-     */ 
+     */
     public function testCopyBlobExistingBlob()
     {
         // Setup
         $containerName = 'copyblobexistingblob' . $this->createSuffix();
         $sourceBlobName = 'sourceblob';
-        $blobValue = 'testBlobValue'; 
+        $blobValue = 'testBlobValue';
         $oldBlobValue = 'oldBlobValue';
         $destinationBlobName = 'destinationblob';
         $this->createContainer($containerName);
-        $this->restProxy->createBlockBlob($containerName, $sourceBlobName, $blobValue); 
-        $this->restProxy->createBlockBlob($containerName, $destinationBlobName, $oldBlobValue); 
+        $this->restProxy->createBlockBlob(
+            $containerName,
+            $sourceBlobName,
+            $blobValue
+        );
+        $this->restProxy->createBlockBlob(
+            $containerName,
+            $destinationBlobName,
+            $oldBlobValue
+        );
         
         // Test
-        $this->restProxy->copyBlob( 
-            $containerName, 
-            $destinationBlobName, 
-            $containerName, 
+        $this->restProxy->copyBlob(
+            $containerName,
+            $destinationBlobName,
+            $containerName,
             $sourceBlobName
-        ); 
+        );
         
         // Assert
         $sourceBlob = $this->restProxy->getBlob($containerName, $sourceBlobName);
@@ -1501,16 +1532,16 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertNotEquals($destinationBlobContent, $oldBlobValue);
     }
     
-    /** 
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob 
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
-     */ 
+     */
     public function testCopyBlobSnapshot()
     {
         // Setup
         $containerName = 'copyblobsnapshot' . $this->createSuffix();
         $sourceBlobName = 'sourceblob';
-        $blobValue = 'testBlobValue'; 
+        $blobValue = 'testBlobValue';
         $destinationBlobName = 'destinationblob';
         $this->createContainer($containerName);
         $this->restProxy->createBlockBlob($containerName, $sourceBlobName, $blobValue);
@@ -1520,12 +1551,12 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Test
         $this->restProxy->copyBlob(
-            $containerName, 
-            $destinationBlobName, 
-            $containerName, 
+            $containerName,
+            $destinationBlobName,
+            $containerName,
             $sourceBlobName,
             $options
-        ); 
+        );
         
         // Assert
         $sourceBlob = $this->restProxy->getBlob($containerName, $sourceBlobName);
@@ -1537,16 +1568,16 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
     }
     
-   /**  
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot 
-    * @covers MicrosoftAzure\Storage\Blob\Models\createBlobSnapshotResult::create 
-    */ 
+   /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot
+    * @covers MicrosoftAzure\Storage\Blob\Models\createBlobSnapshotResult::create
+    */
     public function testCreateBlobSnapshot()
-    { 
+    {
         // Setup
         $containerName = 'createblobsnapshot' . $this->createSuffix();
-        $blobName = 'testBlob'; 
-        $blobValue = 'TestBlobValue'; 
+        $blobName = 'testBlob';
+        $blobValue = 'TestBlobValue';
         $this->createContainer($containerName);
         $this->restProxy->createBlockBlob($containerName, $blobName, $blobValue);
         
@@ -1608,11 +1639,11 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 67108864);
 
         // Under limit
-        $this->restProxy->setSingleBlobUploadThresholdInBytes( -50);
+        $this->restProxy->setSingleBlobUploadThresholdInBytes(-50);
         // value can not be less than 1, so reset to default value
         $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 33554432);
 
-        $this->restProxy->setSingleBlobUploadThresholdInBytes( 0);
+        $this->restProxy->setSingleBlobUploadThresholdInBytes(0);
         // value can not be less than 1, so reset to default value
         $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 33554432);
     }
@@ -1623,55 +1654,55 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     public function testCreateBlobLargerThanSingleBlock()
     {
         // First step, lets set the value for automagic splitting to somethign very small
-    $max_size = 50;
-        $this->restProxy->setSingleBlobUploadThresholdInBytes( $max_size );
+        $max_size = 50;
+        $this->restProxy->setSingleBlobUploadThresholdInBytes($max_size);
         $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), $max_size);
         $name = 'createbloblargerthansingleblock' . $this->createSuffix();
         $this->createContainer($name);
         $contentType = 'text/plain; charset=UTF-8';
-    $content = "This is a really long section of text needed for this test.";
-    // Note this grows fast, each loop doubles the last run. Do not make too big
+        $content = "This is a really long section of text needed for this test.";
+        // Note this grows fast, each loop doubles the last run. Do not make too big
         // This results in a 1888 byte string, divided by 50 results in 38 blocks
-    for($i = 0; $i < 5; $i++){
-        $content .= $content;
-    }
+        for ($i = 0; $i < 5; $i++) {
+            $content .= $content;
+        }
         $options = new CreateBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, 'little_split', $content, $options);
 
-    // Block specific
-    $boptions = new ListBlobBlocksOptions();
-    $boptions->setIncludeUncommittedBlobs(true);
-    $boptions->setIncludeCommittedBlobs(true);
+        // Block specific
+        $boptions = new ListBlobBlocksOptions();
+        $boptions->setIncludeUncommittedBlobs(true);
+        $boptions->setIncludeCommittedBlobs(true);
         $result = $this->restProxy->listBlobBlocks($name, 'little_split', $boptions);
-    $blocks = $result->getUnCommittedBlocks();
+        $blocks = $result->getUnCommittedBlocks();
         $this->assertEquals(count($blocks), 0);
-    $blocks = $result->getCommittedBlocks();
-    $this->assertEquals(count($blocks), ceil(strlen($content) / $max_size));
-
+        $blocks = $result->getCommittedBlocks();
+        $this->assertEquals(count($blocks), ceil(strlen($content) / $max_size));
+    
         // Setting back to default value for one shot test
-        $this->restProxy->setSingleBlobUploadThresholdInBytes( 0 );
+        $this->restProxy->setSingleBlobUploadThresholdInBytes(0);
         $this->restProxy->createBlockBlob($name, 'oneshot', $content, $options);
         $result = $this->restProxy->listBlobBlocks($name, 'oneshot', $boptions);
-    $blocks = $result->getUnCommittedBlocks();
+        $blocks = $result->getUnCommittedBlocks();
         $this->assertEquals(count($blocks), 0);
-    $blocks = $result->getCommittedBlocks();
-        // this one doesn't make sense. On emulator, there is no block created, 
+        $blocks = $result->getCommittedBlocks();
+        // this one doesn't make sense. On emulator, there is no block created,
         // so relying on content size to be final approval
-    $this->assertEquals(count($blocks), 0);
+        $this->assertEquals(count($blocks), 0);
         $this->assertEquals($result->getContentLength(), strlen($content));
-
+    
         // make string even larger for automagic splitting
         // This should result in a string longer than 32M, and force the blob into 2 blocks
-    for($i = 0; $i < 15; $i++){
-        $content .= $content;
-    }
+        for ($i = 0; $i < 15; $i++) {
+            $content .= $content;
+        }
         $this->restProxy->createBlockBlob($name, 'bigsplit', $content, $options);
         $result = $this->restProxy->listBlobBlocks($name, 'bigsplit', $boptions);
-    $blocks = $result->getUnCommittedBlocks();
+        $blocks = $result->getUnCommittedBlocks();
         $this->assertEquals(count($blocks), 0);
-    $blocks = $result->getCommittedBlocks();
-    $this->assertEquals(count($blocks), ceil(strlen($content)/(4*1024*1024)));
+        $blocks = $result->getCommittedBlocks();
+        $this->assertEquals(count($blocks), ceil(strlen($content)/(4*1024*1024)));
     }
 
     /**

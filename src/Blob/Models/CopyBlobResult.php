@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -51,21 +52,25 @@ class CopyBlobResult
     
     /**
      * Creates CopyBlobResult object from the response of the copy blob request.
-     * 
+     *
      * @param array $headers The HTTP response headers in array representation.
-     * 
+     *
      * @return CopyBlobResult
      */
     public static function create($headers)
     {
         $result = new CopyBlobResult();
-        $result->setETag(Utilities::tryGetValueInsensitive(
+        $result->setETag(
+            Utilities::tryGetValueInsensitive(
                 Resources::ETAG,
-                $headers));
+                $headers
+            )
+        );
         if (Utilities::arrayKeyExistsInsensitive(Resources::LAST_MODIFIED, $headers)) {
             $lastModified = Utilities::tryGetValueInsensitive(
                 Resources::LAST_MODIFIED,
-                $headers);
+                $headers
+            );
             $result->setLastModified(Utilities::rfc1123ToDateTime($lastModified));
         }
         
@@ -74,7 +79,7 @@ class CopyBlobResult
     
     /**
      * Gets ETag.
-     * 
+     *
      * @return string
      */
     public function getETag()
@@ -116,5 +121,3 @@ class CopyBlobResult
         $this->_lastModified = $lastModified;
     }
 }
-
-

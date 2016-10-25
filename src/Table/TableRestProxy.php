@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Table;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -97,42 +98,45 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $type    = $operation->getType();
 
             switch ($type) {
-            case BatchOperationType::INSERT_ENTITY_OPERATION:
-            case BatchOperationType::UPDATE_ENTITY_OPERATION:
-            case BatchOperationType::MERGE_ENTITY_OPERATION:
-            case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
-            case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
-                $table   = $operation->getParameter(
-                    BatchOperationParameterName::BP_TABLE
-                );
-                $entity  = $operation->getParameter(
-                    BatchOperationParameterName::BP_ENTITY
-                );
-                $context = $this->_getOperationContext($table, $entity, $type);
-                break;
-
-            case BatchOperationType::DELETE_ENTITY_OPERATION:
-                $table        = $operation->getParameter(
-                    BatchOperationParameterName::BP_TABLE
-                );
-                $partitionKey = $operation->getParameter(
-                    BatchOperationParameterName::BP_PARTITION_KEY
-                );
-                $rowKey       = $operation->getParameter(
-                    BatchOperationParameterName::BP_ROW_KEY
-                );
-                $etag         = $operation->getParameter(
-                    BatchOperationParameterName::BP_ETAG
-                );
-                $options      = new DeleteEntityOptions();
-                $options->setETag($etag);
-                $context = $this->_constructDeleteEntityContext(
-                    $table, $partitionKey, $rowKey, $options
-                );
-                break;
-
-            default:
-                throw new \InvalidArgumentException();
+                case BatchOperationType::INSERT_ENTITY_OPERATION:
+                case BatchOperationType::UPDATE_ENTITY_OPERATION:
+                case BatchOperationType::MERGE_ENTITY_OPERATION:
+                case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
+                case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
+                    $table   = $operation->getParameter(
+                        BatchOperationParameterName::BP_TABLE
+                    );
+                    $entity  = $operation->getParameter(
+                        BatchOperationParameterName::BP_ENTITY
+                    );
+                    $context = $this->_getOperationContext($table, $entity, $type);
+                    break;
+    
+                case BatchOperationType::DELETE_ENTITY_OPERATION:
+                    $table        = $operation->getParameter(
+                        BatchOperationParameterName::BP_TABLE
+                    );
+                    $partitionKey = $operation->getParameter(
+                        BatchOperationParameterName::BP_PARTITION_KEY
+                    );
+                    $rowKey       = $operation->getParameter(
+                        BatchOperationParameterName::BP_ROW_KEY
+                    );
+                    $etag         = $operation->getParameter(
+                        BatchOperationParameterName::BP_ETAG
+                    );
+                    $options      = new DeleteEntityOptions();
+                    $options->setETag($etag);
+                    $context = $this->_constructDeleteEntityContext(
+                        $table,
+                        $partitionKey,
+                        $rowKey,
+                        $options
+                    );
+                    break;
+    
+                default:
+                    throw new \InvalidArgumentException();
             }
 
             $contexts[] = $context;
@@ -155,48 +159,48 @@ class TableRestProxy extends ServiceRestProxy implements ITable
     private function _getOperationContext($table, $entity, $type)
     {
         switch ($type) {
-        case BatchOperationType::INSERT_ENTITY_OPERATION:
-        return $this->_constructInsertEntityContext($table, $entity, null);
-
-        case BatchOperationType::UPDATE_ENTITY_OPERATION:
-        return $this->_constructPutOrMergeEntityContext(
-            $table,
-            $entity,
-            Resources::HTTP_PUT,
-            true,
-            null
-        );
-
-        case BatchOperationType::MERGE_ENTITY_OPERATION:
-        return $this->_constructPutOrMergeEntityContext(
-            $table,
-            $entity,
-            Resources::HTTP_MERGE,
-            true,
-            null
-        );
-
-        case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
-        return $this->_constructPutOrMergeEntityContext(
-            $table,
-            $entity,
-            Resources::HTTP_PUT,
-            false,
-            null
-        );
-
-        case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
-        return $this->_constructPutOrMergeEntityContext(
-            $table,
-            $entity,
-            Resources::HTTP_MERGE,
-            false,
-            null
-        );
-
-        default:
-            throw new \InvalidArgumentException();
-        }
+            case BatchOperationType::INSERT_ENTITY_OPERATION:
+                return $this->_constructInsertEntityContext($table, $entity, null);
+    
+            case BatchOperationType::UPDATE_ENTITY_OPERATION:
+                return $this->_constructPutOrMergeEntityContext(
+                    $table,
+                    $entity,
+                    Resources::HTTP_PUT,
+                    true,
+                    null
+                );
+    
+            case BatchOperationType::MERGE_ENTITY_OPERATION:
+                return $this->_constructPutOrMergeEntityContext(
+                    $table,
+                    $entity,
+                    Resources::HTTP_MERGE,
+                    true,
+                    null
+                );
+    
+            case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
+                return $this->_constructPutOrMergeEntityContext(
+                    $table,
+                    $entity,
+                    Resources::HTTP_PUT,
+                    false,
+                    null
+                );
+    
+            case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
+                return $this->_constructPutOrMergeEntityContext(
+                    $table,
+                    $entity,
+                    Resources::HTTP_MERGE,
+                    false,
+                    null
+                );
+    
+            default:
+                throw new \InvalidArgumentException();
+            }
     }
 
     /**
@@ -226,28 +230,28 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $type      = $operation->getType();
 
             switch ($type) {
-            case BatchOperationType::INSERT_ENTITY_OPERATION:
-            case BatchOperationType::UPDATE_ENTITY_OPERATION:
-            case BatchOperationType::MERGE_ENTITY_OPERATION:
-            case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
-            case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
-                $contentType  = $context->getHeader(Resources::CONTENT_TYPE);
-                $body         = $context->getBody();
-                $contentType .= ';type=entry';
-                $context->addOptionalHeader(Resources::CONTENT_TYPE, $contentType);
-                // Use mb_strlen instead of strlen to get the length of the string
-                // in bytes instead of the length in chars.
-                $context->addOptionalHeader(
-                    Resources::CONTENT_LENGTH,
-                    strlen($body)
-                );
-                break;
-
-            case BatchOperationType::DELETE_ENTITY_OPERATION:
-                break;
-
-            default:
-                throw new \InvalidArgumentException();
+                case BatchOperationType::INSERT_ENTITY_OPERATION:
+                case BatchOperationType::UPDATE_ENTITY_OPERATION:
+                case BatchOperationType::MERGE_ENTITY_OPERATION:
+                case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
+                case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
+                    $contentType  = $context->getHeader(Resources::CONTENT_TYPE);
+                    $body         = $context->getBody();
+                    $contentType .= ';type=entry';
+                    $context->addOptionalHeader(Resources::CONTENT_TYPE, $contentType);
+                    // Use mb_strlen instead of strlen to get the length of the string
+                    // in bytes instead of the length in chars.
+                    $context->addOptionalHeader(
+                        Resources::CONTENT_LENGTH,
+                        strlen($body)
+                    );
+                    break;
+    
+                case BatchOperationType::DELETE_ENTITY_OPERATION:
+                    break;
+    
+                default:
+                    throw new \InvalidArgumentException();
             }
 
             $context->addOptionalHeader(Resources::CONTENT_ID, $contentId);
@@ -269,7 +273,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      *
      * @return HttpCallContext
      */
-    private function _constructDeleteEntityContext($table, $partitionKey, $rowKey,
+    private function _constructDeleteEntityContext(
+        $table,
+        $partitionKey,
+        $rowKey,
         $options
     ) {
         Validate::isString($table, 'table');
@@ -324,8 +331,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      *
      * @return HttpCallContext
      */
-    private function _constructPutOrMergeEntityContext($table, $entity, $verb,
-        $useETag, $options
+    private function _constructPutOrMergeEntityContext(
+        $table,
+        $entity,
+        $verb,
+        $useETag,
+        $options
     ) {
         Validate::isString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
@@ -453,7 +464,11 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      *
      * @return Models\UpdateEntityResult
      */
-    private function _putOrMergeEntityImpl($table, $entity, $verb, $useETag,
+    private function _putOrMergeEntityImpl(
+        $table,
+        $entity,
+        $verb,
+        $useETag,
         $options
     ) {
         $context = $this->_constructPutOrMergeEntityContext(
@@ -621,8 +636,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      * @param ISerializable     $dataSerializer The data serializer.
      * @param array             $options        Array of options to pass to the service
      */
-    public function __construct($uri, $atomSerializer, $mimeSerializer,
-        $dataSerializer, $options = []
+    public function __construct(
+        $uri,
+        $atomSerializer,
+        $mimeSerializer,
+        $dataSerializer,
+        $options = []
     ) {
         parent::__construct(
             $uri,
@@ -1299,5 +1318,3 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         );
     }
 }
-
-

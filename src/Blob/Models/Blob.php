@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -76,7 +76,7 @@ class Blob
      * Sets blob name.
      *
      * @param string $name value.
-     * 
+     *
      * @return none.
      */
     public function setName($name)
@@ -98,7 +98,7 @@ class Blob
      * Sets blob snapshot.
      *
      * @param string $snapshot value.
-     * 
+     *
      * @return none.
      */
     public function setSnapshot($snapshot)
@@ -120,7 +120,7 @@ class Blob
      * Sets blob url.
      *
      * @param string $url value.
-     * 
+     *
      * @return none.
      */
     public function setUrl($url)
@@ -164,7 +164,7 @@ class Blob
      * Sets blob properties.
      *
      * @param BlobProperties $properties value.
-     * 
+     *
      * @return none.
      */
     public function setProperties($properties)
@@ -172,5 +172,3 @@ class Blob
         $this->_properties = $properties;
     }
 }
-
-

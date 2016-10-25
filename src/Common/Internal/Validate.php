@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -380,8 +381,7 @@ class Validate
         try {
             new \DateTime($value);
             return true;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw new \InvalidArgumentException(
                 sprintf(
                     Resources::ERROR_INVALID_DATE_STRING,
@@ -391,7 +391,4 @@ class Validate
             );
         }
     }
-
 }
-
-

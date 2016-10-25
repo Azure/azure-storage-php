@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Queue;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -45,7 +46,7 @@ use MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult;
 use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
 
 /**
- * This class constructs HTTP requests and receive HTTP responses for queue 
+ * This class constructs HTTP requests and receive HTTP responses for queue
  * service layer.
  *
  * @category  Microsoft
@@ -60,9 +61,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
 {
     /**
      * Lists all queues in the storage account.
-     * 
+     *
      * @param ListQueuesOptions $options The optional list queue options.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\ListQueuesResult
      */
     public function listQueues($options = null)
@@ -97,11 +98,11 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
             $statusCode
         );
         $parsed   = $this->dataSerializer->unserialize($response->getBody());
@@ -111,17 +112,17 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
 
     /**
      * Clears all messages from the queue.
-     * 
-     * If a queue contains a large number of messages, Clear Messages may time out 
-     * before all messages have been deleted. In this case the Queue service will 
-     * return status code 500 (Internal Server Error), with the additional error 
-     * code OperationTimedOut. If the operation times out, the client should 
-     * continue to retry Clear Messages until it succeeds, to ensure that all 
+     *
+     * If a queue contains a large number of messages, Clear Messages may time out
+     * before all messages have been deleted. In this case the Queue service will
+     * return status code 500 (Internal Server Error), with the additional error
+     * code OperationTimedOut. If the operation times out, the client should
+     * continue to retry Clear Messages until it succeeds, to ensure that all
      * messages have been deleted.
-     * 
+     *
      * @param string              $queueName The name of the queue.
      * @param QueueServiceOptions $options   The optional parameters.
-     * 
+     *
      * @return none
      */
     public function clearMessages($queueName, $options = null)
@@ -148,27 +149,29 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
             $statusCode,
             $body
         );
     }
 
     /**
-     * Adds a message to the queue and optionally sets a visibility timeout 
+     * Adds a message to the queue and optionally sets a visibility timeout
      * for the message.
-     * 
+     *
      * @param string               $queueName   The name of the queue.
      * @param string               $messageText The message contents.
      * @param CreateMessageOptions $options     The optional parameters.
-     * 
+     *
      * @return none
      */
-    public function createMessage($queueName, $messageText,
+    public function createMessage(
+        $queueName,
+        $messageText,
         $options = null
     ) {
         Validate::isString($queueName, 'queueName');
@@ -214,22 +217,22 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
-            $statusCode, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
             $body
         );
     }
 
     /**
      * Creates a new queue under the storage account.
-     * 
+     *
      * @param string             $queueName The queue name.
      * @param QueueCreateOptions $options   The Optional parameters.
-     * 
+     *
      * @return none
      */
     public function createQueue($queueName, $options = null)
@@ -258,27 +261,30 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         $this->addOptionalQueryParam($queryParams, Resources::QP_TIMEOUT, $timeout);
         
         $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
             $statusCode
         );
     }
 
     /**
      * Deletes a specified message from the queue.
-     * 
+     *
      * @param string              $queueName  The name of the queue.
      * @param string              $messageId  The id of the message.
      * @param string              $popReceipt The valid pop receipt value returned
      * from an earlier call to the Get Messages or Update Message operation.
      * @param QueueServiceOptions $options    The optional parameters.
-     * 
+     *
      * @return none
      */
-    public function deleteMessage($queueName, $messageId, $popReceipt, 
+    public function deleteMessage(
+        $queueName,
+        $messageId,
+        $popReceipt,
         $options = null
     ) {
         Validate::isString($queueName, 'queueName');
@@ -312,22 +318,22 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $this->send(
-            $method, 
-            $headers, 
+            $method,
+            $headers,
             $queryParams,
             $postParams,
-            $path, 
-            $statusCode, 
+            $path,
+            $statusCode,
             $body
         );
     }
 
     /**
      * Deletes a queue.
-     * 
+     *
      * @param string              $queueName The queue name.
      * @param QueueServiceOptions $options   The optional parameters.
-     * 
+     *
      * @return none
      */
     public function deleteQueue($queueName, $options = null)
@@ -353,21 +359,21 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
             $statusCode
         );
     }
 
     /**
      * Returns queue properties, including user-defined metadata.
-     * 
+     *
      * @param string              $queueName The queue name.
      * @param QueueServiceOptions $options   The optional parameters.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\GetQueueMetadataResult
      */
     public function getQueueMetadata($queueName, $options = null)
@@ -395,12 +401,12 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
-            $statusCode, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
             $body
         );
         
@@ -416,9 +422,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
 
     /**
      * Gets the properties of the Queue service.
-     * 
+     *
      * @param QueueServiceOptions $options The optional parameters.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
      */
     public function getServiceProperties($options = null)
@@ -451,11 +457,11 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
             $statusCode
         );
         $parsed   = $this->dataSerializer->unserialize($response->getBody());
@@ -465,10 +471,10 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
 
     /**
      * Lists all messages in the queue.
-     * 
+     *
      * @param string              $queueName The queue name.
      * @param ListMessagesOptions $options   The optional parameters.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\ListMessagesResult
      */
     public function listMessages($queueName, $options = null)
@@ -504,11 +510,11 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
+            $method,
+            $headers,
             $queryParams,
             $postParams,
-            $path, 
+            $path,
             $statusCode
         );
 
@@ -518,12 +524,12 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
     }
 
     /**
-     * Retrieves a message from the front of the queue, without changing 
+     * Retrieves a message from the front of the queue, without changing
      * the message visibility.
-     * 
+     *
      * @param string              $queueName The queue name.
      * @param PeekMessagesOptions $options   The optional parameters.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\PeekMessagesResult
      */
     public function peekMessages($queueName, $options = null)
@@ -554,11 +560,11 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
             $statusCode
         );
         $parsed   = $this->dataSerializer->unserialize($response->getBody());
@@ -567,13 +573,13 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
     }
 
     /**
-     * Sets user-defined metadata on the queue. To delete queue metadata, call 
+     * Sets user-defined metadata on the queue. To delete queue metadata, call
      * this API without specifying any metadata in $metadata.
-     * 
+     *
      * @param string              $queueName The queue name.
      * @param array               $metadata  The metadata array.
      * @param QueueServiceOptions $options   The optional parameters.
-     * 
+     *
      * @return none
      */
     public function setQueueMetadata($queueName, $metadata, $options = null)
@@ -605,25 +611,25 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         $headers         = $metadataHeaders;
         
         $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
-            $statusCode, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
             $body
         );
     }
 
     /**
      * Sets the properties of the Queue service.
-     * 
+     *
      * It's recommended to use getServiceProperties, alter the returned object and
      * then use setServiceProperties with this altered object.
-     * 
+     *
      * @param array               $serviceProperties The new service properties.
-     * @param QueueServiceOptions $options           The optional parameters.  
-     * 
+     * @param QueueServiceOptions $options           The optional parameters.
+     *
      * @return none
      */
     public function setServiceProperties($serviceProperties, $options = null)
@@ -667,38 +673,43 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         );
         
         $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
-            $statusCode, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
             $body
         );
     }
 
     /**
      * Updates the visibility timeout of a message and/or the message contents.
-     * 
+     *
      * @param string              $queueName                  The queue name.
      * @param string              $messageId                  The id of the message.
-     * @param string              $popReceipt                 The valid pop receipt 
+     * @param string              $popReceipt                 The valid pop receipt
      * value returned from an earlier call to the Get Messages or Update Message
      * operation.
      * @param string              $messageText                The message contents.
-     * @param int                 $visibilityTimeoutInSeconds Specifies the new 
-     * visibility timeout value, in seconds, relative to server time. 
-     * The new value must be larger than or equal to 0, and cannot be larger 
-     * than 7 days. The visibility timeout of a message cannot be set to a value 
-     * later than the expiry time. A message can be updated until it has been 
+     * @param int                 $visibilityTimeoutInSeconds Specifies the new
+     * visibility timeout value, in seconds, relative to server time.
+     * The new value must be larger than or equal to 0, and cannot be larger
+     * than 7 days. The visibility timeout of a message cannot be set to a value
+     * later than the expiry time. A message can be updated until it has been
      * deleted or has expired.
-     * @param QueueServiceOptions $options                    The optional 
+     * @param QueueServiceOptions $options                    The optional
      * parameters.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\UpdateMessageResult
      */
-    public function updateMessage($queueName, $messageId, $popReceipt, $messageText, 
-        $visibilityTimeoutInSeconds, $options = null
+    public function updateMessage(
+        $queueName,
+        $messageId,
+        $popReceipt,
+        $messageText,
+        $visibilityTimeoutInSeconds,
+        $options = null
     ) {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -757,12 +768,12 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         }
         
         $response        = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
-            $statusCode, 
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
             $body
         );
         
@@ -779,4 +790,3 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         return $result;
     }
 }
-
