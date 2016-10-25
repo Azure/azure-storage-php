@@ -141,8 +141,8 @@ class Blob
     /**
      * Sets blob metadata.
      *
-     * @param string $metadata value.
-     * 
+     * @param array $metadata value.
+     *
      * @return none.
      */
     public function setMetadata($metadata)
