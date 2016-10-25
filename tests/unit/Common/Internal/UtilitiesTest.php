@@ -23,13 +23,14 @@
  */
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
-
+use GuzzleHttp\Psr7;
 
 /**
  * Unit tests for class Utilities
@@ -719,5 +720,89 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     
         // Assert
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::isStreamLargerThanSize
+     */
+    public function testIsStreamLargerThan()
+    {
+        //prepare a file
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+        $count = 64 / 4;
+        for ($index = 0; $index < $count; ++$index) {
+            fwrite($resource, openssl_random_pseudo_bytes(4194304));
+        }
+        rewind($resource);
+        $stream = Psr7\stream_for($resource);
+        $result_0 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16 - 1);
+        $result_1 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16);
+        //prepare a string
+        $count = 64 / 4;
+        $testStr = openssl_random_pseudo_bytes(4194304 * $count);
+        $stream = Psr7\stream_for($testStr);
+        $result_2 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16 - 1);
+        $result_3 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16);
+
+        $this->assertFalse($result_1);
+        $this->assertFalse($result_3);
+        $this->assertTrue($result_0);
+        $this->assertTrue($result_2);
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        // Delete file after assertion.
+        unlink($path);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::generateIsSeekableStreamEndDecider
+     */
+    public function testGenerateIsSeekableStreamEndDecider()
+    {
+        //prepare a file
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+        $count = 2;
+        for ($index = 0; $index < $count; ++$index) {
+            fwrite($resource, openssl_random_pseudo_bytes(4194304));
+        }
+        rewind($resource);
+        $stream = Psr7\stream_for($resource);
+        $decider = Utilities::generateIsSeekableStreamEndDecider($stream);
+        $result_0 = $decider();
+        $stream->read(4194304 * $count - 1);
+        $result_1 = $decider();
+        $stream->read(1);
+        $result_2 = $decider();
+
+        //prepare a string
+        $count = 2;
+        $testStr = openssl_random_pseudo_bytes(4194304 * $count);
+        $stream = Psr7\stream_for($testStr);
+        $decider = Utilities::generateIsSeekableStreamEndDecider($stream);
+        $result_3 = $decider();
+        $stream->read(4194304 * $count - 1);
+        $result_4 = $decider();
+        $stream->read(1);
+        $result_5 = $decider();
+
+        $this->assertFalse($result_0);
+        $this->assertFalse($result_1);
+        $this->assertFalse($result_3);
+        $this->assertFalse($result_4);
+        $this->assertTrue($result_2);
+        $this->assertTrue($result_5);
+
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        // Delete file after assertion.
+        unlink($path);
     }
 }

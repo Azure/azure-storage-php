@@ -75,6 +75,8 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
 use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
+use MicrosoftAzure\Storage\Common\Internal\ServiceFunctionThread;
+use GuzzleHttp\Psr7;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for blob
@@ -93,7 +95,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     /**
      * @var int Defaults to 32MB
      */
-    private $_SingleBlobUploadThresholdInBytes = 33554432 ;
+    private $_SingleBlobUploadThresholdInBytes = Resources::MB_IN_BYTES_32;
 
     /**
      * Get the value for SingleBlobUploadThresholdInBytes
@@ -114,12 +116,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      */
     public function setSingleBlobUploadThresholdInBytes($val)
     {
-        if ($val > 67108864) {
+        if ($val > Resources::MB_IN_BYTES_64) {
             // What should the proper action here be?
-            $val = 67108864;
+            $val = Resources::MB_IN_BYTES_64;
         } elseif ($val < 1) {
             // another spot that could use looking at
-            $val = 33554432;
+            $val = Resources::MB_IN_BYTES_32;
         }
         $this->_SingleBlobUploadThresholdInBytes = $val;
     }
@@ -507,7 +509,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                 $container The container name.
      * @param string                 $blob      The blob name.
      * @param PageRange              $range     The page ranges.
-     * @param string|resource        $content   The content stream.
+     * @param string                 $content   The content string.
      * @param CreateBlobPagesOptions $options   The optional parameters.
      * 
      * @return CreateBlobPagesResult
@@ -518,6 +520,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::isString($container, 'container');
+        Validate::isString($content, 'content');
         Validate::isTrue(
             $range instanceof PageRange,
             sprintf(
@@ -526,10 +529,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 get_class(new PageRange())
             )
         );
-        Validate::isTrue(
-            is_string($content) || is_resource($content),
-            sprintf(Resources::INVALID_PARAM_MSG, 'content', 'string|resource')
-        );
+        $body = Psr7\stream_for($content);
         
         $method      = Resources::HTTP_PUT;
         $headers     = array();
@@ -537,8 +537,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams  = array();
         $path        = $this->_createPath($container, $blob);
         $statusCode  = Resources::STATUS_CREATED;
-        // If read file failed for any reason it will throw an exception.
-        $body = is_resource($content) ? stream_get_contents($content) : $content;
         
         if (is_null($options)) {
             $options = new CreateBlobPagesOptions();
@@ -580,12 +578,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
+            $method,
+            $headers,
+            $queryParams,
             $postParams,
-            $path, 
-            $statusCode, 
+            $path,
+            $statusCode,
             $body
         );
         
@@ -1265,11 +1263,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * method.
      * Note that the default content type is application/octet-stream.
      * 
-     * @param string                   $container The name of the container.
-     * @param string                   $blob      The name of the blob.
-     * @param string|resource          $content   The content of the blob.
-     * @param Models\CreateBlobOptions $options   The optional parameters.
-     * 
+     * @param string                          $container The name of the container.
+     * @param string                          $blob      The name of the blob.
+     * @param string|resource|StreamInterface $content   The content of the blob.
+     * @param CreateBlobOptions               $options   The optional parameters.
+     *
      * @return CopyBlobResult
      * 
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
@@ -1279,35 +1277,35 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($container, 'container');
         Validate::isString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
+        $body = Psr7\stream_for($content);
         Validate::isTrue(
-            is_string($content) || is_resource($content),
-            sprintf(Resources::INVALID_PARAM_MSG, 'content', 'string|resource')
+            $options == null ||
+            $options instanceof CreateBlobOptions,
+            sprintf(
+                Resources::INVALID_PARAM_MSG,
+                'options',
+                get_class(new CreateBlobOptions())
+            )
         );
         
         $method      = Resources::HTTP_PUT;
         $headers     = array();
         $postParams  = array();
         $queryParams = array();
-        $bodySize    = false;
+        $bodySize    = null;
         $path        = $this->_createPath($container, $blob);
         $statusCode  = Resources::STATUS_CREATED;
-        
+
         if (is_null($options)) {
             $options = new CreateBlobOptions();
         }
         
-        if (is_resource($content)) {
-            $cStat = fstat($content);
-            // if the resource is a remote file, $cStat will be false
-            if ($cStat) {
-                $bodySize = $cStat['size'];
-            }
-        } else {
-            $bodySize = strlen($content);
-        }
-
-        // if we have a size we can try to one shot this, else failsafe on block upload
-        if (is_int($bodySize) && $bodySize <= $this->_SingleBlobUploadThresholdInBytes) {
+        //If the size of the stream is not seekable or larger than the single
+        //upload threashold then call concurrent upload. Otherwise call putBlob.
+        if (!Utilities::isStreamLargerThanSize(
+            $body,
+            $this->_SingleBlobUploadThresholdInBytes
+        )) {
             $headers = $this->_addCreateBlobOptionalHeaders($options, $headers);
             
             $this->addOptionalHeader(
@@ -1321,65 +1319,43 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 $options->getTimeout()
             );
 
-            // If read file failed for any reason it will throw an exception.
-            $body = is_resource($content) ? stream_get_contents($content) : $content;
-
             $response = $this->send(
-                $method, 
-                $headers, 
-                $queryParams, 
+                $method,
+                $headers,
+                $queryParams,
                 $postParams,
-                $path, 
+                $path,
                 $statusCode,
                 $body
             );
+                return CopyBlobResult::create(
+                    HttpFormatter::formatHeaders($response->getHeaders())
+                );
         } else {
             // This is for large or failsafe upload
-            $end       = 0;
-            $counter   = 0;
-            $body      = '';
-            $blockIds  = array();
-            // if threshold is lower than 4mb, honor threshold, else use 4mb
-            $blockSize = ($this->_SingleBlobUploadThresholdInBytes < 4194304) ? $this->_SingleBlobUploadThresholdInBytes : 4194304;
-            while(!$end) {
-                if (is_resource($content)) {
-                    $body = fread($content, $blockSize);
-                    if (feof($content)) {
-                        $end = 1;
-                    }
-                } else {
-                    if (strlen($content) <= $blockSize) {
-                        $body = $content;
-                        $end = 1;
-                    } else {
-                        $body = substr($content, 0, $blockSize);
-                        $content = substr_replace($content, '', 0, $blockSize);
-                    }
-                }
-                if (!empty($body)) {
-                    $block = new Block();
-                    $block->setBlockId(base64_encode(str_pad($counter++, 6, '0', STR_PAD_LEFT)));
-                    $block->setType('Uncommitted');
-                    array_push($blockIds, $block);
-                    $this->createBlobBlock($container, $blob, $block->getBlockId(), $body);
-                }
-            }
-            $response = $this->commitBlobBlocks($container, $blob, $blockIds, $options);
+            return $this->createBlockBlobConcurrent(
+                $container,
+                $blob,
+                $body,
+                $options
+            );
         }
-        return CopyBlobResult::create(HttpFormatter::formatHeaders($response->getHeaders()));
     }
     
     /**
      * Clears a range of pages from the blob.
-     * 
+     *
      * @param string                        $container name of the container
      * @param string                        $blob      name of the blob
-     * @param Models\PageRange              $range     Can be up to the value of the
-     * blob's full size. Note that ranges must be aligned to 512 (0-511, 512-1023)
+     * @param Models\PageRange              $range     Can be up to the value of
+     *                                                 the blob's full size.
+     *                                                 Note that ranges must be
+     *                                                 aligned to 512 (0-511,
+     *                                                 512-1023)
      * @param Models\CreateBlobPagesOptions $options   optional parameters
-     * 
+     *
      * @return Models\CreateBlobPagesResult.
-     * 
+     *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691975.aspx
      */
     public function clearBlobPages($container, $blob, $range, $options = null)
@@ -1396,47 +1372,69 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     
     /**
      * Creates a range of pages to a page blob.
-     * 
-     * @param string                        $container name of the container
-     * @param string                        $blob      name of the blob
-     * @param Models\PageRange              $range     Can be up to 4 MB in size
-     * Note that ranges must be aligned to 512 (0-511, 512-1023)
-     * @param string                        $content   the blob contents.
-     * @param Models\CreateBlobPagesOptions $options   optional parameters
-     * 
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param Models\PageRange                $range     Can be up to 4 MB in
+     *                                                   size. Note that ranges
+     *                                                   must be aligned to 512
+     *                                                   (0-511, 512-1023)
+     * @param string|resource|StreamInterface $content   the blob contents.
+     * @param Models\CreateBlobPagesOptions   $options   optional parameters
+     *
      * @return Models\CreateBlobPagesResult.
-     * 
+     *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691975.aspx
      */
     public function createBlobPages($container, $blob, $range, $content,
         $options = null
     ) {
+        $contentStream = Psr7\stream_for($content);
+        //because the content is at most 4MB long, can retrieve all the data
+        //here at once.
+        $body = $contentStream->getContents();
+
+        //if the range is not align to 512, throw exception.
+        $chunks = (int)($range->getLength() / 512);
+        if ($chunks * 512 != $range->getLength()) {
+            throw new \RuntimeException(Resources::ERROR_RANGE_NOT_ALIGN_TO_512);
+        }
+
         return $this->_updatePageBlobPagesImpl(
             PageWriteOption::UPDATE_OPTION,
             $container,
             $blob,
             $range,
-            $content,
+            $body,
             $options
         );
     }
     
     /**
      * Creates a new block to be committed as part of a block blob.
-     * 
-     * @param string                        $container name of the container
-     * @param string                        $blob      name of the blob
-     * @param string                        $blockId   must be less than or equal to 
-     * 64 bytes in size. For a given blob, the length of the value specified for the
-     * blockid parameter must be the same size for each block.
-     * @param string                        $content   the blob block contents
-     * @param Models\CreateBlobBlockOptions $options   optional parameters
-     * 
-     * @return none
-     * 
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param string                          $blockId   must be less than or
+     *                                                   equal to 64 bytes in
+     *                                                   size. For a given blob,
+     *                                                   the length of the value
+     *                                                   specified for the
+     *                                                   blockid parameter must
+     *                                                   be the same size for
+     *                                                   each block.
+     * @param resource|string|StreamInterface $content   the blob block contents
+     * @param Models\CreateBlobBlockOptions   $options   optional parameters
+     *
+     * @return \MicrosoftAzure\Storage\Blob\Models\CopyBlobResult
+     *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135726.aspx
      */
-    public function createBlobBlock($container, $blob, $blockId, $content,
+    public function createBlobBlock(
+        $container,
+        $blob,
+        $blockId,
+        $content,
         $options = null
     ) {
         Validate::isString($container, 'container');
@@ -1444,23 +1442,44 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::isString($blockId, 'blockId');
         Validate::notNullOrEmpty($blockId, 'blockId');
-        Validate::isTrue(
-            is_string($content) || is_resource($content),
-            sprintf(Resources::INVALID_PARAM_MSG, 'content', 'string|resource')
-        );
-        
-        $method      = Resources::HTTP_PUT;
-        $headers     = array();
-        $postParams  = array();
-        $queryParams = array();
-        $path        = $this->_createPath($container, $blob);
-        $statusCode  = Resources::STATUS_CREATED;
-        $body        = $content;
-        
+
         if (is_null($options)) {
             $options = new CreateBlobBlockOptions();
         }
         
+        $method         = Resources::HTTP_PUT;
+        $headers        = $this->createBlobBlockHeader($options);
+        $postParams     = array();
+        $queryParams    = $this->createBlobBlockQueryParams($options, $blockId);
+        $path           = $this->_createPath($container, $blob);
+        $statusCode     = Resources::STATUS_CREATED;
+        $contentStream  = Psr7\stream_for($content);
+        $body           = $contentStream->getContents();
+        
+        $response = $this->send(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
+            $body
+        );
+        
+        return CopyBlobResult::create(
+            HttpFormatter::formatHeaders($response->getHeaders())
+        );
+    }
+
+    /**
+     * create the header for createBlobBlock(s)
+     * @param  array $options the option of the request
+     *
+     * @return array          [description]
+     */
+    protected function createBlobBlockHeader($options)
+    {
+        $headers = array();
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_LEASE_ID,
@@ -1476,6 +1495,20 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::CONTENT_TYPE,
             Resources::URL_ENCODED_CONTENT_TYPE
         );
+
+        return $headers;
+    }
+
+    /**
+     * create the query params for createBlobBlock(s)
+     * @param  array $options the option of the request
+     * @param  string $blockId the block id of the block.
+     *
+     * @return array  the constructed query parameters.
+     */
+    protected function createBlobBlockQueryParams($options, $blockId)
+    {
+        $queryParams = array();
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_TIMEOUT,
@@ -1491,18 +1524,117 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_BLOCKID,
             $blockId
         );
+
+        return $queryParams;
+    }
+
+    /**
+     * This method creates the blob blocks. This method will send the request
+     * concurrently for better performance.
+     *
+     * @param  string            $container  The name of the container
+     * @param  string            $blob       The name of the blob
+     * @param  StreamInterface   $content    The stream that contains the content
+     * @param  CreateBlobOptions $options    The array that contains all the option
+     *
+     * @return \MicrosoftAzure\Storage\Blob\Models\CopyBlobResult
+     */
+    protected function createBlockBlobConcurrent(
+        $container,
+        $blob,
+        $content,
+        $options = null
+    ) {
+        Validate::isString($container, 'container');
+        Validate::isString($blob, 'blob');
+        $contentStream = Psr7\stream_for($content);
+
+        $createBlobBlockOptions = new CreateBlobBlockOptions();
+        if (is_null($options)) {
+            $options = new CreateBlobOptions();
+        }
         
-        $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
+        $method      = Resources::HTTP_PUT;
+        $headers     = $this->createBlobBlockHeader($createBlobBlockOptions);
+        $postParams  = array();
+        $path        = $this->_createPath($container, $blob);
+
+        $blockIds = array();
+        // if threshold is lower than 4mb, honor threshold, else use 4mb
+        $blockSize = (
+            $this->_SingleBlobUploadThresholdInBytes
+                < Resources::MB_IN_BYTES_4) ?
+            $this->_SingleBlobUploadThresholdInBytes : Resources::MB_IN_BYTES_4;
+        $counter = 0;
+        //create the generator for requests.
+        //this generator also constructs the blockId array on the fly.
+        $generator = function () use (
+            $contentStream,
+            &$blockIds,
+            $blockSize,
+            $createBlobBlockOptions,
+            $method,
+            $headers,
             $postParams,
-            $path, 
-            $statusCode,
-            $body
+            $path,
+            &$counter
+        ) {
+            //read the content.
+            $blockContent = $contentStream->read($blockSize);
+            //construct the blockId
+            $blockId = base64_encode(
+                str_pad($counter++, 6, '0', STR_PAD_LEFT)
+            );
+            $size = strlen($blockContent);
+            if ($size == 0) {
+                return null;
+            }
+            //add the id to array.
+            array_push($blockIds, new Block($blockId, 'Uncommitted'));
+            $queryParams = $this->createBlobBlockQueryParams(
+                $createBlobBlockOptions,
+                $blockId
+            );
+            //return the array of requests.
+            return $this->createRequest(
+                $method,
+                $headers,
+                $queryParams,
+                $postParams,
+                $path,
+                $blockContent
+            );
+        };
+
+        //generate the decider.
+        $decider = Utilities::generateIsSeekableStreamEndDecider($contentStream);
+
+        //add number of concurrency if specified int options.
+        $clientOptions = $options->getNumberOfConcurrency() == null?
+            array() : array($options->getNumberOfConcurrency);
+
+        //Send the request concurrently.
+        //Does not need to evaluate the results. If operation not successful,
+        //exception will be thrown.
+        $this->sendConcurrent(
+            array(),
+            $generator,
+            $decider,
+            $clientOptions
         );
-        
-        return CopyBlobResult::create(HttpFormatter::formatHeaders($response->getHeaders()));
+
+        $response = $this->commitBlobBlocks(
+            $container,
+            $blob,
+            $blockIds,
+            $options
+        );
+
+        return CopyBlobResult::create(
+            HttpFormatter::formatHeaders(
+                $response->getHeaders()
+            )
+        );
     }
     
     /**
@@ -2072,6 +2204,43 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         return SetBlobMetadataResult::create(HttpFormatter::formatHeaders($response->getHeaders()));
     }
+
+    /**
+     * Downloads a blob to a file, the result contains its metadata and
+     * properties. The result will not contain a stream pointing to the
+     * content of the file.
+     *
+     * @param string                $path      The path and name of the file
+     * @param string                $container name of the container
+     * @param string                $blob      name of the blob
+     * @param Models\GetBlobOptions $options   optional parameters
+     *
+     * @return Models\GetBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179440.aspx
+     */
+    public function saveBlobToFile($path, $container, $blob, $options = null)
+    {
+        
+        $resource = fopen($path, 'w+');
+        if ($resource == null) {
+            throw new \Exception(Resources::ERROR_FILE_COULD_NOT_BE_OPENED);
+        }
+        
+        $result = $this->getBlob($container, $blob, $options);
+
+        $content = $result->getContentStream();
+
+        while (!$content->eof()) {
+            fwrite($resource, $content->read(Resources::MB_IN_BYTES_4));
+        }
+        //response body has already been set to file. Set the stream of the
+        //response body to be null, then close the file.
+        $result->setContentStream(null);
+        fclose($resource);
+
+        return $result;
+    }
     
     /**
      * Reads or downloads a blob from the system, including its metadata and 
@@ -2134,12 +2303,14 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         
         $response = $this->send(
-            $method, 
-            $headers, 
-            $queryParams, 
-            $postParams, 
-            $path, 
-            $statusCode
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            $statusCode,
+            Resources::EMPTY_STRING,
+            ['stream' => true] //setting stream to true to enable streaming
         );
         $metadata = $this->getMetadataArray(HttpFormatter::formatHeaders($response->getHeaders()));
         
