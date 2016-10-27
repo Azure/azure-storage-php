@@ -47,7 +47,7 @@ class ListBlobsResult
     private $_blobPrefixes;
             
     /**
-     * @var array
+     * @var Blob[]
      */
     private $_blobs;
     
@@ -164,7 +164,7 @@ class ListBlobsResult
     /**
      * Gets blobs.
      *
-     * @return array
+     * @return Blob[]
      */
     public function getBlobs()
     {
@@ -174,7 +174,7 @@ class ListBlobsResult
     /**
      * Sets blobs.
      *
-     * @param array $blobs list of blobs
+     * @param Blob[] $blobs list of blobs
      * 
      * @return none
      */
