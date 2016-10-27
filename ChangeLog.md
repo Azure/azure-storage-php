@@ -1,3 +1,8 @@
+2016.09 - version 0.10.3
+
+ALL
+* Fix error string when an error occurs while parsing a connection string and is passed to _createException in ConnectionStringParser.
+
 2016.08 - version 0.10.2
 
 ALL
