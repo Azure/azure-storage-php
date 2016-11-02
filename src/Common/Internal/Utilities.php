@@ -741,13 +741,13 @@ class Utilities
     /**
      * To evaluate if the stream is larger than a certain size. To restore
      * the stream, it has to be seekable, so will return true if the stream
-     * is not seekable. The input stream will be rewinded if seeked.
+     * is not seekable.
      * @param  StreamInterface  $stream The stream to be evaluated.
      * @param  int              $size   The size if the string is larger than.
      *
      * @return boolean         true if the stream is larger than the given size.
      */
-    public static function isStreamLargerThanSize($stream, $size)
+    public static function isStreamLargerThanSizeOrNotSeekable($stream, $size)
     {
         Validate::isInteger($size, 'size');
         Validate::isTrue(
@@ -756,6 +756,7 @@ class Utilities
         );
         $result = true;
         if ($stream->isSeekable()) {
+            $position = $stream->tell();
             try {
                 $stream->seek($size);
             } catch (\RuntimeException $e) {
@@ -773,7 +774,7 @@ class Utilities
             } elseif ($stream->read(1) == '') {
                 $result = false;
             }
-            $stream->rewind();
+            $stream->seek($position);
         }
         return $result;
     }

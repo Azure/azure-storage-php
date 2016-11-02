@@ -723,9 +723,9 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::isStreamLargerThanSize
+     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::isStreamLargerThanSizeOrNotSeekable
      */
-    public function testIsStreamLargerThan()
+    public function testIsStreamLargerThanSizeOrNotSeekable()
     {
         //prepare a file
         $cwd = getcwd();
@@ -738,14 +738,26 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         }
         rewind($resource);
         $stream = Psr7\stream_for($resource);
-        $result_0 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16 - 1);
-        $result_1 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16);
+        $result_0 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16 - 1
+        );
+        $result_1 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16
+        );
         //prepare a string
         $count = 64 / 4;
         $testStr = openssl_random_pseudo_bytes(4194304 * $count);
         $stream = Psr7\stream_for($testStr);
-        $result_2 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16 - 1);
-        $result_3 = Utilities::isStreamLargerThanSize($stream, 4194304 * 16);
+        $result_2 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16 - 1
+        );
+        $result_3 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16
+        );
 
         $this->assertFalse($result_1);
         $this->assertFalse($result_3);

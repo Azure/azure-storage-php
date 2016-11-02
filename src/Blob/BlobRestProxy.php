@@ -1320,7 +1320,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         //If the size of the stream is not seekable or larger than the single
         //upload threashold then call concurrent upload. Otherwise call putBlob.
-        if (!Utilities::isStreamLargerThanSize(
+        if (!Utilities::isStreamLargerThanSizeOrNotSeekable(
             $body,
             $this->_SingleBlobUploadThresholdInBytes
         )) {
