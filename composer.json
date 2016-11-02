@@ -34,7 +34,7 @@
     	}
     },
     "archive": {
-        "exclude": "/tests"
+        "exclude": ["/tests"]
     },
 	"extra": {
 	    "branch-alias": {

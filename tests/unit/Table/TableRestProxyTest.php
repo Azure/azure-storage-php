@@ -99,6 +99,8 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         
         // Test
         $this->setServiceProperties($expected);
+        //Add 30s interval to wait for setting to take effect.
+        \sleep(30);
         $actual = $this->restProxy->getServiceProperties();
         
         // Assert
