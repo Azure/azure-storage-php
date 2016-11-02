@@ -68,7 +68,7 @@ interface IBlob extends FilterableService
     *
     * @param Models\ListContainersOptions $options optional parameters
     *
-    * @return MicrosoftAzure\Storage\Blob\Models\ListContainersResult
+    * @return \MicrosoftAzure\Storage\Blob\Models\ListContainersResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179352.aspx
     */
@@ -167,7 +167,7 @@ interface IBlob extends FilterableService
     * @param string                  $container name
     * @param Models\ListBlobsOptions $options   optional parameters
     *
-    * @return Models\ListBlobsResult
+    * @return \MicrosoftAzure\Storage\Blob\Models\ListBlobsResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135734.aspx
     */

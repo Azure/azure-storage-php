@@ -134,7 +134,7 @@ class ServicesBuilder
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
      *
-     * @return MicrosoftAzure\Storage\Queue\Internal\IQueue
+     * @return \MicrosoftAzure\Storage\Queue\Internal\IQueue
      */
     public function createQueueService($connectionString, $options = [])
     {
@@ -186,7 +186,7 @@ class ServicesBuilder
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
-     * @return MicrosoftAzure\Storage\Blob\Internal\IBlob
+     * @return \MicrosoftAzure\Storage\Blob\Internal\IBlob
      */
     public function createBlobService($connectionString, $options = [])
     {
@@ -238,7 +238,7 @@ class ServicesBuilder
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
      *
-     * @return MicrosoftAzure\Storage\Table\Internal\ITable
+     * @return \MicrosoftAzure\Storage\Table\Internal\ITable
      */
     public function createTableService($connectionString, $options = [])
     {

@@ -147,7 +147,7 @@ class ListContainersResult
     /**
      * Gets containers.
      *
-     * @return array
+     * @return Container[]
      */
     public function getContainers()
     {

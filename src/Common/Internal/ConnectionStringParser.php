@@ -177,7 +177,7 @@ class ConnectionStringParser
     {
         $arguments = func_get_args();
         
-        // Remove first argument (position)
+        // Remove first and second arguments (position and error string)
         unset($arguments[0],  $arguments[1]);
         
         // Create a short error message.
