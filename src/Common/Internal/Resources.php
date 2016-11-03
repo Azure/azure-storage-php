@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Resources
@@ -239,7 +239,7 @@ class Resources
 
 
     // Header values
-    const SDK_VERSION                                   = '0.10.2';
+    const SDK_VERSION                                   = '0.11.0';
     const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
     const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
     const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';
