@@ -1,7 +1,33 @@
-2016.09 - version 0.10.3
+2016.09 - version 0.11.0
 
 ALL
-* Fix error string when an error occurs while parsing a connection string and is passed to _createException in ConnectionStringParser.
+* Fix error string when an error occurs while parsing a connection string and is passed to _createException in `MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser`.
+* Added support to create Guzzle's customizable retry middleware to handle the request after the response is received. Also added a default retry policy in case a retry policy is not specified.
+* Fixed a bug in unit test where getting properties from service failed to match the expected result due to previous settings have not yet taken effect.
+* Fixed some coding style issue. This work will be continued in the following serveral releases, and strictly follows PSR-2 coding style.
+* Updated the documentation of `setMetadata`, now in the comments of the following methods `$metadata` is an array instead of a string.
+```
+MicrosoftAzure\Storage\Blob\Models\Blob.setMetadata
+MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions.setMetadata
+MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult.setMetadata
+MicrosoftAzure\Storage\Blob\Models\GetBlobResult.setMetadata
+MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult.setMetadata
+MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult.setMetadata
+MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions.setMetadata
+MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions.setMetadata
+MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions.setMetadata
+MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions.setMetadata
+MicrosoftAzure\Storage\Blob\Models\Container.setMetadata
+MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions.setMetadata
+MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult.setMetadata
+MicrosoftAzure\Storage\Queue\Models\Queue.setMetadata
+```
+* Removed test code from composer package.
+
+Blob
+* Added support for user to upload large files with minimum memory usage.
+* Added concurrent upload for Block Blob.
+* Added `MicrosoftAzure\Storage\Blob.saveBlobToFile` for user to download a blob into a file.
 
 2016.08 - version 0.10.2
 
