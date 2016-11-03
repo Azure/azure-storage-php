@@ -899,7 +899,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertEquals(BlobType::BLOCK_BLOB, $result->getProperties()->getBlobType());
         $this->assertEquals($metadata, $result->getMetadata());
-        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
+        $this->assertEquals(
+            $contentStream,
+            stream_get_contents($result->getContentStream())
+        );
     }
     
     /**
@@ -931,7 +934,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertEquals(BlobType::PAGE_BLOB, $result->getProperties()->getBlobType());
-        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
+        $this->assertEquals(
+            $contentStream,
+            stream_get_contents($result->getContentStream())
+        );
     }
     
     /**
@@ -962,7 +968,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertEquals(BlobType::PAGE_BLOB, $result->getProperties()->getBlobType());
-        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
+        $this->assertEquals(
+            $contentStream,
+            stream_get_contents($result->getContentStream())
+        );
     }
     
     /**
@@ -990,7 +999,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertEquals(BlobType::BLOCK_BLOB, $result->getProperties()->getBlobType());
         $this->assertEquals($metadata, $result->getMetadata());
-        $this->assertEquals($contentStream, $result->getContentStream()->getContents());
+        $this->assertEquals(
+            $contentStream,
+            stream_get_contents($result->getContentStream())
+        );
     }
     
     /**
@@ -1429,9 +1441,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $sourceBlob = $this->restProxy->getBlob($sourceContainerName, $sourceBlobName);
         $destinationBlob = $this->restProxy->getBlob($destinationContainerName, $destinationBlobName);
-        $sourceBlobContent = $sourceBlob->getContentStream()->getContents();
+        $sourceBlobContent = stream_get_contents($sourceBlob->getContentStream());
         $destinationBlobContent =
-            $destinationBlob->getContentStream()->getContents();
+            stream_get_contents($destinationBlob->getContentStream());
         
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
         $this->assertNotNull($result->getETag());
@@ -1472,9 +1484,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         );
 
         $sourceBlobContent =
-            $sourceBlob->getContentStream()->getContents();
+            stream_get_contents($sourceBlob->getContentStream());
         $destinationBlobContent =
-            $destinationBlob->getContentStream()->getContents();
+            stream_get_contents($destinationBlob->getContentStream());
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
     }
     
@@ -1513,9 +1525,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $sourceBlob = $this->restProxy->getBlob($containerName, $sourceBlobName);
         $destinationBlob = $this->restProxy->getBlob($containerName, $destinationBlobName);
-        $sourceBlobContent = $sourceBlob->getContentStream()->getContents();
+        $sourceBlobContent = stream_get_contents($sourceBlob->getContentStream());
         $destinationBlobContent =
-            $destinationBlob->getContentStream()->getContents();
+            stream_get_contents($destinationBlob->getContentStream());
         
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
         $this->assertNotEquals($destinationBlobContent, $oldBlobValue);
@@ -1550,9 +1562,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $sourceBlob = $this->restProxy->getBlob($containerName, $sourceBlobName);
         $destinationBlob = $this->restProxy->getBlob($containerName, $destinationBlobName);
-        $sourceBlobContent = $sourceBlob->getContentStream()->getContents();
+        $sourceBlobContent = stream_get_contents($sourceBlob->getContentStream());
         $destinationBlobContent =
-            $destinationBlob->getContentStream()->getContents();
+            stream_get_contents($destinationBlob->getContentStream());
         
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
     }
@@ -1605,7 +1617,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $result = $this->restProxy->getBlob($name, $blob);
     
         // Assert
-        $this->assertEquals($content, $result->getContentStream()->getContents());
+        $this->assertEquals($content, stream_get_contents($result->getContentStream()));
     }
     
     /**
@@ -1814,8 +1826,11 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         //download the file
         $content = $result->getContentStream();
 
-        while (!$content->eof()) {
-            fwrite($downloadResource, $content->read(Resources::MB_IN_BYTES_4));
+        while (!feof($content)) {
+            fwrite(
+                $downloadResource,
+                stream_get_contents($content, Resources::MB_IN_BYTES_4)
+            );
         }
 
         // Assert
@@ -1888,8 +1903,11 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $downloadResource = fopen($downloadPath, 'w');
         //download the file
         $content = $result->getContentStream();
-        while (!$content->eof()) {
-            fwrite($downloadResource, $content->read(Resources::MB_IN_BYTES_4));
+        while (!feof($content)) {
+            fwrite(
+                $downloadResource,
+                stream_get_contents($content, Resources::MB_IN_BYTES_4)
+            );
         }
         
         // Assert

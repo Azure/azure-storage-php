@@ -58,16 +58,16 @@ class GetBlobResult
     /**
      * Creates GetBlobResult from getBlob call.
      *
-     * @param array  $headers  The HTTP response headers.
+     * @param array           $headers  The HTTP response headers.
      * @param StreamInterface $body     The response body.
-     * @param array  $metadata The blob metadata.
+     * @param array           $metadata The blob metadata.
      *
      * @return GetBlobResult
      */
     public static function create($headers, $body, $metadata)
     {
         $result = new GetBlobResult();
-        $result->setContentStream($body);
+        $result->setContentStream($body->detach());
         $result->setProperties(BlobProperties::create($headers));
         $result->setMetadata(is_null($metadata) ? array() : $metadata);
         
