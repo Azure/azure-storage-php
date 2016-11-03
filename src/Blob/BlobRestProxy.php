@@ -2261,8 +2261,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
         $content = $result->getContentStream();
 
-        while (!$content->eof()) {
-            fwrite($resource, $content->read(Resources::MB_IN_BYTES_4));
+        while (!feof($content)) {
+            fwrite($resource, stream_get_contents($content, Resources::MB_IN_BYTES_4));
         }
         //response body has already been set to file. Set the stream of the
         //response body to be null, then close the file.
