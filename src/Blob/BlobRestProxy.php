@@ -1310,7 +1310,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $headers     = array();
         $postParams  = array();
         $queryParams = array();
-        $bodySize    = null;
         $path        = $this->_createPath($container, $blob);
         $statusCode  = Resources::STATUS_CREATED;
 
@@ -1628,9 +1627,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
         };
 
-        //generate the decider.
-        $decider = Utilities::generateIsSeekableStreamEndDecider($contentStream);
-
         //add number of concurrency if specified int options.
         $clientOptions = $options->getNumberOfConcurrency() == null?
             array() : array($options->getNumberOfConcurrency);
@@ -1641,7 +1637,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $this->sendConcurrent(
             array(),
             $generator,
-            $decider,
+            Resources::STATUS_CREATED,
             $clientOptions
         );
 
