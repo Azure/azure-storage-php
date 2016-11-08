@@ -1,4 +1,4 @@
-2016.09 - version 0.11.0
+2016.11 - version 0.11.0
 
 ALL
 * Fix error string when an error occurs while parsing a connection string and is passed to _createException in `MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser`.

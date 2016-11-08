@@ -778,33 +778,4 @@ class Utilities
         }
         return $result;
     }
-
-    /**
-     * Generate a decider that returns false if a given stream is not ended.
-     *
-     * @param  StreamInterface $contentStream The stream to be decided on.
-     *
-     * @return callable                       A callable that returns true
-     *                                        if the stream reaches its end.
-     */
-    public static function generateIsSeekableStreamEndDecider($contentStream)
-    {
-        return function () use ($contentStream) {
-            $isEnd = false;
-            if ($contentStream->eof()) {
-                $isEnd = true;
-            } else {
-                //if the content stream is read to exactly the end of file
-                //the content stream will still not return true for eof()
-                //Have to read another byte, then see if it is null.
-                $str = $contentStream->read(1);
-                if ($str != '') {
-                    $contentStream->seek(-1, SEEK_CUR);
-                } else {
-                    $isEnd = true;
-                }
-            }
-            return $isEnd;
-        };
-    }
 }

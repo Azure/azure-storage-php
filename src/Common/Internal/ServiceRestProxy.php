@@ -36,7 +36,7 @@ use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Pool;
+use GuzzleHttp\Promise\EachPromise;
 
 /**
  * Base class for all services rest proxies.
@@ -161,7 +161,8 @@ class ServiceRestProxy extends RestProxy
                 $this->_options['http'],
                 array(
                     "defaults" => array(
-                        "allow_redirects" => true, "exceptions" => true,
+                        "allow_redirects" => true,
+                        "exceptions" => true,
                         "decode_content" => true,
                     ),
                     'cookies' => true,
@@ -185,8 +186,8 @@ class ServiceRestProxy extends RestProxy
      *                                         using the generator.
      * @param  callable $generator             the generator function to
      *                                         generate request upon fullfilment
-     * @param  callable $decider               decide if the generator
-     *                                         continues to append.
+     * @param  int      $expectedStatusCode    The expected status code for each
+     *                                         of the request.
      * @param  array    $clientOptions         an array of additional options
      *                                         for the client.
      *
@@ -195,7 +196,7 @@ class ServiceRestProxy extends RestProxy
     protected function sendConcurrent(
         $requests,
         $generator,
-        $decider,
+        $expectedStatusCode,
         $clientOptions = []
     ) {
         //set the number of concurrency to default value if not defined
@@ -208,41 +209,41 @@ class ServiceRestProxy extends RestProxy
         //create the client
         $client = $this->createClient($clientOptions);
 
-        //generate the first batch if requests are empty.
-        if (empty($requests) && is_callable($generator)) {
-            $requests = array();
-            for ($index = 0;
-                $index < $numberOfConcurrency && !$decider();
-                ++$index) {
-                $requests[] = $generator();
-            }
-        }
-
-        $requestsIterator = new \ArrayIterator($requests);
-
-        $pool = new Pool($client, $requestsIterator, [
-            'concurrency' => $numberOfConcurrency,
-            'fulfilled' => function (
-                $response,
-                $index
-            ) use (
-                $requestsIterator,
-                $generator,
-                $decider
-            ) {
-                //append new request using the generator.
-                if (is_callable($generator) && !$decider()) {
-                    $requestsIterator->append($generator());
+        $promises = \call_user_func(
+            function () use ($requests, $generator, $client) {
+                $sendAsync = function ($request) use ($client) {
+                    $options = $request->getMethod() == 'HEAD'?
+                        array('decode_content' => false) : array();
+                    return $client->sendAsync($request, $options);
+                };
+                foreach ($requests as $request) {
+                    yield $sendAsync($request);
                 }
+                while (is_callable($generator) && ($request = $generator())) {
+                    yield $sendAsync($request);
+                }
+            }
+        );
+
+        $eachPromise = new EachPromise($promises, [
+            'concurrency' => $numberOfConcurrency,
+            'fulfilled' => function ($response, $index) use ($expectedStatusCode) {
+                //the promise is fulfilled, evaluate the response
+                self::throwIfError(
+                    $response->getStatusCode(),
+                    $response->getReasonPhrase(),
+                    $response->getBody(),
+                    $expectedStatusCode
+                );
             },
             'rejected' => function ($reason, $index) {
                 //Still rejected even if the retry logic has been applied.
                 //Throwing exception.
                 throw $reason;
-            },
+            }
         ]);
-
-        return $pool->promise()->wait();
+        
+        return $eachPromise->promise()->wait();
     }
 
     /**
@@ -338,7 +339,9 @@ class ServiceRestProxy extends RestProxy
         $client = $this->createClient($clientOptions);
 
         try {
-            $response = $client->send($request);
+            $options = $request->getMethod() == 'HEAD'?
+                array('decode_content' => false) : array();
+            $response = $client->send($request, $options);
             self::throwIfError(
                 $response->getStatusCode(),
                 $response->getReasonPhrase(),
