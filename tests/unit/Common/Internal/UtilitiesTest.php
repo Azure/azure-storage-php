@@ -23,13 +23,14 @@
  */
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
-
+use GuzzleHttp\Psr7;
 
 /**
  * Unit tests for class Utilities
@@ -39,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class UtilitiesTest extends \PHPUnit_Framework_TestCase
@@ -719,5 +720,53 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     
         // Assert
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::isStreamLargerThanSizeOrNotSeekable
+     */
+    public function testIsStreamLargerThanSizeOrNotSeekable()
+    {
+        //prepare a file
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+        $count = 64 / 4;
+        for ($index = 0; $index < $count; ++$index) {
+            fwrite($resource, openssl_random_pseudo_bytes(4194304));
+        }
+        rewind($resource);
+        $stream = Psr7\stream_for($resource);
+        $result_0 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16 - 1
+        );
+        $result_1 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16
+        );
+        //prepare a string
+        $count = 64 / 4;
+        $testStr = openssl_random_pseudo_bytes(4194304 * $count);
+        $stream = Psr7\stream_for($testStr);
+        $result_2 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16 - 1
+        );
+        $result_3 = Utilities::isStreamLargerThanSizeOrNotSeekable(
+            $stream,
+            4194304 * 16
+        );
+
+        $this->assertFalse($result_1);
+        $this->assertFalse($result_3);
+        $this->assertTrue($result_0);
+        $this->assertTrue($result_2);
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        // Delete file after assertion.
+        unlink($path);
     }
 }

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,17 +23,18 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\AccessPolicy;
 
 /**
  * Holds container signed identifiers.
- * 
+ *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class SignedIdentifier
@@ -55,7 +56,7 @@ class SignedIdentifier
      * Sets id.
      *
      * @param string $id value.
-     * 
+     *
      * @return none.
      */
     public function setId($id)
@@ -77,7 +78,7 @@ class SignedIdentifier
      * Sets accessPolicy.
      *
      * @param string $accessPolicy value.
-     * 
+     *
      * @return none.
      */
     public function setAccessPolicy($accessPolicy)
@@ -87,7 +88,7 @@ class SignedIdentifier
     
     /**
      * Converts this current object to XML representation.
-     * 
+     *
      * @return array.
      */
     public function toArray()
@@ -100,5 +101,3 @@ class SignedIdentifier
         return $array;
     }
 }
-
-

@@ -23,10 +23,10 @@
  */
 
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
-
 
 /**
  * Base class for azure authentication schemes.
@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 abstract class StorageAuthScheme implements IAuthScheme
@@ -207,9 +207,10 @@ abstract class StorageAuthScheme implements IAuthScheme
      *
      * @return string
      */
-    abstract protected function computeSignature($headers, $url, $queryParams,
+    abstract protected function computeSignature(
+        $headers,
+        $url,
+        $queryParams,
         $httpMethod
     );
 }
-
-

@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Resources
@@ -59,6 +59,7 @@ class Resources
     const CERTIFICATE_PATH_NAME = 'CertificatePath';
 
     // Messages
+    const INVALID_FUNCTION_NAME = 'The class %s does not have a function named %s.';
     const INVALID_TYPE_MSG = 'The provided variable should be of type: ';
     const INVALID_META_MSG = 'Metadata cannot contain newline characters.';
     const AZURE_ERROR_MSG = "Fail:\nCode: %s\nValue: %s\ndetails (if any): %s.";
@@ -112,6 +113,13 @@ class Resources
     const ERROR_OAUTH_SERVICE_MISSING = 'OAuth service missing for account name \'%s\'';
     const ERROR_METHOD_NOT_FOUND = 'Method \'%s\' not found in object class \'%s\'';
     const ERROR_INVALID_DATE_STRING = 'Parameter \'%s\' is not a date formatted string \'%s\'';
+    const ERROR_TOO_LARGE_FOR_BLOCK_BLOB = 'Error: Exceeds the uppper limit of the blob.';
+    const ERROR_RANGE_NOT_ALIGN_TO_512 = 'Error: Range of the page blob must be align to 512';
+    const ERROR_FILE_COULD_NOT_BE_OPENED = 'Error: file with given path could not be opened or created.';
+    const ERROR_CONTAINER_NOT_EXIST = 'The specified container does not exist';
+    const ERROR_BLOB_NOT_EXIST = 'The specified blob does not exist';
+    const INVALID_PARAM_GENERAL = 'The provided parameter \'%s\' is invalid';
+    const INVALID_NEGATIVE_PARAM = 'The provided parameter \'%s\' should be positive number.';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
@@ -214,6 +222,10 @@ class Resources
     const DEV_STORE_URI = 'http://127.0.0.1';
     const SERVICE_URI_FORMAT = "%s://%s.%s";
     const WRAP_ENDPOINT_URI_FORMAT = "https://%s-sb.accesscontrol.windows.net/WRAPv0.9";
+    const MB_IN_BYTES_4       = 4194304;
+    const MB_IN_BYTES_32      = 33554432;
+    const MB_IN_BYTES_64      = 67108864;
+    const MAX_BLOB_BLOCKS     = 50000;
 
     // Xml Namespaces
     const WA_XML_NAMESPACE   = 'http://schemas.microsoft.com/windowsazure';
@@ -221,10 +233,12 @@ class Resources
     const DS_XML_NAMESPACE   = 'http://schemas.microsoft.com/ado/2007/08/dataservices';
     const DSM_XML_NAMESPACE  = 'http://schemas.microsoft.com/ado/2007/08/dataservices/metadata';
     const XSI_XML_NAMESPACE  = 'http://www.w3.org/2001/XMLSchema-instance';
-
+    const NUMBER_OF_CONCURRENCY = 25;//Guzzle's default value
+    const DEFAULT_NUMBER_OF_RETRIES = 3;
+    const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                                   = '0.10.0';
+    const SDK_VERSION                                   = '0.11.0';
     const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
     const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
     const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';

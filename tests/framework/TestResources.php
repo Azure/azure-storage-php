@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author     Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright  2016 Microsoft Corporation
  * @license    https://github.com/azure/azure-storage-php/LICENSE
- * @version    Release: 0.10.2
+ * @version    Release: 0.11.0
  * @link       https://github.com/azure/azure-storage-php
  */
 class TestResources
@@ -497,6 +497,7 @@ class TestResources
     public static function getTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
+        $entity->setETag('');
         $entity->setPartitionKey($partitionKey);
         $entity->setRowKey($rowKey);
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
@@ -510,6 +511,7 @@ class TestResources
     public static function getExpectedTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
+        $entity->setETag('');
         $entity->addProperty('PartitionKey', EdmType::STRING, $partitionKey);
         $entity->addProperty('RowKey', EdmType::STRING, $rowKey);
         $entity->addProperty('CustomerId', EdmType::INT32, 890);

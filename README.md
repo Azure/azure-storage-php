@@ -25,7 +25,14 @@ This project provides a set of PHP client libraries that make it easy to access 
 
 * PHP 5.5 or above
 * See [composer.json](composer.json) for dependencies
+* Required extension for PHP:
+  php_fileinfo.dll
+  php_mbstring.dll
+  php_openssl.dll
+  php_xsl.dll
 
+* Recommanded extension for PHP:
+  php_curl.dll
 
 ## Download Source Code
 

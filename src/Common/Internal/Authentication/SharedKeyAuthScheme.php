@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
+
 use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -36,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class SharedKeyAuthScheme extends StorageAuthScheme
@@ -48,8 +49,8 @@ class SharedKeyAuthScheme extends StorageAuthScheme
      *
      * @param string $accountName storage account name.
      * @param string $accountKey  storage account primary or secondary key.
-     * 
-     * @return 
+     *
+     * @return
      * MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     public function __construct($accountName, $accountKey)
@@ -77,10 +78,10 @@ class SharedKeyAuthScheme extends StorageAuthScheme
      * @param string $url         reuqest url.
      * @param array  $queryParams query variables.
      * @param string $httpMethod  request http method.
-     * 
+     *
      * @see Blob and Queue Services (Shared Key Authentication) at
      *      http://msdn.microsoft.com/en-us/library/windowsazure/dd179428.aspx
-     * 
+     *
      * @return string
      */
     protected function computeSignature($headers, $url, $queryParams, $httpMethod)
@@ -88,7 +89,8 @@ class SharedKeyAuthScheme extends StorageAuthScheme
         $canonicalizedHeaders = parent::computeCanonicalizedHeaders($headers);
         
         $canonicalizedResource = parent::computeCanonicalizedResource(
-            $url, $queryParams
+            $url,
+            $queryParams
         );
 
         $stringToSign   = array();
@@ -115,16 +117,19 @@ class SharedKeyAuthScheme extends StorageAuthScheme
      * @param string $url         reuqest url.
      * @param array  $queryParams query variables.
      * @param string $httpMethod  request http method.
-     * 
-     * @see Specifying the Authorization Header section at 
+     *
+     * @see Specifying the Authorization Header section at
      *      http://msdn.microsoft.com/en-us/library/windowsazure/dd179428.aspx
-     * 
+     *
      * @return string
      */
     public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
     {
         $signature = $this->computeSignature(
-            $headers, $url, $queryParams, $httpMethod
+            $headers,
+            $url,
+            $queryParams,
+            $httpMethod
         );
         
         return 'SharedKey ' . $this->accountName . ':' . base64_encode(
@@ -132,5 +137,3 @@ class SharedKeyAuthScheme extends StorageAuthScheme
         );
     }
 }
-
-
