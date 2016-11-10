@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -41,7 +41,7 @@ class CreateQueueOptions extends QueueServiceOptions
     
     /**
      * Gets user defined metadata.
-     * 
+     *
      * @return array.
      */
     public function getMetadata()
@@ -52,9 +52,9 @@ class CreateQueueOptions extends QueueServiceOptions
     /**
      * Sets user defined metadata. This metadata should be added without the header
      * prefix (x-ms-meta-*).
-     * 
+     *
      * @param array $metadata user defined metadata object in array form.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -65,10 +65,10 @@ class CreateQueueOptions extends QueueServiceOptions
     /**
      * Adds new metadata element. This element should be added without the header
      * prefix (x-ms-meta-*).
-     * 
+     *
      * @param string $key   metadata key element.
      * @param string $value metadata value element.
-     * 
+     *
      * @return none.
      */
     public function addMetadata($key, $value)
@@ -76,5 +76,3 @@ class CreateQueueOptions extends QueueServiceOptions
         $this->_metadata[$key] = $value;
     }
 }
-
-

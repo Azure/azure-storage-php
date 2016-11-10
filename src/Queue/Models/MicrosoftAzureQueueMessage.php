@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
@@ -40,62 +41,62 @@ class MicrosoftAzureQueueMessage
 {
     /**
      * GUID value that identifies the message in the queue
-     * 
+     *
      * @var string
      */
     private $_messageId;
     
     /**
      * insertion date of the message.
-     * 
+     *
      * @var \DateTime
      */
     private $_insertionDate;
     
     /**
      * expiration date of the message.
-     * 
+     *
      * @var \DateTime
      */
     private $_expirationDate;
     
     /**
-     * The value of PopReceipt is opaque to the client and its only purpose is to 
+     * The value of PopReceipt is opaque to the client and its only purpose is to
      * ensure that a message may be deleted with the delete message operation.
-     * 
+     *
      * @var string
      */
     private $_popReceipt;
     
     /**
      * next visibility time of the message.
-     * 
+     *
      * @var \DateTime
      */
     private $_timeNextVisible;
     
     /**
-     * Dequeues count for this message. Note that this element is returned in the 
-     * response body only if the queue was created with version 2009-09-19 of 
+     * Dequeues count for this message. Note that this element is returned in the
+     * response body only if the queue was created with version 2009-09-19 of
      * the Queue service.
-     * 
+     *
      * @var integer
      */
     private $_dequeueCount;
     
     /**
      * message contents.
-     * 
+     *
      * @var string
      */
     private $_messageText;
     
     /**
-     * Creates MicrosoftAzureQueueMessage object from parsed XML response of 
+     * Creates MicrosoftAzureQueueMessage object from parsed XML response of
      * ListMessages.
      *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage.
      */
     public static function createFromListMessages($parsedResponse)
@@ -115,7 +116,7 @@ class MicrosoftAzureQueueMessage
      * PeekMessages.
      *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage.
      */
     public static function createFromPeekMessages($parsedResponse)
@@ -140,7 +141,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets message text field.
-     * 
+     *
      * @return string.
      */
     public function getMessageText()
@@ -150,9 +151,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets message text field.
-     * 
+     *
      * @param string $messageText message contents.
-     * 
+     *
      * @return none.
      */
     public function setMessageText($messageText)
@@ -162,7 +163,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets messageId field.
-     * 
+     *
      * @return integer.
      */
     public function getMessageId()
@@ -172,9 +173,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets messageId field.
-     * 
+     *
      * @param string $messageId message contents.
-     * 
+     *
      * @return none.
      */
     public function setMessageId($messageId)
@@ -184,7 +185,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets insertionDate field.
-     * 
+     *
      * @return \DateTime.
      */
     public function getInsertionDate()
@@ -194,9 +195,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets insertionDate field.
-     * 
+     *
      * @param \DateTime $insertionDate message contents.
-     * 
+     *
      * @return none.
      */
     public function setInsertionDate($insertionDate)
@@ -206,7 +207,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets expirationDate field.
-     * 
+     *
      * @return \DateTime.
      */
     public function getExpirationDate()
@@ -216,9 +217,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets expirationDate field.
-     * 
+     *
      * @param \DateTime $expirationDate the expiration date of the message.
-     * 
+     *
      * @return none.
      */
     public function setExpirationDate($expirationDate)
@@ -228,7 +229,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets timeNextVisible field.
-     * 
+     *
      * @return \DateTime.
      */
     public function getTimeNextVisible()
@@ -238,9 +239,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets timeNextVisible field.
-     * 
+     *
      * @param \DateTime $timeNextVisible next visibile time for the message.
-     * 
+     *
      * @return none.
      */
     public function setTimeNextVisible($timeNextVisible)
@@ -250,7 +251,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets popReceipt field.
-     * 
+     *
      * @return string.
      */
     public function getPopReceipt()
@@ -260,9 +261,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets popReceipt field.
-     * 
+     *
      * @param string $popReceipt used when deleting the message.
-     * 
+     *
      * @return none.
      */
     public function setPopReceipt($popReceipt)
@@ -272,7 +273,7 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Gets dequeueCount field.
-     * 
+     *
      * @return integer.
      */
     public function getDequeueCount()
@@ -282,9 +283,9 @@ class MicrosoftAzureQueueMessage
     
     /**
      * Sets dequeueCount field.
-     * 
+     *
      * @param integer $dequeueCount number of dequeues for that message.
-     * 
+     *
      * @return none.
      */
     public function setDequeueCount($dequeueCount)
@@ -292,5 +293,3 @@ class MicrosoftAzureQueueMessage
         $this->_dequeueCount = $dequeueCount;
     }
 }
-
-

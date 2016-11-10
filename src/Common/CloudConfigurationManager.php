@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -48,7 +49,7 @@ class CloudConfigurationManager
     
     /**
      * The list of connection string sources.
-     * 
+     *
      * @var array
      */
     private static $_sources;
@@ -58,13 +59,12 @@ class CloudConfigurationManager
      */
     private function __construct()
     {
-        
     }
     
     /**
      * Initializes the connection string source providers.
-     * 
-     * @return none 
+     *
+     * @return none
      */
     private static function _init()
     {
@@ -83,9 +83,9 @@ class CloudConfigurationManager
     
     /**
      * Gets a connection string from all available sources.
-     * 
+     *
      * @param string $key The connection string key name.
-     * 
+     *
      * @return string If the key does not exist return null.
      */
     public static function getConnectionString($key)
@@ -107,15 +107,15 @@ class CloudConfigurationManager
     }
     
     /**
-     * Registers a new connection string source provider. If the source to get 
+     * Registers a new connection string source provider. If the source to get
      * registered is a default source, only the name of the source is required.
-     * 
+     *
      * @param string   $name     The source name.
      * @param callable $provider The source callback.
-     * @param boolean  $prepend  When true, the $provider is processed first when 
-     * calling getConnectionString. When false (the default) the $provider is 
+     * @param boolean  $prepend  When true, the $provider is processed first when
+     * calling getConnectionString. When false (the default) the $provider is
      * processed after the existing callbacks.
-     * 
+     *
      * @return none
      */
     public static function registerSource($name, $provider = null, $prepend = false)
@@ -136,7 +136,6 @@ class CloudConfigurationManager
                 array($name => $provider),
                 self::$_sources
             );
-            
         } else {
             self::$_sources[$name] = $provider;
         }
@@ -144,9 +143,9 @@ class CloudConfigurationManager
     
     /**
      * Unregisters a connection string source.
-     * 
+     *
      * @param string $name The source name.
-     * 
+     *
      * @return callable
      */
     public static function unregisterSource($name)

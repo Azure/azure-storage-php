@@ -27,22 +27,18 @@ class HttpFormatter
 {
     /**
      * Convert a http headers array into an uniformed format for further process
-     * 
+     *
      * @param array $headers headers for format
-     * 
+     *
      * @return array
      */
     public static function formatHeaders($headers)
     {
         $result = array();
-        foreach ($headers as $key => $value)
-        {
-            if (is_array($value) && count($value) == 1)
-            {
+        foreach ($headers as $key => $value) {
+            if (is_array($value) && count($value) == 1) {
                 $result[strtolower($key)] = $value[0];
-            }
-            else 
-            {
+            } else {
                 $result[strtolower($key)] = $value;
             }
         }

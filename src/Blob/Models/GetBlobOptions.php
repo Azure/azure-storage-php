@@ -204,5 +204,3 @@ class GetBlobOptions extends BlobServiceOptions
         $this->_computeRangeMD5 = $computeRangeMD5;
     }
 }
-
-

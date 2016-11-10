@@ -200,7 +200,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
     
             default:
                 throw new \InvalidArgumentException();
-            }
+        }
     }
 
     /**
@@ -515,7 +515,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
         if ($filter instanceof PropertyNameFilter) {
             $e .= $filter->getPropertyName();
-        } else if ($filter instanceof ConstantFilter) {
+        } elseif ($filter instanceof ConstantFilter) {
             $value = $filter->getValue();
             // If the value is null we just append null regardless of the edmType.
             if (is_null($value)) {
@@ -524,12 +524,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                 $type = $filter->getEdmType();
                 $e   .= EdmType::serializeQueryValue($type, $value);
             }
-        } else if ($filter instanceof UnaryFilter) {
+        } elseif ($filter instanceof UnaryFilter) {
             $e .= $filter->getOperator();
             $e .= '(';
             $this->_buildFilterExpressionRec($filter->getOperand(), $e);
             $e .= ')';
-        } else if ($filter instanceof Filters\BinaryFilter) {
+        } elseif ($filter instanceof Filters\BinaryFilter) {
             $e .= '(';
             $this->_buildFilterExpressionRec($filter->getLeft(), $e);
             $e .= ' ';
@@ -537,7 +537,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $e .= ' ';
             $this->_buildFilterExpressionRec($filter->getRight(), $e);
             $e .= ')';
-        } else if ($filter instanceof QueryStringFilter) {
+        } elseif ($filter instanceof QueryStringFilter) {
             $e .= $filter->getQueryString();
         }
 
@@ -769,11 +769,11 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
         if (is_null($options)) {
             $options = new QueryTablesOptions();
-        } else if (is_string($options)) {
+        } elseif (is_string($options)) {
             $prefix  = $options;
             $options = new QueryTablesOptions();
             $options->setPrefix($prefix);
-        } else if ($options instanceof Filter) {
+        } elseif ($options instanceof Filter) {
             $filter  = $options;
             $options = new QueryTablesOptions();
             $options->setFilter($filter);
@@ -808,7 +808,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             } else {
                 // combine and use the prefix filter if the query filter exists
                 $combinedFilter = Filter::applyAnd(
-                    $query->getFilter(), $prefixFilter
+                    $query->getFilter(),
+                    $prefixFilter
                 );
                 $query->setFilter($combinedFilter);
             }
@@ -832,7 +833,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         // Azure Table service where this does not engage on the server unless
         // $filter appears in the URL. The current behavior is to just ignore the
         // NextTableName options, which is not expected or easily detectable.
-        if (   array_key_exists(Resources::QP_NEXT_TABLE_NAME, $queryParams)
+        if (array_key_exists(Resources::QP_NEXT_TABLE_NAME, $queryParams)
             && !array_key_exists(Resources::QP_FILTER, $queryParams)
         ) {
             $queryParams[Resources::QP_FILTER] = Resources::EMPTY_STRING;
@@ -1015,11 +1016,11 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
         if (is_null($options)) {
             $options = new QueryEntitiesOptions();
-        } else if (is_string($options)) {
+        } elseif (is_string($options)) {
             $queryString = $options;
             $options     = new QueryEntitiesOptions();
             $options->setFilter(Filter::applyQueryString($queryString));
-        } else if ($options instanceof Filter) {
+        } elseif ($options instanceof Filter) {
             $filter  = $options;
             $options = new QueryEntitiesOptions();
             $options->setFilter($filter);

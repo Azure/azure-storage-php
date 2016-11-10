@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,12 +23,13 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
- * The result of creating Blob snapshot. 
+ * The result of creating Blob snapshot.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -41,29 +42,29 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 class CreateBlobSnapshotResult
 {
     /**
-     * A DateTime value which uniquely identifies the snapshot. 
+     * A DateTime value which uniquely identifies the snapshot.
      * @var string
      */
     private $_snapshot;
             
     /**
-     * The ETag for the destination blob. 
+     * The ETag for the destination blob.
      * @var string
      */
     private $_etag;
     
     /**
-     * The date/time that the copy operation to the destination blob completed. 
+     * The date/time that the copy operation to the destination blob completed.
      * @var \DateTime
      */
     private $_lastModified;
     
     /**
-     * Creates CreateBlobSnapshotResult object from the response of the 
+     * Creates CreateBlobSnapshotResult object from the response of the
      * create Blob snapshot request.
-     * 
+     *
      * @param array $headers The HTTP response headers in array representation.
-     * 
+     *
      * @return CreateBlobSnapshotResult
      */
     public static function create($headers)
@@ -85,7 +86,7 @@ class CreateBlobSnapshotResult
     }
     
     /**
-     * Gets snapshot. 
+     * Gets snapshot.
      *
      * @return string
      */
@@ -96,7 +97,7 @@ class CreateBlobSnapshotResult
     
     /**
      * Sets snapshot.
-     * 
+     *
      * @param string $snapshot value.
      *
      * @return none
@@ -108,7 +109,7 @@ class CreateBlobSnapshotResult
     
     /**
      * Gets ETag.
-     * 
+     *
      * @return string
      */
     public function getETag()
@@ -150,5 +151,3 @@ class CreateBlobSnapshotResult
         $this->_lastModified = $lastModified;
     }
 }
-
-

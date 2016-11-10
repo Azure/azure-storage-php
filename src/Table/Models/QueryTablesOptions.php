@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -62,7 +62,7 @@ class QueryTablesOptions extends TableServiceOptions
     
     /**
      * Gets nextTableName
-     * 
+     *
      * @return string
      */
     public function getNextTableName()
@@ -72,9 +72,9 @@ class QueryTablesOptions extends TableServiceOptions
     
     /**
      * Sets nextTableName
-     * 
+     *
      * @param string $nextTableName value
-     * 
+     *
      * @return none
      */
     public function setNextTableName($nextTableName)
@@ -84,7 +84,7 @@ class QueryTablesOptions extends TableServiceOptions
     
     /**
      * Gets prefix
-     * 
+     *
      * @return string
      */
     public function getPrefix()
@@ -94,9 +94,9 @@ class QueryTablesOptions extends TableServiceOptions
     
     /**
      * Sets prefix
-     * 
+     *
      * @param string $prefix value
-     * 
+     *
      * @return none
      */
     public function setPrefix($prefix)
@@ -118,7 +118,7 @@ class QueryTablesOptions extends TableServiceOptions
      * Sets top.
      *
      * @param integer $top value.
-     * 
+     *
      * @return none.
      */
     public function setTop($top)
@@ -128,7 +128,7 @@ class QueryTablesOptions extends TableServiceOptions
     
     /**
      * Gets query.
-     * 
+     *
      * @return Query
      */
     public function getQuery()
@@ -150,7 +150,7 @@ class QueryTablesOptions extends TableServiceOptions
      * Sets filter.
      *
      * @param Filters\Filter $filter value.
-     * 
+     *
      * @return none.
      */
     public function setFilter($filter)
@@ -158,5 +158,3 @@ class QueryTablesOptions extends TableServiceOptions
         $this->_query->setFilter($filter);
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -46,13 +47,13 @@ class InsertEntityResult
     
     /**
      * Create InsertEntityResult object from HTTP response parts.
-     * 
+     *
      * @param string            $body           The HTTP response body.
      * @param array             $headers        The HTTP response headers.
      * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
-     * 
+     *
      * @return \MicrosoftAzure\Storage\Table\Models\InsertEntityResult
-     * 
+     *
      * @static
      */
     public static function create($body, $headers, $atomSerializer)
@@ -67,7 +68,7 @@ class InsertEntityResult
     
     /**
      * Gets table entity.
-     * 
+     *
      * @return Entity
      */
     public function getEntity()
@@ -77,9 +78,9 @@ class InsertEntityResult
     
     /**
      * Sets table entity.
-     * 
+     *
      * @param Entity $entity The table entity instance.
-     * 
+     *
      * @return none
      */
     public function setEntity($entity)
@@ -87,5 +88,3 @@ class InsertEntityResult
         $this->_entity = $entity;
     }
 }
-
-

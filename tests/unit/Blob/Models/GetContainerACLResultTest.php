@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult;
 use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -39,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetContainerAclResultTest extends \PHPUnit_Framework_TestCase
+class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::create
@@ -53,8 +54,12 @@ class GetContainerAclResultTest extends \PHPUnit_Framework_TestCase
         $expectedPublicAccess = 'container';
         
         // Test
-        $result = GetContainerAclResult::create($expectedPublicAccess, $expectedETag, 
-            $expectedDate, $sample);
+        $result = GetContainerAclResult::create(
+            $expectedPublicAccess,
+            $expectedETag,
+            $expectedDate,
+            $sample
+        );
         
         // Assert
         $obj = $result->getContainerAcl();
@@ -131,5 +136,3 @@ class GetContainerAclResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $obj->getETag());
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Blob\Models\Blob;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -77,7 +78,7 @@ class ListBlobsResult
     private $_maxResults;
     
     /**
-     * @var string 
+     * @var string
      */
     private $_containerName;
 
@@ -85,7 +86,7 @@ class ListBlobsResult
      * Creates ListBlobsResult object from parsed XML response.
      *
      * @param array $parsed XML response parsed into array.
-     * 
+     *
      * @return ListBlobsResult
      */
     public static function create($parsed)
@@ -103,26 +104,30 @@ class ListBlobsResult
         );
         $result->_containerName = $containerName;
         $result->_prefix        = Utilities::tryGetValue(
-            $parsed, Resources::QP_PREFIX
+            $parsed,
+            Resources::QP_PREFIX
         );
         $result->_marker        = Utilities::tryGetValue(
-            $parsed, Resources::QP_MARKER
+            $parsed,
+            Resources::QP_MARKER
         );
         $result->_nextMarker    = Utilities::tryGetValue(
-            $parsed, Resources::QP_NEXT_MARKER
+            $parsed,
+            Resources::QP_NEXT_MARKER
         );
         $result->_maxResults    = intval(
             Utilities::tryGetValue($parsed, Resources::QP_MAX_RESULTS, 0)
         );
         $result->_delimiter     = Utilities::tryGetValue(
-            $parsed, Resources::QP_DELIMITER
+            $parsed,
+            Resources::QP_DELIMITER
         );
         $result->_blobs         = array();
         $result->_blobPrefixes  = array();
         $rawBlobs               = array();
         $rawBlobPrefixes        = array();
         
-        if (   is_array($parsed['Blobs'])
+        if (is_array($parsed['Blobs'])
             && array_key_exists('Blob', $parsed['Blobs'])
         ) {
             $rawBlobs = Utilities::getArray($parsed['Blobs']['Blob']);
@@ -145,7 +150,7 @@ class ListBlobsResult
             $result->_blobs[] = $blob;
         }
         
-        if (   is_array($parsed['Blobs'])
+        if (is_array($parsed['Blobs'])
             && array_key_exists('BlobPrefix', $parsed['Blobs'])
         ) {
             $rawBlobPrefixes = Utilities::getArray($parsed['Blobs']['BlobPrefix']);
@@ -175,7 +180,7 @@ class ListBlobsResult
      * Sets blobs.
      *
      * @param Blob[] $blobs list of blobs
-     * 
+     *
      * @return none
      */
     public function setBlobs($blobs)
@@ -200,7 +205,7 @@ class ListBlobsResult
      * Sets blobPrefixes.
      *
      * @param array $blobPrefixes list of blobPrefixes
-     * 
+     *
      * @return none
      */
     public function setBlobPrefixes($blobPrefixes)
@@ -225,7 +230,7 @@ class ListBlobsResult
      * Sets prefix.
      *
      * @param string $prefix value.
-     * 
+     *
      * @return none
      */
     public function setPrefix($prefix)
@@ -247,7 +252,7 @@ class ListBlobsResult
      * Sets prefix.
      *
      * @param string $delimiter value.
-     * 
+     *
      * @return none
      */
     public function setDelimiter($delimiter)
@@ -257,7 +262,7 @@ class ListBlobsResult
 
     /**
      * Gets marker.
-     * 
+     *
      * @return string
      */
     public function getMarker()
@@ -269,7 +274,7 @@ class ListBlobsResult
      * Sets marker.
      *
      * @param string $marker value.
-     * 
+     *
      * @return none
      */
     public function setMarker($marker)
@@ -279,7 +284,7 @@ class ListBlobsResult
 
     /**
      * Gets max results.
-     * 
+     *
      * @return integer
      */
     public function getMaxResults()
@@ -291,7 +296,7 @@ class ListBlobsResult
      * Sets max results.
      *
      * @param integer $maxResults value.
-     * 
+     *
      * @return none
      */
     public function setMaxResults($maxResults)
@@ -301,7 +306,7 @@ class ListBlobsResult
 
     /**
      * Gets next marker.
-     * 
+     *
      * @return string
      */
     public function getNextMarker()
@@ -313,7 +318,7 @@ class ListBlobsResult
      * Sets next marker.
      *
      * @param string $nextMarker value.
-     * 
+     *
      * @return none
      */
     public function setNextMarker($nextMarker)
@@ -323,7 +328,7 @@ class ListBlobsResult
     
     /**
      * Gets container name.
-     * 
+     *
      * @return string
      */
     public function getContainerName()
@@ -335,7 +340,7 @@ class ListBlobsResult
      * Sets container name.
      *
      * @param string $containerName value.
-     * 
+     *
      * @return none
      */
     public function setContainerName($containerName)

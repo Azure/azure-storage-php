@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -52,7 +53,7 @@ class AtomReaderWriter implements IAtomReaderWriter
     private $_dataServicesNamespaceName;
     
     /**
-     * @var string 
+     * @var string
      */
     private $_dataServicesMetadataNamespaceName;
     
@@ -78,10 +79,10 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Generates the atom XML properties.
-     * 
+     *
      * @param \XmlWriter $xmlw       The XML writer.
      * @param array      $properties The atom properties.
-     * 
+     *
      * @return none
      */
     private function _generateProperties($xmlw, $properties)
@@ -107,9 +108,9 @@ class AtomReaderWriter implements IAtomReaderWriter
 
     /**
      * Serializes the atom into XML representation.
-     * 
+     *
      * @param array $properties The atom properties.
-     * 
+     *
      * @return string
      */
     private function _serializeAtom($properties)
@@ -152,11 +153,11 @@ class AtomReaderWriter implements IAtomReaderWriter
         return $xmlw->outputMemory(true);
     }
     
-    /** 
+    /**
      * Creates new SimpleXml from Atom XML and registers the namespaces prefixes.
      *
      * @param string $body Response from HTTP call.
-     * 
+     *
      * @return \SimpleXml
      */
     private function _parseBody($body)
@@ -179,13 +180,13 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Parses one table entry and returns the table name.
-     * 
+     *
      * @param \SimpleXml $result The original XML body loaded in XML.
-     * 
+     *
      * @return string
      */
     private function _parseOneTable($result)
-    {        
+    {
         $query     = ".//$this->_dataServicesMetadataPrefix:properties/";
         $query    .= "$this->_dataServicesPrefix:TableName";
         $tableName = $result->xpath($query);
@@ -196,9 +197,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Gets entry nodes from the XML body.
-     * 
+     *
      * @param \SimpleXml $body The original XML body loaded in XML.
-     * 
+     *
      * @return array
      */
     private function _getRawEntries($body)
@@ -214,9 +215,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Parses an entity entry from given SimpleXML object.
-     * 
+     *
      * @param \SimpleXML $result The SimpleXML object representing the entity.
-     * 
+     *
      * @return \MicrosoftAzure\Storage\Table\Models\Entity
      */
     private function _parseOneEntity($result)
@@ -250,7 +251,7 @@ class AtomReaderWriter implements IAtomReaderWriter
     }
     
     /**
-     * Constructs new AtomReaderWriter object. 
+     * Constructs new AtomReaderWriter object.
      */
     public function __construct()
     {
@@ -265,9 +266,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Constructs XML representation for table entry.
-     * 
+     *
      * @param string $name The name of the table.
-     * 
+     *
      * @return string
      */
     public function getTable($name)
@@ -277,10 +278,10 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Parses one table entry.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function parseTable($body)
     {
@@ -290,9 +291,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Constructs array of tables from HTTP response body.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
+     *
      * @return array
      */
     public function parseTableEntries($body)
@@ -310,9 +311,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Constructs XML representation for entity.
-     * 
+     *
      * @param Models\Entity $entity The entity instance.
-     * 
+     *
      * @return string
      */
     public function getEntity($entity)
@@ -339,9 +340,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Constructs entity from HTTP response body.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
+     *
      * @return Entity
      */
     public function parseEntity($body)
@@ -353,9 +354,9 @@ class AtomReaderWriter implements IAtomReaderWriter
     
     /**
      * Constructs array of entities from HTTP response body.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
+     *
      * @return array
      */
     public function parseEntities($body)
@@ -371,5 +372,3 @@ class AtomReaderWriter implements IAtomReaderWriter
         return $entities;
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Queue\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Queue\Models;
+
 use MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -53,13 +54,13 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
         $actual = MicrosoftAzureQueueMessage::createFromListMessages($sample);
         
         // Assert
-        $this->assertEquals($sample['MessageId'] , $actual->getMessageId());
-        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['InsertionTime']) , $actual->getInsertionDate());
-        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['ExpirationTime']) , $actual->getExpirationDate());
-        $this->assertEquals($sample['PopReceipt'] , $actual->getPopReceipt());
+        $this->assertEquals($sample['MessageId'], $actual->getMessageId());
+        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['InsertionTime']), $actual->getInsertionDate());
+        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['ExpirationTime']), $actual->getExpirationDate());
+        $this->assertEquals($sample['PopReceipt'], $actual->getPopReceipt());
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['TimeNextVisible']), $actual->getTimeNextVisible());
-        $this->assertEquals(intval($sample['DequeueCount']) , $actual->getDequeueCount());
-        $this->assertEquals($sample['MessageText'] , $actual->getMessageText());
+        $this->assertEquals(intval($sample['DequeueCount']), $actual->getDequeueCount());
+        $this->assertEquals($sample['MessageText'], $actual->getMessageText());
     }
     
     /**
@@ -75,11 +76,11 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
         $actual = MicrosoftAzureQueueMessage::createFromPeekMessages($sample);
         
         // Assert
-        $this->assertEquals($sample['MessageId'] , $actual->getMessageId());
-        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['InsertionTime']) , $actual->getInsertionDate());
-        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['ExpirationTime']) , $actual->getExpirationDate());
-        $this->assertEquals(intval($sample['DequeueCount']) , $actual->getDequeueCount());
-        $this->assertEquals($sample['MessageText'] , $actual->getMessageText());
+        $this->assertEquals($sample['MessageId'], $actual->getMessageId());
+        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['InsertionTime']), $actual->getInsertionDate());
+        $this->assertEquals(Utilities::rfc1123ToDateTime($sample['ExpirationTime']), $actual->getExpirationDate());
+        $this->assertEquals(intval($sample['DequeueCount']), $actual->getDequeueCount());
+        $this->assertEquals($sample['MessageText'], $actual->getMessageText());
     }
     
     /**
@@ -320,5 +321,3 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Functional\Table\Models;
+namespace MicrosoftAzure\Storage\Tests\functional\Table\Models;
 
 class BatchWorkerConfig
 {
@@ -32,5 +32,3 @@ class BatchWorkerConfig
     public $ent;
     public $options;
 }
-
-

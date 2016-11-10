@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -50,7 +51,7 @@ class XmlSerializer implements ISerializer
      *
      * @param string $sxml The SimpleXML object.
      * @param array  $arr  The array into which to store results.
-     * 
+     *
      * @return array
      */
     private function _sxml2arr($sxml, $arr = null)
@@ -63,7 +64,7 @@ class XmlSerializer implements ISerializer
             }
         }
 
-        return $arr; 
+        return $arr;
     }
     
     /**
@@ -73,7 +74,7 @@ class XmlSerializer implements ISerializer
      * and is used for creating the XML.
      * @param array     $data       Array to be converted to XML.
      * @param string    $defaultTag Default XML tag to be used if none specified.
-     * 
+     *
      * @return void
      */
     private function _arr2xml(\XMLWriter $xmlw, $data, $defaultTag = null)
@@ -83,7 +84,7 @@ class XmlSerializer implements ISerializer
                 foreach ($value as $attributeName => $attributeValue) {
                     $xmlw->writeAttribute($attributeName, $attributeValue);
                 }
-            } else if (is_array($value)) {
+            } elseif (is_array($value)) {
                 if (!is_int($key)) {
                     if ($key != Resources::EMPTY_STRING) {
                         $xmlw->startElement($key);
@@ -104,12 +105,12 @@ class XmlSerializer implements ISerializer
     }
 
     /**
-     * Gets the attributes of a specified object if get attributes 
-     * method is exposed. 
+     * Gets the attributes of a specified object if get attributes
+     * method is exposed.
      *
-     * @param object $targetObject The target object. 
+     * @param object $targetObject The target object.
      * @param array  $methodArray  The array of method of the target object.
-     * 
+     *
      * @return mixed
      */
     private static function _getInstanceAttributes($targetObject, $methodArray)
@@ -123,12 +124,12 @@ class XmlSerializer implements ISerializer
         return null;
     }
 
-    /** 
-     * Serialize an object with specified root element name. 
-     * 
-     * @param object $targetObject The target object. 
-     * @param string $rootName     The name of the root element. 
-     * 
+    /**
+     * Serialize an object with specified root element name.
+     *
+     * @param object $targetObject The target object.
+     * @param string $rootName     The name of the root element.
+     *
      * @return string
      */
     public static function objectSerialize($targetObject, $rootName)
@@ -136,12 +137,12 @@ class XmlSerializer implements ISerializer
         Validate::notNull($targetObject, 'targetObject');
         Validate::isString($rootName, 'rootName');
         $xmlWriter = new \XmlWriter();
-        $xmlWriter->openMemory(); 
+        $xmlWriter->openMemory();
         $xmlWriter->setIndent(true);
         $reflectionClass = new \ReflectionClass($targetObject);
         $methodArray     = $reflectionClass->getMethods();
         $attributes      = self::_getInstanceAttributes(
-            $targetObject, 
+            $targetObject,
             $methodArray
         );
          
@@ -149,15 +150,15 @@ class XmlSerializer implements ISerializer
         if (!is_null($attributes)) {
             foreach (array_keys($attributes) as $attributeKey) {
                 $xmlWriter->writeAttribute(
-                    $attributeKey, 
+                    $attributeKey,
                     $attributes[$attributeKey]
                 );
             }
         }
 
         foreach ($methodArray as $method) {
-            if ((strpos($method->name, 'get') === 0) 
-                && $method->isPublic() 
+            if ((strpos($method->name, 'get') === 0)
+                && $method->isPublic()
                 && ($method->name != 'getAttributes')
             ) {
                 $variableName  = substr($method->name, 3);
@@ -166,15 +167,16 @@ class XmlSerializer implements ISerializer
                     if (gettype($variableValue) === 'object') {
                         $xmlWriter->writeRaw(
                             XmlSerializer::objectSerialize(
-                                $variableValue, $variableName
+                                $variableValue,
+                                $variableName
                             )
                         );
                     } else {
                         $xmlWriter->writeElement($variableName, $variableValue);
-                    } 
+                    }
                 }
             }
-        } 
+        }
         $xmlWriter->endElement();
         return $xmlWriter->outputMemory(true);
     }
@@ -182,10 +184,10 @@ class XmlSerializer implements ISerializer
     /**
      * Serializes given array. The array indices must be string to use them as
      * as element name.
-     * 
+     *
      * @param array $array      The object to serialize represented in array.
      * @param array $properties The used properties in the serialization process.
-     * 
+     *
      * @return string
      */
     public function serialize($array, $properties = null)
@@ -229,9 +231,9 @@ class XmlSerializer implements ISerializer
     
     /**
      * Unserializes given serialized string.
-     * 
+     *
      * @param string $serialized The serialized object in string representation.
-     * 
+     *
      * @return array
      */
     public function unserialize($serialized)
@@ -241,5 +243,3 @@ class XmlSerializer implements ISerializer
         return $this->_sxml2arr($sxml);
     }
 }
-
-

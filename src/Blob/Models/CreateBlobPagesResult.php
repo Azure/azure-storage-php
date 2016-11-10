@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -61,11 +62,11 @@ class CreateBlobPagesResult
     private $_contentMD5;
     
     /**
-     * Creates CreateBlobPagesResult object from $parsed response in array 
+     * Creates CreateBlobPagesResult object from $parsed response in array
      * representation
-     * 
+     *
      * @param array $headers HTTP response headers
-     * 
+     *
      * @return CreateBlobPagesResult
      */
     public static function create($headers)
@@ -180,5 +181,3 @@ class CreateBlobPagesResult
         $this->_sequenceNumber = $sequenceNumber;
     }
 }
-
-

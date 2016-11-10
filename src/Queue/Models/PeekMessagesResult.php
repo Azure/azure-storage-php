@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -41,7 +42,7 @@ class PeekMessagesResult
 {
     /**
      * Holds all message entries.
-     * 
+     *
      * @var array.
      */
     private $_queueMessages;
@@ -50,7 +51,7 @@ class PeekMessagesResult
      * Creates PeekMessagesResult object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult.
      */
     public static function create($parsedResponse)
@@ -73,7 +74,7 @@ class PeekMessagesResult
     
     /**
      * Gets queueMessages field.
-     * 
+     *
      * @return integer
      */
     public function getQueueMessages()
@@ -89,9 +90,9 @@ class PeekMessagesResult
     
     /**
      * Sets queueMessages field.
-     * 
+     *
      * @param integer $queueMessages value to use.
-     * 
+     *
      * @return none
      */
     public function setQueueMessages($queueMessages)
@@ -99,5 +100,3 @@ class PeekMessagesResult
         $this->_queueMessages = $queueMessages;
     }
 }
-
-

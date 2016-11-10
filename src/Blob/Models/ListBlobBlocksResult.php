@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -72,10 +73,10 @@ class ListBlobBlocksResult
     
     /**
      * Gets block entries from parsed response
-     * 
+     *
      * @param array  $parsed HTTP response
      * @param string $type   Block type
-     * 
+     *
      * @return array
      */
     private static function _getEntries($parsed, $type)
@@ -85,7 +86,7 @@ class ListBlobBlocksResult
         if (is_array($parsed)) {
             $rawEntries = array();
          
-            if (   array_key_exists($type, $parsed)
+            if (array_key_exists($type, $parsed)
                 &&     is_array($parsed[$type])
                 &&     !empty($parsed[$type])
             ) {
@@ -102,10 +103,10 @@ class ListBlobBlocksResult
     
     /**
      * Creates ListBlobBlocksResult from given response headers and parsed body
-     * 
+     *
      * @param array $headers HTTP response headers
      * @param array $parsed  HTTP response body in array representation
-     * 
+     *
      * @return ListBlobBlocksResult
      */
     public static function create($headers, $parsed)
@@ -129,7 +130,8 @@ class ListBlobBlocksResult
         );
         
         $result->_uncommittedBlocks = self::_getEntries(
-            $parsed, 'UncommittedBlocks'
+            $parsed,
+            'UncommittedBlocks'
         );
         $result->_committedBlocks   = self::_getEntries($parsed, 'CommittedBlocks');
         
@@ -228,7 +230,7 @@ class ListBlobBlocksResult
     
     /**
      * Gets uncommitted blocks
-     * 
+     *
      * @return array
      */
     public function getUncommittedBlocks()
@@ -238,9 +240,9 @@ class ListBlobBlocksResult
     
     /**
      * Sets uncommitted blocks
-     * 
+     *
      * @param array $uncommittedBlocks The uncommitted blocks entries
-     * 
+     *
      * @return none.
      */
     public function setUncommittedBlocks($uncommittedBlocks)
@@ -250,7 +252,7 @@ class ListBlobBlocksResult
     
     /**
      * Gets committed blocks
-     * 
+     *
      * @return array
      */
     public function getCommittedBlocks()
@@ -260,9 +262,9 @@ class ListBlobBlocksResult
     
     /**
      * Sets committed blocks
-     * 
+     *
      * @param array $committedBlocks The committed blocks entries
-     * 
+     *
      * @return none.
      */
     public function setCommittedBlocks($committedBlocks)
@@ -270,5 +272,3 @@ class ListBlobBlocksResult
         $this->_committedBlocks = $committedBlocks;
     }
 }
-
-

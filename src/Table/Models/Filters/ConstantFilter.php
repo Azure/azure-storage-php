@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
+
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 
 /**
@@ -50,7 +51,7 @@ class ConstantFilter extends Filter
     
     /**
      * Constructor.
-     * 
+     *
      * @param string $edmType The EDM type.
      * @param string $value   The EDM value.
      */
@@ -62,8 +63,8 @@ class ConstantFilter extends Filter
 
     /**
      * Gets value
-     * 
-     * @return mix 
+     *
+     * @return mix
      */
     public function getValue()
     {
@@ -72,7 +73,7 @@ class ConstantFilter extends Filter
     
     /**
      * Gets the type of the constant.
-     * 
+     *
      * @return string
      */
     public function getEdmType()
@@ -80,5 +81,3 @@ class ConstantFilter extends Filter
         return $this->_edmType;
     }
 }
-
-

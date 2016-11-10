@@ -52,9 +52,10 @@ interface IAuthScheme
      *
      * @return string
      */
-    public function getAuthorizationHeader($headers, $url, $queryParams,
+    public function getAuthorizationHeader(
+        $headers,
+        $url,
+        $queryParams,
         $httpMethod
     );
 }
-
-

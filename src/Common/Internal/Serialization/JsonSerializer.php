@@ -23,7 +23,9 @@
  */
 
 namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+
 /**
  * Perform JSON serialization / deserialization
  *
@@ -92,5 +94,3 @@ class JsonSerializer implements ISerializer
         }
     }
 }
-
-

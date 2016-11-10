@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -574,7 +574,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::generateCryptoKey
      */
-    public function testGenerateCryptoKey(){
+    public function testGenerateCryptoKey()
+    {
 
         // Setup
         $length = 32;
@@ -589,7 +590,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::ctrCrypt
      */
-    public function testCtrCrypt(){
+    public function testCtrCrypt()
+    {
     
         // Setup
         $data = 'Test data more than 16 bytes';
@@ -608,7 +610,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::ctrCrypt
      */
-    public function testCtrCryptFixedKeys(){
+    public function testCtrCryptFixedKeys()
+    {
     
         // Setup
         $data = 'Test data more than 16 bytes';
@@ -628,7 +631,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::ctrCrypt
      */
-    public function testCtrCryptInvalidKeyLength(){
+    public function testCtrCryptInvalidKeyLength()
+    {
     
         // Setup
         $data = 'Test data more than 16 bytes';
@@ -645,7 +649,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::ctrCrypt
      */
-    public function testCtrCryptInvalidInitializationVectorLength(){
+    public function testCtrCryptInvalidInitializationVectorLength()
+    {
     
         // Setup
         $data = 'Test data more than 16 bytes';
@@ -660,7 +665,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
      */
-    public function testBase256ToDecF(){
+    public function testBase256ToDecF()
+    {
     
         // Setup
         $data = pack('C*', 255, 255, 255, 255);
@@ -676,7 +682,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
      */
-    public function testBase256ToDec0(){
+    public function testBase256ToDec0()
+    {
     
         // Setup
         $data = pack('C*', 0, 0, 0, 0);
@@ -693,7 +700,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
      */
-    public function testBase256ToDec(){
+    public function testBase256ToDec()
+    {
     
         // Setup
         $data = pack('C*', 34, 78, 27, 55);
@@ -709,7 +717,8 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
      */
-    public function testBase256ToDecBig(){
+    public function testBase256ToDecBig()
+    {
     
         // Setup
         $data = pack('C*', 81, 35, 29, 39, 236, 104, 105, 144); //51 23 1D 27 EC 68 69 90

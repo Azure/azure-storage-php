@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
@@ -39,8 +40,8 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
  * @link      https://github.com/azure/azure-storage-php
  */
 class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
-{  
-    /** 
+{
+    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setMetadata
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getMetadata
      */
@@ -53,7 +54,7 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $expected,
             $copyBlobOptions->getMetadata()
-            );
+        );
     }
     
     /**
@@ -85,10 +86,10 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             $expected,
             $copyBlobOptions->getSourceAccessCondition()
-         );
+        );
     }
     
-    /** 
+    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setLeaseId
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getLeaseId
      */
@@ -101,7 +102,7 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
     
-    /** 
+    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setSourceLeaseId
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getSourceLeaseId
      */
@@ -114,4 +115,3 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getSourceLeaseId());
     }
 }
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -41,7 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 class EdmType
 {
     // @codingStandardsIgnoreStart
-    
+
     const DATETIME = 'Edm.DateTime';
     const BINARY   = 'Edm.Binary';
     const BOOLEAN  = 'Edm.Boolean';
@@ -53,9 +54,9 @@ class EdmType
     
     /**
      * Converts the type to string if it's empty and validates the type.
-     * 
+     *
      * @param string $type The Edm type
-     * 
+     *
      * @return string
      */
     public static function processType($type)
@@ -68,14 +69,14 @@ class EdmType
     
     /**
      * Validates that the value associated with the EDM type is valid.
-     * 
+     *
      * @param string $type       The EDM type.
      * @param mix    $value      The EDM value.
      * @param string &$condition The error message.
-     * 
+     *
      * @return boolean
-     * 
-     * @throws \InvalidArgumentException 
+     *
+     * @throws \InvalidArgumentException
      */
     public static function validateEdmValue($type, $value, &$condition = null)
     {
@@ -118,13 +119,13 @@ class EdmType
     
     /**
      * Serializes EDM value into proper value for sending it to Windows Azure.
-     * 
+     *
      * @param string $type  The EDM type.
      * @param mix    $value The EDM value.
-     * 
+     *
      * @return string
-     * 
-     * @throws \InvalidArgumentException 
+     *
+     * @throws \InvalidArgumentException
      */
     public static function serializeValue($type, $value)
     {
@@ -154,13 +155,13 @@ class EdmType
     
     /**
      * Serializes EDM value into proper value to be used in query.
-     * 
+     *
      * @param string $type  The EDM type.
      * @param mix    $value The EDM value.
-     * 
+     *
      * @return string
-     * 
-     * @throws \InvalidArgumentException 
+     *
+     * @throws \InvalidArgumentException
      */
     public static function serializeQueryValue($type, $value)
     {
@@ -197,12 +198,12 @@ class EdmType
     
     /**
      * Converts the value into its proper type.
-     * 
+     *
      * @param string $type  The edm type.
      * @param string $value The edm value.
-     * 
+     *
      * @return mix
-     * 
+     *
      * @throws \InvalidArgumentException
      */
     public static function unserializeQueryValue($type, $value)
@@ -243,14 +244,14 @@ class EdmType
     
     /**
      * Check if the $type belongs to valid header types.
-     * 
+     *
      * @param string $type The type string to check.
-     * 
-     * @return boolean 
+     *
+     * @return boolean
      */
     public static function isValid($type)
     {
-        switch($type) {
+        switch ($type) {
         case $type == self::DATETIME:
         case $type == self::BINARY:
         case $type == self::BOOLEAN:

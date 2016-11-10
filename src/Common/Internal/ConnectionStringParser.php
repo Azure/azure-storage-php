@@ -267,7 +267,7 @@ class ConnectionStringParser
         if ($ch == '"' || $ch == '\'') {
             $this->_pos++;
             $key = $this->_extractString($ch);
-        } else if ($ch == ';' || $ch == '=') {
+        } elseif ($ch == ';' || $ch == '=') {
             // Key name was expected.
             throw $this->_createException(
                 $firstPos,

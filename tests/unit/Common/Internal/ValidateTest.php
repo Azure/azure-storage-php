@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -519,7 +520,8 @@ class ValidateTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Validate::isDateString
      */
-    public function testIsDateStringValid(){
+    public function testIsDateStringValid()
+    {
 
         // Setup
         $value = '2013-11-25';
@@ -534,7 +536,8 @@ class ValidateTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Validate::isDateString
      */
-    public function testIsDateStringNotValid(){
+    public function testIsDateStringNotValid()
+    {
 
         // Setup
         $this->setExpectedException('\InvalidArgumentException');
@@ -546,4 +549,3 @@ class ValidateTest extends \PHPUnit_Framework_TestCase
         // Assert
     }
 }
-

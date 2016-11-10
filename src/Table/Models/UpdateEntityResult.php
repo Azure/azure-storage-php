@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -46,10 +47,10 @@ class UpdateEntityResult
     
     /**
      * Creates UpdateEntityResult from HTTP response headers.
-     * 
+     *
      * @param array $headers The HTTP response headers.
-     * 
-     * @return \MicrosoftAzure\Storage\Table\Models\UpdateEntityResult 
+     *
+     * @return \MicrosoftAzure\Storage\Table\Models\UpdateEntityResult
      */
     public static function create($headers)
     {
@@ -82,5 +83,3 @@ class UpdateEntityResult
         $this->_etag = $etag;
     }
 }
-
-

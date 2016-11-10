@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
 
 /**
@@ -36,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetContainerAclResult
+class GetContainerACLResult
 {
     /**
      * @var ContainerAcl
@@ -55,13 +56,13 @@ class GetContainerAclResult
     
     /**
      * Parses the given array into signed identifiers
-     * 
+     *
      * @param string    $publicAccess container public access
      * @param string    $etag         container etag
      * @param \DateTime $lastModified last modification date
      * @param array     $parsed       parsed response into array
      * representation
-     * 
+     *
      * @return none.
      */
     public static function create($publicAccess, $etag, $lastModified, $parsed)
@@ -77,7 +78,7 @@ class GetContainerAclResult
     
     /**
      * Gets container ACL
-     * 
+     *
      * @return ContainerAcl
      */
     public function getContainerAcl()
@@ -87,9 +88,9 @@ class GetContainerAclResult
     
     /**
      * Sets container ACL
-     * 
+     *
      * @param ContainerAcl $containerACL value.
-     * 
+     *
      * @return none.
      */
     public function setContainerAcl($containerACL)
@@ -141,5 +142,3 @@ class GetContainerAclResult
         $this->_etag = $etag;
     }
 }
-
-

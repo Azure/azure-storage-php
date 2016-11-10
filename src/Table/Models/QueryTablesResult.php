@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -40,7 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 class QueryTablesResult
 {
     /**
-     * @var string 
+     * @var string
      */
     private $_nextTableName;
     
@@ -51,11 +52,11 @@ class QueryTablesResult
     
     /**
      * Creates new QueryTablesResult object
-     * 
+     *
      * @param array $headers The HTTP response headers
      * @param array $entries The table entriess
-     * 
-     * @return \MicrosoftAzure\Storage\Table\Models\QueryTablesResult 
+     *
+     * @return \MicrosoftAzure\Storage\Table\Models\QueryTablesResult
      */
     public static function create($headers, $entries)
     {
@@ -64,7 +65,8 @@ class QueryTablesResult
         
         $result->setNextTableName(
             Utilities::tryGetValue(
-                $headers, Resources::X_MS_CONTINUATION_NEXTTABLENAME
+                $headers,
+                Resources::X_MS_CONTINUATION_NEXTTABLENAME
             )
         );
         $result->setTables($entries);
@@ -74,7 +76,7 @@ class QueryTablesResult
     
     /**
      * Gets nextTableName
-     * 
+     *
      * @return string
      */
     public function getNextTableName()
@@ -84,9 +86,9 @@ class QueryTablesResult
     
     /**
      * Sets nextTableName
-     * 
+     *
      * @param string $nextTableName value
-     * 
+     *
      * @return none
      */
     public function setNextTableName($nextTableName)
@@ -96,7 +98,7 @@ class QueryTablesResult
     
     /**
      * Gets tables
-     * 
+     *
      * @return array
      */
     public function getTables()
@@ -106,9 +108,9 @@ class QueryTablesResult
     
     /**
      * Sets tables
-     * 
+     *
      * @param array $tables value
-     * 
+     *
      * @return none
      */
     public function setTables($tables)
@@ -116,5 +118,3 @@ class QueryTablesResult
         $this->_tables = $tables;
     }
 }
-
-

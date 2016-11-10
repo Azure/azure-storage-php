@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Models;
+
 use MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -50,7 +51,6 @@ class GetServicePropertiesResultTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertTrue(isset($result));
-        
     }
     
     /**
@@ -67,7 +67,6 @@ class GetServicePropertiesResultTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertEquals($expected, $actual);
-        
     }
     
     /**
@@ -84,8 +83,5 @@ class GetServicePropertiesResultTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertEquals($expected, $result->getValue());
-        
     }
 }
-
-

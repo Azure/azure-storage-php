@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Framework;
+namespace MicrosoftAzure\Storage\Tests\framework;
+
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -302,7 +303,7 @@ class TestResources
         $sample = array();
         $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
         $sample['MaxResults'] = '2';
-        $sample['Queues'] = array ('Queue' => array(
+        $sample['Queues'] = array('Queue' => array(
           0 => array('Name' => 'myqueue1'),
           1 => array('Name' => 'myqueue2')
         ));
@@ -343,7 +344,7 @@ class TestResources
         $sample = array();
         $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
         $sample['MaxResults'] = '3';
-        $sample['Containers'] = array ('Container' => array(
+        $sample['Containers'] = array('Container' => array(
           0 => array(
             'Name' => 'audio',
             'Properties' => array(
@@ -367,7 +368,7 @@ class TestResources
     public static function getContainerAclOneEntrySample()
     {
         $sample = array();
-        $sample['SignedIdentifiers'] = array('SignedIdentifier' => array (
+        $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
             'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
                 'Start' => '2009-09-28T08%3A49%3A37.0000000Z',
@@ -381,13 +382,13 @@ class TestResources
     public static function getContainerAclMultipleEntriesSample()
     {
         $sample = array();
-        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array (
-            0 => array ('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
                 'Start' => '2010-09-28T08%3A49%3A37.0000000Z',
                 'Expiry' => '2010-09-29T08%3A49%3A37.0000000Z',
                 'Permission' => 'wd')),
-            1 => array ('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
                 'Start' => '2009-09-28T08%3A49%3A37.0000000Z',
                 'Expiry' => '2009-09-29T08%3A49%3A37.0000000Z',
@@ -533,5 +534,3 @@ class TestResources
         return $data;
     }
 }
-
-

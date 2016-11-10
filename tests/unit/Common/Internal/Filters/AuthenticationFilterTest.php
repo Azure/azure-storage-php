@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Filters;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\Filters\AuthenticationFilter;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
@@ -51,7 +52,7 @@ class AuthenticationFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $scheme = new SharedKeyAuthScheme('acount', 'key');
         $filter = new AuthenticationFilter($scheme);
         
@@ -70,7 +71,7 @@ class AuthenticationFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $scheme = new TableSharedKeyLiteAuthScheme('acount', 'key');
         $filter = new AuthenticationFilter($scheme);
         
@@ -89,7 +90,7 @@ class AuthenticationFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $response = null;
         $scheme = new SharedKeyAuthScheme('acount', 'key');
         $filter = new AuthenticationFilter($scheme);
@@ -101,5 +102,3 @@ class AuthenticationFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($response);
     }
 }
-
-

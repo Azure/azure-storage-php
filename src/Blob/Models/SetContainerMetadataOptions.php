@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 
@@ -40,12 +41,12 @@ use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 class SetContainerMetadataOptions extends BlobServiceOptions
 {
     /**
-     * @var AccessCondition 
+     * @var AccessCondition
      */
     private $_accessCondition;
     
     /**
-     * Constructs the access condition object with none option. 
+     * Constructs the access condition object with none option.
      */
     public function __construct()
     {
@@ -54,7 +55,7 @@ class SetContainerMetadataOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -64,9 +65,9 @@ class SetContainerMetadataOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -74,5 +75,3 @@ class SetContainerMetadataOptions extends BlobServiceOptions
         $this->_accessCondition = $accessCondition;
     }
 }
-
-

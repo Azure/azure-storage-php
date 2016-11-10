@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -41,7 +42,7 @@ class ListMessagesResult
 {
     /**
      * Holds all message entries.
-     * 
+     *
      * @var array.
      */
     private $_queueMessages;
@@ -50,7 +51,7 @@ class ListMessagesResult
      * Creates ListMessagesResult object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\ListMessagesResult.
      */
     public static function create($parsedResponse)
@@ -73,7 +74,7 @@ class ListMessagesResult
     
     /**
      * Gets queueMessages field.
-     * 
+     *
      * @return array
      */
     public function getQueueMessages()
@@ -83,9 +84,9 @@ class ListMessagesResult
     
     /**
      * Sets queueMessages field.
-     * 
+     *
      * @param integer $queueMessages value to use.
-     * 
+     *
      * @return none
      */
     public function setQueueMessages($queueMessages)
@@ -97,5 +98,3 @@ class ListMessagesResult
         }
     }
 }
-
-

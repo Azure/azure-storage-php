@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Filters;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\Filters\ExponentialRetryPolicy;
 
 /**
@@ -41,7 +42,7 @@ class ExponentialRetryPolicyTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Filters\ExponentialRetryPolicy::__construct
      */
-    public function test__construct()
+    public function testConstruct()
     {
         // Setup
         $expectedRetryableStatusCodes = array(200, 201);
@@ -57,7 +58,7 @@ class ExponentialRetryPolicyTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Filters\ExponentialRetryPolicy::shouldRetry
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testShouldRetryFalse($retryPolicy)
     {
@@ -73,7 +74,7 @@ class ExponentialRetryPolicyTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Filters\ExponentialRetryPolicy::calculateBackoff
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testCalculateBackoff($retryPolicy)
     {
@@ -82,8 +83,5 @@ class ExponentialRetryPolicyTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertTrue(is_integer($actual));
-        
     }
 }
-
-

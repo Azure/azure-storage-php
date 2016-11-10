@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -63,10 +64,10 @@ class ListPageBlobRangesResult
     
     /**
      * Creates BlobProperties object from $parsed response in array representation
-     * 
+     *
      * @param array $headers HTTP response headers
      * @param array $parsed  parsed response in array format.
-     * 
+     *
      * @return ListPageBlobRangesResult
      */
     public static function create($headers, $parsed)
@@ -87,7 +88,8 @@ class ListPageBlobRangesResult
         $result->_pageRanges = array();
         foreach ($rawPageRanges as $value) {
             $result->_pageRanges[] = new PageRange(
-                intval($value['Start']), intval($value['End'])
+                intval($value['Start']),
+                intval($value['End'])
             );
         }
         
@@ -169,7 +171,7 @@ class ListPageBlobRangesResult
     
     /**
      * Gets page ranges
-     * 
+     *
      * @return array
      */
     public function getPageRanges()
@@ -179,9 +181,9 @@ class ListPageBlobRangesResult
     
     /**
      * Sets page ranges
-     * 
+     *
      * @param array $pageRanges page ranges to set
-     * 
+     *
      * @return none
      */
     public function setPageRanges($pageRanges)
@@ -192,5 +194,3 @@ class ListPageBlobRangesResult
         }
     }
 }
-
-

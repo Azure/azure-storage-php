@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -102,9 +103,9 @@ class BlobProperties
     
     /**
      * Creates BlobProperties object from $parsed response in array representation
-     * 
+     *
      * @param array $parsed parsed response in array format.
-     * 
+     *
      * @return BlobProperties
      */
     public static function create($parsed)
@@ -125,7 +126,9 @@ class BlobProperties
         $result->setLeaseStatus(Utilities::tryGetValue($clean, 'leasestatus'));
         $result->setLeaseStatus(
             Utilities::tryGetValue(
-                $clean, Resources::X_MS_LEASE_STATUS, $result->getLeaseStatus()
+                $clean,
+                Resources::X_MS_LEASE_STATUS,
+                $result->getLeaseStatus()
             )
         );
         $result->setSequenceNumber(
@@ -141,7 +144,9 @@ class BlobProperties
         );
         $result->setBlobType(
             Utilities::tryGetValue(
-                $clean, Resources::X_MS_BLOB_TYPE, $result->getBlobType()
+                $clean,
+                Resources::X_MS_BLOB_TYPE,
+                $result->getBlobType()
             )
         );
         $result->setContentEncoding(
@@ -427,5 +432,3 @@ class BlobProperties
         $this->_sequenceNumber = $sequenceNumber;
     }
 }
-
-

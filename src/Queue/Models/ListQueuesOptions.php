@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
 use \MicrosoftAzure\Storage\Common\Internal\Validate;
 
@@ -58,7 +59,7 @@ class ListQueuesOptions extends QueueServiceOptions
      * Sets prefix.
      *
      * @param string $prefix value.
-     * 
+     *
      * @return none.
      */
     public function setPrefix($prefix)
@@ -69,7 +70,7 @@ class ListQueuesOptions extends QueueServiceOptions
 
     /**
      * Gets marker.
-     * 
+     *
      * @return string.
      */
     public function getMarker()
@@ -81,7 +82,7 @@ class ListQueuesOptions extends QueueServiceOptions
      * Sets marker.
      *
      * @param string $marker value.
-     * 
+     *
      * @return none.
      */
     public function setMarker($marker)
@@ -92,7 +93,7 @@ class ListQueuesOptions extends QueueServiceOptions
 
     /**
      * Gets max results.
-     * 
+     *
      * @return string.
      */
     public function getMaxResults()
@@ -104,7 +105,7 @@ class ListQueuesOptions extends QueueServiceOptions
      * Sets max results.
      *
      * @param string $maxResults value.
-     * 
+     *
      * @return none.
      */
     public function setMaxResults($maxResults)
@@ -115,7 +116,7 @@ class ListQueuesOptions extends QueueServiceOptions
 
     /**
      * Indicates if metadata is included or not.
-     * 
+     *
      * @return boolean.
      */
     public function getIncludeMetadata()
@@ -127,7 +128,7 @@ class ListQueuesOptions extends QueueServiceOptions
      * Sets the include metadata flag.
      *
      * @param bool $includeMetadata value.
-     * 
+     *
      * @return none.
      */
     public function setIncludeMetadata($includeMetadata)
@@ -136,5 +137,3 @@ class ListQueuesOptions extends QueueServiceOptions
         $this->_includeMetadata = $includeMetadata;
     }
 }
-
-

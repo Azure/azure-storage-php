@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,12 +22,12 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Serialization;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Serialization;
+
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
-
 
 /**
  * Unit tests for class XmlSerializer
@@ -148,7 +148,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
      */
     public function testObjectSerializeSucceessWithAttributes()
     {
-        // Setup 
+        // Setup
         $expected = "<DummyClass testAttribute=\"testAttributeValue\"/>\n";
         $target = new DummyClass();
         $target->addAttribute('testAttribute', 'testAttributeValue');
@@ -174,5 +174,4 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         $actual = XmlSerializer::objectSerialize(null, null);
         // Assert
     }
-
 }

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -45,13 +46,13 @@ class Queue
 
     /**
      * Constructor
-     * 
+     *
      * @param string $name queue name.
      * @param string $url  queue url.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\Queue.
      */
-    function __construct($name, $url)
+    public function __construct($name, $url)
     {
         $this->_name = $name;
         $this->_url  = $url;
@@ -71,7 +72,7 @@ class Queue
      * Sets queue name.
      *
      * @param string $name value.
-     * 
+     *
      * @return none.
      */
     public function setName($name)
@@ -93,7 +94,7 @@ class Queue
      * Sets queue url.
      *
      * @param string $url value.
-     * 
+     *
      * @return none.
      */
     public function setUrl($url)
@@ -115,7 +116,7 @@ class Queue
      * Sets queue metadata.
      *
      * @param array $metadata value.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -123,4 +124,3 @@ class Queue
         $this->_metadata = $metadata;
     }
 }
-

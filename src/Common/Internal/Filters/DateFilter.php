@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
 
@@ -38,12 +39,12 @@ use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
  * @link      https://github.com/azure/azure-storage-php
  */
 class DateFilter implements IServiceFilter
-{   
+{
     /**
      * Adds date (in GMT format) header to the request headers.
      *
      * @param \GuzzleHttp\Psr7\Request $request HTTP request object.
-     * 
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     public function handleRequest($request)
@@ -66,5 +67,3 @@ class DateFilter implements IServiceFilter
         return $response;
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -73,7 +74,7 @@ class Container
      * Sets container name.
      *
      * @param string $name value.
-     * 
+     *
      * @return none.
      */
     public function setName($name)
@@ -95,7 +96,7 @@ class Container
      * Sets container url.
      *
      * @param string $url value.
-     * 
+     *
      * @return none.
      */
     public function setUrl($url)
@@ -117,7 +118,7 @@ class Container
      * Sets container metadata.
      *
      * @param array $metadata value.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -127,7 +128,7 @@ class Container
     
     /**
      * Gets container properties
-     * 
+     *
      * @return ContainerProperties
      */
     public function getProperties()
@@ -137,9 +138,9 @@ class Container
     
     /**
      * Sets container properties
-     * 
+     *
      * @param ContainerProperties $properties container properties
-     * 
+     *
      * @return none.
      */
     public function setProperties($properties)
@@ -147,4 +148,3 @@ class Container
         $this->_properties = $properties;
     }
 }
-

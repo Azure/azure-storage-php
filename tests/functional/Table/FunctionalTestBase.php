@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Functional\Table;
+namespace MicrosoftAzure\Storage\Tests\functional\Table;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Table\Models\Entity;
@@ -45,7 +45,7 @@ class FunctionalTestBase extends IntegrationTestBase
     {
         TableServiceFunctionalTestData::setupData();
 
-        foreach(TableServiceFunctionalTestData::$testTableNames as $name)  {
+        foreach (TableServiceFunctionalTestData::$testTableNames as $name) {
             // self::println('Creating Table: ' . $name);
             $this->restProxy->createTable($name);
         }
@@ -56,7 +56,7 @@ class FunctionalTestBase extends IntegrationTestBase
         if (self::$isOneTimeSetup) {
             $testBase = new FunctionalTestBase();
             $testBase->setUp();
-            foreach(TableServiceFunctionalTestData::$testTableNames as $name)  {
+            foreach (TableServiceFunctionalTestData::$testTableNames as $name) {
                 $testBase->safeDeleteTable($name);
             }
             self::$isOneTimeSetup = false;
@@ -84,7 +84,7 @@ class FunctionalTestBase extends IntegrationTestBase
     {
         $this->clearTable(TableServiceFunctionalTestData::$testTableNames[0]);
         return TableServiceFunctionalTestData::$testTableNames[0];
-     }
+    }
 
     public static function println($msg)
     {
@@ -95,15 +95,15 @@ class FunctionalTestBase extends IntegrationTestBase
     {
         if (is_null($value)) {
             return 'null';
-        } else if (is_bool($value)) {
+        } elseif (is_bool($value)) {
             return ($value == true ? 'true' : 'false');
-        } else if ($value instanceof \DateTime) {
+        } elseif ($value instanceof \DateTime) {
             return Utilities::convertToEdmDateTime($value);
-        } else if ($value instanceof Entity) {
+        } elseif ($value instanceof Entity) {
             return self::entityToString($value);
-        } else if (is_array($value)) {
+        } elseif (is_array($value)) {
             return self::entityPropsToString($value);
-        } else if ($value instanceof Filter) {
+        } elseif ($value instanceof Filter) {
             return TableServiceFunctionalTestUtils::filtertoString($value);
         } else {
             return $value;
@@ -113,11 +113,11 @@ class FunctionalTestBase extends IntegrationTestBase
     public static function entityPropsToString($props)
     {
         $ret = '';
-        foreach($props as $k => $value) {
+        foreach ($props as $k => $value) {
             $ret .= $k . ':';
             if (is_null($value)) {
                 $ret .= 'NULL PROP!';
-             } else {
+            } else {
                 $ret .= $value->getEdmType() . ':' . self::tmptostring($value->getValue());
             }
             $ret .= "\n";
@@ -132,5 +132,3 @@ class FunctionalTestBase extends IntegrationTestBase
         return $ret;
     }
 }
-
-

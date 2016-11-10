@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Authentication;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
+
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication\SharedKeyAuthSchemeMock;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -42,7 +43,7 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
     /**
     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::__construct
     */
-    public function test__construct()
+    public function testConstruct()
     {
         $expected = array();
         $expected[] = Resources::CONTENT_ENCODING;
@@ -74,7 +75,7 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $apiVersion = Resources::STORAGE_API_LATEST_VERSION;
         $accountName = TestResources::ACCOUNT_NAME;
         $headers = array(Resources::X_MS_DATE => $date, Resources::X_MS_VERSION => $apiVersion);
-        $expected = "GET\n\n\n\n\n\n\n\n\n\n\n\n" . Resources::X_MS_DATE . ":$date\n" . Resources::X_MS_VERSION . 
+        $expected = "GET\n\n\n\n\n\n\n\n\n\n\n\n" . Resources::X_MS_DATE . ":$date\n" . Resources::X_MS_VERSION .
                 ":$apiVersion\n/$accountName" . parse_url($url, PHP_URL_PATH) . "\ncomp:list";
         $mock = new SharedKeyAuthSchemeMock($accountName, TestResources::KEY4);
 
@@ -105,5 +106,3 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-

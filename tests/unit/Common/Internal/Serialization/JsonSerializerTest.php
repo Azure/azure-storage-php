@@ -22,13 +22,13 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Serialization;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Serialization;
+
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-
 
 /**
  * Unit tests for class XmlSerializer

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
 
 /**
@@ -45,9 +46,9 @@ class HeadersFilter implements IServiceFilter
     
     /**
      * Constructor
-     * 
+     *
      * @param array $headers static headers to be added.
-     * 
+     *
      * @return HeadersFilter
      */
     public function __construct($headers)
@@ -59,7 +60,7 @@ class HeadersFilter implements IServiceFilter
      * Adds static header(s) to the HTTP request headers
      *
      * @param \GuzzleHttp\Psr7\Request $request HTTP request object.
-     * 
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     public function handleRequest($request)
@@ -90,5 +91,3 @@ class HeadersFilter implements IServiceFilter
         return $response;
     }
 }
-
-

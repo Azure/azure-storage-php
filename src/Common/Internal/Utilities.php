@@ -210,10 +210,9 @@ class Utilities
                 && (get_class($value) == 'SimpleXMLElement')
             ) {
                 return (array) $var;
-            } else if (!is_array($value)) {
+            } elseif (!is_array($value)) {
                 return array($var);
             }
-
         }
 
         return $var;
@@ -272,7 +271,10 @@ class Utilities
      *
      * @return string
      */
-    public static function serialize($array, $rootName, $defaultTag = null,
+    public static function serialize(
+        $array,
+        $rootName,
+        $defaultTag = null,
         $standalone = null
     ) {
         $xmlVersion  = '1.0';
@@ -314,7 +316,7 @@ class Utilities
                 foreach ($value as $attributeName => $attributeValue) {
                     $xmlw->writeAttribute($attributeName, $attributeValue);
                 }
-            } else if (is_array($value)) {
+            } elseif (is_array($value)) {
                 if (!is_int($key)) {
                     if ($key != Resources::EMPTY_STRING) {
                         $xmlw->startElement($key);
@@ -400,7 +402,9 @@ class Utilities
         }
 
         $returnValue = str_replace(
-            '+00:00', '.0000000Z', date('c', $timestamp)
+            '+00:00',
+            '.0000000Z',
+            date('c', $timestamp)
         );
         date_default_timezone_set($tz);
         return $returnValue;
@@ -652,12 +656,12 @@ class Utilities
     }
 
     /**
-     * Generate a pseudo-random string of bytes using a cryptographically strong 
+     * Generate a pseudo-random string of bytes using a cryptographically strong
      * algorithm.
      *
      * @param int $length Length of the string in bytes
      *
-     * @return string|boolean Generated string of bytes on success, or FALSE on 
+     * @return string|boolean Generated string of bytes on success, or FALSE on
      *                        failure.
      */
     public static function generateCryptoKey($length)
@@ -668,26 +672,26 @@ class Utilities
     
     /**
      * Encrypts $data with CTR encryption
-     * 
+     *
      * @param string $data                 Data to be encrypted
      * @param string $key                  AES Encryption key
      * @param string $initializationVector Initialization vector
-     * 
+     *
      * @return string Encrypted data
      */
-    public static function ctrCrypt($data, $key, $initializationVector) 
+    public static function ctrCrypt($data, $key, $initializationVector)
     {
         Validate::isString($data, 'data');
         Validate::isString($key, 'key');
         Validate::isString($initializationVector, 'initializationVector');
         
         Validate::isTrue(
-            (strlen($key) == 16 || strlen($key) == 24 || strlen($key) == 32), 
+            (strlen($key) == 16 || strlen($key) == 24 || strlen($key) == 32),
             sprintf(Resources::INVALID_STRING_LENGTH, 'key', '16, 24, 32')
         );
         
         Validate::isTrue(
-            (strlen($initializationVector) == 16), 
+            (strlen($initializationVector) == 16),
             sprintf(Resources::INVALID_STRING_LENGTH, 'initializationVector', '16')
         );
         
@@ -708,9 +712,9 @@ class Utilities
         }
     
         $encryptCtrData = mcrypt_encrypt(
-            MCRYPT_RIJNDAEL_128, 
-            $key, 
-            $ctrData, 
+            MCRYPT_RIJNDAEL_128,
+            $key,
+            $ctrData,
             MCRYPT_MODE_ECB
         );
         
@@ -718,13 +722,13 @@ class Utilities
     }
     
     /**
-     * Convert base 256 number to decimal number. 
-     * 
+     * Convert base 256 number to decimal number.
+     *
      * @param string $number Base 256 number
-     * 
+     *
      * @return string Decimal number
      */
-    public static function base256ToDec($number) 
+    public static function base256ToDec($number)
     {
         Validate::isString($number, 'number');
         

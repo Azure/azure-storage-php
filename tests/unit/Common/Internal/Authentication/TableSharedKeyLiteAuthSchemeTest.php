@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Authentication;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
+
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication\TableSharedKeyLiteAuthSchemeMock;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -42,7 +43,7 @@ class TableSharedKeyLiteAuthSchemeTest extends \PHPUnit_Framework_TestCase
     /**
     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme::__construct
     */
-    public function test__construct()
+    public function testConstruct()
     {
         $expected = array();
         $expected[] = Resources::DATE;
@@ -94,5 +95,3 @@ class TableSharedKeyLiteAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-

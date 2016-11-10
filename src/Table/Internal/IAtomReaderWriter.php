@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -39,57 +39,55 @@ interface IAtomReaderWriter
 {
     /**
      * Constructs XML representation for table entry.
-     * 
+     *
      * @param string $name The name of the table.
-     * 
+     *
      * @return string
      */
     public function getTable($name);
     
     /**
      * Parses one table entry.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function parseTable($body);
     
     /**
      * Constructs array of tables from HTTP response body.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
+     *
      * @return array
      */
     public function parseTableEntries($body);
     
     /**
      * Constructs XML representation for entity.
-     * 
+     *
      * @param Models\Entity $entity The entity instance.
-     * 
+     *
      * @return string
      */
     public function getEntity($entity);
     
     /**
      * Constructs entity from HTTP response body.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
+     *
      * @return Models\Entity
      */
     public function parseEntity($body);
     
     /**
      * Constructs array of entities from HTTP response body.
-     * 
+     *
      * @param string $body The HTTP response body.
-     * 
+     *
      * @return array
      */
     public function parseEntities($body);
 }
-
-
