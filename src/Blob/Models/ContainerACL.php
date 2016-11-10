@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -33,13 +34,13 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 
 /**
  * Holds conatiner ACL members.
- * 
+ *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ContainerAcl
@@ -66,10 +67,10 @@ class ContainerAcl
 
     /**
      * Parses the given array into signed identifiers.
-     * 
+     *
      * @param string $publicAccess The container public access.
      * @param array  $parsed       The parsed response into array representation.
-     * 
+     *
      * @return none
      */
     public static function create($publicAccess, $parsed)
@@ -146,7 +147,7 @@ class ContainerAcl
 
     /**
      * Adds new signed modifier
-     * 
+     *
      * @param string    $id         a unique id for this modifier
      * @param \DateTime $start      The time at which the Shared Access Signature
      * becomes valid. If omitted, start time for this call is assumed to be
@@ -158,9 +159,9 @@ class ContainerAcl
      * Access Signature. The user is restricted to operations allowed by the
      * permissions. Valid permissions values are read (r), write (w), delete (d) and
      * list (l).
-     * 
+     *
      * @return none.
-     * 
+     *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh508996.aspx
      */
     public function addSignedIdentifier($id, $start, $expiry, $permission)
@@ -183,8 +184,8 @@ class ContainerAcl
     }
     
     /**
-     * Converts this object to array representation for XML serialization 
-     * 
+     * Converts this object to array representation for XML serialization
+     *
      * @return array.
      */
     public function toArray()
@@ -200,9 +201,9 @@ class ContainerAcl
     
     /**
      * Converts this current object to XML representation.
-     * 
+     *
      * @param XmlSerializer $xmlSerializer The XML serializer.
-     * 
+     *
      * @return string.
      */
     public function toXml($xmlSerializer)
@@ -215,5 +216,3 @@ class ContainerAcl
         return $xmlSerializer->serialize($this->toArray(), $properties);
     }
 }
-
-

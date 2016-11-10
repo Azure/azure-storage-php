@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class AccessPolicy
@@ -69,7 +69,7 @@ class AccessPolicy
      * Sets start.
      *
      * @param \DateTime $start value.
-     * 
+     *
      * @return none.
      */
     public function setStart($start)
@@ -92,7 +92,7 @@ class AccessPolicy
      * Sets expiry.
      *
      * @param \DateTime $expiry value.
-     * 
+     *
      * @return none.
      */
     public function setExpiry($expiry)
@@ -115,7 +115,7 @@ class AccessPolicy
      * Sets permission.
      *
      * @param string $permission value.
-     * 
+     *
      * @return none.
      */
     public function setPermission($permission)
@@ -125,7 +125,7 @@ class AccessPolicy
     
     /**
      * Converts this current object to XML representation.
-     * 
+     *
      * @return array.
      */
     public function toArray()
@@ -139,5 +139,3 @@ class AccessPolicy
         return $array;
     }
 }
-
-

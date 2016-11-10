@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal;
 
+use GuzzleHttp\Psr7\Stream;
+
 /**
  * Utilities for the project
  *
@@ -32,7 +34,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Utilities
@@ -79,11 +81,11 @@ class Utilities
     
     /**
      * Parse storage account name from an endpoint url.
-     * 
+     *
      * @param string $url The endpoint $url
-     * 
+     *
      * @static
-     * 
+     *
      * @return string
      */
     public static function tryParseAccountNameFromUrl($url)
@@ -736,4 +738,44 @@ class Utilities
         return $result;
     }
 
+    /**
+     * To evaluate if the stream is larger than a certain size. To restore
+     * the stream, it has to be seekable, so will return true if the stream
+     * is not seekable.
+     * @param  StreamInterface  $stream The stream to be evaluated.
+     * @param  int              $size   The size if the string is larger than.
+     *
+     * @return boolean         true if the stream is larger than the given size.
+     */
+    public static function isStreamLargerThanSizeOrNotSeekable($stream, $size)
+    {
+        Validate::isInteger($size, 'size');
+        Validate::isTrue(
+            $stream instanceof Stream,
+            sprintf(Resources::INVALID_PARAM_MSG, 'stream', 'Guzzle\Stream')
+        );
+        $result = true;
+        if ($stream->isSeekable()) {
+            $position = $stream->tell();
+            try {
+                $stream->seek($size);
+            } catch (\RuntimeException $e) {
+                $pos = strpos(
+                    $e->getMessage(),
+                    'to seek to stream position '
+                );
+                if ($pos == null) {
+                    throw $e;
+                }
+                $result = false;
+            }
+            if ($stream->eof()) {
+                $result = false;
+            } elseif ($stream->read(1) == '') {
+                $result = false;
+            }
+            $stream->seek($position);
+        }
+        return $result;
+    }
 }

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,7 +23,9 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
 
 /**
  * optional parameters for createXXXBlob wrapper
@@ -33,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CreateBlobOptions extends BlobServiceOptions
@@ -117,6 +119,11 @@ class CreateBlobOptions extends BlobServiceOptions
      * @var AccessCondition
      */
     private $_accessCondition;
+
+    /**
+     * @var int
+     */
+    private $_numberOfConcurrency;
     
     /**
      * Gets blob ContentType.
@@ -243,7 +250,7 @@ class CreateBlobOptions extends BlobServiceOptions
      * Sets blob cacheControl.
      *
      * @param string $blobCacheControl value to use.
-     * 
+     *
      * @return none.
      */
     public function setBlobCacheControl($blobCacheControl)
@@ -353,7 +360,7 @@ class CreateBlobOptions extends BlobServiceOptions
      * Sets cacheControl.
      *
      * @param string $cacheControl value to use.
-     * 
+     *
      * @return none.
      */
     public function setCacheControl($cacheControl)
@@ -363,7 +370,7 @@ class CreateBlobOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -373,9 +380,9 @@ class CreateBlobOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -396,8 +403,8 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Sets blob metadata.
      *
-     * @param string $metadata value.
-     * 
+     * @param array $metadata value.
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -452,7 +459,7 @@ class CreateBlobOptions extends BlobServiceOptions
 
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -462,13 +469,52 @@ class CreateBlobOptions extends BlobServiceOptions
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
     {
         $this->_leaseId = $leaseId;
+    }
+
+    /**
+     * Gets number of concurrency for sending a blob.
+     *
+     * @return int
+     */
+    public function getNumberOfConcurrency()
+    {
+        return $this->_numberOfConcurrency;
+    }
+
+    /**
+     * Sets number of concurrency for sending a blob.
+     *
+     * @param int $numberOfConcurrency the number of concurrent requests.
+     */
+    public function setNumberOfConcurrency($numberOfConcurrency)
+    {
+        $this->_numberOfConcurrency = $numberOfConcurrency;
+    }
+
+    /**
+     * Construct a CreateBlobOptions object from a createBlockBlobOptions.
+     *
+     * @param  CreateBlobBlockOptions $createBlobBlockOptions
+     *
+     * @return CreateBlobOptions
+     */
+    public static function create($createBlobBlockOptions)
+    {
+        $result = new CreateBlobOptions();
+        $result->setTimeout($createBlobBlockOptions->getTimeout());
+        $result->setContentMD5($createBlobBlockOptions->getContentMD5());
+        $result->setLeaseId($createBlobBlockOptions->getLeaseId());
+        $result->setNumberOfConcurrency(
+            $createBlobBlockOptions->getNumberOfConcurrency()
+        );
+        return $result;
     }
 }

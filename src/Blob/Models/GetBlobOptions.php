@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -33,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetBlobOptions extends BlobServiceOptions
@@ -70,7 +71,7 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -80,9 +81,9 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
@@ -92,7 +93,7 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -102,9 +103,9 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -126,7 +127,7 @@ class GetBlobOptions extends BlobServiceOptions
      * Sets blob snapshot.
      *
      * @param string $snapshot value.
-     * 
+     *
      * @return none.
      */
     public function setSnapshot($snapshot)
@@ -136,7 +137,7 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Gets rangeStart
-     * 
+     *
      * @return integer
      */
     public function getRangeStart()
@@ -146,9 +147,9 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Sets rangeStart
-     * 
+     *
      * @param integer $rangeStart the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setRangeStart($rangeStart)
@@ -159,7 +160,7 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Gets rangeEnd
-     * 
+     *
      * @return integer
      */
     public function getRangeEnd()
@@ -169,9 +170,9 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Sets rangeEnd
-     * 
+     *
      * @param integer $rangeEnd range end value in bytes
-     * 
+     *
      * @return none
      */
     public function setRangeEnd($rangeEnd)
@@ -182,7 +183,7 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Gets computeRangeMD5
-     * 
+     *
      * @return boolean
      */
     public function getComputeRangeMD5()
@@ -192,9 +193,9 @@ class GetBlobOptions extends BlobServiceOptions
     
     /**
      * Sets computeRangeMD5
-     * 
+     *
      * @param boolean $computeRangeMD5 value
-     * 
+     *
      * @return none
      */
     public function setComputeRangeMD5($computeRangeMD5)

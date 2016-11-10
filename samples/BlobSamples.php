@@ -36,7 +36,7 @@ $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionStrin
 createContainerSample($blobClient);
 
 // To upload a file as a blob, use the BlobRestProxy->createBlockBlob method. This operation will
-// create the blob if it doesn¡¯t exist, or overwrite it if it does. The code example below assumes 
+// create the blob if it doesn't exist, or overwrite it if it does. The code example below assumes 
 // that the container has already been created and uses fopen to open the file as a stream.
 uploadBlobSample($blobClient);
 
@@ -68,7 +68,7 @@ function createContainerSample($blobClient)
     try {
         // Create container.
         $blobClient->createContainer("mycontainer", $createContainerOptions);
-    } catch(ServiceException $e){
+    } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;
@@ -83,7 +83,7 @@ function uploadBlobSample($blobClient)
     try {
         //Upload blob
         $blobClient->createBlockBlob("mycontainer", $blob_name, $content);
-    } catch(ServiceException $e){
+    } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;
@@ -110,11 +110,10 @@ function listBlobsSample($blobClient)
         $blob_list = $blobClient->listBlobs("mycontainer");
         $blobs = $blob_list->getBlobs();
     
-        foreach($blobs as $blob)
-        {
+        foreach ($blobs as $blob) {
             echo $blob->getName().": ".$blob->getUrl().PHP_EOL;
         }
-    } catch(ServiceException $e){
+    } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;

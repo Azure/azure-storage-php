@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -34,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Validate
@@ -380,8 +381,7 @@ class Validate
         try {
             new \DateTime($value);
             return true;
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw new \InvalidArgumentException(
                 sprintf(
                     Resources::ERROR_INVALID_DATE_STRING,
@@ -391,7 +391,4 @@ class Validate
             );
         }
     }
-
 }
-
-

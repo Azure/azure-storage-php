@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Common;
+
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -40,7 +41,6 @@ use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
 
-
 /**
  * Builds azure service objects.
  *
@@ -49,7 +49,7 @@ use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.10.2
+ * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServicesBuilder
