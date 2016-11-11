@@ -23,6 +23,7 @@ MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult.setMetadata
 MicrosoftAzure\Storage\Queue\Models\Queue.setMetadata
 ```
 * Removed test code from composer package.
+* `StorageAuthScheme::computeCanonicalizedResource` assumes that the query parameters are already grouped. That is, multi-value query parameters must be assembled using `ServiceRestProxy::groupQueryValues`. This fixes an issue with other single-value query parameters that might contain the separator character in the value.
 
 Blob
 * Added support for user to upload large files with minimum memory usage.

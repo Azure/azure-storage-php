@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Authentication;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Tests\Unit\Utilities;
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication\StorageAuthSchemeMock;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -94,7 +95,13 @@ class StorageAuthSchemeTest extends \PHPUnit_Framework_TestCase
     {
         $queryVariables = array();
         $queryVariables['COMP'] = 'list';
-        $queryVariables[Resources::QP_INCLUDE] = 'snapshots,metadata,uncommittedblobs';
+        $queryVariables[Resources::QP_INCLUDE] = ServiceRestProxy::groupQueryValues(
+            array(
+                'snapshots',
+                'metadata',
+                'uncommittedblobs'
+            )
+        );
         $expectedQueryPart = "comp:list\ninclude:metadata,snapshots,uncommittedblobs";
         $accountName = TestResources::ACCOUNT_NAME;
         $url = TestResources::URI1;
