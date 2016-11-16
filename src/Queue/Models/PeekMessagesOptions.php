@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -38,17 +38,17 @@ namespace MicrosoftAzure\Storage\Queue\Models;
 class PeekMessagesOptions extends QueueServiceOptions
 {
     /**
-     * A nonzero integer value that specifies the number of messages to peek from 
-     * the queue, up to a maximum of 32. By default, a single message is peeked 
+     * A nonzero integer value that specifies the number of messages to peek from
+     * the queue, up to a maximum of 32. By default, a single message is peeked
      * from the queue with this operation.
-     * 
+     *
      * @var integer
      */
     private $_numberOfMessages;
     
     /**
      * Gets numberOfMessages field.
-     * 
+     *
      * @return integer
      */
     public function getNumberOfMessages()
@@ -58,9 +58,9 @@ class PeekMessagesOptions extends QueueServiceOptions
     
     /**
      * Sets numberOfMessages field.
-     * 
+     *
      * @param integer $numberOfMessages value to use.
-     * 
+     *
      * @return none
      */
     public function setNumberOfMessages($numberOfMessages)
@@ -68,5 +68,3 @@ class PeekMessagesOptions extends QueueServiceOptions
         $this->_numberOfMessages = $numberOfMessages;
     }
 }
-
-

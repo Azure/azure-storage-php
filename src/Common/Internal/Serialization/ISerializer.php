@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -38,10 +38,10 @@ namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
 interface ISerializer
 {
 
-    /** 
+    /**
      * Serialize an object into a XML.
-     * 
-     * @param Object $targetObject The target object to be serialized. 
+     *
+     * @param Object $targetObject The target object to be serialized.
      * @param string $rootName     The name of the root.
      *
      * @return string
@@ -51,10 +51,10 @@ interface ISerializer
     /**
      * Serializes given array. The array indices must be string to use them as
      * as element name.
-     * 
+     *
      * @param array $array      The object to serialize represented in array.
      * @param array $properties The used properties in the serialization process.
-     * 
+     *
      * @return string
      */
     public function serialize($array, $properties = null);
@@ -62,12 +62,10 @@ interface ISerializer
     
     /**
      * Unserializes given serialized string.
-     * 
+     *
      * @param string $serialized The serialized object in string representation.
-     * 
+     *
      * @return array
      */
     public function unserialize($serialized);
 }
-
-

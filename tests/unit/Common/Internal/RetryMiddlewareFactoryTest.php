@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Resources;

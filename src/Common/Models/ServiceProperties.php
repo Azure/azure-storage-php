@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
@@ -49,7 +50,7 @@ class ServiceProperties
      * Creates ServiceProperties object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\ServiceProperties.
      */
     public static function create($parsedResponse)
@@ -75,7 +76,7 @@ class ServiceProperties
      * Sets logging element.
      *
      * @param MicrosoftAzure\Storage\Common\Models\Logging $logging new element.
-     * 
+     *
      * @return none.
      */
     public function setLogging($logging)
@@ -97,7 +98,7 @@ class ServiceProperties
      * Sets metrics element.
      *
      * @param MicrosoftAzure\Storage\Common\Models\Metrics $metrics new element.
-     * 
+     *
      * @return none.
      */
     public function setMetrics($metrics)
@@ -107,8 +108,8 @@ class ServiceProperties
     
     /**
      * Converts this object to array with XML tags
-     * 
-     * @return array. 
+     *
+     * @return array.
      */
     public function toArray()
     {
@@ -120,9 +121,9 @@ class ServiceProperties
     
     /**
      * Converts this current object to XML representation.
-     * 
+     *
      * @param XmlSerializer $xmlSerializer The XML serializer.
-     * 
+     *
      * @return string
      */
     public function toXml($xmlSerializer)
@@ -132,5 +133,3 @@ class ServiceProperties
         return $xmlSerializer->serialize($this->toArray(), $properties);
     }
 }
-
-

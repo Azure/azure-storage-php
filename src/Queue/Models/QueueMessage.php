@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 
@@ -44,7 +45,7 @@ class QueueMessage
     
     /**
      * Gets message text field.
-     * 
+     *
      * @return string.
      */
     public function getMessageText()
@@ -54,9 +55,9 @@ class QueueMessage
     
     /**
      * Sets message text field.
-     * 
+     *
      * @param string $messageText message contents.
-     * 
+     *
      * @return string.
      */
     public function setMessageText($messageText)
@@ -66,10 +67,10 @@ class QueueMessage
     
     /**
      * Converts this current object to XML representation.
-     * 
+     *
      * @param XmlSerializer $xmlSerializer The XML serializer.
-     * 
-     * @return string. 
+     *
+     * @return string.
      */
     public function toXml($xmlSerializer)
     {
@@ -79,5 +80,3 @@ class QueueMessage
         return $xmlSerializer->serialize($array, $properties);
     }
 }
-
-

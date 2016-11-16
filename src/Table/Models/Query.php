@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -66,7 +66,7 @@ class Query
      * Sets filter.
      *
      * @param Filters\Filter $filter value.
-     * 
+     *
      * @return none.
      */
     public function setFilter($filter)
@@ -88,7 +88,7 @@ class Query
      * Sets top.
      *
      * @param integer $top value.
-     * 
+     *
      * @return none.
      */
     public function setTop($top)
@@ -98,9 +98,9 @@ class Query
     
     /**
      * Adds a field to select fields.
-     * 
+     *
      * @param string $field The value of the field.
-     * 
+     *
      * @return none.
      */
     public function addSelectField($field)
@@ -122,7 +122,7 @@ class Query
      * Sets selectFields.
      *
      * @param array $selectFields value.
-     * 
+     *
      * @return none.
      */
     public function setSelectFields($selectFields)
@@ -130,5 +130,3 @@ class Query
         $this->_selectFields = $selectFields;
     }
 }
-
-

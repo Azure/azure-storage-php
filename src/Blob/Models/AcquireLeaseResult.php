@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -46,9 +47,9 @@ class AcquireLeaseResult
     
     /**
      * Creates AcquireLeaseResult from response headers
-     * 
+     *
      * @param array $headers response headers
-     * 
+     *
      * @return AcquireLeaseResult
      */
     public static function create($headers)
@@ -64,7 +65,7 @@ class AcquireLeaseResult
     
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -74,9 +75,9 @@ class AcquireLeaseResult
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
@@ -84,5 +85,3 @@ class AcquireLeaseResult
         $this->_leaseId = $leaseId;
     }
 }
-
-

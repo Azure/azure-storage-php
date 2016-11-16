@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -41,12 +41,10 @@ interface FilterableService
     * Adds new filter to proxy object and returns new BlobRestProxy with
     * that filter.
     *
-    * @param MicrosoftAzure\Storage\Common\Internal\IServiceFilter $filter Filter to add for 
+    * @param MicrosoftAzure\Storage\Common\Internal\IServiceFilter $filter Filter to add for
     * the pipeline.
-    * 
+    *
     * @return mix.
     */
     public function withFilter($filter);
 }
-
-

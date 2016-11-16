@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -44,7 +44,7 @@ class GetEntityResult
     
     /**
      * Gets table entity.
-     * 
+     *
      * @return Entity
      */
     public function getEntity()
@@ -54,9 +54,9 @@ class GetEntityResult
     
     /**
      * Sets table entity.
-     * 
+     *
      * @param Entity $entity The table entity instance.
-     * 
+     *
      * @return none
      */
     public function setEntity($entity)
@@ -64,5 +64,3 @@ class GetEntityResult
         $this->_entity = $entity;
     }
 }
-
-

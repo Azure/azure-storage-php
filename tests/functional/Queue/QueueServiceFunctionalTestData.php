@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Functional\Queue;
+namespace MicrosoftAzure\Storage\Tests\functional\Queue;
 
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
@@ -68,9 +68,9 @@ class QueueServiceFunctionalTestData
         $ret = array();
         array_push($ret, null);
         array_push($ret, -1);
-        array_push($ret,  0);
-        array_push($ret,  1);
-        array_push($ret,-2147483648);
+        array_push($ret, 0);
+        array_push($ret, 1);
+        array_push($ret, -2147483648);
         array_push($ret, 2147483647);
         return $ret;
     }
@@ -132,7 +132,7 @@ class QueueServiceFunctionalTestData
             $sp->setLogging($l);
             $sp->setMetrics($m);
 
-            array_push($ret,$sp);
+            array_push($ret, $sp);
         }
 
         {
@@ -160,7 +160,7 @@ class QueueServiceFunctionalTestData
             $sp->setLogging($l);
             $sp->setMetrics($m);
 
-            array_push($ret,$sp);
+            array_push($ret, $sp);
         }
 
         {
@@ -188,7 +188,7 @@ class QueueServiceFunctionalTestData
             $sp->setLogging($l);
             $sp->setMetrics($m);
 
-            array_push($ret,$sp);
+            array_push($ret, $sp);
         }
 
         return $ret;
@@ -200,7 +200,7 @@ class QueueServiceFunctionalTestData
 
         // Some metadata that HTTP will not like.
         $metadata = array('<>000' => '::::value');
-        array_push($ret,$metadata);
+        array_push($ret, $metadata);
 
         return $ret;
     }

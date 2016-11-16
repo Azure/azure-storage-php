@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
@@ -47,17 +48,17 @@ class BatchResult
 {
     /**
      * Each entry represents change set result.
-     * 
+     *
      * @var array
      */
     private $_entries;
     
     /**
      * Creates a array of responses from the batch response body.
-     * 
+     *
      * @param string            $body           The HTTP response body.
      * @param IMimeReaderWriter $mimeSerializer The MIME reader and writer.
-     * 
+     *
      * @return array
      */
     private static function _constructResponses($body, $mimeSerializer)
@@ -86,8 +87,8 @@ class BatchResult
             do {
                 $headerLine = $lines[$j++];
                 $headerTokens = explode(':', $headerLine);
-                $headers[trim($headerTokens[0])] = 
-                    isset($headerTokens[1]) ? trim($headerTokens[1]) : null;   
+                $headers[trim($headerTokens[0])] =
+                    isset($headerTokens[1]) ? trim($headerTokens[1]) : null;
             } while (Resources::EMPTY_STRING != $headerLine);
             $response->headers = $headers;
             $response->body = implode("\r\n", array_slice($lines, $j));
@@ -99,10 +100,10 @@ class BatchResult
     
     /**
      * Compares between two responses by Content-ID header.
-     * 
+     *
      * @param \HTTP_Request2_Response $r1 The first response object.
      * @param \HTTP_Request2_Response $r2 The second response object.
-     * 
+     *
      * @return boolean
      */
     private static function _compareUsingContentId($r1, $r2)
@@ -117,18 +118,22 @@ class BatchResult
 
     /**
      * Creates BatchResult object.
-     * 
+     *
      * @param string            $body           The HTTP response body.
      * @param array             $operations     The batch operations.
      * @param array             $contexts       The batch operations context.
      * @param IAtomReaderWriter $atomSerializer The Atom reader and writer.
      * @param IMimeReaderWriter $mimeSerializer The MIME reader and writer.
-     * 
+     *
      * @return \MicrosoftAzure\Storage\Table\Models\BatchResult
-     * 
-     * @throws \InvalidArgumentException 
+     *
+     * @throws \InvalidArgumentException
      */
-    public static function create($body, $operations, $contexts, $atomSerializer, 
+    public static function create(
+        $body,
+        $operations,
+        $contexts,
+        $atomSerializer,
         $mimeSerializer
     ) {
         $result       = new BatchResult();
@@ -157,26 +162,24 @@ class BatchResult
                 );
             
                 switch ($type) {
-                case BatchOperationType::INSERT_ENTITY_OPERATION:
-                    $entries[] = InsertEntityResult::create(
-                        $body,
-                        $headers,
-                        $atomSerializer
-                    );
-                    break;
-                case BatchOperationType::UPDATE_ENTITY_OPERATION:
-                case BatchOperationType::MERGE_ENTITY_OPERATION:
-                case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
-                case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
-                    $entries[] = UpdateEntityResult::create($headers);
-                    break;
-
-                case BatchOperationType::DELETE_ENTITY_OPERATION:
-                    $entries[] = Resources::BATCH_ENTITY_DEL_MSG;
-                    break;
-
-                default:
-                    throw new \InvalidArgumentException();
+                    case BatchOperationType::INSERT_ENTITY_OPERATION:
+                        $entries[] = InsertEntityResult::create(
+                            $body,
+                            $headers,
+                            $atomSerializer
+                        );
+                        break;
+                    case BatchOperationType::UPDATE_ENTITY_OPERATION:
+                    case BatchOperationType::MERGE_ENTITY_OPERATION:
+                    case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
+                    case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
+                        $entries[] = UpdateEntityResult::create($headers);
+                        break;
+                    case BatchOperationType::DELETE_ENTITY_OPERATION:
+                        $entries[] = Resources::BATCH_ENTITY_DEL_MSG;
+                        break;
+                    default:
+                        throw new \InvalidArgumentException();
                 }
             } catch (ServiceException $e) {
                 $entries[] = BatchError::create($e, $response->headers);
@@ -189,7 +192,7 @@ class BatchResult
     
     /**
      * Gets batch call result entries.
-     * 
+     *
      * @return array
      */
     public function getEntries()
@@ -199,9 +202,9 @@ class BatchResult
     
     /**
      * Sets batch call result entries.
-     * 
+     *
      * @param array $entries The batch call result entries.
-     * 
+     *
      * @return none
      */
     public function setEntries($entries)
@@ -209,5 +212,3 @@ class BatchResult
         $this->_entries = $entries;
     }
 }
-
-

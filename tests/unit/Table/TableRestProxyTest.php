@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Table\internal;
+
 use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
 use MicrosoftAzure\Storage\Tests\Framework\TableServiceRestProxyTestBase;
@@ -57,7 +58,7 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
     /**
      * @covers  MicrosoftAzure\Storage\Table\TableRestProxy::__construct
      */
-    public function test__construct()
+    public function testConstruct()
     {
         // Setup
         $atomSerializer = new AtomReaderWriter();
@@ -362,15 +363,15 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         $name3 = 'querytableswithfilteroption3';
         $prefix = 'q';
         $prefixFilter = Filter::applyAnd(
-                Filter::applyGe(
-                    Filter::applyPropertyName('TableName'),
-                    Filter::applyConstant($prefix, EdmType::STRING)
-                ),
-                Filter::applyLe(
-                    Filter::applyPropertyName('TableName'),
-                    Filter::applyConstant($prefix . '{', EdmType::STRING)
-                )
-            );
+            Filter::applyGe(
+                Filter::applyPropertyName('TableName'),
+                Filter::applyConstant($prefix, EdmType::STRING)
+            ),
+            Filter::applyLe(
+                Filter::applyPropertyName('TableName'),
+                Filter::applyConstant($prefix . '{', EdmType::STRING)
+            )
+        );
         $this->createTable($name1);
         $this->createTable($name2);
         $this->createTable($name3);
@@ -433,7 +434,6 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         // Assert
         $entities = $result->getEntities();
         $this->assertCount(0, $entities);
-        
     }
     
     /**
@@ -1212,5 +1212,3 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         $this->assertTrue(true);
     }
 }
-
-

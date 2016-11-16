@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -44,23 +44,21 @@ abstract class RetryPolicy
     
     /**
      * Indicates if there should be a retry or not.
-     * 
+     *
      * @param integer                   $retryCount The retry count.
      * @param \GuzzleHttp\Psr7\Response $response   The HTTP response object.
-     * 
+     *
      * @return boolean
      */
-    public abstract function shouldRetry($retryCount, $response);
+    abstract public function shouldRetry($retryCount, $response);
     
     /**
      * Calculates the backoff for the retry policy.
-     * 
+     *
      * @param integer                   $retryCount The retry count.
      * @param \GuzzleHttp\Psr7\Response $response   The HTTP response object.
-     * 
+     *
      * @return integer
      */
-    public abstract function calculateBackoff($retryCount, $response);
+    abstract public function calculateBackoff($retryCount, $response);
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -44,7 +44,7 @@ class PropertyNameFilter extends Filter
     
     /**
      * Constructor.
-     * 
+     *
      * @param string $propertyName The propertyName.
      */
     public function __construct($propertyName)
@@ -54,13 +54,11 @@ class PropertyNameFilter extends Filter
     
     /**
      * Gets propertyName
-     * 
-     * @return string 
+     *
+     * @return string
      */
     public function getPropertyName()
     {
         return $this->_propertyName;
     }
 }
-
-

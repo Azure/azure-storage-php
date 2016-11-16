@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -52,9 +53,9 @@ class BatchOperation
     
     /**
      * Sets operation type.
-     * 
+     *
      * @param string $type The operation type. Must be valid type.
-     * 
+     *
      * @return none
      */
     public function setType($type)
@@ -69,7 +70,7 @@ class BatchOperation
     
     /**
      * Gets operation type.
-     * 
+     *
      * @return string
      */
     public function getType()
@@ -79,10 +80,10 @@ class BatchOperation
     
     /**
      * Adds or sets parameter for the operation.
-     * 
+     *
      * @param string $name  The param name. Must be valid name.
      * @param mix    $value The param value.
-     * 
+     *
      * @return none
      */
     public function addParameter($name, $value)
@@ -96,9 +97,9 @@ class BatchOperation
     
     /**
      * Gets parameter value and if the name doesn't exist, return null.
-     * 
+     *
      * @param string $name The parameter name.
-     * 
+     *
      * @return mix
      */
     public function getParameter($name)
@@ -106,5 +107,3 @@ class BatchOperation
         return Utilities::tryGetValue($this->_params, $name);
     }
 }
-
-

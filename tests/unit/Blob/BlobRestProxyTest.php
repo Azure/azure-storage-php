@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Blob;
+namespace MicrosoftAzure\Storage\Tests\unit\Blob;
 
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
@@ -400,7 +400,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Setup
         $name     = 'getcontainermetadata' . $this->createSuffix();
         $options  = new CreateContainerOptions();
-        $expected = array ('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
+        $expected = array('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
         $options->setMetadata($expected);
         $this->createContainer($name, $options);
         $result = $this->restProxy->getContainerProperties($name);
@@ -463,7 +463,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     {
         // Setup
         $name     = 'setcontainermetadata' . $this->createSuffix();
-        $expected = array ('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
+        $expected = array('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
         $this->createContainer($name);
         
         // Test

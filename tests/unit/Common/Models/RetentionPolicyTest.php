@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Models;
+
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -139,7 +140,7 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $sample = TestResources::getServicePropertiesSample();
         $retentionPolicy = RetentionPolicy::create($sample['Logging']['RetentionPolicy']);
         $expected = array(
-            'Enabled' => $sample['Logging']['RetentionPolicy']['Enabled'], 
+            'Enabled' => $sample['Logging']['RetentionPolicy']['Enabled'],
             'Days'    => $sample['Logging']['RetentionPolicy']['Days']
         );
         
@@ -168,5 +169,3 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-

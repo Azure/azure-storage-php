@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Filters;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\Filters\HeadersFilter;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
@@ -48,7 +49,7 @@ class HeadersFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $filter = new HeadersFilter(array());
         $expected = $request->getHeaders();
         
@@ -67,7 +68,7 @@ class HeadersFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $header1 = 'header1';
         $value1 = 'value1';
         $expected = array($header1 => $value1);
@@ -89,7 +90,7 @@ class HeadersFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $header1 = 'header1';
         $value1 = 'value1';
         $header2 = 'header2';
@@ -113,7 +114,7 @@ class HeadersFilterTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $uri = new Uri('http://microsoft.com');
-        $request = new Request('Get', $uri, array(), NULL);
+        $request = new Request('Get', $uri, array(), null);
         $response = null;
         $filter = new HeadersFilter(array());
         
@@ -124,5 +125,3 @@ class HeadersFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($response);
     }
 }
-
-

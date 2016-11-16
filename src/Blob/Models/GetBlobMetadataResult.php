@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -58,10 +59,10 @@ class GetBlobMetadataResult
     
     /**
      * Creates GetBlobMetadataResult from response headers.
-     * 
+     *
      * @param array $headers  The HTTP response headers.
      * @param array $metadata The blob metadata array.
-     * 
+     *
      * @return GetBlobMetadataResult
      */
     public static function create($headers, $metadata)
@@ -135,7 +136,7 @@ class GetBlobMetadataResult
      * Sets blob metadata.
      *
      * @param array $metadata value.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -143,5 +144,3 @@ class GetBlobMetadataResult
         $this->_metadata = $metadata;
     }
 }
-
-

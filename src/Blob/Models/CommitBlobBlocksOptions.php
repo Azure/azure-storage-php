@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -38,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CommitBlobBlocksOptions extends BlobServiceOptions
 {
-     /**
+    /**
      * @var string
      */
     private $_blobContentType;
@@ -180,7 +181,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      * Sets blob cacheControl.
      *
      * @param string $blobCacheControl value to use.
-     * 
+     *
      * @return none.
      */
     public function setBlobCacheControl($blobCacheControl)
@@ -190,7 +191,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -200,9 +201,9 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -224,7 +225,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      * Sets blob metadata.
      *
      * @param array $metadata value.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -234,7 +235,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -244,9 +245,9 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
@@ -254,5 +255,3 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
         $this->_leaseId = $leaseId;
     }
 }
-
-

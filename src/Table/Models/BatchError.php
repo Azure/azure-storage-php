@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -42,7 +43,7 @@ use MicrosoftAzure\Storage\Common\ServiceException;
 class BatchError
 {
     /**
-     * @var MicrosoftAzure\Storage\Common\ServiceException 
+     * @var MicrosoftAzure\Storage\Common\ServiceException
      */
     private $_error;
     
@@ -53,11 +54,11 @@ class BatchError
     
     /**
      * Creates BatchError object.
-     * 
+     *
      * @param MicrosoftAzure\Storage\Common\ServiceException $error   The error object.
      * @param array                                $headers The response headers.
-     * 
-     * @return \MicrosoftAzure\Storage\Table\Models\BatchError 
+     *
+     * @return \MicrosoftAzure\Storage\Table\Models\BatchError
      */
     public static function create($error, $headers)
     {
@@ -79,7 +80,7 @@ class BatchError
     
     /**
      * Gets the error.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\ServiceException
      */
     public function getError()
@@ -89,9 +90,9 @@ class BatchError
     
     /**
      * Sets the error.
-     * 
+     *
      * @param MicrosoftAzure\Storage\Common\ServiceException $error The error object.
-     * 
+     *
      * @return none
      */
     public function setError($error)
@@ -101,7 +102,7 @@ class BatchError
     
     /**
      * Gets the contentId.
-     * 
+     *
      * @return integer
      */
     public function getContentId()
@@ -111,9 +112,9 @@ class BatchError
     
     /**
      * Sets the contentId.
-     * 
+     *
      * @param integer $contentId The contentId object.
-     * 
+     *
      * @return none
      */
     public function setContentId($contentId)
@@ -121,5 +122,3 @@ class BatchError
         $this->_contentId = $contentId;
     }
 }
-
-

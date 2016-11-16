@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
 
 namespace MicrosoftAzure\Storage\Common\Models;
+
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
 /**
@@ -42,9 +43,9 @@ class GetServicePropertiesResult
     
     /**
      * Creates object from $parsedResponse.
-     * 
+     *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
      */
     public static function create($parsedResponse)
@@ -57,8 +58,8 @@ class GetServicePropertiesResult
     
     /**
      * Gets service properties object.
-     * 
-     * @return MicrosoftAzure\Storage\Common\Models\ServiceProperties 
+     *
+     * @return MicrosoftAzure\Storage\Common\Models\ServiceProperties
      */
     public function getValue()
     {
@@ -67,15 +68,13 @@ class GetServicePropertiesResult
     
     /**
      * Sets service properties object.
-     * 
+     *
      * @param ServiceProperties $serviceProperties object to use.
-     * 
-     * @return none 
+     *
+     * @return none
      */
     public function setValue($serviceProperties)
     {
         $this->_serviceProperties = clone $serviceProperties;
     }
 }
-
-

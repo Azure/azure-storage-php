@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
+
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -49,7 +50,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::generateMetadataHeaders
      */
-    public function test__construct()
+    public function testConstruct()
     {
         // Setup
         $uri     = 'http://www.microsoft.com';
@@ -71,7 +72,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::withFilter
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testWithFilter($restRestProxy)
     {
@@ -88,7 +89,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::getFilters
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGetFilters($restRestProxy)
     {
@@ -107,7 +108,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addOptionalAccessConditionHeader
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testAddOptionalAccessContitionHeader($restRestProxy)
     {
@@ -127,7 +128,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addOptionalSourceAccessConditionHeader
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testAddOptionalSourceAccessContitionHeader($restRestProxy)
     {
@@ -147,6 +148,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
+     * @depends testConstruct
      */
     public function testGroupQueryValues()
     {
@@ -163,6 +165,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
+     * @depends testConstruct
      */
     public function testGroupQueryValuesWithUnorderedValues()
     {
@@ -194,6 +197,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
+     * @depends testConstruct
      */
     public function testGroupQueryValuesWithMix()
     {
@@ -210,7 +214,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addPostParameter
-    * @depends test__construct
+    * @depends testConstruct
     */
     public function testPostParameter($restRestProxy)
     {
@@ -232,7 +236,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::generateMetadataHeaders
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGenerateMetadataHeader($proxy)
     {
@@ -252,7 +256,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::generateMetadataHeaders
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGenerateMetadataHeaderInvalidNameFail($proxy)
     {
@@ -266,7 +270,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::getMetadataArray
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGetMetadataArray($proxy)
     {
@@ -286,7 +290,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::getMetadataArray
-     * @depends test__construct
+     * @depends testConstruct
      */
     public function testGetMetadataArrayWithMsHeaders($proxy)
     {
@@ -332,5 +336,3 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         ));
     }
 }
-
-

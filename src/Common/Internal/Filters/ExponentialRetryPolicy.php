@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -64,13 +64,14 @@ class ExponentialRetryPolicy extends RetryPolicy
     
     /**
      * Initializes new object from ExponentialRetryPolicy.
-     * 
+     *
      * @param array   $retryableStatusCodes The retryable status codes.
      * @param integer $deltaBackoff         The backoff time delta.
      * @param integer $maximumAttempts      The number of max attempts.
      */
-    public function __construct($retryableStatusCodes, 
-        $deltaBackoff = parent::DEFAULT_CLIENT_BACKOFF, 
+    public function __construct(
+        $retryableStatusCodes,
+        $deltaBackoff = parent::DEFAULT_CLIENT_BACKOFF,
         $maximumAttempts = parent::DEFAULT_CLIENT_RETRY_COUNT
     ) {
         $this->_deltaBackoffIntervalInMs = $deltaBackoff;
@@ -83,17 +84,17 @@ class ExponentialRetryPolicy extends RetryPolicy
     
     /**
      * Indicates if there should be a retry or not.
-     * 
+     *
      * @param integer                   $retryCount The retry count.
      * @param \GuzzleHttp\Psr7\Response $response   The HTTP response object.
-     * 
+     *
      * @return boolean
      */
     public function shouldRetry($retryCount, $response)
     {
-        if (  $retryCount >= $this->_maximumAttempts
+        if ($retryCount >= $this->_maximumAttempts
             || array_search($response->getStatusCode(), $this->_retryableStatusCodes)
-            || is_null($response)     
+            || is_null($response)
         ) {
             return false;
         } else {
@@ -103,10 +104,10 @@ class ExponentialRetryPolicy extends RetryPolicy
     
     /**
      * Calculates the backoff for the retry policy.
-     * 
+     *
      * @param integer                   $retryCount The retry count.
      * @param \GuzzleHttp\Psr7\Response $response   The HTTP response object.
-     * 
+     *
      * @return integer
      */
     public function calculateBackoff($retryCount, $response)
@@ -130,5 +131,3 @@ class ExponentialRetryPolicy extends RetryPolicy
         );
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Tests\Unit\Table\Models\EdmTypeTest;
@@ -52,7 +53,7 @@ class Property
     
     /**
      * Gets the type of the property.
-     * 
+     *
      * @return string
      */
     public function getEdmType()
@@ -62,9 +63,9 @@ class Property
     
     /**
      * Sets the value of the property.
-     * 
+     *
      * @param string $edmType The property type.
-     * 
+     *
      * @return none
      */
     public function setEdmType($edmType)
@@ -75,7 +76,7 @@ class Property
     
     /**
      * Gets the value of the property.
-     * 
+     *
      * @return string
      */
     public function getValue()
@@ -85,9 +86,9 @@ class Property
     
     /**
      * Sets the property value.
-     * 
+     *
      * @param mix $value The value of property.
-     * 
+     *
      * @return none
      */
     public function setValue($value)
@@ -95,5 +96,3 @@ class Property
         $this->_value = $value;
     }
 }
-
-

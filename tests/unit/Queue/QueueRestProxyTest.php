@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Queue;
+namespace MicrosoftAzure\Storage\Tests\unit\Queue;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Tests\Framework\QueueServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
@@ -345,7 +346,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $name     = 'getqueuemetadata';
         $expectedCount = 0;
         $options  = new CreateQueueOptions();
-        $expected = array ('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
+        $expected = array('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
         $options->setMetadata($expected);
         $this->createQueue($name, $options);
         
@@ -364,7 +365,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     {
         // Setup
         $name = 'setqueuemetadata';
-        $expected = array ('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
+        $expected = array('name1' => 'MyName1', 'mymetaname' => '12345', 'values' => 'Microsoft_');
         $this->createQueue($name);
         
         // Test
@@ -406,7 +407,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $this->createQueue($name);
 
         // Test
-        $result = $this->restProxy->listMessages($name);        
+        $result = $this->restProxy->listMessages($name);
         
         // Assert
         $actual = $result->getQueueMessages();
@@ -425,7 +426,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $this->restProxy->createMessage($name, $expected);
         
         // Test
-        $result = $this->restProxy->listMessages($name);        
+        $result = $this->restProxy->listMessages($name);
         
         // Assert
         $messages = $result->getQueueMessages();
@@ -496,7 +497,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $this->createQueue($name);
 
         // Test
-        $result = $this->restProxy->peekMessages($name);        
+        $result = $this->restProxy->peekMessages($name);
         
         // Assert
         $actual = $result->getQueueMessages();
@@ -515,7 +516,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $this->restProxy->createMessage($name, $expected);
         
         // Test
-        $result = $this->restProxy->peekMessages($name);        
+        $result = $this->restProxy->peekMessages($name);
         
         // Assert
         $messages = $result->getQueueMessages();
@@ -669,8 +670,13 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $messageId = $messages[0]->getMessageId();
         
         // Test
-        $result = $this->restProxy->UpdateMessage($name, $messageId, $popReceipt, 
-            $expectedText, $expectedVisibility);
+        $result = $this->restProxy->UpdateMessage(
+            $name,
+            $messageId,
+            $popReceipt,
+            $expectedText,
+            $expectedVisibility
+        );
         
         // Assert
         $result   = $this->restProxy->listMessages($name);
@@ -685,5 +691,3 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $this->assertEquals($expectedText, $actual->getMessageText());
     }
 }
-
-

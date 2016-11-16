@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\AccessPolicy;
 
 /**
@@ -38,7 +39,7 @@ use MicrosoftAzure\Storage\Blob\Models\AccessPolicy;
 class AccessPolicyTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getStart 
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getStart
      */
     public function testGetStart()
     {
@@ -55,7 +56,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setStart 
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setStart
      */
     public function testSetStart()
     {
@@ -71,7 +72,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getExpiry 
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getExpiry
      */
     public function testGetExpiry()
     {
@@ -88,7 +89,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setExpiry 
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setExpiry
      */
     public function testSetExpiry()
     {
@@ -104,7 +105,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission 
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission
      */
     public function testGetPermission()
     {
@@ -121,7 +122,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setPermission 
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setPermission
      */
     public function testSetPermission()
     {
@@ -161,5 +162,3 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expiry, urldecode($actual['Expiry']));
     }
 }
-
-

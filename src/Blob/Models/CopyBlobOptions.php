@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -55,7 +56,7 @@ class CopyBlobOptions extends BlobServiceOptions
     private $_metadata;
     
     /**
-     * @var string 
+     * @var string
      */
     private $_sourceSnapshot;
     
@@ -71,7 +72,7 @@ class CopyBlobOptions extends BlobServiceOptions
   
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -81,9 +82,9 @@ class CopyBlobOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -93,7 +94,7 @@ class CopyBlobOptions extends BlobServiceOptions
     
     /**
      * Gets source access condition
-     * 
+     *
      * @return SourceAccessCondition
      */
     public function getSourceAccessCondition()
@@ -103,9 +104,9 @@ class CopyBlobOptions extends BlobServiceOptions
     
     /**
      * Sets source access condition
-     * 
+     *
      * @param SourceAccessCondition $sourceAccessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setSourceAccessCondition($sourceAccessCondition)
@@ -136,8 +137,8 @@ class CopyBlobOptions extends BlobServiceOptions
     }
     
     /**
-     * Gets source snapshot. 
-     * 
+     * Gets source snapshot.
+     *
      * @return string
      */
     public function getSourceSnapshot()
@@ -146,10 +147,10 @@ class CopyBlobOptions extends BlobServiceOptions
     }
        
     /**
-     * Sets source snapshot. 
-     * 
+     * Sets source snapshot.
+     *
      * @param string $sourceSnapshot value.
-     * 
+     *
      * @return none
      */
     public function setSourceSnapshot($sourceSnapshot)
@@ -171,7 +172,7 @@ class CopyBlobOptions extends BlobServiceOptions
      * Sets lease ID.
      *
      * @param string $leaseId value.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
@@ -193,7 +194,7 @@ class CopyBlobOptions extends BlobServiceOptions
      * Sets source lease ID.
      *
      * @param string $sourceLeaseId value.
-     * 
+     *
      * @return none
      */
     public function setSourceLeaseId($sourceLeaseId)
@@ -201,5 +202,3 @@ class CopyBlobOptions extends BlobServiceOptions
         $this->_sourceLeaseId = $sourceLeaseId;
     }
 }
-
-

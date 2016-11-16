@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Framework;
+namespace MicrosoftAzure\Storage\Tests\framework;
+
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
@@ -61,12 +62,9 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
     
     public function safeDeleteQueue($queueName)
     {
-        try
-        {
+        try {
             $this->deleteQueue($queueName);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             // Ignore exception and continue, will assume that this queue doesn't exist in the sotrage account
             error_log($e->getMessage());
         }
@@ -81,5 +79,3 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
         }
     }
 }
-
-

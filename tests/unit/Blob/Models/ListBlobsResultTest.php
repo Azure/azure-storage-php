@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
@@ -39,7 +40,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create 
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create
      */
     public function testCreateWithEmpty()
     {
@@ -52,11 +53,11 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertCount(0, $actual->getBlobs());
         $this->assertCount(0, $actual->getBlobPrefixes());
-        $this->assertEquals(0,$actual->getMaxResults());
+        $this->assertEquals(0, $actual->getMaxResults());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create 
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create
      */
     public function testCreateWithOneEntry()
     {
@@ -77,7 +78,7 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create 
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create
      */
     public function testCreateWithMultipleEntries()
     {
@@ -359,5 +360,3 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Functional\Table;
+namespace MicrosoftAzure\Storage\Tests\functional\Table;
 
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Functional\Table\Enums\ConcurType;
@@ -67,7 +67,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 throw $e;
             }
         }
-        if($shouldReturn) {
+        if ($shouldReturn) {
             return;
         }
 
@@ -100,10 +100,13 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     private function getServicePropertiesWorker($options)
     {
-        self::println( 'Trying $options: ' . self::tmptostring($options));
+        self::println('Trying $options: ' . self::tmptostring($options));
         $effOptions = (is_null($options) ? new TableServiceOptions() : $options);
         try {
-            $ret = (is_null($options) ? $this->restProxy->getServiceProperties() : $this->restProxy->getServiceProperties($effOptions));
+            $ret = (is_null($options) ?
+                $this->restProxy->getServiceProperties() :
+                $this->restProxy->getServiceProperties($effOptions)
+            );
             $this->assertFalse($this->isEmulated(), 'Should succeed when not running in emulator');
             $this->verifyServicePropertiesWorker($ret, null);
         } catch (ServiceException $e) {
@@ -127,24 +130,60 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
         $l = $sp->getLogging();
         $this->assertNotNull($l, 'getValue()->getLogging() should be non-null');
-        $this->assertEquals($serviceProperties->getLogging()->getVersion(), $l->getVersion(), 'getValue()->getLogging()->getVersion');
-        $this->assertEquals($serviceProperties->getLogging()->getDelete(), $l->getDelete(), 'getValue()->getLogging()->getDelete');
-        $this->assertEquals($serviceProperties->getLogging()->getRead(), $l->getRead(), 'getValue()->getLogging()->getRead');
-        $this->assertEquals($serviceProperties->getLogging()->getWrite(), $l->getWrite(), 'getValue()->getLogging()->getWrite');
+        $this->assertEquals(
+            $serviceProperties->getLogging()->getVersion(),
+            $l->getVersion(),
+            'getValue()->getLogging()->getVersion'
+        );
+        $this->assertEquals(
+            $serviceProperties->getLogging()->getDelete(),
+            $l->getDelete(),
+            'getValue()->getLogging()->getDelete'
+        );
+        $this->assertEquals(
+            $serviceProperties->getLogging()->getRead(),
+            $l->getRead(),
+            'getValue()->getLogging()->getRead'
+        );
+        $this->assertEquals(
+            $serviceProperties->getLogging()->getWrite(),
+            $l->getWrite(),
+            'getValue()->getLogging()->getWrite'
+        );
 
         $r = $l->getRetentionPolicy();
         $this->assertNotNull($r, 'getValue()->getLogging()->getRetentionPolicy should be non-null');
-        $this->assertEquals($serviceProperties->getLogging()->getRetentionPolicy()->getDays(), $r->getDays(), 'getValue()->getLogging()->getRetentionPolicy()->getDays');
+        $this->assertEquals(
+            $serviceProperties->getLogging()->getRetentionPolicy()->getDays(),
+            $r->getDays(),
+            'getValue()->getLogging()->getRetentionPolicy()->getDays'
+        );
 
         $m = $sp->getMetrics();
         $this->assertNotNull($m, 'getValue()->getMetrics() should be non-null');
-        $this->assertEquals($serviceProperties->getMetrics()->getVersion(), $m->getVersion(), 'getValue()->getMetrics()->getVersion');
-        $this->assertEquals($serviceProperties->getMetrics()->getEnabled(), $m->getEnabled(), 'getValue()->getMetrics()->getEnabled');
-        $this->assertEquals($serviceProperties->getMetrics()->getIncludeAPIs(), $m->getIncludeAPIs(), 'getValue()->getMetrics()->getIncludeAPIs');
+        $this->assertEquals(
+            $serviceProperties->getMetrics()->getVersion(),
+            $m->getVersion(),
+            'getValue()->getMetrics()->getVersion'
+        );
+        $this->assertEquals(
+            $serviceProperties->getMetrics()->getEnabled(),
+            $m->getEnabled(),
+            'getValue()->getMetrics()->getEnabled'
+        );
+        $this->assertEquals(
+            $serviceProperties->getMetrics()->getIncludeAPIs(),
+            $m->getIncludeAPIs(),
+            'getValue()->getMetrics()->getIncludeAPIs'
+        );
 
         $r = $m->getRetentionPolicy();
         $this->assertNotNull($r, 'getValue()->getMetrics()->getRetentionPolicy should be non-null');
-        $this->assertEquals($serviceProperties->getMetrics()->getRetentionPolicy()->getDays(), $r->getDays(), 'getValue()->getMetrics()->getRetentionPolicy()->getDays');
+        $this->assertEquals(
+            $serviceProperties->getMetrics()->getRetentionPolicy()->getDays(),
+            $r->getDays(),
+            'getValue()->getMetrics()->getRetentionPolicy()->getDays'
+        );
     }
 
     /**
@@ -164,7 +203,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testSetServiceProperties()
     {
         $interestingServiceProperties = TableServiceFunctionalTestData::getInterestingServiceProperties();
-        foreach($interestingServiceProperties as $serviceProperties)  {
+        foreach ($interestingServiceProperties as $serviceProperties) {
             $options = new TableServiceOptions();
             $this->setServicePropertiesWorker($serviceProperties, $options);
         }
@@ -189,7 +228,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             }
 
             $this->assertFalse($this->isEmulated(), 'Should succeed when not running in emulator');
-            $ret = (is_null($options) ? $this->restProxy->getServiceProperties() : $this->restProxy->getServiceProperties($options));
+            $ret = (is_null($options) ?
+                $this->restProxy->getServiceProperties() :
+                $this->restProxy->getServiceProperties($options)
+            );
             $this->verifyServicePropertiesWorker($ret, $serviceProperties);
         } catch (ServiceException $e) {
             if ($this->isEmulated()) {
@@ -213,8 +255,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testQueryTables()
     {
-        $interestingqueryTablesOptions = TableServiceFunctionalTestData::getInterestingQueryTablesOptions($this->isEmulated());
-        foreach($interestingqueryTablesOptions as $options)  {
+        $interestingqueryTablesOptions =
+            TableServiceFunctionalTestData::getInterestingQueryTablesOptions($this->isEmulated());
+        foreach ($interestingqueryTablesOptions as $options) {
             $this->queryTablesWorker($options);
         }
     }
@@ -266,7 +309,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
 
         $expectedData = array();
-        foreach(TableServiceFunctionalTestData::$testTableNames as $s)  {
+        foreach (TableServiceFunctionalTestData::$testTableNames as $s) {
             if (substr($s, 0, strlen($effectivePrefix)) == $effectivePrefix) {
                 $fte = new FakeTableInfoEntry();
                 $fte->TableName = $s;
@@ -277,7 +320,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         if (!is_null($options->getNextTableName())) {
             $tmpExpectedData = array();
             $foundNext = false;
-            foreach($expectedData as $s)  {
+            foreach ($expectedData as $s) {
                 if ($s == $options->getNextTableName()) {
                     $foundNext = true;
                 }
@@ -306,7 +349,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $expected = $expectedData[$i]->TableName;
             // Assume there are other tables. Make sure the expected ones are there.
             $foundNext = false;
-            foreach($tables as $actual) {
+            foreach ($tables as $actual) {
                 if ($expected == $actual) {
                     $foundNext = true;
                     break;
@@ -373,7 +416,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $this->restProxy->deleteTable($table);
         }
 
-        $this->assertEquals(count($qsStart->getTables()) + 1, count($qs->getTables()), 'After adding one, with Prefix=(\'' . TableServiceFunctionalTestData::$testUniqueId . '\'), then count(Tables)');
+        $this->assertEquals(
+            count($qsStart->getTables()) + 1,
+            count($qs->getTables()),
+            'After adding one, with Prefix=(\'' .
+                TableServiceFunctionalTestData::$testUniqueId . '\'), then count(Tables)'
+        );
     }
 
     /**
@@ -420,7 +468,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
         // Make sure that the list of all applicable Tables is correctly updated.
         $qs = $this->restProxy->queryTables($qto);
-        $this->assertEquals(count($qsStart->getTables()) + 1, count($qs->getTables()), 'After adding one, with Prefix=(\'' . TableServiceFunctionalTestData::$testUniqueId . '\'), then count Tables');
+        $this->assertEquals(
+            count($qsStart->getTables()) + 1,
+            count($qs->getTables()),
+            'After adding one, with Prefix=(\'' .
+                TableServiceFunctionalTestData::$testUniqueId . '\'), then count Tables'
+        );
 
         $deleted = false;
         if (is_null($options)) {
@@ -444,7 +497,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $this->restProxy->deleteTable($Table);
         }
 
-        $this->assertEquals(count($qsStart->getTables()), count($qs->getTables()),'After adding then deleting one, with Prefix=(\'' . TableServiceFunctionalTestData::$testUniqueId . '\'), then count(Tables)');
+        $this->assertEquals(
+            count($qsStart->getTables()),
+            count($qs->getTables()),
+            'After adding then deleting one, with Prefix=(\'' .
+                TableServiceFunctionalTestData::$testUniqueId . '\'), then count(Tables)'
+        );
     }
 
     /**
@@ -507,7 +565,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testGetEntity()
     {
         $ents = TableServiceFunctionalTestData::getInterestingEntities();
-        foreach($ents as $ent)  {
+        foreach ($ents as $ent) {
             $options = new TableServiceOptions();
             $this->getEntityWorker($ent, true, $options);
         }
@@ -523,7 +581,19 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         try {
             // Upload the entity.
             $this->restProxy->insertEntity($table, $ent);
-            $qer = (is_null($options) ? $this->restProxy->getEntity($table, $ent->getPartitionKey(), $ent->getRowKey()) : $this->restProxy->getEntity($table, $ent->getPartitionKey(), $ent->getRowKey(), $options));
+            $qer = (is_null($options) ?
+                $this->restProxy->getEntity(
+                    $table,
+                    $ent->getPartitionKey(),
+                    $ent->getRowKey()
+                ) :
+                $this->restProxy->getEntity(
+                    $table,
+                    $ent->getPartitionKey(),
+                    $ent->getRowKey(),
+                    $options
+                )
+            );
 
             if (is_null($options)) {
                 $options = new TableServiceOptions();
@@ -534,7 +604,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         } catch (ServiceException $e) {
             if (!$isGood) {
                 $this->assertEquals(TestResources::STATUS_BAD_REQUEST, $e->getCode(), 'getCode');
-            } else if (is_null($ent->getPartitionKey()) || is_null($ent->getRowKey())) {
+            } elseif (is_null($ent->getPartitionKey()) || is_null($ent->getRowKey())) {
                 $this->assertEquals(TestResources::STATUS_BAD_REQUEST, $e->getCode(), 'getCode');
             } else {
                 throw $e;
@@ -546,7 +616,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     private function verifygetEntityWorker($ent, $entReturned)
     {
         $expectedProps = array();
-        foreach($ent->getProperties() as $pname => $actualProp)  {
+        foreach ($ent->getProperties() as $pname => $actualProp) {
             if (is_null($actualProp) || !is_null($actualProp->getValue())) {
                 $cloneProp = null;
                 if (!is_null($actualProp)) {
@@ -575,29 +645,41 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $this->assertNotNull($ent->getProperties(), 'getProperties');
 
         $nullCount = 0;
-        foreach($entReturned->getProperties() as $pname => $actualProp) {
+        foreach ($entReturned->getProperties() as $pname => $actualProp) {
             if (is_null($actualProp->getValue())) {
                 $nullCount++;
             }
         }
 
         // Need to skip null values from the count.
-        $this->assertEquals(count($expectedProps) + $nullCount, count($entReturned->getProperties()), 'getProperties()');
+        $this->assertEquals(
+            count($expectedProps) + $nullCount,
+            count($entReturned->getProperties()),
+            'getProperties()'
+        );
 
-        foreach($entReturned->getProperties() as $pname => $actualProp)  {
+        foreach ($entReturned->getProperties() as $pname => $actualProp) {
             $this->println($actualProp->getEdmType() . ':' . (is_null($actualProp->getValue()) ? 'NULL' :
                 ($actualProp->getValue() instanceof \DateTime ? "date" : $actualProp->getValue())));
         }
 
-        foreach($entReturned->getProperties() as $pname => $actualProp)  {
+        foreach ($entReturned->getProperties() as $pname => $actualProp) {
             $expectedProp = Utilities::tryGetValue($expectedProps, $pname, null);
             $this->assertNotNull($actualProp, 'getProperties[\'' . $pname . '\']');
             if (!is_null($expectedProp)) {
                 $this->compareProperties($pname, $actualProp, $expectedProp);
             }
 
-            $this->assertEquals($entReturned->getProperty($pname), $actualProp, 'getProperty(\'' . $pname . '\')');
-            $this->assertEquals($entReturned->getPropertyValue($pname), $actualProp->getValue(), 'getPropertyValue(\'' . $pname . '\')');
+            $this->assertEquals(
+                $entReturned->getProperty($pname),
+                $actualProp,
+                'getProperty(\'' . $pname . '\')'
+            );
+            $this->assertEquals(
+                $entReturned->getPropertyValue($pname),
+                $actualProp->getValue(),
+                'getPropertyValue(\'' . $pname . '\')'
+            );
         }
     }
 
@@ -610,7 +692,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $ents = TableServiceFunctionalTestData::getSimpleEntities(3);
         for ($useETag = 0; $useETag <= 2; $useETag++) {
-            foreach($ents as $ent)  {
+            foreach ($ents as $ent) {
                 $options = new DeleteEntityOptions();
                 $this->deleteEntityWorker($ent, $useETag, $options);
             }
@@ -630,7 +712,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $ier = $this->restProxy->insertEntity($table, $ent);
             if ($useETag == 1) {
                 $options->setETag($ier->getEntity()->getETag());
-            } else if ($useETag == 2) {
+            } elseif ($useETag == 2) {
                 $options->setETag('W/"datetime\'2012-03-05T21%3A46%3A25->5385467Z\'"');
             }
 
@@ -666,7 +748,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testInsertEntity()
     {
         $ents = TableServiceFunctionalTestData::getInterestingEntities();
-        foreach($ents as $ent)  {
+        foreach ($ents as $ent) {
             $options = new TableServiceOptions();
             $this->insertEntityWorker($ent, true, $options);
         }
@@ -679,7 +761,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testInsertBadEntity()
     {
         $ents = TableServiceFunctionalTestData::getInterestingBadEntities();
-        foreach($ents as $ent)  {
+        foreach ($ents as $ent) {
             $options = new TableServiceOptions();
             try {
                 $this->insertEntityWorker($ent, true, $options);
@@ -697,7 +779,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityBoolean()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodBooleans() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodBooleans() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -733,7 +815,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityDate()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodDates() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodDates() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -748,7 +830,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityDateNegative()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingBadDates() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingBadDates() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -769,7 +851,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityDouble()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodDoubles() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodDoubles() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -784,7 +866,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityDoubleNegative()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingBadDoubles() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingBadDoubles() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -805,7 +887,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityGuid()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodGuids() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodGuids() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -820,7 +902,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityGuidNegative()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingBadGuids() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingBadGuids() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -841,7 +923,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityInt()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodInts() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodInts() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -856,7 +938,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityIntNegative()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingBadInts() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingBadInts() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -877,7 +959,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityLong()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodLongs() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodLongs() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -892,7 +974,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityLongNegative()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingBadLongs() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingBadLongs() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -913,7 +995,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityBinary()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodBinaries() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodBinaries() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -928,7 +1010,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityBinaryNegative()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingBadBinaries() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingBadBinaries() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -949,7 +1031,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testInsertEntityString()
     {
-        foreach(TableServiceFunctionalTestData::getInterestingGoodStrings() as $o)  {
+        foreach (TableServiceFunctionalTestData::getInterestingGoodStrings() as $o) {
             $ent = new Entity();
             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
@@ -966,7 +1048,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $table = $this->getCleanTable();
         try {
-            $ret = (is_null($options) ? $this->restProxy->insertEntity($table, $ent) : $this->restProxy->insertEntity($table, $ent, $options));
+            $ret = (is_null($options) ?
+                $this->restProxy->insertEntity($table, $ent) :
+                $this->restProxy->insertEntity($table, $ent, $options));
 
             if (is_null($options)) {
                 $options = new TableServiceOptions();
@@ -996,7 +1080,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         } catch (ServiceException $e) {
             if (!$isGood) {
                 $this->assertEquals(TestResources::STATUS_BAD_REQUEST, $e->getCode(), 'getCode');
-            } else if (is_null($ent->getPartitionKey()) || is_null($ent->getRowKey())) {
+            } elseif (is_null($ent->getPartitionKey()) || is_null($ent->getRowKey())) {
                 $this->assertEquals(TestResources::STATUS_BAD_REQUEST, $e->getCode(), 'getCode');
             } else {
                 throw $e;
@@ -1013,8 +1097,8 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testUpdateEntity()
     {
         $ents = TableServiceFunctionalTestData::getSimpleEntities(2);
-        foreach(MutatePivot::values() as $mutatePivot) {
-            foreach($ents as $initialEnt)  {
+        foreach (MutatePivot::values() as $mutatePivot) {
+            foreach ($ents as $initialEnt) {
                 $options = new TableServiceOptions();
                 $ent = TableServiceFunctionalTestUtils::cloneEntity($initialEnt);
                 TableServiceFunctionalTestUtils::mutateEntity($ent, $mutatePivot);
@@ -1064,8 +1148,8 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testMergeEntity()
     {
         $ents = TableServiceFunctionalTestData::getSimpleEntities(2);
-        foreach(MutatePivot::values() as $mutatePivot) {
-            foreach($ents as $initialEnt)  {
+        foreach (MutatePivot::values() as $mutatePivot) {
+            foreach ($ents as $initialEnt) {
                 $options = new TableServiceOptions();
                 $ent = TableServiceFunctionalTestUtils::cloneEntity($initialEnt);
                 TableServiceFunctionalTestUtils::mutateEntity($ent, $mutatePivot);
@@ -1116,8 +1200,8 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testInsertOrReplaceEntity()
     {
         $ents = TableServiceFunctionalTestData::getSimpleEntities(2);
-        foreach(MutatePivot::values() as $mutatePivot) {
-            foreach($ents as $initialEnt)  {
+        foreach (MutatePivot::values() as $mutatePivot) {
+            foreach ($ents as $initialEnt) {
                 $options = new TableServiceOptions();
                 $ent = TableServiceFunctionalTestUtils::cloneEntity($initialEnt);
                 TableServiceFunctionalTestUtils::mutateEntity($ent, $mutatePivot);
@@ -1177,8 +1261,8 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     public function testInsertOrMergeEntity()
     {
         $ents = TableServiceFunctionalTestData::getSimpleEntities(2);
-        foreach(MutatePivot::values() as $mutatePivot) {
-            foreach($ents as $initialEnt)  {
+        foreach (MutatePivot::values() as $mutatePivot) {
+            foreach ($ents as $initialEnt) {
                 $options = new TableServiceOptions();
                 $ent = TableServiceFunctionalTestUtils::cloneEntity($initialEnt);
                 TableServiceFunctionalTestUtils::mutateEntity($ent, $mutatePivot);
@@ -1241,10 +1325,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testCRUDdeleteEntity()
     {
-        foreach(ConcurType::values() as $concurType)  {
-            foreach(MutatePivot::values() as $mutatePivot) {
+        foreach (ConcurType::values() as $concurType) {
+            foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
-                    foreach(TableServiceFunctionalTestData::getSimpleEntities(2) as $ent)  {
+                    foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
                         $options = ($i == 0 ? null : new TableServiceOptions());
                         $this->crudWorker(OpType::DELETE_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
@@ -1263,10 +1347,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testCRUDinsertEntity()
     {
-        foreach(ConcurType::values() as $concurType)  {
-            foreach(MutatePivot::values() as $mutatePivot) {
+        foreach (ConcurType::values() as $concurType) {
+            foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
-                    foreach(TableServiceFunctionalTestData::getSimpleEntities(2) as $ent)  {
+                    foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
                         $options = ($i == 0 ? null : new TableServiceOptions());
                         $this->crudWorker(OpType::INSERT_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
@@ -1287,10 +1371,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $this->skipIfEmulated();
 
-        foreach(ConcurType::values() as $concurType)  {
-            foreach(MutatePivot::values() as $mutatePivot) {
+        foreach (ConcurType::values() as $concurType) {
+            foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
-                    foreach(TableServiceFunctionalTestData::getSimpleEntities(2) as $ent)  {
+                    foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
                         $options = ($i == 0 ? null : new TableServiceOptions());
                         $this->crudWorker(OpType::INSERT_OR_MERGE_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
@@ -1311,10 +1395,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $this->skipIfEmulated();
 
-        foreach(ConcurType::values() as $concurType)  {
-            foreach(MutatePivot::values() as $mutatePivot) {
+        foreach (ConcurType::values() as $concurType) {
+            foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
-                    foreach(TableServiceFunctionalTestData::getSimpleEntities(2) as $ent)  {
+                    foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
                         $options = ($i == 0 ? null : new TableServiceOptions());
                         $this->crudWorker(OpType::INSERT_OR_REPLACE_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
@@ -1333,10 +1417,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testCRUDmergeEntity()
     {
-        foreach(ConcurType::values() as $concurType)  {
-            foreach(MutatePivot::values() as $mutatePivot) {
+        foreach (ConcurType::values() as $concurType) {
+            foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
-                    foreach(TableServiceFunctionalTestData::getSimpleEntities(2) as $ent)  {
+                    foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
                         $options = ($i == 0 ? null : new TableServiceOptions());
                         $this->crudWorker(OpType::MERGE_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
@@ -1355,10 +1439,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testCRUDupdateEntity()
     {
-        foreach(ConcurType::values() as $concurType)  {
-            foreach(MutatePivot::values() as $mutatePivot) {
+        foreach (ConcurType::values() as $concurType) {
+            foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
-                    foreach(TableServiceFunctionalTestData::getSimpleEntities(2) as $ent)  {
+                    foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
                         $options = ($i == 0 ? null : new TableServiceOptions());
                         $this->crudWorker(OpType::UPDATE_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
@@ -1388,7 +1472,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $this->executeCrudMethod($table, $targetEnt, $opType, $concurType, $options);
 
             if (!is_null($exptErr)) {
-                $this->fail('Expected a failure when opType=' . $opType . ' and concurType=' . $concurType . ' :' . $this->expectConcurrencyFailure($opType, $concurType));
+                $this->fail(
+                    'Expected a failure when opType=' . $opType .
+                        ' and concurType=' . $concurType . ' :' .
+                        $this->expectConcurrencyFailure($opType, $concurType)
+                );
             }
 
             $this->verifyCrudWorker($opType, $table, $ent, $targetEnt, true);
@@ -1457,7 +1545,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
         for ($j = 0; $j < 10; $j++) {
             $configs = array();
-            foreach(TableServiceFunctionalTestData::getSimpleEntities(6) as $ent)  {
+            foreach (TableServiceFunctionalTestData::getSimpleEntities(6) as $ent) {
                 $config = new BatchWorkerConfig();
                 $config->concurType = $concurTypes[mt_rand(0, count($concurTypes))];
                 $config->opType = $opTypes[mt_rand(0, count($opTypes))];
@@ -1486,8 +1574,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     private function verifyinsertOrMergeEntityWorker($initialEnt, $ent, $entReturned)
     {
         $expectedProps = array();
-        if (!is_null($initialEnt) && $initialEnt->getPartitionKey() == $ent->getPartitionKey() && $initialEnt->getRowKey() == $ent->getRowKey()) {
-            foreach($initialEnt->getProperties() as $pname => $actualProp)  {
+        if (!is_null($initialEnt) &&
+            $initialEnt->getPartitionKey() == $ent->getPartitionKey() &&
+            $initialEnt->getRowKey() == $ent->getRowKey()) {
+            foreach ($initialEnt->getProperties() as $pname => $actualProp) {
                 if (!is_null($actualProp) && !is_null($actualProp->getValue())) {
                     $cloneProp = null;
                     if (!is_null($actualProp)) {
@@ -1499,7 +1589,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 }
             }
         }
-        foreach($ent->getProperties() as $pname => $actualProp)  {
+        foreach ($ent->getProperties() as $pname => $actualProp) {
             // Any properties with null values are ignored by the Merge Entity operation.
             // All other properties will be updated.
             if (!is_null($actualProp) && !is_null($actualProp->getValue())) {
@@ -1511,7 +1601,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
 
         $effectiveProps = array();
-        foreach($entReturned->getProperties() as $pname => $actualProp)  {
+        foreach ($entReturned->getProperties() as $pname => $actualProp) {
             // This is to work with Dev Storage, which returns items for all
             // columns, null valued or not.
             if (!is_null($actualProp) && !is_null($actualProp->getValue())) {
@@ -1527,7 +1617,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $this->assertEquals($ent->getRowKey(), $entReturned->getRowKey(), 'getRowKey');
         $this->assertNotNull($entReturned->getETag(), 'getETag');
         if (!is_null($ent->getETag())) {
-            $this->assertTrue($ent->getETag() != $entReturned->getETag(), 'getETag should change after submit: initial \'' . $ent->getETag() . '\', returned \'' . $entReturned->getETag() . '\'');
+            $this->assertTrue(
+                $ent->getETag() != $entReturned->getETag(),
+                'getETag should change after submit: initial \'' .
+                    $ent->getETag() . '\', returned \'' . $entReturned->getETag() . '\''
+            );
         }
         $this->assertNotNull($entReturned->getTimestamp(), 'getTimestamp');
         if (is_null($ent->getTimestamp())) {
@@ -1541,17 +1635,25 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         // Need to skip null values from the count.
         $this->assertEquals(count($expectedProps), count($effectiveProps), 'getProperties()');
 
-        foreach($expectedProps as $pname => $expectedProp)  {
+        foreach ($expectedProps as $pname => $expectedProp) {
             $actualProp = $effectiveProps;
             $actualProp = $actualProp[$pname];
 
             $this->assertNotNull($actualProp, 'getProperties()[\'' . $pname . '\')');
-            if (!is_null($expectedProp) ) {
+            if (!is_null($expectedProp)) {
                 $this->compareProperties($pname, $actualProp, $expectedProp);
             }
 
-            $this->assertEquals($entReturned->getProperty($pname), $actualProp, 'getProperty(\'' . $pname . '\')');
-            $this->assertEquals($entReturned->getPropertyValue($pname), $actualProp->getValue(), 'getPropertyValue(\'' . $pname . '\')');
+            $this->assertEquals(
+                $entReturned->getProperty($pname),
+                $actualProp,
+                'getProperty(\'' . $pname . '\')'
+            );
+            $this->assertEquals(
+                $entReturned->getPropertyValue($pname),
+                $actualProp->getValue(),
+                'getPropertyValue(\'' . $pname . '\')'
+            );
         }
     }
 
@@ -1569,7 +1671,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $opTypes = OpType::values();
 
         // Main loop.
-        foreach($opTypes as $firstOpType)  {
+        foreach ($opTypes as $firstOpType) {
             if (!is_null($this->expectConcurrencyFailure($firstOpType, $firstConcurType))) {
                 // Want to know there is at least one part that does not fail.
                 continue;
@@ -1651,22 +1753,38 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $targetEnts = array();
             for ($i = 0; $i < count($configs); $i++) {
                 $initial = $this->restProxy->insertEntity($table, $configs[$i]->ent);
-                array_push($targetEnts, $this->createTargetEntity($table, $initial->getEntity(),
+                array_push(
+                    $targetEnts,
+                    $this->createTargetEntity(
+                        $table,
+                        $initial->getEntity(),
                         $configs[$i]->concurType,
-                        $configs[$i]->mutatePivot));
+                        $configs[$i]->mutatePivot
+                    )
+                );
             }
 
             // Build up the batch.
             $operations = new BatchOperations();
             for ($i = 0; $i < count($configs); $i++) {
-                $this->buildBatchOperations($table, $operations, $targetEnts[$i],
-                        $configs[$i]->opType,
-                        $configs[$i]->concurType,
-                        $configs[$i]->options);
+                $this->buildBatchOperations(
+                    $table,
+                    $operations,
+                    $targetEnts[$i],
+                    $configs[$i]->opType,
+                    $configs[$i]->concurType,
+                    $configs[$i]->options
+                );
             }
 
             // Execute the batch.
-            $ret = (is_null($options) ? $this->restProxy->batch($operations) : $this->restProxy->batch($operations, $options));
+            $ret = (is_null($options) ?
+                $this->restProxy->batch($operations) :
+                $this->restProxy->batch(
+                    $operations,
+                    $options
+                )
+            );
 
             if (is_null($options)) {
                 $options = new QueryEntitiesOptions();
@@ -1709,12 +1827,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         if ($opResult instanceof InsertEntityResult) {
             $this->verifyinsertEntityWorker($targetEnt, $opResult->getEntity());
-        } else if ($opResult instanceof UpdateEntityResult) {
+        } elseif ($opResult instanceof UpdateEntityResult) {
             $ger = $this->restProxy->getEntity($table, $targetEnt->getPartitionKey(), $targetEnt->getRowKey());
             $this->assertEquals($opResult->getETag(), $ger->getEntity()->getETag(), 'op->getETag');
-        } else if (is_string($opResult)) {
+        } elseif (is_string($opResult)) {
             // Nothing special to do.
-        } else if ($opResult instanceof BatchError) {
+        } elseif ($opResult instanceof BatchError) {
             $this->assertEquals($exptErr, $opResult->getError()->getCode(), 'getError()->getCode');
         } else {
             $this->fail('opResult is of an unknown type');
@@ -1726,24 +1844,32 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         if (is_null($exptErr)) {
             switch ($opType) {
                 case OpType::INSERT_ENTITY:
-                    $this->assertTrue($opResult instanceof InsertEntityResult,
-                            'When opType=' . $opType . ' expect opResult instanceof InsertEntityResult');
+                    $this->assertTrue(
+                        $opResult instanceof InsertEntityResult,
+                        'When opType=' . $opType . ' expect opResult instanceof InsertEntityResult'
+                    );
                     break;
                 case OpType::DELETE_ENTITY:
                     $this->assertTrue(
-                            is_string($opResult),
-                            'When opType=' . $opType . ' expect opResult is a string');
+                        is_string($opResult),
+                        'When opType=' . $opType . ' expect opResult is a string'
+                    );
                     break;
                 case OpType::UPDATE_ENTITY:
                 case OpType::INSERT_OR_REPLACE_ENTITY:
                 case OpType::MERGE_ENTITY:
                 case OpType::INSERT_OR_MERGE_ENTITY:
-                    $this->assertTrue($opResult instanceof UpdateEntityResult,
-                            'When opType=' . $opType . ' expect opResult instanceof UpdateEntityResult');
+                    $this->assertTrue(
+                        $opResult instanceof UpdateEntityResult,
+                        'When opType=' . $opType . ' expect opResult instanceof UpdateEntityResult'
+                    );
                     break;
             }
         } else {
-            $this->assertTrue($opResult instanceof BatchError, 'When expect an error, expect opResult instanceof BatchError');
+            $this->assertTrue(
+                $opResult instanceof BatchError,
+                'When expect an error, expect opResult instanceof BatchError'
+            );
         }
     }
 
@@ -1754,7 +1880,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 if (is_null($options) && $concurType != ConcurType::KEY_MATCH_ETAG_MISMATCH) {
                     $operations->addDeleteEntity($table, $targetEnt->getPartitionKey(), $targetEnt->getRowKey(), null);
                 } else {
-                    $operations->addDeleteEntity($table, $targetEnt->getPartitionKey(), $targetEnt->getRowKey(), $targetEnt->getETag());
+                    $operations->addDeleteEntity(
+                        $table,
+                        $targetEnt->getPartitionKey(),
+                        $targetEnt->getRowKey(),
+                        $targetEnt->getETag()
+                    );
                 }
                 break;
             case OpType::INSERT_ENTITY:
@@ -1792,7 +1923,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 } else {
                     $delOptions = new DeleteEntityOptions();
                     $delOptions->setETag($targetEnt->getETag());
-                    $this->restProxy->deleteEntity($table, $targetEnt->getPartitionKey(), $targetEnt->getRowKey(), $delOptions);
+                    $this->restProxy->deleteEntity(
+                        $table,
+                        $targetEnt->getPartitionKey(),
+                        $targetEnt->getRowKey(),
+                        $delOptions
+                    );
                 }
                 break;
             case OpType::INSERT_ENTITY:
@@ -1843,7 +1979,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $ger = $this->restProxy->getEntity($table, $targetEnt->getPartitionKey(), $targetEnt->getRowKey());
             $entInTable = $ger->getEntity();
         } catch (ServiceException $e) {
-            $this->assertTrue(($opType == OpType::DELETE_ENTITY) && (TestResources::STATUS_NOT_FOUND == $e->getCode()), '404:NotFound is expected for deletes');
+            $this->assertTrue(
+                ($opType == OpType::DELETE_ENTITY) &&
+                    (TestResources::STATUS_NOT_FOUND == $e->getCode()),
+                '404:NotFound is expected for deletes'
+            );
         }
 
         switch ($opType) {
@@ -1903,7 +2043,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 $newETag =  $this->restProxy->updateEntity($table, $initialEnt)->getETag();
                 $initialEnt->setETag($newETag);
                 // Now the $targetEnt ETag will not match.
-                $this->assertTrue($targetEnt->getETag() != $initialEnt->getETag(), 'targetEnt->ETag(\'' . $targetEnt->getETag() . '\') !=  updated->ETag(\'' . $initialEnt->getETag() . '\')');
+                $this->assertTrue(
+                    $targetEnt->getETag() != $initialEnt->getETag(),
+                    'targetEnt->ETag(\'' . $targetEnt->getETag() .
+                        '\') !=  updated->ETag(\'' . $initialEnt->getETag() . '\')'
+                );
 
                 break;
             case ConcurType::KEY_MATCH_ETAG_MATCH:
@@ -1924,7 +2068,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
         switch ($concurType) {
             case ConcurType::NO_KEY_MATCH:
-                if (($opType == OpType::DELETE_ENTITY) || ($opType == OpType::MERGE_ENTITY) || ($opType == OpType::UPDATE_ENTITY)) {
+                if (($opType == OpType::DELETE_ENTITY) ||
+                    ($opType == OpType::MERGE_ENTITY) ||
+                    ($opType == OpType::UPDATE_ENTITY)) {
                     return TestResources::STATUS_NOT_FOUND;
                 }
                 break;
@@ -1941,7 +2087,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             case ConcurType::KEY_MATCH_ETAG_MISMATCH:
                 if ($opType == OpType::INSERT_ENTITY) {
                     return TestResources::STATUS_CONFLICT;
-                } else if ($opType == OpType::INSERT_OR_REPLACE_ENTITY || $opType == OpType::INSERT_OR_MERGE_ENTITY) {
+                } elseif ($opType == OpType::INSERT_OR_REPLACE_ENTITY || $opType == OpType::INSERT_OR_MERGE_ENTITY) {
                     // If exists, just clobber.
                     return null;
                 }
@@ -1950,13 +2096,16 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         return null;
     }
 
-    function compareProperties($pname, $actualProp, $expectedProp)
+    public function compareProperties($pname, $actualProp, $expectedProp)
     {
         $effectiveExpectedProp = (is_null($expectedProp->getEdmType()) ? EdmType::STRING : $expectedProp->getEdmType());
         $effectiveActualProp = (is_null($expectedProp->getEdmType()) ? EdmType::STRING : $expectedProp->getEdmType());
 
-        $this->assertEquals($effectiveExpectedProp, $effectiveActualProp,
-                'getProperties()->get(\'' . $pname . '\')->getEdmType');
+        $this->assertEquals(
+            $effectiveExpectedProp,
+            $effectiveActualProp,
+            'getProperties()->get(\'' . $pname . '\')->getEdmType'
+        );
 
         $effExp = $expectedProp->getValue();
         $effAct = $actualProp->getValue();
@@ -1968,8 +2117,10 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $effAct = $effAct->setTimezone(new \DateTimeZone('UTC'));
         }
 
-        $this->assertEquals($expectedProp->getValue(), $actualProp->getValue(), 'getProperties()->get(\'' . $pname . '\')->getValue [' . $effectiveExpectedProp . ']');
+        $this->assertEquals(
+            $expectedProp->getValue(),
+            $actualProp->getValue(),
+            'getProperties()->get(\'' . $pname . '\')->getValue [' . $effectiveExpectedProp . ']'
+        );
     }
-
 }
-

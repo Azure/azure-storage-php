@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -50,11 +50,11 @@ class GetContainerPropertiesResult
     /**
      * @var array
      */
-    private $_metadata; 
+    private $_metadata;
     
     /**
-     * Any operation that modifies the container or its properties or metadata 
-     * updates the last modified time. Operations on blobs do not affect the last 
+     * Any operation that modifies the container or its properties or metadata
+     * updates the last modified time. Operations on blobs do not affect the last
      * modified time of the container.
      *
      * @return \DateTime.
@@ -68,7 +68,7 @@ class GetContainerPropertiesResult
      * Sets container lastModified.
      *
      * @param \DateTime $lastModified value.
-     * 
+     *
      * @return none.
      */
     public function setLastModified($lastModified)
@@ -77,7 +77,7 @@ class GetContainerPropertiesResult
     }
     
     /**
-     * The entity tag for the container. If the request version is 2011-08-18 or 
+     * The entity tag for the container. If the request version is 2011-08-18 or
      * newer, the ETag value will be in quotes.
      *
      * @return string.
@@ -91,7 +91,7 @@ class GetContainerPropertiesResult
      * Sets container etag.
      *
      * @param string $etag value.
-     * 
+     *
      * @return none.
      */
     public function setETag($etag)
@@ -101,7 +101,7 @@ class GetContainerPropertiesResult
     
     /**
      * Gets user defined metadata.
-     * 
+     *
      * @return array.
      */
     public function getMetadata()
@@ -112,9 +112,9 @@ class GetContainerPropertiesResult
     /**
      * Sets user defined metadata. This metadata should be added without the header
      * prefix (x-ms-meta-*).
-     * 
+     *
      * @param array $metadata user defined metadata object in array form.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -122,5 +122,3 @@ class GetContainerPropertiesResult
         $this->_metadata = $metadata;
     }
 }
-
-

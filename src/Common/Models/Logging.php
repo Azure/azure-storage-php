@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Models;
+
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -41,32 +42,32 @@ class Logging
 {
     /**
      * The version of Storage Analytics to configure
-     * 
+     *
      * @var string
      */
     private $_version;
     
     /**
-     * Applies only to logging configuration. Indicates whether all delete requests 
+     * Applies only to logging configuration. Indicates whether all delete requests
      * should be logged.
-     * 
+     *
      * @var bool
      */
     private $_delete;
     
     /**
-     * Applies only to logging configuration. Indicates whether all read requests 
+     * Applies only to logging configuration. Indicates whether all read requests
      * should be logged.
-     * 
+     *
      * @var bool.
      */
     private $_read;
     
     /**
-     * Applies only to logging configuration. Indicates whether all write requests 
+     * Applies only to logging configuration. Indicates whether all write requests
      * should be logged.
-     * 
-     * @var bool 
+     *
+     * @var bool
      */
     private $_write;
     
@@ -77,9 +78,9 @@ class Logging
     
     /**
      * Creates object from $parsedResponse.
-     * 
+     *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\Logging
      */
     public static function create($parsedResponse)
@@ -98,9 +99,9 @@ class Logging
     
     /**
      * Gets retention policy
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Models\RetentionPolicy
-     *  
+     *
      */
     public function getRetentionPolicy()
     {
@@ -109,9 +110,9 @@ class Logging
     
     /**
      * Sets retention policy
-     * 
+     *
      * @param RetentionPolicy $policy object to use
-     * 
+     *
      * @return none.
      */
     public function setRetentionPolicy($policy)
@@ -121,7 +122,7 @@ class Logging
     
     /**
      * Gets write
-     * 
+     *
      * @return bool.
      */
     public function getWrite()
@@ -131,9 +132,9 @@ class Logging
     
     /**
      * Sets write
-     * 
+     *
      * @param bool $write new value.
-     * 
+     *
      * @return none.
      */
     public function setWrite($write)
@@ -143,7 +144,7 @@ class Logging
             
     /**
      * Gets read
-     * 
+     *
      * @return bool.
      */
     public function getRead()
@@ -153,9 +154,9 @@ class Logging
     
     /**
      * Sets read
-     * 
+     *
      * @param bool $read new value.
-     * 
+     *
      * @return none.
      */
     public function setRead($read)
@@ -165,7 +166,7 @@ class Logging
     
     /**
      * Gets delete
-     * 
+     *
      * @return bool.
      */
     public function getDelete()
@@ -175,9 +176,9 @@ class Logging
     
     /**
      * Sets delete
-     * 
+     *
      * @param bool $delete new value.
-     * 
+     *
      * @return none.
      */
     public function setDelete($delete)
@@ -187,7 +188,7 @@ class Logging
     
     /**
      * Gets version
-     * 
+     *
      * @return string.
      */
     public function getVersion()
@@ -197,9 +198,9 @@ class Logging
     
     /**
      * Sets version
-     * 
+     *
      * @param string $version new value.
-     * 
+     *
      * @return none.
      */
     public function setVersion($version)
@@ -209,8 +210,8 @@ class Logging
     
     /**
      * Converts this object to array with XML tags
-     * 
-     * @return array. 
+     *
+     * @return array.
      */
     public function toArray()
     {
@@ -225,5 +226,3 @@ class Logging
         );
     }
 }
-
-

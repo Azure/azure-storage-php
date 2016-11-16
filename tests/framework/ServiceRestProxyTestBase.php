@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Framework;
+namespace MicrosoftAzure\Storage\Tests\framework;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -102,5 +103,3 @@ class ServiceRestProxyTestBase extends RestProxyTestBase
         }
     }
 }
-
-

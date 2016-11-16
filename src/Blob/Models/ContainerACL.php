@@ -43,7 +43,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class ContainerAcl
+class ContainerACL
 {
     /**
      * All available types can be found in PublicAccessType
@@ -59,7 +59,7 @@ class ContainerAcl
     
     /*
      * The root name of XML elemenet representation.
-     * 
+     *
      * @var string
      */
     public static $xmlRootName = 'SignedIdentifiers';

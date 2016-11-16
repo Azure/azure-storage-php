@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,10 +23,11 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
- * Exception thrown if an argument type does not match with the expected type. 
+ * Exception thrown if an argument type does not match with the expected type.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
@@ -43,7 +44,7 @@ class InvalidArgumentTypeException extends \InvalidArgumentException
      *
      * @param string $validType The valid type that should be provided by the user.
      * @param string $name      The parameter name.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException
      */
     public function __construct($validType, $name = null)
@@ -53,5 +54,3 @@ class InvalidArgumentTypeException extends \InvalidArgumentException
         );
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 
 /**
@@ -41,12 +42,10 @@ class InvalidArgumentTypeExceptionTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException::__construct
      */
-    public function test__construct()
+    public function testConstruct()
     {
         $e = new InvalidArgumentTypeException('string');
         
         $this->assertTrue(isset($e));
     }
 }
-
-

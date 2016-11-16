@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Functional\Table;
+namespace MicrosoftAzure\Storage\Tests\functional\Table;
 
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\ServiceException;
@@ -56,15 +56,15 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $table = TableServiceFunctionalTestData::$testTableNames[0];
         self::$entitiesInTable = self::getEntitiesToQueryOver();
         $parts = array();
-        foreach(self::$entitiesInTable as $entity)  {
+        foreach (self::$entitiesInTable as $entity) {
             if (array_key_exists($entity->getPartitionKey(), $parts) === false) {
                 $parts[$entity->getPartitionKey()] = array();
             }
             array_push($parts[$entity->getPartitionKey()], $entity);
         }
-        foreach($parts as $part) {
+        foreach ($parts as $part) {
             $batch = new BatchOperations();
-            foreach($part as $entity)  {
+            foreach ($part as $entity) {
                 $batch->addInsertEntity($table, $entity);
             }
             $this->restProxy->batch($batch);
@@ -256,7 +256,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
 
         $options = new QueryEntitiesOptions();
         $query = new Query();
-        $filter = Filter::applyNot(Filter::applyEq(Filter::applyConstant(23, EdmType::INT32), Filter::applyPropertyName('INT32')));
+        $filter = Filter::applyNot(
+            Filter::applyEq(
+                Filter::applyConstant(23, EdmType::INT32),
+                Filter::applyPropertyName('INT32')
+            )
+        );
         $query->setFilter($filter);
         $options->setQuery($query);
         array_push($ret, $options);
@@ -302,44 +307,59 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
 
         // TODO: Treat raw string special
         if ($depth == $targetDepth) {
-            switch (mt_rand(0,2)) {
+            switch (mt_rand(0, 2)) {
                 case 0:
                     return self::generateBinaryFilterWithAnyParameters();
                 case 1:
-                    return Filter::applyConstant(mt_rand(0,1) == 1, EdmType::BOOLEAN);
+                    return Filter::applyConstant(mt_rand(0, 1) == 1, EdmType::BOOLEAN);
                 case 2:
                     $e = self::getEntityFromTable();
                     $boolPropNames = array();
-                    foreach($e->getProperties() as $key => $p)  {
+                    foreach ($e->getProperties() as $key => $p) {
                         if ($p->getEdmType() == EdmType::BOOLEAN) {
                             array_push($boolPropNames, $key);
                         }
                     }
                     if (count($boolPropNames) == 0) {
-                        return Filter::applyConstant(mt_rand(0,1) == 1, EdmType::BOOLEAN);
+                        return Filter::applyConstant(mt_rand(0, 1) == 1, EdmType::BOOLEAN);
                     } else {
                         $key = $boolPropNames[mt_rand(0, count($boolPropNames) - 1)];
                         return Filter::applyPropertyName($key);
                     }
+                    //will return either way so not fall through
                 default:
                     return null;
             }
         } else {
-            switch (mt_rand(0,8)) {
+            switch (mt_rand(0, 8)) {
                 case 0:
                 case 1:
                 case 2:
                 case 3:
                     return Filter::applyAnd(
-                            self::generateFilterWithBooleanParameters($targetDepth, $depth + 1),
-                            self::generateFilterWithBooleanParameters($targetDepth, $depth + 1));
+                        self::generateFilterWithBooleanParameters(
+                            $targetDepth,
+                            $depth + 1
+                        ),
+                        self::generateFilterWithBooleanParameters(
+                            $targetDepth,
+                            $depth + 1
+                        )
+                    );
                 case 4:
                 case 5:
                 case 6:
                 case 7:
                     return Filter::applyOr(
-                            self::generateFilterWithBooleanParameters($targetDepth, $depth + 1),
-                            self::generateFilterWithBooleanParameters($targetDepth, $depth + 1));
+                        self::generateFilterWithBooleanParameters(
+                            $targetDepth,
+                            $depth + 1
+                        ),
+                        self::generateFilterWithBooleanParameters(
+                            $targetDepth,
+                            $depth + 1
+                        )
+                    );
                 case 8:
                     return Filter::applyNot(self::generateFilterWithBooleanParameters($targetDepth, $depth + 1));
                 default:
@@ -362,7 +382,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $f1 = Filter::applyConstant($prop->getValue(), $prop->getEdmType());
         $f2 = Filter::applyPropertyName($key);
 
-        if (mt_rand(0,1) == 1) {
+        if (mt_rand(0, 1) == 1) {
             // Try swapping.
             $t = $f1;
             $f1 = $f2;
@@ -382,13 +402,20 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
     private static function getBinaryFilterFromIndex($index, $f1, $f2)
     {
         switch ($index) {
-            case 0: return Filter::applyEq($f1, $f2);
-            case 1: return Filter::applyGe($f1, $f2);
-            case 2: return Filter::applyGt($f1, $f2);
-            case 3: return Filter::applyLe($f1, $f2);
-            case 4: return Filter::applyLt($f1, $f2);
-            case 5: return Filter::applyNe($f1, $f2);
-            default: return null;
+            case 0:
+                return Filter::applyEq($f1, $f2);
+            case 1:
+                return Filter::applyGe($f1, $f2);
+            case 2:
+                return Filter::applyGt($f1, $f2);
+            case 3:
+                return Filter::applyLe($f1, $f2);
+            case 4:
+                return Filter::applyLt($f1, $f2);
+            case 5:
+                return Filter::applyNe($f1, $f2);
+            default:
+                return null;
         }
     }
 
@@ -401,7 +428,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $this->skipIfEmulated();
 
         $interestingqueryEntitiesOptions = self::getInterestingQueryEntitiesOptions();
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -414,8 +441,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('BOOLEAN', EdmType::BOOLEAN, TableServiceFunctionalTestData::getInterestingGoodBooleans());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'BOOLEAN',
+            EdmType::BOOLEAN,
+            TableServiceFunctionalTestData::getInterestingGoodBooleans()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -428,8 +459,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('DATETIME', EdmType::DATETIME, TableServiceFunctionalTestData::getInterestingGoodDates());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'DATETIME',
+            EdmType::DATETIME,
+            TableServiceFunctionalTestData::getInterestingGoodDates()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -442,8 +477,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('DOUBLE', EdmType::DOUBLE, TableServiceFunctionalTestData::getInterestingGoodDoubles());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'DOUBLE',
+            EdmType::DOUBLE,
+            TableServiceFunctionalTestData::getInterestingGoodDoubles()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -456,8 +495,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('GUID', EdmType::GUID, TableServiceFunctionalTestData::getInterestingGoodGuids());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'GUID',
+            EdmType::GUID,
+            TableServiceFunctionalTestData::getInterestingGoodGuids()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -470,8 +513,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-         $interestingqueryEntitiesOptions = self::addBinaryFilter('INT32', EdmType::INT32, TableServiceFunctionalTestData::getInterestingGoodInts());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'INT32',
+            EdmType::INT32,
+            TableServiceFunctionalTestData::getInterestingGoodInts()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -484,8 +531,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('INT64', EdmType::INT64, TableServiceFunctionalTestData::getInterestingGoodLongs());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'INT64',
+            EdmType::INT64,
+            TableServiceFunctionalTestData::getInterestingGoodLongs()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -498,8 +549,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('STRING', EdmType::STRING, TableServiceFunctionalTestData::getInterestingGoodStrings());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'STRING',
+            EdmType::STRING,
+            TableServiceFunctionalTestData::getInterestingGoodStrings()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -512,8 +567,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // The emulator has problems with non-standard queries tested here.
         $this->skipIfEmulated();
 
-        $interestingqueryEntitiesOptions = self::addBinaryFilter('BINARY', EdmType::BINARY, TableServiceFunctionalTestData::getInterestingGoodBinaries());
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        $interestingqueryEntitiesOptions = self::addBinaryFilter(
+            'BINARY',
+            EdmType::BINARY,
+            TableServiceFunctionalTestData::getInterestingGoodBinaries()
+        );
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -527,7 +586,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $this->skipIfEmulated();
 
         $interestingqueryEntitiesOptions = self::getInterestingQueryEntitiesOptionsOfDepth(2);
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -541,7 +600,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $this->skipIfEmulated();
 
         $interestingqueryEntitiesOptions = self::getInterestingQueryEntitiesOptionsOfDepth(3);
-        foreach($interestingqueryEntitiesOptions as $options)  {
+        foreach ($interestingqueryEntitiesOptions as $options) {
             $this->queryEntitiesWorker($options);
         }
     }
@@ -554,13 +613,17 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $table = TableServiceFunctionalTestData::$testTableNames[0];
 
         try {
-            $ret = (is_null($options) ? $this->restProxy->queryEntities($table) : $this->restProxy->queryEntities($table, $options));
+            $ret = (is_null($options) ?
+                $this->restProxy->queryEntities($table) :
+                $this->restProxy->queryEntities($table, $options));
 
             if (is_null($options)) {
                 $options = new QueryEntitiesOptions();
             }
 
-            if (!is_null($options->getQuery()) && !is_null($options->getQuery()->getTop()) && $options->getQuery()->getTop() <= 0) {
+            if (!is_null($options->getQuery()) &&
+                !is_null($options->getQuery()->getTop()) &&
+                $options->getQuery()->getTop() <= 0) {
                 $this->assertTrue(false, 'Expect non-positive Top in $options->query to throw');
             }
 
@@ -571,7 +634,9 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
             // not sure how useful it is.
             // To test that scenario, set NextTable in the $options.
         } catch (ServiceException $e) {
-            if (!is_null($options->getQuery()) && !is_null($options->getQuery()->getTop()) && $options->getQuery()->getTop() <= 0) {
+            if (!is_null($options->getQuery()) &&
+                !is_null($options->getQuery()->getTop()) &&
+                $options->getQuery()->getTop() <= 0) {
                 $this->assertEquals(TestResources::STATUS_BAD_REQUEST, $e->getCode(), 'getCode');
             } else {
                 $this->assertEquals(TestResources::STATUS_INTERNAL_SERVER_ERROR, $e->getCode(), 'getCode');
@@ -584,7 +649,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $this->assertNotNull($ret->getEntities(), 'getTables');
 
         $expectedData = array();
-        foreach(self::$entitiesInTable as $e)  {
+        foreach (self::$entitiesInTable as $e) {
             array_push($expectedData, $e);
         }
 
@@ -594,8 +659,8 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
 
         if (!is_null($options->getNextPartitionKey()) && !is_null($options->getNextRowKey())) {
             $expectedDataTmp = array();
-            foreach($expectedData as $e)  {
-                if ( ($e->getPartitionKey() >  $options->getNextPartitionKey()) ||
+            foreach ($expectedData as $e) {
+                if (($e->getPartitionKey() >  $options->getNextPartitionKey()) ||
                     (($e->getPartitionKey() == $options->getNextPartitionKey()) &&
                      ($e->getRowKey()       >= $options->getNextRowKey()))) {
                     array_push($expectedDataTmp, $e);
@@ -626,14 +691,17 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         // Need to sort the lists.
         $actualData = self::sortEntitiesByCompositeKey($actualData);
         $expectedData = self::sortEntitiesByCompositeKey($expectedData);
-        $this->assertEquals(count($expectedData) , count($actualData), 'count(getEntities)');
+        $this->assertEquals(count($expectedData), count($actualData), 'count(getEntities)');
         for ($i = 0; $i < count($expectedData); $i++) {
             $e1 = $expectedData[$i];
             $e2 = $actualData[$i];
             if (!$projected) {
                 $this->assertTrue(
-                    ($e1->getPartitionKey() == $e2->getPartitionKey()) && ($e1->getRowKey() == $e2->getRowKey()),
-                    '(' . $e1->getPartitionKey() . ',' . $e1->getRowKey() . ') == (' . $e2->getPartitionKey() . ',' . $e2->getRowKey() . ')');
+                    ($e1->getPartitionKey() == $e2->getPartitionKey()) &&
+                        ($e1->getRowKey() == $e2->getRowKey()),
+                    '(' . $e1->getPartitionKey() . ',' . $e1->getRowKey() .
+                    ') == (' . $e2->getPartitionKey() . ',' . $e2->getRowKey() . ')'
+                );
             }
             // Don't need to verify the whole entities, done elsewhere
         }
@@ -643,8 +711,12 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
     {
         $counter = 0;
         $ret = array();
-        foreach($values as $o)  {
-            $f = self::getBinaryFilterFromIndex($counter, Filter::applyPropertyName($name), Filter::applyConstant($o, $edmType));
+        foreach ($values as $o) {
+            $f = self::getBinaryFilterFromIndex(
+                $counter,
+                Filter::applyPropertyName($name),
+                Filter::applyConstant($o, $edmType)
+            );
             $q = new Query();
             $q->setFilter($f);
             $qeo = new QueryEntitiesOptions();
@@ -660,7 +732,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
         $tmpArray = array();
         $isordered = true;
         $prevIndex = '/';
-        foreach($originalArray as $e) {
+        foreach ($originalArray as $e) {
             $index = $e->getPartitionKey() . '/' . $e->getRowKey();
             $tmpArray[$index] = $e;
             if ($isordered) {
@@ -675,11 +747,9 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
 
         ksort($tmpArray);
         $ret = array();
-        foreach($tmpArray as $e) {
+        foreach ($tmpArray as $e) {
             array_push($ret, $e);
         }
         return $ret;
     }
 }
-
-

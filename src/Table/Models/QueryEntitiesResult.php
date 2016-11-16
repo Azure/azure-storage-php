@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -56,10 +57,10 @@ class QueryEntitiesResult
     
     /**
      * Creates new QueryEntitiesResult instance.
-     * 
+     *
      * @param array $headers  The HTTP response headers.
      * @param array $entities The entities.
-     * 
+     *
      * @return QueryEntitiesResult
      */
     public static function create($headers, $entities)
@@ -67,10 +68,12 @@ class QueryEntitiesResult
         $result  = new QueryEntitiesResult();
         $headers = array_change_key_case($headers);
         $nextPK  = Utilities::tryGetValue(
-            $headers, Resources::X_MS_CONTINUATION_NEXTPARTITIONKEY
+            $headers,
+            Resources::X_MS_CONTINUATION_NEXTPARTITIONKEY
         );
         $nextRK  = Utilities::tryGetValue(
-            $headers, Resources::X_MS_CONTINUATION_NEXTROWKEY
+            $headers,
+            Resources::X_MS_CONTINUATION_NEXTROWKEY
         );
         
         $result->setEntities($entities);
@@ -82,7 +85,7 @@ class QueryEntitiesResult
     
     /**
      * Gets entities.
-     * 
+     *
      * @return array
      */
     public function getEntities()
@@ -92,9 +95,9 @@ class QueryEntitiesResult
     
     /**
      * Sets entities.
-     * 
+     *
      * @param array $entities The entities array.
-     * 
+     *
      * @return none
      */
     public function setEntities($entities)
@@ -146,5 +149,3 @@ class QueryEntitiesResult
         $this->_nextRowKey = $nextRowKey;
     }
 }
-
-

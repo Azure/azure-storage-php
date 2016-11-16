@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -62,7 +62,7 @@ class QueryEntitiesOptions extends TableServiceOptions
     
     /**
      * Gets query.
-     * 
+     *
      * @return Query
      */
     public function getQuery()
@@ -72,12 +72,12 @@ class QueryEntitiesOptions extends TableServiceOptions
     
     /**
      * Sets query.
-     * 
+     *
      * You can either sets the whole query *or* use the individual query functions
      * like (setTop).
-     * 
+     *
      * @param string $query The query instance.
-     * 
+     *
      * @return none
      */
     public function setQuery($query)
@@ -144,9 +144,9 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * You can either use this individual function or use setQuery to set the whole
      * query object.
-     * 
+     *
      * @param Filters\Filter $filter value.
-     * 
+     *
      * @return none.
      */
     public function setFilter($filter)
@@ -169,9 +169,9 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * You can either use this individual function or use setQuery to set the whole
      * query object.
-     * 
+     *
      * @param integer $top value.
-     * 
+     *
      * @return none.
      */
     public function setTop($top)
@@ -181,12 +181,12 @@ class QueryEntitiesOptions extends TableServiceOptions
     
     /**
      * Adds a field to select fields.
-     * 
+     *
      * You can either use this individual function or use setQuery to set the whole
      * query object.
-     * 
+     *
      * @param string $field The value of the field.
-     * 
+     *
      * @return none.
      */
     public function addSelectField($field)
@@ -209,9 +209,9 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * You can either use this individual function or use setQuery to set the whole
      * query object.
-     * 
+     *
      * @param array $selectFields value.
-     * 
+     *
      * @return none.
      */
     public function setSelectFields($selectFields)
@@ -219,5 +219,3 @@ class QueryEntitiesOptions extends TableServiceOptions
         $this->_query->setSelectFields($selectFields);
     }
 }
-
-

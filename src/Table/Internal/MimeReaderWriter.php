@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -41,10 +42,10 @@ class MimeReaderWriter implements IMimeReaderWriter
 {
     /**
      * Given array of MIME parts in raw string, this function converts them into MIME
-     * representation. 
-     * 
+     * representation.
+     *
      * @param array $bodyPartContents The MIME body parts.
-     * 
+     *
      * @return array Returns array with two elements 'headers' and 'body' which
      * represents the MIME message.
      */
@@ -78,8 +79,7 @@ class MimeReaderWriter implements IMimeReaderWriter
         $batchBody .= "Content-Type: $mimeType; boundary=\"$changeSetId\"" . $eof;
         
         $batchBody .= $eof;
-        for ($i = 0; $i < count($bodyPartContents); $i++) 
-        {
+        for ($i = 0; $i < count($bodyPartContents); $i++) {
             $batchBody .= "--" . $changeSetId . $eof;
             
             $batchBody .= "Content-Transfer-Encoding: binary" . $eof;
@@ -95,11 +95,11 @@ class MimeReaderWriter implements IMimeReaderWriter
     }
     
     /**
-     * Parses given mime HTTP response body into array. Each array element 
+     * Parses given mime HTTP response body into array. Each array element
      * represents a change set result.
-     * 
+     *
      * @param string $mimeBody The raw MIME body result.
-     * 
+     *
      * @return array
      */
     public function decodeMimeMultipart($mimeBody)
@@ -117,8 +117,7 @@ class MimeReaderWriter implements IMimeReaderWriter
         $result = array();
          
         // The first and last element are not request
-        for($i = 1; $i < count($requests) - 1; $i++)
-        {
+        for ($i = 1; $i < count($requests) - 1; $i++) {
             // Split the request header and body
             preg_match("/^.*?\r?\n\r?\n(.*)/s", $requests[$i], $matches);
             $result[] = $matches[1];
@@ -127,5 +126,3 @@ class MimeReaderWriter implements IMimeReaderWriter
         return $result;
     }
 }
-
-

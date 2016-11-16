@@ -1345,9 +1345,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 $statusCode,
                 $body
             );
-                return CopyBlobResult::create(
-                    HttpFormatter::formatHeaders($response->getHeaders())
-                );
+            return CopyBlobResult::create(
+                HttpFormatter::formatHeaders($response->getHeaders())
+            );
         } else {
             // This is for large or failsafe upload
             return $this->createBlockBlobConcurrent(
@@ -2247,7 +2247,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      */
     public function saveBlobToFile($path, $container, $blob, $options = null)
     {
-        
         $resource = fopen($path, 'w+');
         if ($resource == null) {
             throw new \Exception(Resources::ERROR_FILE_COULD_NOT_BE_OPENED);
@@ -2507,7 +2506,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $sourceBlob,
         $options = null
     ) {
-
         $method              = Resources::HTTP_PUT;
         $headers             = array();
         $postParams          = array();

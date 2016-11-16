@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication;
+namespace MicrosoftAzure\Storage\Tests\mock\Common\Internal\Authentication;
+
 use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
 
 /**
@@ -67,7 +68,7 @@ class StorageAuthSchemeMock extends StorageAuthScheme
         return $this->accountKey;
     }
 
-    protected function computeSignature($headers, $url, $queryParams, $httpMethod) 
+    protected function computeSignature($headers, $url, $queryParams, $httpMethod)
     {
         // Do nothing
     }
@@ -77,5 +78,3 @@ class StorageAuthSchemeMock extends StorageAuthScheme
         // Do nothing
     }
 }
-
-

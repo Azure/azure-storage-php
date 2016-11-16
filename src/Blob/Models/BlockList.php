@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -49,9 +50,9 @@ class BlockList
     
     /**
      * Creates block list from array of blocks.
-     * 
+     *
      * @param array $array The blocks array.
-     * 
+     *
      * @return BlockList
      */
     public static function create($array)
@@ -67,10 +68,10 @@ class BlockList
     
     /**
      * Adds new entry to the block list entries.
-     * 
+     *
      * @param string $blockId The block id.
      * @param string $type    The entry type, you can use BlobBlockType.
-     * 
+     *
      * @return none
      */
     public function addEntry($blockId, $type)
@@ -89,9 +90,9 @@ class BlockList
     
     /**
      * Addds committed block entry.
-     * 
+     *
      * @param string $blockId The block id.
-     * 
+     *
      * @return none
      */
     public function addCommittedEntry($blockId)
@@ -101,9 +102,9 @@ class BlockList
     
     /**
      * Addds uncommitted block entry.
-     * 
+     *
      * @param string $blockId The block id.
-     * 
+     *
      * @return none
      */
     public function addUncommittedEntry($blockId)
@@ -113,9 +114,9 @@ class BlockList
     
     /**
      * Addds latest block entry.
-     * 
+     *
      * @param string $blockId The block id.
-     * 
+     *
      * @return none
      */
     public function addLatestEntry($blockId)
@@ -125,9 +126,9 @@ class BlockList
     
     /**
      * Gets blob block entry.
-     * 
+     *
      * @param string $blockId The id of the block.
-     * 
+     *
      * @return Block
      */
     public function getEntry($blockId)
@@ -143,7 +144,7 @@ class BlockList
     
     /**
      * Gets all blob block entries.
-     * 
+     *
      * @return string
      */
     public function getEntries()
@@ -153,9 +154,9 @@ class BlockList
     
     /**
      * Converts the  BlockList object to XML representation
-     * 
+     *
      * @param XmlSerializer $xmlSerializer The XML serializer.
-     * 
+     *
      * @return string
      */
     public function toXml($xmlSerializer)
@@ -172,4 +173,3 @@ class BlockList
         return $xmlSerializer->serialize($array, $properties);
     }
 }
-

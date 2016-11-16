@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -61,7 +61,7 @@ class GetBlobPropertiesResult
      * Sets blob metadata.
      *
      * @param array $metadata value.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -83,7 +83,7 @@ class GetBlobPropertiesResult
      * Sets blob properties.
      *
      * @param BlobProperties $properties value.
-     * 
+     *
      * @return none.
      */
     public function setProperties($properties)
@@ -91,5 +91,3 @@ class GetBlobPropertiesResult
         $this->_properties = $properties;
     }
 }
-
-

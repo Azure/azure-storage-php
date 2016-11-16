@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -21,7 +21,8 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult;
 use MicrosoftAzure\Storage\Blob\Models\PageRange;
@@ -110,5 +111,3 @@ class ListPageBlobRangesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getPageRanges());
     }
 }
-
-

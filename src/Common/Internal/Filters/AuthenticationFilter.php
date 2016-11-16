@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Common\Internal\Filters;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
 use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
@@ -48,7 +49,7 @@ class AuthenticationFilter implements IServiceFilter
 
     /**
      * Creates AuthenticationFilter with the passed scheme.
-     * 
+     *
      * @param StorageAuthScheme $authenticationScheme The authentication scheme.
      */
     public function __construct($authenticationScheme)
@@ -60,16 +61,20 @@ class AuthenticationFilter implements IServiceFilter
      * Adds authentication header to the request headers.
      *
      * @param \GuzzleHttp\Psr7\Request $request HTTP request object.
-     * 
+     *
      * @return \GuzzleHttp\Psr7\Request
      */
     public function handleRequest($request)
-    {    
+    {
         $requestHeaders = HttpFormatter::formatHeaders($request->getHeaders());
         
         $signedKey = $this->_authenticationScheme->getAuthorizationHeader(
-            $requestHeaders, $request->getUri(),
-            \GuzzleHttp\Psr7\parse_query($request->getUri()->getQuery()), $request->getMethod()
+            $requestHeaders,
+            $request->getUri(),
+            \GuzzleHttp\Psr7\parse_query(
+                $request->getUri()->getQuery()
+            ),
+            $request->getMethod()
         );
         return $request->withHeader(Resources::AUTHENTICATION, $signedKey);
     }
@@ -88,5 +93,3 @@ class AuthenticationFilter implements IServiceFilter
         return $response;
     }
 }
-
-

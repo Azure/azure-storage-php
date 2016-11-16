@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
@@ -40,7 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 class CreateContainerOptions extends BlobServiceOptions
 {
     /**
-     * @var string 
+     * @var string
      */
     private $_publicAccess;
     
@@ -51,7 +52,7 @@ class CreateContainerOptions extends BlobServiceOptions
     
     /**
      * Gets container public access.
-     * 
+     *
      * @return string.
      */
     public function getPublicAccess()
@@ -61,19 +62,19 @@ class CreateContainerOptions extends BlobServiceOptions
     
     /**
      * Specifies whether data in the container may be accessed publicly and the level
-     * of access. Possible values include: 
+     * of access. Possible values include:
      * 1) container: Specifies full public read access for container and blob data.
      *    Clients can enumerate blobs within the container via anonymous request, but
      *    cannot enumerate containers within the storage account.
-     * 2) blob: Specifies public read access for blobs. Blob data within this 
-     *    container can be read via anonymous request, but container data is not 
-     *    available. Clients cannot enumerate blobs within the container via 
+     * 2) blob: Specifies public read access for blobs. Blob data within this
+     *    container can be read via anonymous request, but container data is not
+     *    available. Clients cannot enumerate blobs within the container via
      *    anonymous request.
-     * If this value is not specified in the request, container data is private to 
+     * If this value is not specified in the request, container data is private to
      * the account owner.
-     * 
+     *
      * @param string $publicAccess access modifier for the container
-     * 
+     *
      * @return none.
      */
     public function setPublicAccess($publicAccess)
@@ -84,7 +85,7 @@ class CreateContainerOptions extends BlobServiceOptions
     
     /**
      * Gets user defined metadata.
-     * 
+     *
      * @return array.
      */
     public function getMetadata()
@@ -95,9 +96,9 @@ class CreateContainerOptions extends BlobServiceOptions
     /**
      * Sets user defined metadata. This metadata should be added without the header
      * prefix (x-ms-meta-*).
-     * 
+     *
      * @param array $metadata user defined metadata object in array form.
-     * 
+     *
      * @return none.
      */
     public function setMetadata($metadata)
@@ -108,10 +109,10 @@ class CreateContainerOptions extends BlobServiceOptions
     /**
      * Adds new metadata element. This element should be added without the header
      * prefix (x-ms-meta-*).
-     * 
+     *
      * @param string $key   metadata key element.
      * @param string $value metadata value element.
-     * 
+     *
      * @return none.
      */
     public function addMetadata($key, $value)
@@ -119,5 +120,3 @@ class CreateContainerOptions extends BlobServiceOptions
         $this->_metadata[$key] = $value;
     }
 }
-
-

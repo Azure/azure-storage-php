@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Queue\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Queue\Models\Queue;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -51,7 +52,7 @@ class ListQueuesResult
      * Creates ListQueuesResult object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
-     * 
+     *
      * @return MicrosoftAzure\Storage\Queue\Models\ListQueuesResult.
      */
     public static function create($parsedResponse)
@@ -66,21 +67,25 @@ class ListQueuesResult
             $serviceEndpoint
         );
         $result->_prefix      = Utilities::tryGetValue(
-            $parsedResponse, Resources::QP_PREFIX
+            $parsedResponse,
+            Resources::QP_PREFIX
         );
         $result->_marker      = Utilities::tryGetValue(
-            $parsedResponse, Resources::QP_MARKER
+            $parsedResponse,
+            Resources::QP_MARKER
         );
         $result->_nextMarker  = Utilities::tryGetValue(
-            $parsedResponse, Resources::QP_NEXT_MARKER
+            $parsedResponse,
+            Resources::QP_NEXT_MARKER
         );
         $result->_maxResults  = Utilities::tryGetValue(
-            $parsedResponse, Resources::QP_MAX_RESULTS
+            $parsedResponse,
+            Resources::QP_MAX_RESULTS
         );
         $result->_queues      = array();
         $rawQueues            = array();
         
-        if ( !empty($parsedResponse['Queues']) ) {
+        if (!empty($parsedResponse['Queues'])) {
             $rawQueues = Utilities::getArray($parsedResponse['Queues']['Queue']);
         }
         
@@ -108,7 +113,7 @@ class ListQueuesResult
      * Sets queues.
      *
      * @param array $queues list of queues
-     * 
+     *
      * @return none.
      */
     public function setQueues($queues)
@@ -133,7 +138,7 @@ class ListQueuesResult
      * Sets prefix.
      *
      * @param string $prefix value.
-     * 
+     *
      * @return none.
      */
     public function setPrefix($prefix)
@@ -143,7 +148,7 @@ class ListQueuesResult
 
     /**
      * Gets marker.
-     * 
+     *
      * @return string.
      */
     public function getMarker()
@@ -155,7 +160,7 @@ class ListQueuesResult
      * Sets marker.
      *
      * @param string $marker value.
-     * 
+     *
      * @return none.
      */
     public function setMarker($marker)
@@ -165,7 +170,7 @@ class ListQueuesResult
 
     /**
      * Gets max results.
-     * 
+     *
      * @return string.
      */
     public function getMaxResults()
@@ -177,7 +182,7 @@ class ListQueuesResult
      * Sets max results.
      *
      * @param string $maxResults value.
-     * 
+     *
      * @return none.
      */
     public function setMaxResults($maxResults)
@@ -187,7 +192,7 @@ class ListQueuesResult
 
     /**
      * Gets next marker.
-     * 
+     *
      * @return string.
      */
     public function getNextMarker()
@@ -199,7 +204,7 @@ class ListQueuesResult
      * Sets next marker.
      *
      * @param string $nextMarker value.
-     * 
+     *
      * @return none.
      */
     public function setNextMarker($nextMarker)
@@ -209,7 +214,7 @@ class ListQueuesResult
     
     /**
      * Gets account name.
-     * 
+     *
      * @return string
      */
     public function getAccountName()
@@ -221,7 +226,7 @@ class ListQueuesResult
      * Sets account name.
      *
      * @param string $accountName value.
-     * 
+     *
      * @return none
      */
     public function setAccountName($accountName)

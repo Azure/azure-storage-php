@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -60,7 +61,7 @@ class DeleteBlobOptions extends BlobServiceOptions
     
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -70,9 +71,9 @@ class DeleteBlobOptions extends BlobServiceOptions
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
@@ -82,7 +83,7 @@ class DeleteBlobOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -92,9 +93,9 @@ class DeleteBlobOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -116,7 +117,7 @@ class DeleteBlobOptions extends BlobServiceOptions
      * Sets blob snapshot.
      *
      * @param string $snapshot value.
-     * 
+     *
      * @return none.
      */
     public function setSnapshot($snapshot)
@@ -138,7 +139,7 @@ class DeleteBlobOptions extends BlobServiceOptions
      * Sets blob deleteSnaphotsOnly.
      *
      * @param string $deleteSnaphotsOnly value.
-     * 
+     *
      * @return boolean.
      */
     public function setDeleteSnaphotsOnly($deleteSnaphotsOnly)
@@ -147,5 +148,3 @@ class DeleteBlobOptions extends BlobServiceOptions
         $this->_deleteSnaphotsOnly = $deleteSnaphotsOnly;
     }
 }
-
-

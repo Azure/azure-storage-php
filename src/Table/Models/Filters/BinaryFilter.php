@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -38,7 +38,7 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
 class BinaryFilter extends Filter
 {
     /**
-     * @var string 
+     * @var string
      */
     private $_operator;
     
@@ -54,7 +54,7 @@ class BinaryFilter extends Filter
     
     /**
      * Constructor.
-     * 
+     *
      * @param Filter $left     The left operand.
      * @param string $operator The operator.
      * @param Filter $right    The right operand.
@@ -68,18 +68,18 @@ class BinaryFilter extends Filter
     
     /**
      * Gets operator
-     * 
-     * @return string 
+     *
+     * @return string
      */
-    public function getOperator() 
+    public function getOperator()
     {
         return $this->_operator;
     }
 
     /**
      * Gets left
-     * 
-     * @return Filter 
+     *
+     * @return Filter
      */
     public function getLeft()
     {
@@ -88,13 +88,11 @@ class BinaryFilter extends Filter
 
     /**
      * Gets right
-     * 
-     * @return Filter 
+     *
+     * @return Filter
      */
     public function getRight()
     {
         return $this->_right;
     }
 }
-
-

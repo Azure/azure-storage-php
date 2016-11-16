@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -76,7 +76,7 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
     
     /**
      * Gets access condition.
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -86,9 +86,9 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
     
     /**
      * Sets access condition.
-     * 
+     *
      * @param AccessCondition $accessCondition The access condition object.
-     * 
+     *
      * @return none
      */
     public function setAccessCondition($accessCondition)
@@ -110,14 +110,11 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      * Sets lease Id.
      *
      * @param string $leaseId The lease Id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
     {
         $this->_leaseId = $leaseId;
     }
-
 }
-
-

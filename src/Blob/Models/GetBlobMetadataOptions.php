@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -54,7 +54,7 @@ class GetBlobMetadataOptions extends BlobServiceOptions
     
     /**
      * Gets lease Id for the blob
-     * 
+     *
      * @return string
      */
     public function getLeaseId()
@@ -64,9 +64,9 @@ class GetBlobMetadataOptions extends BlobServiceOptions
     
     /**
      * Sets lease Id for the blob
-     * 
+     *
      * @param string $leaseId the blob lease id.
-     * 
+     *
      * @return none
      */
     public function setLeaseId($leaseId)
@@ -76,7 +76,7 @@ class GetBlobMetadataOptions extends BlobServiceOptions
     
     /**
      * Gets access condition
-     * 
+     *
      * @return AccessCondition
      */
     public function getAccessCondition()
@@ -86,9 +86,9 @@ class GetBlobMetadataOptions extends BlobServiceOptions
     
     /**
      * Sets access condition
-     * 
+     *
      * @param AccessCondition $accessCondition value to use.
-     * 
+     *
      * @return none.
      */
     public function setAccessCondition($accessCondition)
@@ -110,7 +110,7 @@ class GetBlobMetadataOptions extends BlobServiceOptions
      * Sets blob snapshot.
      *
      * @param string $snapshot value.
-     * 
+     *
      * @return none.
      */
     public function setSnapshot($snapshot)
@@ -118,5 +118,3 @@ class GetBlobMetadataOptions extends BlobServiceOptions
         $this->_snapshot = $snapshot;
     }
 }
-
-

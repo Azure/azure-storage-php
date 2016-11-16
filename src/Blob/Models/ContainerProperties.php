@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -61,7 +61,7 @@ class ContainerProperties
      * Sets container lastModified.
      *
      * @param \DateTime $lastModified value.
-     * 
+     *
      * @return none.
      */
     public function setLastModified($lastModified)
@@ -83,7 +83,7 @@ class ContainerProperties
      * Sets container etag.
      *
      * @param string $etag value.
-     * 
+     *
      * @return none.
      */
     public function setETag($etag)
@@ -91,5 +91,3 @@ class ContainerProperties
         $this->_etag = $etag;
     }
 }
-
-

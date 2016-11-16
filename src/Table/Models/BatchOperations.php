@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -23,6 +23,7 @@
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
+
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -45,7 +46,7 @@ class BatchOperations
     private $_operations;
 
     /**
-     * Default constructor. 
+     * Default constructor.
      */
     public function __construct()
     {
@@ -54,7 +55,7 @@ class BatchOperations
     
     /**
      * Gets the batch operations.
-     * 
+     *
      * @return array
      */
     public function getOperations()
@@ -64,9 +65,9 @@ class BatchOperations
     
     /**
      * Sets the batch operations.
-     * 
+     *
      * @param array $operations The batch operations.
-     * 
+     *
      * @return none
      */
     public function setOperations($operations)
@@ -79,9 +80,9 @@ class BatchOperations
     
     /**
      * Adds operation to the batch operations.
-     * 
+     *
      * @param mix $operation The operation to add.
-     * 
+     *
      * @return none
      */
     public function addOperation($operation)
@@ -96,10 +97,10 @@ class BatchOperations
     
     /**
      * Adds insertEntity operation.
-     * 
+     *
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
-     * 
+     *
      * @return none
      */
     public function addInsertEntity($table, $entity)
@@ -117,10 +118,10 @@ class BatchOperations
     
     /**
      * Adds updateEntity operation.
-     * 
+     *
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
-     * 
+     *
      * @return none
      */
     public function addUpdateEntity($table, $entity)
@@ -138,10 +139,10 @@ class BatchOperations
     
     /**
      * Adds mergeEntity operation.
-     * 
+     *
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
-     * 
+     *
      * @return none
      */
     public function addMergeEntity($table, $entity)
@@ -159,10 +160,10 @@ class BatchOperations
     
     /**
      * Adds insertOrReplaceEntity operation.
-     * 
+     *
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
-     * 
+     *
      * @return none
      */
     public function addInsertOrReplaceEntity($table, $entity)
@@ -180,10 +181,10 @@ class BatchOperations
     
     /**
      * Adds insertOrMergeEntity operation.
-     * 
+     *
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
-     * 
+     *
      * @return none
      */
     public function addInsertOrMergeEntity($table, $entity)
@@ -201,12 +202,12 @@ class BatchOperations
     
     /**
      * Adds deleteEntity operation.
-     * 
+     *
      * @param string $table        The table name.
      * @param string $partitionKey The entity partition key.
      * @param string $rowKey       The entity row key.
      * @param string $etag         The entity etag.
-     * 
+     *
      * @return none
      */
     public function addDeleteEntity($table, $partitionKey, $rowKey, $etag = null)
@@ -228,5 +229,3 @@ class BatchOperations
         $this->addOperation($operation);
     }
 }
-
-

@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
+
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -583,7 +584,8 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
         $expectedName = $this->_accountName;
         $expectedKey = TestResources::KEY4;
         $expectedTableEndpoint = null;
-        $expectedBlobEndpoint = 'http://myprivateblobdns.com';;
+        $expectedBlobEndpoint = 'http://myprivateblobdns.com';
+        ;
         $expectedQueueEndpoint = 'http://myprivatequeuedns.com';
         $connectionString  = "QueueEndpoint=$expectedQueueEndpoint;BlobEndpoint=$expectedBlobEndpoint;AccountName=$expectedName;AccountKey=$expectedKey";
         
@@ -619,7 +621,8 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
         $expectedName = $this->_accountName;
         $expectedKey = TestResources::KEY4;
         $expectedTableEndpoint = 'http://myprivatetabledns.com';
-        $expectedBlobEndpoint = 'http://myprivateblobdns.com';;
+        $expectedBlobEndpoint = 'http://myprivateblobdns.com';
+        ;
         $expectedQueueEndpoint = 'http://myprivatequeuedns.com';
         $connectionString  = "TableEndpoint=$expectedTableEndpoint;QueueEndpoint=$expectedQueueEndpoint;BlobEndpoint=$expectedBlobEndpoint;AccountName=$expectedName;AccountKey=$expectedKey";
         

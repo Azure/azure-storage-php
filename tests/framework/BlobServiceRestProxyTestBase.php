@@ -11,7 +11,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * PHP version 5
  *
  * @category  Microsoft
@@ -22,7 +22,8 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Framework;
+namespace MicrosoftAzure\Storage\Tests\framework;
+
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
@@ -88,13 +89,13 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function createContainers($containerList, $containerPrefix = null)
     {
         $containers = $this->listContainers($containerPrefix);
-        foreach($containerList as $container) {
-            if (array_search($container, $containers) === FALSE) {
+        foreach ($containerList as $container) {
+            if (array_search($container, $containers) === false) {
                 $this->createContainer($container);
             } else {
                 $listResults = $this->restProxy->listBlobs($container);
                 $blobs = $listResults->getBlobs();
-                foreach($blobs as $blob)  {
+                foreach ($blobs as $blob) {
                     try {
                         $this->restProxy->deleteBlob($container, $blob->getName());
                     } catch (\Exception $e) {
@@ -114,8 +115,8 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function deleteContainers($containerList, $containerPrefix = null)
     {
         $containers = $this->listContainers($containerPrefix);
-        foreach($containerList as $container)  {
-            if (!(array_search($container, $containers) === FALSE)) {
+        foreach ($containerList as $container) {
+            if (!(array_search($container, $containers) === false)) {
                 $this->deleteContainer($container);
             }
         }
@@ -130,7 +131,7 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
         }
 
         $list = $this->restProxy->listContainers($opts);
-        foreach($list->getContainers() as $item)  {
+        foreach ($list->getContainers() as $item) {
             array_push($result, $item->getName());
         }
 
@@ -151,5 +152,3 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
         }
     }
 }
-
-
