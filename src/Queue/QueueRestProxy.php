@@ -767,7 +767,7 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $body = $message->toXml($this->dataSerializer);
         }
         
-        $response        = $this->send(
+        $response = $this->send(
             $method,
             $headers,
             $queryParams,
