@@ -1156,7 +1156,13 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
                 sleep(QueueServiceFunctionalTestData::INTERESTING_TTL);
                 // Try again, not that the 4 second visibility has passed
                 $lmr = $this->restProxy->listMessages($queue);
-                if ($visibilityTimeoutInSeconds >= QueueServiceFunctionalTestData::INTERESTING_TTL) {
+                //Because no matter how quick the connection and machine is, the
+                //execution between updating the visibility timeout and running
+                //the following lines require some time. So if the visibility
+                //time out is exactly the same value as waited time, the message
+                //is considered visable again because the visibility timeout
+                //expired.
+                if ($visibilityTimeoutInSeconds > QueueServiceFunctionalTestData::INTERESTING_TTL) {
                     $this->assertEquals(0, count($lmr->getQueueMessages()), 'getQueueMessages() count');
                 } else {
                     $this->assertEquals(1, count($lmr->getQueueMessages()), 'getQueueMessages() count');
