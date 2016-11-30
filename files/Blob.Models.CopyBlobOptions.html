@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Windows Azure SDK for PHP</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Windows Azure SDK for PHP</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/MicrosoftAzure.html">\MicrosoftAzure</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-147982874"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-147982874" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1475044186"></a>
+                                <a href="../namespaces/MicrosoftAzure.html" style="margin-left: 30px; padding-left: 0">MicrosoftAzure</a>
+            </div>
+            <div id="namespace-1475044186" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-572850166"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.html" style="margin-left: 30px; padding-left: 0">Storage</a>
+            </div>
+            <div id="namespace-572850166" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1327270066"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Blob.html" style="margin-left: 30px; padding-left: 0">Blob</a>
+            </div>
+            <div id="namespace-1327270066" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1155992284"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Blob.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
+            </div>
+            <div id="namespace-1155992284" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Blob.Internal.IBlob.html">IBlob</a></li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1929385605"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Blob.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-1929385605" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.AccessCondition.html">AccessCondition</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.AccessPolicy.html">AccessPolicy</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.AcquireLeaseOptions.html">AcquireLeaseOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.Blob.html">Blob</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobBlockType.html">BlobBlockType</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobPrefix.html">BlobPrefix</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobProperties.html">BlobProperties</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html">BlobServiceOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobType.html">BlobType</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.Block.html">Block</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlockList.html">BlockList</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BreakLeaseResult.html">BreakLeaseResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CommitBlobBlocksOptions.html">CommitBlobBlocksOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.Container.html">Container</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ContainerACL.html">ContainerACL</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ContainerProperties.html">ContainerProperties</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CopyBlobOptions.html">CopyBlobOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CopyBlobResult.html">CopyBlobResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateBlobBlockOptions.html">CreateBlobBlockOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateBlobOptions.html">CreateBlobOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateBlobPagesOptions.html">CreateBlobPagesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateBlobPagesResult.html">CreateBlobPagesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateBlobSnapshotOptions.html">CreateBlobSnapshotOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateBlobSnapshotResult.html">CreateBlobSnapshotResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CreateContainerOptions.html">CreateContainerOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.DeleteBlobOptions.html">DeleteBlobOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.DeleteContainerOptions.html">DeleteContainerOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetBlobMetadataOptions.html">GetBlobMetadataOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetBlobMetadataResult.html">GetBlobMetadataResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetBlobOptions.html">GetBlobOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetBlobPropertiesOptions.html">GetBlobPropertiesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetBlobPropertiesResult.html">GetBlobPropertiesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetBlobResult.html">GetBlobResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetContainerACLResult.html">GetContainerACLResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.GetContainerPropertiesResult.html">GetContainerPropertiesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.LeaseBlobResult.html">LeaseBlobResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.LeaseMode.html">LeaseMode</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListBlobBlocksOptions.html">ListBlobBlocksOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListBlobBlocksResult.html">ListBlobBlocksResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListBlobsOptions.html">ListBlobsOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListBlobsResult.html">ListBlobsResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListContainersOptions.html">ListContainersOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListContainersResult.html">ListContainersResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListPageBlobRangesOptions.html">ListPageBlobRangesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.ListPageBlobRangesResult.html">ListPageBlobRangesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.PageRange.html">PageRange</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.PageWriteOption.html">PageWriteOption</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.PublicAccessType.html">PublicAccessType</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.PutBlobResult.html">PutBlobResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.PutBlockResult.html">PutBlockResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobMetadataOptions.html">SetBlobMetadataOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobMetadataResult.html">SetBlobMetadataResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html">SetBlobPropertiesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesResult.html">SetBlobPropertiesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetContainerMetadataOptions.html">SetContainerMetadataOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.SignedIdentifier.html">SignedIdentifier</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Blob.BlobRestProxy.html">BlobRestProxy</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-628683855"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.html" style="margin-left: 30px; padding-left: 0">Common</a>
+            </div>
+            <div id="namespace-628683855" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1461044037"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
+            </div>
+            <div id="namespace-1461044037" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-357079748"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Authentication.html" style="margin-left: 30px; padding-left: 0">Authentication</a>
+            </div>
+            <div id="namespace-357079748" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Authentication.IAuthScheme.html">IAuthScheme</a></li>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Authentication.SharedAccessSignatureAuthScheme.html">SharedAccessSignatureAuthScheme</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Authentication.SharedKeyAuthScheme.html">SharedKeyAuthScheme</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Authentication.TableSharedKeyLiteAuthScheme.html">TableSharedKeyLiteAuthScheme</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-599546549"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-599546549" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.AuthenticationFilter.html">AuthenticationFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.DateFilter.html">DateFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.ExponentialRetryPolicy.html">ExponentialRetryPolicy</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.HeadersFilter.html">HeadersFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicy.html">RetryPolicy</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicyFilter.html">RetryPolicyFilter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-173876956"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
+            </div>
+            <div id="namespace-173876956" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Http.HttpCallContext.html">HttpCallContext</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-542282119"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Serialization.html" style="margin-left: 30px; padding-left: 0">Serialization</a>
+            </div>
+            <div id="namespace-542282119" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Serialization.ISerializer.html">ISerializer</a></li>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Serialization.JsonSerializer.html">JsonSerializer</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Serialization.XmlSerializer.html">XmlSerializer</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.FilterableService.html">FilterableService</a></li>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IServiceFilter.html">IServiceFilter</a></li>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringParser.html">ConnectionStringParser</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringSource.html">ConnectionStringSource</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.HttpFormatter.html">HttpFormatter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.InvalidArgumentTypeException.html">InvalidArgumentTypeException</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Logger.html">Logger</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Resources.html">Resources</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html">RestProxy</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.RetryMiddlewareFactory.html">RetryMiddlewareFactory</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html">ServiceRestProxy</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceSettings.html">ServiceSettings</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.StorageServiceSettings.html">StorageServiceSettings</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Utilities.html">Utilities</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Validate.html">Validate</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1501945741"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-1501945741" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Models.GetServicePropertiesResult.html">GetServicePropertiesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Models.Logging.html">Logging</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Models.Metrics.html">Metrics</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Models.RetentionPolicy.html">RetentionPolicy</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Models.ServiceProperties.html">ServiceProperties</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.CloudConfigurationManager.html">CloudConfigurationManager</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceException.html">ServiceException</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServicesBuilder.html">ServicesBuilder</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-172302272"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Queue.html" style="margin-left: 30px; padding-left: 0">Queue</a>
+            </div>
+            <div id="namespace-172302272" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-709822789"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Queue.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
+            </div>
+            <div id="namespace-709822789" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Queue.Internal.IQueue.html">IQueue</a></li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1454299252"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Queue.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-1454299252" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.CreateMessageOptions.html">CreateMessageOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.CreateQueueOptions.html">CreateQueueOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.GetQueueMetadataResult.html">GetQueueMetadataResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.ListMessagesOptions.html">ListMessagesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.ListMessagesResult.html">ListMessagesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.ListQueuesOptions.html">ListQueuesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.ListQueuesResult.html">ListQueuesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.MicrosoftAzureQueueMessage.html">MicrosoftAzureQueueMessage</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.PeekMessagesOptions.html">PeekMessagesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.PeekMessagesResult.html">PeekMessagesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.Queue.html">Queue</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.QueueMessage.html">QueueMessage</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.QueueServiceOptions.html">QueueServiceOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.Models.UpdateMessageResult.html">UpdateMessageResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Queue.QueueRestProxy.html">QueueRestProxy</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-937082141"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
+            </div>
+            <div id="namespace-937082141" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-329333187"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Table.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
+            </div>
+            <div id="namespace-329333187" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Table.Internal.IAtomReaderWriter.html">IAtomReaderWriter</a></li>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Table.Internal.IMimeReaderWriter.html">IMimeReaderWriter</a></li>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Table.Internal.ITable.html">ITable</a></li>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Internal.AtomReaderWriter.html">AtomReaderWriter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Internal.MimeReaderWriter.html">MimeReaderWriter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2106709294"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-2106709294" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1453287610"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-1453287610" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Filters.BinaryFilter.html">BinaryFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Filters.ConstantFilter.html">ConstantFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Filters.Filter.html">Filter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Filters.PropertyNameFilter.html">PropertyNameFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Filters.QueryStringFilter.html">QueryStringFilter</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Filters.UnaryFilter.html">UnaryFilter</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.BatchError.html">BatchError</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.BatchOperation.html">BatchOperation</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.BatchOperationParameterName.html">BatchOperationParameterName</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.BatchOperations.html">BatchOperations</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.BatchOperationType.html">BatchOperationType</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.BatchResult.html">BatchResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.DeleteEntityOptions.html">DeleteEntityOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.EdmType.html">EdmType</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Entity.html">Entity</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.GetEntityResult.html">GetEntityResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.GetTableResult.html">GetTableResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.InsertEntityResult.html">InsertEntityResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Property.html">Property</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.Query.html">Query</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.QueryEntitiesOptions.html">QueryEntitiesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.QueryEntitiesResult.html">QueryEntitiesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.QueryTablesOptions.html">QueryTablesOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.QueryTablesResult.html">QueryTablesResult</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.TableServiceOptions.html">TableServiceOptions</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.Models.UpdateEntityResult.html">UpdateEntityResult</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Table.TableRestProxy.html">TableRestProxy</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small></small>CopyBlobOptions.php</h1>
+                    <p><em>LICENSE: The MIT License (the &quot;License&quot;)
+you may not use this file except in compliance with the License.</em></p>
+                    <p>You may obtain a copy of the License at
+<a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
+<p>Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</p>
+<p>PHP version 5</p>
+
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="../classes/MicrosoftAzure.Storage.Blob.Models.CopyBlobOptions.html">CopyBlobOptions</a></td>
+                            <td><em>optional parameters for CopyBlobOptions wrapper</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                                                    <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">\MicrosoftAzure\Storage\Blob\Models</div></dd>
+                        
+                                                                                    <dt>See also</dt>
+                                                                                        <dd><a href="https://github.com/azure/azure-storage-php"><div class="namespace-wrapper">https://github.com/azure/azure-storage-php</div></a></dd>
+                                                    
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    category
+                                </th>
+                                <td>
+                                                                            <p>Microsoft</p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                            <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    copyright
+                                </th>
+                                <td>
+                                                                            <p>2016 Microsoft Corporation</p>
+                                                                    </td>
+                            </tr>
+                                                    <tr>
+                                <th>
+                                    license
+                                </th>
+                                <td>
+                                                                            <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Blob\Models\CopyBlobOptions.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/MicrosoftAzure.html">\MicrosoftAzure</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on January 13th, 2017 at 02:59.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>
