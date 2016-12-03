@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
 
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Uri;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Tests\Unit\Utilities;
@@ -129,5 +131,22 @@ class StorageAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $actual = $mock->computeCanonicalizedResourceForTableMock($url, $queryVariables);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme::signRequest
+     */
+    public function testSignRequest()
+    {
+        // Setup
+        $mock = new StorageAuthSchemeMock(TestResources::ACCOUNT_NAME, TestResources::KEY4);
+        $uri = new Uri(TestResources::URI2);
+        $request = new Request('Get', $uri, array(), null);
+
+        // Test
+        $actual = $mock->signRequest($request);
+
+        // Assert
+        $this->assertArrayHasKey(strtolower(Resources::AUTHENTICATION), $actual->getHeaders());
     }
 }
