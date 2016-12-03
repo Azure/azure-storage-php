@@ -24,6 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Common\Internal\Filters;
 
+use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
 use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
@@ -43,16 +44,16 @@ use GuzzleHttp\Psr7;
 class AuthenticationFilter implements IServiceFilter
 {
     /**
-     * @var MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @var MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme
      */
     private $_authenticationScheme;
 
     /**
      * Creates AuthenticationFilter with the passed scheme.
      *
-     * @param StorageAuthScheme $authenticationScheme The authentication scheme.
+     * @param IAuthScheme $authenticationScheme The authentication scheme.
      */
-    public function __construct($authenticationScheme)
+    public function __construct(IAuthScheme $authenticationScheme)
     {
         $this->_authenticationScheme = $authenticationScheme;
     }
@@ -66,17 +67,7 @@ class AuthenticationFilter implements IServiceFilter
      */
     public function handleRequest($request)
     {
-        $requestHeaders = HttpFormatter::formatHeaders($request->getHeaders());
-        
-        $signedKey = $this->_authenticationScheme->getAuthorizationHeader(
-            $requestHeaders,
-            $request->getUri(),
-            \GuzzleHttp\Psr7\parse_query(
-                $request->getUri()->getQuery()
-            ),
-            $request->getMethod()
-        );
-        return $request->withHeader(Resources::AUTHENTICATION, $signedKey);
+        return $this->_authenticationScheme->signRequest($request);
     }
     
     /**

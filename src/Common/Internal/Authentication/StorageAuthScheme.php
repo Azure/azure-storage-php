@@ -24,9 +24,11 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
+use GuzzleHttp\Psr7\Request;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
 
 /**
  * Base class for azure authentication schemes.
@@ -190,6 +192,31 @@ abstract class StorageAuthScheme implements IAuthScheme
     }
 
     /**
+     * Adds authentication header to the request headers.
+     *
+     * @param  \GuzzleHttp\Psr7\Request $request HTTP request object.
+     *
+     * @abstract
+     *
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function signRequest(Request $request)
+    {
+        $requestHeaders = HttpFormatter::formatHeaders($request->getHeaders());
+
+        $signedKey = $this->getAuthorizationHeader(
+            $requestHeaders,
+            $request->getUri(),
+            \GuzzleHttp\Psr7\parse_query(
+                $request->getUri()->getQuery()
+            ),
+            $request->getMethod()
+        );
+
+        return $request->withHeader(Resources::AUTHENTICATION, $signedKey);
+    }
+
+    /**
      * Computes the authorization signature.
      *
      * @param array  $headers     request headers.
@@ -205,6 +232,28 @@ abstract class StorageAuthScheme implements IAuthScheme
      * @return string
      */
     abstract protected function computeSignature(
+        $headers,
+        $url,
+        $queryParams,
+        $httpMethod
+    );
+
+    /**
+     * Returns authorization header to be included in the request.
+     *
+     * @param array  $headers     request headers.
+     * @param string $url         reuqest url.
+     * @param array  $queryParams query variables.
+     * @param string $httpMethod  request http method.
+     *
+     * @see Specifying the Authorization Header section at
+     *      http://msdn.microsoft.com/en-us/library/windowsazure/dd179428.aspx
+     *
+     * @abstract
+     *
+     * @return string
+     */
+    abstract public function getAuthorizationHeader(
         $headers,
         $url,
         $queryParams,

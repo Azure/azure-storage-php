@@ -17,7 +17,7 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright Microsoft Corporation
+ * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
@@ -25,22 +25,38 @@
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
 use GuzzleHttp\Psr7\Request;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
 
 /**
- * Interface for azure authentication schemes.
+ * Base class for azure authentication schemes.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright Microsoft Corporation
+ * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-interface IAuthScheme
+class SharedAccessSignatureAuthScheme implements IAuthScheme
 {
+    protected $sasToken;
+
     /**
-     * Signs a request.
+     * Constructor.
+     *
+     * @param string $sasToken shared access signature token.
+     *
+     * @return
+     * MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme
+     */
+    public function __construct($sasToken)
+    {
+        $this->sasToken  = $sasToken;
+    }
+
+    /**
+     * Adds authentication header to the request headers.
      *
      * @param  \GuzzleHttp\Psr7\Request $request HTTP request object.
      *
@@ -48,5 +64,22 @@ interface IAuthScheme
      *
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function signRequest(Request $request);
+    public function signRequest(Request $request)
+    {
+        // initial URI
+        $uri = $request->getUri();
+
+        // new query values from SAS token
+        $queryValues = explode('&', $this->sasToken);
+
+        // append SAS token query values to existing URI
+        foreach ($queryValues as $queryField) {
+            list($key, $value) = explode('=', $queryField);
+
+            $uri = \GuzzleHttp\Psr7\Uri::withQueryValue($uri, $key, $value);
+        }
+
+        // replace URI
+        return $request->withUri($uri, true);
+    }
 }
