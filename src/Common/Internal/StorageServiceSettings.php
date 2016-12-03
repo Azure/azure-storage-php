@@ -57,6 +57,13 @@ class StorageServiceSettings extends ServiceSettings
     private $_key;
     
     /**
+     * The SAS token.
+     *
+     * @var string
+     */
+    private $_sas;
+
+    /**
      * The endpoint for the blob service.
      *
      * @var string
@@ -117,6 +124,13 @@ class StorageServiceSettings extends ServiceSettings
      * @var array
      */
     private static $_accountKeySetting;
+
+    /**
+     * Validator for the SharedAccessSignature setting. Must be a valid URI query.
+     *
+     * @var array
+     */
+    private static $_sasTokenSetting;
     
     /**
      * Validator for the BlobEndpoint setting. Must be a valid Uri.
@@ -190,6 +204,8 @@ class StorageServiceSettings extends ServiceSettings
                 }
             }
         );
+
+        self::$_sasTokenSetting = self::setting(Resources::SAS_TOKEN_NAME);
         
         self::$_blobEndpointSetting = self::settingWithFunc(
             Resources::BLOB_ENDPOINT_NAME,
@@ -211,6 +227,7 @@ class StorageServiceSettings extends ServiceSettings
         self::$validSettingKeys[] = Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME;
         self::$validSettingKeys[] = Resources::ACCOUNT_NAME_NAME;
         self::$validSettingKeys[] = Resources::ACCOUNT_KEY_NAME;
+        self::$validSettingKeys[] = Resources::SAS_TOKEN_NAME;
         self::$validSettingKeys[] = Resources::BLOB_ENDPOINT_NAME;
         self::$validSettingKeys[] = Resources::QUEUE_ENDPOINT_NAME;
         self::$validSettingKeys[] = Resources::TABLE_ENDPOINT_NAME;
@@ -221,6 +238,7 @@ class StorageServiceSettings extends ServiceSettings
      *
      * @param string $name             The storage service name.
      * @param string $key              The storage service key.
+     * @param string $sasToken         The storage service SAS token.
      * @param string $blobEndpointUri  The sotrage service blob endpoint.
      * @param string $queueEndpointUri The sotrage service queue endpoint.
      * @param string $tableEndpointUri The sotrage service table endpoint.
@@ -228,12 +246,14 @@ class StorageServiceSettings extends ServiceSettings
     public function __construct(
         $name,
         $key,
+        $sas,
         $blobEndpointUri,
         $queueEndpointUri,
         $tableEndpointUri
     ) {
         $this->_name             = $name;
         $this->_key              = $key;
+        $this->_sas              = $sas;
         $this->_blobEndpointUri  = $blobEndpointUri;
         $this->_queueEndpointUri = $queueEndpointUri;
         $this->_tableEndpointUri = $tableEndpointUri;
@@ -345,10 +365,15 @@ class StorageServiceSettings extends ServiceSettings
             Resources::ACCOUNT_KEY_NAME,
             $settings
         );
+        $sasToken         = Utilities::tryGetValueInsensitive(
+            Resources::SAS_TOKEN_NAME,
+            $settings
+        );
             
         return new StorageServiceSettings(
             $accountName,
             $accountKey,
+            $sasToken,
             $blobEndpointUri,
             $queueEndpointUri,
             $tableEndpointUri
@@ -413,7 +438,7 @@ class StorageServiceSettings extends ServiceSettings
             );
         }
         
-        // Explicit case
+        // Explicit case for AccountName/AccountKey combination
         $matchedSpecs = self::matchedSpecification(
             $tokenizedSettings,
             self::atLeastOne(
@@ -424,6 +449,22 @@ class StorageServiceSettings extends ServiceSettings
             self::allRequired(
                 self::$_accountNameSetting,
                 self::$_accountKeySetting
+            )
+        );
+        if ($matchedSpecs) {
+            return self::_createStorageServiceSettings($tokenizedSettings);
+        }
+
+        // Explicit case for SAS token
+        $matchedSpecs = self::matchedSpecification(
+            $tokenizedSettings,
+            self::atLeastOne(
+                self::$_blobEndpointSetting,
+                self::$_queueEndpointSetting,
+                self::$_tableEndpointSetting
+            ),
+            self::allRequired(
+                self::$_sasTokenSetting
             )
         );
         if ($matchedSpecs) {
@@ -451,6 +492,26 @@ class StorageServiceSettings extends ServiceSettings
     public function getKey()
     {
         return $this->_key;
+    }
+
+    /**
+     * Checks if there is a SAS token.
+     *
+     * @return boolean
+     */
+    public function hasSasToken()
+    {
+        return !empty($this->_sas);
+    }
+
+    /**
+     * Gets storage service SAS token.
+     *
+     * @return string
+     */
+    public function getSasToken()
+    {
+        return $this->_sas;
     }
     
     /**
