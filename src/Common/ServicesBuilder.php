@@ -96,7 +96,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     protected function queueAuthenticationScheme($accountName, $accountKey)
     {
@@ -109,7 +109,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     protected function blobAuthenticationScheme($accountName, $accountKey)
     {
@@ -122,7 +122,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return TableSharedKeyLiteAuthScheme
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme
      */
     protected function tableAuthenticationScheme($accountName, $accountKey)
     {

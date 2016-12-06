@@ -24,8 +24,11 @@
 
 namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
 
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Uri;
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication\SharedKeyAuthSchemeMock;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
@@ -60,6 +63,8 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
 
         $mock = new SharedKeyAuthSchemeMock(TestResources::ACCOUNT_NAME, TestResources::KEY4);
 
+        $this->assertEquals(TestResources::ACCOUNT_NAME, $mock->getAccountName());
+        $this->assertEquals(TestResources::KEY4, $mock->getAccountKey());
         $this->assertEquals($expected, $mock->getIncludedHeaders());
     }
 
@@ -104,5 +109,100 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $actual = $mock->getAuthorizationHeader($headers, $url, $queryParams, $httpMethod);
 
         $this->assertEquals($expected, $actual);
+    }
+
+    /**
+    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedHeaders
+    */
+    public function testComputeCanonicalizedHeadersMock()
+    {
+        $date = TestResources::DATE1;
+        $headers = array();
+        $headers[Resources::X_MS_DATE] = $date;
+        $headers[Resources::X_MS_VERSION] = Resources::STORAGE_API_LATEST_VERSION;
+        $expected = array();
+        $expected[] = Resources::X_MS_DATE . ':' . $date;
+        $expected[] = Resources::X_MS_VERSION . ':' . Resources::STORAGE_API_LATEST_VERSION;
+        $mock = new SharedKeyAuthSchemeMock(TestResources::ACCOUNT_NAME, TestResources::KEY4);
+
+        $actual = $mock->computeCanonicalizedHeadersMock($headers);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResource
+    */
+    public function testComputeCanonicalizedResourceMockSimple()
+    {
+        $queryVariables = array();
+        $queryVariables['COMP'] = 'list';
+        $accountName = TestResources::ACCOUNT_NAME;
+        $url = TestResources::URI1;
+        $expected = '/' . $accountName . parse_url($url, PHP_URL_PATH) . "\n" . 'comp:list';
+        $mock = new SharedKeyAuthSchemeMock($accountName, TestResources::KEY4);
+
+        $actual = $mock->computeCanonicalizedResourceMock($url, $queryVariables);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResource
+    */
+    public function testComputeCanonicalizedResourceMockMultipleValues()
+    {
+        $queryVariables = array();
+        $queryVariables['COMP'] = 'list';
+        $queryVariables[Resources::QP_INCLUDE] = ServiceRestProxy::groupQueryValues(
+            array(
+                'snapshots',
+                'metadata',
+                'uncommittedblobs'
+            )
+        );
+        $expectedQueryPart = "comp:list\ninclude:metadata,snapshots,uncommittedblobs";
+        $accountName = TestResources::ACCOUNT_NAME;
+        $url = TestResources::URI1;
+        $expected = '/' . $accountName . parse_url($url, PHP_URL_PATH) . "\n" . $expectedQueryPart;
+        $mock = new SharedKeyAuthSchemeMock($accountName, TestResources::KEY4);
+
+        $actual = $mock->computeCanonicalizedResourceMock($url, $queryVariables);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResourceForTable
+    */
+    public function testComputeCanonicalizedResourceForTableMock()
+    {
+        $queryVariables = array();
+        $queryVariables['COMP'] = 'list';
+        $accountName = TestResources::ACCOUNT_NAME;
+        $url = TestResources::URI1;
+        $expected = '/' . $accountName . parse_url($url, PHP_URL_PATH) . '?comp=list';
+        $mock = new SharedKeyAuthSchemeMock($accountName, TestResources::KEY4);
+
+        $actual = $mock->computeCanonicalizedResourceForTableMock($url, $queryVariables);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::signRequest
+     */
+    public function testSignRequest()
+    {
+        // Setup
+        $mock = new SharedKeyAuthSchemeMock(TestResources::ACCOUNT_NAME, TestResources::KEY4);
+        $uri = new Uri(TestResources::URI2);
+        $request = new Request('Get', $uri, array(), null);
+
+        // Test
+        $actual = $mock->signRequest($request);
+
+        // Assert
+        $this->assertArrayHasKey(strtolower(Resources::AUTHENTICATION), $actual->getHeaders());
     }
 }
