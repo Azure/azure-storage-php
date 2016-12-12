@@ -158,7 +158,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         $azureQueueMessage->setInsertionDate($expected);
         
         // Test
@@ -175,7 +175,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         
         // Test
         $azureQueueMessage->setInsertionDate($expected);
@@ -192,7 +192,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 16 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 16 Oct 2009 21:04:30 GMT');
         $azureQueueMessage->setExpirationDate($expected);
         
         // Test
@@ -209,7 +209,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 16 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 16 Oct 2009 21:04:30 GMT');
         
         // Test
         $azureQueueMessage->setExpirationDate($expected);

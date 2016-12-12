@@ -69,7 +69,7 @@ class CreateBlobPagesResult
      *
      * @return CreateBlobPagesResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result = new CreateBlobPagesResult();
         $clean  = array_change_key_case($headers);
@@ -105,7 +105,7 @@ class CreateBlobPagesResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
     public function setLastModified($lastModified)
     {
@@ -116,7 +116,7 @@ class CreateBlobPagesResult
     /**
      * Gets blob etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -128,7 +128,7 @@ class CreateBlobPagesResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -139,7 +139,7 @@ class CreateBlobPagesResult
     /**
      * Gets blob contentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getContentMD5()
     {
@@ -151,7 +151,7 @@ class CreateBlobPagesResult
      *
      * @param string $contentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentMD5($contentMD5)
     {
@@ -161,7 +161,7 @@ class CreateBlobPagesResult
     /**
      * Gets blob sequenceNumber.
      *
-     * @return int.
+     * @return int
      */
     public function getSequenceNumber()
     {
@@ -173,7 +173,7 @@ class CreateBlobPagesResult
      *
      * @param int $sequenceNumber value.
      *
-     * @return none.
+     * @return void
      */
     public function setSequenceNumber($sequenceNumber)
     {

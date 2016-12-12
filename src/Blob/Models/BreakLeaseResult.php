@@ -78,7 +78,7 @@ class BreakLeaseResult
      *
      * @param string $leaseTime the blob lease time.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseTime($leaseTime)
     {

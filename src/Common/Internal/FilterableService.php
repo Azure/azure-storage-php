@@ -41,10 +41,9 @@ interface FilterableService
     * Adds new filter to proxy object and returns new BlobRestProxy with
     * that filter.
     *
-    * @param MicrosoftAzure\Storage\Common\Internal\IServiceFilter $filter Filter to add for
-    * the pipeline.
+    * @param IServiceFilter $filter Filter to add for the pipeline.
     *
-    * @return mix.
+    * @return mixed
     */
-    public function withFilter($filter);
+    public function withFilter(IServiceFilter $filter);
 }

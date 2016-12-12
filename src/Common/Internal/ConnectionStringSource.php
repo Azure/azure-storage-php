@@ -57,7 +57,7 @@ class ConnectionStringSource
     /**
      * Initializes the default sources.
      *
-     * @return none
+     * @return void
      */
     private static function _init()
     {

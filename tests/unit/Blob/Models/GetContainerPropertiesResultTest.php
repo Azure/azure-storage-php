@@ -80,7 +80,7 @@ class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $properties = new GetContainerPropertiesResult();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         $properties->setLastModified($expected);
         
         // Test
@@ -97,7 +97,7 @@ class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $properties = new GetContainerPropertiesResult();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         
         // Test
         $properties->setLastModified($expected);

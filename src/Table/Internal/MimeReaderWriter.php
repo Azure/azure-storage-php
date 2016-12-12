@@ -49,7 +49,7 @@ class MimeReaderWriter implements IMimeReaderWriter
      * @return array Returns array with two elements 'headers' and 'body' which
      * represents the MIME message.
      */
-    public function encodeMimeMultipart($bodyPartContents)
+    public function encodeMimeMultipart(array $bodyPartContents)
     {
         $count         = count($bodyPartContents);
         $mimeType      = Resources::MULTIPART_MIXED_TYPE;

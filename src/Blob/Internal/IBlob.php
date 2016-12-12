@@ -25,6 +25,8 @@
 namespace MicrosoftAzure\Storage\Blob\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\FilterableService;
+use MicrosoftAzure\Storage\Blob\Models as BlobModels;
+use MicrosoftAzure\Storage\Common\Models as CommonModels;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Blob service.
@@ -43,153 +45,187 @@ interface IBlob extends FilterableService
     /**
     * Gets the properties of the Blob service.
     *
-    * @param Models\BlobServiceOptions $options optional blob service options.
+    * @param BlobModels\BlobServiceOptions $options optional blob service options.
     *
-    * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
+    * @return CommonModels\GetServicePropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
     */
-    public function getServiceProperties($options = null);
+    public function getServiceProperties(BlobModels\BlobServiceOptions $options = null);
 
     /**
     * Sets the properties of the Blob service.
     *
-    * @param ServiceProperties         $serviceProperties new service properties
-    * @param Models\BlobServiceOptions $options           optional parameters
+    * @param CommonModels\ServiceProperties  $serviceProperties new service properties
+    * @param BlobModels\BlobServiceOptions   $options           optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
     */
-    public function setServiceProperties($serviceProperties, $options = null);
+    public function setServiceProperties(
+        CommonModels\ServiceProperties $serviceProperties,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Lists all of the containers in the given storage account.
     *
-    * @param Models\ListContainersOptions $options optional parameters
+    * @param BlobModels\ListContainersOptions $options optional parameters
     *
-    * @return \MicrosoftAzure\Storage\Blob\Models\ListContainersResult
+    * @return BlobModels\ListContainersResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179352.aspx
     */
-    public function listContainers($options = null);
+    public function listContainers(BlobModels\ListContainersOptions $options = null);
 
     /**
     * Creates a new container in the given storage account.
     *
-    * @param string                        $container name
-    * @param Models\CreateContainerOptions $options   optional parameters
+    * @param string                            $container name
+    * @param BlobModels\CreateContainerOptions $options   optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179468.aspx
     */
-    public function createContainer($container, $options = null);
+    public function createContainer(
+        $container,
+        BlobModels\CreateContainerOptions $options = null
+    );
 
     /**
     * Creates a new container in the given storage account.
     *
-    * @param string                        $container name
-    * @param Models\DeleteContainerOptions $options   optional parameters
+    * @param string                            $container name
+    * @param BlobModels\DeleteContainerOptions $options   optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179408.aspx
     */
-    public function deleteContainer($container, $options = null);
+    public function deleteContainer(
+        $container,
+        BlobModels\DeleteContainerOptions $options = null
+    );
 
     /**
     * Returns all properties and metadata on the container.
     *
-    * @param string                    $container name
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return Models\GetContainerPropertiesResult
+    * @return BlobModels\GetContainerPropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179370.aspx
     */
-    public function getContainerProperties($container, $options = null);
+    public function getContainerProperties(
+        $container,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Returns only user-defined metadata for the specified container.
     *
-    * @param string                    $container name
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return Models\GetContainerPropertiesResult
+    * @return BlobModels\GetContainerPropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691976.aspx
     */
-    public function getContainerMetadata($container, $options = null);
+    public function getContainerMetadata(
+        $container,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Gets the access control list (ACL) and any container-level access policies
     * for the container.
     *
-    * @param string                    $container name
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return Models\GetContainerAclResult
+    * @return BlobModels\GetContainerACLResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179469.aspx
     */
-    public function getContainerAcl($container, $options = null);
+    public function getContainerAcl(
+        $container,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Sets the ACL and any container-level access policies for the container.
     *
-    * @param string                    $container name
-    * @param Models\ContainerAcl       $acl       access control list for container
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name
+    * @param BlobModels\ContainerACL       $acl       access control list for container
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179391.aspx
     */
-    public function setContainerAcl($container, $acl, $options = null);
+    public function setContainerAcl(
+        $container,
+        BlobModels\ContainerACL $acl,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Sets metadata headers on the container.
     *
-    * @param string                             $container name
-    * @param array                              $metadata  metadata key/value pair.
-    * @param Models\SetContainerMetadataOptions $options   optional parameters
+    * @param string                              $container name
+    * @param array                               $metadata  metadata key/value pair.
+    * @param BlobModels\SetContainerMetadataOptions $options   optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179362.aspx
     */
-    public function setContainerMetadata($container, $metadata, $options = null);
+    public function setContainerMetadata(
+        $container,
+        array $metadata,
+        BlobModels\SetContainerMetadataOptions $options = null
+    );
 
     /**
     * Lists all of the blobs in the given container.
     *
-    * @param string                  $container name
-    * @param Models\ListBlobsOptions $options   optional parameters
+    * @param string                      $container name
+    * @param BlobModels\ListBlobsOptions $options   optional parameters
     *
-    * @return \MicrosoftAzure\Storage\Blob\Models\ListBlobsResult
+    * @return BlobModels\ListBlobsResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135734.aspx
     */
-    public function listBlobs($container, $options = null);
+    public function listBlobs(
+        $container,
+        BlobModels\ListBlobsOptions $options = null
+    );
 
     /**
     * Creates a new page blob. Note that calling createPageBlob to create a page
     * blob only initializes the blob.
     * To add content to a page blob, call createBlobPages method.
     *
-    * @param string                   $container name of the container
-    * @param string                   $blob      name of the blob
-    * @param int                      $length    specifies the maximum size for the
-    * page blob, up to 1 TB. The page blob size must be aligned to a 512-byte
-    * boundary.
-    * @param Models\CreateBlobOptions $options   optional parameters
+    * @param string                       $container name of the container
+    * @param string                       $blob      name of the blob
+    * @param int                          $length    specifies the maximum size
+    * for the page blob, up to 1 TB. The page blob size must be aligned to
+    * a 512-byte boundary.
+    * @param BlobModels\CreateBlobOptions $options   optional parameters
     *
-    * @return CopyBlobResult
+    * @return BlobModels\CopyBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
     */
-    public function createPageBlob($container, $blob, $length, $options = null);
+    public function createPageBlob(
+        $container,
+        $blob,
+        $length,
+        BlobModels\CreateBlobOptions $options = null
+    );
 
     /**
     * Creates a new block blob or updates the content of an existing block blob.
@@ -198,65 +234,75 @@ interface IBlob extends FilterableService
     * existing blob is overwritten with the content of the new blob. To perform a
     * partial update of the content of a block blob, use the createBlockList method.
     *
-    * @param string                   $container name of the container
-    * @param string                   $blob      name of the blob
-    * @param string                   $content   content of the blob
-    * @param Models\CreateBlobOptions $options   optional parameters
+    * @param string                       $container name of the container
+    * @param string                       $blob      name of the blob
+    * @param string                       $content   content of the blob
+    * @param BlobModels\CreateBlobOptions $options   optional parameters
     *
-    * @return CopyBlobResult
+    * @return BlobModels\CopyBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
     */
-    public function createBlockBlob($container, $blob, $content, $options = null);
+    public function createBlockBlob(
+        $container,
+        $blob,
+        $content,
+        BlobModels\CreateBlobOptions $options = null
+    );
 
     /**
     * Clears a range of pages from the blob.
     *
-    * @param string                        $container name of the container
-    * @param string                        $blob      name of the blob
-    * @param Models\PageRange              $range     Can be up to the value of the
-    * blob's full size.
-    * @param Models\CreateBlobPagesOptions $options   optional parameters
+    * @param string                            $container name of the container
+    * @param string                            $blob      name of the blob
+    * @param BlobModels\PageRange              $range     Can be up to the value
+    * of the blob's full size.
+    * @param BlobModels\CreateBlobPagesOptions $options   optional parameters
     *
-    * @return Models\CreateBlobPagesResult.
+    * @return BlobModels\CreateBlobPagesResult.
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691975.aspx
     */
-    public function clearBlobPages($container, $blob, $range, $options = null);
+    public function clearBlobPages(
+        $container,
+        $blob,
+        BlobModels\PageRange $range,
+        BlobModels\CreateBlobPagesOptions $options = null
+    );
 
     /**
     * Creates a range of pages to a page blob.
     *
-    * @param string                        $container name of the container
-    * @param string                        $blob      name of the blob
-    * @param Models\PageRange              $range     Can be up to 4 MB in size
-    * @param string                        $content   the blob contents
-    * @param Models\CreateBlobPagesOptions $options   optional parameters
+    * @param string                            $container name of the container
+    * @param string                            $blob      name of the blob
+    * @param BlobModels\PageRange              $range     Can be up to 4 MB in size
+    * @param string                            $content   the blob contents
+    * @param BlobModels\CreateBlobPagesOptions $options   optional parameters
     *
-    * @return Models\CreateBlobPagesResult.
+    * @return BlobModels\CreateBlobPagesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691975.aspx
     */
     public function createBlobPages(
         $container,
         $blob,
-        $range,
+        BlobModels\PageRange $range,
         $content,
-        $options = null
+        BlobModels\CreateBlobPagesOptions $options = null
     );
 
     /**
     * Creates a new block to be committed as part of a block blob.
     *
-    * @param string                        $container name of the container
-    * @param string                        $blob      name of the blob
-    * @param string                        $blockId   must be less than or equal to
+    * @param string                            $container name of the container
+    * @param string                            $blob      name of the blob
+    * @param string                            $blockId   must be less than or equal to
     * 64 bytes in size. For a given blob, the length of the value specified for the
     * blockid parameter must be the same size for each block.
-    * @param string                        $content   the blob block contents
-    * @param Models\CreateBlobBlockOptions $options   optional parameters
+    * @param string                            $content   the blob block contents
+    * @param BlobModels\CreateBlobBlockOptions $options   optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135726.aspx
     */
@@ -265,7 +311,7 @@ interface IBlob extends FilterableService
         $blob,
         $blockId,
         $content,
-        $options = null
+        BlobModels\CreateBlobBlockOptions $options = null
     );
 
     /**
@@ -279,16 +325,21 @@ interface IBlob extends FilterableService
     * block list or from the uncommitted block list, or to commit the most recently
     * uploaded version of the block, whichever list it may belong to.
     *
-    * @param string                         $container name of the container
-    * @param string                         $blob      name of the blob
-    * @param Models\BlockList               $blockList the block list entries
-    * @param Models\CommitBlobBlocksOptions $options   optional parameters
+    * @param string                             $container name of the container
+    * @param string                             $blob      name of the blob
+    * @param BlobModels\BlockList|array         $blockList the block list entries
+    * @param BlobModels\CommitBlobBlocksOptions $options   optional parameters
     *
-    * @return none.
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179467.aspx
     */
-    public function commitBlobBlocks($container, $blob, $blockList, $options = null);
+    public function commitBlobBlocks(
+        $container,
+        $blob,
+        $blockList,
+        BlobModels\CommitBlobBlocksOptions $options = null
+    );
 
     /**
     * Retrieves the list of blocks that have been uploaded as part of a block blob.
@@ -301,96 +352,125 @@ interface IBlob extends FilterableService
     *    These blocks are stored in Windows Azure in association with a blob, but do
     *    not yet form part of the blob.
     *
-    * @param string                       $container name of the container
-    * @param string                       $blob      name of the blob
-    * @param Models\ListBlobBlocksOptions $options   optional parameters
+    * @param string                           $container name of the container
+    * @param string                           $blob      name of the blob
+    * @param BlobModels\ListBlobBlocksOptions $options   optional parameters
     *
-    * @return Models\ListBlobBlocksResult
+    * @return BlobModels\ListBlobBlocksResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179400.aspx
     */
-    public function listBlobBlocks($container, $blob, $options = null);
+    public function listBlobBlocks(
+        $container,
+        $blob,
+        BlobModels\ListBlobBlocksOptions $options = null
+    );
 
     /**
     * Returns all properties and metadata on the blob.
     *
-    * @param string                          $container name of the container
-    * @param string                          $blob      name of the blob
-    * @param Models\GetBlobPropertiesOptions $options   optional parameters
+    * @param string                              $container name of the container
+    * @param string                              $blob      name of the blob
+    * @param BlobModels\GetBlobPropertiesOptions $options   optional parameters
     *
-    * @return Models\GetBlobPropertiesResult
+    * @return BlobModels\GetBlobPropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179394.aspx
     */
-    public function getBlobProperties($container, $blob, $options = null);
+    public function getBlobProperties(
+        $container,
+        $blob,
+        BlobModels\GetBlobPropertiesOptions $options = null
+    );
 
     /**
     * Returns all properties and metadata on the blob.
     *
-    * @param string                        $container name of the container
-    * @param string                        $blob      name of the blob
-    * @param Models\GetBlobMetadataOptions $options   optional parameters
+    * @param string                            $container name of the container
+    * @param string                            $blob      name of the blob
+    * @param BlobModels\GetBlobMetadataOptions $options   optional parameters
     *
-    * @return Models\GetBlobMetadataResult
+    * @return BlobModels\GetBlobMetadataResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179350.aspx
     */
-    public function getBlobMetadata($container, $blob, $options = null);
+    public function getBlobMetadata(
+        $container,
+        $blob,
+        BlobModels\GetBlobMetadataOptions $options = null
+    );
 
     /**
     * Returns a list of active page ranges for a page blob. Active page ranges are
     * those that have been populated with data.
     *
-    * @param string                           $container name of the container
-    * @param string                           $blob      name of the blob
-    * @param Models\ListPageBlobRangesOptions $options   optional parameters
+    * @param string                               $container name of the container
+    * @param string                               $blob      name of the blob
+    * @param BlobModels\ListPageBlobRangesOptions $options   optional parameters
     *
-    * @return Models\ListPageBlobRangesResult
+    * @return BlobModels\ListPageBlobRangesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691973.aspx
     */
-    public function listPageBlobRanges($container, $blob, $options = null);
+    public function listPageBlobRanges(
+        $container,
+        $blob,
+        BlobModels\ListPageBlobRangesOptions $options = null
+    );
 
     /**
     * Sets system properties defined for a blob.
     *
-    * @param string                          $container name of the container
-    * @param string                          $blob      name of the blob
-    * @param Models\SetBlobPropertiesOptions $options   optional parameters
+    * @param string                              $container name of the container
+    * @param string                              $blob      name of the blob
+    * @param BlobModels\SetBlobPropertiesOptions $options   optional parameters
     *
-    * @return Models\SetBlobPropertiesResult
+    * @return BlobModels\SetBlobPropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691966.aspx
     */
-    public function setBlobProperties($container, $blob, $options = null);
+    public function setBlobProperties(
+        $container,
+        $blob,
+        BlobModels\SetBlobPropertiesOptions $options = null
+    );
 
     /**
     * Sets metadata headers on the blob.
     *
-    * @param string                        $container name of the container
-    * @param string                        $blob      name of the blob
-    * @param array                         $metadata  key/value pair representation
-    * @param Models\SetBlobMetadataOptions $options   optional parameters
+    * @param string                         $container name of the container
+    * @param string                         $blob      name of the blob
+    * @param array                          $metadata  key/value pair representation
+    * @param BlobModels\SetBlobMetadataOptions $options   optional parameters
     *
-    * @return Models\SetBlobMetadataResult
+    * @return BlobModels\SetBlobMetadataResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179414.aspx
     */
-    public function setBlobMetadata($container, $blob, $metadata, $options = null);
+    public function setBlobMetadata(
+        $container,
+        $blob,
+        array $metadata,
+        BlobModels\SetBlobMetadataOptions $options = null
+    );
 
     /**
     * Reads or downloads a blob from the system, including its metadata and
     * properties.
     *
-    * @param string                $container name of the container
-    * @param string                $blob      name of the blob
-    * @param Models\GetBlobOptions $options   optional parameters
+    * @param string                    $container name of the container
+    * @param string                    $blob      name of the blob
+    * @param BlobModels\GetBlobOptions $options   optional parameters
     *
-    * @return Models\GetBlobResult
+    * @return BlobModels\GetBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179440.aspx
     */
-    public function getBlob($container, $blob, $options = null);
+    public function getBlob(
+        $container,
+        $blob,
+        BlobModels\GetBlobOptions $options = null
+    );
 
     /**
      * Deletes a blob or blob snapshot.
@@ -399,39 +479,47 @@ interface IBlob extends FilterableService
      * blob snapshot is deleted. To delete all blob snapshots, do not set Snapshot
      * and just set getDeleteSnaphotsOnly to true.
      *
-     * @param string                   $container name of the container
-     * @param string                   $blob      name of the blob
-     * @param Models\DeleteBlobOptions $options   optional parameters
+     * @param string                       $container name of the container
+     * @param string                       $blob      name of the blob
+     * @param BlobModels\DeleteBlobOptions $options   optional parameters
      *
-     * @return none
+     * @return void
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179413.aspx
      */
-    public function deleteBlob($container, $blob, $options = null);
+    public function deleteBlob(
+        $container,
+        $blob,
+        BlobModels\DeleteBlobOptions $options = null
+    );
 
     /**
     * Creates a snapshot of a blob.
     *
-    * @param string                           $container name of the container
-    * @param string                           $blob      name of the blob
-    * @param Models\CreateBlobSnapshotOptions $options   optional parameters
+    * @param string                               $container name of the container
+    * @param string                               $blob      name of the blob
+    * @param BlobModels\CreateBlobSnapshotOptions $options   optional parameters
     *
-    * @return Models\CreateBlobSnapshotResult
+    * @return BlobModels\CreateBlobSnapshotResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691971.aspx
     */
-    public function createBlobSnapshot($container, $blob, $options = null);
+    public function createBlobSnapshot(
+        $container,
+        $blob,
+        BlobModels\CreateBlobSnapshotOptions $options = null
+    );
 
     /**
     * Copies a source blob to a destination blob within the same storage account.
     *
-    * @param string                 $destinationContainer name of container
-    * @param string                 $destinationBlob      name of blob
-    * @param string                 $sourceContainer      name of container
-    * @param string                 $sourceBlob           name of blob
-    * @param Models\CopyBlobOptions $options              optional parameters
+    * @param string                     $destinationContainer name of container
+    * @param string                     $destinationBlob      name of blob
+    * @param string                     $sourceContainer      name of container
+    * @param string                     $sourceBlob           name of blob
+    * @param BlobModels\CopyBlobOptions $options              optional parameters
     *
-    * @return CopyBlobResult
+    * @return BlobModels\CopyBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd894037.aspx
     */
@@ -440,63 +528,83 @@ interface IBlob extends FilterableService
         $destinationBlob,
         $sourceContainer,
         $sourceBlob,
-        $options = null
+        BlobModels\CopyBlobOptions $options = null
     );
 
     /**
     * Establishes an exclusive one-minute write lock on a blob. To write to a locked
     * blob, a client must provide a lease ID.
     *
-    * @param string                     $container name of the container
-    * @param string                     $blob      name of the blob
-    * @param Models\AcquireLeaseOptions $options   optional parameters
+    * @param string                         $container name of the container
+    * @param string                         $blob      name of the blob
+    * @param BlobModels\AcquireLeaseOptions $options   optional parameters
     *
-    * @return Models\AcquireLeaseResult
+    * @return BlobModels\AcquireLeaseResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
     */
-    public function acquireLease($container, $blob, $options = null);
+    public function acquireLease(
+        $container,
+        $blob,
+        BlobModels\AcquireLeaseOptions $options = null
+    );
 
     /**
     * Renews an existing lease
     *
-    * @param string                    $container name of the container
-    * @param string                    $blob      name of the blob
-    * @param string                    $leaseId   lease id when acquiring
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name of the container
+    * @param string                        $blob      name of the blob
+    * @param string                        $leaseId   lease id when acquiring
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return Models\AcquireLeaseResult
+    * @return BlobModels\AcquireLeaseResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
     */
-    public function renewLease($container, $blob, $leaseId, $options = null);
+    public function renewLease(
+        $container,
+        $blob,
+        $leaseId,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Frees the lease if it is no longer needed so that another client may
     * immediately acquire a lease against the blob.
     *
-    * @param string                    $container name of the container
-    * @param string                    $blob      name of the blob
-    * @param string                    $leaseId   lease id when acquiring
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name of the container
+    * @param string                        $blob      name of the blob
+    * @param string                        $leaseId   lease id when acquiring
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return none
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
     */
-    public function releaseLease($container, $blob, $leaseId, $options = null);
+    public function releaseLease(
+        $container,
+        $blob,
+        $leaseId,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
     * Ends the lease but ensure that another client cannot acquire a new lease until
     * the current lease period has expired.
     *
-    * @param string                    $container name of the container
-    * @param string                    $blob      name of the blob
-    * @param Models\BlobServiceOptions $options   optional parameters
+    * @param string                        $container name of the container
+    * @param string                        $blob      name of the blob
+    * @param string                        $leaseId   lease id when acquiring
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
-    * @return none
+    * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
     */
-    public function breakLease($container, $blob, $options = null);
+    public function breakLease(
+        $container,
+        $blob,
+        $leaseId,
+        BlobModels\BlobServiceOptions $options = null
+    );
 }

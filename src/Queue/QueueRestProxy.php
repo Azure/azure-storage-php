@@ -64,9 +64,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      *
      * @param ListQueuesOptions $options The optional list queue options.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\ListQueuesResult
+     * @return ListQueuesResult
      */
-    public function listQueues($options = null)
+    public function listQueues(ListQueuesOptions $options = null)
     {
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -123,9 +123,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param string              $queueName The name of the queue.
      * @param QueueServiceOptions $options   The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function clearMessages($queueName, $options = null)
+    public function clearMessages($queueName, QueueServiceOptions $options = null)
     {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -167,12 +167,12 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param string               $messageText The message contents.
      * @param CreateMessageOptions $options     The optional parameters.
      *
-     * @return none
+     * @return void
      */
     public function createMessage(
         $queueName,
         $messageText,
-        $options = null
+        CreateMessageOptions $options = null
     ) {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -230,12 +230,12 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
     /**
      * Creates a new queue under the storage account.
      *
-     * @param string             $queueName The queue name.
-     * @param QueueCreateOptions $options   The Optional parameters.
+     * @param string                    $queueName The queue name.
+     * @param Models\CreateQueueOptions  $options   The Optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function createQueue($queueName, $options = null)
+    public function createQueue($queueName, Models\CreateQueueOptions $options = null)
     {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -279,13 +279,13 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * from an earlier call to the Get Messages or Update Message operation.
      * @param QueueServiceOptions $options    The optional parameters.
      *
-     * @return none
+     * @return void
      */
     public function deleteMessage(
         $queueName,
         $messageId,
         $popReceipt,
-        $options = null
+        QueueServiceOptions $options = null
     ) {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -334,9 +334,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param string              $queueName The queue name.
      * @param QueueServiceOptions $options   The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function deleteQueue($queueName, $options = null)
+    public function deleteQueue($queueName, QueueServiceOptions $options = null)
     {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -374,9 +374,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param string              $queueName The queue name.
      * @param QueueServiceOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\GetQueueMetadataResult
+     * @return Models\GetQueueMetadataResult
      */
-    public function getQueueMetadata($queueName, $options = null)
+    public function getQueueMetadata($queueName, QueueServiceOptions $options = null)
     {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -425,9 +425,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      *
      * @param QueueServiceOptions $options The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
+     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
      */
-    public function getServiceProperties($options = null)
+    public function getServiceProperties(QueueServiceOptions $options = null)
     {
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -475,9 +475,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param string              $queueName The queue name.
      * @param ListMessagesOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\ListMessagesResult
+     * @return Models\ListMessagesResult
      */
-    public function listMessages($queueName, $options = null)
+    public function listMessages($queueName, ListMessagesOptions $options = null)
     {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -530,9 +530,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param string              $queueName The queue name.
      * @param PeekMessagesOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\PeekMessagesResult
+     * @return Models\PeekMessagesResult
      */
-    public function peekMessages($queueName, $options = null)
+    public function peekMessages($queueName, PeekMessagesOptions $options = null)
     {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
@@ -580,10 +580,13 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param array               $metadata  The metadata array.
      * @param QueueServiceOptions $options   The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function setQueueMetadata($queueName, $metadata, $options = null)
-    {
+    public function setQueueMetadata(
+        $queueName,
+        array $metadata = null,
+        QueueServiceOptions $options = null
+    ) {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');
         $this->validateMetadata($metadata);
@@ -627,13 +630,15 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * It's recommended to use getServiceProperties, alter the returned object and
      * then use setServiceProperties with this altered object.
      *
-     * @param array               $serviceProperties The new service properties.
+     * @param ServiceProperties   $serviceProperties The new service properties.
      * @param QueueServiceOptions $options           The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function setServiceProperties($serviceProperties, $options = null)
-    {
+    public function setServiceProperties(
+        ServiceProperties $serviceProperties,
+        QueueServiceOptions $options = null
+    ) {
         Validate::isTrue(
             $serviceProperties instanceof ServiceProperties,
             Resources::INVALID_SVC_PROP_MSG
@@ -701,7 +706,7 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
      * @param QueueServiceOptions $options                    The optional
      * parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\UpdateMessageResult
+     * @return Models\UpdateMessageResult
      */
     public function updateMessage(
         $queueName,
@@ -709,7 +714,7 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         $popReceipt,
         $messageText,
         $visibilityTimeoutInSeconds,
-        $options = null
+        QueueServiceOptions $options = null
     ) {
         Validate::isString($queueName, 'queueName');
         Validate::notNullOrEmpty($queueName, 'queueName');

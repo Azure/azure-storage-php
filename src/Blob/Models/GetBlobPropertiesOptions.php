@@ -67,7 +67,7 @@ class GetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -89,7 +89,7 @@ class GetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setAccessCondition($accessCondition)
     {
@@ -99,7 +99,7 @@ class GetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob snapshot.
      *
-     * @return string.
+     * @return string
      */
     public function getSnapshot()
     {
@@ -111,7 +111,7 @@ class GetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $snapshot value.
      *
-     * @return none.
+     * @return void
      */
     public function setSnapshot($snapshot)
     {

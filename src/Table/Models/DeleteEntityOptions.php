@@ -60,7 +60,7 @@ class DeleteEntityOptions extends TableServiceOptions
      *
      * @param string $etag The entity ETag.
      *
-     * @return none
+     * @return void
      */
     public function setETag($etag)
     {

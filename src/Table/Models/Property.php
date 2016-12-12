@@ -47,7 +47,7 @@ class Property
     private $_edmType;
     
     /**
-     * @var mix
+     * @var mixed
      */
     private $_value;
     
@@ -66,7 +66,7 @@ class Property
      *
      * @param string $edmType The property type.
      *
-     * @return none
+     * @return void
      */
     public function setEdmType($edmType)
     {
@@ -87,9 +87,9 @@ class Property
     /**
      * Sets the property value.
      *
-     * @param mix $value The value of property.
+     * @param mixed $value The value of property.
      *
-     * @return none
+     * @return void
      */
     public function setValue($value)
     {

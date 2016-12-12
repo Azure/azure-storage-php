@@ -42,7 +42,7 @@ class BlobServiceOptions
     /**
      * Gets timeout.
      *
-     * @return string.
+     * @return string
      */
     public function getTimeout()
     {
@@ -54,7 +54,7 @@ class BlobServiceOptions
      *
      * @param string $timeout value.
      *
-     * @return none.
+     * @return void
      */
     public function setTimeout($timeout)
     {

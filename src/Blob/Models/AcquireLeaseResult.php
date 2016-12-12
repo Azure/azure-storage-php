@@ -50,9 +50,9 @@ class AcquireLeaseResult
      *
      * @param array $headers response headers
      *
-     * @return AcquireLeaseResult
+     * @return \MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result = new AcquireLeaseResult();
         
@@ -78,7 +78,7 @@ class AcquireLeaseResult
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {

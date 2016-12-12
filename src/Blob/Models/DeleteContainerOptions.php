@@ -57,9 +57,9 @@ class DeleteContainerOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }

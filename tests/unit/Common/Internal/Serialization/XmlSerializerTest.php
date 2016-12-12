@@ -80,24 +80,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals($expected, $actual);
     }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::_arr2xml
-     */
-    public function testSerializeNoArray()
-    {
-        // Setup
-        $xmlSerializer = new XmlSerializer();
-        $expected = false;
-        $array = 'not an array';
-        $serializerProperties = array(XmlSerializer::ROOT_NAME => ServiceProperties::$xmlRootName);
-        
-        // Test
-        $actual = $xmlSerializer->serialize($array, $serializerProperties);
-        
-        $this->assertEquals($expected, $actual);
-    }
     
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize

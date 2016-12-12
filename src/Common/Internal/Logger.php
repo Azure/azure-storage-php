@@ -45,12 +45,12 @@ class Logger
     /**
      * Logs $var to file.
      *
-     * @param mix    $var The data to log.
+     * @param mixed  $var The data to log.
      * @param string $tip The help message.
      *
      * @static
      *
-     * @return none
+     * @return void
      */
     public static function log($var, $tip = Resources::EMPTY_STRING)
     {
@@ -72,7 +72,7 @@ class Logger
      *
      * @static
      *
-     * @return none
+     * @return void
      */
     public static function setLogFile($filePath)
     {

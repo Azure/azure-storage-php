@@ -46,7 +46,7 @@ class QueueMessage
     /**
      * Gets message text field.
      *
-     * @return string.
+     * @return string
      */
     public function getMessageText()
     {
@@ -58,7 +58,7 @@ class QueueMessage
      *
      * @param string $messageText message contents.
      *
-     * @return string.
+     * @return string
      */
     public function setMessageText($messageText)
     {
@@ -70,9 +70,9 @@ class QueueMessage
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
      *
-     * @return string.
+     * @return string
      */
-    public function toXml($xmlSerializer)
+    public function toXml(XmlSerializer $xmlSerializer)
     {
         $array      = array('MessageText' => $this->_messageText);
         $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);

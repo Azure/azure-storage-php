@@ -63,7 +63,7 @@ class Container
     /**
      * Gets container name.
      *
-     * @return string.
+     * @return string
      */
     public function getName()
     {
@@ -75,7 +75,7 @@ class Container
      *
      * @param string $name value.
      *
-     * @return none.
+     * @return void
      */
     public function setName($name)
     {
@@ -85,7 +85,7 @@ class Container
     /**
      * Gets container url.
      *
-     * @return string.
+     * @return string
      */
     public function getUrl()
     {
@@ -97,7 +97,7 @@ class Container
      *
      * @param string $url value.
      *
-     * @return none.
+     * @return void
      */
     public function setUrl($url)
     {
@@ -107,7 +107,7 @@ class Container
     /**
      * Gets container metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -119,9 +119,9 @@ class Container
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata = null)
     {
         $this->_metadata = $metadata;
     }
@@ -141,9 +141,9 @@ class Container
      *
      * @param ContainerProperties $properties container properties
      *
-     * @return none.
+     * @return void
      */
-    public function setProperties($properties)
+    public function setProperties(ContainerProperties $properties)
     {
         $this->_properties = $properties;
     }

@@ -67,7 +67,7 @@ class CreateBlobSnapshotResult
      *
      * @return CreateBlobSnapshotResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result                 = new CreateBlobSnapshotResult();
         $headerWithLowerCaseKey = array_change_key_case($headers);
@@ -100,7 +100,7 @@ class CreateBlobSnapshotResult
      *
      * @param string $snapshot value.
      *
-     * @return none
+     * @return void
      */
     public function setSnapshot($snapshot)
     {
@@ -122,7 +122,7 @@ class CreateBlobSnapshotResult
      *
      * @param string $etag value.
      *
-     * @return none
+     * @return void
      */
     public function setETag($etag)
     {
@@ -144,7 +144,7 @@ class CreateBlobSnapshotResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none
+     * @return void
      */
     public function setLastModified($lastModified)
     {

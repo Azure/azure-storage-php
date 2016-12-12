@@ -78,7 +78,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param string $query The query instance.
      *
-     * @return none
+     * @return void
      */
     public function setQuery($query)
     {
@@ -100,7 +100,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param string $nextPartitionKey The entity next partition key value.
      *
-     * @return none
+     * @return void
      */
     public function setNextPartitionKey($nextPartitionKey)
     {
@@ -122,7 +122,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param string $nextRowKey The entity next row key value.
      *
-     * @return none
+     * @return void
      */
     public function setNextRowKey($nextRowKey)
     {
@@ -147,9 +147,9 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param Filters\Filter $filter value.
      *
-     * @return none.
+     * @return void
      */
-    public function setFilter($filter)
+    public function setFilter(Filters\Filter $filter)
     {
         $this->_query->setFilter($filter);
     }
@@ -157,7 +157,7 @@ class QueryEntitiesOptions extends TableServiceOptions
     /**
      * Gets top.
      *
-     * @return integer.
+     * @return integer
      */
     public function getTop()
     {
@@ -172,7 +172,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param integer $top value.
      *
-     * @return none.
+     * @return void
      */
     public function setTop($top)
     {
@@ -187,7 +187,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param string $field The value of the field.
      *
-     * @return none.
+     * @return void
      */
     public function addSelectField($field)
     {
@@ -197,7 +197,7 @@ class QueryEntitiesOptions extends TableServiceOptions
     /**
      * Gets selectFields.
      *
-     * @return array.
+     * @return array
      */
     public function getSelectFields()
     {
@@ -212,9 +212,9 @@ class QueryEntitiesOptions extends TableServiceOptions
      *
      * @param array $selectFields value.
      *
-     * @return none.
+     * @return void
      */
-    public function setSelectFields($selectFields)
+    public function setSelectFields(array $selectFields = null)
     {
         $this->_query->setSelectFields($selectFields);
     }

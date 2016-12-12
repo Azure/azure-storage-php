@@ -63,7 +63,7 @@ class SetBlobPropertiesResult
      *
      * @return SetBlobPropertiesResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result = new SetBlobPropertiesResult();
         $date   = $headers[Resources::LAST_MODIFIED];
@@ -80,7 +80,7 @@ class SetBlobPropertiesResult
     /**
      * Gets blob lastModified.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -92,9 +92,9 @@ class SetBlobPropertiesResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -103,7 +103,7 @@ class SetBlobPropertiesResult
     /**
      * Gets blob etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -115,7 +115,7 @@ class SetBlobPropertiesResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -126,7 +126,7 @@ class SetBlobPropertiesResult
     /**
      * Gets blob sequenceNumber.
      *
-     * @return int.
+     * @return int
      */
     public function getSequenceNumber()
     {
@@ -138,7 +138,7 @@ class SetBlobPropertiesResult
      *
      * @param int $sequenceNumber value.
      *
-     * @return none.
+     * @return void
      */
     public function setSequenceNumber($sequenceNumber)
     {

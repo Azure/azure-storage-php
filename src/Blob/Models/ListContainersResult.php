@@ -77,9 +77,9 @@ class ListContainersResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return ListBlobResult
+     * @return ListContainersResult
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result               = new ListContainersResult();
         $serviceEndpoint      = Utilities::tryGetKeysChainValue(
@@ -138,9 +138,9 @@ class ListContainersResult
      *
      * @param array $containers list of containers.
      *
-     * @return none
+     * @return void
      */
-    public function setContainers($containers)
+    public function setContainers(array $containers)
     {
         $this->_containers = array();
         foreach ($containers as $container) {
@@ -173,7 +173,7 @@ class ListContainersResult
      *
      * @param string $prefix value.
      *
-     * @return none
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -195,7 +195,7 @@ class ListContainersResult
      *
      * @param string $marker value.
      *
-     * @return none
+     * @return void
      */
     public function setMarker($marker)
     {
@@ -217,7 +217,7 @@ class ListContainersResult
      *
      * @param string $maxResults value.
      *
-     * @return none
+     * @return void
      */
     public function setMaxResults($maxResults)
     {
@@ -239,7 +239,7 @@ class ListContainersResult
      *
      * @param string $nextMarker value.
      *
-     * @return none
+     * @return void
      */
     public function setNextMarker($nextMarker)
     {
@@ -261,7 +261,7 @@ class ListContainersResult
      *
      * @param string $accountName value.
      *
-     * @return none
+     * @return void
      */
     public function setAccountName($accountName)
     {

@@ -46,7 +46,7 @@ interface IMimeReaderWriter
      * @return array Returns array with two elements 'headers' and 'body' which
      * represents the MIME message.
      */
-    public function encodeMimeMultipart($bodyPartContents);
+    public function encodeMimeMultipart(array $bodyPartContents);
     
     /**
      * Parses given mime HTTP response body into array. Each array element

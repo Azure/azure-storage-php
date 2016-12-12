@@ -55,6 +55,7 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 
 /**
  * Unit tests for class BlobRestProxy
@@ -1172,7 +1173,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->restProxy->acquireLease($name, $blob);
         
         // Test
-        $result = $this->restProxy->breakLease($name, $blob);
+        $result = $this->restProxy->breakLease($name, $blob, null);
         
         // Assert
         $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult', $result);
@@ -2165,5 +2166,43 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         if (file_exists($downloadPath)) {
             unlink($downloadPath);
         }
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobeRestProxy::addOptionalAccessConditionHeader
+     */
+    public function testAddOptionalAccessContitionHeader()
+    {
+        // Setup
+        $expectedHeader = Resources::IF_MATCH;
+        $expectedValue = '0x8CAFB82EFF70C46';
+        $accessCondition = AccessCondition::ifMatch($expectedValue);
+        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
+
+        // Test
+        $actual = $this->restProxy->addOptionalAccessConditionHeader($headers, $accessCondition);
+
+        // Assert
+        $this->assertCount(3, $actual);
+        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalSourceAccessConditionHeader
+     */
+    public function testAddOptionalSourceAccessContitionHeader()
+    {
+        // Setup
+        $expectedHeader = Resources::X_MS_SOURCE_IF_MATCH;
+        $expectedValue = '0x8CAFB82EFF70C46';
+        $accessCondition = AccessCondition::ifMatch($expectedValue);
+        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
+
+        // Test
+        $actual = $this->restProxy->addOptionalSourceAccessConditionHeader($headers, $accessCondition);
+
+        // Assert
+        $this->assertCount(3, $actual);
+        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
     }
 }
