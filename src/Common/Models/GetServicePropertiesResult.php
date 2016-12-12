@@ -46,9 +46,9 @@ class GetServicePropertiesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
+     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result                     = new GetServicePropertiesResult();
         $result->_serviceProperties = ServiceProperties::create($parsedResponse);
@@ -59,7 +59,7 @@ class GetServicePropertiesResult
     /**
      * Gets service properties object.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\ServiceProperties
+     * @return \MicrosoftAzure\Storage\Common\Models\ServiceProperties
      */
     public function getValue()
     {
@@ -71,7 +71,7 @@ class GetServicePropertiesResult
      *
      * @param ServiceProperties $serviceProperties object to use.
      *
-     * @return none
+     * @return void
      */
     public function setValue($serviceProperties)
     {

@@ -50,8 +50,7 @@ abstract class StorageAuthScheme implements IAuthScheme
      * @param string $accountName storage account name.
      * @param string $accountKey  storage account primary or secondary key.
      *
-     * @return
-     * MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @return StorageAuthScheme
      */
     public function __construct($accountName, $accountKey)
     {
@@ -69,7 +68,7 @@ abstract class StorageAuthScheme implements IAuthScheme
      *
      * @return array
      */
-    protected function computeCanonicalizedHeaders($headers)
+    protected function computeCanonicalizedHeaders(array $headers)
     {
         $canonicalizedHeaders = array();
         $normalizedHeaders    = array();
@@ -121,7 +120,7 @@ abstract class StorageAuthScheme implements IAuthScheme
      *
      * @return string
      */
-    protected function computeCanonicalizedResourceForTable($url, $queryParams)
+    protected function computeCanonicalizedResourceForTable($url, array $queryParams)
     {
         $queryParams = array_change_key_case($queryParams);
 
@@ -154,7 +153,7 @@ abstract class StorageAuthScheme implements IAuthScheme
      *
      * @return string
      */
-    protected function computeCanonicalizedResource($url, $queryParams)
+    protected function computeCanonicalizedResource($url, array $queryParams)
     {
         $queryParams = array_change_key_case($queryParams);
 
@@ -205,9 +204,9 @@ abstract class StorageAuthScheme implements IAuthScheme
      * @return string
      */
     abstract protected function computeSignature(
-        $headers,
+        array $headers,
         $url,
-        $queryParams,
+        array $queryParams,
         $httpMethod
     );
 }

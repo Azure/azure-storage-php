@@ -53,7 +53,7 @@ class UnaryFilter extends Filter
      * @param string $operator The operator.
      * @param Filter $operand  The operand filter.
      */
-    public function __construct($operator, $operand)
+    public function __construct($operator, Filter $operand = null)
     {
         $this->_operand  = $operand;
         $this->_operator = $operator;

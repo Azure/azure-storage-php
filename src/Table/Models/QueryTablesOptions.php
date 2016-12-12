@@ -75,7 +75,7 @@ class QueryTablesOptions extends TableServiceOptions
      *
      * @param string $nextTableName value
      *
-     * @return none
+     * @return void
      */
     public function setNextTableName($nextTableName)
     {
@@ -97,7 +97,7 @@ class QueryTablesOptions extends TableServiceOptions
      *
      * @param string $prefix value
      *
-     * @return none
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -107,7 +107,7 @@ class QueryTablesOptions extends TableServiceOptions
     /**
      * Gets top.
      *
-     * @return integer.
+     * @return integer
      */
     public function getTop()
     {
@@ -119,7 +119,7 @@ class QueryTablesOptions extends TableServiceOptions
      *
      * @param integer $top value.
      *
-     * @return none.
+     * @return void
      */
     public function setTop($top)
     {
@@ -151,9 +151,9 @@ class QueryTablesOptions extends TableServiceOptions
      *
      * @param Filters\Filter $filter value.
      *
-     * @return none.
+     * @return void
      */
-    public function setFilter($filter)
+    public function setFilter(Filters\Filter $filter)
     {
         $this->_query->setFilter($filter);
     }

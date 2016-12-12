@@ -67,7 +67,7 @@ class Query
      *
      * @param Filters\Filter $filter value.
      *
-     * @return none.
+     * @return void
      */
     public function setFilter($filter)
     {
@@ -77,7 +77,7 @@ class Query
     /**
      * Gets top.
      *
-     * @return integer.
+     * @return integer
      */
     public function getTop()
     {
@@ -89,7 +89,7 @@ class Query
      *
      * @param integer $top value.
      *
-     * @return none.
+     * @return void
      */
     public function setTop($top)
     {
@@ -101,7 +101,7 @@ class Query
      *
      * @param string $field The value of the field.
      *
-     * @return none.
+     * @return void
      */
     public function addSelectField($field)
     {
@@ -111,7 +111,7 @@ class Query
     /**
      * Gets selectFields.
      *
-     * @return array.
+     * @return array
      */
     public function getSelectFields()
     {
@@ -123,9 +123,9 @@ class Query
      *
      * @param array $selectFields value.
      *
-     * @return none.
+     * @return void
      */
-    public function setSelectFields($selectFields)
+    public function setSelectFields(array $selectFields = null)
     {
         $this->_selectFields = $selectFields;
     }

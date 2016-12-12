@@ -84,7 +84,7 @@ class GetBlobOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -106,7 +106,7 @@ class GetBlobOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setAccessCondition($accessCondition)
     {
@@ -116,7 +116,7 @@ class GetBlobOptions extends BlobServiceOptions
     /**
      * Gets blob snapshot.
      *
-     * @return string.
+     * @return string
      */
     public function getSnapshot()
     {
@@ -128,7 +128,7 @@ class GetBlobOptions extends BlobServiceOptions
      *
      * @param string $snapshot value.
      *
-     * @return none.
+     * @return void
      */
     public function setSnapshot($snapshot)
     {
@@ -150,7 +150,7 @@ class GetBlobOptions extends BlobServiceOptions
      *
      * @param integer $rangeStart the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setRangeStart($rangeStart)
     {
@@ -173,7 +173,7 @@ class GetBlobOptions extends BlobServiceOptions
      *
      * @param integer $rangeEnd range end value in bytes
      *
-     * @return none
+     * @return void
      */
     public function setRangeEnd($rangeEnd)
     {
@@ -196,7 +196,7 @@ class GetBlobOptions extends BlobServiceOptions
      *
      * @param boolean $computeRangeMD5 value
      *
-     * @return none
+     * @return void
      */
     public function setComputeRangeMD5($computeRangeMD5)
     {

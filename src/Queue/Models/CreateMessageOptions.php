@@ -74,7 +74,7 @@ class CreateMessageOptions extends QueueServiceOptions
      *
      * @param integer $visibilityTimeoutInSeconds value to use.
      *
-     * @return none
+     * @return void
      */
     public function setVisibilityTimeoutInSeconds($visibilityTimeoutInSeconds)
     {
@@ -96,7 +96,7 @@ class CreateMessageOptions extends QueueServiceOptions
      *
      * @param integer $timeToLiveInSeconds value to use.
      *
-     * @return none
+     * @return void
      */
     public function setTimeToLiveInSeconds($timeToLiveInSeconds)
     {

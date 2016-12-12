@@ -50,7 +50,7 @@ abstract class RetryPolicy
      *
      * @return boolean
      */
-    abstract public function shouldRetry($retryCount, $response);
+    abstract public function shouldRetry($retryCount, \GuzzleHttp\Psr7\Response $response);
     
     /**
      * Calculates the backoff for the retry policy.
@@ -60,5 +60,5 @@ abstract class RetryPolicy
      *
      * @return integer
      */
-    abstract public function calculateBackoff($retryCount, $response);
+    abstract public function calculateBackoff($retryCount, \GuzzleHttp\Psr7\Response $response);
 }

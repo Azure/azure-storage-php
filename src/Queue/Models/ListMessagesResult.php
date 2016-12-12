@@ -43,7 +43,7 @@ class ListMessagesResult
     /**
      * Holds all message entries.
      *
-     * @var array.
+     * @var array
      */
     private $_queueMessages;
     
@@ -52,9 +52,9 @@ class ListMessagesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\ListMessagesResult.
+     * @return ListMessagesResult
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse = null)
     {
         $result        = new ListMessagesResult();
         $queueMessages = array();
@@ -87,7 +87,7 @@ class ListMessagesResult
      *
      * @param integer $queueMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setQueueMessages($queueMessages)
     {

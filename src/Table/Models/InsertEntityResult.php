@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
 
 /**
  * Holds result of calling insertEntity wrapper
@@ -52,7 +53,7 @@ class InsertEntityResult
      * @param array             $headers        The HTTP response headers.
      * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
      *
-     * @return \MicrosoftAzure\Storage\Table\Models\InsertEntityResult
+     * @return InsertEntityResult
      *
      * @static
      */
@@ -81,7 +82,7 @@ class InsertEntityResult
      *
      * @param Entity $entity The table entity instance.
      *
-     * @return none
+     * @return void
      */
     public function setEntity($entity)
     {

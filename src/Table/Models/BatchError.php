@@ -43,7 +43,7 @@ use MicrosoftAzure\Storage\Common\ServiceException;
 class BatchError
 {
     /**
-     * @var MicrosoftAzure\Storage\Common\ServiceException
+     * @var \MicrosoftAzure\Storage\Common\ServiceException
      */
     private $_error;
     
@@ -55,12 +55,12 @@ class BatchError
     /**
      * Creates BatchError object.
      *
-     * @param MicrosoftAzure\Storage\Common\ServiceException $error   The error object.
-     * @param array                                $headers The response headers.
+     * @param \MicrosoftAzure\Storage\Common\ServiceException $error   The error object.
+     * @param array                                           $headers The response headers.
      *
      * @return \MicrosoftAzure\Storage\Table\Models\BatchError
      */
-    public static function create($error, $headers)
+    public static function create($error, array $headers)
     {
         Validate::isTrue(
             $error instanceof ServiceException,
@@ -91,9 +91,9 @@ class BatchError
     /**
      * Sets the error.
      *
-     * @param MicrosoftAzure\Storage\Common\ServiceException $error The error object.
+     * @param \MicrosoftAzure\Storage\Common\ServiceException $error The error object.
      *
-     * @return none
+     * @return void
      */
     public function setError($error)
     {
@@ -115,7 +115,7 @@ class BatchError
      *
      * @param integer $contentId The contentId object.
      *
-     * @return none
+     * @return void
      */
     public function setContentId($contentId)
     {

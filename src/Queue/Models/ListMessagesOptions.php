@@ -74,7 +74,7 @@ class ListMessagesOptions extends QueueServiceOptions
      *
      * @param integer $visibilityTimeoutInSeconds value to use.
      *
-     * @return none
+     * @return void
      */
     public function setVisibilityTimeoutInSeconds($visibilityTimeoutInSeconds)
     {
@@ -96,7 +96,7 @@ class ListMessagesOptions extends QueueServiceOptions
      *
      * @param integer $numberOfMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setNumberOfMessages($numberOfMessages)
     {

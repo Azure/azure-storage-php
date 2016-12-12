@@ -57,7 +57,7 @@ class GetEntityResult
      *
      * @param Entity $entity The table entity instance.
      *
-     * @return none
+     * @return void
      */
     public function setEntity($entity)
     {

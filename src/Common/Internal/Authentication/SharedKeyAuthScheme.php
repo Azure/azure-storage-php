@@ -50,8 +50,7 @@ class SharedKeyAuthScheme extends StorageAuthScheme
      * @param string $accountName storage account name.
      * @param string $accountKey  storage account primary or secondary key.
      *
-     * @return
-     * MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
+     * @return SharedKeyAuthScheme
      */
     public function __construct($accountName, $accountKey)
     {
@@ -84,8 +83,12 @@ class SharedKeyAuthScheme extends StorageAuthScheme
      *
      * @return string
      */
-    protected function computeSignature($headers, $url, $queryParams, $httpMethod)
-    {
+    protected function computeSignature(
+        array $headers,
+        $url,
+        array $queryParams,
+        $httpMethod
+    ) {
         $canonicalizedHeaders = parent::computeCanonicalizedHeaders($headers);
         
         $canonicalizedResource = parent::computeCanonicalizedResource(
@@ -123,8 +126,12 @@ class SharedKeyAuthScheme extends StorageAuthScheme
      *
      * @return string
      */
-    public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
-    {
+    public function getAuthorizationHeader(
+        array $headers,
+        $url,
+        array $queryParams,
+        $httpMethod
+    ) {
         $signature = $this->computeSignature(
             $headers,
             $url,

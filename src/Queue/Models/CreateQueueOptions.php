@@ -42,7 +42,7 @@ class CreateQueueOptions extends QueueServiceOptions
     /**
      * Gets user defined metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -55,9 +55,9 @@ class CreateQueueOptions extends QueueServiceOptions
      *
      * @param array $metadata user defined metadata object in array form.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -69,7 +69,7 @@ class CreateQueueOptions extends QueueServiceOptions
      * @param string $key   metadata key element.
      * @param string $value metadata value element.
      *
-     * @return none.
+     * @return void
      */
     public function addMetadata($key, $value)
     {

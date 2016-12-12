@@ -51,7 +51,7 @@ class HeadersFilter implements IServiceFilter
      *
      * @return HeadersFilter
      */
-    public function __construct($headers)
+    public function __construct(array $headers)
     {
         $this->_headers = $headers;
     }
@@ -63,7 +63,7 @@ class HeadersFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function handleRequest($request)
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request)
     {
         $result = $request;
         
@@ -85,8 +85,10 @@ class HeadersFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Response
      */
-    public function handleResponse($request, $response)
-    {
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response = null
+    ) {
         // Do nothing with the response.
         return $response;
     }

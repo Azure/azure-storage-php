@@ -108,7 +108,7 @@ class BlobProperties
      *
      * @return BlobProperties
      */
-    public static function create($parsed)
+    public static function create(array $parsed)
     {
         $result = new BlobProperties();
         $clean  = array_change_key_case($parsed);
@@ -168,7 +168,7 @@ class BlobProperties
     /**
      * Gets blob lastModified.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -180,9 +180,9 @@ class BlobProperties
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -191,7 +191,7 @@ class BlobProperties
     /**
      * Gets blob etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -203,7 +203,7 @@ class BlobProperties
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -213,7 +213,7 @@ class BlobProperties
     /**
      * Gets blob contentType.
      *
-     * @return string.
+     * @return string
      */
     public function getContentType()
     {
@@ -225,7 +225,7 @@ class BlobProperties
      *
      * @param string $contentType value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentType($contentType)
     {
@@ -235,7 +235,7 @@ class BlobProperties
     /**
      * Gets blob contentRange.
      *
-     * @return string.
+     * @return string
      */
     public function getContentRange()
     {
@@ -247,7 +247,7 @@ class BlobProperties
      *
      * @param string $contentRange value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentRange($contentRange)
     {
@@ -257,7 +257,7 @@ class BlobProperties
     /**
      * Gets blob contentLength.
      *
-     * @return integer.
+     * @return integer
      */
     public function getContentLength()
     {
@@ -269,7 +269,7 @@ class BlobProperties
      *
      * @param integer $contentLength value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentLength($contentLength)
     {
@@ -280,7 +280,7 @@ class BlobProperties
     /**
      * Gets blob contentEncoding.
      *
-     * @return string.
+     * @return string
      */
     public function getContentEncoding()
     {
@@ -292,7 +292,7 @@ class BlobProperties
      *
      * @param string $contentEncoding value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentEncoding($contentEncoding)
     {
@@ -302,7 +302,7 @@ class BlobProperties
     /**
      * Gets blob contentLanguage.
      *
-     * @return string.
+     * @return string
      */
     public function getContentLanguage()
     {
@@ -314,7 +314,7 @@ class BlobProperties
      *
      * @param string $contentLanguage value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentLanguage($contentLanguage)
     {
@@ -324,7 +324,7 @@ class BlobProperties
     /**
      * Gets blob contentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getContentMD5()
     {
@@ -336,7 +336,7 @@ class BlobProperties
      *
      * @param string $contentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentMD5($contentMD5)
     {
@@ -346,7 +346,7 @@ class BlobProperties
     /**
      * Gets blob cacheControl.
      *
-     * @return string.
+     * @return string
      */
     public function getCacheControl()
     {
@@ -358,7 +358,7 @@ class BlobProperties
      *
      * @param string $cacheControl value.
      *
-     * @return none.
+     * @return void
      */
     public function setCacheControl($cacheControl)
     {
@@ -368,7 +368,7 @@ class BlobProperties
     /**
      * Gets blob blobType.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobType()
     {
@@ -380,7 +380,7 @@ class BlobProperties
      *
      * @param string $blobType value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobType($blobType)
     {
@@ -390,7 +390,7 @@ class BlobProperties
     /**
      * Gets blob leaseStatus.
      *
-     * @return string.
+     * @return string
      */
     public function getLeaseStatus()
     {
@@ -402,7 +402,7 @@ class BlobProperties
      *
      * @param string $leaseStatus value.
      *
-     * @return none.
+     * @return void
      */
     public function setLeaseStatus($leaseStatus)
     {
@@ -412,7 +412,7 @@ class BlobProperties
     /**
      * Gets blob sequenceNumber.
      *
-     * @return int.
+     * @return int
      */
     public function getSequenceNumber()
     {
@@ -424,7 +424,7 @@ class BlobProperties
      *
      * @param int $sequenceNumber value.
      *
-     * @return none.
+     * @return void
      */
     public function setSequenceNumber($sequenceNumber)
     {

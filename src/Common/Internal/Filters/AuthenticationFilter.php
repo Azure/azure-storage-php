@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal\Filters;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\IServiceFilter;
 use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
 use GuzzleHttp\Psr7;
 
 /**
@@ -43,7 +44,7 @@ use GuzzleHttp\Psr7;
 class AuthenticationFilter implements IServiceFilter
 {
     /**
-     * @var MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @var StorageAuthScheme
      */
     private $_authenticationScheme;
 
@@ -52,7 +53,7 @@ class AuthenticationFilter implements IServiceFilter
      *
      * @param StorageAuthScheme $authenticationScheme The authentication scheme.
      */
-    public function __construct($authenticationScheme)
+    public function __construct(StorageAuthScheme $authenticationScheme)
     {
         $this->_authenticationScheme = $authenticationScheme;
     }
@@ -64,7 +65,7 @@ class AuthenticationFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function handleRequest($request)
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request)
     {
         $requestHeaders = HttpFormatter::formatHeaders($request->getHeaders());
         
@@ -87,8 +88,10 @@ class AuthenticationFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Response
      */
-    public function handleResponse($request, $response)
-    {
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response = null
+    ) {
         // Do nothing with the response.
         return $response;
     }

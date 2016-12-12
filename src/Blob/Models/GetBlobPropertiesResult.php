@@ -50,7 +50,7 @@ class GetBlobPropertiesResult
     /**
      * Gets blob metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -62,9 +62,9 @@ class GetBlobPropertiesResult
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -72,7 +72,7 @@ class GetBlobPropertiesResult
     /**
      * Gets blob properties.
      *
-     * @return BlobProperties.
+     * @return BlobProperties
      */
     public function getProperties()
     {
@@ -84,7 +84,7 @@ class GetBlobPropertiesResult
      *
      * @param BlobProperties $properties value.
      *
-     * @return none.
+     * @return void
      */
     public function setProperties($properties)
     {

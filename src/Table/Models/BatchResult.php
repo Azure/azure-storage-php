@@ -32,6 +32,8 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Table\Models\BatchError;
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
+use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
 
 /**
  * Holds results from batch API.
@@ -61,7 +63,7 @@ class BatchResult
      *
      * @return array
      */
-    private static function _constructResponses($body, $mimeSerializer)
+    private static function _constructResponses($body, IMimeReaderWriter $mimeSerializer)
     {
         $responses = array();
         $parts     = $mimeSerializer->decodeMimeMultipart($body);
@@ -101,8 +103,8 @@ class BatchResult
     /**
      * Compares between two responses by Content-ID header.
      *
-     * @param \HTTP_Request2_Response $r1 The first response object.
-     * @param \HTTP_Request2_Response $r2 The second response object.
+     * @param mixed $r1 The first response object.
+     * @param mixed $r2 The second response object.
      *
      * @return boolean
      */
@@ -131,10 +133,10 @@ class BatchResult
      */
     public static function create(
         $body,
-        $operations,
-        $contexts,
-        $atomSerializer,
-        $mimeSerializer
+        array $operations,
+        array $contexts,
+        IAtomReaderWriter $atomSerializer,
+        IMimeReaderWriter $mimeSerializer
     ) {
         $result       = new BatchResult();
         $responses    = self::_constructResponses($body, $mimeSerializer);
@@ -205,9 +207,9 @@ class BatchResult
      *
      * @param array $entries The batch call result entries.
      *
-     * @return none
+     * @return void
      */
-    public function setEntries($entries)
+    public function setEntries(array $entries)
     {
         $this->_entries = $entries;
     }

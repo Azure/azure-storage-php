@@ -66,7 +66,7 @@ class CopyBlobOptions extends BlobServiceOptions
     private $_leaseId;
     
     /**
-     * @var sourceLeaseId
+     * @var string
      */
     private $_sourceLeaseId;
   
@@ -85,9 +85,9 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }
@@ -95,7 +95,7 @@ class CopyBlobOptions extends BlobServiceOptions
     /**
      * Gets source access condition
      *
-     * @return SourceAccessCondition
+     * @return AccessCondition
      */
     public function getSourceAccessCondition()
     {
@@ -105,11 +105,11 @@ class CopyBlobOptions extends BlobServiceOptions
     /**
      * Sets source access condition
      *
-     * @param SourceAccessCondition $sourceAccessCondition value to use.
+     * @param AccessCondition $sourceAccessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setSourceAccessCondition($sourceAccessCondition)
+    public function setSourceAccessCondition(AccessCondition $sourceAccessCondition)
     {
         $this->_sourceAccessCondition = $sourceAccessCondition;
     }
@@ -117,7 +117,7 @@ class CopyBlobOptions extends BlobServiceOptions
     /**
      * Gets metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -129,9 +129,9 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -151,7 +151,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @param string $sourceSnapshot value.
      *
-     * @return none
+     * @return void
      */
     public function setSourceSnapshot($sourceSnapshot)
     {
@@ -173,7 +173,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @param string $leaseId value.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -195,7 +195,7 @@ class CopyBlobOptions extends BlobServiceOptions
      *
      * @param string $sourceLeaseId value.
      *
-     * @return none
+     * @return void
      */
     public function setSourceLeaseId($sourceLeaseId)
     {

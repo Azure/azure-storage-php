@@ -92,7 +92,7 @@ class CopyBlobResult
      *
      * @param string $etag value.
      *
-     * @return none
+     * @return void
      */
     public function setETag($etag)
     {
@@ -114,9 +114,9 @@ class CopyBlobResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }

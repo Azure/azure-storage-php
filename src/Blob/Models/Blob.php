@@ -65,7 +65,7 @@ class Blob
     /**
      * Gets blob name.
      *
-     * @return string.
+     * @return string
      */
     public function getName()
     {
@@ -77,7 +77,7 @@ class Blob
      *
      * @param string $name value.
      *
-     * @return none.
+     * @return void
      */
     public function setName($name)
     {
@@ -87,7 +87,7 @@ class Blob
     /**
      * Gets blob snapshot.
      *
-     * @return string.
+     * @return string
      */
     public function getSnapshot()
     {
@@ -99,7 +99,7 @@ class Blob
      *
      * @param string $snapshot value.
      *
-     * @return none.
+     * @return void
      */
     public function setSnapshot($snapshot)
     {
@@ -109,7 +109,7 @@ class Blob
     /**
      * Gets blob url.
      *
-     * @return string.
+     * @return string
      */
     public function getUrl()
     {
@@ -121,7 +121,7 @@ class Blob
      *
      * @param string $url value.
      *
-     * @return none.
+     * @return void
      */
     public function setUrl($url)
     {
@@ -131,7 +131,7 @@ class Blob
     /**
      * Gets blob metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -143,9 +143,9 @@ class Blob
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata = null)
     {
         $this->_metadata = $metadata;
     }
@@ -153,7 +153,7 @@ class Blob
     /**
      * Gets blob properties.
      *
-     * @return BlobProperties.
+     * @return BlobProperties
      */
     public function getProperties()
     {
@@ -165,7 +165,7 @@ class Blob
      *
      * @param BlobProperties $properties value.
      *
-     * @return none.
+     * @return void
      */
     public function setProperties($properties)
     {

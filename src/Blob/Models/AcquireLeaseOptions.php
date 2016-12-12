@@ -45,7 +45,7 @@ class AcquireLeaseOptions extends BlobServiceOptions
     /**
      * Gets access condition
      *
-     * @return AccessCondition
+     * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition
      */
     public function getAccessCondition()
     {
@@ -55,11 +55,11 @@ class AcquireLeaseOptions extends BlobServiceOptions
     /**
      * Sets access condition
      *
-     * @param AccessCondition $accessCondition value to use.
+     * @param \MicrosoftAzure\Storage\Blob\Models\AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }

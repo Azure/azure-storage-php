@@ -24,7 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -53,7 +52,7 @@ class CreateContainerOptions extends BlobServiceOptions
     /**
      * Gets container public access.
      *
-     * @return string.
+     * @return string
      */
     public function getPublicAccess()
     {
@@ -75,7 +74,7 @@ class CreateContainerOptions extends BlobServiceOptions
      *
      * @param string $publicAccess access modifier for the container
      *
-     * @return none.
+     * @return void
      */
     public function setPublicAccess($publicAccess)
     {
@@ -86,7 +85,7 @@ class CreateContainerOptions extends BlobServiceOptions
     /**
      * Gets user defined metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -99,9 +98,9 @@ class CreateContainerOptions extends BlobServiceOptions
      *
      * @param array $metadata user defined metadata object in array form.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -113,7 +112,7 @@ class CreateContainerOptions extends BlobServiceOptions
      * @param string $key   metadata key element.
      * @param string $value metadata value element.
      *
-     * @return none.
+     * @return void
      */
     public function addMetadata($key, $value)
     {

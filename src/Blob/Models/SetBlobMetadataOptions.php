@@ -62,7 +62,7 @@ class SetBlobMetadataOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -84,9 +84,9 @@ class SetBlobMetadataOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }

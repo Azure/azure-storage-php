@@ -73,8 +73,12 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      *
      * @return string
      */
-    protected function computeSignature($headers, $url, $queryParams, $httpMethod)
-    {
+    protected function computeSignature(
+        array $headers,
+        $url,
+        array $queryParams,
+        $httpMethod
+    ) {
         $canonicalizedResource = parent::computeCanonicalizedResourceForTable(
             $url,
             $queryParams
@@ -105,8 +109,12 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      *
      * @return string
      */
-    public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
-    {
+    public function getAuthorizationHeader(
+        array $headers,
+        $url,
+        array $queryParams,
+        $httpMethod
+    ) {
         $signature = $this->computeSignature(
             $headers,
             $url,

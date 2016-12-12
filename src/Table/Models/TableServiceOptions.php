@@ -42,7 +42,7 @@ class TableServiceOptions
     /**
      * Gets timeout.
      *
-     * @return string.
+     * @return string
      */
     public function getTimeout()
     {
@@ -54,7 +54,7 @@ class TableServiceOptions
      *
      * @param string $timeout value.
      *
-     * @return none.
+     * @return void
      */
     public function setTimeout($timeout)
     {

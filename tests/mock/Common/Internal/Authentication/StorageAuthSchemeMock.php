@@ -68,12 +68,12 @@ class StorageAuthSchemeMock extends StorageAuthScheme
         return $this->accountKey;
     }
 
-    protected function computeSignature($headers, $url, $queryParams, $httpMethod)
+    protected function computeSignature(array $headers, $url, array $queryParams, $httpMethod)
     {
         // Do nothing
     }
 
-    public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
+    public function getAuthorizationHeader(array $headers, $url, array $queryParams, $httpMethod)
     {
         // Do nothing
     }

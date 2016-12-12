@@ -154,7 +154,7 @@ class StorageServiceSettings extends ServiceSettings
     /**
      * Initializes static members of the class.
      *
-     * @return none
+     * @return void
      */
     protected static function init()
     {
@@ -292,7 +292,7 @@ class StorageServiceSettings extends ServiceSettings
      *
      * @return string
      */
-    private static function _getDefaultServiceEndpoint($settings, $dns)
+    private static function _getDefaultServiceEndpoint(array $settings, $dns)
     {
         $scheme      = Utilities::tryGetValueInsensitive(
             Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME,
@@ -314,10 +314,10 @@ class StorageServiceSettings extends ServiceSettings
      * @param string $queueEndpointUri The queue endpoint uri.
      * @param string $tableEndpointUri The table endpoint uri.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings
+     * @return StorageServiceSettings
      */
     private static function _createStorageServiceSettings(
-        $settings,
+        array $settings,
         $blobEndpointUri = null,
         $queueEndpointUri = null,
         $tableEndpointUri = null

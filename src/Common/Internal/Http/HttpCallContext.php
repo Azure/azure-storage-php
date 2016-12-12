@@ -65,7 +65,7 @@ class HttpCallContext
     /**
      * The HTTP POST parameters.
      *
-     * @var array.
+     * @var array
      */
     private $_postParameters;
     
@@ -125,7 +125,7 @@ class HttpCallContext
      *
      * @param string $method The method value.
      *
-     * @return none
+     * @return void
      */
     public function setMethod($method)
     {
@@ -151,9 +151,9 @@ class HttpCallContext
      *
      * @param array $headers The headers value.
      *
-     * @return none
+     * @return void
      */
-    public function setHeaders($headers)
+    public function setHeaders(array $headers)
     {
         $this->_headers = array();
         foreach ($headers as $key => $value) {
@@ -178,9 +178,9 @@ class HttpCallContext
      *
      * @param array $queryParams The queryParams value.
      *
-     * @return none
+     * @return void
      */
-    public function setQueryParameters($queryParams)
+    public function setQueryParameters(array $queryParams)
     {
         $this->_queryParams = array();
         foreach ($queryParams as $key => $value) {
@@ -203,7 +203,7 @@ class HttpCallContext
      *
      * @param string $uri The uri value.
      *
-     * @return none
+     * @return void
      */
     public function setUri($uri)
     {
@@ -227,7 +227,7 @@ class HttpCallContext
      *
      * @param string $path The path value.
      *
-     * @return none
+     * @return void
      */
     public function setPath($path)
     {
@@ -251,9 +251,9 @@ class HttpCallContext
      *
      * @param array $statusCodes The statusCodes value.
      *
-     * @return none
+     * @return void
      */
-    public function setStatusCodes($statusCodes)
+    public function setStatusCodes(array $statusCodes)
     {
         $this->_statusCodes = array();
         foreach ($statusCodes as $value) {
@@ -276,7 +276,7 @@ class HttpCallContext
      *
      * @param string $body The body value.
      *
-     * @return none
+     * @return void
      */
     public function setBody($body)
     {
@@ -291,7 +291,7 @@ class HttpCallContext
      * @param string $name  The HTTP header name.
      * @param string $value The HTTP header value.
      *
-     * @return none
+     * @return void
      */
     public function addHeader($name, $value)
     {
@@ -309,7 +309,7 @@ class HttpCallContext
      * @param string $name  The HTTP header name.
      * @param string $value The HTTP header value.
      *
-     * @return none
+     * @return void
      */
     public function addOptionalHeader($name, $value)
     {
@@ -326,7 +326,7 @@ class HttpCallContext
      *
      * @param string $name The HTTP header name.
      *
-     * @return none
+     * @return void
      */
     public function removeHeader($name)
     {
@@ -342,7 +342,7 @@ class HttpCallContext
      * @param string $name  The URI query parameter name.
      * @param string $value The URI query parameter value.
      *
-     * @return none
+     * @return void
      */
     public function addQueryParameter($name, $value)
     {
@@ -367,9 +367,9 @@ class HttpCallContext
      *
      * @param array $postParameters The HTTP POST parameters.
      *
-     * @return none
+     * @return void
      */
-    public function setPostParameters($postParameters)
+    public function setPostParameters(array $postParameters)
     {
         Validate::isArray($postParameters, 'postParameters');
         $this->_postParameters = $postParameters;
@@ -383,7 +383,7 @@ class HttpCallContext
      * @param string $name  The URI query parameter name.
      * @param string $value The URI query parameter value.
      *
-     * @return none
+     * @return void
      */
     public function addOptionalQueryParameter($name, $value)
     {
@@ -400,7 +400,7 @@ class HttpCallContext
      *
      * @param integer $statusCode The expected status code.
      *
-     * @return none
+     * @return void
      */
     public function addStatusCode($statusCode)
     {
@@ -414,7 +414,7 @@ class HttpCallContext
      *
      * @param string $name The header name.
      *
-     * @return mix
+     * @return mixed
      */
     public function getHeader($name)
     {

@@ -41,19 +41,22 @@ interface IServiceFilter
     /**
      * Processes HTTP request before send.
      *
-     * @param mix $request HTTP request object.
+     * @param \GuzzleHttp\Psr7\Request $request HTTP request object.
      *
-     * @return mix processed HTTP request object.
+     * @return \GuzzleHttp\Psr7\Request processed HTTP request object.
      */
-    public function handleRequest($request);
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request);
 
     /**
      * Processes HTTP response after send.
      *
-     * @param mix $request  HTTP request object.
-     * @param mix $response HTTP response object.
+     * @param \GuzzleHttp\Psr7\Request  $request  HTTP request object.
+     * @param \GuzzleHttp\Psr7\Response $response HTTP response object.
      *
-     * @return mix processed HTTP response object.
+     * @return \GuzzleHttp\Psr7\Response processed HTTP response object.
      */
-    public function handleResponse($request, $response);
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response
+    );
 }

@@ -50,7 +50,7 @@ class Queue
      * @param string $name queue name.
      * @param string $url  queue url.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\Queue.
+     * @return Queue
      */
     public function __construct($name, $url)
     {
@@ -61,7 +61,7 @@ class Queue
     /**
      * Gets queue name.
      *
-     * @return string.
+     * @return string
      */
     public function getName()
     {
@@ -73,7 +73,7 @@ class Queue
      *
      * @param string $name value.
      *
-     * @return none.
+     * @return void
      */
     public function setName($name)
     {
@@ -83,7 +83,7 @@ class Queue
     /**
      * Gets queue url.
      *
-     * @return string.
+     * @return string
      */
     public function getUrl()
     {
@@ -95,7 +95,7 @@ class Queue
      *
      * @param string $url value.
      *
-     * @return none.
+     * @return void
      */
     public function setUrl($url)
     {
@@ -105,7 +105,7 @@ class Queue
     /**
      * Gets queue metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -117,9 +117,9 @@ class Queue
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }

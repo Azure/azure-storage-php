@@ -70,7 +70,7 @@ class AccessPolicy
      *
      * @param \DateTime $start value.
      *
-     * @return none.
+     * @return void
      */
     public function setStart($start)
     {
@@ -93,7 +93,7 @@ class AccessPolicy
      *
      * @param \DateTime $expiry value.
      *
-     * @return none.
+     * @return void
      */
     public function setExpiry($expiry)
     {
@@ -116,7 +116,7 @@ class AccessPolicy
      *
      * @param string $permission value.
      *
-     * @return none.
+     * @return void
      */
     public function setPermission($permission)
     {
@@ -126,7 +126,7 @@ class AccessPolicy
     /**
      * Converts this current object to XML representation.
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

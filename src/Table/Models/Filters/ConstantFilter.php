@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
 class ConstantFilter extends Filter
 {
     /**
-     * @var mix
+     * @var mixed
      */
     private $_value;
     
@@ -64,7 +64,7 @@ class ConstantFilter extends Filter
     /**
      * Gets value
      *
-     * @return mix
+     * @return mixed
      */
     public function getValue()
     {
