@@ -238,18 +238,18 @@ class StorageServiceSettings extends ServiceSettings
      *
      * @param string $name             The storage service name.
      * @param string $key              The storage service key.
-     * @param string $sasToken         The storage service SAS token.
      * @param string $blobEndpointUri  The sotrage service blob endpoint.
      * @param string $queueEndpointUri The sotrage service queue endpoint.
      * @param string $tableEndpointUri The sotrage service table endpoint.
+     * @param string $sas              The storage service SAS token.
      */
     public function __construct(
         $name,
         $key,
-        $sas,
         $blobEndpointUri,
         $queueEndpointUri,
-        $tableEndpointUri
+        $tableEndpointUri,
+        $sas = null
     ) {
         $this->_name             = $name;
         $this->_key              = $key;
@@ -282,7 +282,8 @@ class StorageServiceSettings extends ServiceSettings
             Resources::DEV_STORE_KEY,
             $prefix . ':10000/devstoreaccount1/',
             $prefix . ':10001/devstoreaccount1/',
-            $prefix . ':10002/devstoreaccount1/'
+            $prefix . ':10002/devstoreaccount1/',
+            null
         );
     }
     
@@ -373,10 +374,10 @@ class StorageServiceSettings extends ServiceSettings
         return new StorageServiceSettings(
             $accountName,
             $accountKey,
-            $sasToken,
             $blobEndpointUri,
             $queueEndpointUri,
-            $tableEndpointUri
+            $tableEndpointUri,
+            $sasToken
         );
     }
 
