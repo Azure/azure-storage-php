@@ -59,7 +59,7 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\LeaseMode;
 use MicrosoftAzure\Storage\Blob\Models\AcquireLeaseOptions;
-use MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult;
+use MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
 use MicrosoftAzure\Storage\Blob\Models\PageWriteOption;
@@ -77,9 +77,11 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
 use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
+use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
+use MicrosoftAzure\Storage\Blob\Models\PutBlobResult;
 use MicrosoftAzure\Storage\Common\Internal\ServiceFunctionThread;
-use GuzzleHttp\Psr7;
 use Psr\Http\Message\StreamInterface;
+use GuzzleHttp\Psr7;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for blob
@@ -1236,7 +1238,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *                                            boundary.
      * @param Models\CreateBlobOptions $options   The optional parameters.
      *
-     * @return Models\CopyBlobResult
+     * @return Models\PutBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
      */
@@ -1295,7 +1297,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $statusCode
         );
         
-        return CopyBlobResult::create(HttpFormatter::formatHeaders($response->getHeaders()));
+        return PutBlobResult::create(HttpFormatter::formatHeaders($response->getHeaders()));
     }
     
     /**
@@ -1313,7 +1315,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string|resource|StreamInterface $content   The content of the blob.
      * @param Models\CreateBlobOptions        $options   The optional parameters.
      *
-     * @return Models\CopyBlobResult
+     * @return Models\PutBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
      */
@@ -1376,7 +1378,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 $statusCode,
                 $body
             );
-            return CopyBlobResult::create(
+            return PutBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         } else {
@@ -1482,7 +1484,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param resource|string|StreamInterface $content   the blob block contents
      * @param Models\CreateBlobBlockOptions   $options   optional parameters
      *
-     * @return Models\CopyBlobResult
+     * @return Models\PutBlockResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135726.aspx
      */
@@ -1522,7 +1524,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $body
         );
         
-        return CopyBlobResult::create(
+        return PutBlockResult::create(
             HttpFormatter::formatHeaders($response->getHeaders())
         );
     }
@@ -1686,7 +1688,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             CommitBlobBlocksOptions::create($options)
         );
 
-        return CopyBlobResult::create(
+        return PutBlobResult::create(
             HttpFormatter::formatHeaders(
                 $response->getHeaders()
             )
@@ -2656,7 +2658,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                     $blob      name of the blob
      * @param Models\AcquireLeaseOptions $options   optional parameters
      *
-     * @return Models\AcquireLeaseResult
+     * @return Models\LeaseBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
      */
@@ -2674,7 +2676,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             is_null($options) ? null : $options->getAccessCondition()
         );
         
-        return AcquireLeaseResult::create($headers);
+        return LeaseBlobResult::create($headers);
     }
     
     /**
@@ -2685,7 +2687,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                    $leaseId   lease id when acquiring
      * @param Models\BlobServiceOptions $options   optional parameters
      *
-     * @return Models\AcquireLeaseResult
+     * @return Models\LeaseBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
      */
@@ -2703,7 +2705,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             is_null($options) ? new BlobServiceOptions() : $options
         );
         
-        return AcquireLeaseResult::create($headers);
+        return LeaseBlobResult::create($headers);
     }
     
     /**
