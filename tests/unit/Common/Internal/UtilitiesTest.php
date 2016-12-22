@@ -198,7 +198,7 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     public function testGetArrayWithEmptyValue()
     {
         // Setup
-        $empty = Resources::EMPTY_STRING;
+        $empty = array();
         $expected = array();
 
         // Test
@@ -242,22 +242,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $expected .= '<Enabled>true</Enabled><IncludeAPIs>false</IncludeAPIs><RetentionPolicy>';
         $expected .= '<Enabled>true</Enabled><Days>20</Days></RetentionPolicy></HourMetrics></StorageServiceProperties>';
         $array = $properties->toArray();
-
-        // Test
-        $actual = Utilities::serialize($array, ServiceProperties::$xmlRootName);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::_arr2xml
-     */
-    public function testSerializeNoArray()
-    {
-        // Setup
-        $expected = false;
-        $array = 'not an array';
 
         // Test
         $actual = Utilities::serialize($array, ServiceProperties::$xmlRootName);

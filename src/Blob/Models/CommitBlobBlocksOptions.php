@@ -82,7 +82,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob ContentType.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentType()
     {
@@ -94,7 +94,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $blobContentType value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentType($blobContentType)
     {
@@ -104,7 +104,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob ContentEncoding.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentEncoding()
     {
@@ -116,7 +116,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $blobContentEncoding value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentEncoding($blobContentEncoding)
     {
@@ -126,7 +126,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob ContentLanguage.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentLanguage()
     {
@@ -138,7 +138,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $blobContentLanguage value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentLanguage($blobContentLanguage)
     {
@@ -148,7 +148,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob ContentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentMD5()
     {
@@ -160,7 +160,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $blobContentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentMD5($blobContentMD5)
     {
@@ -170,7 +170,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob cache control.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobCacheControl()
     {
@@ -182,7 +182,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $blobCacheControl value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobCacheControl($blobCacheControl)
     {
@@ -204,9 +204,9 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition = null)
     {
         $this->_accessCondition = $accessCondition;
     }
@@ -214,7 +214,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -226,9 +226,9 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata = null)
     {
         $this->_metadata = $metadata;
     }
@@ -248,10 +248,30 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
         $this->_leaseId = $leaseId;
+    }
+
+    /**
+     * Create a instance using the given options
+     * @param  mixed $options Input options
+     *
+     * @return self
+     */
+    public static function create($options)
+    {
+        $result = new CommitBlobBlocksOptions();
+        $result->setBlobContentType($options->getBlobContentType());
+        $result->setBlobContentEncoding($options->getBlobContentEncoding());
+        $result->setBlobContentLanguage($options->getBlobContentLanguage());
+        $result->setBlobContentMD5($options->getBlobContentMD5());
+        $result->setBlobCacheControl($options->getBlobCacheControl());
+        $result->setMetadata($options->getMetadata());
+        $result->setAccessCondition($options->getAccessCondition());
+
+        return $result;
     }
 }

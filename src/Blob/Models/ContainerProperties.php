@@ -50,7 +50,7 @@ class ContainerProperties
     /**
      * Gets container lastModified.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -62,9 +62,9 @@ class ContainerProperties
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -72,7 +72,7 @@ class ContainerProperties
     /**
      * Gets container etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -84,7 +84,7 @@ class ContainerProperties
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {

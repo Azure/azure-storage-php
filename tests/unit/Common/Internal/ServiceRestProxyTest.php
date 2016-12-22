@@ -107,46 +107,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addOptionalAccessConditionHeader
-     * @depends testConstruct
-     */
-    public function testAddOptionalAccessContitionHeader($restRestProxy)
-    {
-        // Setup
-        $expectedHeader = Resources::IF_MATCH;
-        $expectedValue = '0x8CAFB82EFF70C46';
-        $accessCondition = AccessCondition::ifMatch($expectedValue);
-        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
-
-        // Test
-        $actual = $restRestProxy->addOptionalAccessConditionHeader($headers, $accessCondition);
-
-        // Assert
-        $this->assertCount(3, $actual);
-        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
-    }
-
-    /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addOptionalSourceAccessConditionHeader
-     * @depends testConstruct
-     */
-    public function testAddOptionalSourceAccessContitionHeader($restRestProxy)
-    {
-        // Setup
-        $expectedHeader = Resources::X_MS_SOURCE_IF_MATCH;
-        $expectedValue = '0x8CAFB82EFF70C46';
-        $accessCondition = AccessCondition::ifMatch($expectedValue);
-        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
-
-        // Test
-        $actual = $restRestProxy->addOptionalSourceAccessConditionHeader($headers, $accessCondition);
-
-        // Assert
-        $this->assertCount(3, $actual);
-        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
-    }
-
-    /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
      * @depends testConstruct
      */

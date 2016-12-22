@@ -55,22 +55,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class TableRestProxyTest extends TableServiceRestProxyTestBase
 {
-    /**
-     * @covers  MicrosoftAzure\Storage\Table\TableRestProxy::__construct
-     */
-    public function testConstruct()
-    {
-        // Setup
-        $atomSerializer = new AtomReaderWriter();
-        $mimeSerializer = new MimeReaderWriter();
-        $url = 'http://www.microsoft.com';
-        
-        // Test
-        $tableRestProxy = new TableRestProxy($url, $atomSerializer, $mimeSerializer, null);
-        
-        // Assert
-        $this->assertNotNull($tableRestProxy);
-    }
     
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties

@@ -65,7 +65,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param BlobProperties $blobProperties The blob properties instance.
      */
-    public function __construct($blobProperties = null)
+    public function __construct(BlobProperties $blobProperties = null)
     {
         $this->_blobProperties = is_null($blobProperties)
                                  ? new BlobProperties() : clone $blobProperties;
@@ -86,9 +86,9 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }
@@ -96,7 +96,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob sequenceNumber.
      *
-     * @return integer.
+     * @return integer
      */
     public function getSequenceNumber()
     {
@@ -108,7 +108,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param integer $sequenceNumber value.
      *
-     * @return none.
+     * @return void
      */
     public function setSequenceNumber($sequenceNumber)
     {
@@ -130,7 +130,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $sequenceNumberAction action.
      *
-     * @return none
+     * @return void
      */
     public function setSequenceNumberAction($sequenceNumberAction)
     {
@@ -152,7 +152,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -162,7 +162,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob blobContentLength.
      *
-     * @return integer.
+     * @return integer
      */
     public function getBlobContentLength()
     {
@@ -174,7 +174,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param integer $blobContentLength value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentLength($blobContentLength)
     {
@@ -184,7 +184,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob ContentType.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentType()
     {
@@ -196,7 +196,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $blobContentType value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentType($blobContentType)
     {
@@ -206,7 +206,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob ContentEncoding.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentEncoding()
     {
@@ -218,7 +218,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $blobContentEncoding value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentEncoding($blobContentEncoding)
     {
@@ -228,7 +228,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob ContentLanguage.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentLanguage()
     {
@@ -240,7 +240,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $blobContentLanguage value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentLanguage($blobContentLanguage)
     {
@@ -250,7 +250,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob ContentMD5.
      *
-     * @return string.
+     * @return void
      */
     public function getBlobContentMD5()
     {
@@ -262,7 +262,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $blobContentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentMD5($blobContentMD5)
     {
@@ -272,7 +272,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     /**
      * Gets blob cache control.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobCacheControl()
     {
@@ -284,7 +284,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      *
      * @param string $blobCacheControl value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobCacheControl($blobCacheControl)
     {

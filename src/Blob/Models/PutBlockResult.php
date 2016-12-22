@@ -24,11 +24,11 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
-use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
- * Optional parameters for setContainerMetadata wrapper
+ * The result of calling PutBlock API.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -38,40 +38,54 @@ use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class SetContainerMetadataOptions extends BlobServiceOptions
+class PutBlockResult
 {
     /**
-     * @var AccessCondition
+     * @var string
      */
-    private $_accessCondition;
-    
+    private $_contentMD5;
+
     /**
-     * Constructs the access condition object with none option.
-     */
-    public function __construct()
-    {
-        $this->_accessCondition = AccessCondition::none();
-    }
-    
-    /**
-     * Gets access condition
+     * Creates PutBlockResult object from the response of the put block request.
      *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
+     * @param array $headers The HTTP response headers in array representation.
      *
-     * @param AccessCondition $accessCondition value to use.
+     * @return PutBlockResult
+     */
+    public static function create(array $headers)
+    {
+        $result = new PutBlockResult();
+        if (Utilities::arrayKeyExistsInsensitive(
+            Resources::CONTENT_MD5,
+            $headers
+        )) {
+            $result->setContentMD5(
+                Utilities::tryGetValueInsensitive(Resources::CONTENT_MD5, $headers)
+            );
+        }
+        
+        return $result;
+    }
+
+    /**
+     * Gets blob content MD5.
+     *
+     * @return string
+     */
+    public function getContentMD5()
+    {
+        return $this->_contentMD5;
+    }
+
+    /**
+     * Sets the content MD5 value.
+     *
+     * @param string $contentMD5 conent MD5 as a string.
      *
      * @return void
      */
-    public function setAccessCondition(AccessCondition $accessCondition)
+    public function setContentMD5($contentMD5)
     {
-        $this->_accessCondition = $accessCondition;
+        $this->_contentMD5 = $contentMD5;
     }
 }

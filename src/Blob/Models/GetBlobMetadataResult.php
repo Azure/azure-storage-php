@@ -91,7 +91,7 @@ class GetBlobMetadataResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
     public function setLastModified($lastModified)
     {
@@ -102,7 +102,7 @@ class GetBlobMetadataResult
     /**
      * Gets blob etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -114,7 +114,7 @@ class GetBlobMetadataResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -125,7 +125,7 @@ class GetBlobMetadataResult
     /**
      * Gets blob metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -137,7 +137,7 @@ class GetBlobMetadataResult
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
     public function setMetadata($metadata)
     {

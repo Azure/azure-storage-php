@@ -24,11 +24,11 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
-use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
- * Optional parameters for setContainerMetadata wrapper
+ * The result of calling acquireLease API.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -38,40 +38,50 @@ use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class SetContainerMetadataOptions extends BlobServiceOptions
+class LeaseBlobResult
 {
     /**
-     * @var AccessCondition
+     * @var string
      */
-    private $_accessCondition;
+    private $_leaseId;
     
     /**
-     * Constructs the access condition object with none option.
+     * Creates LeaseBlobResult from response headers
+     *
+     * @param array $headers response headers
+     *
+     * @return \MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
      */
-    public function __construct()
+    public static function create(array $headers)
     {
-        $this->_accessCondition = AccessCondition::none();
+        $result = new LeaseBlobResult();
+        
+        $result->setLeaseId(
+            Utilities::tryGetValue($headers, Resources::X_MS_LEASE_ID)
+        );
+        
+        return $result;
     }
     
     /**
-     * Gets access condition
+     * Gets lease Id for the blob
      *
-     * @return AccessCondition
+     * @return string
      */
-    public function getAccessCondition()
+    public function getLeaseId()
     {
-        return $this->_accessCondition;
+        return $this->_leaseId;
     }
     
     /**
-     * Sets access condition
+     * Sets lease Id for the blob
      *
-     * @param AccessCondition $accessCondition value to use.
+     * @param string $leaseId the blob lease id.
      *
      * @return void
      */
-    public function setAccessCondition(AccessCondition $accessCondition)
+    public function setLeaseId($leaseId)
     {
-        $this->_accessCondition = $accessCondition;
+        $this->_leaseId = $leaseId;
     }
 }

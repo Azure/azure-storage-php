@@ -68,7 +68,7 @@ class JsonSerializer implements ISerializer
      *
      * @return string
      */
-    public function serialize($array, $properties = null)
+    public function serialize(array $array = null, array $properties = null)
     {
         Validate::isArray($array, 'array');
 

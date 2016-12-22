@@ -53,9 +53,9 @@ class ListQueuesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\ListQueuesResult.
+     * @return ListQueuesResult
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result               = new ListQueuesResult();
         $serviceEndpoint      = Utilities::tryGetKeysChainValue(
@@ -102,7 +102,7 @@ class ListQueuesResult
     /**
      * Gets queues.
      *
-     * @return array.
+     * @return array
      */
     public function getQueues()
     {
@@ -114,9 +114,9 @@ class ListQueuesResult
      *
      * @param array $queues list of queues
      *
-     * @return none.
+     * @return void
      */
-    public function setQueues($queues)
+    public function setQueues(array $queues)
     {
         $this->_queues = array();
         foreach ($queues as $queue) {
@@ -127,7 +127,7 @@ class ListQueuesResult
     /**
      * Gets prefix.
      *
-     * @return string.
+     * @return string
      */
     public function getPrefix()
     {
@@ -139,7 +139,7 @@ class ListQueuesResult
      *
      * @param string $prefix value.
      *
-     * @return none.
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -149,7 +149,7 @@ class ListQueuesResult
     /**
      * Gets marker.
      *
-     * @return string.
+     * @return string
      */
     public function getMarker()
     {
@@ -161,7 +161,7 @@ class ListQueuesResult
      *
      * @param string $marker value.
      *
-     * @return none.
+     * @return void
      */
     public function setMarker($marker)
     {
@@ -171,7 +171,7 @@ class ListQueuesResult
     /**
      * Gets max results.
      *
-     * @return string.
+     * @return string
      */
     public function getMaxResults()
     {
@@ -183,7 +183,7 @@ class ListQueuesResult
      *
      * @param string $maxResults value.
      *
-     * @return none.
+     * @return void
      */
     public function setMaxResults($maxResults)
     {
@@ -193,7 +193,7 @@ class ListQueuesResult
     /**
      * Gets next marker.
      *
-     * @return string.
+     * @return string
      */
     public function getNextMarker()
     {
@@ -205,7 +205,7 @@ class ListQueuesResult
      *
      * @param string $nextMarker value.
      *
-     * @return none.
+     * @return void
      */
     public function setNextMarker($nextMarker)
     {
@@ -227,7 +227,7 @@ class ListQueuesResult
      *
      * @param string $accountName value.
      *
-     * @return none
+     * @return void
      */
     public function setAccountName($accountName)
     {

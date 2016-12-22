@@ -74,7 +74,7 @@ class DeleteBlobOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -96,9 +96,9 @@ class DeleteBlobOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }
@@ -106,7 +106,7 @@ class DeleteBlobOptions extends BlobServiceOptions
     /**
      * Gets blob snapshot.
      *
-     * @return string.
+     * @return string
      */
     public function getSnapshot()
     {
@@ -118,7 +118,7 @@ class DeleteBlobOptions extends BlobServiceOptions
      *
      * @param string $snapshot value.
      *
-     * @return none.
+     * @return void
      */
     public function setSnapshot($snapshot)
     {
@@ -128,7 +128,7 @@ class DeleteBlobOptions extends BlobServiceOptions
     /**
      * Gets blob deleteSnaphotsOnly.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getDeleteSnaphotsOnly()
     {
@@ -140,7 +140,7 @@ class DeleteBlobOptions extends BlobServiceOptions
      *
      * @param string $deleteSnaphotsOnly value.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function setDeleteSnaphotsOnly($deleteSnaphotsOnly)
     {

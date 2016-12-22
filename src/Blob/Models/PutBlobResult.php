@@ -24,8 +24,11 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+
 /**
- * Holds container ACL
+ * The result of calling PutBlob API.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -35,12 +38,12 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetContainerACLResult
+class PutBlobResult
 {
     /**
-     * @var ContainerAcl
+     * @var string
      */
-    private $_containerACL;
+    private $_etag;
     
     /**
      * @var \DateTime
@@ -50,60 +53,73 @@ class GetContainerACLResult
     /**
      * @var string
      */
-    private $_etag;
-    
+    private $_contentMD5;
+
     /**
-     * Parses the given array into signed identifiers
+     * Creates PutBlobResult object from the response of the put blob request.
      *
-     * @param string    $publicAccess container public access
-     * @param string    $etag         container etag
-     * @param \DateTime $lastModified last modification date
-     * @param array     $parsed       parsed response into array
-     * representation
+     * @param array $headers The HTTP response headers in array representation.
      *
-     * @return self
+     * @return PutBlobResult
      */
-    public static function create(
-        $publicAccess,
-        $etag,
-        \DateTime $lastModified,
-        array $parsed = null
-    ) {
-        $result = new GetContainerAclResult();
-        $result->setETag($etag);
-        $result->setLastModified($lastModified);
-        $acl = ContainerAcl::create($publicAccess, $parsed);
-        $result->setContainerAcl($acl);
+    public static function create(array $headers)
+    {
+        $result = new PutBlobResult();
+        $result->setETag(
+            Utilities::tryGetValueInsensitive(
+                Resources::ETAG,
+                $headers
+            )
+        );
+        if (Utilities::arrayKeyExistsInsensitive(
+            Resources::LAST_MODIFIED,
+            $headers
+        )) {
+            $lastModified = Utilities::tryGetValueInsensitive(
+                Resources::LAST_MODIFIED,
+                $headers
+            );
+            $result->setLastModified(Utilities::rfc1123ToDateTime($lastModified));
+        }
+        if (Utilities::arrayKeyExistsInsensitive(
+            Resources::CONTENT_MD5,
+            $headers
+        )) {
+            $result->setContentMD5(
+                Utilities::tryGetValueInsensitive(Resources::CONTENT_MD5, $headers)
+            );
+        }
+        
         
         return $result;
     }
-    
+
     /**
-     * Gets container ACL
+     * Gets ETag.
      *
-     * @return ContainerACL
+     * @return string
      */
-    public function getContainerAcl()
+    public function getETag()
     {
-        return $this->_containerACL;
+        return $this->_etag;
     }
-    
+
     /**
-     * Sets container ACL
+     * Sets ETag.
      *
-     * @param ContainerACL $containerACL value.
+     * @param string $etag value.
      *
      * @return void
      */
-    public function setContainerAcl(ContainerACL $containerACL)
+    public function setETag($etag)
     {
-        $this->_containerACL = $containerACL;
+        $this->_etag = $etag;
     }
     
     /**
-     * Gets container lastModified.
+     * Gets blob lastModified.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -111,7 +127,7 @@ class GetContainerACLResult
     }
 
     /**
-     * Sets container lastModified.
+     * Sets blob lastModified.
      *
      * @param \DateTime $lastModified value.
      *
@@ -123,24 +139,24 @@ class GetContainerACLResult
     }
 
     /**
-     * Gets container etag.
+     * Gets blob content MD5.
      *
      * @return string
      */
-    public function getETag()
+    public function getContentMD5()
     {
-        return $this->_etag;
+        return $this->_contentMD5;
     }
 
     /**
-     * Sets container etag.
+     * Sets the content MD5 value.
      *
-     * @param string $etag value.
+     * @param string $contentMD5 conent MD5 as a string.
      *
      * @return void
      */
-    public function setETag($etag)
+    public function setContentMD5($contentMD5)
     {
-        $this->_etag = $etag;
+        $this->_contentMD5 = $contentMD5;
     }
 }

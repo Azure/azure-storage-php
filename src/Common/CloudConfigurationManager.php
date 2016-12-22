@@ -64,7 +64,7 @@ class CloudConfigurationManager
     /**
      * Initializes the connection string source providers.
      *
-     * @return none
+     * @return void
      */
     private static function _init()
     {
@@ -116,7 +116,7 @@ class CloudConfigurationManager
      * calling getConnectionString. When false (the default) the $provider is
      * processed after the existing callbacks.
      *
-     * @return none
+     * @return void
      */
     public static function registerSource($name, $provider = null, $prepend = false)
     {

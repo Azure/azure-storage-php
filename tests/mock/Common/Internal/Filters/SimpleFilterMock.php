@@ -48,14 +48,16 @@ class SimpleFilterMock implements \MicrosoftAzure\Storage\Common\Internal\IServi
         $this->_headerName = $headerName;
     }
     
-    public function handleRequest($request)
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request)
     {
         return $request->withHeader($this->_headerName, $this->_data)
                        ->withHeader('Accept-Encoding', 'identity');
     }
     
-    public function handleResponse($request, $response)
-    {
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response
+    ) {
         $body = $response->getBody();
         return $response->withBody($body.$this->_data);
     }

@@ -58,7 +58,7 @@ class Block
      *
      * @param string $blockId The id of the block.
      *
-     * @return none
+     * @return void
      */
     public function setBlockId($blockId)
     {
@@ -80,7 +80,7 @@ class Block
      *
      * @param string $type The type of the block.
      *
-     * @return none
+     * @return void
      */
     public function setType($type)
     {

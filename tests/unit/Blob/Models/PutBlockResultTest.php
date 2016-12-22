@@ -23,10 +23,12 @@
  */
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
 
 /**
- * Unit tests for class AcquireLeaseResult
+ * Unit tests for class PutBlockResult
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
@@ -36,39 +38,37 @@ use MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult;
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class AcquireLeaseResultTest extends \PHPUnit_Framework_TestCase
+class PutBlockResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::create
      */
     public function testCreate()
     {
         // Setup
-        $expected = '10';
-        $headers = array('x-ms-lease-id' => $expected);
+        $sample = TestResources::listBlobsOneEntry();
+        $expected = $sample['Blobs']['Blob']['Properties'];
+        $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
         
         // Test
-        $result = AcquireLeaseResult::create($headers);
+        $actual = PutBlockResult::create($expected);
         
         // Assert
-        $this->assertEquals($expected, $result->getLeaseId());
+        $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
     }
-    
+
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult::getLeaseId
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::setContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::getContentMD5
      */
-    public function testSetLeaseId()
+    public function testSetContentMD5()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
-        $result = new AcquireLeaseResult();
-        $result->setLeaseId($expected);
-        
-        // Test
-        $result->setLeaseId($expected);
+        $result = new PutBlockResult();
+        $result->setContentMD5($expected);
         
         // Assert
-        $this->assertEquals($expected, $result->getLeaseId());
+        $this->assertEquals($expected, $result->getContentMD5());
     }
 }

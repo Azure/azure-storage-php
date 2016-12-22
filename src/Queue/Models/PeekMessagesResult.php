@@ -43,7 +43,7 @@ class PeekMessagesResult
     /**
      * Holds all message entries.
      *
-     * @var array.
+     * @var array
      */
     private $_queueMessages;
     
@@ -52,7 +52,7 @@ class PeekMessagesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult.
+     * @return PeekMessagesResult
      */
     public static function create($parsedResponse)
     {
@@ -93,7 +93,7 @@ class PeekMessagesResult
      *
      * @param integer $queueMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setQueueMessages($queueMessages)
     {

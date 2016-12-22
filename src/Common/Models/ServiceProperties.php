@@ -51,9 +51,9 @@ class ServiceProperties
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\ServiceProperties.
+     * @return ServiceProperties.
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result = new ServiceProperties();
         $result->setLogging(Logging::create($parsedResponse['Logging']));
@@ -65,7 +65,7 @@ class ServiceProperties
     /**
      * Gets logging element.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\Logging.
+     * @return Logging
      */
     public function getLogging()
     {
@@ -75,9 +75,9 @@ class ServiceProperties
     /**
      * Sets logging element.
      *
-     * @param MicrosoftAzure\Storage\Common\Models\Logging $logging new element.
+     * @param Logging $logging new element.
      *
-     * @return none.
+     * @return void
      */
     public function setLogging($logging)
     {
@@ -87,7 +87,7 @@ class ServiceProperties
     /**
      * Gets metrics element.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\Metrics.
+     * @return Metrics
      */
     public function getMetrics()
     {
@@ -97,9 +97,9 @@ class ServiceProperties
     /**
      * Sets metrics element.
      *
-     * @param MicrosoftAzure\Storage\Common\Models\Metrics $metrics new element.
+     * @param Metrics $metrics new element.
      *
-     * @return none.
+     * @return void
      */
     public function setMetrics($metrics)
     {
@@ -109,7 +109,7 @@ class ServiceProperties
     /**
      * Converts this object to array with XML tags
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {
@@ -126,7 +126,7 @@ class ServiceProperties
      *
      * @return string
      */
-    public function toXml($xmlSerializer)
+    public function toXml(XmlSerializer $xmlSerializer)
     {
         $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);
         

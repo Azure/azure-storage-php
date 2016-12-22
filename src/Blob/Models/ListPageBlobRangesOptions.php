@@ -79,7 +79,7 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -89,7 +89,7 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
     /**
      * Gets blob snapshot.
      *
-     * @return string.
+     * @return string
      */
     public function getSnapshot()
     {
@@ -101,7 +101,7 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
      *
      * @param string $snapshot value.
      *
-     * @return none.
+     * @return void
      */
     public function setSnapshot($snapshot)
     {
@@ -123,7 +123,7 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
      *
      * @param integer $rangeStart the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setRangeStart($rangeStart)
     {
@@ -146,7 +146,7 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
      *
      * @param integer $rangeEnd range end value in bytes
      *
-     * @return none
+     * @return void
      */
     public function setRangeEnd($rangeEnd)
     {
@@ -169,9 +169,9 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }

@@ -69,9 +69,9 @@ class GetContainerPropertiesResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -80,7 +80,7 @@ class GetContainerPropertiesResult
      * The entity tag for the container. If the request version is 2011-08-18 or
      * newer, the ETag value will be in quotes.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -92,7 +92,7 @@ class GetContainerPropertiesResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -102,7 +102,7 @@ class GetContainerPropertiesResult
     /**
      * Gets user defined metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -115,9 +115,9 @@ class GetContainerPropertiesResult
      *
      * @param array $metadata user defined metadata object in array form.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }

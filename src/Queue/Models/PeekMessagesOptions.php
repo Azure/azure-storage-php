@@ -61,7 +61,7 @@ class PeekMessagesOptions extends QueueServiceOptions
      *
      * @param integer $numberOfMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setNumberOfMessages($numberOfMessages)
     {

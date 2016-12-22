@@ -67,18 +67,18 @@ interface IAtomReaderWriter
     /**
      * Constructs XML representation for entity.
      *
-     * @param Models\Entity $entity The entity instance.
+     * @param \MicrosoftAzure\Storage\Table\Models\Entity $entity The entity instance.
      *
      * @return string
      */
-    public function getEntity($entity);
+    public function getEntity(\MicrosoftAzure\Storage\Table\Models\Entity $entity);
     
     /**
      * Constructs entity from HTTP response body.
      *
      * @param string $body The HTTP response body.
      *
-     * @return Models\Entity
+     * @return \MicrosoftAzure\Storage\Table\Models\Entity
      */
     public function parseEntity($body);
     

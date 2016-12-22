@@ -53,9 +53,9 @@ interface IAuthScheme
      * @return string
      */
     public function getAuthorizationHeader(
-        $headers,
+        array $headers,
         $url,
-        $queryParams,
+        array $queryParams,
         $httpMethod
     );
 }

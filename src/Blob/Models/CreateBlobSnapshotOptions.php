@@ -67,9 +67,9 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      *
      * @param array $metadata The metadata array.
      *
-     * @return none
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -89,7 +89,7 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition The access condition object.
      *
-     * @return none
+     * @return void
      */
     public function setAccessCondition($accessCondition)
     {
@@ -111,7 +111,7 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      *
      * @param string $leaseId The lease Id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {

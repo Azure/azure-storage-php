@@ -68,7 +68,7 @@ class BatchOperations
      *
      * @param array $operations The batch operations.
      *
-     * @return none
+     * @return void
      */
     public function setOperations($operations)
     {
@@ -81,9 +81,9 @@ class BatchOperations
     /**
      * Adds operation to the batch operations.
      *
-     * @param mix $operation The operation to add.
+     * @param mixed $operation The operation to add.
      *
-     * @return none
+     * @return void
      */
     public function addOperation($operation)
     {
@@ -101,9 +101,9 @@ class BatchOperations
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
      *
-     * @return none
+     * @return void
      */
-    public function addInsertEntity($table, $entity)
+    public function addInsertEntity($table, Entity $entity)
     {
         Validate::isString($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
@@ -122,9 +122,9 @@ class BatchOperations
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
      *
-     * @return none
+     * @return void
      */
-    public function addUpdateEntity($table, $entity)
+    public function addUpdateEntity($table, Entity $entity)
     {
         Validate::isString($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
@@ -143,9 +143,9 @@ class BatchOperations
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
      *
-     * @return none
+     * @return void
      */
-    public function addMergeEntity($table, $entity)
+    public function addMergeEntity($table, Entity $entity)
     {
         Validate::isString($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
@@ -164,9 +164,9 @@ class BatchOperations
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
      *
-     * @return none
+     * @return void
      */
-    public function addInsertOrReplaceEntity($table, $entity)
+    public function addInsertOrReplaceEntity($table, Entity $entity)
     {
         Validate::isString($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
@@ -185,9 +185,9 @@ class BatchOperations
      * @param string $table  The table name.
      * @param Entity $entity The entity instance.
      *
-     * @return none
+     * @return void
      */
-    public function addInsertOrMergeEntity($table, $entity)
+    public function addInsertOrMergeEntity($table, Entity $entity)
     {
         Validate::isString($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
@@ -208,7 +208,7 @@ class BatchOperations
      * @param string $rowKey       The entity row key.
      * @param string $etag         The entity etag.
      *
-     * @return none
+     * @return void
      */
     public function addDeleteEntity($table, $partitionKey, $rowKey, $etag = null)
     {

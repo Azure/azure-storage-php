@@ -45,7 +45,7 @@ class SignedIdentifier
     /**
      * Gets id.
      *
-     * @return string.
+     * @return string
      */
     public function getId()
     {
@@ -57,7 +57,7 @@ class SignedIdentifier
      *
      * @param string $id value.
      *
-     * @return none.
+     * @return void
      */
     public function setId($id)
     {
@@ -67,7 +67,7 @@ class SignedIdentifier
     /**
      * Gets accessPolicy.
      *
-     * @return string.
+     * @return string
      */
     public function getAccessPolicy()
     {
@@ -79,7 +79,7 @@ class SignedIdentifier
      *
      * @param string $accessPolicy value.
      *
-     * @return none.
+     * @return void
      */
     public function setAccessPolicy($accessPolicy)
     {
@@ -89,7 +89,7 @@ class SignedIdentifier
     /**
      * Converts this current object to XML representation.
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

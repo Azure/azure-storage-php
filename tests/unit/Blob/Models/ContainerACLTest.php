@@ -51,7 +51,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
     public function testCreateEmpty()
     {
         // Setup
-        $sample = Resources::EMPTY_STRING;
+        $sample = array();
         $expectedPublicAccess = 'container';
         
         // Test

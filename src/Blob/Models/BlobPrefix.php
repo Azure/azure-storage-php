@@ -45,7 +45,7 @@ class BlobPrefix
     /**
      * Gets blob name.
      *
-     * @return string.
+     * @return string
      */
     public function getName()
     {
@@ -57,7 +57,7 @@ class BlobPrefix
      *
      * @param string $name value.
      *
-     * @return none.
+     * @return void
      */
     public function setName($name)
     {

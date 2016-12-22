@@ -66,7 +66,7 @@ class PageRange
      *
      * @param integer $start the page range start
      *
-     * @return none.
+     * @return void
      */
     public function setStart($start)
     {
@@ -88,7 +88,7 @@ class PageRange
      *
      * @param integer $end the page range end
      *
-     * @return none.
+     * @return void
      */
     public function setEnd($end)
     {
@@ -120,7 +120,7 @@ class PageRange
      *
      * @param integer $value new page range
      *
-     * @return none
+     * @return void
      */
     public function setLength($value)
     {
