@@ -785,4 +785,55 @@ class Utilities
         }
         return $result;
     }
+
+    /**
+     * Gets metadata array by parsing them from given headers.
+     *
+     * @param array $headers HTTP headers containing metadata elements.
+     *
+     * @return array
+     */
+    public static function getMetadataArray(array $headers)
+    {
+        $metadata = array();
+        foreach ($headers as $key => $value) {
+            $isMetadataHeader = Utilities::startsWith(
+                strtolower($key),
+                Resources::X_MS_META_HEADER_PREFIX
+            );
+
+            if ($isMetadataHeader) {
+                // Metadata name is case-presrved and case insensitive
+                $MetadataName = str_ireplace(
+                    Resources::X_MS_META_HEADER_PREFIX,
+                    Resources::EMPTY_STRING,
+                    $key
+                );
+                $metadata[$MetadataName] = $value;
+            }
+        }
+
+        return $metadata;
+    }
+
+    /**
+     * Validates the provided metadata array.
+     *
+     * @param array $metadata The metadata array.
+     *
+     * @return void
+     */
+    public static function validateMetadata(array $metadata = null)
+    {
+        if (!is_null($metadata)) {
+            Validate::isArray($metadata, 'metadata');
+        } else {
+            $metadata = array();
+        }
+
+        foreach ($metadata as $key => $value) {
+            Validate::isString($key, 'metadata key');
+            Validate::isString($value, 'metadata value');
+        }
+    }
 }

@@ -1,3 +1,16 @@
+Tracking Breaking changes in 0.11.1
+
+* Moved `getMetadataArray` and `validateMetadata` from ServiceRestProxy.php to Utilities.php
+* Refined return type of the following API calls, to be more reasonable.
+    ```
+    createPageBlob
+    createBlockBlob
+    createBlobBlock
+    renewLease
+    acquireLease
+    ```
+* Applied strong type for the project. This may break some cases where user use to mis-use the type of some input parameters.
+
 Tracking Breaking Changes in 0.10.0
 ALL
 * Remove all pear dependencies: HTTP_Request2, Mail_mime, and Mail_mimeDecode. Use Guzzle as underlying http client library.

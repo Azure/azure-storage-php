@@ -24,6 +24,10 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
+
 /**
  * Holds result of calling getBlobProperties
  *
@@ -89,5 +93,51 @@ class GetBlobPropertiesResult
     public function setProperties($properties)
     {
         $this->_properties = $properties;
+    }
+
+    /**
+     * Create a instance using the given headers.
+     *
+     * @param  array  $headers response headers parsed in an array
+     *
+     * @return GetBlobPropertiesResult
+     */
+    public static function create(array $headers)
+    {
+        $result          = new GetBlobPropertiesResult();
+        $properties      = new BlobProperties();
+        $lastModified    = $headers[Resources::LAST_MODIFIED];
+        $blobType        = $headers[Resources::X_MS_BLOB_TYPE];
+        $contentLength   = intval($headers[Resources::CONTENT_LENGTH]);
+        $leaseStatus     = Utilities::tryGetValue($headers, Resources::X_MS_LEASE_STATUS);
+        $contentType     = Utilities::tryGetValue($headers, Resources::CONTENT_TYPE);
+        $contentMD5      = Utilities::tryGetValue($headers, Resources::CONTENT_MD5);
+        $contentEncoding = Utilities::tryGetValue($headers, Resources::CONTENT_ENCODING);
+        $contentLanguage = Utilities::tryGetValue($headers, Resources::CONTENT_LANGUAGE);
+        $cacheControl    = Utilities::tryGetValue($headers, Resources::CACHE_CONTROL);
+        $etag            = $headers[Resources::ETAG];
+        $metadata        = Utilities::getMetadataArray($headers);
+        
+        if (array_key_exists(Resources::X_MS_BLOB_SEQUENCE_NUMBER, $headers)) {
+            $properties->setSequenceNumber(
+                intval($headers[Resources::X_MS_BLOB_SEQUENCE_NUMBER])
+            );
+        }
+        
+        $properties->setBlobType($blobType);
+        $properties->setCacheControl($cacheControl);
+        $properties->setContentEncoding($contentEncoding);
+        $properties->setContentLanguage($contentLanguage);
+        $properties->setContentLength($contentLength);
+        $properties->setContentMD5($contentMD5);
+        $properties->setContentType($contentType);
+        $properties->setETag($etag);
+        $properties->setLastModified(Utilities::rfc1123ToDateTime($lastModified));
+        $properties->setLeaseStatus($leaseStatus);
+        
+        $result->setProperties($properties);
+        $result->setMetadata($metadata);
+        
+        return $result;
     }
 }

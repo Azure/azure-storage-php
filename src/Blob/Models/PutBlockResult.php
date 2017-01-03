@@ -68,7 +68,7 @@ class PutBlockResult
     }
 
     /**
-     * Gets blob content MD5.
+     * Gets block content MD5.
      *
      * @return string
      */

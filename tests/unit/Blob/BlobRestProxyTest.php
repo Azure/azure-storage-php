@@ -905,6 +905,35 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             stream_get_contents($result->getContentStream())
         );
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
+     */
+    public function testGetBlobNotExist()
+    {
+        $name = 'notexistcontainer' . $this->createSuffix();
+        $blob = 'notexistblob';
+
+        $promise = $this->restProxy->getBlobAsync($name, $blob);
+
+        $code = null;
+        try {
+            $promise->wait();
+        } catch (ServiceException $e) {
+            $code = $e->getCode();
+        }
+        $this->assertEquals($code, '404');
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainerAsync
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Path must be a string
+     */
+    public function testCreateContainerAsyncWithInvalidParameters()
+    {
+        $this->restProxy->createContainerAsync(1024);
+    }
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
@@ -1680,7 +1709,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blocks = $result->getUnCommittedBlocks();
         $this->assertEquals(count($blocks), 0);
         $blocks = $result->getCommittedBlocks();
-        $this->assertEquals(count($blocks), ceil(strlen($content) / $max_size));
+        $this->assertEquals(count($blocks), \ceil(strlen($content) / $max_size));
     
         // Setting back to default value for one shot test
         $this->restProxy->setSingleBlobUploadThresholdInBytes(0);

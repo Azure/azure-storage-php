@@ -17,7 +17,7 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
@@ -33,7 +33,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @version   Release: 0.11.0
  * @link      https://github.com/azure/azure-storage-php
@@ -139,7 +139,7 @@ class PutBlobResult
     }
 
     /**
-     * Gets blob content MD5.
+     * Gets block content MD5.
      *
      * @return string
      */

@@ -24,6 +24,10 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+
+
 /**
  * Holds result of getContainerProperties and getContainerMetadata
  *
@@ -120,5 +124,28 @@ class GetContainerPropertiesResult
     public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
+    }
+
+    /**
+     * Create an instance using the response headers from the API call.
+     *
+     * @param  array  $responseHeaders The array contains all the response headers
+     *
+     * @return GetContainerPropertiesResult
+     */
+    public static function create(array $responseHeaders)
+    {
+        $result   = new GetContainerPropertiesResult();
+        $metadata = Utilities::getMetadataArray($responseHeaders);
+        $date     = Utilities::tryGetValue(
+            $responseHeaders,
+            Resources::LAST_MODIFIED
+        );
+        $date     = Utilities::rfc1123ToDateTime($date);
+        $result->setETag(Utilities::tryGetValue($responseHeaders, Resources::ETAG));
+        $result->setMetadata($metadata);
+        $result->setLastModified($date);
+        
+        return $result;
     }
 }

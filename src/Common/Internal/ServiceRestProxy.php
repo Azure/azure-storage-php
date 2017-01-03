@@ -29,6 +29,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Client;
@@ -37,6 +38,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Promise\EachPromise;
+use GuzzleHttp\Promise\PromiseInterface;
 
 /**
  * Base class for all services rest proxies.
@@ -179,11 +181,11 @@ class ServiceRestProxy extends RestProxy
             )
         ));
     }
-
+    
     /**
      * Send the requests concurrently. Number of concurrency can be modified
      * by inserting a new key/value pair with the key 'number_of_concurrency'
-     * into the $clientOptions.
+     * into the $clientOptions. Return only the promise.
      *
      * @param  array    $requests              An array holding all the
      *                                         initialized requests. If empty,
@@ -198,7 +200,7 @@ class ServiceRestProxy extends RestProxy
      *
      * @return array
      */
-    protected function sendConcurrent(
+    protected function sendConcurrentAsync(
         array $requests,
         callable $generator,
         $expectedStatusCode,
@@ -211,7 +213,7 @@ class ServiceRestProxy extends RestProxy
             $numberOfConcurrency = $clientOptions['number_of_concurrency'];
             unset($clientOptions['number_of_concurrency']);
         }
-        //create the client
+        //creates the client
         $client = $this->createClient($clientOptions);
 
         $promises = \call_user_func(
@@ -248,8 +250,9 @@ class ServiceRestProxy extends RestProxy
             }
         ]);
         
-        return $eachPromise->promise()->wait();
+        return $eachPromise->promise();
     }
+
 
     /**
      * Create the request to be sent.
@@ -310,26 +313,26 @@ class ServiceRestProxy extends RestProxy
     }
 
     /**
-     * Sends HTTP request with the specified parameters.
+     * Create promise of sending HTTP request with the specified parameters.
      *
-     * @param string $method         HTTP method used in the request
-     * @param array  $headers        HTTP headers.
-     * @param array  $queryParams    URL query parameters.
-     * @param array  $postParameters The HTTP POST parameters.
-     * @param string $path           URL path
-     * @param int    $statusCode     Expected status code received in the response
-     * @param string $body           Request body
-     * @param array  $clientOptions  Guzzle Client options
+     * @param  string       $method         HTTP method used in the request
+     * @param  array        $headers        HTTP headers.
+     * @param  array        $queryParams    URL query parameters.
+     * @param  array        $postParameters The HTTP POST parameters.
+     * @param  string       $path           URL path
+     * @param  array|int    $expected       Expected Status Codes.
+     * @param  string       $body           Request body
+     * @param  array        $clientOptions  Guzzle Client options
      *
-     * @return \GuzzleHttp\Psr7\Response
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    protected function send(
+    protected function sendAsync(
         $method,
         array $headers,
         array $queryParams,
         array $postParameters,
         $path,
-        $statusCode,
+        $expected = Resources::STATUS_OK,
         $body = Resources::EMPTY_STRING,
         array $clientOptions = []
     ) {
@@ -343,36 +346,60 @@ class ServiceRestProxy extends RestProxy
         );
         $client = $this->createClient($clientOptions);
 
-        try {
-            $options = $request->getMethod() == 'HEAD'?
-                array('decode_content' => false) : array();
-            $response = $client->send($request, $options);
-            self::throwIfError(
-                $response->getStatusCode(),
-                $response->getReasonPhrase(),
-                $response->getBody(),
-                $statusCode
-            );
-            return $response;
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-            if ($e->hasResponse()) {
-                $response = $e->getResponse();
+        $options = $request->getMethod() == 'HEAD'?
+            array('decode_content' => false) : array();
+
+        $promise = $client->sendAsync($request, $options);
+
+        return $promise->then(
+            function ($response) use ($expected) {
                 self::throwIfError(
                     $response->getStatusCode(),
                     $response->getReasonPhrase(),
                     $response->getBody(),
-                    $statusCode
+                    $expected
                 );
                 return $response;
-            } else {
-                throw $e;
+            },
+            function ($reason) use ($expected) {
+                $response = $reason->getResponse();
+                if ($response != null) {
+                    self::throwIfError(
+                        $response->getStatusCode(),
+                        $response->getReasonPhrase(),
+                        $response->getBody(),
+                        $expected
+                    );
+                } else {
+                    //if could not get response but promise rejected, throw reason.
+                    throw $reason;
+                }
+                return $response;
             }
-        }
+        );
     }
 
-    protected function sendContext($context)
+    /**
+     * Sends the context.
+     *
+     * @param  HttpCallContext $context The context of the request.
+     * @return \GuzzleHttp\Psr7\Response
+     */
+    protected function sendContext(HttpCallContext $context)
     {
-        return $this->send(
+        return $this->sendContextAsync($context)->wait();
+    }
+
+    /**
+     * Creates the promise to send the context.
+     *
+     * @param  HttpCallContext $context The context of the request.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    protected function sendContextAsync(HttpCallContext $context)
+    {
+        return $this->sendAsync(
             $context->getMethod(),
             $context->getHeaders(),
             $context->getQueryParameters(),
@@ -386,10 +413,10 @@ class ServiceRestProxy extends RestProxy
     /**
      * Throws ServiceException if the recieved status code is not expected.
      *
-     * @param string $actual   The received status code.
-     * @param string $reason   The reason phrase.
-     * @param string $message  The detailed message (if any).
-     * @param string $expected The expected status codes.
+     * @param string    $actual   The received status code.
+     * @param string    $reason   The reason phrase.
+     * @param string    $message  The detailed message (if any).
+     * @param array|int $expected The expected status codes.
      *
      * @return void
      *
@@ -458,7 +485,7 @@ class ServiceRestProxy extends RestProxy
      */
     protected function addMetadataHeaders(array $headers, array $metadata = null)
     {
-        $this->validateMetadata($metadata);
+        Utilities::validateMetadata($metadata);
 
         $metadata = $this->generateMetadataHeaders($metadata);
         $headers  = array_merge($headers, $metadata);
@@ -493,56 +520,5 @@ class ServiceRestProxy extends RestProxy
         }
 
         return $metadataHeaders;
-    }
-
-    /**
-     * Gets metadata array by parsing them from given headers.
-     *
-     * @param array $headers HTTP headers containing metadata elements.
-     *
-     * @return array
-     */
-    public function getMetadataArray(array $headers)
-    {
-        $metadata = array();
-        foreach ($headers as $key => $value) {
-            $isMetadataHeader = Utilities::startsWith(
-                strtolower($key),
-                Resources::X_MS_META_HEADER_PREFIX
-            );
-
-            if ($isMetadataHeader) {
-                // Metadata name is case-presrved and case insensitive
-                $MetadataName = str_ireplace(
-                    Resources::X_MS_META_HEADER_PREFIX,
-                    Resources::EMPTY_STRING,
-                    $key
-                );
-                $metadata[$MetadataName] = $value;
-            }
-        }
-
-        return $metadata;
-    }
-
-    /**
-     * Validates the provided metadata array.
-     *
-     * @param array $metadata The metadata array.
-     *
-     * @return void
-     */
-    public function validateMetadata(array $metadata = null)
-    {
-        if (!is_null($metadata)) {
-            Validate::isArray($metadata, 'metadata');
-        } else {
-            $metadata = array();
-        }
-
-        foreach ($metadata as $key => $value) {
-            Validate::isString($key, 'metadata key');
-            Validate::isString($value, 'metadata value');
-        }
     }
 }

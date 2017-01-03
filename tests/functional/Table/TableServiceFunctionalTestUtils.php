@@ -140,7 +140,7 @@ class TableServiceFunctionalTestUtils
         return $ret;
     }
 
-    public static function mutateEntity($ent, $pivot)
+    public static function mutateEntity(&$ent, $pivot)
     {
         if ($pivot == MutatePivot::CHANGE_VALUES) {
             self::mutateEntityChangeValues($ent);
