@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\mock\Common\Internal\Authentication;
 
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
@@ -38,13 +38,38 @@ use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
  */
 class SharedKeyAuthSchemeMock extends SharedKeyAuthScheme
 {
+    public function getAccountName()
+    {
+        return $this->accountName;
+    }
+
+    public function getAccountKey()
+    {
+        return $this->accountKey;
+    }
+
     public function getIncludedHeaders()
     {
         return $this->includedHeaders;
     }
-  
+
     public function computeSignatureMock($headers, $url, $queryParams, $httpMethod)
     {
         return parent::computeSignature($headers, $url, $queryParams, $httpMethod);
+    }
+
+    public function computeCanonicalizedHeadersMock($headers)
+    {
+        return parent::computeCanonicalizedHeaders($headers);
+    }
+
+    public function computeCanonicalizedResourceMock($url, $queryParams)
+    {
+        return parent::computeCanonicalizedResource($url, $queryParams);
+    }
+
+    public function computeCanonicalizedResourceForTableMock($url, $queryParams)
+    {
+        return parent::computeCanonicalizedResourceForTable($url, $queryParams);
     }
 }

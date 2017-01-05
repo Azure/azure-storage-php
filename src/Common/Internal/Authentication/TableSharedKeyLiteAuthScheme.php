@@ -21,10 +21,10 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      http://github.com/windowsazure/azure-sdk-for-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
-use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @version   Release: 0.11.0
  * @link      http://github.com/windowsazure/azure-sdk-for-php
  */
-class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
+class TableSharedKeyLiteAuthScheme extends SharedKeyAuthScheme
 {
     protected $includedHeaders;
 
@@ -54,7 +54,8 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      */
     public function __construct($accountName, $accountKey)
     {
-        parent::__construct($accountName, $accountKey);
+        $this->accountKey  = $accountKey;
+        $this->accountName = $accountName;
 
         $this->includedHeaders   = array();
         $this->includedHeaders[] = Resources::DATE;
@@ -75,11 +76,11 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
      */
     protected function computeSignature($headers, $url, $queryParams, $httpMethod)
     {
-        $canonicalizedResource = parent::computeCanonicalizedResourceForTable(
+        $canonicalizedResource = $this->computeCanonicalizedResourceForTable(
             $url,
             $queryParams
         );
-        
+
         $stringToSign = array();
 
         foreach ($this->includedHeaders as $header) {
@@ -88,10 +89,10 @@ class TableSharedKeyLiteAuthScheme extends StorageAuthScheme
 
         $stringToSign[] = $canonicalizedResource;
         $stringToSign   = implode("\n", $stringToSign);
-        
+
         return $stringToSign;
     }
-    
+
     /**
      * Returns authorization header to be included in the request.
      *

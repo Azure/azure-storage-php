@@ -45,6 +45,7 @@ class Resources
     const DEFAULT_ENDPOINTS_PROTOCOL_NAME = 'DefaultEndpointsProtocol';
     const ACCOUNT_NAME_NAME = 'AccountName';
     const ACCOUNT_KEY_NAME = 'AccountKey';
+    const SAS_TOKEN_NAME = 'SharedAccessSignature';
     const BLOB_ENDPOINT_NAME = 'BlobEndpoint';
     const QUEUE_ENDPOINT_NAME = 'QueueEndpoint';
     const TABLE_ENDPOINT_NAME = 'TableEndpoint';

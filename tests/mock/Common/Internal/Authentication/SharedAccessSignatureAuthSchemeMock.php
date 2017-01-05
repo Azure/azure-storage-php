@@ -17,17 +17,17 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\mock\Common\Internal\Authentication;
 
-use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 
 /**
- * Mock class to wrap StorageAuthScheme class.
+ * Mock class to wrap SharedAccessSignatureAuthScheme class.
  *
  * @package    WindowsAzure-sdk-for-php
  * @author     Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -36,45 +36,15 @@ use MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme;
  * @version    Release: 0.11.0
  * @link       https://github.com/azure/azure-storage-php
  */
-class StorageAuthSchemeMock extends StorageAuthScheme
+class SharedAccessSignatureAuthSchemeMock extends SharedAccessSignatureAuthScheme
 {
-    public function __construct($accountName, $accountKey)
+    public function __construct($sasToken)
     {
-        parent::__construct($accountName, $accountKey);
+        parent::__construct($sasToken);
     }
 
-    public function computeCanonicalizedHeadersMock($headers)
+    public function getSasToken()
     {
-        return parent::computeCanonicalizedHeaders($headers);
-    }
-
-    public function computeCanonicalizedResourceMock($url, $queryParams)
-    {
-        return parent::computeCanonicalizedResource($url, $queryParams);
-    }
-    
-    public function computeCanonicalizedResourceForTableMock($url, $queryParams)
-    {
-        return parent::computeCanonicalizedResourceForTable($url, $queryParams);
-    }
-
-    public function getAccountName()
-    {
-        return $this->accountName;
-    }
-
-    public function getAccountKey()
-    {
-        return $this->accountKey;
-    }
-
-    protected function computeSignature($headers, $url, $queryParams, $httpMethod)
-    {
-        // Do nothing
-    }
-
-    public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
-    {
-        // Do nothing
+        return $this->sasToken;
     }
 }

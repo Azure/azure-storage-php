@@ -258,6 +258,22 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getSasToken
+     */
+    public function testGetSasToken()
+    {
+        // Setup
+        $expected = 'mysas=bla&mysas2=bla%2F';
+        $setting = new StorageServiceSettings(null, null, null, null, null, $expected);
+
+        // Test
+        $actual = $setting->getSasToken();
+
+        // Assert
+        $this->assertEquals($expected, $actual);
+    }
     
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
@@ -723,6 +739,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
         $validKeys[] = Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME;
         $validKeys[] = Resources::ACCOUNT_NAME_NAME;
         $validKeys[] = Resources::ACCOUNT_KEY_NAME;
+        $validKeys[] = Resources::SAS_TOKEN_NAME;
         $validKeys[] = Resources::BLOB_ENDPOINT_NAME;
         $validKeys[] = Resources::QUEUE_ENDPOINT_NAME;
         $validKeys[] = Resources::TABLE_ENDPOINT_NAME;

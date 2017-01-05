@@ -1,3 +1,9 @@
+2016.12 - version 0.12.0
+
+ALL
+* Added support for SAS authentication.
+* Merged `StorageAuthScheme` into `SharedKeyAuthScheme` and `TableSharedKeyLiteAuthScheme` now inherits `SharedKeyAuthScheme`. This is because Azure Storage now supports Shared Key authentication and SAS authentication so the name `StorageAuthScheme` was not representative anymore.
+
 2016.11 - version 0.11.0
 
 ALL

@@ -33,6 +33,7 @@ use MicrosoftAzure\Storage\Common\Internal\Filters\HeadersFilter;
 use MicrosoftAzure\Storage\Common\Internal\Filters\AuthenticationFilter;
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
@@ -95,7 +96,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     protected function queueAuthenticationScheme($accountName, $accountKey)
     {
@@ -108,7 +109,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\StorageAuthScheme
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     protected function blobAuthenticationScheme($accountName, $accountKey)
     {
@@ -121,11 +122,23 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return TableSharedKeyLiteAuthScheme
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme
      */
     protected function tableAuthenticationScheme($accountName, $accountKey)
     {
         return new TableSharedKeyLiteAuthScheme($accountName, $accountKey);
+    }
+
+    /**
+     * Gets the SAS authentication scheme.
+     *
+     * @param string $sasToken The SAS token.
+     *
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme
+     */
+    protected function sasAuthenticationScheme($sasToken)
+    {
+        return new SharedAccessSignatureAuthScheme($sasToken);
     }
 
     /**
@@ -168,13 +181,20 @@ class ServicesBuilder
         $dateFilter   = new DateFilter();
         $queueWrapper = $queueWrapper->withFilter($dateFilter);
 
-        // Adding authentication filter
-        $authFilter = new AuthenticationFilter(
-            $this->queueAuthenticationScheme(
+        // Getting authentication scheme
+        if ($settings->hasSasToken()) {
+            $authScheme = $this->sasAuthenticationScheme(
+                $settings->getSasToken()
+            );
+        } else {
+            $authScheme = $this->queueAuthenticationScheme(
                 $settings->getName(),
                 $settings->getKey()
-            )
-        );
+            );
+        }
+
+        // Adding authentication filter
+        $authFilter = new AuthenticationFilter($authScheme);
 
         $queueWrapper = $queueWrapper->withFilter($authFilter);
 
@@ -220,12 +240,19 @@ class ServicesBuilder
         $dateFilter  = new DateFilter();
         $blobWrapper = $blobWrapper->withFilter($dateFilter);
 
-        $authFilter = new AuthenticationFilter(
-            $this->blobAuthenticationScheme(
+        // Getting authentication scheme
+        if ($settings->hasSasToken()) {
+            $authScheme = $this->sasAuthenticationScheme(
+                $settings->getSasToken()
+            );
+        } else {
+            $authScheme = $this->blobAuthenticationScheme(
                 $settings->getName(),
                 $settings->getKey()
-            )
-        );
+            );
+        }
+
+        $authFilter = new AuthenticationFilter($authScheme);
 
         $blobWrapper = $blobWrapper->withFilter($authFilter);
 
@@ -285,13 +312,20 @@ class ServicesBuilder
         $dateFilter   = new DateFilter();
         $tableWrapper = $tableWrapper->withFilter($dateFilter);
 
-        // Adding authentication filter
-        $authFilter = new AuthenticationFilter(
-            $this->tableAuthenticationScheme(
+        // Getting authentication scheme
+        if ($settings->hasSasToken()) {
+            $authScheme = $this->sasAuthenticationScheme(
+                $settings->getSasToken()
+            );
+        } else {
+            $authScheme = $this->tableAuthenticationScheme(
                 $settings->getName(),
                 $settings->getKey()
-            )
-        );
+            );
+        }
+
+        // Adding authentication filter
+        $authFilter = new AuthenticationFilter($authScheme);
 
         $tableWrapper = $tableWrapper->withFilter($authFilter);
 
