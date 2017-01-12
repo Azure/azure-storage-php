@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ConnectionStringSource
