@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class XmlSerializer implements ISerializer
@@ -54,7 +54,7 @@ class XmlSerializer implements ISerializer
      *
      * @return array
      */
-    private function _sxml2arr($sxml, $arr = null)
+    private function _sxml2arr($sxml, array $arr = null)
     {
         foreach ((array) $sxml as $key => $value) {
             if (is_object($value) || (is_array($value))) {
@@ -77,7 +77,7 @@ class XmlSerializer implements ISerializer
      *
      * @return void
      */
-    private function _arr2xml(\XMLWriter $xmlw, $data, $defaultTag = null)
+    private function _arr2xml(\XMLWriter $xmlw, array $data, $defaultTag = null)
     {
         foreach ($data as $key => $value) {
             if ($key === Resources::XTAG_ATTRIBUTES) {
@@ -113,7 +113,7 @@ class XmlSerializer implements ISerializer
      *
      * @return mixed
      */
-    private static function _getInstanceAttributes($targetObject, $methodArray)
+    private static function _getInstanceAttributes($targetObject, array $methodArray)
     {
         foreach ($methodArray as $method) {
             if ($method->name == 'getAttributes') {
@@ -190,7 +190,7 @@ class XmlSerializer implements ISerializer
      *
      * @return string
      */
-    public function serialize($array, $properties = null)
+    public function serialize(array $array, array $properties = null)
     {
         $xmlVersion   = '1.0';
         $xmlEncoding  = 'UTF-8';

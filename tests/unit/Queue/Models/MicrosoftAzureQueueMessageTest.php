@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
@@ -158,7 +158,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         $azureQueueMessage->setInsertionDate($expected);
         
         // Test
@@ -175,7 +175,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         
         // Test
         $azureQueueMessage->setInsertionDate($expected);
@@ -192,7 +192,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 16 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 16 Oct 2009 21:04:30 GMT');
         $azureQueueMessage->setExpirationDate($expected);
         
         // Test
@@ -209,7 +209,7 @@ class MicrosoftAzureQueueMessageTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $azureQueueMessage = new MicrosoftAzureQueueMessage();
-        $expected = 'Fri, 16 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 16 Oct 2009 21:04:30 GMT');
         
         // Test
         $azureQueueMessage->setExpirationDate($expected);

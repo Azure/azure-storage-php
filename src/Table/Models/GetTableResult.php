@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 
 /**
  * Holds result of getTable API.
@@ -34,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetTableResult
@@ -50,7 +51,7 @@ class GetTableResult
      * @param string           $body           The HTTP response body.
      * @param AtomReaderWriter $atomSerializer The Atom reader and writer.
      *
-     * @return \MicrosoftAzure\Storage\Table\Models\GetTableResult
+     * @return GetTableResult
      */
     public static function create($body, $atomSerializer)
     {
@@ -77,7 +78,7 @@ class GetTableResult
      *
      * @param string $name The table name.
      *
-     * @return none
+     * @return void
      */
     public function setName($name)
     {

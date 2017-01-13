@@ -27,7 +27,6 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
-use MicrosoftAzure\Storage\Blob\Models\Block;
 
 /**
  * Holds block list used for commitBlobBlocks
@@ -37,7 +36,7 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlockList
@@ -55,7 +54,7 @@ class BlockList
      *
      * @return BlockList
      */
-    public static function create($array)
+    public static function create(array $array)
     {
         $blockList = new BlockList();
         
@@ -72,7 +71,7 @@ class BlockList
      * @param string $blockId The block id.
      * @param string $type    The entry type, you can use BlobBlockType.
      *
-     * @return none
+     * @return void
      */
     public function addEntry($blockId, $type)
     {
@@ -93,7 +92,7 @@ class BlockList
      *
      * @param string $blockId The block id.
      *
-     * @return none
+     * @return void
      */
     public function addCommittedEntry($blockId)
     {
@@ -105,7 +104,7 @@ class BlockList
      *
      * @param string $blockId The block id.
      *
-     * @return none
+     * @return void
      */
     public function addUncommittedEntry($blockId)
     {
@@ -117,7 +116,7 @@ class BlockList
      *
      * @param string $blockId The block id.
      *
-     * @return none
+     * @return void
      */
     public function addLatestEntry($blockId)
     {
@@ -159,7 +158,7 @@ class BlockList
      *
      * @return string
      */
-    public function toXml($xmlSerializer)
+    public function toXml(XmlSerializer $xmlSerializer)
     {
         $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);
         $array      = array();

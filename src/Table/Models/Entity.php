@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Entity
@@ -54,9 +54,9 @@ class Entity
     /**
      * Validates if properties is valid or not.
      *
-     * @param mix $properties The properties array.
+     * @param mixed $properties The properties array.
      *
-     * @return none
+     * @return void
      */
     private function _validateProperties($properties)
     {
@@ -84,7 +84,7 @@ class Entity
      *
      * @param string $name The property name.
      *
-     * @return mix
+     * @return mixed
      */
     public function getPropertyValue($name)
     {
@@ -99,9 +99,9 @@ class Entity
      * to add new properties.
      *
      * @param string $name  The property name.
-     * @param mix    $value The property value.
+     * @param mixed  $value The property value.
      *
-     * @return mix
+     * @return mixed
      */
     public function setPropertyValue($name, $value)
     {
@@ -126,7 +126,7 @@ class Entity
      *
      * @param string $etag The entity ETag value.
      *
-     * @return none
+     * @return void
      */
     public function setETag($etag)
     {
@@ -148,7 +148,7 @@ class Entity
      *
      * @param string $partitionKey The entity PartitionKey value.
      *
-     * @return none
+     * @return void
      */
     public function setPartitionKey($partitionKey)
     {
@@ -170,7 +170,7 @@ class Entity
      *
      * @param string $rowKey The entity RowKey value.
      *
-     * @return none
+     * @return void
      */
     public function setRowKey($rowKey)
     {
@@ -192,9 +192,9 @@ class Entity
      *
      * @param \DateTime $timestamp The entity Timestamp value.
      *
-     * @return none
+     * @return void
      */
-    public function setTimestamp($timestamp)
+    public function setTimestamp(\DateTime $timestamp)
     {
         $this->addProperty('Timestamp', EdmType::DATETIME, $timestamp);
     }
@@ -214,9 +214,9 @@ class Entity
      *
      * @param array $properties The entity properties.
      *
-     * @return none
+     * @return void
      */
-    public function setProperties($properties)
+    public function setProperties(array $properties)
     {
         $this->_validateProperties($properties);
         $this->_properties = $properties;
@@ -240,7 +240,7 @@ class Entity
      * @param string   $name     The property name.
      * @param Property $property The property object.
      *
-     * @return none
+     * @return void
      */
     public function setProperty($name, $property)
     {

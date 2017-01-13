@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class PageRange
@@ -66,7 +66,7 @@ class PageRange
      *
      * @param integer $start the page range start
      *
-     * @return none.
+     * @return void
      */
     public function setStart($start)
     {
@@ -88,7 +88,7 @@ class PageRange
      *
      * @param integer $end the page range end
      *
-     * @return none.
+     * @return void
      */
     public function setEnd($end)
     {
@@ -120,7 +120,7 @@ class PageRange
      *
      * @param integer $value new page range
      *
-     * @return none
+     * @return void
      */
     public function setLength($value)
     {

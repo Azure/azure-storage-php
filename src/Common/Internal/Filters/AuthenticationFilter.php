@@ -38,7 +38,7 @@ use GuzzleHttp\Psr7;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class AuthenticationFilter implements IServiceFilter
@@ -65,7 +65,7 @@ class AuthenticationFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function handleRequest($request)
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request)
     {
         return $this->_authenticationScheme->signRequest($request);
     }
@@ -78,8 +78,10 @@ class AuthenticationFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Response
      */
-    public function handleResponse($request, $response)
-    {
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response = null
+    ) {
         // Do nothing with the response.
         return $response;
     }

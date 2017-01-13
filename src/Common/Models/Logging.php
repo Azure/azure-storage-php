@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Logging
@@ -72,7 +72,7 @@ class Logging
     private $_write;
     
     /**
-     * @var MicrosoftAzure\Storage\Common\Models\RetentionPolicy
+     * @var RetentionPolicy
      */
     private $_retentionPolicy;
     
@@ -81,9 +81,9 @@ class Logging
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\Logging
+     * @return Logging
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result = new Logging();
         $result->setVersion($parsedResponse['Version']);
@@ -100,7 +100,7 @@ class Logging
     /**
      * Gets retention policy
      *
-     * @return MicrosoftAzure\Storage\Common\Models\RetentionPolicy
+     * @return RetentionPolicy
      *
      */
     public function getRetentionPolicy()
@@ -113,9 +113,9 @@ class Logging
      *
      * @param RetentionPolicy $policy object to use
      *
-     * @return none.
+     * @return void
      */
-    public function setRetentionPolicy($policy)
+    public function setRetentionPolicy(RetentionPolicy $policy)
     {
         $this->_retentionPolicy = $policy;
     }
@@ -135,7 +135,7 @@ class Logging
      *
      * @param bool $write new value.
      *
-     * @return none.
+     * @return void
      */
     public function setWrite($write)
     {
@@ -145,7 +145,7 @@ class Logging
     /**
      * Gets read
      *
-     * @return bool.
+     * @return bool
      */
     public function getRead()
     {
@@ -157,7 +157,7 @@ class Logging
      *
      * @param bool $read new value.
      *
-     * @return none.
+     * @return void
      */
     public function setRead($read)
     {
@@ -167,7 +167,7 @@ class Logging
     /**
      * Gets delete
      *
-     * @return bool.
+     * @return void
      */
     public function getDelete()
     {
@@ -179,7 +179,7 @@ class Logging
      *
      * @param bool $delete new value.
      *
-     * @return none.
+     * @return void
      */
     public function setDelete($delete)
     {
@@ -189,7 +189,7 @@ class Logging
     /**
      * Gets version
      *
-     * @return string.
+     * @return string
      */
     public function getVersion()
     {
@@ -201,7 +201,7 @@ class Logging
      *
      * @param string $version new value.
      *
-     * @return none.
+     * @return void
      */
     public function setVersion($version)
     {
@@ -211,7 +211,7 @@ class Logging
     /**
      * Converts this object to array with XML tags
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

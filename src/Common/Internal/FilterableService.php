@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 interface FilterableService
@@ -41,10 +41,9 @@ interface FilterableService
     * Adds new filter to proxy object and returns new BlobRestProxy with
     * that filter.
     *
-    * @param MicrosoftAzure\Storage\Common\Internal\IServiceFilter $filter Filter to add for
-    * the pipeline.
+    * @param IServiceFilter $filter Filter to add for the pipeline.
     *
-    * @return mix.
+    * @return mixed
     */
-    public function withFilter($filter);
+    public function withFilter(IServiceFilter $filter);
 }

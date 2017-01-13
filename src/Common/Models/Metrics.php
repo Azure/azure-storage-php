@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Metrics
@@ -61,7 +61,7 @@ class Metrics
     private $_includeAPIs;
     
     /**
-     * @var MicrosoftAzure\Storage\Common\Models\RetentionPolicy
+     * @var RetentionPolicy
      */
     private $_retentionPolicy;
     
@@ -70,9 +70,9 @@ class Metrics
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\Metrics
+     * @return Metrics
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result = new Metrics();
         $result->setVersion($parsedResponse['Version']);
@@ -92,7 +92,7 @@ class Metrics
     /**
      * Gets retention policy
      *
-     * @return MicrosoftAzure\Storage\Common\Models\RetentionPolicy
+     * @return RetentionPolicy
      *
      */
     public function getRetentionPolicy()
@@ -105,9 +105,9 @@ class Metrics
      *
      * @param RetentionPolicy $policy object to use
      *
-     * @return none.
+     * @return void
      */
-    public function setRetentionPolicy($policy)
+    public function setRetentionPolicy(RetentionPolicy $policy)
     {
         $this->_retentionPolicy = $policy;
     }
@@ -115,7 +115,7 @@ class Metrics
     /**
      * Gets include APIs.
      *
-     * @return bool.
+     * @return bool
      */
     public function getIncludeAPIs()
     {
@@ -125,9 +125,9 @@ class Metrics
     /**
      * Sets include APIs.
      *
-     * @param $bool $includeAPIs value to use.
+     * @param bool $includeAPIs value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeAPIs($includeAPIs)
     {
@@ -137,7 +137,7 @@ class Metrics
     /**
      * Gets enabled.
      *
-     * @return bool.
+     * @return bool
      */
     public function getEnabled()
     {
@@ -149,7 +149,7 @@ class Metrics
      *
      * @param bool $enabled value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setEnabled($enabled)
     {
@@ -159,7 +159,7 @@ class Metrics
     /**
      * Gets version
      *
-     * @return string.
+     * @return string
      */
     public function getVersion()
     {
@@ -171,7 +171,7 @@ class Metrics
      *
      * @param string $version new value.
      *
-     * @return none.
+     * @return void
      */
     public function setVersion($version)
     {
@@ -181,7 +181,7 @@ class Metrics
     /**
      * Converts this object to array with XML tags
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

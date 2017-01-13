@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class MicrosoftAzureQueueMessage
@@ -97,9 +97,9 @@ class MicrosoftAzureQueueMessage
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage.
+     * @return MicrosoftAzureQueueMessage
      */
-    public static function createFromListMessages($parsedResponse)
+    public static function createFromListMessages(array $parsedResponse)
     {
         $timeNextVisible = $parsedResponse['TimeNextVisible'];
         
@@ -117,9 +117,9 @@ class MicrosoftAzureQueueMessage
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage.
+     * @return MicrosoftAzureQueueMessage
      */
-    public static function createFromPeekMessages($parsedResponse)
+    public static function createFromPeekMessages(array $parsedResponse)
     {
         $msg            = new MicrosoftAzureQueueMessage();
         $expirationDate = $parsedResponse['ExpirationTime'];
@@ -142,7 +142,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets message text field.
      *
-     * @return string.
+     * @return string
      */
     public function getMessageText()
     {
@@ -154,7 +154,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param string $messageText message contents.
      *
-     * @return none.
+     * @return void
      */
     public function setMessageText($messageText)
     {
@@ -164,7 +164,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets messageId field.
      *
-     * @return integer.
+     * @return integer
      */
     public function getMessageId()
     {
@@ -176,7 +176,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param string $messageId message contents.
      *
-     * @return none.
+     * @return void
      */
     public function setMessageId($messageId)
     {
@@ -186,7 +186,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets insertionDate field.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getInsertionDate()
     {
@@ -198,9 +198,9 @@ class MicrosoftAzureQueueMessage
      *
      * @param \DateTime $insertionDate message contents.
      *
-     * @return none.
+     * @return void
      */
-    public function setInsertionDate($insertionDate)
+    public function setInsertionDate(\DateTime $insertionDate)
     {
         $this->_insertionDate = $insertionDate;
     }
@@ -208,7 +208,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets expirationDate field.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getExpirationDate()
     {
@@ -220,9 +220,9 @@ class MicrosoftAzureQueueMessage
      *
      * @param \DateTime $expirationDate the expiration date of the message.
      *
-     * @return none.
+     * @return void
      */
-    public function setExpirationDate($expirationDate)
+    public function setExpirationDate(\DateTime $expirationDate)
     {
         $this->_expirationDate = $expirationDate;
     }
@@ -230,7 +230,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets timeNextVisible field.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getTimeNextVisible()
     {
@@ -242,7 +242,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param \DateTime $timeNextVisible next visibile time for the message.
      *
-     * @return none.
+     * @return void
      */
     public function setTimeNextVisible($timeNextVisible)
     {
@@ -252,7 +252,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets popReceipt field.
      *
-     * @return string.
+     * @return string
      */
     public function getPopReceipt()
     {
@@ -264,7 +264,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param string $popReceipt used when deleting the message.
      *
-     * @return none.
+     * @return void
      */
     public function setPopReceipt($popReceipt)
     {
@@ -274,7 +274,7 @@ class MicrosoftAzureQueueMessage
     /**
      * Gets dequeueCount field.
      *
-     * @return integer.
+     * @return integer
      */
     public function getDequeueCount()
     {
@@ -286,7 +286,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param integer $dequeueCount number of dequeues for that message.
      *
-     * @return none.
+     * @return void
      */
     public function setDequeueCount($dequeueCount)
     {

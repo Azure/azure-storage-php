@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Block
@@ -47,6 +47,12 @@ class Block
      */
     private $_type;
 
+    /**
+     * Constructor.
+     *
+     * @param string $blockId The ID of this block.
+     * @param string $type    The type of the block.
+     */
     public function __construct($blockId = '', $type = '')
     {
         $this->_blockId = $blockId;
@@ -58,7 +64,7 @@ class Block
      *
      * @param string $blockId The id of the block.
      *
-     * @return none
+     * @return void
      */
     public function setBlockId($blockId)
     {
@@ -80,7 +86,7 @@ class Block
      *
      * @param string $type The type of the block.
      *
-     * @return none
+     * @return void
      */
     public function setType($type)
     {

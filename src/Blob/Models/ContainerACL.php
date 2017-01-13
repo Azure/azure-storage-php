@@ -27,9 +27,6 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Blob\Models\AccessPolicy;
-use MicrosoftAzure\Storage\Blob\Models\SignedIdentifier;
-use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 
 /**
@@ -40,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ContainerACL
@@ -71,9 +68,9 @@ class ContainerACL
      * @param string $publicAccess The container public access.
      * @param array  $parsed       The parsed response into array representation.
      *
-     * @return none
+     * @return ContainerACL
      */
-    public static function create($publicAccess, $parsed)
+    public static function create($publicAccess, array $parsed = null)
     {
         $result                     = new ContainerAcl();
         $result->_publicAccess      = $publicAccess;
@@ -100,7 +97,7 @@ class ContainerACL
     /**
      * Gets container signed modifiers.
      *
-     * @return array.
+     * @return array
      */
     public function getSignedIdentifiers()
     {
@@ -112,9 +109,9 @@ class ContainerACL
      *
      * @param array $signedIdentifiers value.
      *
-     * @return none.
+     * @return void
      */
-    public function setSignedIdentifiers($signedIdentifiers)
+    public function setSignedIdentifiers(array $signedIdentifiers)
     {
         $this->_signedIdentifiers = $signedIdentifiers;
     }
@@ -122,7 +119,7 @@ class ContainerACL
     /**
      * Gets container publicAccess.
      *
-     * @return string.
+     * @return string
      */
     public function getPublicAccess()
     {
@@ -134,7 +131,7 @@ class ContainerACL
      *
      * @param string $publicAccess value.
      *
-     * @return none.
+     * @return void
      */
     public function setPublicAccess($publicAccess)
     {
@@ -160,12 +157,16 @@ class ContainerACL
      * permissions. Valid permissions values are read (r), write (w), delete (d) and
      * list (l).
      *
-     * @return none.
+     * @return void
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh508996.aspx
      */
-    public function addSignedIdentifier($id, $start, $expiry, $permission)
-    {
+    public function addSignedIdentifier(
+        $id,
+        \DateTime $start,
+        \DateTime $expiry,
+        $permission
+    ) {
         Validate::isString($id, 'id');
         Validate::isDate($start);
         Validate::isDate($expiry);
@@ -186,7 +187,7 @@ class ContainerACL
     /**
      * Converts this object to array representation for XML serialization
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {
@@ -204,9 +205,9 @@ class ContainerACL
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
      *
-     * @return string.
+     * @return string
      */
-    public function toXml($xmlSerializer)
+    public function toXml(XmlSerializer $xmlSerializer)
     {
         $properties = array(
             XmlSerializer::DEFAULT_TAG => 'SignedIdentifier',

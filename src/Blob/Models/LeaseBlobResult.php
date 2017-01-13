@@ -35,10 +35,10 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class AcquireLeaseResult
+class LeaseBlobResult
 {
     /**
      * @var string
@@ -46,15 +46,15 @@ class AcquireLeaseResult
     private $_leaseId;
     
     /**
-     * Creates AcquireLeaseResult from response headers
+     * Creates LeaseBlobResult from response headers
      *
      * @param array $headers response headers
      *
-     * @return AcquireLeaseResult
+     * @return \MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
-        $result = new AcquireLeaseResult();
+        $result = new LeaseBlobResult();
         
         $result->setLeaseId(
             Utilities::tryGetValue($headers, Resources::X_MS_LEASE_ID)
@@ -78,7 +78,7 @@ class AcquireLeaseResult
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {

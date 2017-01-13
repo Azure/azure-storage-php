@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class XmlSerializerTest extends \PHPUnit_Framework_TestCase
@@ -73,24 +73,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         $properties = ServiceProperties::create($propertiesSample);
         $expected = $properties->toXml($xmlSerializer);
         $array = $properties->toArray();
-        $serializerProperties = array(XmlSerializer::ROOT_NAME => ServiceProperties::$xmlRootName);
-        
-        // Test
-        $actual = $xmlSerializer->serialize($array, $serializerProperties);
-        
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::_arr2xml
-     */
-    public function testSerializeNoArray()
-    {
-        // Setup
-        $xmlSerializer = new XmlSerializer();
-        $expected = false;
-        $array = 'not an array';
         $serializerProperties = array(XmlSerializer::ROOT_NAME => ServiceProperties::$xmlRootName);
         
         // Test

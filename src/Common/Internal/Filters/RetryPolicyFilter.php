@@ -35,7 +35,7 @@ use GuzzleHttp\Client;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class RetryPolicyFilter implements IServiceFilter
@@ -56,7 +56,7 @@ class RetryPolicyFilter implements IServiceFilter
      * @param \GuzzleHttp\Client $client      The http client to send request.
      * @param RetryPolicy        $retryPolicy The retry policy object.
      */
-    public function __construct($client, $retryPolicy)
+    public function __construct(\GuzzleHttp\Client $client, RetryPolicy $retryPolicy)
     {
         $this->_client = $client;
         $this->_retryPolicy = $retryPolicy;
@@ -69,7 +69,7 @@ class RetryPolicyFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function handleRequest($request)
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request)
     {
         return $request;
     }
@@ -82,8 +82,10 @@ class RetryPolicyFilter implements IServiceFilter
      *
      * @return \GuzzleHttp\Psr7\Response
      */
-    public function handleResponse($request, $response)
-    {
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response
+    ) {
         for ($retryCount = 0;; $retryCount++) {
             $shouldRetry = $this->_retryPolicy->shouldRetry(
                 $retryCount,

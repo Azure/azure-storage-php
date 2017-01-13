@@ -24,8 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
-
 /**
  * Optional parameters for createBlobBlock wrapper
  *
@@ -34,7 +32,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CreateBlobBlockOptions extends BlobServiceOptions
@@ -69,7 +67,7 @@ class CreateBlobBlockOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -79,7 +77,7 @@ class CreateBlobBlockOptions extends BlobServiceOptions
     /**
      * Gets blob contentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getContentMD5()
     {
@@ -91,7 +89,7 @@ class CreateBlobBlockOptions extends BlobServiceOptions
      *
      * @param string $contentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentMD5($contentMD5)
     {
@@ -125,7 +123,7 @@ class CreateBlobBlockOptions extends BlobServiceOptions
      *
      * @return CreateBlobBlockOptions
      */
-    public static function create($createBlobOptions)
+    public static function create(CreateBlobOptions $createBlobOptions)
     {
         $result = new CreateBlobBlockOptions();
         $result->setTimeout($createBlobOptions->getTimeout());

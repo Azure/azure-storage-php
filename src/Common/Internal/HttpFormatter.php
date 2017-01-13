@@ -32,7 +32,7 @@ class HttpFormatter
      *
      * @return array
      */
-    public static function formatHeaders($headers)
+    public static function formatHeaders(array $headers)
     {
         $result = array();
         foreach ($headers as $key => $value) {

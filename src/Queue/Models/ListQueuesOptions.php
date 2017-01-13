@@ -35,7 +35,7 @@ use \MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListQueuesOptions extends QueueServiceOptions
@@ -48,7 +48,7 @@ class ListQueuesOptions extends QueueServiceOptions
     /**
      * Gets prefix.
      *
-     * @return string.
+     * @return string
      */
     public function getPrefix()
     {
@@ -60,7 +60,7 @@ class ListQueuesOptions extends QueueServiceOptions
      *
      * @param string $prefix value.
      *
-     * @return none.
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -71,7 +71,7 @@ class ListQueuesOptions extends QueueServiceOptions
     /**
      * Gets marker.
      *
-     * @return string.
+     * @return string
      */
     public function getMarker()
     {
@@ -83,7 +83,7 @@ class ListQueuesOptions extends QueueServiceOptions
      *
      * @param string $marker value.
      *
-     * @return none.
+     * @return void
      */
     public function setMarker($marker)
     {
@@ -94,7 +94,7 @@ class ListQueuesOptions extends QueueServiceOptions
     /**
      * Gets max results.
      *
-     * @return string.
+     * @return string
      */
     public function getMaxResults()
     {
@@ -106,7 +106,7 @@ class ListQueuesOptions extends QueueServiceOptions
      *
      * @param string $maxResults value.
      *
-     * @return none.
+     * @return void
      */
     public function setMaxResults($maxResults)
     {
@@ -117,7 +117,7 @@ class ListQueuesOptions extends QueueServiceOptions
     /**
      * Indicates if metadata is included or not.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getIncludeMetadata()
     {
@@ -129,7 +129,7 @@ class ListQueuesOptions extends QueueServiceOptions
      *
      * @param bool $includeMetadata value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeMetadata($includeMetadata)
     {

@@ -43,7 +43,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 abstract class ServiceSettings
@@ -52,9 +52,9 @@ abstract class ServiceSettings
      * Throws an exception if the connection string format does not match any of the
      * available formats.
      *
-     * @param type $connectionString The invalid formatted connection string.
+     * @param string $connectionString The invalid formatted connection string.
      *
-     * @return none
+     * @return void
      *
      * @throws \RuntimeException
      */
@@ -115,8 +115,11 @@ abstract class ServiceSettings
      *
      * @return callable
      */
-    protected static function getValidator($requirements, $isRequired, $atLeastOne)
-    {
+    protected static function getValidator(
+        array $requirements,
+        $isRequired,
+        $atLeastOne
+    ) {
         // @codingStandardsIgnoreStart
 
         return function ($userSettings) use ($requirements, $isRequired, $atLeastOne) {
@@ -261,7 +264,7 @@ abstract class ServiceSettings
      * @return boolean If any filter returns null, false. If there are any settings
      * left over after all filters are processed, false. Otherwise true.
      */
-    protected static function matchedSpecification($settings)
+    protected static function matchedSpecification(array $settings)
     {
         $constraints = func_get_args();
         

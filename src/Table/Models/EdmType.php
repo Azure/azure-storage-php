@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class EdmType
@@ -71,7 +71,7 @@ class EdmType
      * Validates that the value associated with the EDM type is valid.
      *
      * @param string $type       The EDM type.
-     * @param mix    $value      The EDM value.
+     * @param mixed  $value      The EDM value.
      * @param string &$condition The error message.
      *
      * @return boolean
@@ -121,7 +121,7 @@ class EdmType
      * Serializes EDM value into proper value for sending it to Windows Azure.
      *
      * @param string $type  The EDM type.
-     * @param mix    $value The EDM value.
+     * @param mixed  $value The EDM value.
      *
      * @return string
      *
@@ -157,7 +157,7 @@ class EdmType
      * Serializes EDM value into proper value to be used in query.
      *
      * @param string $type  The EDM type.
-     * @param mix    $value The EDM value.
+     * @param mixed  $value The EDM value.
      *
      * @return string
      *
@@ -202,7 +202,7 @@ class EdmType
      * @param string $type  The edm type.
      * @param string $value The edm value.
      *
-     * @return mix
+     * @return mixed
      *
      * @throws \InvalidArgumentException
      */

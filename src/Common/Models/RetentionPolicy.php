@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class RetentionPolicy
@@ -63,7 +63,7 @@ class RetentionPolicy
      *
      * @return MicrosoftAzure\Storage\Common\Models\RetentionPolicy
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse = null)
     {
         $result = new RetentionPolicy();
         $result->setEnabled(Utilities::toBoolean($parsedResponse['Enabled']));
@@ -77,7 +77,7 @@ class RetentionPolicy
     /**
      * Gets enabled.
      *
-     * @return bool.
+     * @return bool
      */
     public function getEnabled()
     {
@@ -89,7 +89,7 @@ class RetentionPolicy
      *
      * @param bool $enabled value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setEnabled($enabled)
     {
@@ -111,7 +111,7 @@ class RetentionPolicy
      *
      * @param int $days value to use.
      *
-     * @return none
+     * @return void
      */
     public function setDays($days)
     {
@@ -121,7 +121,7 @@ class RetentionPolicy
     /**
      * Converts this object to array with XML tags
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

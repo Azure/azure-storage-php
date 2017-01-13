@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Table\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 interface IAtomReaderWriter
@@ -67,18 +67,18 @@ interface IAtomReaderWriter
     /**
      * Constructs XML representation for entity.
      *
-     * @param Models\Entity $entity The entity instance.
+     * @param \MicrosoftAzure\Storage\Table\Models\Entity $entity The entity instance.
      *
      * @return string
      */
-    public function getEntity($entity);
+    public function getEntity(\MicrosoftAzure\Storage\Table\Models\Entity $entity);
     
     /**
      * Constructs entity from HTTP response body.
      *
      * @param string $body The HTTP response body.
      *
-     * @return Models\Entity
+     * @return \MicrosoftAzure\Storage\Table\Models\Entity
      */
     public function parseEntity($body);
     

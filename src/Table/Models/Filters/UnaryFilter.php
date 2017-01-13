@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class UnaryFilter extends Filter
@@ -53,7 +53,7 @@ class UnaryFilter extends Filter
      * @param string $operator The operator.
      * @param Filter $operand  The operand filter.
      */
-    public function __construct($operator, $operand)
+    public function __construct($operator, Filter $operand = null)
     {
         $this->_operand  = $operand;
         $this->_operator = $operator;

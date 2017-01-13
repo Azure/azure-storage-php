@@ -40,7 +40,7 @@ use GuzzleHttp\Psr7;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class UtilitiesTest extends \PHPUnit_Framework_TestCase
@@ -198,7 +198,7 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     public function testGetArrayWithEmptyValue()
     {
         // Setup
-        $empty = Resources::EMPTY_STRING;
+        $empty = array();
         $expected = array();
 
         // Test
@@ -242,22 +242,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $expected .= '<Enabled>true</Enabled><IncludeAPIs>false</IncludeAPIs><RetentionPolicy>';
         $expected .= '<Enabled>true</Enabled><Days>20</Days></RetentionPolicy></HourMetrics></StorageServiceProperties>';
         $array = $properties->toArray();
-
-        // Test
-        $actual = Utilities::serialize($array, ServiceProperties::$xmlRootName);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::_arr2xml
-     */
-    public function testSerializeNoArray()
-    {
-        // Setup
-        $expected = false;
-        $array = 'not an array';
 
         // Test
         $actual = Utilities::serialize($array, ServiceProperties::$xmlRootName);
@@ -777,5 +761,44 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         }
         // Delete file after assertion.
         unlink($path);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getMetadataArray
+     */
+    public function testGetMetadataArray()
+    {
+        // Setup
+        $expected = array('key1' => 'value1', 'myname' => 'azure', 'mycompany' => 'microsoft_');
+        $metadataHeaders = array();
+        foreach ($expected as $key => $value) {
+            $metadataHeaders[Resources::X_MS_META_HEADER_PREFIX . strtolower($key)] = $value;
+        }
+
+        // Test
+        $actual = Utilities::getMetadataArray($metadataHeaders);
+
+        // Assert
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getMetadataArray
+     */
+    public function testGetMetadataArrayWithMsHeaders()
+    {
+        // Setup
+        $key = 'name';
+        $validMetadataKey = Resources::X_MS_META_HEADER_PREFIX . $key;
+        $value = 'correct';
+        $metadataHeaders = array('x-ms-key1' => 'value1', 'myname' => 'x-ms-date',
+                          $validMetadataKey => $value, 'mycompany' => 'microsoft_');
+
+        // Test
+        $actual = Utilities::getMetadataArray($metadataHeaders);
+
+        // Assert
+        $this->assertCount(1, $actual);
+        $this->assertEquals($value, $actual[$key]);
     }
 }

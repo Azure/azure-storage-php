@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      http://github.com/windowsazure/azure-sdk-for-php
  */
 class TableSharedKeyLiteAuthScheme extends SharedKeyAuthScheme
@@ -74,8 +74,12 @@ class TableSharedKeyLiteAuthScheme extends SharedKeyAuthScheme
      *
      * @return string
      */
-    protected function computeSignature($headers, $url, $queryParams, $httpMethod)
-    {
+    protected function computeSignature(
+        array $headers,
+        $url,
+        array $queryParams,
+        $httpMethod
+    ) {
         $canonicalizedResource = $this->computeCanonicalizedResourceForTable(
             $url,
             $queryParams
@@ -106,8 +110,12 @@ class TableSharedKeyLiteAuthScheme extends SharedKeyAuthScheme
      *
      * @return string
      */
-    public function getAuthorizationHeader($headers, $url, $queryParams, $httpMethod)
-    {
+    public function getAuthorizationHeader(
+        array $headers,
+        $url,
+        array $queryParams,
+        $httpMethod
+    ) {
         $signature = $this->computeSignature(
             $headers,
             $url,

@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class UpdateEntityResult
@@ -50,9 +50,9 @@ class UpdateEntityResult
      *
      * @param array $headers The HTTP response headers.
      *
-     * @return \MicrosoftAzure\Storage\Table\Models\UpdateEntityResult
+     * @return UpdateEntityResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result = new UpdateEntityResult();
         $clean  = array_change_key_case($headers);
@@ -76,7 +76,7 @@ class UpdateEntityResult
      *
      * @param string $etag The entity ETag.
      *
-     * @return none
+     * @return void
      */
     public function setETag($etag)
     {

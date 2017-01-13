@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class DeleteEntityOptions extends TableServiceOptions
@@ -60,7 +60,7 @@ class DeleteEntityOptions extends TableServiceOptions
      *
      * @param string $etag The entity ETag.
      *
-     * @return none
+     * @return void
      */
     public function setETag($etag)
     {

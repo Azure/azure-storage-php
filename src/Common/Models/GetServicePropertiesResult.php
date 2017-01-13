@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetServicePropertiesResult
@@ -46,9 +46,9 @@ class GetServicePropertiesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
+     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse)
     {
         $result                     = new GetServicePropertiesResult();
         $result->_serviceProperties = ServiceProperties::create($parsedResponse);
@@ -59,7 +59,7 @@ class GetServicePropertiesResult
     /**
      * Gets service properties object.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\ServiceProperties
+     * @return \MicrosoftAzure\Storage\Common\Models\ServiceProperties
      */
     public function getValue()
     {
@@ -71,7 +71,7 @@ class GetServicePropertiesResult
      *
      * @param ServiceProperties $serviceProperties object to use.
      *
-     * @return none
+     * @return void
      */
     public function setValue($serviceProperties)
     {

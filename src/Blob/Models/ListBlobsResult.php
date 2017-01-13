@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListBlobsResult
@@ -89,7 +89,7 @@ class ListBlobsResult
      *
      * @return ListBlobsResult
      */
-    public static function create($parsed)
+    public static function create(array $parsed)
     {
         $result                 = new ListBlobsResult();
         $serviceEndpoint        = Utilities::tryGetKeysChainValue(
@@ -181,9 +181,9 @@ class ListBlobsResult
      *
      * @param Blob[] $blobs list of blobs
      *
-     * @return none
+     * @return void
      */
-    public function setBlobs($blobs)
+    public function setBlobs(array $blobs)
     {
         $this->_blobs = array();
         foreach ($blobs as $blob) {
@@ -206,9 +206,9 @@ class ListBlobsResult
      *
      * @param array $blobPrefixes list of blobPrefixes
      *
-     * @return none
+     * @return void
      */
-    public function setBlobPrefixes($blobPrefixes)
+    public function setBlobPrefixes(array $blobPrefixes)
     {
         $this->_blobPrefixes = array();
         foreach ($blobPrefixes as $blob) {
@@ -231,7 +231,7 @@ class ListBlobsResult
      *
      * @param string $prefix value.
      *
-     * @return none
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -253,7 +253,7 @@ class ListBlobsResult
      *
      * @param string $delimiter value.
      *
-     * @return none
+     * @return void
      */
     public function setDelimiter($delimiter)
     {
@@ -275,7 +275,7 @@ class ListBlobsResult
      *
      * @param string $marker value.
      *
-     * @return none
+     * @return void
      */
     public function setMarker($marker)
     {
@@ -297,7 +297,7 @@ class ListBlobsResult
      *
      * @param integer $maxResults value.
      *
-     * @return none
+     * @return void
      */
     public function setMaxResults($maxResults)
     {
@@ -319,7 +319,7 @@ class ListBlobsResult
      *
      * @param string $nextMarker value.
      *
-     * @return none
+     * @return void
      */
     public function setNextMarker($nextMarker)
     {
@@ -341,7 +341,7 @@ class ListBlobsResult
      *
      * @param string $containerName value.
      *
-     * @return none
+     * @return void
      */
     public function setContainerName($containerName)
     {

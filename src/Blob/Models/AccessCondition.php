@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\WindowsAzureUtilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class AccessCondition
@@ -118,7 +118,7 @@ class AccessCondition
      *
      * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition
      */
-    public static function ifModifiedSince($lastModified)
+    public static function ifModifiedSince(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         return new AccessCondition(
@@ -167,7 +167,7 @@ class AccessCondition
      *
      * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition
      */
-    public static function ifNotModifiedSince($lastModified)
+    public static function ifNotModifiedSince(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         return new AccessCondition(
@@ -181,7 +181,7 @@ class AccessCondition
      *
      * @param string $headerType can be one of Resources
      *
-     * @return none.
+     * @return void
      */
     public function setHeader($headerType)
     {
@@ -194,7 +194,7 @@ class AccessCondition
     /**
      * Gets header type
      *
-     * @return string.
+     * @return string
      */
     public function getHeader()
     {
@@ -206,7 +206,7 @@ class AccessCondition
      *
      * @param string $value the value to use
      *
-     * @return none
+     * @return void
      */
     public function setValue($value)
     {

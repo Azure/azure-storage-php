@@ -24,8 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
-
 /**
  * Holds container ACL
  *
@@ -34,7 +32,7 @@ use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetContainerACLResult
@@ -63,10 +61,14 @@ class GetContainerACLResult
      * @param array     $parsed       parsed response into array
      * representation
      *
-     * @return none.
+     * @return self
      */
-    public static function create($publicAccess, $etag, $lastModified, $parsed)
-    {
+    public static function create(
+        $publicAccess,
+        $etag,
+        \DateTime $lastModified,
+        array $parsed = null
+    ) {
         $result = new GetContainerAclResult();
         $result->setETag($etag);
         $result->setLastModified($lastModified);
@@ -79,7 +81,7 @@ class GetContainerACLResult
     /**
      * Gets container ACL
      *
-     * @return ContainerAcl
+     * @return ContainerACL
      */
     public function getContainerAcl()
     {
@@ -89,11 +91,11 @@ class GetContainerACLResult
     /**
      * Sets container ACL
      *
-     * @param ContainerAcl $containerACL value.
+     * @param ContainerACL $containerACL value.
      *
-     * @return none.
+     * @return void
      */
-    public function setContainerAcl($containerACL)
+    public function setContainerAcl(ContainerACL $containerACL)
     {
         $this->_containerACL = $containerACL;
     }
@@ -113,9 +115,9 @@ class GetContainerACLResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -123,7 +125,7 @@ class GetContainerACLResult
     /**
      * Gets container etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -135,7 +137,7 @@ class GetContainerACLResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {

@@ -29,6 +29,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Client;
@@ -37,6 +38,7 @@ use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Promise\EachPromise;
+use GuzzleHttp\Promise\PromiseInterface;
 
 /**
  * Base class for all services rest proxies.
@@ -46,7 +48,7 @@ use GuzzleHttp\Promise\EachPromise;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServiceRestProxy extends RestProxy
@@ -70,13 +72,18 @@ class ServiceRestProxy extends RestProxy
     /**
      * Initializes new ServiceRestProxy object.
      *
-     * @param string      $uri            The storage account uri.
-     * @param string      $accountName    The name of the account.
-     * @param ISerializer $dataSerializer The data serializer.
-     * @param array       $options        Array of options for the service
+     * @param string                    $uri            The storage account uri.
+     * @param string                    $accountName    The name of the account.
+     * @param Serialization\ISerializer $dataSerializer The data serializer.
+     * @param array                     $options        Array of options for
+     *                                                  the service
      */
-    public function __construct($uri, $accountName, $dataSerializer, $options = [])
-    {
+    public function __construct(
+        $uri,
+        $accountName,
+        Serialization\ISerializer $dataSerializer,
+        array $options = []
+    ) {
         if ($uri[strlen($uri)-1] != '/') {
             $uri = $uri . '/';
         }
@@ -103,9 +110,9 @@ class ServiceRestProxy extends RestProxy
      * request.
      * @param \GuzzleHttp\Psr7\Request $request The request to be filtered.
      *
-     * @return \GuzzleHttp\Psr7\Request          The filtered request.
+     * @return \GuzzleHttp\Psr7\Request
      */
-    protected function requestWithFilter($request)
+    protected function requestWithFilter(Request $request)
     {
         // Apply filters to the requests
         foreach ($this->getFilters() as $filter) {
@@ -130,7 +137,7 @@ class ServiceRestProxy extends RestProxy
      *
      * @return \GuzzleHttp\Client
      */
-    protected function createClient($clientOptions)
+    protected function createClient(array $clientOptions)
     {
         //If retry handler is not defined by the user, create a default
         //handler.
@@ -174,11 +181,11 @@ class ServiceRestProxy extends RestProxy
             )
         ));
     }
-
+    
     /**
      * Send the requests concurrently. Number of concurrency can be modified
      * by inserting a new key/value pair with the key 'number_of_concurrency'
-     * into the $clientOptions.
+     * into the $clientOptions. Return only the promise.
      *
      * @param  array    $requests              An array holding all the
      *                                         initialized requests. If empty,
@@ -193,11 +200,11 @@ class ServiceRestProxy extends RestProxy
      *
      * @return array
      */
-    protected function sendConcurrent(
-        $requests,
-        $generator,
+    protected function sendConcurrentAsync(
+        array $requests,
+        callable $generator,
         $expectedStatusCode,
-        $clientOptions = []
+        array $clientOptions = []
     ) {
         //set the number of concurrency to default value if not defined
         //in the array.
@@ -206,7 +213,7 @@ class ServiceRestProxy extends RestProxy
             $numberOfConcurrency = $clientOptions['number_of_concurrency'];
             unset($clientOptions['number_of_concurrency']);
         }
-        //create the client
+        //creates the client
         $client = $this->createClient($clientOptions);
 
         $promises = \call_user_func(
@@ -243,8 +250,9 @@ class ServiceRestProxy extends RestProxy
             }
         ]);
         
-        return $eachPromise->promise()->wait();
+        return $eachPromise->promise();
     }
+
 
     /**
      * Create the request to be sent.
@@ -260,9 +268,9 @@ class ServiceRestProxy extends RestProxy
      */
     protected function createRequest(
         $method,
-        $headers,
-        $queryParams,
-        $postParameters,
+        array $headers,
+        array $queryParams,
+        array $postParameters,
         $path,
         $body = Resources::EMPTY_STRING
     ) {
@@ -305,28 +313,28 @@ class ServiceRestProxy extends RestProxy
     }
 
     /**
-     * Sends HTTP request with the specified parameters.
+     * Create promise of sending HTTP request with the specified parameters.
      *
-     * @param string $method         HTTP method used in the request
-     * @param array  $headers        HTTP headers.
-     * @param array  $queryParams    URL query parameters.
-     * @param array  $postParameters The HTTP POST parameters.
-     * @param string $path           URL path
-     * @param int    $statusCode     Expected status code received in the response
-     * @param string $body           Request body
-     * @param array  $clientOptions  Guzzle Client options
+     * @param  string       $method         HTTP method used in the request
+     * @param  array        $headers        HTTP headers.
+     * @param  array        $queryParams    URL query parameters.
+     * @param  array        $postParameters The HTTP POST parameters.
+     * @param  string       $path           URL path
+     * @param  array|int    $expected       Expected Status Codes.
+     * @param  string       $body           Request body
+     * @param  array        $clientOptions  Guzzle Client options
      *
-     * @return GuzzleHttp\Psr7\Response
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    protected function send(
+    protected function sendAsync(
         $method,
-        $headers,
-        $queryParams,
-        $postParameters,
+        array $headers,
+        array $queryParams,
+        array $postParameters,
         $path,
-        $statusCode,
+        $expected = Resources::STATUS_OK,
         $body = Resources::EMPTY_STRING,
-        $clientOptions = []
+        array $clientOptions = []
     ) {
         $request = $this->createRequest(
             $method,
@@ -338,36 +346,60 @@ class ServiceRestProxy extends RestProxy
         );
         $client = $this->createClient($clientOptions);
 
-        try {
-            $options = $request->getMethod() == 'HEAD'?
-                array('decode_content' => false) : array();
-            $response = $client->send($request, $options);
-            self::throwIfError(
-                $response->getStatusCode(),
-                $response->getReasonPhrase(),
-                $response->getBody(),
-                $statusCode
-            );
-            return $response;
-        } catch (\GuzzleHttp\Exception\RequestException $e) {
-            if ($e->hasResponse()) {
-                $response = $e->getResponse();
+        $options = $request->getMethod() == 'HEAD'?
+            array('decode_content' => false) : array();
+
+        $promise = $client->sendAsync($request, $options);
+
+        return $promise->then(
+            function ($response) use ($expected) {
                 self::throwIfError(
                     $response->getStatusCode(),
                     $response->getReasonPhrase(),
                     $response->getBody(),
-                    $statusCode
+                    $expected
                 );
                 return $response;
-            } else {
-                throw $e;
+            },
+            function ($reason) use ($expected) {
+                $response = $reason->getResponse();
+                if ($response != null) {
+                    self::throwIfError(
+                        $response->getStatusCode(),
+                        $response->getReasonPhrase(),
+                        $response->getBody(),
+                        $expected
+                    );
+                } else {
+                    //if could not get response but promise rejected, throw reason.
+                    throw $reason;
+                }
+                return $response;
             }
-        }
+        );
     }
 
-    protected function sendContext($context)
+    /**
+     * Sends the context.
+     *
+     * @param  HttpCallContext $context The context of the request.
+     * @return \GuzzleHttp\Psr7\Response
+     */
+    protected function sendContext(HttpCallContext $context)
     {
-        return $this->send(
+        return $this->sendContextAsync($context)->wait();
+    }
+
+    /**
+     * Creates the promise to send the context.
+     *
+     * @param  HttpCallContext $context The context of the request.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    protected function sendContextAsync(HttpCallContext $context)
+    {
+        return $this->sendAsync(
             $context->getMethod(),
             $context->getHeaders(),
             $context->getQueryParameters(),
@@ -381,12 +413,12 @@ class ServiceRestProxy extends RestProxy
     /**
      * Throws ServiceException if the recieved status code is not expected.
      *
-     * @param string $actual   The received status code.
-     * @param string $reason   The reason phrase.
-     * @param string $message  The detailed message (if any).
-     * @param string $expected The expected status codes.
+     * @param string    $actual   The received status code.
+     * @param string    $reason   The reason phrase.
+     * @param string    $message  The detailed message (if any).
+     * @param array|int $expected The expected status codes.
      *
-     * @return none
+     * @return void
      *
      * @static
      *
@@ -400,83 +432,7 @@ class ServiceRestProxy extends RestProxy
             throw new ServiceException($actual, $reason, $message);
         }
     }
-
-    /**
-     * Adds optional header to headers if set
-     *
-     * @param array           $headers         The array of request headers.
-     * @param AccessCondition $accessCondition The access condition object.
-     *
-     * @return array
-     */
-    public function addOptionalAccessConditionHeader($headers, $accessCondition)
-    {
-        if (!is_null($accessCondition)) {
-            $header = $accessCondition->getHeader();
-
-            if ($header != Resources::EMPTY_STRING) {
-                $value = $accessCondition->getValue();
-                if ($value instanceof \DateTime) {
-                    $value = gmdate(
-                        Resources::AZURE_DATE_FORMAT,
-                        $value->getTimestamp()
-                    );
-                }
-                $headers[$header] = $value;
-            }
-        }
-
-        return $headers;
-    }
-
-    /**
-     * Adds optional header to headers if set
-     *
-     * @param array           $headers         The array of request headers.
-     * @param AccessCondition $accessCondition The access condition object.
-     *
-     * @return array
-     */
-    public function addOptionalSourceAccessConditionHeader(
-        $headers,
-        $accessCondition
-    ) {
-        if (!is_null($accessCondition)) {
-            $header     = $accessCondition->getHeader();
-            $headerName = null;
-            if (!empty($header)) {
-                switch ($header) {
-                    case Resources::IF_MATCH:
-                        $headerName = Resources::X_MS_SOURCE_IF_MATCH;
-                        break;
-                    case Resources::IF_UNMODIFIED_SINCE:
-                        $headerName = Resources::X_MS_SOURCE_IF_UNMODIFIED_SINCE;
-                        break;
-                    case Resources::IF_MODIFIED_SINCE:
-                        $headerName = Resources::X_MS_SOURCE_IF_MODIFIED_SINCE;
-                        break;
-                    case Resources::IF_NONE_MATCH:
-                        $headerName = Resources::X_MS_SOURCE_IF_NONE_MATCH;
-                        break;
-                    default:
-                        throw new \Exception(Resources::INVALID_ACH_MSG);
-                        break;
-                }
-            }
-            $value = $accessCondition->getValue();
-            if ($value instanceof \DateTime) {
-                $value = gmdate(
-                    Resources::AZURE_DATE_FORMAT,
-                    $value->getTimestamp()
-                );
-            }
-
-            $this->addOptionalHeader($headers, $headerName, $value);
-        }
-
-        return $headers;
-    }
-
+    
     /**
      * Adds HTTP POST parameter to the specified
      *
@@ -487,7 +443,7 @@ class ServiceRestProxy extends RestProxy
      * @return array
      */
     public function addPostParameter(
-        $postParameters,
+        array $postParameters,
         $key,
         $value
     ) {
@@ -503,7 +459,7 @@ class ServiceRestProxy extends RestProxy
      *
      * @return string
      */
-    public static function groupQueryValues($values)
+    public static function groupQueryValues(array $values)
     {
         Validate::isArray($values, 'values');
         $joined = Resources::EMPTY_STRING;
@@ -527,9 +483,9 @@ class ServiceRestProxy extends RestProxy
      *
      * @return array
      */
-    protected function addMetadataHeaders($headers, $metadata)
+    protected function addMetadataHeaders(array $headers, array $metadata = null)
     {
-        $this->validateMetadata($metadata);
+        Utilities::validateMetadata($metadata);
 
         $metadata = $this->generateMetadataHeaders($metadata);
         $headers  = array_merge($headers, $metadata);
@@ -542,9 +498,9 @@ class ServiceRestProxy extends RestProxy
      *
      * @param array $metadata user defined metadata.
      *
-     * @return array.
+     * @return array
      */
-    public function generateMetadataHeaders($metadata)
+    public function generateMetadataHeaders(array $metadata = null)
     {
         $metadataHeaders = array();
 
@@ -564,56 +520,5 @@ class ServiceRestProxy extends RestProxy
         }
 
         return $metadataHeaders;
-    }
-
-    /**
-     * Gets metadata array by parsing them from given headers.
-     *
-     * @param array $headers HTTP headers containing metadata elements.
-     *
-     * @return array.
-     */
-    public function getMetadataArray($headers)
-    {
-        $metadata = array();
-        foreach ($headers as $key => $value) {
-            $isMetadataHeader = Utilities::startsWith(
-                strtolower($key),
-                Resources::X_MS_META_HEADER_PREFIX
-            );
-
-            if ($isMetadataHeader) {
-                // Metadata name is case-presrved and case insensitive
-                $MetadataName = str_ireplace(
-                    Resources::X_MS_META_HEADER_PREFIX,
-                    Resources::EMPTY_STRING,
-                    $key
-                );
-                $metadata[$MetadataName] = $value;
-            }
-        }
-
-        return $metadata;
-    }
-
-    /**
-     * Validates the provided metadata array.
-     *
-     * @param mix $metadata The metadata array.
-     *
-     * @return none
-     */
-    public function validateMetadata($metadata)
-    {
-        if (!is_null($metadata)) {
-            Validate::isArray($metadata, 'metadata');
-        } else {
-            $metadata = array();
-        }
-
-        foreach ($metadata as $key => $value) {
-            Validate::isString($key, 'metadata key');
-            Validate::isString($value, 'metadata value');
-        }
     }
 }

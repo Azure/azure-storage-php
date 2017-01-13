@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Queue\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListMessagesOptions extends QueueServiceOptions
@@ -74,7 +74,7 @@ class ListMessagesOptions extends QueueServiceOptions
      *
      * @param integer $visibilityTimeoutInSeconds value to use.
      *
-     * @return none
+     * @return void
      */
     public function setVisibilityTimeoutInSeconds($visibilityTimeoutInSeconds)
     {
@@ -96,7 +96,7 @@ class ListMessagesOptions extends QueueServiceOptions
      *
      * @param integer $numberOfMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setNumberOfMessages($numberOfMessages)
     {

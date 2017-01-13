@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class QueueMessage
@@ -46,7 +46,7 @@ class QueueMessage
     /**
      * Gets message text field.
      *
-     * @return string.
+     * @return string
      */
     public function getMessageText()
     {
@@ -58,7 +58,7 @@ class QueueMessage
      *
      * @param string $messageText message contents.
      *
-     * @return string.
+     * @return string
      */
     public function setMessageText($messageText)
     {
@@ -70,9 +70,9 @@ class QueueMessage
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
      *
-     * @return string.
+     * @return string
      */
-    public function toXml($xmlSerializer)
+    public function toXml(XmlSerializer $xmlSerializer)
     {
         $array      = array('MessageText' => $this->_messageText);
         $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);

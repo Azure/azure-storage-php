@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class SimpleFilterMock implements \MicrosoftAzure\Storage\Common\Internal\IServiceFilter
@@ -48,14 +48,16 @@ class SimpleFilterMock implements \MicrosoftAzure\Storage\Common\Internal\IServi
         $this->_headerName = $headerName;
     }
     
-    public function handleRequest($request)
+    public function handleRequest(\GuzzleHttp\Psr7\Request $request)
     {
         return $request->withHeader($this->_headerName, $this->_data)
                        ->withHeader('Accept-Encoding', 'identity');
     }
     
-    public function handleResponse($request, $response)
-    {
+    public function handleResponse(
+        \GuzzleHttp\Psr7\Request $request,
+        \GuzzleHttp\Psr7\Response $response
+    ) {
         $body = $response->getBody();
         return $response->withBody($body.$this->_data);
     }

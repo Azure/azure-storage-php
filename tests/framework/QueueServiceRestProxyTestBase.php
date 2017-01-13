@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
@@ -65,8 +65,11 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
         try {
             $this->deleteQueue($queueName);
         } catch (\Exception $e) {
-            // Ignore exception and continue, will assume that this queue doesn't exist in the sotrage account
-            error_log($e->getMessage());
+            // Ignore exception and continue if the error message shows that the
+            // queue does not exist.
+            if (strpos($e->getMessage(), 'specified queue does not exist') == false) {
+                throw $e;
+            };
         }
     }
     

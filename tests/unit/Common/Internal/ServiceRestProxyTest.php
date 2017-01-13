@@ -42,7 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
@@ -104,46 +104,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertCount(1, $actual1);
         $this->assertCount(0, $actual2);
-    }
-
-    /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addOptionalAccessConditionHeader
-     * @depends testConstruct
-     */
-    public function testAddOptionalAccessContitionHeader($restRestProxy)
-    {
-        // Setup
-        $expectedHeader = Resources::IF_MATCH;
-        $expectedValue = '0x8CAFB82EFF70C46';
-        $accessCondition = AccessCondition::ifMatch($expectedValue);
-        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
-
-        // Test
-        $actual = $restRestProxy->addOptionalAccessConditionHeader($headers, $accessCondition);
-
-        // Assert
-        $this->assertCount(3, $actual);
-        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
-    }
-
-    /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addOptionalSourceAccessConditionHeader
-     * @depends testConstruct
-     */
-    public function testAddOptionalSourceAccessContitionHeader($restRestProxy)
-    {
-        // Setup
-        $expectedHeader = Resources::X_MS_SOURCE_IF_MATCH;
-        $expectedValue = '0x8CAFB82EFF70C46';
-        $accessCondition = AccessCondition::ifMatch($expectedValue);
-        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
-
-        // Test
-        $actual = $restRestProxy->addOptionalSourceAccessConditionHeader($headers, $accessCondition);
-
-        // Assert
-        $this->assertCount(3, $actual);
-        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
     }
 
     /**
@@ -269,47 +229,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::getMetadataArray
-     * @depends testConstruct
-     */
-    public function testGetMetadataArray($proxy)
-    {
-        // Setup
-        $expected = array('key1' => 'value1', 'myname' => 'azure', 'mycompany' => 'microsoft_');
-        $metadataHeaders = array();
-        foreach ($expected as $key => $value) {
-            $metadataHeaders[Resources::X_MS_META_HEADER_PREFIX . strtolower($key)] = $value;
-        }
-
-        // Test
-        $actual = $proxy->getMetadataArray($metadataHeaders);
-
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::getMetadataArray
-     * @depends testConstruct
-     */
-    public function testGetMetadataArrayWithMsHeaders($proxy)
-    {
-        // Setup
-        $key = 'name';
-        $validMetadataKey = Resources::X_MS_META_HEADER_PREFIX . $key;
-        $value = 'correct';
-        $metadataHeaders = array('x-ms-key1' => 'value1', 'myname' => 'x-ms-date',
-                          $validMetadataKey => $value, 'mycompany' => 'microsoft_');
-
-        // Test
-        $actual = $proxy->getMetadataArray($metadataHeaders);
-
-        // Assert
-        $this->assertCount(1, $actual);
-        $this->assertEquals($value, $actual[$key]);
-    }
-
-    /**
      * @expectedException \GuzzleHttp\Exception\RequestException
      * @expectedExceptionMessage foo
      */
@@ -318,12 +237,14 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         $uri = 'http://www.microsoft.com';
         $accountName = 'myaccount';
         $dataSerializer = new XmlSerializer();
-        $mockRequestHandler = new MockHandler(array(new RequestException('foo', new Request('GET', $uri))));
+        $mockRequestHandler = new MockHandler(
+            array(new RequestException('foo', new Request('GET', $uri)))
+        );
 
         $guzzleOptions = array('http' => array('handler' => HandlerStack::create($mockRequestHandler)));
         $proxy = new ServiceRestProxy($uri, $accountName, $dataSerializer, $guzzleOptions);
         $reflection = new \ReflectionClass($proxy);
-        $method = $reflection->getMethod('send');
+        $method = $reflection->getMethod('sendAsync');
         $method->setAccessible(true);
 
         $method->invokeArgs($proxy, array(
@@ -332,7 +253,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
             [],
             [],
             '/',
-            null
-        ));
+        ))->wait();
     }
 }

@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListMessagesResult
@@ -43,7 +43,7 @@ class ListMessagesResult
     /**
      * Holds all message entries.
      *
-     * @var array.
+     * @var array
      */
     private $_queueMessages;
     
@@ -52,9 +52,9 @@ class ListMessagesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\ListMessagesResult.
+     * @return ListMessagesResult
      */
-    public static function create($parsedResponse)
+    public static function create(array $parsedResponse = null)
     {
         $result        = new ListMessagesResult();
         $queueMessages = array();
@@ -87,7 +87,7 @@ class ListMessagesResult
      *
      * @param integer $queueMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setQueueMessages($queueMessages)
     {

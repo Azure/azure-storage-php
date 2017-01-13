@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class MimeReaderWriter implements IMimeReaderWriter
@@ -49,7 +49,7 @@ class MimeReaderWriter implements IMimeReaderWriter
      * @return array Returns array with two elements 'headers' and 'body' which
      * represents the MIME message.
      */
-    public function encodeMimeMultipart($bodyPartContents)
+    public function encodeMimeMultipart(array $bodyPartContents)
     {
         $count         = count($bodyPartContents);
         $mimeType      = Resources::MULTIPART_MIXED_TYPE;

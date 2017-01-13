@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class AtomReaderWriter implements IAtomReaderWriter
@@ -83,9 +83,9 @@ class AtomReaderWriter implements IAtomReaderWriter
      * @param \XmlWriter $xmlw       The XML writer.
      * @param array      $properties The atom properties.
      *
-     * @return none
+     * @return void
      */
-    private function _generateProperties($xmlw, $properties)
+    private function _generateProperties(\XmlWriter $xmlw, array $properties = null)
     {
         foreach ($properties as $key => $value) {
             $content    = key($value);
@@ -113,7 +113,7 @@ class AtomReaderWriter implements IAtomReaderWriter
      *
      * @return string
      */
-    private function _serializeAtom($properties)
+    private function _serializeAtom(array $properties)
     {
         $xmlw = new \XmlWriter();
         $xmlw->openMemory();
@@ -181,11 +181,11 @@ class AtomReaderWriter implements IAtomReaderWriter
     /**
      * Parses one table entry and returns the table name.
      *
-     * @param \SimpleXml $result The original XML body loaded in XML.
+     * @param \SimpleXmlElement $result The original XML body loaded in XML.
      *
      * @return string
      */
-    private function _parseOneTable($result)
+    private function _parseOneTable(\SimpleXmlElement $result)
     {
         $query     = ".//$this->_dataServicesMetadataPrefix:properties/";
         $query    .= "$this->_dataServicesPrefix:TableName";
@@ -198,11 +198,11 @@ class AtomReaderWriter implements IAtomReaderWriter
     /**
      * Gets entry nodes from the XML body.
      *
-     * @param \SimpleXml $body The original XML body loaded in XML.
+     * @param \SimpleXmlElement $body The original XML body loaded in XML.
      *
      * @return array
      */
-    private function _getRawEntries($body)
+    private function _getRawEntries(\SimpleXmlElement $body)
     {
         $rawEntries = array();
         
@@ -216,11 +216,11 @@ class AtomReaderWriter implements IAtomReaderWriter
     /**
      * Parses an entity entry from given SimpleXML object.
      *
-     * @param \SimpleXML $result The SimpleXML object representing the entity.
+     * @param \SimpleXmlElement $result The SimpleXML object representing the entity.
      *
-     * @return \MicrosoftAzure\Storage\Table\Models\Entity
+     * @return Entity
      */
-    private function _parseOneEntity($result)
+    private function _parseOneEntity(\SimpleXmlElement $result)
     {
         $prefix = $this->_dataServicesMetadataPrefix;
         $prop   = $result->content->xpath(".//$prefix:properties");
@@ -312,11 +312,11 @@ class AtomReaderWriter implements IAtomReaderWriter
     /**
      * Constructs XML representation for entity.
      *
-     * @param Models\Entity $entity The entity instance.
+     * @param Entity $entity The entity instance.
      *
      * @return string
      */
-    public function getEntity($entity)
+    public function getEntity(Entity $entity)
     {
         $entityProperties = $entity->getProperties();
         $properties       = array();

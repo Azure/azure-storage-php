@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class AccessPolicy
@@ -70,7 +70,7 @@ class AccessPolicy
      *
      * @param \DateTime $start value.
      *
-     * @return none.
+     * @return void
      */
     public function setStart($start)
     {
@@ -93,7 +93,7 @@ class AccessPolicy
      *
      * @param \DateTime $expiry value.
      *
-     * @return none.
+     * @return void
      */
     public function setExpiry($expiry)
     {
@@ -116,7 +116,7 @@ class AccessPolicy
      *
      * @param string $permission value.
      *
-     * @return none.
+     * @return void
      */
     public function setPermission($permission)
     {
@@ -126,7 +126,7 @@ class AccessPolicy
     /**
      * Converts this current object to XML representation.
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

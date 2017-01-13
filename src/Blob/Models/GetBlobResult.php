@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Holds result of GetBlob API.
@@ -35,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetBlobResult
@@ -51,7 +52,7 @@ class GetBlobResult
     private $_metadata;
     
     /**
-     * @var StreamInterface
+     * @var resource
      */
     private $_contentStream;
     
@@ -64,8 +65,11 @@ class GetBlobResult
      *
      * @return GetBlobResult
      */
-    public static function create($headers, $body, $metadata)
-    {
+    public static function create(
+        array $headers,
+        StreamInterface $body,
+        array $metadata
+    ) {
         $result = new GetBlobResult();
         $result->setContentStream($body->detach());
         $result->setProperties(BlobProperties::create($headers));
@@ -89,9 +93,9 @@ class GetBlobResult
      *
      * @param array $metadata value.
      *
-     * @return none
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -111,9 +115,9 @@ class GetBlobResult
      *
      * @param BlobProperties $properties value.
      *
-     * @return none
+     * @return void
      */
-    public function setProperties($properties)
+    public function setProperties(BlobProperties $properties)
     {
         $this->_properties = $properties;
     }
@@ -121,7 +125,7 @@ class GetBlobResult
     /**
      * Gets blob contentStream.
      *
-     * @return StreamInterface
+     * @return \resource
      */
     public function getContentStream()
     {
@@ -131,9 +135,9 @@ class GetBlobResult
     /**
      * Sets blob contentStream.
      *
-     * @param StreamInterface $contentStream The stream handle.
+     * @param \resource $contentStream The stream handle.
      *
-     * @return none
+     * @return void
      */
     public function setContentStream($contentStream)
     {

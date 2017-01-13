@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
@@ -48,7 +48,7 @@ class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         // Setup
-        $sample = Resources::EMPTY_STRING;
+        $sample = array();
         $expectedETag = '0x8CAFB82EFF70C46';
         $expectedDate = new \DateTime('Sun, 25 Sep 2011 19:42:18 GMT');
         $expectedPublicAccess = 'container';

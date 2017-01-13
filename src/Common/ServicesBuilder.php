@@ -50,7 +50,7 @@ use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServicesBuilder
@@ -63,7 +63,7 @@ class ServicesBuilder
     /**
      * Gets the serializer used in the REST services construction.
      *
-     * @return MicrosoftAzure\Storage\Common\Internal\Serialization\ISerializer
+     * @return Internal\Serialization\ISerializer
      */
     protected function serializer()
     {
@@ -122,7 +122,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme
+     * @return TableSharedKeyLiteAuthScheme
      */
     protected function tableAuthenticationScheme($accountName, $accountKey)
     {
@@ -149,7 +149,7 @@ class ServicesBuilder
      *
      * @return \MicrosoftAzure\Storage\Queue\Internal\IQueue
      */
-    public function createQueueService($connectionString, $options = [])
+    public function createQueueService($connectionString, array $options = [])
     {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
@@ -208,7 +208,7 @@ class ServicesBuilder
      * @param array  $options          Array of options to pass to the service
      * @return \MicrosoftAzure\Storage\Blob\Internal\IBlob
      */
-    public function createBlobService($connectionString, $options = [])
+    public function createBlobService($connectionString, array $options = [])
     {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
@@ -267,7 +267,7 @@ class ServicesBuilder
      *
      * @return \MicrosoftAzure\Storage\Table\Internal\ITable
      */
-    public function createTableService($connectionString, $options = [])
+    public function createTableService($connectionString, array $options = [])
     {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString

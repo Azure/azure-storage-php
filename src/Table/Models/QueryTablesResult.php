@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class QueryTablesResult
@@ -56,9 +56,9 @@ class QueryTablesResult
      * @param array $headers The HTTP response headers
      * @param array $entries The table entriess
      *
-     * @return \MicrosoftAzure\Storage\Table\Models\QueryTablesResult
+     * @return QueryTablesResult
      */
-    public static function create($headers, $entries)
+    public static function create(array $headers, array $entries)
     {
         $result  = new QueryTablesResult();
         $headers = array_change_key_case($headers);
@@ -89,7 +89,7 @@ class QueryTablesResult
      *
      * @param string $nextTableName value
      *
-     * @return none
+     * @return void
      */
     public function setNextTableName($nextTableName)
     {
@@ -111,9 +111,9 @@ class QueryTablesResult
      *
      * @param array $tables value
      *
-     * @return none
+     * @return void
      */
-    public function setTables($tables)
+    public function setTables(array $tables)
     {
         $this->_tables = $tables;
     }

@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlobServiceOptions
@@ -42,7 +42,7 @@ class BlobServiceOptions
     /**
      * Gets timeout.
      *
-     * @return string.
+     * @return string
      */
     public function getTimeout()
     {
@@ -54,7 +54,7 @@ class BlobServiceOptions
      *
      * @param string $timeout value.
      *
-     * @return none.
+     * @return void
      */
     public function setTimeout($timeout)
     {

@@ -26,8 +26,10 @@ require_once "../vendor/autoload.php";
 
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
+use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
 use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
 $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
@@ -47,6 +49,31 @@ downloadBlobSample($blobClient);
 // To list the blobs in a container, use the BlobRestProxy->listBlobs method with a foreach loop to loop
 // through the result. The following code outputs the name and URI of each blob in a container.
 listBlobsSample($blobClient);
+
+//Or to leverage the asynchronous methods provided, the operation can be done in
+//a promise pipeline.
+$containerName = '';
+try {
+    $containerName = basicStorageBlobOperationAsync($blobClient)->wait();
+} catch (ServiceException $e) {
+    $code = $e->getCode();
+    $error_message = $e->getMessage();
+    echo $code.": ".$error_message.PHP_EOL;
+} catch (InvalidArgumentTypeException $e) {
+    echo $e->getMessage().PHP_EOL;
+}
+
+
+//delete the containers created. Uncomment the following code for the task.
+/*
+try {
+    cleanUp($blobClient, $containerName)->wait();
+} catch (ServiceException $e) {
+    $code = $e->getCode();
+    $error_message = $e->getMessage();
+    echo $code.": ".$error_message.PHP_EOL;
+}
+*/
 
 function createContainerSample($blobClient)
 {
@@ -118,4 +145,96 @@ function listBlobsSample($blobClient)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;
     }
+}
+
+function basicStorageBlobOperationAsync($blobClient)
+{
+    // Create the options for creating containers.
+    $createContainerOptions = new CreateContainerOptions();
+
+    // Set public access policy. Possible values are
+    // PublicAccessType::CONTAINER_AND_BLOBS and PublicAccessType::BLOBS_ONLY.
+    // CONTAINER_AND_BLOBS: full public read access for container and blob data.
+    // BLOBS_ONLY: public read access for blobs. Container data not available.
+    // If this value is not specified, container data is private to the account owner.
+    $createContainerOptions->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
+
+    // Set container metadata
+    $createContainerOptions->addMetaData("key1", "value1");
+    $createContainerOptions->addMetaData("key2", "value2");
+
+    // Construct the container name
+    $containerName = "mycontainer" . sprintf('-%04x', mt_rand(0, 65535));
+
+    return $blobClient->createContainerAsync(
+        $containerName,
+        $createContainerOptions
+    )->then(
+        function ($response) use ($blobClient, $containerName) {
+            // Successfully created the container, now upload a blob to the
+            // container.
+            echo "Container named {$containerName} created.\n";
+
+            $content = fopen("myfile.txt", "r");
+            $blob_name = "myblob";
+            return $blobClient->createBlockBlobAsync(
+                $containerName,
+                $blob_name,
+                $content
+            );
+        },
+        null
+    )->then(
+        function ($putBlobResult) use ($blobClient, $containerName) {
+            // Successfully created the blob, then download the blob.
+            echo "Blob successfully created.\n";
+            return $blobClient->saveBlobToFileAsync(
+                "output.txt",
+                $containerName,
+                "myblob"
+            );
+        },
+        null
+    )->then(
+        function ($getBlobResult) use ($blobClient, $containerName) {
+            // Successfully saved the blob, now list the blobs.
+            echo "Blob successfully downloaded.\n";
+            return $blobClient->listBlobsAsync($containerName);
+        },
+        null
+    )->then(
+        function ($listBlobsResult) use ($containerName) {
+            // Successfully get the blobs list.
+            $blobs = $listBlobsResult->getBlobs();
+            foreach ($blobs as $blob) {
+                echo $blob->getName().": ".$blob->getUrl().PHP_EOL;
+            }
+            return $containerName;
+        },
+        null
+    );
+}
+
+function cleanUp($blobClient, $containerName)
+{
+    return $blobClient->listContainersAsync()->then(
+        function ($listContainersResult) use ($blobClient, $containerName) {
+            $containerNames = array();
+            foreach ($listContainersResult->getContainers() as $container) {
+                $containerNames[] = $container->getName();
+            }
+            if (in_array($containerName, $containerNames)) {
+                $blobClient->deleteContainerAsync($containerName)->wait();
+            }
+            if (in_array('mycontainer', $containerNames)) {
+                $blobClient->deleteContainerAsync('mycontainer')->wait();
+            }
+            if (file_exists('output.txt')) {
+                unlink('output.txt');
+            }
+            echo "Successfully cleaned up\n";
+            return $blobClient->listContainersAsync();
+        },
+        null
+    );
 }

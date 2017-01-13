@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CreateBlobSnapshotOptions extends BlobServiceOptions
@@ -67,9 +67,9 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      *
      * @param array $metadata The metadata array.
      *
-     * @return none
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -89,7 +89,7 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition The access condition object.
      *
-     * @return none
+     * @return void
      */
     public function setAccessCondition($accessCondition)
     {
@@ -111,7 +111,7 @@ class CreateBlobSnapshotOptions extends BlobServiceOptions
      *
      * @param string $leaseId The lease Id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {

@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListBlobsOptions extends BlobServiceOptions
@@ -77,7 +77,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Gets prefix.
      *
-     * @return string.
+     * @return string
      */
     public function getPrefix()
     {
@@ -89,7 +89,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param string $prefix value.
      *
-     * @return none.
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -100,7 +100,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Gets delimiter.
      *
-     * @return string.
+     * @return string
      */
     public function getDelimiter()
     {
@@ -112,7 +112,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param string $delimiter value.
      *
-     * @return none.
+     * @return void
      */
     public function setDelimiter($delimiter)
     {
@@ -123,7 +123,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Gets marker.
      *
-     * @return string.
+     * @return string
      */
     public function getMarker()
     {
@@ -135,7 +135,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param string $marker value.
      *
-     * @return none.
+     * @return void
      */
     public function setMarker($marker)
     {
@@ -146,7 +146,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Gets max results.
      *
-     * @return integer.
+     * @return integer
      */
     public function getMaxResults()
     {
@@ -158,7 +158,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param integer $maxResults value.
      *
-     * @return none.
+     * @return void
      */
     public function setMaxResults($maxResults)
     {
@@ -169,7 +169,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Indicates if metadata is included or not.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getIncludeMetadata()
     {
@@ -181,7 +181,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param bool $includeMetadata value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeMetadata($includeMetadata)
     {
@@ -192,7 +192,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Indicates if snapshots is included or not.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getIncludeSnapshots()
     {
@@ -204,7 +204,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param bool $includeSnapshots value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeSnapshots($includeSnapshots)
     {
@@ -215,7 +215,7 @@ class ListBlobsOptions extends BlobServiceOptions
     /**
      * Indicates if uncommittedBlobs is included or not.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getIncludeUncommittedBlobs()
     {
@@ -227,7 +227,7 @@ class ListBlobsOptions extends BlobServiceOptions
      *
      * @param bool $includeUncommittedBlobs value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeUncommittedBlobs($includeUncommittedBlobs)
     {

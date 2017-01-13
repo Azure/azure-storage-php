@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class StorageServiceSettings extends ServiceSettings
@@ -168,7 +168,7 @@ class StorageServiceSettings extends ServiceSettings
     /**
      * Initializes static members of the class.
      *
-     * @return none
+     * @return void
      */
     protected static function init()
     {
@@ -313,7 +313,7 @@ class StorageServiceSettings extends ServiceSettings
      *
      * @return string
      */
-    private static function _getDefaultServiceEndpoint($settings, $dns)
+    private static function _getDefaultServiceEndpoint(array $settings, $dns)
     {
         $scheme      = Utilities::tryGetValueInsensitive(
             Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME,
@@ -335,10 +335,10 @@ class StorageServiceSettings extends ServiceSettings
      * @param string $queueEndpointUri The queue endpoint uri.
      * @param string $tableEndpointUri The table endpoint uri.
      *
-     * @return \MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings
+     * @return StorageServiceSettings
      */
     private static function _createStorageServiceSettings(
-        $settings,
+        array $settings,
         $blobEndpointUri = null,
         $queueEndpointUri = null,
         $tableEndpointUri = null

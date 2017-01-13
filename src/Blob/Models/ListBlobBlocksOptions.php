@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListBlobBlocksOptions extends BlobServiceOptions
@@ -96,7 +96,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -106,7 +106,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
     /**
      * Gets blob snapshot.
      *
-     * @return string.
+     * @return string
      */
     public function getSnapshot()
     {
@@ -118,7 +118,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
      *
      * @param string $snapshot value.
      *
-     * @return none.
+     * @return void
      */
     public function setSnapshot($snapshot)
     {
@@ -130,7 +130,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
      *
      * @param bool $includeUncommittedBlobs value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeUncommittedBlobs($includeUncommittedBlobs)
     {
@@ -141,7 +141,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
     /**
      * Indicates if uncommittedBlobs is included or not.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getIncludeUncommittedBlobs()
     {
@@ -153,7 +153,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
      *
      * @param bool $includeCommittedBlobs value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeCommittedBlobs($includeCommittedBlobs)
     {
@@ -164,7 +164,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
     /**
      * Indicates if committedBlobs is included or not.
      *
-     * @return boolean.
+     * @return boolean
      */
     public function getIncludeCommittedBlobs()
     {

@@ -25,7 +25,6 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
 
 /**
  * optional parameters for createXXXBlob wrapper
@@ -35,7 +34,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CreateBlobOptions extends BlobServiceOptions
@@ -128,7 +127,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob ContentType.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentType()
     {
@@ -140,7 +139,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $blobContentType value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentType($blobContentType)
     {
@@ -150,7 +149,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob ContentEncoding.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentEncoding()
     {
@@ -162,7 +161,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $blobContentEncoding value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentEncoding($blobContentEncoding)
     {
@@ -172,7 +171,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob ContentLanguage.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentLanguage()
     {
@@ -184,7 +183,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $blobContentLanguage value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentLanguage($blobContentLanguage)
     {
@@ -194,7 +193,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob ContentLength.
      *
-     * @return integer.
+     * @return integer
      */
     public function getBlobContentLength()
     {
@@ -206,7 +205,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param integer $blobContentLength value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentLength($blobContentLength)
     {
@@ -217,7 +216,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob ContentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobContentMD5()
     {
@@ -229,7 +228,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $blobContentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobContentMD5($blobContentMD5)
     {
@@ -239,7 +238,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob cache control.
      *
-     * @return string.
+     * @return string
      */
     public function getBlobCacheControl()
     {
@@ -251,7 +250,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $blobCacheControl value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setBlobCacheControl($blobCacheControl)
     {
@@ -261,7 +260,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob contentType.
      *
-     * @return string.
+     * @return string
      */
     public function getContentType()
     {
@@ -273,7 +272,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $contentType value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentType($contentType)
     {
@@ -283,7 +282,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets contentEncoding.
      *
-     * @return string.
+     * @return string
      */
     public function getContentEncoding()
     {
@@ -295,7 +294,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $contentEncoding value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentEncoding($contentEncoding)
     {
@@ -305,7 +304,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets contentLanguage.
      *
-     * @return string.
+     * @return string
      */
     public function getContentLanguage()
     {
@@ -317,7 +316,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $contentLanguage value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentLanguage($contentLanguage)
     {
@@ -327,7 +326,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets contentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getContentMD5()
     {
@@ -339,7 +338,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $contentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentMD5($contentMD5)
     {
@@ -349,7 +348,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets cacheControl.
      *
-     * @return string.
+     * @return string
      */
     public function getCacheControl()
     {
@@ -361,7 +360,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $cacheControl value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setCacheControl($cacheControl)
     {
@@ -383,9 +382,9 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }
@@ -393,7 +392,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -405,9 +404,9 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param array $metadata value.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -415,7 +414,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob sequenceNumber.
      *
-     * @return int.
+     * @return int
      */
     public function getSequenceNumber()
     {
@@ -427,7 +426,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param int $sequenceNumber value.
      *
-     * @return none.
+     * @return void
      */
     public function setSequenceNumber($sequenceNumber)
     {
@@ -438,7 +437,7 @@ class CreateBlobOptions extends BlobServiceOptions
     /**
      * Gets blob sequenceNumberAction.
      *
-     * @return string.
+     * @return string
      */
     public function getSequenceNumberAction()
     {
@@ -450,7 +449,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $sequenceNumberAction value.
      *
-     * @return none.
+     * @return void
      */
     public function setSequenceNumberAction($sequenceNumberAction)
     {
@@ -472,7 +471,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -506,7 +505,7 @@ class CreateBlobOptions extends BlobServiceOptions
      *
      * @return CreateBlobOptions
      */
-    public static function create($createBlobBlockOptions)
+    public static function create(CreateBlobBlockOptions $createBlobBlockOptions)
     {
         $result = new CreateBlobOptions();
         $result->setTimeout($createBlobBlockOptions->getTimeout());

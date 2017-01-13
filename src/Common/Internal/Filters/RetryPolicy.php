@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Common\Internal\Filters;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 abstract class RetryPolicy
@@ -50,7 +50,7 @@ abstract class RetryPolicy
      *
      * @return boolean
      */
-    abstract public function shouldRetry($retryCount, $response);
+    abstract public function shouldRetry($retryCount, \GuzzleHttp\Psr7\Response $response);
     
     /**
      * Calculates the backoff for the retry policy.
@@ -60,5 +60,5 @@ abstract class RetryPolicy
      *
      * @return integer
      */
-    abstract public function calculateBackoff($retryCount, $response);
+    abstract public function calculateBackoff($retryCount, \GuzzleHttp\Psr7\Response $response);
 }

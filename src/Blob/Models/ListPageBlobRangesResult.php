@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\PageRange;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListPageBlobRangesResult
@@ -70,7 +70,7 @@ class ListPageBlobRangesResult
      *
      * @return ListPageBlobRangesResult
      */
-    public static function create($headers, $parsed)
+    public static function create(array $headers, array $parsed = null)
     {
         $result  = new ListPageBlobRangesResult();
         $headers = array_change_key_case($headers);
@@ -103,7 +103,7 @@ class ListPageBlobRangesResult
     /**
      * Gets blob lastModified.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -115,9 +115,9 @@ class ListPageBlobRangesResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -126,7 +126,7 @@ class ListPageBlobRangesResult
     /**
      * Gets blob etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -138,7 +138,7 @@ class ListPageBlobRangesResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -149,7 +149,7 @@ class ListPageBlobRangesResult
     /**
      * Gets blob contentLength.
      *
-     * @return integer.
+     * @return integer
      */
     public function getContentLength()
     {
@@ -161,7 +161,7 @@ class ListPageBlobRangesResult
      *
      * @param integer $contentLength value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentLength($contentLength)
     {
@@ -184,9 +184,9 @@ class ListPageBlobRangesResult
      *
      * @param array $pageRanges page ranges to set
      *
-     * @return none
+     * @return void
      */
-    public function setPageRanges($pageRanges)
+    public function setPageRanges(array $pageRanges)
     {
         $this->_pageRanges = array();
         foreach ($pageRanges as $pageRange) {

@@ -23,23 +23,23 @@
  */
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult;
+use MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult;
 
 /**
- * Unit tests for class AcquireLeaseResult
+ * Unit tests for class LeaseBlobResult
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
-class AcquireLeaseResultTest extends \PHPUnit_Framework_TestCase
+class LeaseBlobResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::create
      */
     public function testCreate()
     {
@@ -48,21 +48,21 @@ class AcquireLeaseResultTest extends \PHPUnit_Framework_TestCase
         $headers = array('x-ms-lease-id' => $expected);
         
         // Test
-        $result = AcquireLeaseResult::create($headers);
+        $result = LeaseBlobResult::create($headers);
         
         // Assert
         $this->assertEquals($expected, $result->getLeaseId());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\AcquireLeaseResult::getLeaseId
+     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::setLeaseId
+     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::getLeaseId
      */
     public function testSetLeaseId()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
-        $result = new AcquireLeaseResult();
+        $result = new LeaseBlobResult();
         $result->setLeaseId($expected);
         
         // Test

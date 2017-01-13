@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CreateBlobPagesOptions extends BlobServiceOptions
@@ -67,7 +67,7 @@ class CreateBlobPagesOptions extends BlobServiceOptions
      *
      * @param AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
     public function setAccessCondition($accessCondition)
     {
@@ -89,7 +89,7 @@ class CreateBlobPagesOptions extends BlobServiceOptions
      *
      * @param string $leaseId the blob lease id.
      *
-     * @return none
+     * @return void
      */
     public function setLeaseId($leaseId)
     {
@@ -99,7 +99,7 @@ class CreateBlobPagesOptions extends BlobServiceOptions
     /**
      * Gets blob contentMD5.
      *
-     * @return string.
+     * @return string
      */
     public function getContentMD5()
     {
@@ -111,7 +111,7 @@ class CreateBlobPagesOptions extends BlobServiceOptions
      *
      * @param string $contentMD5 value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentMD5($contentMD5)
     {

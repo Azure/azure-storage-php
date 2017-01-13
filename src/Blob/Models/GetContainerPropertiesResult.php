@@ -24,6 +24,10 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+
+
 /**
  * Holds result of getContainerProperties and getContainerMetadata
  *
@@ -32,7 +36,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetContainerPropertiesResult
@@ -69,9 +73,9 @@ class GetContainerPropertiesResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -80,7 +84,7 @@ class GetContainerPropertiesResult
      * The entity tag for the container. If the request version is 2011-08-18 or
      * newer, the ETag value will be in quotes.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -92,7 +96,7 @@ class GetContainerPropertiesResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -102,7 +106,7 @@ class GetContainerPropertiesResult
     /**
      * Gets user defined metadata.
      *
-     * @return array.
+     * @return array
      */
     public function getMetadata()
     {
@@ -115,10 +119,33 @@ class GetContainerPropertiesResult
      *
      * @param array $metadata user defined metadata object in array form.
      *
-     * @return none.
+     * @return void
      */
-    public function setMetadata($metadata)
+    public function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
+    }
+
+    /**
+     * Create an instance using the response headers from the API call.
+     *
+     * @param  array  $responseHeaders The array contains all the response headers
+     *
+     * @return GetContainerPropertiesResult
+     */
+    public static function create(array $responseHeaders)
+    {
+        $result   = new GetContainerPropertiesResult();
+        $metadata = Utilities::getMetadataArray($responseHeaders);
+        $date     = Utilities::tryGetValue(
+            $responseHeaders,
+            Resources::LAST_MODIFIED
+        );
+        $date     = Utilities::rfc1123ToDateTime($date);
+        $result->setETag(Utilities::tryGetValue($responseHeaders, Resources::ETAG));
+        $result->setMetadata($metadata);
+        $result->setLastModified($date);
+        
+        return $result;
     }
 }

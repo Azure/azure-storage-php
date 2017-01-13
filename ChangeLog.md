@@ -1,8 +1,27 @@
-2016.12 - version 0.12.0
+2017.01 - version 0.12.0
 
 ALL
+* Applied type hinting for the project. The rules are listed below:
+    * For class arguments: `ClassName $arguments`
+    * For array arguments: `array $arguments`
+    * For nullable arguments: `ClassName $argument = null`
+    * Try to avoid `mixed` type.
+    * Use unions for nullable types. e.g. `ClassName|null`.
+    * Use `ClassName[]` instead of array, if the type of array is determined.
+* Added support for Guzzle async programming model for all APIs.
 * Added support for SAS authentication.
+Blob
+* Changed the return value of following APIs to be more reasonable.
+    ```
+    createPageBlob
+    createBlockBlob
+    createBlobBlock
+    renewLease
+    acquireLease
+    ```
 * Merged `StorageAuthScheme` into `SharedKeyAuthScheme` and `TableSharedKeyLiteAuthScheme` now inherits `SharedKeyAuthScheme`. This is because Azure Storage now supports Shared Key authentication and SAS authentication so the name `StorageAuthScheme` was not representative anymore.
+    ```
+* Fixed an issue where the newest Guzzle failed to validate the path passed in when `withPath()` is called.    
 
 2016.11 - version 0.11.0
 

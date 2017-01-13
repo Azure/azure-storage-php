@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListBlobBlocksResult
@@ -79,7 +79,7 @@ class ListBlobBlocksResult
      *
      * @return array
      */
-    private static function _getEntries($parsed, $type)
+    private static function _getEntries(array $parsed, $type)
     {
         $entries = array();
         
@@ -109,7 +109,7 @@ class ListBlobBlocksResult
      *
      * @return ListBlobBlocksResult
      */
-    public static function create($headers, $parsed)
+    public static function create(array $headers, array $parsed)
     {
         $result = new ListBlobBlocksResult();
         $clean  = array_change_key_case($headers);
@@ -141,7 +141,7 @@ class ListBlobBlocksResult
     /**
      * Gets blob lastModified.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -153,9 +153,9 @@ class ListBlobBlocksResult
      *
      * @param \DateTime $lastModified value.
      *
-     * @return none.
+     * @return void
      */
-    public function setLastModified($lastModified)
+    public function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -164,7 +164,7 @@ class ListBlobBlocksResult
     /**
      * Gets blob etag.
      *
-     * @return string.
+     * @return string
      */
     public function getETag()
     {
@@ -176,7 +176,7 @@ class ListBlobBlocksResult
      *
      * @param string $etag value.
      *
-     * @return none.
+     * @return void
      */
     public function setETag($etag)
     {
@@ -186,7 +186,7 @@ class ListBlobBlocksResult
     /**
      * Gets blob contentType.
      *
-     * @return string.
+     * @return string
      */
     public function getContentType()
     {
@@ -198,7 +198,7 @@ class ListBlobBlocksResult
      *
      * @param string $contentType value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentType($contentType)
     {
@@ -208,7 +208,7 @@ class ListBlobBlocksResult
     /**
      * Gets blob contentLength.
      *
-     * @return integer.
+     * @return integer
      */
     public function getContentLength()
     {
@@ -220,7 +220,7 @@ class ListBlobBlocksResult
      *
      * @param integer $contentLength value.
      *
-     * @return none.
+     * @return void
      */
     public function setContentLength($contentLength)
     {
@@ -243,9 +243,9 @@ class ListBlobBlocksResult
      *
      * @param array $uncommittedBlocks The uncommitted blocks entries
      *
-     * @return none.
+     * @return void
      */
-    public function setUncommittedBlocks($uncommittedBlocks)
+    public function setUncommittedBlocks(array $uncommittedBlocks)
     {
         $this->_uncommittedBlocks = $uncommittedBlocks;
     }
@@ -265,9 +265,9 @@ class ListBlobBlocksResult
      *
      * @param array $committedBlocks The committed blocks entries
      *
-     * @return none.
+     * @return void
      */
-    public function setCommittedBlocks($committedBlocks)
+    public function setCommittedBlocks(array $committedBlocks)
     {
         $this->_committedBlocks = $committedBlocks;
     }

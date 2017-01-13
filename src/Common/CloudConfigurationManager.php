@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CloudConfigurationManager
@@ -64,7 +64,7 @@ class CloudConfigurationManager
     /**
      * Initializes the connection string source providers.
      *
-     * @return none
+     * @return void
      */
     private static function _init()
     {
@@ -116,7 +116,7 @@ class CloudConfigurationManager
      * calling getConnectionString. When false (the default) the $provider is
      * processed after the existing callbacks.
      *
-     * @return none
+     * @return void
      */
     public static function registerSource($name, $provider = null, $prepend = false)
     {

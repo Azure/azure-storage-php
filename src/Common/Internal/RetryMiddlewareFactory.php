@@ -37,7 +37,7 @@ use GuzzleHttp\Middleware;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class RetryMiddlewareFactory
@@ -124,7 +124,8 @@ class RetryMiddlewareFactory
      * that accepts the number of retries, the request, the response and the
      * exception, and return the decision for a retry.
      *
-     * @param  string $type The type of the retry handler.
+     * @param  string $type       The type of the retry handler.
+     * @param  int    $maxRetries The maximum number of retries to be done.
      *
      * @return callable     The callable that will return if the request should
      *                      be retried.

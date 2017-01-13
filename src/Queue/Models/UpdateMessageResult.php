@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class UpdateMessageResult
@@ -58,7 +58,7 @@ class UpdateMessageResult
     /**
      * Gets timeNextVisible field.
      *
-     * @return \DateTime.
+     * @return \DateTime
      */
     public function getTimeNextVisible()
     {
@@ -71,9 +71,9 @@ class UpdateMessageResult
      * @param \DateTime $timeNextVisible A UTC date/time value that represents when
      * the message will be visible on the queue.
      *
-     * @return none.
+     * @return void
      */
-    public function setTimeNextVisible($timeNextVisible)
+    public function setTimeNextVisible(\DateTime $timeNextVisible)
     {
         Validate::isDate($timeNextVisible);
         
@@ -83,7 +83,7 @@ class UpdateMessageResult
     /**
      * Gets popReceipt field.
      *
-     * @return string.
+     * @return string
      */
     public function getPopReceipt()
     {
@@ -95,7 +95,7 @@ class UpdateMessageResult
      *
      * @param string $popReceipt The pop receipt of the queue message.
      *
-     * @return none.
+     * @return void
      */
     public function setPopReceipt($popReceipt)
     {

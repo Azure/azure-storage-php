@@ -55,6 +55,7 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 
 /**
  * Unit tests for class BlobRestProxy
@@ -64,7 +65,7 @@ use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlobRestProxyTest extends BlobServiceRestProxyTestBase
@@ -904,6 +905,35 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             stream_get_contents($result->getContentStream())
         );
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
+     */
+    public function testGetBlobNotExist()
+    {
+        $name = 'notexistcontainer' . $this->createSuffix();
+        $blob = 'notexistblob';
+
+        $promise = $this->restProxy->getBlobAsync($name, $blob);
+
+        $code = null;
+        try {
+            $promise->wait();
+        } catch (ServiceException $e) {
+            $code = $e->getCode();
+        }
+        $this->assertEquals($code, '404');
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainerAsync
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage Path must be a string
+     */
+    public function testCreateContainerAsyncWithInvalidParameters()
+    {
+        $this->restProxy->createContainerAsync(1024);
+    }
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
@@ -1172,7 +1202,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->restProxy->acquireLease($name, $blob);
         
         // Test
-        $result = $this->restProxy->breakLease($name, $blob);
+        $result = $this->restProxy->breakLease($name, $blob, null);
         
         // Assert
         $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult', $result);
@@ -1679,7 +1709,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blocks = $result->getUnCommittedBlocks();
         $this->assertEquals(count($blocks), 0);
         $blocks = $result->getCommittedBlocks();
-        $this->assertEquals(count($blocks), ceil(strlen($content) / $max_size));
+        $this->assertEquals(count($blocks), \ceil(strlen($content) / $max_size));
     
         // Setting back to default value for one shot test
         $this->restProxy->setSingleBlobUploadThresholdInBytes(0);
@@ -2165,5 +2195,43 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         if (file_exists($downloadPath)) {
             unlink($downloadPath);
         }
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobeRestProxy::addOptionalAccessConditionHeader
+     */
+    public function testAddOptionalAccessContitionHeader()
+    {
+        // Setup
+        $expectedHeader = Resources::IF_MATCH;
+        $expectedValue = '0x8CAFB82EFF70C46';
+        $accessCondition = AccessCondition::ifMatch($expectedValue);
+        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
+
+        // Test
+        $actual = $this->restProxy->addOptionalAccessConditionHeader($headers, $accessCondition);
+
+        // Assert
+        $this->assertCount(3, $actual);
+        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalSourceAccessConditionHeader
+     */
+    public function testAddOptionalSourceAccessContitionHeader()
+    {
+        // Setup
+        $expectedHeader = Resources::X_MS_SOURCE_IF_MATCH;
+        $expectedValue = '0x8CAFB82EFF70C46';
+        $accessCondition = AccessCondition::ifMatch($expectedValue);
+        $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
+
+        // Test
+        $actual = $this->restProxy->addOptionalSourceAccessConditionHeader($headers, $accessCondition);
+
+        // Assert
+        $this->assertCount(3, $actual);
+        $this->assertEquals($expectedValue, $actual[$expectedHeader]);
     }
 }

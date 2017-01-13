@@ -140,7 +140,7 @@ class TableServiceFunctionalTestUtils
         return $ret;
     }
 
-    public static function mutateEntity($ent, $pivot)
+    public static function mutateEntity(&$ent, $pivot)
     {
         if ($pivot == MutatePivot::CHANGE_VALUES) {
             self::mutateEntityChangeValues($ent);
@@ -267,9 +267,8 @@ class TableServiceFunctionalTestUtils
             if ($filter->getOperator() == ('not')) {
                 $op = self::filterInterperter($filter->getOperand(), $obj);
                 if (is_null($op)) {
-                    // http://msdn.microsoft/com/en-us/library/ms191504.aspx
-                    // Not (null) -> null
-                    $ret = null;
+                    //confirmed with FE that not(NULL) = true;
+                    $ret = true;
                 } else {
                     $ret = !$op;
                 }

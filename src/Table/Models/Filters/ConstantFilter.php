@@ -34,13 +34,13 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ConstantFilter extends Filter
 {
     /**
-     * @var mix
+     * @var mixed
      */
     private $_value;
     
@@ -64,7 +64,7 @@ class ConstantFilter extends Filter
     /**
      * Gets value
      *
-     * @return mix
+     * @return mixed
      */
     public function getValue()
     {

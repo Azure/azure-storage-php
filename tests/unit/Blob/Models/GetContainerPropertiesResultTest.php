@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
@@ -80,7 +80,7 @@ class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $properties = new GetContainerPropertiesResult();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         $properties->setLastModified($expected);
         
         // Test
@@ -97,7 +97,7 @@ class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $properties = new GetContainerPropertiesResult();
-        $expected = 'Fri, 09 Oct 2009 21:04:30 GMT';
+        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         
         // Test
         $properties->setLastModified($expected);

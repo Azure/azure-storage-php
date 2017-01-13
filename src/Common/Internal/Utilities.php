@@ -34,7 +34,7 @@ use GuzzleHttp\Psr7\Stream;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Utilities
@@ -44,16 +44,16 @@ class Utilities
      * this $key doesn't exist, the default value is returned.
      *
      * @param array $array   The array to be used.
-     * @param mix   $key     The array key.
-     * @param mix   $default The value to return if $key is not found in $array.
+     * @param mixed $key     The array key.
+     * @param mixed $default The value to return if $key is not found in $array.
      *
      * @static
      *
-     * @return mix
+     * @return mixed
      */
     public static function tryGetValue($array, $key, $default = null)
     {
-        return is_array($array) && array_key_exists($key, $array)
+        return (!is_null($array)) && is_array($array) && array_key_exists($key, $array)
             ? $array[$key]
             : $default;
     }
@@ -108,7 +108,7 @@ class Utilities
      *
      * @return array
      */
-    public static function tryGetArray($key, $array)
+    public static function tryGetArray($key, array $array)
     {
         return Utilities::getArray(Utilities::tryGetValue($array, $key));
     }
@@ -125,9 +125,9 @@ class Utilities
      *
      * @static
      *
-     * @return none
+     * @return void
      */
-    public static function addIfNotEmpty($key, $value, &$array)
+    public static function addIfNotEmpty($key, $value, array &$array)
     {
         if (!is_null($array)) {
             Validate::isArray($array, 'array');
@@ -146,9 +146,9 @@ class Utilities
      *
      * @static
      *
-     * @return mix
+     * @return mixed
      */
-    public static function tryGetKeysChainValue($array)
+    public static function tryGetKeysChainValue(array $array)
     {
         $arguments    = func_get_args();
         $numArguments = func_num_args();
@@ -199,7 +199,7 @@ class Utilities
      *
      * @return array
      */
-    public static function getArray($var)
+    public static function getArray(array $var)
     {
         if (is_null($var) || empty($var)) {
             return array();
@@ -245,7 +245,7 @@ class Utilities
      *
      * @return array
      */
-    private static function _sxml2arr($sxml, $arr = null)
+    private static function _sxml2arr($sxml, array $arr = null)
     {
         foreach ((array) $sxml as $key => $value) {
             if (is_object($value) || (is_array($value))) {
@@ -272,7 +272,7 @@ class Utilities
      * @return string
      */
     public static function serialize(
-        $array,
+        array $array,
         $rootName,
         $defaultTag = null,
         $standalone = null
@@ -309,8 +309,11 @@ class Utilities
      *
      * @return void
      */
-    private static function _arr2xml(\XMLWriter $xmlw, $data, $defaultTag = null)
-    {
+    private static function _arr2xml(
+        \XMLWriter $xmlw,
+        array $data,
+        $defaultTag = null
+    ) {
         foreach ($data as $key => $value) {
             if (strcmp($key, '@attributes') == 0) {
                 foreach ($value as $attributeName => $attributeValue) {
@@ -414,7 +417,7 @@ class Utilities
      * Converts a DateTime object into an Edm.DaeTime value in UTC timezone,
      * represented as a string.
      *
-     * @param \DateTime $value The datetime value.
+     * @param mixed $value The datetime value.
      *
      * @static
      *
@@ -462,7 +465,7 @@ class Utilities
     /**
      * Converts string to stream handle.
      *
-     * @param type $string The string contents.
+     * @param string $string The string contents.
      *
      * @static
      *
@@ -481,7 +484,7 @@ class Utilities
      *
      * @return array
      */
-    public static function orderArray($array, $order)
+    public static function orderArray(array $array, array $order)
     {
         $ordered = array();
 
@@ -505,7 +508,7 @@ class Utilities
      *
      * @return boolean
      */
-    public static function inArrayInsensitive($needle, $haystack)
+    public static function inArrayInsensitive($needle, array $haystack)
     {
         return in_array(strtolower($needle), array_map('strtolower', $haystack));
     }
@@ -521,7 +524,7 @@ class Utilities
      *
      * @return boolean
      */
-    public static function arrayKeyExistsInsensitive($key, $search)
+    public static function arrayKeyExistsInsensitive($key, array $search)
     {
         return array_key_exists(strtolower($key), array_change_key_case($search));
     }
@@ -533,11 +536,11 @@ class Utilities
      *
      * @param string $key      The array key.
      * @param array  $haystack The array to be used.
-     * @param mix    $default  The value to return if $key is not found in $array.
+     * @param mixed  $default  The value to return if $key is not found in $array.
      *
      * @static
      *
-     * @return mix
+     * @return mixed
      */
     public static function tryGetValueInsensitive($key, $haystack, $default = null)
     {
@@ -595,7 +598,7 @@ class Utilities
      *
      * @return array
      */
-    public static function createInstanceList($parsed, $class)
+    public static function createInstanceList(array $parsed, $class)
     {
         $list = array();
 
@@ -746,12 +749,12 @@ class Utilities
      * To evaluate if the stream is larger than a certain size. To restore
      * the stream, it has to be seekable, so will return true if the stream
      * is not seekable.
-     * @param  StreamInterface  $stream The stream to be evaluated.
-     * @param  int              $size   The size if the string is larger than.
+     * @param  Stream          $stream The stream to be evaluated.
+     * @param  int             $size   The size if the string is larger than.
      *
      * @return boolean         true if the stream is larger than the given size.
      */
-    public static function isStreamLargerThanSizeOrNotSeekable($stream, $size)
+    public static function isStreamLargerThanSizeOrNotSeekable(Stream $stream, $size)
     {
         Validate::isInteger($size, 'size');
         Validate::isTrue(
@@ -781,5 +784,56 @@ class Utilities
             $stream->seek($position);
         }
         return $result;
+    }
+
+    /**
+     * Gets metadata array by parsing them from given headers.
+     *
+     * @param array $headers HTTP headers containing metadata elements.
+     *
+     * @return array
+     */
+    public static function getMetadataArray(array $headers)
+    {
+        $metadata = array();
+        foreach ($headers as $key => $value) {
+            $isMetadataHeader = Utilities::startsWith(
+                strtolower($key),
+                Resources::X_MS_META_HEADER_PREFIX
+            );
+
+            if ($isMetadataHeader) {
+                // Metadata name is case-presrved and case insensitive
+                $MetadataName = str_ireplace(
+                    Resources::X_MS_META_HEADER_PREFIX,
+                    Resources::EMPTY_STRING,
+                    $key
+                );
+                $metadata[$MetadataName] = $value;
+            }
+        }
+
+        return $metadata;
+    }
+
+    /**
+     * Validates the provided metadata array.
+     *
+     * @param array $metadata The metadata array.
+     *
+     * @return void
+     */
+    public static function validateMetadata(array $metadata = null)
+    {
+        if (!is_null($metadata)) {
+            Validate::isArray($metadata, 'metadata');
+        } else {
+            $metadata = array();
+        }
+
+        foreach ($metadata as $key => $value) {
+            Validate::isString($key, 'metadata key');
+            Validate::isString($value, 'metadata value');
+        }
     }
 }

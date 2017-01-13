@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class PeekMessagesResult
@@ -43,7 +43,7 @@ class PeekMessagesResult
     /**
      * Holds all message entries.
      *
-     * @var array.
+     * @var array
      */
     private $_queueMessages;
     
@@ -52,7 +52,7 @@ class PeekMessagesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @return MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult.
+     * @return PeekMessagesResult
      */
     public static function create($parsedResponse)
     {
@@ -93,7 +93,7 @@ class PeekMessagesResult
      *
      * @param integer $queueMessages value to use.
      *
-     * @return none
+     * @return void
      */
     public function setQueueMessages($queueMessages)
     {

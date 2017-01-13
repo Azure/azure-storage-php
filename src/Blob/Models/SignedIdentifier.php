@@ -34,7 +34,7 @@ use MicrosoftAzure\Storage\Blob\Models\AccessPolicy;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class SignedIdentifier
@@ -45,7 +45,7 @@ class SignedIdentifier
     /**
      * Gets id.
      *
-     * @return string.
+     * @return string
      */
     public function getId()
     {
@@ -57,7 +57,7 @@ class SignedIdentifier
      *
      * @param string $id value.
      *
-     * @return none.
+     * @return void
      */
     public function setId($id)
     {
@@ -67,7 +67,7 @@ class SignedIdentifier
     /**
      * Gets accessPolicy.
      *
-     * @return string.
+     * @return string
      */
     public function getAccessPolicy()
     {
@@ -79,7 +79,7 @@ class SignedIdentifier
      *
      * @param string $accessPolicy value.
      *
-     * @return none.
+     * @return void
      */
     public function setAccessPolicy($accessPolicy)
     {
@@ -89,7 +89,7 @@ class SignedIdentifier
     /**
      * Converts this current object to XML representation.
      *
-     * @return array.
+     * @return array
      */
     public function toArray()
     {

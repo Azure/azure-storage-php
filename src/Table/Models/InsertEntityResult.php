@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
 
 /**
  * Holds result of calling insertEntity wrapper
@@ -35,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class InsertEntityResult
@@ -52,7 +53,7 @@ class InsertEntityResult
      * @param array             $headers        The HTTP response headers.
      * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
      *
-     * @return \MicrosoftAzure\Storage\Table\Models\InsertEntityResult
+     * @return InsertEntityResult
      *
      * @static
      */
@@ -81,7 +82,7 @@ class InsertEntityResult
      *
      * @param Entity $entity The table entity instance.
      *
-     * @return none
+     * @return void
      */
     public function setEntity($entity)
     {

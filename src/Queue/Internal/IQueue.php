@@ -25,6 +25,8 @@
 namespace MicrosoftAzure\Storage\Queue\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\FilterableService;
+use MicrosoftAzure\Storage\Queue\Models as QueueModels;
+use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for queue service
@@ -34,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\FilterableService;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  * @see       http://msdn.microsoft.com/en-us/library/windowsazure/dd179363.aspx
  */
@@ -43,11 +45,24 @@ interface IQueue extends FilterableService
     /**
      * Gets the properties of the Queue service.
      *
-     * @param QueueServiceOptions $options The optional parameters.
+     * @param QueueModels\QueueServiceOptions $options The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
+     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
      */
-    public function getServiceProperties($options = null);
+    public function getServiceProperties(
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to get the properties of the Queue service.
+     *
+     * @param QueueModels\QueueServiceOptions $options The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getServicePropertiesAsync(
+        QueueModels\QueueServiceOptions $options = null
+    );
 
     /**
      * Sets the properties of the Queue service.
@@ -55,75 +70,196 @@ interface IQueue extends FilterableService
      * It's recommended to use getServiceProperties, alter the returned object and
      * then use setServiceProperties with this altered object.
      *
-     * @param array               $serviceProperties The new service properties.
-     * @param QueueServiceOptions $options           The optional parameters.
+     * @param ServiceProperties               $serviceProperties The new service
+     *                                                           properties.
+     * @param QueueModels\QueueServiceOptions $options           The optional
+     *                                                           parameters.
      *
-     * @return none
+     * @return void
      */
-    public function setServiceProperties($serviceProperties, $options = null);
+    public function setServiceProperties(
+        ServiceProperties $serviceProperties,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to set the properties of the Queue service.
+     *
+     * It's recommended to use getServiceProperties, alter the returned object and
+     * then use setServiceProperties with this altered object.
+     *
+     * @param ServiceProperties               $serviceProperties The new service
+     *                                                           properties.
+     * @param QueueModels\QueueServiceOptions $options           The optional
+     *                                                           parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setServicePropertiesAsync(
+        ServiceProperties $serviceProperties,
+        QueueModels\QueueServiceOptions $options = null
+    );
 
     /**
      * Creates a new queue under the storage account.
      *
-     * @param string             $queueName The queue name.
-     * @param QueueCreateOptions $options   The optional queue create options.
+     * @param string                         $queueName The queue name.
+     * @param QueueModels\CreateQueueOptions $options   The optional queue create options.
      *
-     * @return none
+     * @return void
      */
-    public function createQueue($queueName, $options = null);
+    public function createQueue(
+        $queueName,
+        QueueModels\CreateQueueOptions $options = null
+    );
+
+    /**
+     * Creates promise to create a new queue under the storage account.
+     *
+     * @param string                     $queueName The queue name.
+     * @param QueueModels\CreateQueueOptions  $options   The Optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createQueueAsync(
+        $queueName,
+        QueueModels\CreateQueueOptions $options = null
+    );
 
     /**
      * Deletes a queue.
      *
-     * @param string              $queueName The queue name.
-     * @param QueueServiceOptions $options   The optional parameters.
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function deleteQueue($queueName, $options);
+    public function deleteQueue(
+        $queueName,
+        QueueModels\QueueServiceOptions $options
+    );
+
+    /**
+     * Creates promise to delete a queue.
+     *
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteQueueAsync(
+        $queueName,
+        QueueModels\QueueServiceOptions $options = null
+    );
 
     /**
      * Lists all queues in the storage account.
      *
-     * @param ListQueuesOptions $options The optional parameters.
+     * @param QueueModels\ListQueuesOptions $options The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\ListQueuesResult
+     * @return QueueModels\ListQueuesResult
      */
-    public function listQueues($options = null);
+    public function listQueues(QueueModels\ListQueuesOptions $options = null);
+
+    /**
+     * Creates promise to list all queues in the storage account.
+     *
+     * @param QueueModels\ListQueuesOptions $options The optional list queue options.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listQueuesAsync(QueueModels\ListQueuesOptions $options = null);
 
     /**
      * Returns queue properties, including user-defined metadata.
      *
-     * @param string              $queueName The queue name.
-     * @param QueueServiceOptions $options   The optional parameters.
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\GetQueueMetadataResult
+     * @return QueueModels\GetQueueMetadataResult
      */
-    public function getQueueMetadata($queueName, $options = null);
+    public function getQueueMetadata(
+        $queueName,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to return queue properties, including user-defined metadata.
+     *
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getQueueMetadataAsync(
+        $queueName,
+        QueueModels\QueueServiceOptions $options = null
+    );
 
     /**
      * Sets user-defined metadata on the queue. To delete queue metadata, call
      * this API without specifying any metadata in $metadata.
      *
-     * @param string              $queueName The queue name.
-     * @param array               $metadata  The metadata array.
-     * @param QueueServiceOptions $options   The optional parameters.
+     * @param string                          $queueName The queue name.
+     * @param array                           $metadata  The metadata array.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function setQueueMetadata($queueName, $metadata, $options = null);
+    public function setQueueMetadata(
+        $queueName,
+        array $metadata = null,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to set user-defined metadata on the queue. To delete
+     * queue metadata, call this API without specifying any metadata in $metadata.
+     *
+     * @param string                          $queueName The queue name.
+     * @param array                           $metadata  The metadata array.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function setQueueMetadataAsync(
+        $queueName,
+        array $metadata = null,
+        QueueModels\QueueServiceOptions $options = null
+    );
 
     /**
      * Adds a message to the queue and optionally sets a visibility timeout
      * for the message.
      *
-     * @param string               $queueName   The queue name.
-     * @param string               $messageText The message contents.
-     * @param CreateMessageOptions $options     The optional parameters.
+     * @param string                           $queueName   The queue name.
+     * @param string                           $messageText The message contents.
+     * @param QueueModels\CreateMessageOptions $options     The optional parameters.
      *
-     * @return none
+     * @return void
      */
-    public function createMessage($queueName, $messageText, $options = null);
+    public function createMessage(
+        $queueName,
+        $messageText,
+        QueueModels\CreateMessageOptions $options = null
+    );
+
+    /**
+     * Creates promise to add a message to the queue and optionally sets a
+     * visibility timeout for the message.
+     *
+     * @param string                           $queueName   The name of the queue.
+     * @param string                           $messageText The message contents.
+     * @param QueueModels\CreateMessageOptions $options     The optional
+     *                                                      parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function createMessageAsync(
+        $queueName,
+        $messageText,
+        QueueModels\CreateMessageOptions $options = null
+    );
 
     /**
      * Updates the visibility timeout of a message and/or the message contents.
@@ -140,10 +276,9 @@ interface IQueue extends FilterableService
      * than 7 days. The visibility timeout of a message cannot be set to a value
      * later than the expiry time. A message can be updated until it has been
      * deleted or has expired.
-     * @param QueueServiceOptions $options                    The optional
-     * parameters.
+     * @param QueueModels\QueueServiceOptions $options The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\UpdateMessageResult
+     * @return QueueModels\UpdateMessageResult
      */
     public function updateMessage(
         $queueName,
@@ -151,55 +286,165 @@ interface IQueue extends FilterableService
         $popReceipt,
         $messageText,
         $visibilityTimeoutInSeconds,
-        $options = null
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to update the visibility timeout of a message and/or the
+     * message contents.
+     *
+     * @param string              $queueName                  The queue name.
+     * @param string              $messageId                  The id of the message.
+     * @param string              $popReceipt                 The valid pop receipt
+     * value returned from an earlier call to the Get Messages or Update Message
+     * operation.
+     * @param string              $messageText                The message contents.
+     * @param int                 $visibilityTimeoutInSeconds Specifies the new
+     * visibility timeout value, in seconds, relative to server time.
+     * The new value must be larger than or equal to 0, and cannot be larger
+     * than 7 days. The visibility timeout of a message cannot be set to a value
+     * later than the expiry time. A message can be updated until it has been
+     * deleted or has expired.
+     * @param QueueModels\QueueServiceOptions $options        The optional
+     * parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateMessageAsync(
+        $queueName,
+        $messageId,
+        $popReceipt,
+        $messageText,
+        $visibilityTimeoutInSeconds,
+        QueueModels\QueueServiceOptions $options = null
     );
 
     /**
      * Deletes a specified message from the queue.
      *
-     * @param string              $queueName  The queue name.
-     * @param string              $messageId  The id of the message.
-     * @param string              $popReceipt The valid pop receipt value returned
-     * from an earlier call to the Get Messages or Update Message operation.
-     * @param QueueServiceOptions $options    The optional parameters.
+     * @param string                          $queueName  The queue name.
+     * @param string                          $messageId  The id of the message.
+     * @param string                          $popReceipt The valid pop receipt
+     *                                                    value returned
+     *                                                    from an earlier call to
+     *                                                    the Get Messages or
+     *                                                    update Message operation.
+     * @param QueueModels\QueueServiceOptions $options    The optional parameters.
      *
-     * @return none
+     * @return void
      */
     public function deleteMessage(
         $queueName,
         $messageId,
         $popReceipt,
-        $options = null
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to delete a specified message from the queue.
+     *
+     * @param string                          $queueName  The name of the queue.
+     * @param string                          $messageId  The id of the message.
+     * @param string                          $popReceipt The valid pop receipt
+     *                                                    value returned
+     *                                                    from an earlier call to
+     *                                                    the Get Messages or
+     *                                                    update Message operation.
+     * @param QueueModels\QueueServiceOptions $options    The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteMessageAsync(
+        $queueName,
+        $messageId,
+        $popReceipt,
+        QueueModels\QueueServiceOptions $options = null
     );
 
     /**
      * Lists all messages in the queue.
      *
-     * @param string              $queueName The queue name.
-     * @param ListMessagesOptions $options   The optional parameters.
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\ListMessagesOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\ListMessagesResult
+     * @return QueueModels\ListMessagesResult
      */
-    public function listMessages($queueName, $options = null);
+    public function listMessages(
+        $queueName,
+        QueueModels\ListMessagesOptions $options = null
+    );
+
+    /**
+     * Creates promise to list all messages in the queue.
+     *
+     * @param string              $queueName The queue name.
+     * @param QueueModels\ListMessagesOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function listMessagesAsync(
+        $queueName,
+        QueueModels\ListMessagesOptions $options = null
+    );
 
     /**
      * Retrieves a message from the front of the queue, without changing
      * the message visibility.
      *
-     * @param string              $queueName The queue name.
-     * @param PeekMessagesOptions $options   The optional parameters.
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\PeekMessagesOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\PeekMessagesResult
+     * @return QueueModels\PeekMessagesResult
      */
-    public function peekMessages($queueName, $options = null);
+    public function peekMessages(
+        $queueName,
+        QueueModels\PeekMessagesOptions $options = null
+    );
+
+    /**
+     * Creates promise to retrieve a message from the front of the queue,
+     * without changing the message visibility.
+     *
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\PeekMessagesOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function peekMessagesAsync(
+        $queueName,
+        QueueModels\PeekMessagesOptions $options = null
+    );
 
     /**
      * Clears all messages from the queue.
      *
-     * @param string              $queueName The queue name.
-     * @param QueueServiceOptions $options   The optional parameters.
+     * @param string                          $queueName The queue name.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
      *
-     * @return MicrosoftAzure\Storage\Common\Models\PeekMessagesResult
+     * @return QueueModels\PeekMessagesResult
      */
-    public function clearMessages($queueName, $options = null);
+    public function clearMessages(
+        $queueName,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to clear all messages from the queue.
+     *
+     * If a queue contains a large number of messages, Clear Messages may time out
+     * before all messages have been deleted. In this case the Queue service will
+     * return status code 500 (Internal Server Error), with the additional error
+     * code OperationTimedOut. If the operation times out, the client should
+     * continue to retry Clear Messages until it succeeds, to ensure that all
+     * messages have been deleted.
+     *
+     * @param string                          $queueName The name of the queue.
+     * @param QueueModels\QueueServiceOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function clearMessagesAsync(
+        $queueName,
+        QueueModels\QueueServiceOptions $options = null
+    );
 }

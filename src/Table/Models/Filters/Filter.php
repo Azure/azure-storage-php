@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Filter
@@ -45,7 +45,7 @@ class Filter
      *
      * @return \MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter
      */
-    public static function applyAnd($left, $right)
+    public static function applyAnd(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'and', $right);
         return $filter;
@@ -58,7 +58,7 @@ class Filter
      *
      * @return \MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter
      */
-    public static function applyNot($operand)
+    public static function applyNot(Filter $operand)
     {
         $filter = new UnaryFilter('not', $operand);
         return $filter;
@@ -72,7 +72,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyOr($left, $right)
+    public static function applyOr(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'or', $right);
         return $filter;
@@ -86,7 +86,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyEq($left, $right)
+    public static function applyEq(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'eq', $right);
         return $filter;
@@ -100,7 +100,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyNe($left, $right)
+    public static function applyNe(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'ne', $right);
         return $filter;
@@ -114,7 +114,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyGe($left, $right)
+    public static function applyGe(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'ge', $right);
         return $filter;
@@ -128,7 +128,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyGt($left, $right)
+    public static function applyGt(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'gt', $right);
         return $filter;
@@ -142,7 +142,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyLt($left, $right)
+    public static function applyLt(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'lt', $right);
         return $filter;
@@ -156,7 +156,7 @@ class Filter
      *
      * @return BinaryFilter
      */
-    public static function applyLe($left, $right)
+    public static function applyLe(Filter $left, Filter $right)
     {
         $filter = new BinaryFilter($left, 'le', $right);
         return $filter;
@@ -165,7 +165,7 @@ class Filter
     /**
      * Apply constant filter on value.
      *
-     * @param mix    $value   The filter value
+     * @param mixed  $value   The filter value
      * @param string $edmType The value EDM type.
      *
      * @return \MicrosoftAzure\Storage\Table\Models\Filters\ConstantFilter

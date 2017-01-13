@@ -50,27 +50,11 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class TableRestProxyTest extends TableServiceRestProxyTestBase
 {
-    /**
-     * @covers  MicrosoftAzure\Storage\Table\TableRestProxy::__construct
-     */
-    public function testConstruct()
-    {
-        // Setup
-        $atomSerializer = new AtomReaderWriter();
-        $mimeSerializer = new MimeReaderWriter();
-        $url = 'http://www.microsoft.com';
-        
-        // Test
-        $tableRestProxy = new TableRestProxy($url, $atomSerializer, $mimeSerializer, null);
-        
-        // Assert
-        $this->assertNotNull($tableRestProxy);
-    }
     
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties

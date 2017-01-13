@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class RestProxy
@@ -46,7 +46,7 @@ class RestProxy
     private $_filters;
     
     /**
-     * @var MicrosoftAzure\Storage\Common\Internal\Serialization\ISerializer
+     * @var Serialization\ISerializer
      */
     protected $dataSerializer;
     
@@ -58,10 +58,10 @@ class RestProxy
     /**
      * Initializes new RestProxy object.
      *
-     * @param ISerializer $dataSerializer The data serializer.
-     * @param string      $uri            The uri of the service.
+     * @param Serialization\ISerializer $dataSerializer The data serializer.
+     * @param string                    $uri            The uri of the service.
      */
-    public function __construct($dataSerializer, $uri)
+    public function __construct(Serialization\ISerializer $dataSerializer = null, $uri)
     {
         $this->_filters       = array();
         $this->dataSerializer = $dataSerializer;
@@ -93,7 +93,7 @@ class RestProxy
      *
      * @param string $uri The URI of the request.
      *
-     * @return none
+     * @return void
      */
     public function setUri($uri)
     {
@@ -103,12 +103,11 @@ class RestProxy
     /**
      * Adds new filter to new service rest proxy object and returns that object back.
      *
-     * @param MicrosoftAzure\Storage\Common\Internal\IServiceFilter $filter Filter to add for
-     * the pipeline.
+     * @param IServiceFilter $filter Filter to add for the pipeline.
      *
-     * @return RestProxy.
+     * @return RestProxy
      */
-    public function withFilter($filter)
+    public function withFilter(IServiceFilter $filter)
     {
         $serviceProxyWithFilter             = clone $this;
         $serviceProxyWithFilter->_filters[] = $filter;
@@ -125,9 +124,9 @@ class RestProxy
      * @param string $key              The query variable name.
      * @param string $value            The query variable value.
      *
-     * @return none
+     * @return void
      */
-    protected function addOptionalQueryParam(&$queryParameters, $key, $value)
+    protected function addOptionalQueryParam(array &$queryParameters, $key, $value)
     {
         Validate::isArray($queryParameters, 'queryParameters');
         Validate::isString($key, 'key');
@@ -147,9 +146,9 @@ class RestProxy
      * @param string $key      The HTTP header name.
      * @param string $value    The HTTP header value.
      *
-     * @return none
+     * @return void
      */
-    protected function addOptionalHeader(&$headers, $key, $value)
+    protected function addOptionalHeader(array &$headers, $key, $value)
     {
         Validate::isArray($headers, 'headers');
         Validate::isString($key, 'key');

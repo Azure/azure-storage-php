@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Tests\Unit\Table\Models\EdmTypeTest;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Property
@@ -47,7 +47,7 @@ class Property
     private $_edmType;
     
     /**
-     * @var mix
+     * @var mixed
      */
     private $_value;
     
@@ -66,7 +66,7 @@ class Property
      *
      * @param string $edmType The property type.
      *
-     * @return none
+     * @return void
      */
     public function setEdmType($edmType)
     {
@@ -87,9 +87,9 @@ class Property
     /**
      * Sets the property value.
      *
-     * @param mix $value The value of property.
+     * @param mixed $value The value of property.
      *
-     * @return none
+     * @return void
      */
     public function setValue($value)
     {

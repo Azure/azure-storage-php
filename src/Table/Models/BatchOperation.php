@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class BatchOperation
@@ -56,7 +56,7 @@ class BatchOperation
      *
      * @param string $type The operation type. Must be valid type.
      *
-     * @return none
+     * @return void
      */
     public function setType($type)
     {
@@ -82,9 +82,9 @@ class BatchOperation
      * Adds or sets parameter for the operation.
      *
      * @param string $name  The param name. Must be valid name.
-     * @param mix    $value The param value.
+     * @param mixed  $value The param value.
      *
-     * @return none
+     * @return void
      */
     public function addParameter($name, $value)
     {
@@ -100,7 +100,7 @@ class BatchOperation
      *
      * @param string $name The parameter name.
      *
-     * @return mix
+     * @return mixed
      */
     public function getParameter($name)
     {

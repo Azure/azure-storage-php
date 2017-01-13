@@ -32,7 +32,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class AcquireLeaseOptions extends BlobServiceOptions
@@ -45,7 +45,7 @@ class AcquireLeaseOptions extends BlobServiceOptions
     /**
      * Gets access condition
      *
-     * @return AccessCondition
+     * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition
      */
     public function getAccessCondition()
     {
@@ -55,11 +55,11 @@ class AcquireLeaseOptions extends BlobServiceOptions
     /**
      * Sets access condition
      *
-     * @param AccessCondition $accessCondition value to use.
+     * @param \MicrosoftAzure\Storage\Blob\Models\AccessCondition $accessCondition value to use.
      *
-     * @return none.
+     * @return void
      */
-    public function setAccessCondition($accessCondition)
+    public function setAccessCondition(AccessCondition $accessCondition)
     {
         $this->_accessCondition = $accessCondition;
     }

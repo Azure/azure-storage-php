@@ -25,7 +25,7 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
-use \MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
  * Options for listBlobs API.
@@ -35,7 +35,7 @@ use \MicrosoftAzure\Storage\Common\Internal\Validate;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ListContainersOptions extends BlobServiceOptions
@@ -80,7 +80,7 @@ class ListContainersOptions extends BlobServiceOptions
     /**
      * Gets prefix.
      *
-     * @return string.
+     * @return string
      */
     public function getPrefix()
     {
@@ -92,7 +92,7 @@ class ListContainersOptions extends BlobServiceOptions
      *
      * @param string $prefix value.
      *
-     * @return none.
+     * @return void
      */
     public function setPrefix($prefix)
     {
@@ -103,7 +103,7 @@ class ListContainersOptions extends BlobServiceOptions
     /**
      * Gets marker.
      *
-     * @return string.
+     * @return string
      */
     public function getMarker()
     {
@@ -115,7 +115,7 @@ class ListContainersOptions extends BlobServiceOptions
      *
      * @param string $marker value.
      *
-     * @return none.
+     * @return void
      */
     public function setMarker($marker)
     {
@@ -126,7 +126,7 @@ class ListContainersOptions extends BlobServiceOptions
     /**
      * Gets max results.
      *
-     * @return string.
+     * @return string
      */
     public function getMaxResults()
     {
@@ -138,7 +138,7 @@ class ListContainersOptions extends BlobServiceOptions
      *
      * @param string $maxResults value.
      *
-     * @return none.
+     * @return void
      */
     public function setMaxResults($maxResults)
     {
@@ -149,7 +149,7 @@ class ListContainersOptions extends BlobServiceOptions
     /**
      * Indicates if metadata is included or not.
      *
-     * @return string.
+     * @return string
      */
     public function getIncludeMetadata()
     {
@@ -161,7 +161,7 @@ class ListContainersOptions extends BlobServiceOptions
      *
      * @param bool $includeMetadata value.
      *
-     * @return none.
+     * @return void
      */
     public function setIncludeMetadata($includeMetadata)
     {

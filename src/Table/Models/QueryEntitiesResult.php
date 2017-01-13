@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.11.0
+ * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class QueryEntitiesResult
@@ -63,7 +63,7 @@ class QueryEntitiesResult
      *
      * @return QueryEntitiesResult
      */
-    public static function create($headers, $entities)
+    public static function create(array $headers, array $entities)
     {
         $result  = new QueryEntitiesResult();
         $headers = array_change_key_case($headers);
@@ -98,9 +98,9 @@ class QueryEntitiesResult
      *
      * @param array $entities The entities array.
      *
-     * @return none
+     * @return void
      */
-    public function setEntities($entities)
+    public function setEntities(array $entities)
     {
         $this->_entities = $entities;
     }
@@ -120,7 +120,7 @@ class QueryEntitiesResult
      *
      * @param string $nextPartitionKey The entity next partition key value.
      *
-     * @return none
+     * @return void
      */
     public function setNextPartitionKey($nextPartitionKey)
     {
@@ -142,7 +142,7 @@ class QueryEntitiesResult
      *
      * @param string $nextRowKey The entity next row key value.
      *
-     * @return none
+     * @return void
      */
     public function setNextRowKey($nextRowKey)
     {
