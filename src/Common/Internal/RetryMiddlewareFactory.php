@@ -124,7 +124,8 @@ class RetryMiddlewareFactory
      * that accepts the number of retries, the request, the response and the
      * exception, and return the decision for a retry.
      *
-     * @param  string $type The type of the retry handler.
+     * @param  string $type       The type of the retry handler.
+     * @param  int    $maxRetries The maximum number of retries to be done.
      *
      * @return callable     The callable that will return if the request should
      *                      be retried.

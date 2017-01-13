@@ -125,7 +125,7 @@ class Metrics
     /**
      * Sets include APIs.
      *
-     * @param $bool $includeAPIs value to use.
+     * @param bool $includeAPIs value to use.
      *
      * @return void
      */

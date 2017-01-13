@@ -47,6 +47,12 @@ class Block
      */
     private $_type;
 
+    /**
+     * Constructor.
+     *
+     * @param string $blockId The ID of this block.
+     * @param string $type    The type of the block.
+     */
     public function __construct($blockId = '', $type = '')
     {
         $this->_blockId = $blockId;
