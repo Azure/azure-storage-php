@@ -1,4 +1,4 @@
-Tracking Breaking changes in 0.11.1
+Tracking Breaking changes in 0.12.0
 
 * Moved `getMetadataArray` and `validateMetadata` from ServiceRestProxy.php to Utilities.php
 * Refined return type of the following API calls, to be more reasonable.
