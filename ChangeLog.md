@@ -20,7 +20,6 @@ Blob
     acquireLease
     ```
 * Merged `StorageAuthScheme` into `SharedKeyAuthScheme` and `TableSharedKeyLiteAuthScheme` now inherits `SharedKeyAuthScheme`. This is because Azure Storage now supports Shared Key authentication and SAS authentication so the name `StorageAuthScheme` was not representative anymore.
-    ```
 * Fixed an issue where the newest Guzzle failed to validate the path passed in when `withPath()` is called.    
 
 2016.11 - version 0.11.0
