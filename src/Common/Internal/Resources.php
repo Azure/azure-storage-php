@@ -223,6 +223,7 @@ class Resources
     const DEV_STORE_URI = 'http://127.0.0.1';
     const SERVICE_URI_FORMAT = "%s://%s.%s";
     const WRAP_ENDPOINT_URI_FORMAT = "https://%s-sb.accesscontrol.windows.net/WRAPv0.9";
+    const MB_IN_BYTES_1       = 1048576;
     const MB_IN_BYTES_4       = 4194304;
     const MB_IN_BYTES_32      = 33554432;
     const MB_IN_BYTES_64      = 67108864;

@@ -1618,7 +1618,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($container, 'container');
         Validate::isString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
-        $body = Psr7\stream_for($content);
+        $body = Psr7\stream_for($content)->getContents();
         Validate::isTrue(
             $options == null ||
             $options instanceof CreateBlobOptions,
@@ -1723,6 +1723,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $blockId = base64_encode(
                 str_pad($counter++, 6, '0', STR_PAD_LEFT)
             );
+            echo "blockID = {$counter}\n";
             $size = strlen($blockContent);
             if ($size == 0) {
                 return null;
