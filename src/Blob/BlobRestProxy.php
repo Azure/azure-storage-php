@@ -93,7 +93,7 @@ use GuzzleHttp\Psr7;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
+ * @version   Release: 0.12.1
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlobRestProxy extends ServiceRestProxy implements IBlob
@@ -1723,7 +1723,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $blockId = base64_encode(
                 str_pad($counter++, 6, '0', STR_PAD_LEFT)
             );
-            echo "blockID = {$counter}\n";
             $size = strlen($blockContent);
             if ($size == 0) {
                 return null;
