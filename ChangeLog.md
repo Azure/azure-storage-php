@@ -1,3 +1,7 @@
+2017.01 - version 0.12.1
+Blob
+* Fixed an issue where `createBlockBlob` would fail for some files with size larger than 1MB and smaller than 32MB.
+
 2017.01 - version 0.12.0
 
 ALL

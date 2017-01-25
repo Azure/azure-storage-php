@@ -93,7 +93,7 @@ use GuzzleHttp\Psr7;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
+ * @version   Release: 0.12.1
  * @link      https://github.com/azure/azure-storage-php
  */
 class BlobRestProxy extends ServiceRestProxy implements IBlob
@@ -1618,7 +1618,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($container, 'container');
         Validate::isString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
-        $body = Psr7\stream_for($content);
+        $body = Psr7\stream_for($content)->getContents();
         Validate::isTrue(
             $options == null ||
             $options instanceof CreateBlobOptions,
