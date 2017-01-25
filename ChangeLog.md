@@ -1,4 +1,4 @@
-2017.01 0 version 0.12.1
+2017.01 - version 0.12.1
 Blob
 * Fixed a critical issue where `createBlockBlob` would fail for certain size of files.
 
