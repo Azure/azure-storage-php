@@ -24,6 +24,8 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
+
 /**
  * Blob service options.
  *
@@ -35,29 +37,6 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @version   Release: 0.12.1
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlobServiceOptions
+class BlobServiceOptions extends ServiceOptionsBase
 {
-    private $_timeout;
-
-    /**
-     * Gets timeout.
-     *
-     * @return string
-     */
-    public function getTimeout()
-    {
-        return $this->_timeout;
-    }
-
-    /**
-     * Sets timeout.
-     *
-     * @param string $timeout value.
-     *
-     * @return void
-     */
-    public function setTimeout($timeout)
-    {
-        $this->_timeout = $timeout;
-    }
 }

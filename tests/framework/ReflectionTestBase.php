@@ -15,28 +15,21 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Table\Models
+ * @package   MicrosoftAzure\Storage\Tests\Framework
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
-namespace MicrosoftAzure\Storage\Table\Models;
+namespace MicrosoftAzure\Storage\Tests\framework;
 
-use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
-
-/**
- * Table service options.
- *
- * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Table\Models
- * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
- * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.1
- * @link      https://github.com/azure/azure-storage-php
- */
-class TableServiceOptions extends ServiceOptionsBase
+class ReflectionTestBase extends \PHPUnit_Framework_TestCase
 {
+    protected static function getMethod($name, $object)
+    {
+        $class = new \ReflectionClass($object);
+        $method = $class->getMethod($name);
+        $method->setAccessible(true);
+        return $method;
+    }
 }

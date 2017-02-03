@@ -115,7 +115,10 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return ListQueuesResult::create($parsed);
@@ -188,7 +191,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_NO_CONTENT,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -273,7 +277,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -329,7 +334,9 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $queryParams,
             $postParams,
             $path,
-            array(Resources::STATUS_CREATED, Resources::STATUS_NO_CONTENT)
+            array(Resources::STATUS_CREATED, Resources::STATUS_NO_CONTENT),
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
     }
 
@@ -411,7 +418,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_NO_CONTENT,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -522,7 +530,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_OK,
-            $body
+            $body,
+            $options->getRequestOptions()
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             $metadata = Utilities::getMetadataArray($responseHeaders);
@@ -591,7 +600,10 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
         
@@ -660,7 +672,10 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return ListMessagesResult::create($parsed);
@@ -725,7 +740,10 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return PeekMessagesResult::create($parsed);
@@ -797,7 +815,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_NO_CONTENT,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -878,7 +897,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_ACCEPTED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -1011,7 +1031,8 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $postParams,
             $path,
             Resources::STATUS_NO_CONTENT,
-            $body
+            $body,
+            $options->getRequestOptions()
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
         

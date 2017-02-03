@@ -22,12 +22,12 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Common;
 
-use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
 
 /**
- * Unit tests for class BlobServiceOptions
+ * Unit tests for class ServiceOptionsBase
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
@@ -37,15 +37,16 @@ use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
  * @version   Release: 0.12.1
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlobServiceOptionsTest extends \PHPUnit_Framework_TestCase
+class ServiceOptionsBaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions::setTimeout
+     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::setTimeout
+     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::getTimeout
      */
-    public function testSetTimeout()
+    public function testSetGetTimeout()
     {
         // Setup
-        $options = new BlobServiceOptions();
+        $options = new ServiceOptionsBase();
         $value = 10;
         
         // Test
@@ -54,21 +55,24 @@ class BlobServiceOptionsTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($value, $options->getTimeout());
     }
-    
+
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions::getTimeout
+     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::setRequestOptions
+     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::getRequestOptions
      */
-    public function testGetTimeout()
+    public function testSetGetRequestOptions()
     {
         // Setup
-        $options = new BlobServiceOptions();
-        $value = 10;
-        $options->setTimeout($value);
+        $options = new ServiceOptionsBase();
+        $requestOptions = array(
+            'middlewares' => 'test_middleware',
+            'handler' => 'test_handler'
+        );
         
         // Test
-        $actualValue = $options->getTimeout();
+        $options->setRequestOptions($requestOptions);
         
         // Assert
-        $this->assertEquals($value, $actualValue);
+        $this->assertEquals($requestOptions, $options->getRequestOptions());
     }
 }

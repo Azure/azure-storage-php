@@ -109,6 +109,9 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
 
     public function deleteContainer($containerName)
     {
+        if (($key = array_search($containerName, $this->_createdContainers)) !== false) {
+            unset($this->_createdContainers[$key]);
+        }
         $this->restProxy->deleteContainer($containerName);
     }
 
@@ -116,7 +119,7 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
     {
         $containers = $this->listContainers($containerPrefix);
         foreach ($containerList as $container) {
-            if (!(array_search($container, $containers) === false)) {
+            if ((array_search($container, $containers) === true)) {
                 $this->deleteContainer($container);
             }
         }

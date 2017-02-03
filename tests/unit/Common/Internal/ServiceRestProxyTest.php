@@ -71,42 +71,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::withFilter
-     * @depends testConstruct
-     */
-    public function testWithFilter($restRestProxy)
-    {
-        // Setup
-        $filter = new SimpleFilterMock('name', 'value');
-
-        // Test
-        $actual = $restRestProxy->withFilter($filter);
-
-        // Assert
-        $this->assertCount(1, $actual->getFilters());
-        $this->assertCount(0, $restRestProxy->getFilters());
-    }
-
-    /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::getFilters
-     * @depends testConstruct
-     */
-    public function testGetFilters($restRestProxy)
-    {
-        // Setup
-        $filter = new SimpleFilterMock('name', 'value');
-        $withFilter = $restRestProxy->withFilter($filter);
-
-        // Test
-        $actual1 = $withFilter->getFilters();
-        $actual2 = $restRestProxy->getFilters();
-
-        // Assert
-        $this->assertCount(1, $actual1);
-        $this->assertCount(0, $actual2);
-    }
-
-    /**
      * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
      * @depends testConstruct
      */

@@ -86,11 +86,35 @@ There are four basic steps that have to be performed before you can make a call 
 
 * Instantiate a client object - a wrapper around the available calls for the given service.
 
-```PHP
-$tableClient = ServicesBuilder::getInstance()->createTableService($connectionString);
-$blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
-$queueClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+  ```PHP
+  $tableClient = ServicesBuilder::getInstance()->createTableService($connectionString);
+  $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
+  $queueClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+  ```
+### Using Middlewares
+To specify the middlewares, user have to create an array with middlewares
+and put it in the `$requestOptions` with key 'middlewares'. The sequence of
+the array will affect the sequence in which the middleware is invoked. The
+`$requestOptions` can usually be set in the options of an API call, such as
+`MicrosoftAzure\Storage\Blob\Models\ListBlobOptions`.
+
+The user can push the middleware into the array with key 'middlewares' in
+services' `$_options` instead when creating them if the middleware is to be
+applied to each of the API call for a rest proxy. These middlewares will always
+be invoked after the middlewares in the `$requestOptions`.
+e.g.:
 ```
+$tableClient = ServicesBuilder::getInstance()->createTableService(
+    $connectionString,
+    $optionsWithMiddlewares
+);
+```
+
+Each of the middleware should be either an instance of a sub-class that
+implements `MicrosoftAzure\Storage\Common\Internal\IMiddleware`, or a
+`callable` that follows the Guzzle middleware implementation convention.
+
+User can create self-defined middleware that inherits from `MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase`.
 
 ## Troubleshooting
 ### Error: Unable to get local issuer certificate

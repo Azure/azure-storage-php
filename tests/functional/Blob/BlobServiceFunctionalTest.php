@@ -43,6 +43,11 @@ use MicrosoftAzure\Storage\Common\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
+use MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 class BlobServiceFunctionalTest extends FunctionalTestBase
 {
@@ -2812,6 +2817,61 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
                     \DateTime::RFC1123
                 ) . ')'. ' should be within 10 seconds of $now (' .
                 $now->format(\DateTime::RFC1123) . ')'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     */
+    public function testMiddlewares()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        
+        //setup options for the first try.
+        $options = new ListContainersOptions();
+        $options->setRequestOptions(['middlewares' => [$historyMiddleware]]);
+        //get the response of the server.
+        $result = $this->restProxy->listContainers($options);
+        $response = $historyMiddleware->getHistory()[0]['response'];
+        $request = $historyMiddleware->getHistory()[0]['request'];
+
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new RequestException(
+                'mock 408 exception',
+                $request,
+                new Response(408, ['test_header' => 'test_header_value'])
+            ),
+            new Response(500, ['test_header' => 'test_header_value']),
+            $response
+        ]);
+        //test using mock handler.
+        $options = new ListContainersOptions();
+        $options->setRequestOptions(
+            [
+            'middlewares' => [$retryMiddleware, $historyMiddleware],
+            'handler' => $mock
+            ]
+        );
+        $newResult = $this->restProxy->listContainers($options);
+        $this->assertTrue(
+            $result == $newResult,
+            'Mock result does not match server behavior'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[1]['reason']->getMessage() == 'mock 408 exception',
+            'Mock handler does not gave the first 408 exception correctly'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[2]['response']->getStatusCode() == 500,
+            'Mock handler does not gave the second 500 response correctly'
         );
     }
 

@@ -24,7 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\FilterableService;
 use MicrosoftAzure\Storage\Table\Models as TableModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
@@ -40,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
  * @link      https://github.com/azure/azure-storage-php
  * @see       http://msdn.microsoft.com/en-us/library/windowsazure/dd179423.aspx
  */
-interface ITable extends FilterableService
+interface ITable
 {
     /**
     * Gets the properties of the Table service.

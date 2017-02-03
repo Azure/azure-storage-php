@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\IMiddleware;
 
 /**
  * Base class for all REST proxies.
@@ -43,7 +44,7 @@ class RestProxy
     /**
      * @var array
      */
-    private $_filters;
+    private $middlewares;
     
     /**
      * @var Serialization\ISerializer
@@ -63,19 +64,19 @@ class RestProxy
      */
     public function __construct(Serialization\ISerializer $dataSerializer = null, $uri)
     {
-        $this->_filters       = array();
+        $this->middlewares    = array();
         $this->dataSerializer = $dataSerializer;
         $this->_uri           = $uri;
     }
     
     /**
-     * Gets HTTP filters that will process each request.
+     * Gets middlewares that will be handling the request and response.
      *
      * @return array
      */
-    public function getFilters()
+    public function getMiddlewares()
     {
-        return $this->_filters;
+        return $this->middlewares;
     }
 
     /**
@@ -101,18 +102,16 @@ class RestProxy
     }
 
     /**
-     * Adds new filter to new service rest proxy object and returns that object back.
+     * Push a new middleware into the middlewares array. The newly added
+     * middleware will be the most inner middleware when executed.
      *
-     * @param IServiceFilter $filter Filter to add for the pipeline.
+     * @param  callable|IMiddleware $middleware the middleware to be added.
      *
-     * @return RestProxy
+     * @return void
      */
-    public function withFilter(IServiceFilter $filter)
+    public function pushMiddleware($middleware)
     {
-        $serviceProxyWithFilter             = clone $this;
-        $serviceProxyWithFilter->_filters[] = $filter;
-
-        return $serviceProxyWithFilter;
+        $this->middlewares[] = $middleware;
     }
     
     /**
