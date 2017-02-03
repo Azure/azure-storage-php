@@ -95,8 +95,8 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         self::$createTable2 = self::$creatableTables[1];
 
         // Create all test containers and their content
-        $this->deleteAllTables(self::$testTables);
-        $this->deleteAllTables(self::$creatableTables);
+        $this->deleteTables('', self::$testTables);
+        $this->deleteTables('', self::$creatableTables);
         $this->createTables(self::$testTablesPrefix, self::$testTables);
     }
 

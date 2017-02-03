@@ -43,6 +43,11 @@ use MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions;
 use MicrosoftAzure\Storage\Table\Models\QueryTablesOptions;
 use MicrosoftAzure\Storage\Table\Models\TableServiceOptions;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
+use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
+use MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 class TableServiceFunctionalTest extends FunctionalTestBase
 {
@@ -2121,6 +2126,61 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $expectedProp->getValue(),
             $actualProp->getValue(),
             'getProperties()->get(\'' . $pname . '\')->getValue [' . $effectiveExpectedProp . ']'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     */
+    public function testMiddlewares()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        
+        //setup options for the first try.
+        $options = new QueryTablesOptions();
+        $options->setRequestOptions(['middlewares' => [$historyMiddleware]]);
+        //get the response of the server.
+        $result = $this->restProxy->queryTables($options);
+        $response = $historyMiddleware->getHistory()[0]['response'];
+        $request = $historyMiddleware->getHistory()[0]['request'];
+
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new RequestException(
+                'mock 408 exception',
+                $request,
+                new Response(408, ['test_header' => 'test_header_value'])
+            ),
+            new Response(500, ['test_header' => 'test_header_value']),
+            $response
+        ]);
+        //test using mock handler.
+        $options = new QueryTablesOptions();
+        $options->setRequestOptions(
+            [
+            'middlewares' => [$retryMiddleware, $historyMiddleware],
+            'handler' => $mock
+            ]
+        );
+        $newResult = $this->restProxy->queryTables($options);
+        $this->assertTrue(
+            $result == $newResult,
+            'Mock result does not match server behavior'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[1]['reason']->getMessage() == 'mock 408 exception',
+            'Mock handler does not gave the first 408 exception correctly'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[2]['response']->getStatusCode() == 500,
+            'Mock handler does not gave the second 500 response correctly'
         );
     }
 }

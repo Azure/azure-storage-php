@@ -26,10 +26,11 @@ namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 
-class RetryMiddlewareFactoryTest extends \PHPUnit_Framework_TestCase
+class RetryMiddlewareFactoryTest extends ReflectionTestBase
 {
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::create
@@ -91,21 +92,13 @@ class RetryMiddlewareFactoryTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    protected static function getMethod($name)
-    {
-        $class = new \ReflectionClass(new RetryMiddlewareFactory());
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method;
-    }
-
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::createRetryDecider
      * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::generalRetryDecider
      */
     public function testCreateRetryDeciderWithGeneralRetryDecider()
     {
-        $createRetryDecider = self::getMethod('createRetryDecider');
+        $createRetryDecider = self::getMethod('createRetryDecider', new RetryMiddlewareFactory());
         $generalDecider = $createRetryDecider->invokeArgs(
             null,
             array(RetryMiddlewareFactory::GENERAL_RETRY_TYPE, 3)
@@ -132,7 +125,7 @@ class RetryMiddlewareFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateLinearDelayCalculator()
     {
-        $creator = self::getMethod('createLinearDelayCalculator');
+        $creator = self::getMethod('createLinearDelayCalculator', new RetryMiddlewareFactory());
         $linearDelayCalculator = $creator->invokeArgs(null, array(1000));
         for ($index = 0; $index < 10; ++$index) {
             $this->assertEquals($index * 1000, $linearDelayCalculator($index));
@@ -144,7 +137,7 @@ class RetryMiddlewareFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateExponentialDelayCalculator()
     {
-        $creator = self::getMethod('createExponentialDelayCalculator');
+        $creator = self::getMethod('createExponentialDelayCalculator', new RetryMiddlewareFactory());
         $exponentialDelayCalculator = $creator->invokeArgs(null, array(1000));
         for ($index = 0; $index < 3; ++$index) {
             $pow = (int)\pow(2, $index);

@@ -94,6 +94,13 @@ class HttpCallContext
      * @var string
      */
     private $_body;
+
+    /**
+     * The request option this context will be sent with
+     *
+     * @var array
+     */
+    private $_requestOptions;
     
     /**
      * Default constructor.
@@ -108,6 +115,7 @@ class HttpCallContext
         $this->_postParameters = array();
         $this->_statusCodes    = array();
         $this->_headers        = array();
+        $this->_requestOptions = array();
     }
     
     /**
@@ -419,6 +427,31 @@ class HttpCallContext
     public function getHeader($name)
     {
         return Utilities::tryGetValue($this->_headers, $name);
+    }
+
+    /**
+     * Gets the saved request options
+     *
+     * @return array
+     */
+    public function getRequestOptions()
+    {
+        if ($this->_requestOptions == null) {
+            $this->_requestOptions = [];
+        }
+        return $this->_requestOptions;
+    }
+
+    /**
+     * Sets the request options
+     *
+     * @param array $requestOptions the request options to be set.
+     *
+     * @return void
+     */
+    public function setRequestOptions(array $requestOptions)
+    {
+        $this->_requestOptions = $requestOptions;
     }
     
     /**

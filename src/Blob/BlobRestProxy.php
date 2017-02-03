@@ -258,7 +258,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             return GetContainerPropertiesResult::create($responseHeaders);
@@ -478,7 +481,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $path,
-            $expectedStatusCode
+            $expectedStatusCode,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
     }
 
@@ -571,7 +576,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return CreateBlobPagesResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -639,7 +645,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return GetServicePropertiesResult::create($parsed);
@@ -727,7 +736,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_ACCEPTED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
     
@@ -806,7 +816,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $this->dataSerializer->unserialize($response->getBody());
             return ListContainersResult::create($parsed);
@@ -877,7 +890,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_CREATED
+            Resources::STATUS_CREATED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
     }
     
@@ -945,7 +960,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_ACCEPTED
+            Resources::STATUS_ACCEPTED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
     }
     
@@ -1087,7 +1104,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
 
         return $promise->then(function ($response) use ($dataSerializer) {
@@ -1197,7 +1217,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_OK,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
     
@@ -1275,7 +1296,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
     }
     
@@ -1381,7 +1405,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return ListBlobsResult::create($parsed);
@@ -1490,7 +1517,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_CREATED
+            Resources::STATUS_CREATED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return PutBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -1661,7 +1690,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -1745,7 +1775,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         };
 
         //add number of concurrency if specified int options.
-        $clientOptions = $options->getNumberOfConcurrency() == null?
+        $requestOptions = $options->getNumberOfConcurrency() == null?
             array() : array($options->getNumberOfConcurrency);
 
         //Send the request concurrently.
@@ -1755,7 +1785,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             array(),
             $generator,
             Resources::STATUS_CREATED,
-            $clientOptions
+            $requestOptions
         );
 
         $selfInstance = $this;
@@ -2008,7 +2038,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return PutBlockResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -2229,7 +2260,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
     
@@ -2331,7 +2363,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             $parsed = $this->dataSerializer->unserialize($response->getBody());
         
@@ -2421,7 +2456,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             $formattedHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             return GetBlobPropertiesResult::create($formattedHeaders);
@@ -2508,7 +2546,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             $metadata = Utilities::getMetadataArray($responseHeaders);
@@ -2610,7 +2651,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return ListPageBlobRangesResult::create(
@@ -2746,7 +2790,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return SetBlobPropertiesResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -2840,7 +2887,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return SetBlobMetadataResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3001,6 +3051,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_SNAPSHOT,
             $options->getSnapshot()
         );
+
+        $requestOptions = $options->getRequestOptions();
+        //setting stream to true to enable streaming
+        $requestOptions['stream'] = true;
         
         return $this->sendAsync(
             $method,
@@ -3010,7 +3064,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             array(Resources::STATUS_OK, Resources::STATUS_PARTIAL_CONTENT),
             Resources::EMPTY_STRING,
-            ['stream' => true] //setting stream to true to enable streaming
+            $requestOptions
         )->then(function ($response) {
             $metadata = Utilities::getMetadataArray(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3119,7 +3173,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_ACCEPTED
+            Resources::STATUS_ACCEPTED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         );
     }
     
@@ -3200,7 +3256,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_CREATED
+            Resources::STATUS_CREATED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return CreateBlobSnapshotResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3327,7 +3385,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             $postParams,
             $destinationBlobPath,
-            Resources::STATUS_ACCEPTED
+            Resources::STATUS_ACCEPTED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) {
             return CopyBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())

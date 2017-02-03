@@ -318,6 +318,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->addStatusCode($statusCode);
         $context->setUri($this->getUri());
         $context->setBody('');
+        $context->setRequestOptions($options->getRequestOptions());
 
         return $context;
     }
@@ -385,6 +386,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
         $context->setUri($this->getUri());
+        $context->setRequestOptions($options->getRequestOptions());
 
         return $context;
     }
@@ -438,6 +440,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
         $context->setUri($this->getUri());
+        $context->setRequestOptions($options->getRequestOptions());
 
         return $context;
     }
@@ -699,6 +702,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->addOptionalQueryParameter(Resources::QP_COMP, 'properties');
         $context->addOptionalQueryParameter(Resources::QP_TIMEOUT, $timeout);
         $context->setStatusCodes(array(Resources::STATUS_OK));
+        $context->setRequestOptions($options->getRequestOptions());
 
         $dataSerializer = $this->dataSerializer;
 
@@ -794,7 +798,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_ACCEPTED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -910,7 +915,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             $tables = $atomSerializer->parseTableEntries($response->getBody());
 
@@ -982,7 +990,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -1042,7 +1051,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             return GetTableResult::create($response->getBody(), $atomSerializer);
         }, null);
@@ -1102,7 +1114,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_NO_CONTENT
+            Resources::STATUS_NO_CONTENT,
+            $options->getRequestOptions()
         );
     }
 
@@ -1199,7 +1212,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             $entities = $atomSerializer->parseEntities($response->getBody());
 
@@ -1580,6 +1596,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setPath($path);
         $context->setQueryParameters($queryParams);
         $context->setStatusCodes(array(Resources::STATUS_OK));
+        $context->setRequestOptions($options->getRequestOptions());
 
         $atomSerializer = $this->_atomSerializer;
 
@@ -1653,7 +1670,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_ACCEPTED,
-            $body
+            $body,
+            $options->getRequestOptions()
         )->then(function ($response) use (
             $operations,
             $contexts,

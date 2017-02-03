@@ -24,7 +24,6 @@
 
 namespace MicrosoftAzure\Storage\Queue\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\FilterableService;
 use MicrosoftAzure\Storage\Queue\Models as QueueModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
@@ -40,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
  * @link      https://github.com/azure/azure-storage-php
  * @see       http://msdn.microsoft.com/en-us/library/windowsazure/dd179363.aspx
  */
-interface IQueue extends FilterableService
+interface IQueue
 {
     /**
      * Gets the properties of the Queue service.
