@@ -928,11 +928,11 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainerAsync
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Path must be a string
+     * @expectedExceptionMessage should be of type 'string'
      */
     public function testCreateContainerAsyncWithInvalidParameters()
     {
-        $this->restProxy->createContainerAsync(1024);
+        $this->restProxy->createContainerAsync(array());
     }
     
     /**
