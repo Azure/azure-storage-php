@@ -284,7 +284,17 @@ class ServiceRestProxy extends RestProxy
     ) {
         // add query parameters into headers
         $uri = $this->_psrUri;
+        //Append the path, not replacing it.
         if ($path != null) {
+            $exPath = $uri->getPath();
+            if ($exPath != '') {
+                //Remove the duplicated slash in the path.
+                if ($path != '' && $path[0] == '/') {
+                    $path = $exPath . substr($path, 1);
+                } else {
+                    $path = $exPath . $path;
+                }
+            }
             $uri = $uri->withPath($path);
         }
 
