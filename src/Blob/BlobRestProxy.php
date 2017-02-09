@@ -1597,7 +1597,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $promise = $this->createBlockBlobBySingleUploadAsync(
                 $container,
                 $blob,
-                $content,
+                $body,
                 $options
             );
         } else {
@@ -1605,7 +1605,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $promise = $this->createBlockBlobByMultipleUploadAsync(
                 $container,
                 $blob,
-                $content,
+                $body,
                 $options
             );
         }
@@ -1629,10 +1629,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * Updating an existing block blob overwrites any existing metadata on
      * the blob.
      *
-     * @param string                          $container The name of the container.
-     * @param string                          $blob      The name of the blob.
-     * @param string|resource|StreamInterface $content   The content of the blob.
-     * @param Models\CreateBlobOptions        $options   The optional parameters.
+     * @param string                   $container The name of the container.
+     * @param string                   $blob      The name of the blob.
+     * @param StreamInterface          $content   The content of the blob.
+     * @param Models\CreateBlobOptions $options   The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1647,7 +1647,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($container, 'container');
         Validate::isString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
-        $body = Psr7\stream_for($content)->getContents();
         Validate::isTrue(
             $options == null ||
             $options instanceof CreateBlobOptions,
@@ -1690,7 +1689,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body,
+            $content,
             $options->getRequestOptions()
         );
     }
@@ -1699,10 +1698,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * This method creates the blob blocks. This method will send the request
      * concurrently for better performance.
      *
-     * @param  string                          $container  Name of the container
-     * @param  string                          $blob       Name of the blob
-     * @param  string|resource|StreamInterface $content    Content's stream
-     * @param  Models\CreateBlobOptions        $options    Array that contains
+     * @param  string                   $container  Name of the container
+     * @param  string                   $blob       Name of the blob
+     * @param  StreamInterface          $content    Content's stream
+     * @param  Models\CreateBlobOptions $options    Array that contains
      *                                                     all the option
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1713,7 +1712,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlobOptions $options = null
     ) {
-        $contentStream = Psr7\stream_for($content);
         Validate::isString($container, 'container');
         Validate::isString($blob, 'blob');
 
@@ -1737,7 +1735,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         //create the generator for requests.
         //this generator also constructs the blockId array on the fly.
         $generator = function () use (
-            $contentStream,
+            $content,
             &$blockIds,
             $blockSize,
             $createBlobBlockOptions,
@@ -1748,7 +1746,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             &$counter
         ) {
             //read the content.
-            $blockContent = $contentStream->read($blockSize);
+            $blockContent = $content->read($blockSize);
             //construct the blockId
             $blockId = base64_encode(
                 str_pad($counter++, 6, '0', STR_PAD_LEFT)
