@@ -28,6 +28,7 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Resources for testing framework.
@@ -58,6 +59,10 @@ class TestResources
     const URI2          = "http://myaccount.queue.core.windows.net/?comp=list";
     const DATE1         = 'Sat, 18 Feb 2012 16:25:21 GMT';
     const DATE2         = 'Mon, 20 Feb 2012 17:12:31 GMT';
+    const REQUEST_ID1   = 'f16b5298-0003-011e-0e70-83666b000000';
+    const REQUEST_ID2   = 'c17dcd76-0003-0046-1c70-832445000000';
+    const RESPONSE_BODY = "<?xml version=\"1.0\" encoding=\"utf-8\"?><Error><Code>InvalidResourceName</Code><Message>The specifed resource name contains invalid characters.\nRequestId:f16b5298-0003-011e-0e70-83666b000000\nTime:2017-02-10T07:36:04.8329883Z</Message></Error>";
+    const ERROR_MESSAGE = "The specifed resource name contains invalid characters.\nRequestId:f16b5298-0003-011e-0e70-83666b000000\nTime:2017-02-10T07:36:04.8329883Z";
     const VALID_URL     = 'http://www.example.com';
     const HEADER1       = 'testheader1';
     const HEADER2       = 'testheader2';
@@ -117,6 +122,20 @@ class TestResources
         $developmentStorageConnectionString = 'UseDevelopmentStorage=true';
 
         return $developmentStorageConnectionString;
+    }
+
+    public static function getFailedResponse($statusCode, $reason)
+    {
+        return new Response(
+            $statusCode,
+            array(
+                Resources::DATE => self::DATE1,
+                Resources::X_MS_REQUEST_ID => self::REQUEST_ID1
+            ),
+            self::RESPONSE_BODY,
+            '1.1',
+            $reason
+        );
     }
 
     public static function getServiceManagementConnectionString()

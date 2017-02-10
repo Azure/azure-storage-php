@@ -41,6 +41,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Base class for all services rest proxies.
@@ -245,9 +246,7 @@ class ServiceRestProxy extends RestProxy
             'fulfilled' => function ($response, $index) use ($expectedStatusCode) {
                 //the promise is fulfilled, evaluate the response
                 self::throwIfError(
-                    $response->getStatusCode(),
-                    $response->getReasonPhrase(),
-                    $response->getBody(),
+                    $response,
                     $expectedStatusCode
                 );
             },
@@ -371,9 +370,7 @@ class ServiceRestProxy extends RestProxy
         return $promise->then(
             function ($response) use ($expected) {
                 self::throwIfError(
-                    $response->getStatusCode(),
-                    $response->getReasonPhrase(),
-                    $response->getBody(),
+                    $response,
                     $expected
                 );
                 return $response;
@@ -385,9 +382,7 @@ class ServiceRestProxy extends RestProxy
                 $response = $reason->getResponse();
                 if ($response != null) {
                     self::throwIfError(
-                        $response->getStatusCode(),
-                        $response->getReasonPhrase(),
-                        $response->getBody(),
+                        $response,
                         $expected
                     );
                 } else {
@@ -434,10 +429,8 @@ class ServiceRestProxy extends RestProxy
     /**
      * Throws ServiceException if the recieved status code is not expected.
      *
-     * @param string    $actual   The received status code.
-     * @param string    $reason   The reason phrase.
-     * @param string    $message  The detailed message (if any).
-     * @param array|int $expected The expected status codes.
+     * @param ResponseInterface $response The response received
+     * @param array|int         $expected The expected status codes.
      *
      * @return void
      *
@@ -445,12 +438,12 @@ class ServiceRestProxy extends RestProxy
      *
      * @throws ServiceException
      */
-    public static function throwIfError($actual, $reason, $message, $expected)
+    public static function throwIfError(ResponseInterface $response, $expected)
     {
         $expectedStatusCodes = is_array($expected) ? $expected : array($expected);
 
-        if (!in_array($actual, $expectedStatusCodes)) {
-            throw new ServiceException($actual, $reason, $message);
+        if (!in_array($response->getStatusCode(), $expectedStatusCodes)) {
+            throw new ServiceException($response);
         }
     }
     

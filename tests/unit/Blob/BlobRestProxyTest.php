@@ -203,6 +203,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
+    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedExceptionMessage 400
     */
     public function testListContainersWithInvalidNextMarkerFail()
     {
@@ -217,7 +219,6 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         parent::createContainer($container3);
         $options = new ListContainersOptions();
         $options->setMaxResults('2');
-        $this->setExpectedException(get_class(new ServiceException('409')));
         
         // Test
         $this->restProxy->listContainers($options);
@@ -317,12 +318,14 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
+        $this->setExpectedException(get_class(new ServiceException('400')));
+    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedExceptionMessage 400
     */
     public function testCreateContainerInvalidNameFail()
     {
         // Setup
         $containerName = 'CreateContainerInvalidNameFail' . $this->createSuffix();
-        $this->setExpectedException(get_class(new ServiceException('400')));
         
         // Test
         $this->createContainer($containerName);
@@ -330,12 +333,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
+    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedExceptionMessage 409
     */
     public function testCreateContainerAlreadyExitsFail()
     {
         // Setup
         $containerName = 'createcontaineralreadyexitsfail' . $this->createSuffix();
-        $this->setExpectedException(get_class(new ServiceException('204')));
         $this->createContainer($containerName);
 
         // Test
@@ -362,12 +366,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
+    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedExceptionMessage 404
     */
     public function testDeleteContainerFail()
     {
         // Setup
         $containerName = 'deletecontainerfail' . $this->createSuffix();
-        $this->setExpectedException(get_class(new ServiceException('404')));
         
         // Test
         $this->restProxy->deleteContainer($containerName);
@@ -908,6 +913,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
+     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedExceptionMessage 404
      */
     public function testGetBlobNotExist()
     {
@@ -916,13 +923,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
         $promise = $this->restProxy->getBlobAsync($name, $blob);
 
-        $code = null;
-        try {
-            $promise->wait();
-        } catch (ServiceException $e) {
-            $code = $e->getCode();
-        }
-        $this->assertEquals($code, '404');
+        $promise->wait();
     }
 
     /**
@@ -2437,6 +2438,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         } catch (\Exception $e) {
             $errorMsg = $e->getMessage();
         }
+
         $this->assertTrue(strpos($errorMsg, Resources::ERROR_BLOB_NOT_EXIST) != 0);
 
         if (file_exists($downloadPath)) {
