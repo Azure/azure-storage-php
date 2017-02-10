@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Common;
 
 use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Tests\framework\TestResources;
 
 /**
  * Unit tests for class ServiceException
@@ -45,51 +46,90 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         // Setup
-        $code = '210';
-        $error = 'Invalid value provided';
-        $reason = 'Value can\'t be null';
+        $response = TestResources::getFailedResponse(400, 'test info');
         
         // Test
-        $e = new ServiceException($code, $error, $reason);
+        $e = new ServiceException($response);
         
         // Assert
-        $this->assertEquals($code, $e->getCode());
-        $this->assertEquals($error, $e->getErrorText());
-        $this->assertEquals($reason, $e->getErrorReason());
+        $this->assertEquals(400, $e->getCode());
+        $this->assertEquals('test info', $e->getErrorText());
+        $this->assertEquals($response, $e->getResponse());
     }
     
     /**
      * @covers MicrosoftAzure\Storage\Common\ServiceException::getErrorText
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
      */
     public function testGetErrorText()
     {
         // Setup
-        $code = '210';
-        $error = 'Invalid value provided';
-        $reason = 'Value can\'t be null';
-        $e = new ServiceException($code, $error, $reason);
+        $response = TestResources::getFailedResponse(210, 'test info');
+        $e = new ServiceException($response);
         
         // Test
         $actualError = $e->getErrorText();
         // Assert
-        $this->assertEquals($error, $actualError);
+        $this->assertEquals('test info', $actualError);
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::getErrorReason
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::getErrorMessage
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::parseErrorMessage
      */
-    public function testGetErrorReason()
+    public function testGetErrorMessage()
     {
         // Setup
-        $code = '210';
-        $error = 'Invalid value provided';
-        $reason = 'Value can\'t be null';
-        $e = new ServiceException($code, $error, $reason);
+        $response = TestResources::getFailedResponse(210, 'test info');
+        $e = new ServiceException($response);
 
         // Test
-        $actualErrorReason = $e->getErrorReason();
+        $actualErrorMessage = $e->getErrorMessage();
         
         // Assert
-        $this->assertEquals($reason, $actualErrorReason);
+        $this->assertEquals($actualErrorMessage, TestResources::ERROR_MESSAGE);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::getRequestID
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     */
+    public function testGetRequestID()
+    {
+        // Setup
+        $response = TestResources::getFailedResponse(210, 'test info');
+        $e = new ServiceException($response);
+
+        // Assert
+        $this->assertEquals($e->getRequestID(), TestResources::REQUEST_ID1);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::getDate
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     */
+    public function testGetDate()
+    {
+        // Setup
+        $response = TestResources::getFailedResponse(210, 'test info');
+        $e = new ServiceException($response);
+
+        // Assert
+        $this->assertEquals($e->getDate(), TestResources::DATE1);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::getResponse
+     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     */
+    public function testGetResponse()
+    {
+        // Setup
+        $response = TestResources::getFailedResponse(210, 'test info');
+        $e = new ServiceException($response);
+
+        // Assert
+        $this->assertEquals($e->getResponse(), $response);
     }
 }

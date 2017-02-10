@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\BatchError;
 use MicrosoftAzure\Storage\Common\ServiceException;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Unit tests for class BatchError
@@ -48,7 +49,7 @@ class BatchErrorTest extends \PHPUnit_Framework_TestCase
     public function testCreate()
     {
         // Setup
-        $error = new ServiceException('200');
+        $error = new ServiceException(new Response());
         $contentId = 1;
         $headers = array('content-id' => strval($contentId));
         
@@ -70,7 +71,7 @@ class BatchErrorTest extends \PHPUnit_Framework_TestCase
     public function testSetError($batchError)
     {
         // Setup
-        $error = new ServiceException('100');
+        $error = new ServiceException(new Response());
         
         // Test
         $batchError->setError($error);

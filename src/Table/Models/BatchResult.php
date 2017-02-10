@@ -34,6 +34,7 @@ use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Holds results from batch API.
@@ -157,9 +158,13 @@ class BatchResult
             
             try {
                 ServiceRestProxy::throwIfError(
-                    $response->statusCode,
-                    $response->reason,
-                    $response->body,
+                    new Response(
+                        $response->statusCode,
+                        $response->headers,
+                        $response->body,
+                        $response->version,
+                        $response->reason
+                    ),
                     $context->getStatusCodes()
                 );
             

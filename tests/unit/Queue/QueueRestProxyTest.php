@@ -147,6 +147,8 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
+     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedExceptionMessage 400
      */
     public function testListQueuesWithInvalidNextMarkerFail()
     {
@@ -161,7 +163,6 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         parent::createQueue($queue3);
         $options = new ListQueuesOptions();
         $options->setMaxResults(2);
-        $this->setExpectedException(get_class(new ServiceException('409')));
         
         // Test
         $this->restProxy->listQueues($options);
@@ -261,12 +262,13 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
+     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedExceptionMessage 400
      */
     public function testCreateQueueInvalidNameFail()
     {
         // Setup
         $queueName = 'CreateQueueInvalidNameFail';
-        $this->setExpectedException(get_class(new ServiceException('400')));
         
         // Test
         $this->createQueue($queueName);
@@ -292,12 +294,13 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
+     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedExceptionMessage 404
      */
     public function testDeleteQueueFail()
     {
         // Setup
         $queueName = 'deletequeuefail';
-        $this->setExpectedException(get_class(new ServiceException('404')));
         
         // Test
         $this->restProxy->deleteQueue($queueName);

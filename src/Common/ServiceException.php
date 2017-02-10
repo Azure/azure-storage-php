@@ -24,7 +24,9 @@
  
 namespace MicrosoftAzure\Storage\Common;
 
+use MicrosoftAzure\Storage\Common\Internal\Serialization\XMLSerializer;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Fires when the response code is incorrect.
@@ -39,26 +41,58 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class ServiceException extends \LogicException
 {
-    private $_error;
-    private $_reason;
+    private $response;
+    private $errorText;
+    private $errorMessage;
     
     /**
      * Constructor
      *
-     * @param string $errorCode status error code.
-     * @param string $error     string value of the error code.
-     * @param string $reason    detailed message for the error.
+     * @param ResponseInterface $response The response received that causes the
+     *                                    exception.
      *
      * @return ServiceException
      */
-    public function __construct($errorCode, $error = null, $reason = null)
+    public function __construct(ResponseInterface $response)
     {
         parent::__construct(
-            sprintf(Resources::AZURE_ERROR_MSG, $errorCode, $error, $reason)
+            sprintf(
+                Resources::AZURE_ERROR_MSG,
+                $response->getStatusCode(),
+                $response->getReasonPhrase(),
+                $response->getBody()
+            )
         );
-        $this->code    = $errorCode;
-        $this->_error  = $error;
-        $this->_reason = $reason;
+        $this->code         = $response->getStatusCode();
+        $this->response     = $response;
+        $this->errorText    = $response->getReasonPhrase();
+        $this->errorMessage = self::parseErrorMessage($response);
+    }
+
+    /**
+     * Error message to be parsed.
+     *
+     * @param  ResponseInterface $response The response with a response body.
+     *
+     * @return string
+     */
+    protected static function parseErrorMessage(ResponseInterface $response)
+    {
+        //try to parse using xml serializer, if failed, return the whole body
+        //as the error message.
+        $serializer = new XMLSerializer();
+        $errorMessage = '';
+        try {
+            $parsedArray = $serializer->unserialize($response->getBody());
+            if (array_key_exists(Resources::XTAG_MESSAGE, $parsedArray)) {
+                $errorMessage = $parsedArray[Resources::XTAG_MESSAGE];
+            } else {
+                $errorMessage = $response->getBody();
+            }
+        } catch (\Exception $e) {
+            $errorMessage = $response->getBody();
+        }
+        return $errorMessage;
     }
     
     /**
@@ -68,16 +102,62 @@ class ServiceException extends \LogicException
      */
     public function getErrorText()
     {
-        return $this->_error;
+        return $this->errorText;
     }
     
     /**
-     * Gets detailed error reason.
+     * Gets detailed error message.
      *
      * @return string
      */
-    public function getErrorReason()
+    public function getErrorMessage()
     {
-        return $this->_reason;
+        return $this->errorMessage;
+    }
+
+    /**
+     * Gets the request ID of the failure.
+     *
+     * @return string
+     */
+    public function getRequestID()
+    {
+        $requestID = '';
+        if (array_key_exists(
+            Resources::X_MS_REQUEST_ID,
+            $this->getResponse()->getHeaders()
+        )) {
+            $requestID = $this->getResponse()
+                ->getHeaders()[Resources::X_MS_REQUEST_ID][0];
+        }
+        return $requestID;
+    }
+
+    /**
+     * Gets the Date of the failure.
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        $date = '';
+        if (array_key_exists(
+            Resources::DATE,
+            $this->getResponse()->getHeaders()
+        )) {
+            $date = $this->getResponse()
+                ->getHeaders()[Resources::DATE][0];
+        }
+        return $date;
+    }
+
+    /**
+     * Gets the response of the failue.
+     *
+     * @return string
+     */
+    public function getResponse()
+    {
+        return $this->response;
     }
 }
