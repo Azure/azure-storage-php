@@ -24,6 +24,7 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
 
 /**
@@ -41,67 +42,24 @@ class GetBlobPropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::setMetadata
-     */
-    public function testSetMetadata()
-    {
-        // Setup
-        $properties = new GetBlobPropertiesResult();
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        
-        // Test
-        $properties->setMetadata($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $properties->getMetadata());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::getMetadata
-     */
-    public function testGetMetadata()
-    {
-        // Setup
-        $properties = new GetBlobPropertiesResult();
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        $properties->setMetadata($expected);
-        
-        // Test
-        $actual = $properties->getMetadata();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::setProperties
-     */
-    public function testSetProperties()
-    {
-        // Setup
-        $properties = new GetBlobPropertiesResult();
-        $expected = new BlobProperties();
-        
-        // Test
-        $properties->setProperties($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $properties->getProperties());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::getProperties
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::create
      */
-    public function testGetProperties()
+    public function testCreate()
     {
         // Setup
-        $properties = new GetBlobPropertiesResult();
-        $expected = new BlobProperties();
-        $properties->setProperties($expected);
+        $sample = TestResources::listBlobsOneEntry();
+        $expected = $sample['Blobs']['Blob']['Properties'];
+        $expectedProperties = BlobProperties::create($expected);
+        $expected['x-ms-meta-'] = $sample['Blobs']['Blob']['Metadata'];
         
         // Test
-        $actual = $properties->getProperties();
+        $actual = GetBlobPropertiesResult::create($expected);
         
         // Assert
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expectedProperties, $actual->getProperties());
+        $this->assertEquals(array('' => $expected['x-ms-meta-']), $actual->getMetadata());
     }
 }

@@ -25,6 +25,8 @@
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Holds results of updateMessage wrapper.
@@ -54,7 +56,31 @@ class UpdateMessageResult
      * @var \DateTime
      */
     private $_timeNextVisible;
-    
+
+    /**
+     * Creates an instance with the given response headers.
+     *
+     * @param  array  $headers The response headers used to create the instance.
+     *
+     * @return UpdateMessageResult
+     */
+    public static function create(array $headers)
+    {
+        $result = new UpdateMessageResult();
+        $result->setPopReceipt(Utilities::tryGetValueInsensitive(
+            Resources::X_MS_POPRECEIPT,
+            $headers
+        ));
+        $timeNextVisible = Utilities::tryGetValueInsensitive(
+            Resources::X_MS_TIME_NEXT_VISIBLE,
+            $headers
+        );
+        $date   = Utilities::rfc1123ToDateTime($timeNextVisible);
+        $result->setTimeNextVisible($date);
+
+        return $result;
+    }
+
     /**
      * Gets timeNextVisible field.
      *
@@ -73,7 +99,7 @@ class UpdateMessageResult
      *
      * @return void
      */
-    public function setTimeNextVisible(\DateTime $timeNextVisible)
+    protected function setTimeNextVisible(\DateTime $timeNextVisible)
     {
         Validate::isDate($timeNextVisible);
         
@@ -97,7 +123,7 @@ class UpdateMessageResult
      *
      * @return void
      */
-    public function setPopReceipt($popReceipt)
+    protected function setPopReceipt($popReceipt)
     {
         Validate::isString($popReceipt, 'popReceipt');
         $this->_popReceipt = $popReceipt;

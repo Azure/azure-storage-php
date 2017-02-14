@@ -57,7 +57,7 @@ class CopyBlobResult
      *
      * @return CopyBlobResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result = new CopyBlobResult();
         $result->setETag(
@@ -94,7 +94,7 @@ class CopyBlobResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }
@@ -116,7 +116,7 @@ class CopyBlobResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }

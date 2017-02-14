@@ -23,14 +23,14 @@
  */
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult;
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
+use MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult;
+use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
- * Unit tests for class GetContainerAclResult
+ * Unit tests for class GetContainerACLResult
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
@@ -43,7 +43,13 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::getContainerAcl
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::setContainerAcl
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::setLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::getLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::setETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::getETag
      */
     public function testCreate()
     {
@@ -52,9 +58,10 @@ class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
         $expectedETag = '0x8CAFB82EFF70C46';
         $expectedDate = new \DateTime('Sun, 25 Sep 2011 19:42:18 GMT');
         $expectedPublicAccess = 'container';
+        $expectedContainerACL = ContainerACL::create($expectedPublicAccess, $sample);
         
         // Test
-        $result = GetContainerAclResult::create(
+        $result = GetContainerACLResult::create(
             $expectedPublicAccess,
             $expectedETag,
             $expectedDate,
@@ -62,77 +69,8 @@ class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
         );
         
         // Assert
-        $obj = $result->getContainerAcl();
-        $this->assertEquals($expectedPublicAccess, $obj->getPublicAccess());
-        $this->assertCount(0, $obj->getSignedIdentifiers());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::getContainerAcl
-     */
-    public function testGetContainerAcl()
-    {
-        // Setup
-        $expected = new ContainerAcl();
-        $obj = new GetContainerAclResult();
-        
-        // Test
-        $obj->setContainerAcl($expected);
-        
-        // Assert
-        $this->assertCount(0, $obj->getContainerAcl()->getSignedIdentifiers());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::setContainerAcl
-     */
-    public function testSetContainerAcl()
-    {
-        // Setup
-        $expected = new ContainerAcl();
-        $obj = new GetContainerAclResult();
-        $obj->setContainerAcl($expected);
-        
-        // Test
-        $actual = $obj->getContainerAcl();
-        
-        // Assert
-        $this->assertCount(0, $actual->getSignedIdentifiers());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::getLastModified
-     */
-    public function testSetLastModified()
-    {
-        // Setup
-        $expected = new \DateTime('Sun, 25 Sep 2011 19:42:18 GMT');
-        $obj = new GetContainerAclResult();
-        $obj->setLastModified($expected);
-        
-        // Test
-        $obj->setLastModified($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $obj->getLastModified());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerAclResult::getETag
-     */
-    public function testSetETag()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $obj = new GetContainerAclResult();
-        $obj->setETag($expected);
-        
-        // Test
-        $obj->setETag($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $obj->getETag());
+        $this->assertEquals($expectedContainerACL, $result->getContainerAcl());
+        $this->assertEquals($expectedDate, $result->getLastModified());
+        $this->assertEquals($expectedETag, $result->getETag());
     }
 }

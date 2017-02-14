@@ -84,7 +84,7 @@ class PutBlockResult
      *
      * @return void
      */
-    public function setContentMD5($contentMD5)
+    protected function setContentMD5($contentMD5)
     {
         $this->_contentMD5 = $contentMD5;
     }

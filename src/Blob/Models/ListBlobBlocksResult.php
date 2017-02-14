@@ -155,7 +155,7 @@ class ListBlobBlocksResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -178,7 +178,7 @@ class ListBlobBlocksResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }
@@ -200,7 +200,7 @@ class ListBlobBlocksResult
      *
      * @return void
      */
-    public function setContentType($contentType)
+    protected function setContentType($contentType)
     {
         $this->_contentType = $contentType;
     }
@@ -222,7 +222,7 @@ class ListBlobBlocksResult
      *
      * @return void
      */
-    public function setContentLength($contentLength)
+    protected function setContentLength($contentLength)
     {
         Validate::isInteger($contentLength, 'contentLength');
         $this->_contentLength = $contentLength;
@@ -245,7 +245,7 @@ class ListBlobBlocksResult
      *
      * @return void
      */
-    public function setUncommittedBlocks(array $uncommittedBlocks)
+    protected function setUncommittedBlocks(array $uncommittedBlocks)
     {
         $this->_uncommittedBlocks = $uncommittedBlocks;
     }
@@ -267,7 +267,7 @@ class ListBlobBlocksResult
      *
      * @return void
      */
-    public function setCommittedBlocks(array $committedBlocks)
+    protected function setCommittedBlocks(array $committedBlocks)
     {
         $this->_committedBlocks = $committedBlocks;
     }

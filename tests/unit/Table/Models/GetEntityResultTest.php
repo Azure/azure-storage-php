@@ -24,7 +24,9 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\GetEntityResult;
+use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Models\Entity;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
  * Unit tests for class GetEntityResult
@@ -42,17 +44,21 @@ class GetEntityResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\GetEntityResult::setEntity
      * @covers MicrosoftAzure\Storage\Table\Models\GetEntityResult::getEntity
+     * @covers MicrosoftAzure\Storage\Table\Models\GetEntityResult::create
      */
-    public function testSetEntity()
+    public function testCreate()
     {
         // Setup
-        $result = new GetEntityResult();
-        $entity = new Entity();
-        
+        $sampleBody = TestResources::getEntitySampleBody();
+        $serializer = new AtomReaderWriter();
+
         // Test
-        $result->setEntity($entity);
+        $result = GetEntityResult::create($sampleBody, $serializer);
         
         // Assert
-        $this->assertEquals($entity, $result->getEntity());
+        $this->assertEquals(
+            $serializer->parseEntity($sampleBody),
+            $result->getEntity()
+        );
     }
 }

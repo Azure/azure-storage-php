@@ -66,13 +66,19 @@ class SetBlobPropertiesResult
     public static function create(array $headers)
     {
         $result = new SetBlobPropertiesResult();
-        $date   = $headers[Resources::LAST_MODIFIED];
+        $date   = Utilities::tryGetValueInsensitive(
+            Resources::LAST_MODIFIED,
+            $headers
+        );
         $result->setLastModified(Utilities::rfc1123ToDateTime($date));
-        $result->setETag($headers[Resources::ETAG]);
-        if (array_key_exists(Resources::X_MS_BLOB_SEQUENCE_NUMBER, $headers)) {
-            $sNumber = $headers[Resources::X_MS_BLOB_SEQUENCE_NUMBER];
-            $result->setSequenceNumber(intval($sNumber));
-        }
+        $result->setETag(Utilities::tryGetValueInsensitive(
+            Resources::ETAG,
+            $headers
+        ));
+        $result->setSequenceNumber(Utilities::tryGetValueInsensitive(
+            Resources::X_MS_BLOB_SEQUENCE_NUMBER,
+            $headers
+        ));
         
         return $result;
     }
@@ -94,7 +100,7 @@ class SetBlobPropertiesResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -117,7 +123,7 @@ class SetBlobPropertiesResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         Validate::isString($etag, 'etag');
         $this->_etag = $etag;
@@ -140,7 +146,7 @@ class SetBlobPropertiesResult
      *
      * @return void
      */
-    public function setSequenceNumber($sequenceNumber)
+    protected function setSequenceNumber($sequenceNumber)
     {
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;

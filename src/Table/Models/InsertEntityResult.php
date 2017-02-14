@@ -84,7 +84,7 @@ class InsertEntityResult
      *
      * @return void
      */
-    public function setEntity($entity)
+    protected function setEntity($entity)
     {
         $this->_entity = $entity;
     }

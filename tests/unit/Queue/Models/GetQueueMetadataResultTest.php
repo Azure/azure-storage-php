@@ -41,6 +41,10 @@ class GetQueueMetadataResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::__construct
+     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::getApproximateMessageCount
+     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::setApproximateMessageCount
+     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::getMetadata
+     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::setMetadata
      */
     public function testConstruct()
     {
@@ -54,69 +58,5 @@ class GetQueueMetadataResultTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($count, $actual->getApproximateMessageCount());
         $this->assertEquals($metadata, $actual->getMetadata());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::getApproximateMessageCount
-     */
-    public function testGetApproximateMessageCount()
-    {
-        // Setup
-        $expected = 10;
-        $metadata = new GetQueueMetadataResult($expected, array());
-        
-        // Test
-        $actual = $metadata->getApproximateMessageCount();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::setApproximateMessageCount
-     */
-    public function testSetApproximateMessageCount()
-    {
-        // Setup
-        $expected = 10;
-        $metadata = new GetQueueMetadataResult(30, array());
-        
-        // Test
-        $metadata->setApproximateMessageCount($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $metadata->getApproximateMessageCount());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::getMetadata
-     */
-    public function testGetMetadata()
-    {
-        // Setup
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        $metadata = new GetQueueMetadataResult(0, $expected);
-        
-        // Test
-        $actual = $metadata->getMetadata();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::setMetadata
-     */
-    public function testSetMetadata()
-    {
-        // Setup
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        $metadata = new GetQueueMetadataResult(0, $expected);
-        
-        // Test
-        $metadata->setMetadata($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $metadata->getMetadata());
     }
 }

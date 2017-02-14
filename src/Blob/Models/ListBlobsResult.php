@@ -102,30 +102,30 @@ class ListBlobsResult
             Resources::XTAG_ATTRIBUTES,
             Resources::XTAG_CONTAINER_NAME
         );
-        $result->_containerName = $containerName;
-        $result->_prefix        = Utilities::tryGetValue(
+        $result->setContainerName($containerName);
+        $result->setPrefix(Utilities::tryGetValue(
             $parsed,
             Resources::QP_PREFIX
-        );
-        $result->_marker        = Utilities::tryGetValue(
+        ));
+        $result->setMarker(Utilities::tryGetValue(
             $parsed,
             Resources::QP_MARKER
-        );
-        $result->_nextMarker    = Utilities::tryGetValue(
+        ));
+        $result->setNextMarker(Utilities::tryGetValue(
             $parsed,
             Resources::QP_NEXT_MARKER
-        );
-        $result->_maxResults    = intval(
+        ));
+        $result->setMaxResults(intval(
             Utilities::tryGetValue($parsed, Resources::QP_MAX_RESULTS, 0)
-        );
-        $result->_delimiter     = Utilities::tryGetValue(
+        ));
+        $result->setDelimiter(Utilities::tryGetValue(
             $parsed,
             Resources::QP_DELIMITER
-        );
-        $result->_blobs         = array();
-        $result->_blobPrefixes  = array();
-        $rawBlobs               = array();
-        $rawBlobPrefixes        = array();
+        ));
+        $blobs           = array();
+        $blobPrefixes    = array();
+        $rawBlobs        = array();
+        $rawBlobPrefixes = array();
         
         if (is_array($parsed['Blobs'])
             && array_key_exists('Blob', $parsed['Blobs'])
@@ -147,7 +147,7 @@ class ListBlobsResult
                 Utilities::tryGetValue($value, Resources::QP_METADATA, array())
             );
             
-            $result->_blobs[] = $blob;
+            $blobs[] = $blob;
         }
         
         if (is_array($parsed['Blobs'])
@@ -160,8 +160,11 @@ class ListBlobsResult
             $blobPrefix = new BlobPrefix();
             $blobPrefix->setName($value['Name']);
             
-            $result->_blobPrefixes[] = $blobPrefix;
+            $blobPrefixes[] = $blobPrefix;
         }
+
+        $result->setBlobs($blobs);
+        $result->setBlobPrefixes($blobPrefixes);
         
         return $result;
     }
@@ -183,7 +186,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setBlobs(array $blobs)
+    protected function setBlobs(array $blobs)
     {
         $this->_blobs = array();
         foreach ($blobs as $blob) {
@@ -208,7 +211,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setBlobPrefixes(array $blobPrefixes)
+    protected function setBlobPrefixes(array $blobPrefixes)
     {
         $this->_blobPrefixes = array();
         foreach ($blobPrefixes as $blob) {
@@ -233,7 +236,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setPrefix($prefix)
+    protected function setPrefix($prefix)
     {
         $this->_prefix = $prefix;
     }
@@ -255,7 +258,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setDelimiter($delimiter)
+    protected function setDelimiter($delimiter)
     {
         $this->_delimiter = $delimiter;
     }
@@ -277,7 +280,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setMarker($marker)
+    protected function setMarker($marker)
     {
         $this->_marker = $marker;
     }
@@ -299,7 +302,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setMaxResults($maxResults)
+    protected function setMaxResults($maxResults)
     {
         $this->_maxResults = $maxResults;
     }
@@ -321,7 +324,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setNextMarker($nextMarker)
+    protected function setNextMarker($nextMarker)
     {
         $this->_nextMarker = $nextMarker;
     }
@@ -343,7 +346,7 @@ class ListBlobsResult
      *
      * @return void
      */
-    public function setContainerName($containerName)
+    protected function setContainerName($containerName)
     {
         $this->_containerName = $containerName;
     }

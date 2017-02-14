@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Unit tests for class SnapshotBlobResult
@@ -43,32 +44,29 @@ class CopyBlobResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::getETag
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::setETag
-     */
-    public function testSetETag()
-    {
-        $createBlobSnapshotResult = new CopyBlobResult();
-        $expected = "12345678";
-        $createBlobSnapshotResult->setETag($expected);
-        
-        $this->assertEquals(
-            $expected,
-            $createBlobSnapshotResult->getETag()
-        );
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::getLastModified
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::setLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::create
      */
-    public function testSetLastModified()
+    public function testCreate()
     {
-        $createBlobSnapshotResult = new CopyBlobResult();
-        $expected = new \DateTime("2008-8-8");
-        $createBlobSnapshotResult->setLastModified($expected);
-        
+        $expectedEtag         = "12345678";
+        $expectedLastModified = 'Fri, 16 Oct 2009 21:04:30 GMT';
+        $headers = [
+            Resources::ETAG => $expectedEtag,
+            Resources::LAST_MODIFIED => $expectedLastModified
+        ];
+
+        $result = CopyBlobResult::create($headers);
+
         $this->assertEquals(
-            $expected,
-            $createBlobSnapshotResult->getLastModified()
+            $expectedEtag,
+            $result->getETag()
+        );
+
+        $this->assertEquals(
+            Utilities::rfc1123ToDateTime($expectedLastModified),
+            $result->getLastModified()
         );
     }
 }

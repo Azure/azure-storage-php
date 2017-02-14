@@ -192,6 +192,7 @@ class BatchResult
                 $entries[] = BatchError::create($e, $response->headers);
             }
         }
+        
         $result->setEntries($entries);
         
         return $result;
@@ -214,7 +215,7 @@ class BatchResult
      *
      * @return void
      */
-    public function setEntries(array $entries)
+    protected function setEntries(array $entries)
     {
         $this->_entries = $entries;
     }

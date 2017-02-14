@@ -25,6 +25,10 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\BatchResult;
+use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
  * Unit tests for class BatchResult
@@ -42,17 +46,28 @@ class BatchResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::setEntries
      * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::getEntries
+     * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::create
      */
-    public function testSetEntries()
+    public function testCreate()
     {
         // Setup
-        $batchResult = new BatchResult();
-        $entries = array();
-        
+        $contexts       = TestResources::getBatchContexts();
+        $body           = TestResources::getBatchResponseBody();
+        $operations     = TestResources::getBatchOperations();
+        $atomSerializer = new AtomReaderWriter();
+        $mimeSerializer = new MimeReaderWriter();
+        $entries        = TestResources::getExpectedBatchResultEntries();
+
         // Test
-        $batchResult->setEntries($entries);
-        
-        // Assert
-        $this->assertEquals($entries, $batchResult->getEntries());
+        $result = BatchResult::create(
+            $body,
+            $operations,
+            $contexts,
+            $atomSerializer,
+            $mimeSerializer
+        );
+
+        //Assert
+        $this->assertEquals($entries, $result->getEntries());
     }
 }

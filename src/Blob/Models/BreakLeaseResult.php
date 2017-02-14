@@ -80,7 +80,7 @@ class BreakLeaseResult
      *
      * @return void
      */
-    public function setLeaseTime($leaseTime)
+    protected function setLeaseTime($leaseTime)
     {
         $this->_leaseTime = $leaseTime;
     }

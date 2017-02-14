@@ -41,18 +41,17 @@ class UpdateEntityResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\UpdateEntityResult::setETag
      * @covers MicrosoftAzure\Storage\Table\Models\UpdateEntityResult::getETag
+     * @covers MicrosoftAzure\Storage\Table\Models\UpdateEntityResult::create
      */
-    public function testSetETag()
+    public function testCreate()
     {
         // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $entity = new UpdateEntityResult();
-        $entity->setETag($expected);
-        
+        $headers = array('ETag' => '0x8CACB9BD7C6B1B2');
+
         // Test
-        $entity->setETag($expected);
-        
+        $result = UpdateEntityResult::create($headers);
+
         // Assert
-        $this->assertEquals($expected, $entity->getETag());
+        $this->assertEquals($headers['ETag'], $result->getETag());
     }
 }

@@ -56,7 +56,6 @@ class GetTableResult
     public static function create($body, $atomSerializer)
     {
         $result = new GetTableResult();
-        
         $name = $atomSerializer->parseTable($body);
         $result->setName($name);
         
@@ -80,7 +79,7 @@ class GetTableResult
      *
      * @return void
      */
-    public function setName($name)
+    protected function setName($name)
     {
         $this->_name = $name;
     }

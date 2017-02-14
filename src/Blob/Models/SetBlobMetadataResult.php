@@ -62,9 +62,15 @@ class SetBlobMetadataResult
     public static function create(array $headers)
     {
         $result = new SetBlobMetadataResult();
-        $date   = $headers[Resources::LAST_MODIFIED];
+        $date   = Utilities::tryGetValueInsensitive(
+            Resources::LAST_MODIFIED,
+            $headers
+        );
         $result->setLastModified(Utilities::rfc1123ToDateTime($date));
-        $result->setETag($headers[Resources::ETAG]);
+        $result->setETag(Utilities::tryGetValueInsensitive(
+            Resources::ETAG,
+            $headers
+        ));
         
         return $result;
     }
@@ -86,7 +92,7 @@ class SetBlobMetadataResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -109,7 +115,7 @@ class SetBlobMetadataResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         Validate::isString($etag, 'etag');
         $this->_etag = $etag;

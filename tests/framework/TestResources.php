@@ -28,6 +28,10 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
+use MicrosoftAzure\Storage\Table\Models\BatchOperation;
+use MicrosoftAzure\Storage\Table\Models\BatchOperationType;
+use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -323,6 +327,8 @@ class TestResources
         $sample = array();
         $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
         $sample['MaxResults'] = '2';
+        $sample['Prefix'] = 'myprefix';
+        $sample['Account'] = 'myaccount';
         $sample['Queues'] = array('Queue' => array(
           0 => array('Name' => 'myqueue1'),
           1 => array('Name' => 'myqueue2')
@@ -364,6 +370,8 @@ class TestResources
         $sample = array();
         $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
         $sample['MaxResults'] = '3';
+        $sample['account'] = 'myaccount';
+        $sample['Prefix'] = 'myprefix';
         $sample['Containers'] = array('Container' => array(
           0 => array(
             'Name' => 'audio',
@@ -431,6 +439,7 @@ class TestResources
     {
         $sample = array();
         $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
+        $sample['@attributes']['ContainerName'] = 'mycontainer';
         $sample['Marker'] = '/account/listblobswithnextmarker3';
         $sample['MaxResults'] = '2';
         $sample['Delimiter'] = 'mydelimiter';
@@ -451,8 +460,8 @@ class TestResources
                     'Content-MD5' => 'md5',
                     'Cache-Control' => 'cachecontrol',
                     'x-ms-blob-sequence-number' => '0',
-                    'BlobType' => 'BlockBlob',
-                    'LeaseStatus' => 'locked'
+                    'x-ms-blob-type' => 'BlockBlob',
+                    'x-ms-lease-status' => 'locked'
                 )
             )
         );
@@ -466,6 +475,7 @@ class TestResources
     {
         $sample = array();
         $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
+        $sample['@attributes']['ContainerName'] = 'mycontainer';
         $sample['Marker'] = '/account/listblobswithnextmarker3';
         $sample['MaxResults'] = '2';
         $sample['Blobs'] = array(
@@ -515,6 +525,72 @@ class TestResources
         return $sample;
     }
 
+    public static function listBlocksMultipleEntriesHeaders()
+    {
+        $sample = array(
+            'Last-Modified' => 'Sat, 04 Sep 2011 12:43:08 GMT',
+            'Etag' => '0x8CAFB82EFF70C46',
+            'x-ms-blob-content-length' => '13606912',
+            'Content-Type' => 'type',
+            'Content-Encoding' => 'encoding',
+            'Content-Language' => 'language',
+            'Content-MD5' => 'md5',
+            'Cache-Control' => 'cachecontrol',
+            'x-ms-blob-sequence-number' => '0',
+            'BlobType' => 'BlockBlob',
+            'LeaseStatus' => 'locked'
+        );
+
+        return $sample;
+    }
+
+    public static function listBlocksMultipleEntriesBody()
+    {
+        $sample = array();
+        $sample['CommittedBlocks'] = array('Block' => array(
+            0 => array('Name' => 'BlockId001', 'Size' => '4194304'),
+            1 => array('Name' => 'BlockId002', 'Size' => '4194304')
+        ));
+
+        $sample['UncommittedBlocks'] = array('Block' => array(
+            0 => array('Name' => 'BlockId003', 'Size' => '4194304'),
+            1 => array('Name' => 'BlockId004', 'Size' => '1024000')
+        ));
+
+        return $sample;
+    }
+
+    public static function listPageRangeHeaders()
+    {
+        $sample = array(
+            'Last-Modified' => 'Sat, 04 Sep 2011 12:43:08 GMT',
+            'Etag' => '0x8CAFB82EFF70C46',
+            'x-ms-blob-content-length' => '13606912',
+        );
+
+        return $sample;
+    }
+
+    public static function listPageRangeBodyInArray()
+    {
+        return array('PageRange' => array(
+            0 => array('Start' => '0',        'End' => '4194303'),
+            1 => array('Start' => '4194304',  'End' => '8388607'),
+            2 => array('Start' => '8388608',  'End' => '12582911'),
+            3 => array('Start' => '12582911', 'End' => '13606911'),
+        ));
+    }
+
+    public static function getUpdateMessageResultSampleHeaders()
+    {
+        return array(
+            Resources::X_MS_POPRECEIPT =>
+                'YzQ4Yzg1MDItYTc0Ny00OWNjLTkxYTUtZGM0MDFiZDAwYzEw',
+            Resources::X_MS_TIME_NEXT_VISIBLE =>
+                'Fri, 09 Oct 2009 23:29:20 GMT'
+        );
+    }
+
     public static function getTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
@@ -552,5 +628,185 @@ class TestResources
         $data['jsonObject'] = '{"k1":"test1","k2":"test2","k3":"test3"}';
 
         return $data;
+    }
+
+    public static function getBatchResponseHeaders()
+    {
+        return array(
+            'Cache-Control'          => array('no-cache'),
+            'Transfer-Encoding'      => array('chunked'),
+            'Content_Type'           => array('multipart/mixed; boundary=batchresponse_e899556e-c637-4b2d-8cd1-63edb03dd6fe'),
+            'Server'                 => array('Windows-Azure-Table/1.0 Microsoft-HTTPAPI/2.0'),
+            'x-ms-request-id'        => array('b3818f44-0002-001d-01fe-872339000000'),
+            'x-ms-version'           => array('2015-04-05'),
+            'X-Content-Type-Options' => array('nosniff'),
+            'Date'                   => array('Thu, 16 Feb 2017 02:46:47 GMT')
+        );
+    }
+
+    public static function getBatchContexts()
+    {
+        $contexts = array();
+        for ($i = 0; $i < 6; ++$i) {
+            $context = new HttpCallContext();
+            $context->setStatusCodes([204]);
+            $contexts[] = $context;
+        }
+        return $contexts;
+    }
+
+    public static function getBatchOperations()
+    {
+        $operations = array();
+        $operation1 = new BatchOperation();
+        $operation2 = new BatchOperation();
+        $operation3 = new BatchOperation();
+        $operation4 = new BatchOperation();
+        $operation5 = new BatchOperation();
+        $operation6 = new BatchOperation();
+        $operation1->setType(BatchOperationType::DELETE_ENTITY_OPERATION);
+        $operation2->setType(BatchOperationType::MERGE_ENTITY_OPERATION);
+        $operation3->setType(BatchOperationType::INSERT_MERGE_ENTITY_OPERATION);
+        $operation4->setType(BatchOperationType::INSERT_MERGE_ENTITY_OPERATION);
+        $operation5->setType(BatchOperationType::DELETE_ENTITY_OPERATION);
+        $operation6->setType(BatchOperationType::DELETE_ENTITY_OPERATION);
+        $operations[] = $operation1;
+        $operations[] = $operation2;
+        $operations[] = $operation3;
+        $operations[] = $operation4;
+        $operations[] = $operation5;
+        $operations[] = $operation6;
+
+        return $operations;
+    }
+
+    public static function getExpectedBatchResultEntries()
+    {
+        $entityResult1 = UpdateEntityResult::create(
+            array(Resources::ETAG => 'W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"')
+        );
+        $entityResult2 = UpdateEntityResult::create(
+            array(Resources::ETAG => 'W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"')
+        );
+        $entityResult3 = UpdateEntityResult::create(
+            array(Resources::ETAG => 'W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"')
+        );
+        return [
+            'The entity was deleted successfully.',
+            $entityResult1,
+            $entityResult2,
+            $entityResult3,
+            'The entity was deleted successfully.',
+            'The entity was deleted successfully.',
+        ];
+    }
+
+    public static function getBatchResponseBody()
+    {
+        return '--batchresponse_e899556e-c637-4b2d-8cd1-63edb03dd6fe
+Content-Type: multipart/mixed; boundary=changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Content-ID: 1
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+DataServiceVersion: 1.0;
+
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Content-ID: 2
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+DataServiceVersion: 1.0;
+ETag: W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"
+
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Content-ID: 3
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+DataServiceVersion: 1.0;
+ETag: W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"
+
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Content-ID: 4
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+DataServiceVersion: 1.0;
+ETag: W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"
+
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Content-ID: 5
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+DataServiceVersion: 1.0;
+
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9
+Content-Type: application/http
+Content-Transfer-Encoding: binary
+
+HTTP/1.1 204 No Content
+Content-ID: 6
+X-Content-Type-Options: nosniff
+Cache-Control: no-cache
+DataServiceVersion: 1.0;
+
+
+--changesetresponse_2918827d-ca4b-4da7-8ff2-5e205df53ac9--
+--batchresponse_e899556e-c637-4b2d-8cd1-63edb03dd6fe--';
+    }
+
+    public static function getEntitySampleBody()
+    {
+        return '<?xml version="1.0" encoding="utf-8"?><entry xml:base="https://phput.table.core.windows.net/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:etag="W/&quot;datetime\'2017-02-16T03%3A39%3A51.7780193Z\'&quot;"><id>https://phput.table.core.windows.net/getentity(PartitionKey=\'123\',RowKey=\'456\')</id><category term="phput.getentity" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /><link rel="edit" title="getentity" href="getentity(PartitionKey=\'123\',RowKey=\'456\')" /><title /><updated>2017-02-16T03:39:52Z</updated><author><name /></author><content type="application/xml"><m:properties><d:PartitionKey>123</d:PartitionKey><d:RowKey>456</d:RowKey><d:Timestamp m:type="Edm.DateTime">2017-02-16T03:39:51.7780193Z</d:Timestamp><d:CustomerId m:type="Edm.Int32">890</d:CustomerId><d:CustomerName>John</d:CustomerName><d:IsNew m:type="Edm.Boolean">true</d:IsNew><d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.000047Z</d:JoinDate></m:properties></content></entry>';
+    }
+
+    public static function getTableSampleBody()
+    {
+        return '<?xml version="1.0" encoding="utf-8"?><entry xml:base="https://phput.table.core.windows.net/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"><id>https://phput.table.core.windows.net/Tables(\'gettable\')</id><category term="phput.Tables" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /><link rel="edit" title="Tables" href="Tables(\'gettable\')" /><title /><updated>2017-02-16T03:48:16Z</updated><author><name /></author><content type="application/xml"><m:properties><d:TableName>gettable</d:TableName></m:properties></content></entry>';
+    }
+
+    public static function getInsertEntitySampleBody()
+    {
+        return '<?xml version="1.0" encoding="utf-8"?><entry xml:base="https://phput.table.core.windows.net/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:etag="W/&quot;datetime\'2017-02-16T06%3A47%3A05.1541526Z\'&quot;"><id>https://phput.table.core.windows.net/insertentity(PartitionKey=\'123\',RowKey=\'456\')</id><category term="phput.insertentity" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /><link rel="edit" title="insertentity" href="insertentity(PartitionKey=\'123\',RowKey=\'456\')" /><title /><updated>2017-02-16T06:47:05Z</updated><author><name /></author><content type="application/xml"><m:properties><d:PartitionKey>123</d:PartitionKey><d:RowKey>456</d:RowKey><d:Timestamp m:type="Edm.DateTime">2017-02-16T06:47:05.1541526Z</d:Timestamp><d:CustomerId m:type="Edm.Int32">890</d:CustomerId><d:CustomerName>John</d:CustomerName><d:IsNew m:type="Edm.Boolean">true</d:IsNew><d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.000047Z</d:JoinDate></m:properties></content></entry>';
+    }
+
+    public static function getInsertEntitySampleHeaders()
+    {
+        return array(
+            'cache-control' => 'no-cache',
+            'transfer-encoding' => 'chunked',
+            'content-type' => 'application/atom+xml;type=entry;charset=utf-8',
+            'etag' => 'W/"datetime\'2017-02-16T06%3A47%3A05.1541526Z\'"',
+            'location' => 'https://phput.table.core.windows.net/insertentity(PartitionKey=\'123\',RowKey=\'456\')',
+            'server' => 'Windows-Azure-Table/1.0 Microsoft-HTTPAPI/2.0',
+            'x-ms-request-id' => '28adeb0c-0002-00b6-5320-88f42b000000',
+            'x-ms-version' => '2015-04-05',
+            'x-content-type-options' => 'nosniff',
+            'date' => 'Thu, 16 Feb 2017 06:47:04 GMT'
+        );
     }
 }

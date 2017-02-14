@@ -70,7 +70,7 @@ class BatchOperations
      *
      * @return void
      */
-    public function setOperations($operations)
+    public function setOperations(array $operations)
     {
         $this->_operations = array();
         foreach ($operations as $operation) {

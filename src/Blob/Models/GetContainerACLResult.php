@@ -95,7 +95,7 @@ class GetContainerACLResult
      *
      * @return void
      */
-    public function setContainerAcl(ContainerACL $containerACL)
+    protected function setContainerAcl(ContainerACL $containerACL)
     {
         $this->_containerACL = $containerACL;
     }
@@ -117,7 +117,7 @@ class GetContainerACLResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -139,7 +139,7 @@ class GetContainerACLResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }

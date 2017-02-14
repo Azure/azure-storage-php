@@ -24,7 +24,10 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
-use MicrosoftAzure\Storage\Table\Models\Entity;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
+use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
  * Unit tests for class InsertEntityResult
@@ -39,20 +42,31 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  */
 class InsertEntityResultTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\InsertEntityResult::setEntity
      * @covers MicrosoftAzure\Storage\Table\Models\InsertEntityResult::getEntity
      */
-    public function testSetEntity()
+    public function testCreate()
     {
         // Setup
-        $result = new InsertEntityResult();
-        $entity = new Entity();
+        $sampleBody     = TestResources::getInsertEntitySampleBody();
+        $sampleHeaders  = TestResources::getInsertEntitySampleHeaders();
+        $serializer     = new AtomReaderWriter();
+        $expectedEntity = $serializer->parseEntity($sampleBody);
+        $expectedEntity->setETag(Utilities::tryGetValue(
+            $sampleHeaders,
+            Resources::ETAG
+        ));
         
         // Test
-        $result->setEntity($entity);
-        
+        $result = InsertEntityResult::create(
+            $sampleBody,
+            $sampleHeaders,
+            $serializer
+        );
+
         // Assert
-        $this->assertEquals($entity, $result->getEntity());
+        $this->assertEquals($expectedEntity, $result->getEntity());
     }
 }

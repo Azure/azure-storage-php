@@ -111,7 +111,7 @@ class PutBlobResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }
@@ -133,7 +133,7 @@ class PutBlobResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -155,7 +155,7 @@ class PutBlobResult
      *
      * @return void
      */
-    public function setContentMD5($contentMD5)
+    protected function setContentMD5($contentMD5)
     {
         $this->_contentMD5 = $contentMD5;
     }

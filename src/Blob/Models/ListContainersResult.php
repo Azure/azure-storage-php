@@ -87,27 +87,27 @@ class ListContainersResult
             Resources::XTAG_ATTRIBUTES,
             Resources::XTAG_SERVICE_ENDPOINT
         );
-        $result->_accountName = Utilities::tryParseAccountNameFromUrl(
+        $result->setAccountName(Utilities::tryParseAccountNameFromUrl(
             $serviceEndpoint
-        );
-        $result->_prefix      = Utilities::tryGetValue(
+        ));
+        $result->setPrefix(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_PREFIX
-        );
-        $result->_marker      = Utilities::tryGetValue(
+        ));
+        $result->setMarker(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MARKER
-        );
-        $result->_nextMarker  = Utilities::tryGetValue(
+        ));
+        $result->setNextMarker(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_NEXT_MARKER
-        );
-        $result->_maxResults  = Utilities::tryGetValue(
+        ));
+        $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS
-        );
-        $result->_containers  = array();
-        $rawContainer         = array();
+        ));
+        $containers   = array();
+        $rawContainer = array();
         
         if (!empty($parsedResponse['Containers'])) {
             $containersArray = $parsedResponse['Containers']['Container'];
@@ -127,9 +127,9 @@ class ListContainersResult
             $properties->setLastModified($date);
             $properties->setETag($value['Properties']['Etag']);
             $container->setProperties($properties);
-            $result->_containers[] = $container;
+            $containers[] = $container;
         }
-        
+        $result->setContainers($containers);
         return $result;
     }
 
@@ -140,7 +140,7 @@ class ListContainersResult
      *
      * @return void
      */
-    public function setContainers(array $containers)
+    protected function setContainers(array $containers)
     {
         $this->_containers = array();
         foreach ($containers as $container) {
@@ -175,7 +175,7 @@ class ListContainersResult
      *
      * @return void
      */
-    public function setPrefix($prefix)
+    protected function setPrefix($prefix)
     {
         $this->_prefix = $prefix;
     }
@@ -197,7 +197,7 @@ class ListContainersResult
      *
      * @return void
      */
-    public function setMarker($marker)
+    protected function setMarker($marker)
     {
         $this->_marker = $marker;
     }
@@ -219,7 +219,7 @@ class ListContainersResult
      *
      * @return void
      */
-    public function setMaxResults($maxResults)
+    protected function setMaxResults($maxResults)
     {
         $this->_maxResults = $maxResults;
     }
@@ -241,7 +241,7 @@ class ListContainersResult
      *
      * @return void
      */
-    public function setNextMarker($nextMarker)
+    protected function setNextMarker($nextMarker)
     {
         $this->_nextMarker = $nextMarker;
     }
@@ -263,7 +263,7 @@ class ListContainersResult
      *
      * @return void
      */
-    public function setAccountName($accountName)
+    protected function setAccountName($accountName)
     {
         $this->_accountName = $accountName;
     }

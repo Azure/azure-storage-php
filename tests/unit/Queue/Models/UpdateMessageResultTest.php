@@ -25,7 +25,9 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Queue\Models;
 
 use MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Unit tests for class UpdateMessageResult
@@ -42,69 +44,27 @@ class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::getPopReceipt
-     */
-    public function testGetPopReceipt()
-    {
-        // Setup
-        $updateMessageResult = new UpdateMessageResult();
-        $expected = 'YzQ4Yzg1MDItYTc0Ny00OWNjLTkxYTUtZGM0MDFiZDAwYzEw';
-        $updateMessageResult->setPopReceipt($expected);
-        
-        // Test
-        $actual = $updateMessageResult->getPopReceipt();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::setPopReceipt
-     */
-    public function testSetPopReceipt()
-    {
-        // Setup
-        $updateMessageResult = new UpdateMessageResult();
-        $expected = 'YzQ4Yzg1MDItYTc0Ny00OWNjLTkxYTUtZGM0MDFiZDAwYzEw';
-        
-        // Test
-        $updateMessageResult->setPopReceipt($expected);
-        
-        // Assert
-        $actual = $updateMessageResult->getPopReceipt();
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::getTimeNextVisible
-     */
-    public function testGetTimeNextVisible()
-    {
-        // Setup
-        $updateMessageResult = new UpdateMessageResult();
-        $expected = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 23:29:20 GMT');
-        $updateMessageResult->setTimeNextVisible($expected);
-        
-        // Test
-        $actual = $updateMessageResult->getTimeNextVisible();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::setTimeNextVisible
+     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::create
      */
-    public function testSetTimeNextVisible()
+    public function testCreate()
     {
         // Setup
-        $updateMessageResult = new UpdateMessageResult();
-        $expected = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 23:29:20 GMT');
-        
+        $sample = TestResources::getUpdateMessageResultSampleHeaders();
+        $expectedDate = Utilities::rfc1123ToDateTime(
+            $sample[Resources::X_MS_TIME_NEXT_VISIBLE]
+        );
+
         // Test
-        $updateMessageResult->setTimeNextVisible($expected);
+        $result = UpdateMessageResult::create($sample);
         
         // Assert
-        $actual = $updateMessageResult->getTimeNextVisible();
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(
+            $sample[Resources::X_MS_POPRECEIPT],
+            $result->getPopReceipt()
+        );
+        $this->assertEquals($expectedDate, $result->getTimeNextVisible());
     }
 }

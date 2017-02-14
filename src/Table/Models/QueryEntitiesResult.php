@@ -100,7 +100,7 @@ class QueryEntitiesResult
      *
      * @return void
      */
-    public function setEntities(array $entities)
+    protected function setEntities(array $entities)
     {
         $this->_entities = $entities;
     }
@@ -122,7 +122,7 @@ class QueryEntitiesResult
      *
      * @return void
      */
-    public function setNextPartitionKey($nextPartitionKey)
+    protected function setNextPartitionKey($nextPartitionKey)
     {
         $this->_nextPartitionKey = $nextPartitionKey;
     }
@@ -144,7 +144,7 @@ class QueryEntitiesResult
      *
      * @return void
      */
-    public function setNextRowKey($nextRowKey)
+    protected function setNextRowKey($nextRowKey)
     {
         $this->_nextRowKey = $nextRowKey;
     }

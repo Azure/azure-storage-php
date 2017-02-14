@@ -43,6 +43,8 @@ class ListMessagesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::create
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::setQueueMessages
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::getQueueMessages
      */
     public function testCreate()
     {
@@ -67,6 +69,8 @@ class ListMessagesResultTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::create
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::getQueueMessages
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::setQueueMessages
      */
     public function testCreateMultiple()
     {
@@ -94,42 +98,5 @@ class ListMessagesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][1]['TimeNextVisible']), $actual[1]->getTimeNextVisible());
         $this->assertEquals(intval($sample['QueueMessage'][1]['DequeueCount']), $actual[1]->getDequeueCount());
         $this->assertEquals($sample['QueueMessage'][1]['MessageText'], $actual[1]->getMessageText());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::getQueueMessages
-     */
-    public function testGetQueueMessages()
-    {
-        // Setup
-        $sample = TestResources::listMessagesSample();
-        $expectedMessageId = '1234b585-0ac3-4e2a-ad0c-18e3992brca1';
-        $result = ListMessagesResult::create($sample);
-        $expected = $result->getQueueMessages();
-        $expected[0]->setMessageId($expectedMessageId);
-        $result->setQueueMessages($expected);
-        
-        // Test
-        $actual = $result->getQueueMessages();
-        
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::setQueueMessages
-     */
-    public function testSetQueueMessages()
-    {
-        // Setup
-        $sample = TestResources::listMessagesSample();
-        $expectedMessageId = '1234b585-0ac3-4e2a-ad0c-18e3992brca1';
-        $result = ListMessagesResult::create($sample);
-        $expected = $result->getQueueMessages();
-        $expected[0]->setMessageId($expectedMessageId);
-        
-        // Test
-        $result->setQueueMessages($expected);
-        
-        $this->assertEquals($expected, $result->getQueueMessages());
     }
 }

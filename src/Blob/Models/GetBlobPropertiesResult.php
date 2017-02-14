@@ -68,7 +68,7 @@ class GetBlobPropertiesResult
      *
      * @return void
      */
-    public function setMetadata(array $metadata)
+    protected function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -90,7 +90,7 @@ class GetBlobPropertiesResult
      *
      * @return void
      */
-    public function setProperties($properties)
+    protected function setProperties($properties)
     {
         $this->_properties = $properties;
     }
@@ -106,16 +106,48 @@ class GetBlobPropertiesResult
     {
         $result          = new GetBlobPropertiesResult();
         $properties      = new BlobProperties();
-        $lastModified    = $headers[Resources::LAST_MODIFIED];
-        $blobType        = $headers[Resources::X_MS_BLOB_TYPE];
-        $contentLength   = intval($headers[Resources::CONTENT_LENGTH]);
-        $leaseStatus     = Utilities::tryGetValue($headers, Resources::X_MS_LEASE_STATUS);
-        $contentType     = Utilities::tryGetValue($headers, Resources::CONTENT_TYPE);
-        $contentMD5      = Utilities::tryGetValue($headers, Resources::CONTENT_MD5);
-        $contentEncoding = Utilities::tryGetValue($headers, Resources::CONTENT_ENCODING);
-        $contentLanguage = Utilities::tryGetValue($headers, Resources::CONTENT_LANGUAGE);
-        $cacheControl    = Utilities::tryGetValue($headers, Resources::CACHE_CONTROL);
-        $etag            = $headers[Resources::ETAG];
+        $lastModified    = Utilities::tryGetValueInsensitive(
+            Resources::LAST_MODIFIED,
+            $headers
+        );
+        $blobType        = Utilities::tryGetValueInsensitive(
+            Resources::X_MS_BLOB_TYPE,
+            $headers
+        );
+        $contentLength   = intval(Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_LENGTH,
+            $headers
+        ));
+
+        $leaseStatus     = Utilities::tryGetValueInsensitive(
+            Resources::X_MS_LEASE_STATUS,
+            $headers
+        );
+        $contentType     = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_TYPE,
+            $headers
+        );
+        $contentMD5      = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_MD5,
+            $headers
+        );
+        $contentEncoding = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_ENCODING,
+            $headers
+        );
+        $contentLanguage = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_LANGUAGE,
+            $headers
+        );
+        $cacheControl    = Utilities::tryGetValueInsensitive(
+            Resources::CACHE_CONTROL,
+            $headers
+        );
+
+        $etag            = Utilities::tryGetValueInsensitive(
+            Resources::ETAG,
+            $headers
+        );
         $metadata        = Utilities::getMetadataArray($headers);
         
         if (array_key_exists(Resources::X_MS_BLOB_SEQUENCE_NUMBER, $headers)) {

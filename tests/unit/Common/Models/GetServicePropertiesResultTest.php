@@ -43,45 +43,17 @@ class GetServicePropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::create
+     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::getValue
+     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::setValue
      */
     public function testCreate()
     {
         // Test
         $result = GetServicePropertiesResult::create(TestResources::getServicePropertiesSample());
-        
+        $expected = ServiceProperties::create(TestResources::getServicePropertiesSample());
+
         // Assert
         $this->assertTrue(isset($result));
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::getValue
-     */
-    public function testGetValue()
-    {
-        // Setup
-        $result = GetServicePropertiesResult::create(TestResources::getServicePropertiesSample());
-        $expected = ServiceProperties::create(TestResources::getServicePropertiesSample());
-        
-        // Test
-        $actual = $result->getValue();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::setValue
-     */
-    public function testSetValue()
-    {
-        // Setup
-        $result = new GetServicePropertiesResult();
-        $expected = ServiceProperties::create(TestResources::getServicePropertiesSample());
-        
-        // Test
-        $result->setValue($expected);
-        
-        // Assert
         $this->assertEquals($expected, $result->getValue());
     }
 }

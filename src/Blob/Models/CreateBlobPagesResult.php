@@ -107,7 +107,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setLastModified($lastModified)
+    protected function setLastModified($lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -130,7 +130,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         Validate::isString($etag, 'etag');
         $this->_etag = $etag;
@@ -153,7 +153,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setContentMD5($contentMD5)
+    protected function setContentMD5($contentMD5)
     {
         $this->_contentMD5 = $contentMD5;
     }
@@ -175,7 +175,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setSequenceNumber($sequenceNumber)
+    protected function setSequenceNumber($sequenceNumber)
     {
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;

@@ -24,7 +24,6 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
 
 /**
@@ -42,33 +41,19 @@ class PutBlockResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::setContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::getContentMD5
      */
     public function testCreate()
     {
         // Setup
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
-        $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
         
         // Test
         $actual = PutBlockResult::create($expected);
         
         // Assert
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::getContentMD5
-     */
-    public function testSetContentMD5()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $result = new PutBlockResult();
-        $result->setContentMD5($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getContentMD5());
     }
 }

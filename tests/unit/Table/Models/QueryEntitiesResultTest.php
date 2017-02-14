@@ -40,6 +40,12 @@ class QueryEntitiesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::create
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setNextPartitionKey
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getNextPartitionKey
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setNextRowKey
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getNextRowKey
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setEntities
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getEntities
      */
     public function testCreate()
     {
@@ -50,56 +56,5 @@ class QueryEntitiesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $result->getEntities());
         $this->assertNull($result->getNextPartitionKey());
         $this->assertNull($result->getNextRowKey());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setNextPartitionKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getNextPartitionKey
-     */
-    public function testSetNextPartitionKey()
-    {
-        // Setup
-        $result = new QueryEntitiesResult();
-        $expected = 'parition';
-        
-        // Test
-        $result->setNextPartitionKey($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getNextPartitionKey());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setNextRowKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getNextRowKey
-     */
-    public function testSetNextRowKey()
-    {
-        // Setup
-        $result = new QueryEntitiesResult();
-        $expected = 'edelo';
-        
-        // Test
-        $result->setNextRowKey($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getNextRowKey());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setEntities
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getEntities
-     */
-    public function testSetEntities()
-    {
-        // Setup
-        $result = new QueryEntitiesResult();
-        $expected = array();
-        
-        // Test
-        $result->setEntities($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getEntities());
     }
 }
