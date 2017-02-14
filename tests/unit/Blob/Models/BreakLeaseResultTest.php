@@ -40,6 +40,8 @@ class BreakLeaseResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::setLeaseTime
+     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::getLeaseTime
      */
     public function testCreate()
     {
@@ -49,24 +51,6 @@ class BreakLeaseResultTest extends \PHPUnit_Framework_TestCase
         
         // Test
         $result = BreakLeaseResult::create($headers);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getLeaseTime());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::setLeaseTime
-     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::getLeaseTime
-     */
-    public function testSetLeaseTime()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $result = new BreakLeaseResult();
-        $result->setLeaseTime($expected);
-        
-        // Test
-        $result->setLeaseTime($expected);
         
         // Assert
         $this->assertEquals($expected, $result->getLeaseTime());

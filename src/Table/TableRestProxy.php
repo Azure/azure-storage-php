@@ -921,7 +921,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             $tables = $atomSerializer->parseTableEntries($response->getBody());
-
             return QueryTablesResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders()),
                 $tables
@@ -1273,7 +1272,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             function ($response) use ($atomSerializer) {
                 $body     = $response->getBody();
                 $headers  = HttpFormatter::formatHeaders($response->getHeaders());
-
                 return InsertEntityResult::create(
                     $body,
                     $headers,
@@ -1602,10 +1600,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
         return $this->sendContextAsync($context)->then(
             function ($response) use ($atomSerializer) {
-                $entity   = $atomSerializer->parseEntity($response->getBody());
-                $result   = new GetEntityResult();
-                $result->setEntity($entity);
-                return $result;
+                return GetEntityResult::create(
+                    $response->getBody(),
+                    $atomSerializer
+                );
             },
             null
         );

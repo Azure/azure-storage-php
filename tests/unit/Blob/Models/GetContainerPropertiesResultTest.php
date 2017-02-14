@@ -25,6 +25,8 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
  * Unit tests for class GetContainerPropertiesResult
@@ -40,103 +42,28 @@ use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
 class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getETag
-     */
-    public function testGetETag()
-    {
-        // Setup
-        $properties = new GetContainerPropertiesResult();
-        $expected = '0x8CACB9BD7C6B1B2';
-        $properties->setETag($expected);
-        
-        // Test
-        $actual = $properties->getETag();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setETag
-     */
-    public function testSetETag()
-    {
-        // Setup
-        $properties = new GetContainerPropertiesResult();
-        $expected = '0x8CACB9BD7C6B1B2';
-        
-        // Test
-        $properties->setETag($expected);
-        
-        // Assert
-        $actual = $properties->getETag();
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getLastModified
-     */
-    public function testGetLastModified()
-    {
-        // Setup
-        $properties = new GetContainerPropertiesResult();
-        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        $properties->setLastModified($expected);
-        
-        // Test
-        $actual = $properties->getLastModified();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::create
      * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setLastModified
-     */
-    public function testSetLastModified()
-    {
-        // Setup
-        $properties = new GetContainerPropertiesResult();
-        $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        
-        // Test
-        $properties->setLastModified($expected);
-        
-        // Assert
-        $actual = $properties->getLastModified();
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getETag
      * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setMetadata
-     */
-    public function testSetMetadata()
-    {
-        // Setup
-        $container = new GetContainerPropertiesResult();
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        
-        // Test
-        $container->setMetadata($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $container->getMetadata());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getMetadata
      */
-    public function testGetMetadata()
+    public function testCreate()
     {
         // Setup
-        $container = new GetContainerPropertiesResult();
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        $container->setMetadata($expected);
+        $sample = TestResources::listBlobsOneEntry();
+        $expectedProperties = $sample['Blobs']['Blob']['Properties'];
+        $expectedDate = Utilities::rfc1123ToDateTime($expectedProperties['Last-Modified']);
+        $expectedProperties['x-ms-meta-'] = $sample['Blobs']['Blob']['Metadata'];
         
         // Test
-        $actual = $container->getMetadata();
+        $result = GetContainerPropertiesResult::create($expectedProperties);
         
         // Assert
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals(array('' => $expectedProperties['x-ms-meta-']), $result->getMetadata());
+        $this->assertEquals($expectedDate, $result->getLastModified());
+        $this->assertEquals($expectedProperties['Etag'], $result->getETag());
     }
 }

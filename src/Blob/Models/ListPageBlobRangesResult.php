@@ -85,14 +85,14 @@ class ListPageBlobRangesResult
             $rawPageRanges = Utilities::getArray($parsed['pagerange']);
         }
         
-        $result->_pageRanges = array();
+        $pageRanges = array();
         foreach ($rawPageRanges as $value) {
-            $result->_pageRanges[] = new PageRange(
+            $pageRanges[] = new PageRange(
                 intval($value['Start']),
                 intval($value['End'])
             );
         }
-        
+        $result->setPageRanges($pageRanges);
         $result->setContentLength($blobLength);
         $result->setETag($headers[Resources::ETAG]);
         $result->setLastModified($date);
@@ -117,7 +117,7 @@ class ListPageBlobRangesResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -140,7 +140,7 @@ class ListPageBlobRangesResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         Validate::isString($etag, 'etag');
         $this->_etag = $etag;
@@ -163,7 +163,7 @@ class ListPageBlobRangesResult
      *
      * @return void
      */
-    public function setContentLength($contentLength)
+    protected function setContentLength($contentLength)
     {
         Validate::isInteger($contentLength, 'contentLength');
         $this->_contentLength = $contentLength;
@@ -186,7 +186,7 @@ class ListPageBlobRangesResult
      *
      * @return void
      */
-    public function setPageRanges(array $pageRanges)
+    protected function setPageRanges(array $pageRanges)
     {
         $this->_pageRanges = array();
         foreach ($pageRanges as $pageRange) {

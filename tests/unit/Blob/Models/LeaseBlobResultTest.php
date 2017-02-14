@@ -40,33 +40,17 @@ class LeaseBlobResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::setLeaseId
+     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::getLeaseId
      */
     public function testCreate()
     {
         // Setup
-        $expected = '10';
+        $expected = '0x8CAFB82EFF70C46';
         $headers = array('x-ms-lease-id' => $expected);
         
         // Test
         $result = LeaseBlobResult::create($headers);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getLeaseId());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult::getLeaseId
-     */
-    public function testSetLeaseId()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $result = new LeaseBlobResult();
-        $result->setLeaseId($expected);
-        
-        // Test
-        $result->setLeaseId($expected);
         
         // Assert
         $this->assertEquals($expected, $result->getLeaseId());

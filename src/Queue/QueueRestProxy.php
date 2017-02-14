@@ -1035,22 +1035,7 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $options->getRequestOptions()
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
-        
-            $popReceipt = Utilities::tryGetValue(
-                $responseHeaders,
-                Resources::X_MS_POPRECEIPT
-            );
-            $timeNextVisible = Utilities::tryGetValue(
-                $responseHeaders,
-                Resources::X_MS_TIME_NEXT_VISIBLE
-            );
-            
-            $date   = Utilities::rfc1123ToDateTime($timeNextVisible);
-            $result = new UpdateMessageResult();
-            $result->setPopReceipt($popReceipt);
-            $result->setTimeNextVisible($date);
-            
-            return $result;
+            return UpdateMessageResult::create($responseHeaders);
         }, null);
     }
 }

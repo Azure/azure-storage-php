@@ -80,7 +80,7 @@ class LeaseBlobResult
      *
      * @return void
      */
-    public function setLeaseId($leaseId)
+    protected function setLeaseId($leaseId)
     {
         $this->_leaseId = $leaseId;
     }

@@ -42,6 +42,12 @@ class PutBlobResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getContentMD5
      */
     public function testCreate()
     {
@@ -57,50 +63,5 @@ class PutBlobResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getLastModified
-     */
-    public function testSetLastModified()
-    {
-        // Setup
-        $expected = Utilities::rfc1123ToDateTime('Sun, 25 Sep 2011 19:42:18 GMT');
-        $result = new PutBlobResult();
-        $result->setLastModified($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getLastModified());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getETag
-     */
-    public function testSetETag()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $result = new PutBlobResult();
-        $result->setETag($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getETag());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getContentMD5
-     */
-    public function testSetContentMD5()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $result = new PutBlobResult();
-        $result->setContentMD5($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getContentMD5());
     }
 }

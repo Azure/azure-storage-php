@@ -95,7 +95,7 @@ class GetBlobResult
      *
      * @return void
      */
-    public function setMetadata(array $metadata)
+    protected function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -117,7 +117,7 @@ class GetBlobResult
      *
      * @return void
      */
-    public function setProperties(BlobProperties $properties)
+    protected function setProperties(BlobProperties $properties)
     {
         $this->_properties = $properties;
     }
@@ -139,7 +139,7 @@ class GetBlobResult
      *
      * @return void
      */
-    public function setContentStream($contentStream)
+    protected function setContentStream($contentStream)
     {
         $this->_contentStream = $contentStream;
     }

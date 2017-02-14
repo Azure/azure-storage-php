@@ -1,3 +1,7 @@
+Tracking Breaking changes in 0.13.0
+
+* Modified the setters of most classes that represent API call result from `public` to `protected` to avoid unwanted corruption of SDK constructed data. If the user is using the setters prior to the release there could be a breaking change.
+
 Tracking Breaking changes in 0.12.0
 
 * Moved `getMetadataArray` and `validateMetadata` from ServiceRestProxy.php to Utilities.php

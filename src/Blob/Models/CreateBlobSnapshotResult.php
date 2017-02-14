@@ -102,7 +102,7 @@ class CreateBlobSnapshotResult
      *
      * @return void
      */
-    public function setSnapshot($snapshot)
+    protected function setSnapshot($snapshot)
     {
         $this->_snapshot = $snapshot;
     }
@@ -124,7 +124,7 @@ class CreateBlobSnapshotResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }
@@ -146,7 +146,7 @@ class CreateBlobSnapshotResult
      *
      * @return void
      */
-    public function setLastModified($lastModified)
+    protected function setLastModified($lastModified)
     {
         $this->_lastModified = $lastModified;
     }

@@ -24,6 +24,7 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
 
 /**
@@ -41,102 +42,27 @@ class GetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::getETag
-     */
-    public function testGetETag()
-    {
-        // Setup
-        $getBlobMetadataResult = new GetBlobMetadataResult();
-        $expected = '0x8CACB9BD7C6B1B2';
-        $getBlobMetadataResult->setETag($expected);
-        
-        // Test
-        $actual = $getBlobMetadataResult->getETag();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::setETag
-     */
-    public function testSetETag()
-    {
-        // Setup
-        $getBlobMetadataResult = new GetBlobMetadataResult();
-        $expected = '0x8CACB9BD7C6B1B2';
-        
-        // Test
-        $getBlobMetadataResult->setETag($expected);
-        
-        // Assert
-        $actual = $getBlobMetadataResult->getETag();
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::getLastModified
-     */
-    public function testGetLastModified()
-    {
-        // Setup
-        $getBlobMetadataResult = new GetBlobMetadataResult();
-        $expected = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        $getBlobMetadataResult->setLastModified($expected);
-        
-        // Test
-        $actual = $getBlobMetadataResult->getLastModified();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::setLastModified
-     */
-    public function testSetLastModified()
-    {
-        // Setup
-        $getBlobMetadataResult = new GetBlobMetadataResult();
-        $expected = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        
-        // Test
-        $getBlobMetadataResult->setLastModified($expected);
-        
-        // Assert
-        $actual = $getBlobMetadataResult->getLastModified();
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::setMetadata
-     */
-    public function testSetMetadata()
-    {
-        // Setup
-        $container = new GetBlobMetadataResult();
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        
-        // Test
-        $container->setMetadata($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $container->getMetadata());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::getMetadata
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::create
      */
-    public function testGetMetadata()
+    public function testCreate()
     {
         // Setup
-        $container = new GetBlobMetadataResult();
-        $expected = array('key1' => 'value1', 'key2' => 'value2');
-        $container->setMetadata($expected);
+        $sample = TestResources::listBlobsOneEntry();
+        $expectedProperties = $sample['Blobs']['Blob']['Properties'];
+        $expectedDate = Utilities::rfc1123ToDateTime($expectedProperties['Last-Modified']);
+        $expectedMetadata = $sample['Blobs']['Blob']['Metadata'];
         
         // Test
-        $actual = $container->getMetadata();
+        $actual = GetBlobMetadataResult::create($expectedProperties, $expectedMetadata);
         
         // Assert
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expectedDate, $actual->getLastModified());
+        $this->assertEquals($expectedProperties['Etag'], $actual->getETag());
+        $this->assertEquals($expectedMetadata, $actual->getMetadata());
     }
 }

@@ -43,6 +43,8 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
      */
     public function testCreateWithEmpty()
     {
@@ -54,11 +56,18 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertCount(0, $actual->getContainers());
-        $this->assertTrue(empty($sample['NextMarker']));
     }
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMaxResults
      */
     public function testCreateWithOneEntry()
     {
@@ -94,6 +103,16 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setPrefix
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getPrefix
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setAccountName
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getAccountName
      */
     public function testCreateWithMultipleEntries()
     {
@@ -139,204 +158,9 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertEquals($sample['MaxResults'], $actual->getMaxResults());
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
+        $this->assertEquals($sample['Prefix'], $actual->getPrefix());
+        $this->assertEquals($sample['account'], $actual->getAccountName());
         
         return $actual;
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
-     * @depends testCreateWithMultipleEntries
-     */
-    public function testGetContainers($result)
-    {
-        // Test
-        $actual = $result->getContainers();
-        
-        // Assert
-        $this->assertCount(2, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
-     * @depends testCreateWithMultipleEntries
-     */
-    public function testSetContainers($result)
-    {
-        // Setup
-        $sample = new ListContainersResult();
-        $expected = $result->getContainers();
-        
-        // Test
-        $sample->setContainers($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $sample->getContainers());
-        $expected[0]->setName('test');
-        $this->assertNotEquals($expected, $sample->getContainers());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setPrefix
-     */
-    public function testSetPrefix()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'myprefix';
-        
-        // Test
-        $result->setPrefix($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getPrefix());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getPrefix
-     */
-    public function testGetPrefix()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'myprefix';
-        $result->setPrefix($expected);
-        
-        // Test
-        $actual = $result->getPrefix();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setNextMarker
-     */
-    public function testSetNextMarker()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'mymarker';
-        
-        // Test
-        $result->setNextMarker($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getNextMarker());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getNextMarker
-     */
-    public function testGetNextMarker()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'mymarker';
-        $result->setNextMarker($expected);
-        
-        // Test
-        $actual = $result->getNextMarker();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMarker
-     */
-    public function testSetMarker()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'mymarker';
-        
-        // Test
-        $result->setMarker($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getMarker());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMarker
-     */
-    public function testGetMarker()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'mymarker';
-        $result->setMarker($expected);
-        
-        // Test
-        $actual = $result->getMarker();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
-     */
-    public function testSetMaxResults()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = '3';
-        
-        // Test
-        $result->setMaxResults($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getMaxResults());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMaxResults
-     */
-    public function testGetMaxResults()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = '3';
-        $result->setMaxResults($expected);
-        
-        // Test
-        $actual = $result->getMaxResults();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setAccountName
-     */
-    public function testSetAccountName()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'name';
-        
-        // Test
-        $result->setAccountName($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getAccountName());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getAccountName
-     */
-    public function testGetAccountName()
-    {
-        // Setup
-        $result = new ListContainersResult();
-        $expected = 'name';
-        $result->setAccountName($expected);
-        
-        // Test
-        $actual = $result->getAccountName();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
     }
 }

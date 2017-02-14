@@ -41,6 +41,12 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobPrefixes
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobPrefixes
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobs
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMaxResults
      */
     public function testCreateWithEmpty()
     {
@@ -58,6 +64,22 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobPrefixes
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobPrefixes
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobs
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setPrefix
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getPrefix
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setContainerName
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getContainerName
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setDelimiter
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getDelimiter
      */
     public function testCreateWithOneEntry()
     {
@@ -69,6 +91,7 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertCount(1, $actual->getBlobs());
+        $this->assertEquals($sample['@attributes']['ContainerName'], $actual->getContainerName());
         $this->assertCount(1, $actual->getBlobPrefixes());
         $this->assertEquals($sample['Marker'], $actual->getMarker());
         $this->assertEquals(intval($sample['MaxResults']), $actual->getMaxResults());
@@ -79,6 +102,18 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobPrefixes
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobPrefixes
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobs
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMaxResults
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setContainerName
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getContainerName
      */
     public function testCreateWithMultipleEntries()
     {
@@ -91,272 +126,11 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertCount(2, $actual->getBlobs());
         $this->assertCount(2, $actual->getBlobPrefixes());
+        $this->assertEquals($sample['@attributes']['ContainerName'], $actual->getContainerName());
         $this->assertEquals($sample['Marker'], $actual->getMarker());
         $this->assertEquals(intval($sample['MaxResults']), $actual->getMaxResults());
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
         
         return $actual;
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobPrefixes
-     * @depends testCreateWithMultipleEntries
-     */
-    public function testGetBlobPrefixs($result)
-    {
-        // Test
-        $actual = $result->getBlobPrefixes();
-        
-        // Assert
-        $this->assertCount(2, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobPrefixes
-     * @depends testCreateWithMultipleEntries
-     */
-    public function testSetBlobPrefixs($result)
-    {
-        // Setup
-        $sample = new ListBlobsResult();
-        $expected = $result->getBlobPrefixes();
-        
-        // Test
-        $sample->setBlobPrefixes($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $sample->getBlobPrefixes());
-        $expected[0]->setName('test');
-        $this->assertNotEquals($expected, $sample->getBlobPrefixes());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobs
-     * @depends testCreateWithMultipleEntries
-     */
-    public function testGetBlobs($result)
-    {
-        // Test
-        $actual = $result->getBlobs();
-        
-        // Assert
-        $this->assertCount(2, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
-     * @depends testCreateWithMultipleEntries
-     */
-    public function testSetBlobs($result)
-    {
-        // Setup
-        $sample = new ListBlobsResult();
-        $expected = $result->getBlobs();
-        
-        // Test
-        $sample->setBlobs($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $sample->getBlobs());
-        $expected[0]->setName('test');
-        $this->assertNotEquals($expected, $sample->getBlobs());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setPrefix
-     */
-    public function testSetPrefix()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'myprefix';
-        
-        // Test
-        $result->setPrefix($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getPrefix());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getPrefix
-     */
-    public function testGetPrefix()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'myprefix';
-        $result->setPrefix($expected);
-        
-        // Test
-        $actual = $result->getPrefix();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setNextMarker
-     */
-    public function testSetNextMarker()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'mymarker';
-        
-        // Test
-        $result->setNextMarker($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getNextMarker());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getNextMarker
-     */
-    public function testGetNextMarker()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'mymarker';
-        $result->setNextMarker($expected);
-        
-        // Test
-        $actual = $result->getNextMarker();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMarker
-     */
-    public function testSetMarker()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'mymarker';
-        
-        // Test
-        $result->setMarker($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getMarker());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMarker
-     */
-    public function testGetMarker()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'mymarker';
-        $result->setMarker($expected);
-        
-        // Test
-        $actual = $result->getMarker();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults
-     */
-    public function testSetMaxResults()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 3;
-        
-        // Test
-        $result->setMaxResults($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getMaxResults());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMaxResults
-     */
-    public function testGetMaxResults()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 3;
-        $result->setMaxResults($expected);
-        
-        // Test
-        $actual = $result->getMaxResults();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setContainerName
-     */
-    public function testSetContainerName()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'name';
-        
-        // Test
-        $result->setContainerName($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getContainerName());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getContainerName
-     */
-    public function testGetContainerName()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'name';
-        $result->setContainerName($expected);
-        
-        // Test
-        $actual = $result->getContainerName();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setDelimiter
-     */
-    public function testSetDelimiter()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'mydelimiter';
-        
-        // Test
-        $result->setDelimiter($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getDelimiter());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getDelimiter
-     */
-    public function testGetDelimiter()
-    {
-        // Setup
-        $result = new ListBlobsResult();
-        $expected = 'mydelimiter';
-        $result->setDelimiter($expected);
-        
-        // Test
-        $actual = $result->getDelimiter();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
     }
 }

@@ -25,6 +25,7 @@ namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
  * Unit tests for class SetBlobMetadataResult
@@ -40,70 +41,23 @@ use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult;
 class SetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getETag
-     */
-    public function testGetETag()
-    {
-        // Setup
-        $getBlobMetadataResult = new SetBlobMetadataResult();
-        $expected = '0x8CACB9BD7C6B1B2';
-        $getBlobMetadataResult->setETag($expected);
-        
-        // Test
-        $actual = $getBlobMetadataResult->getETag();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::setETag
-     */
-    public function testSetETag()
-    {
-        // Setup
-        $getBlobMetadataResult = new SetBlobMetadataResult();
-        $expected = '0x8CACB9BD7C6B1B2';
-        
-        // Test
-        $getBlobMetadataResult->setETag($expected);
-        
-        // Assert
-        $actual = $getBlobMetadataResult->getETag();
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getLastModified
-     */
-    public function testGetLastModified()
-    {
-        // Setup
-        $getBlobMetadataResult = new SetBlobMetadataResult();
-        $expected = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        $getBlobMetadataResult->setLastModified($expected);
-        
-        // Test
-        $actual = $getBlobMetadataResult->getLastModified();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::setLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::setETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::create
      */
-    public function testSetLastModified()
+    public function testCreate()
     {
         // Setup
-        $getBlobMetadataResult = new SetBlobMetadataResult();
-        $expected = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        
+        $sample = TestResources::ListBlobsOneEntry()['Blobs']['Blob']['Properties'];
+        $expectedDate = Utilities::rfc1123ToDateTime($sample['Last-Modified']);
+
         // Test
-        $getBlobMetadataResult->setLastModified($expected);
-        
+        $result = SetBlobMetadataResult::create($sample);
+
         // Assert
-        $actual = $getBlobMetadataResult->getLastModified();
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expectedDate, $result->getLastModified());
+        $this->assertEquals($sample['Etag'], $result->getETag());
     }
 }

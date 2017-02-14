@@ -24,7 +24,8 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\GetTableResult;
-
+use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 /**
  * Unit tests for class GetTableResult
  *
@@ -41,17 +42,18 @@ class GetTableResultTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\GetTableResult::setName
      * @covers MicrosoftAzure\Storage\Table\Models\GetTableResult::getName
+     * @covers MicrosoftAzure\Storage\Table\Models\GetTableResult::create
      */
-    public function testSetName()
+    public function testCreate()
     {
         // Setup
-        $result = new GetTableResult();
-        $name = 'myTable';
-        
+        $sampleBody = TestResources::getTableSampleBody();
+        $serializer = new AtomReaderWriter();
+
         // Test
-        $result->setName($name);
+        $result = GetTableResult::create($sampleBody, $serializer);
         
         // Assert
-        $this->assertEquals($name, $result->getName());
+        $this->assertEquals($serializer->parseTable($sampleBody), $result->getName());
     }
 }

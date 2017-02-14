@@ -63,8 +63,8 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
         $this->assertEquals($expected['Cache-Control'], $actual->getCacheControl());
         $this->assertEquals(intval($expected['x-ms-blob-sequence-number']), $actual->getSequenceNumber());
-        $this->assertEquals($expected['BlobType'], $actual->getBlobType());
-        $this->assertEquals($expected['LeaseStatus'], $actual->getLeaseStatus());
+        $this->assertEquals($expected['x-ms-blob-type'], $actual->getBlobType());
+        $this->assertEquals($expected['x-ms-lease-status'], $actual->getLeaseStatus());
     }
     
     /**

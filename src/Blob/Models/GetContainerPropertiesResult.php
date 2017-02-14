@@ -75,7 +75,7 @@ class GetContainerPropertiesResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }
@@ -98,7 +98,7 @@ class GetContainerPropertiesResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }
@@ -121,7 +121,7 @@ class GetContainerPropertiesResult
      *
      * @return void
      */
-    public function setMetadata(array $metadata)
+    protected function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -137,12 +137,15 @@ class GetContainerPropertiesResult
     {
         $result   = new GetContainerPropertiesResult();
         $metadata = Utilities::getMetadataArray($responseHeaders);
-        $date     = Utilities::tryGetValue(
-            $responseHeaders,
-            Resources::LAST_MODIFIED
+        $date     = Utilities::tryGetValueInsensitive(
+            Resources::LAST_MODIFIED,
+            $responseHeaders
         );
         $date     = Utilities::rfc1123ToDateTime($date);
-        $result->setETag(Utilities::tryGetValue($responseHeaders, Resources::ETAG));
+        $result->setETag(Utilities::tryGetValueInsensitive(
+            Resources::ETAG,
+            $responseHeaders
+        ));
         $result->setMetadata($metadata);
         $result->setLastModified($date);
         

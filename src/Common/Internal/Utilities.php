@@ -836,4 +836,19 @@ class Utilities
             Validate::isString($value, 'metadata value');
         }
     }
+
+    /**
+     * Append the content to file.
+     * @param  string $path    The file to append to.
+     * @param  string $content The content to append.
+     * @return void
+     */
+    public static function appendToFile($path, $content)
+    {
+        $resource = @fopen($path, 'a+');
+        if ($resource != null) {
+            fwrite($resource, $content);
+            fclose($resource);
+        }
+    }
 }

@@ -278,6 +278,7 @@ class Resources
     const QP_NEXT_RK            = 'NextRowKey';
     const QP_ACTION             = 'action';
     const QP_EMBED_DETAIL       = 'embed-detail';
+    const QP_QUEUE_MESSAGE      = 'QueueMessage';
 
     // Query parameter values
     const QPV_REGENERATE = 'regenerate';

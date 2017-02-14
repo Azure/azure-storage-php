@@ -89,7 +89,7 @@ class ListMessagesResult
      *
      * @return void
      */
-    public function setQueueMessages($queueMessages)
+    protected function setQueueMessages($queueMessages)
     {
         $this->_queueMessages = array();
         

@@ -24,6 +24,8 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
+use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+
 /**
  * Holds result of calling getEntity wrapper.
  *
@@ -59,8 +61,16 @@ class GetEntityResult
      *
      * @return void
      */
-    public function setEntity($entity)
+    protected function setEntity($entity)
     {
         $this->_entity = $entity;
+    }
+
+    public static function create($body, IAtomReaderWriter $serializer)
+    {
+        $result = new GetEntityResult();
+        $result->setEntity($serializer->parseEntity($body));
+
+        return $result;
     }
 }

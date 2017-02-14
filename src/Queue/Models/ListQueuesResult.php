@@ -63,26 +63,26 @@ class ListQueuesResult
             Resources::XTAG_ATTRIBUTES,
             Resources::XTAG_SERVICE_ENDPOINT
         );
-        $result->_accountName = Utilities::tryParseAccountNameFromUrl(
+        $result->setAccountName(Utilities::tryParseAccountNameFromUrl(
             $serviceEndpoint
-        );
-        $result->_prefix      = Utilities::tryGetValue(
+        ));
+        $result->setPrefix(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_PREFIX
-        );
-        $result->_marker      = Utilities::tryGetValue(
+        ));
+        $result->setMarker(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MARKER
-        );
-        $result->_nextMarker  = Utilities::tryGetValue(
+        ));
+        $result->setNextMarker(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_NEXT_MARKER
-        );
-        $result->_maxResults  = Utilities::tryGetValue(
+        ));
+        $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS
-        );
-        $result->_queues      = array();
+        ));
+        $queues      = array();
         $rawQueues            = array();
         
         if (!empty($parsedResponse['Queues'])) {
@@ -93,9 +93,9 @@ class ListQueuesResult
             $queue    = new Queue($value['Name'], $serviceEndpoint . $value['Name']);
             $metadata = Utilities::tryGetValue($value, Resources::QP_METADATA);
             $queue->setMetadata(is_null($metadata) ? array() : $metadata);
-            $result->_queues[] = $queue;
+            $queues[] = $queue;
         }
-        
+        $result->setQueues($queues);
         return $result;
     }
 
@@ -116,7 +116,7 @@ class ListQueuesResult
      *
      * @return void
      */
-    public function setQueues(array $queues)
+    protected function setQueues(array $queues)
     {
         $this->_queues = array();
         foreach ($queues as $queue) {
@@ -141,7 +141,7 @@ class ListQueuesResult
      *
      * @return void
      */
-    public function setPrefix($prefix)
+    protected function setPrefix($prefix)
     {
         $this->_prefix = $prefix;
     }
@@ -163,7 +163,7 @@ class ListQueuesResult
      *
      * @return void
      */
-    public function setMarker($marker)
+    protected function setMarker($marker)
     {
         $this->_marker = $marker;
     }
@@ -185,7 +185,7 @@ class ListQueuesResult
      *
      * @return void
      */
-    public function setMaxResults($maxResults)
+    protected function setMaxResults($maxResults)
     {
         $this->_maxResults = $maxResults;
     }
@@ -207,7 +207,7 @@ class ListQueuesResult
      *
      * @return void
      */
-    public function setNextMarker($nextMarker)
+    protected function setNextMarker($nextMarker)
     {
         $this->_nextMarker = $nextMarker;
     }
@@ -229,7 +229,7 @@ class ListQueuesResult
      *
      * @return void
      */
-    public function setAccountName($accountName)
+    protected function setAccountName($accountName)
     {
         $this->_accountName = $accountName;
     }

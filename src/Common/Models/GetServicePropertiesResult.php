@@ -51,7 +51,7 @@ class GetServicePropertiesResult
     public static function create(array $parsedResponse)
     {
         $result                     = new GetServicePropertiesResult();
-        $result->_serviceProperties = ServiceProperties::create($parsedResponse);
+        $result->setValue(ServiceProperties::create($parsedResponse));
         
         return $result;
     }
@@ -73,7 +73,7 @@ class GetServicePropertiesResult
      *
      * @return void
      */
-    public function setValue($serviceProperties)
+    protected function setValue($serviceProperties)
     {
         $this->_serviceProperties = clone $serviceProperties;
     }

@@ -91,7 +91,7 @@ class QueryTablesResult
      *
      * @return void
      */
-    public function setNextTableName($nextTableName)
+    protected function setNextTableName($nextTableName)
     {
         $this->_nextTableName = $nextTableName;
     }
@@ -113,7 +113,7 @@ class QueryTablesResult
      *
      * @return void
      */
-    public function setTables(array $tables)
+    protected function setTables(array $tables)
     {
         $this->_tables = $tables;
     }

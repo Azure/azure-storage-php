@@ -42,6 +42,14 @@ class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getLastModified
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getETag
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setSequenceNumber
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getSequenceNumber
      */
     public function testCreate()
     {
@@ -58,77 +66,5 @@ class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected['Etag'], $actual->getETag());
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
         $this->assertEquals(intval($expected['x-ms-blob-sequence-number']), $actual->getSequenceNumber());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getLastModified
-     */
-    public function testSetLastModified()
-    {
-        // Setup
-        $expected = Utilities::rfc1123ToDateTime('Sun, 25 Sep 2011 19:42:18 GMT');
-        $options = new CreateBlobPagesResult();
-        $options->setLastModified($expected);
-        
-        // Test
-        $options->setLastModified($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getLastModified());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getETag
-     */
-    public function testSetETag()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $options = new CreateBlobPagesResult();
-        $options->setETag($expected);
-        
-        // Test
-        $options->setETag($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getETag());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getContentMD5
-     */
-    public function testSetContentMD5()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $options = new CreateBlobPagesResult();
-        $options->setContentMD5($expected);
-        
-        // Test
-        $options->setContentMD5($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getContentMD5());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setSequenceNumber
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getSequenceNumber
-     */
-    public function testSetSequenceNumber()
-    {
-        // Setup
-        $expected = 123;
-        $options = new CreateBlobPagesResult();
-        $options->setSequenceNumber($expected);
-        
-        // Test
-        $options->setSequenceNumber($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getSequenceNumber());
     }
 }

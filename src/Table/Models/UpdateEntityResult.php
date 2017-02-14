@@ -55,8 +55,9 @@ class UpdateEntityResult
     public static function create(array $headers)
     {
         $result = new UpdateEntityResult();
-        $clean  = array_change_key_case($headers);
-        $result->setETag($clean[Resources::ETAG]);
+        $result->setETag(
+            Utilities::tryGetValueInsensitive(Resources::ETAG, $headers)
+        );
         
         return $result;
     }
@@ -78,7 +79,7 @@ class UpdateEntityResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }

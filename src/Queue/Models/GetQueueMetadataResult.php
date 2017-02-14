@@ -59,8 +59,8 @@ class GetQueueMetadataResult
      */
     public function __construct($approximateMessageCount, array $metadata)
     {
-        $this->_approximateMessageCount = $approximateMessageCount;
-        $this->_metadata                = is_null($metadata) ? array() : $metadata;
+        $this->setApproximateMessageCount($approximateMessageCount);
+        $this->setMetadata(is_null($metadata) ? array() : $metadata);
     }
     
     /**
@@ -80,7 +80,7 @@ class GetQueueMetadataResult
      *
      * @return void
      */
-    public function setApproximateMessageCount($approximateMessageCount)
+    protected function setApproximateMessageCount($approximateMessageCount)
     {
         $this->_approximateMessageCount = $approximateMessageCount;
     }
@@ -102,7 +102,7 @@ class GetQueueMetadataResult
      *
      * @return void
      */
-    public function setMetadata(array $metadata)
+    protected function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }

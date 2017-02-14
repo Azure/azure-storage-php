@@ -40,36 +40,23 @@ use MicrosoftAzure\Storage\Table\Models\QueryTablesResult;
 class QueryTablesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::setNextTableName
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::getNextTableName
-     */
-    public function testSetNextTableName()
-    {
-        // Setup
-        $result = new QueryTablesResult();
-        $expected = 'table';
-        
-        // Test
-        $result->setNextTableName($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $result->getNextTableName());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::setTables
      * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::getTables
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::setNextTableName
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::getNextTableName
+     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::create
      */
-    public function testSetTables()
+    public function testCreate()
     {
         // Setup
-        $result = new QueryTablesResult();
-        $expected = array(1, 2, 3, 4, 5);
-        
+        $entries = array('querytablessimple1', 'querytablessimple2');
+        $headers = array('x-ms-continuation-nexttablename' => 'nextTable');
+
         // Test
-        $result->setTables($expected);
-        
+        $result = QueryTablesResult::create($headers, $entries);
+
         // Assert
-        $this->assertEquals($expected, $result->getTables());
+        $this->assertEquals($entries, $result->getTables());
+        $this->assertEquals($headers['x-ms-continuation-nexttablename'], $result->getNextTableName());
     }
 }
