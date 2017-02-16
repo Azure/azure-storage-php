@@ -3,6 +3,7 @@
 .project
 .cache.properties
 composer.lock
+test-file-*
 
 /vendor/*
 /output/*
