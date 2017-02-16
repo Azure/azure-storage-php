@@ -6,6 +6,7 @@ composer.lock
 
 /vendor/*
 /output/*
+/build/*
 
 
 
