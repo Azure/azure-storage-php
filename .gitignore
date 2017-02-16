@@ -2,6 +2,7 @@
 .settings/*
 .project
 .cache.properties
+composer.lock
 
 /vendor/*
 /output/*
