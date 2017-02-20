@@ -19,7 +19,9 @@ This project provides a set of PHP client libraries that make it easy to access 
 * Queues
   * create, list, and delete queues, and work with queue metadata and properties
   * create, get, peek, update, delete messages
-  
+
+Please check details on [API reference documents](http://azure.github.io/azure-storage-php).
+
 # Getting Started
 ## Minimum Requirements
 
