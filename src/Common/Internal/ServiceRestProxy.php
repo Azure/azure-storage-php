@@ -51,7 +51,6 @@ use Psr\Http\Message\ResponseInterface;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.1
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServiceRestProxy extends RestProxy
