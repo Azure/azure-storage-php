@@ -173,7 +173,7 @@ class ServiceRestProxy extends RestProxy
                         "decode_content" => true,
                     ),
                     'cookies' => true,
-                    'verify' => false,
+                    'verify' => true,
                     // For testing with Fiddler
                     //'proxy' => "localhost:8888",
                 ),
