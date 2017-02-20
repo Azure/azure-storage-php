@@ -1,3 +1,59 @@
+2017.02 - version 0.13.0
+
+ALL
+* The `ServiceException` now provides more detailed information about the request ID and date parsed from the error response.
+* Changed the setters in the following class from public to protected to avoid possible misuse of the data structure.
+`MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult`
+* Removed version tags in each of the files.
+* Added support for the SDK to access Azure Storage Emulator.
+* Introduced full support for middlewares. The usage manual can be found in [README.md](README.md).
+* Turned on the verification of SSL certificate issuer in the client options.
+
+Blob
+* Applied a more robust fix for the issue where `createBlockBlob` would fail for some files with size larger than 1MB and smaller than 32MB.
+* Changed the setters in the following classes from public to protected to avoid possible misuse of the data structure.
+  ```
+  MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult
+  MicrosoftAzure\Storage\Blob\Models\CopyBlobResult
+  MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult
+  MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult
+  MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult
+  MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult
+  MicrosoftAzure\Storage\Blob\Models\GetBlobResult
+  MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult
+  MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult
+  MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
+  MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult
+  MicrosoftAzure\Storage\Blob\Models\ListBlobsResult
+  MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult
+  MicrosoftAzure\Storage\Blob\Models\PutBlobResult
+  MicrosoftAzure\Storage\Blob\Models\PutBlockResult
+  MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult
+  MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult
+  ```
+
+Table
+* Changed the setters in the following classes from public to protected to avoid possible misuse of the data structure.
+  ```
+  MicrosoftAzure\Storage\Table\Models\BatchResult
+  MicrosoftAzure\Storage\Table\Models\GetEntityResult
+  MicrosoftAzure\Storage\Table\Models\GetTableResult
+  MicrosoftAzure\Storage\Table\Models\InsertEntityResult
+  MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult
+  MicrosoftAzure\Storage\Table\Models\QueryTablesResult
+  MicrosoftAzure\Storage\Table\Models\UpdateEntityResult
+  ```
+
+Queue
+* Changed the setters in the following classes from public to protected to avoid possible misuse of the data structure.
+  ```
+  MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult
+  MicrosoftAzure\Storage\Queue\Models\ListMessagesResult
+  MicrosoftAzure\Storage\Queue\Models\ListQueuesResult
+  MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult
+  MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult
+  ```
+
 2017.01 - version 0.12.1
 Blob
 * Fixed an issue where `createBlockBlob` would fail for some files with size larger than 1MB and smaller than 32MB.
