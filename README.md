@@ -92,6 +92,17 @@ $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionStrin
 $queueClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
 ```
 
+## Troubleshooting
+### Error: Unable to get local issuer certificate
+cURL can't verify the validity of Microsoft certificate when trying to issue a request call to Azure Storage Services. You must configure cURL to use a certificate when issuing https requests by the following steps:
+
+1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html).
+2. Open your php.ini file and add the following line:
+
+    ```
+    curl.cainfo = "<absolute path to cacert.pem>"
+    ```
+
 ## Code samples
 
 You can find samples in the [sample folder](samples)
