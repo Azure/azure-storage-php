@@ -68,6 +68,11 @@ class ServiceRestProxy extends RestProxy
      * @var array
      */
     private $_options;
+    
+    /**
+     * @var array
+     */
+    private $_clients;
 
     /**
      * Initializes new ServiceRestProxy object.
@@ -93,6 +98,8 @@ class ServiceRestProxy extends RestProxy
         $this->_accountName = $accountName;
         $this->_psrUri = new \GuzzleHttp\Psr7\Uri($uri);
         $this->_options = array_merge(array('http' => array()), $options);
+
+        $this->_clients = array();
     }
 
     /**
@@ -119,6 +126,25 @@ class ServiceRestProxy extends RestProxy
             $request = $filter->handleRequest($request);
         }
         return $request;
+    }
+
+    /**
+     * Helper function to retrieve a Guzzle client based on the provided clientOptions,
+     * or create a new instance if one does not exists.
+     * @param  array $clientOptions Added options for client.
+     *
+     * @return \GuzzleHttp\Client
+     */
+    protected function createClientIfNotExists(array $clientOptions)
+    {
+        $serializedClientOptions = serialize($clientOptions);
+        if ($this->_clients[$serializedClientOptions]) {
+            return $this->_clients[$serializedClientOptions];
+        }
+
+        $client = $this->createClient($clientOptions);
+        $this->_clients[$serializedClientOptions] = $client;
+        return $client;
     }
 
     /**
@@ -214,7 +240,7 @@ class ServiceRestProxy extends RestProxy
             unset($clientOptions['number_of_concurrency']);
         }
         //creates the client
-        $client = $this->createClient($clientOptions);
+        $client = $this->createClientIfNotExists($clientOptions);
 
         $promises = \call_user_func(
             function () use ($requests, $generator, $client) {
@@ -344,7 +370,7 @@ class ServiceRestProxy extends RestProxy
             $path,
             $body
         );
-        $client = $this->createClient($clientOptions);
+        $client = $this->createClientIfNotExists($clientOptions);
 
         $options = $request->getMethod() == 'HEAD'?
             array('decode_content' => false) : array();
