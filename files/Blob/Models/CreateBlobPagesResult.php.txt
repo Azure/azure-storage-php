@@ -36,7 +36,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CreateBlobPagesResult
@@ -107,7 +106,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setLastModified($lastModified)
+    protected function setLastModified($lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -130,7 +129,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         Validate::isString($etag, 'etag');
         $this->_etag = $etag;
@@ -153,7 +152,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setContentMD5($contentMD5)
+    protected function setContentMD5($contentMD5)
     {
         $this->_contentMD5 = $contentMD5;
     }
@@ -175,7 +174,7 @@ class CreateBlobPagesResult
      *
      * @return void
      */
-    public function setSequenceNumber($sequenceNumber)
+    protected function setSequenceNumber($sequenceNumber)
     {
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;

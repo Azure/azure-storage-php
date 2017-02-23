@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * This class provides static functions that creates retry handlers for Guzzle
@@ -37,30 +38,40 @@ use GuzzleHttp\Middleware;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class RetryMiddlewareFactory
 {
+    //The interval will be increased linearly, the nth retry will have a
+    //wait time equal to n * interval.
     const LINEAR_INTERVAL_ACCUMULATION      = 'Linear';
+    //The interval will be increased exponentially, the nth retry will have a
+    //wait time equal to pow(2, n) * interval.
     const EXPONENTIAL_INTERVAL_ACCUMULATION = 'Exponential';
+    //This is for the general type of logic that handles retry.
     const GENERAL_RETRY_TYPE                = 'General';
+    //This is for the append blob retry only.
     const APPEND_BLOB_RETRY_TYPE            = 'Append Blob Retry';
 
     /**
      * Create the retry handler for the Guzzle client, according to the given
      * attributes.
      *
-     * @param  string $type               The type that controls the logic of
-     *                                    the decider of the retry handler.
-     * @param  int    $numberOfRetries    The maximum number of retries.
-     * @param  int    $interval           The minimum interval between each retry
-     * @param  string $accumulationMethod If the interval increases linearly or
-     *                                    exponentially.
-     *
-     * @return RetryMiddleware            A RetryMiddleware object that contains
-     *                                    the logic of how the request should be
-     *                                    handled after a response.
+     * @param  string $type                The type that controls the logic of
+     *                                     the decider of the retry handler.
+     *                                     Possible value can be
+     *                                     self::GENERAL_RETRY_TYPE or
+     *                                     self::APPEND_BLOB_RETRY_TYPE
+     * @param  int    $numberOfRetries     The maximum number of retries.
+     * @param  int    $interval            The minimum interval between each retry
+     * @param  string $accumulationMethod  If the interval increases linearly or
+     *                                     exponentially.
+     *                                     Possible value can be
+     *                                     self::LINEAR_INTERVAL_ACCUMULATION or
+     *                                     self::EXPONENTIAL_INTERVAL_ACCUMULATION
+     * @return \GuzzleHttp\RetryMiddleware A RetryMiddleware object that contains
+     *                                     the logic of how the request should be
+     *                                     handled after a response.
      */
     public static function create(
         $type = self::GENERAL_RETRY_TYPE,
@@ -148,13 +159,17 @@ class RetryMiddlewareFactory
 
             //Not retriable error, won't retry.
             if (!$response) {
-                return false;
-            } else {
-                if ($type == self::GENERAL_RETRY_TYPE) {
-                    return self::generalRetryDecider($response->getStatusCode());
+                if (!$exception || !($exception instanceof RequestException)) {
+                    return false;
                 } else {
-                    return self::appendBlobRetryDecider($response->getStatusCode());
+                    $response = $exception->getResponse();
                 }
+            }
+            
+            if ($type == self::GENERAL_RETRY_TYPE) {
+                return self::generalRetryDecider($response->getStatusCode());
+            } else {
+                return self::appendBlobRetryDecider($response->getStatusCode());
             }
             
             return true;

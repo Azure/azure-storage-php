@@ -35,7 +35,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class QueryTablesResult
@@ -91,7 +90,7 @@ class QueryTablesResult
      *
      * @return void
      */
-    public function setNextTableName($nextTableName)
+    protected function setNextTableName($nextTableName)
     {
         $this->_nextTableName = $nextTableName;
     }
@@ -113,7 +112,7 @@ class QueryTablesResult
      *
      * @return void
      */
-    public function setTables(array $tables)
+    protected function setTables(array $tables)
     {
         $this->_tables = $tables;
     }

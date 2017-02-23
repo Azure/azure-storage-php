@@ -35,7 +35,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class CopyBlobResult
@@ -57,7 +56,7 @@ class CopyBlobResult
      *
      * @return CopyBlobResult
      */
-    public static function create($headers)
+    public static function create(array $headers)
     {
         $result = new CopyBlobResult();
         $result->setETag(
@@ -94,7 +93,7 @@ class CopyBlobResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         $this->_etag = $etag;
     }
@@ -116,7 +115,7 @@ class CopyBlobResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         $this->_lastModified = $lastModified;
     }

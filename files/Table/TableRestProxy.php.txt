@@ -67,7 +67,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\ISerializer;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class TableRestProxy extends ServiceRestProxy implements ITable
@@ -318,6 +317,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->addStatusCode($statusCode);
         $context->setUri($this->getUri());
         $context->setBody('');
+        $context->setRequestOptions($options->getRequestOptions());
 
         return $context;
     }
@@ -385,6 +385,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
         $context->setUri($this->getUri());
+        $context->setRequestOptions($options->getRequestOptions());
 
         return $context;
     }
@@ -438,6 +439,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
         $context->setUri($this->getUri());
+        $context->setRequestOptions($options->getRequestOptions());
 
         return $context;
     }
@@ -699,6 +701,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->addOptionalQueryParameter(Resources::QP_COMP, 'properties');
         $context->addOptionalQueryParameter(Resources::QP_TIMEOUT, $timeout);
         $context->setStatusCodes(array(Resources::STATUS_OK));
+        $context->setRequestOptions($options->getRequestOptions());
 
         $dataSerializer = $this->dataSerializer;
 
@@ -794,7 +797,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_ACCEPTED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -910,10 +914,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             $tables = $atomSerializer->parseTableEntries($response->getBody());
-
             return QueryTablesResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders()),
                 $tables
@@ -982,7 +988,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_CREATED,
-            $body
+            $body,
+            $options->getRequestOptions()
         );
     }
 
@@ -1042,7 +1049,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             return GetTableResult::create($response->getBody(), $atomSerializer);
         }, null);
@@ -1102,7 +1112,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $queryParams,
             $postParams,
             $path,
-            Resources::STATUS_NO_CONTENT
+            Resources::STATUS_NO_CONTENT,
+            $options->getRequestOptions()
         );
     }
 
@@ -1199,7 +1210,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             $queryParams,
             $postParams,
-            $path
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
         )->then(function ($response) use ($atomSerializer) {
             $entities = $atomSerializer->parseEntities($response->getBody());
 
@@ -1257,7 +1271,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             function ($response) use ($atomSerializer) {
                 $body     = $response->getBody();
                 $headers  = HttpFormatter::formatHeaders($response->getHeaders());
-
                 return InsertEntityResult::create(
                     $body,
                     $headers,
@@ -1580,15 +1593,16 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setPath($path);
         $context->setQueryParameters($queryParams);
         $context->setStatusCodes(array(Resources::STATUS_OK));
+        $context->setRequestOptions($options->getRequestOptions());
 
         $atomSerializer = $this->_atomSerializer;
 
         return $this->sendContextAsync($context)->then(
             function ($response) use ($atomSerializer) {
-                $entity   = $atomSerializer->parseEntity($response->getBody());
-                $result   = new GetEntityResult();
-                $result->setEntity($entity);
-                return $result;
+                return GetEntityResult::create(
+                    $response->getBody(),
+                    $atomSerializer
+                );
             },
             null
         );
@@ -1653,7 +1667,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_ACCEPTED,
-            $body
+            $body,
+            $options->getRequestOptions()
         )->then(function ($response) use (
             $operations,
             $contexts,

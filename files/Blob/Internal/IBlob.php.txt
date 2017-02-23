@@ -24,7 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Blob\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\FilterableService;
 use MicrosoftAzure\Storage\Blob\Models as BlobModels;
 use MicrosoftAzure\Storage\Common\Models as CommonModels;
 
@@ -36,11 +35,10 @@ use MicrosoftAzure\Storage\Common\Models as CommonModels;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  * @see       http://msdn.microsoft.com/en-us/library/windowsazure/dd135733.aspx
  */
-interface IBlob extends FilterableService
+interface IBlob
 {
     /**
     * Gets the properties of the Blob service.

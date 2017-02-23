@@ -24,7 +24,7 @@
     <script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
             var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
             var language = 'php';
 
@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
@@ -144,46 +144,46 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-918312344"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-127394501"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-918312344" class="accordion-body collapse in">
+            <div id="namespace-127394501" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1430674627"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-525214818"></a>
                                 <a href="../namespaces/MicrosoftAzure.html" style="margin-left: 30px; padding-left: 0">MicrosoftAzure</a>
             </div>
-            <div id="namespace-1430674627" class="accordion-body collapse ">
+            <div id="namespace-525214818" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-409545941"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-806704236"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.html" style="margin-left: 30px; padding-left: 0">Storage</a>
             </div>
-            <div id="namespace-409545941" class="accordion-body collapse ">
+            <div id="namespace-806704236" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1132024160"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1050319771"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.html" style="margin-left: 30px; padding-left: 0">Blob</a>
             </div>
-            <div id="namespace-1132024160" class="accordion-body collapse ">
+            <div id="namespace-1050319771" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1729185414"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-784996187"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1729185414" class="accordion-body collapse ">
+            <div id="namespace-784996187" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -198,10 +198,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-461419187"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1217595159"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-461419187" class="accordion-body collapse ">
+            <div id="namespace-1217595159" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -280,28 +280,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-293394399"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-977601942"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.html" style="margin-left: 30px; padding-left: 0">Common</a>
             </div>
-            <div id="namespace-293394399" class="accordion-body collapse ">
+            <div id="namespace-977601942" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-155196482"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-112456594"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-155196482" class="accordion-body collapse ">
+            <div id="namespace-112456594" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1528615482"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-856684836"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Authentication.html" style="margin-left: 30px; padding-left: 0">Authentication</a>
             </div>
-            <div id="namespace-1528615482" class="accordion-body collapse ">
+            <div id="namespace-856684836" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -319,33 +319,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1995627979"></a>
-                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
-            </div>
-            <div id="namespace-1995627979" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.AuthenticationFilter.html">AuthenticationFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.DateFilter.html">DateFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.ExponentialRetryPolicy.html">ExponentialRetryPolicy</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.HeadersFilter.html">HeadersFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicy.html">RetryPolicy</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicyFilter.html">RetryPolicyFilter</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1149133651"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-300346635"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
             </div>
-            <div id="namespace-1149133651" class="accordion-body collapse ">
+            <div id="namespace-300346635" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -360,10 +337,30 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1024822043"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-268704171"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Middlewares.html" style="margin-left: 30px; padding-left: 0">Middlewares</a>
+            </div>
+            <div id="namespace-268704171" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.CommonRequestMiddleware.html">CommonRequestMiddleware</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.HistoryMiddleware.html">HistoryMiddleware</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.MiddlewareBase.html">MiddlewareBase</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-130965130"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Serialization.html" style="margin-left: 30px; padding-left: 0">Serialization</a>
             </div>
-            <div id="namespace-1024822043" class="accordion-body collapse ">
+            <div id="namespace-130965130" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -379,8 +376,7 @@
 
                     
                     <ul>
-                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.FilterableService.html">FilterableService</a></li>
-                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IServiceFilter.html">IServiceFilter</a></li>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IMiddleware.html">IMiddleware</a></li>
                                                                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringParser.html">ConnectionStringParser</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringSource.html">ConnectionStringSource</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.HttpFormatter.html">HttpFormatter</a></li>
@@ -403,10 +399,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1756019000"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1711698425"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-1756019000" class="accordion-body collapse ">
+            <div id="namespace-1711698425" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -426,6 +422,7 @@
                     <ul>
                                                                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.CloudConfigurationManager.html">CloudConfigurationManager</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceException.html">ServiceException</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html">ServiceOptionsBase</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServicesBuilder.html">ServicesBuilder</a></li>
                                             </ul>
                 </div>
@@ -436,19 +433,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1623189713"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1014563491"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.html" style="margin-left: 30px; padding-left: 0">Queue</a>
             </div>
-            <div id="namespace-1623189713" class="accordion-body collapse ">
+            <div id="namespace-1014563491" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1191170903"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-392133021"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1191170903" class="accordion-body collapse ">
+            <div id="namespace-392133021" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -463,10 +460,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-353690696"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1788093003"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-353690696" class="accordion-body collapse ">
+            <div id="namespace-1788093003" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -503,19 +500,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-557527240"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-708999644"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
             </div>
-            <div id="namespace-557527240" class="accordion-body collapse ">
+            <div id="namespace-708999644" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-854952599"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1285733099"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-854952599" class="accordion-body collapse ">
+            <div id="namespace-1285733099" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -534,19 +531,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2046831793"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-279040639"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-2046831793" class="accordion-body collapse ">
+            <div id="namespace-279040639" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-383116661"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1659715316"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
             </div>
-            <div id="namespace-383116661" class="accordion-body collapse ">
+            <div id="namespace-1659715316" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -662,10 +659,10 @@ service layer.</em></p>
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_addPostParameter" class="">addPostParameter()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_groupQueryValues" class="">groupQueryValues()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_generateMetadataHeaders" class="">generateMetadataHeaders()</a><br />
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#method_getFilters" class="">getFilters()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#method_getMiddlewares" class="">getMiddlewares()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#method_getUri" class="">getUri()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#method_setUri" class="">setUri()</a><br />
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#method_withFilter" class="">withFilter()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#method_pushMiddleware" class="">pushMiddleware()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.BlobRestProxy.html#method_getSingleBlobUploadThresholdInBytes" class="">getSingleBlobUploadThresholdInBytes()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.BlobRestProxy.html#method_setSingleBlobUploadThresholdInBytes" class="">setSingleBlobUploadThresholdInBytes()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.BlobRestProxy.html#method_getServiceProperties" class="">getServiceProperties()</a><br />
@@ -744,8 +741,8 @@ service layer.</em></p>
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_requestWithFilter" class="">requestWithFilter()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_createClient" class="">createClient()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_createHandlerStack" class="">createHandlerStack()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_sendConcurrentAsync" class="">sendConcurrentAsync()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_createRequest" class="">createRequest()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#method_sendAsync" class="">sendAsync()</a><br />
@@ -782,7 +779,7 @@ service layer.</em></p>
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#property__accountName" class="">$_accountName</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#property__psrUri" class="">$_psrUri</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html#property__options" class="">$_options</a><br />
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#property__filters" class="">$_filters</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#property_middlewares" class="">$middlewares</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html#property__uri" class="">$_uri</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.BlobRestProxy.html#property__SingleBlobUploadThresholdInBytes" class="">$_SingleBlobUploadThresholdInBytes</a><br />
                                                             </section>
@@ -825,7 +822,7 @@ service layer.</em></p>
                                 category
                             </th>
                             <td>
-                                                                    <p>Microsoft</p>
+                                                                                                        <p>Microsoft</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -833,7 +830,7 @@ service layer.</em></p>
                                 author
                             </th>
                             <td>
-                                                                    <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
+                                                                                                        <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -841,7 +838,7 @@ service layer.</em></p>
                                 copyright
                             </th>
                             <td>
-                                                                    <p>2016 Microsoft Corporation</p>
+                                                                                                        <p>2016 Microsoft Corporation</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -849,15 +846,7 @@ service layer.</em></p>
                                 license
                             </th>
                             <td>
-                                                                    <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                version
-                            </th>
-                            <td>
-                                                                    <p>Release: 0.12.0</p>
+                                                                                                        <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
                                                             </td>
                         </tr>
                                         </table>
@@ -979,10 +968,10 @@ service layer.</em></p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="property__filters" name="property__filters" class="anchor"></a>
+            <a id="property_middlewares" name="property_middlewares" class="anchor"></a>
             <article class="property">
-                <h3 class="private ">$_filters</h3>
-                <pre class="signature">$_filters : array</pre>
+                <h3 class="private ">$middlewares</h3>
+                <pre class="signature">$middlewares : array</pre>
                 <p><em></em></p>
                 
 
@@ -1137,26 +1126,16 @@ service layer.</em></p>
             <article class="method">
                 <h3 class="public ">throwIfError()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">throwIfError(string  <span class="argument">$actual</span>, string  <span class="argument">$reason</span>, string  <span class="argument">$message</span>, array|integer  <span class="argument">$expected</span>) : void</pre>
+                <pre class="signature" style="margin-right: 54px;">throwIfError(\Psr\Http\Message\ResponseInterface  <span class="argument">$response</span>, array|integer  <span class="argument">$expected</span>) : void</pre>
                 <p><em>Throws ServiceException if the recieved status code is not expected.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td>string</td>
-                                <td>$actual </td>
-                                <td><p>The received status code.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$reason </td>
-                                <td><p>The reason phrase.</p></td>
-                            </tr>
-                                                    <tr>
-                                <td>string</td>
-                                <td>$message </td>
-                                <td><p>The detailed message (if any).</p></td>
+                                <td>\Psr\Http\Message\ResponseInterface</td>
+                                <td>$response </td>
+                                <td><p>The response received</p></td>
                             </tr>
                                                     <tr>
                                 <td>array|integer</td>
@@ -1322,12 +1301,12 @@ service layer.</em></p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_getFilters" name="method_getFilters" class="anchor"></a>
+            <a id="method_getMiddlewares" name="method_getMiddlewares" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">getFilters()</h3>
+                <h3 class="public ">getMiddlewares()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">getFilters() : array</pre>
-                <p><em>Gets HTTP filters that will process each request.</em></p>
+                <pre class="signature" style="margin-right: 54px;">getMiddlewares() : array</pre>
+                <p><em>Gets middlewares that will be handling the request and response.</em></p>
                 
 
                 
@@ -1418,27 +1397,26 @@ service layer.</em></p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_withFilter" name="method_withFilter" class="anchor"></a>
+            <a id="method_pushMiddleware" name="method_pushMiddleware" class="anchor"></a>
             <article class="method">
-                <h3 class="public ">withFilter()</h3>
+                <h3 class="public ">pushMiddleware()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">withFilter(\MicrosoftAzure\Storage\Common\Internal\IServiceFilter  <span class="argument">$filter</span>) : \MicrosoftAzure\Storage\Common\Internal\RestProxy</pre>
-                <p><em>Adds new filter to new service rest proxy object and returns that object back.</em></p>
+                <pre class="signature" style="margin-right: 54px;">pushMiddleware(callable|\MicrosoftAzure\Storage\Common\Internal\IMiddleware  <span class="argument">$middleware</span>) : void</pre>
+                <p><em>Push a new middleware into the middlewares array. The newly added
+middleware will be the most inner middleware when executed.</em></p>
                 
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
-                                <td><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IServiceFilter.html">\MicrosoftAzure\Storage\Common\Internal\IServiceFilter</a></td>
-                                <td>$filter </td>
-                                <td><p>Filter to add for the pipeline.</p></td>
+                                <td>callable|<a href="../classes/MicrosoftAzure.Storage.Common.Internal.IMiddleware.html">\MicrosoftAzure\Storage\Common\Internal\IMiddleware</a></td>
+                                <td>$middleware </td>
+                                <td><p>the middleware to be added.</p></td>
                             </tr>
                                             </table>
                 
                 
-                                    <h4>Returns</h4>
-                    <a href="../classes/MicrosoftAzure.Storage.Common.Internal.RestProxy.html">\MicrosoftAzure\Storage\Common\Internal\RestProxy</a>
-                                    				
+                				
                             </article>
         </div>
         <aside class="span4 detailsbar">
@@ -4799,67 +4777,22 @@ acquire a new lease until the current lease period has expired.</em></p>
 
                                                     <div class="row-fluid">
         <div class="span8 content class">
-            <a id="method_requestWithFilter" name="method_requestWithFilter" class="anchor"></a>
-            <article class="method">
-                <h3 class="protected ">requestWithFilter()</h3>
-                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">requestWithFilter(\GuzzleHttp\Psr7\Request  <span class="argument">$request</span>) : \GuzzleHttp\Psr7\Request</pre>
-                <p><em>Filter the request using the filters. This is for users to create
-request.</em></p>
-                
-
-                                    <h4>Parameters</h4>
-                    <table class="table table-condensed table-hover">
-                                                    <tr>
-                                <td>\GuzzleHttp\Psr7\Request</td>
-                                <td>$request </td>
-                                <td><p>The request to be filtered.</p></td>
-                            </tr>
-                                            </table>
-                
-                
-                                    <h4>Returns</h4>
-                    \GuzzleHttp\Psr7\Request
-                                    				
-                            </article>
-        </div>
-        <aside class="span4 detailsbar">
-            <h1><i class="icon-arrow-down"></i></h1>
-                                                            <dl>
-                                                    <dt>Inherited from</dt>
-                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy</div></a></dd>
-                                                            </dl>
-            <h2>Tags</h2>
-            <table class="table table-condensed">
-                                    <tr><td colspan="2"><em>None found</em></td></tr>
-                            </table>
-        </aside>
-    </div>
-
-                                    <div class="row-fluid">
-        <div class="span8 content class">
             <a id="method_createClient" name="method_createClient" class="anchor"></a>
             <article class="method">
                 <h3 class="protected ">createClient()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">createClient(array  <span class="argument">$clientOptions</span>) : \GuzzleHttp\Client</pre>
+                <pre class="signature" style="margin-right: 54px;">createClient(array  <span class="argument">$requestOptions</span>) : \GuzzleHttp\Client</pre>
                 <p><em>Static helper function to create a usable client for the proxy.</em></p>
-                <p>The clientOptions can contain the following keys that will affect
+                <p>The requestOptions can contain the following keys that will affect
 the way retry handler is created and applied.
 handler:               HandlerStack, if set, this function will not
-create a handler stack. It will still construct
-a default retry handler if not specified by the
-following parameters.
-have_retry_middleware: boolean, true if the handler is already specified
-in the handler stack.
-retry_middleware:      Middleware, if specified this method will not create
-a default retry middle ware.</p>
+create a handler stack.</p>
 
                                     <h4>Parameters</h4>
                     <table class="table table-condensed table-hover">
                                                     <tr>
                                 <td>array</td>
-                                <td>$clientOptions </td>
+                                <td>$requestOptions </td>
                                 <td><p>Added options for client.</p></td>
                             </tr>
                                             </table>
@@ -4885,14 +4818,57 @@ a default retry middle ware.</p>
 
                                     <div class="row-fluid">
         <div class="span8 content class">
+            <a id="method_createHandlerStack" name="method_createHandlerStack" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">createHandlerStack()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">createHandlerStack(array  <span class="argument">$requestOptions</span>) : \GuzzleHttp\HandlerStack</pre>
+                <p><em>Create a handler stack with given middleware. If the given handler is not
+a type of HandlerStack and middleware is to pushed in, exception might be
+thrown due to some of the handler stack type does not implement push()
+method. e.g. MockHandler.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$requestOptions </td>
+                                <td><p>The options user passed in.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    \GuzzleHttp\HandlerStack
+                                            &mdash; <p>The HandlerStack that contains all the
+middleware specified in the $requestOptions.</p>
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ServiceRestProxy.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
             <a id="method_sendConcurrentAsync" name="method_sendConcurrentAsync" class="anchor"></a>
             <article class="method">
                 <h3 class="protected ">sendConcurrentAsync()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">sendConcurrentAsync(array  <span class="argument">$requests</span>, callable  <span class="argument">$generator</span>, integer  <span class="argument">$expectedStatusCode</span>, array  <span class="argument">$clientOptions = array()</span>) : array</pre>
+                <pre class="signature" style="margin-right: 54px;">sendConcurrentAsync(array  <span class="argument">$requests</span>, callable  <span class="argument">$generator</span>, integer  <span class="argument">$expectedStatusCode</span>, array  <span class="argument">$requestOptions = array()</span>) : array</pre>
                 <p><em>Send the requests concurrently. Number of concurrency can be modified
 by inserting a new key/value pair with the key &#039;number_of_concurrency&#039;
-into the $clientOptions. Return only the promise.</em></p>
+into the $requestOptions. Return only the promise.</em></p>
                 
 
                                     <h4>Parameters</h4>
@@ -4919,7 +4895,7 @@ of the request.</p></td>
                             </tr>
                                                     <tr>
                                 <td>array</td>
-                                <td>$clientOptions </td>
+                                <td>$requestOptions </td>
                                 <td><p>an array of additional options
 for the client.</p></td>
                             </tr>
@@ -5013,7 +4989,7 @@ for the client.</p></td>
             <article class="method">
                 <h3 class="protected ">sendAsync()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">sendAsync(string  <span class="argument">$method</span>, array  <span class="argument">$headers</span>, array  <span class="argument">$queryParams</span>, array  <span class="argument">$postParameters</span>, string  <span class="argument">$path</span>, array|integer  <span class="argument">$expected = \MicrosoftAzure\Storage\Common\Internal\Resources::STATUS_OK</span>, string  <span class="argument">$body = \MicrosoftAzure\Storage\Common\Internal\Resources::EMPTY_STRING</span>, array  <span class="argument">$clientOptions = array()</span>) : \GuzzleHttp\Promise\PromiseInterface</pre>
+                <pre class="signature" style="margin-right: 54px;">sendAsync(string  <span class="argument">$method</span>, array  <span class="argument">$headers</span>, array  <span class="argument">$queryParams</span>, array  <span class="argument">$postParameters</span>, string  <span class="argument">$path</span>, array|integer  <span class="argument">$expected = \MicrosoftAzure\Storage\Common\Internal\Resources::STATUS_OK</span>, string  <span class="argument">$body = \MicrosoftAzure\Storage\Common\Internal\Resources::EMPTY_STRING</span>, array  <span class="argument">$requestOptions = array()</span>) : \GuzzleHttp\Promise\PromiseInterface</pre>
                 <p><em>Create promise of sending HTTP request with the specified parameters.</em></p>
                 
 
@@ -5056,7 +5032,7 @@ for the client.</p></td>
                             </tr>
                                                     <tr>
                                 <td>array</td>
-                                <td>$clientOptions </td>
+                                <td>$requestOptions </td>
                                 <td><p>Guzzle Client options</p></td>
                             </tr>
                                             </table>
@@ -5297,7 +5273,7 @@ for the client.</p></td>
             <article class="method">
                 <h3 class="protected ">createBlockBlobBySingleUploadAsync()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">createBlockBlobBySingleUploadAsync(string  <span class="argument">$container</span>, string  <span class="argument">$blob</span>, string|resource|\Psr\Http\Message\StreamInterface  <span class="argument">$content</span>, \MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions  <span class="argument">$options = null</span>) : \GuzzleHttp\Promise\PromiseInterface</pre>
+                <pre class="signature" style="margin-right: 54px;">createBlockBlobBySingleUploadAsync(string  <span class="argument">$container</span>, string  <span class="argument">$blob</span>, \Psr\Http\Message\StreamInterface  <span class="argument">$content</span>, \MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions  <span class="argument">$options = null</span>) : \GuzzleHttp\Promise\PromiseInterface</pre>
                 <p><em>Creates promise to create a new block blob or updates the content of an
 existing block blob. This only supports contents smaller than single
 upload threashold.</em></p>
@@ -5317,7 +5293,7 @@ the blob.</p>
                                 <td><p>The name of the blob.</p></td>
                             </tr>
                                                     <tr>
-                                <td>string|resource|\Psr\Http\Message\StreamInterface</td>
+                                <td>\Psr\Http\Message\StreamInterface</td>
                                 <td>$content </td>
                                 <td><p>The content of the blob.</p></td>
                             </tr>
@@ -5353,7 +5329,7 @@ the blob.</p>
             <article class="method">
                 <h3 class="protected ">createBlockBlobByMultipleUploadAsync()</h3>
                 <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
-                <pre class="signature" style="margin-right: 54px;">createBlockBlobByMultipleUploadAsync(string  <span class="argument">$container</span>, string  <span class="argument">$blob</span>, string|resource|\Psr\Http\Message\StreamInterface  <span class="argument">$content</span>, \MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions  <span class="argument">$options = null</span>) : \GuzzleHttp\Promise\PromiseInterface</pre>
+                <pre class="signature" style="margin-right: 54px;">createBlockBlobByMultipleUploadAsync(string  <span class="argument">$container</span>, string  <span class="argument">$blob</span>, \Psr\Http\Message\StreamInterface  <span class="argument">$content</span>, \MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions  <span class="argument">$options = null</span>) : \GuzzleHttp\Promise\PromiseInterface</pre>
                 <p><em>This method creates the blob blocks. This method will send the request
 concurrently for better performance.</em></p>
                 
@@ -5371,7 +5347,7 @@ concurrently for better performance.</em></p>
                                 <td><p>Name of the blob</p></td>
                             </tr>
                                                     <tr>
-                                <td>string|resource|\Psr\Http\Message\StreamInterface</td>
+                                <td>\Psr\Http\Message\StreamInterface</td>
                                 <td>$content </td>
                                 <td><p>Content's stream</p></td>
                             </tr>
@@ -5954,7 +5930,7 @@ all the option</p></td>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 13th, 2017 at 02:59.
+                    on February 23rd, 2017 at 06:58.
                 </section>
             </section>
         </section>
