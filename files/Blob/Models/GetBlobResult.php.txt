@@ -36,7 +36,6 @@ use Psr\Http\Message\StreamInterface;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class GetBlobResult
@@ -95,7 +94,7 @@ class GetBlobResult
      *
      * @return void
      */
-    public function setMetadata(array $metadata)
+    protected function setMetadata(array $metadata)
     {
         $this->_metadata = $metadata;
     }
@@ -117,7 +116,7 @@ class GetBlobResult
      *
      * @return void
      */
-    public function setProperties(BlobProperties $properties)
+    protected function setProperties(BlobProperties $properties)
     {
         $this->_properties = $properties;
     }
@@ -139,7 +138,7 @@ class GetBlobResult
      *
      * @return void
      */
-    public function setContentStream($contentStream)
+    protected function setContentStream($contentStream)
     {
         $this->_contentStream = $contentStream;
     }

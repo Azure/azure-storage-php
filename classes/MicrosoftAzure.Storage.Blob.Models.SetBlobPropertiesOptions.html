@@ -24,7 +24,7 @@
     <script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
             var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
             var language = 'php';
 
@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
@@ -144,46 +144,46 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-470396612"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1562640445"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-470396612" class="accordion-body collapse in">
+            <div id="namespace-1562640445" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-108943959"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1681472959"></a>
                                 <a href="../namespaces/MicrosoftAzure.html" style="margin-left: 30px; padding-left: 0">MicrosoftAzure</a>
             </div>
-            <div id="namespace-108943959" class="accordion-body collapse ">
+            <div id="namespace-1681472959" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-532543549"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-826985989"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.html" style="margin-left: 30px; padding-left: 0">Storage</a>
             </div>
-            <div id="namespace-532543549" class="accordion-body collapse ">
+            <div id="namespace-826985989" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-239123451"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-632847648"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.html" style="margin-left: 30px; padding-left: 0">Blob</a>
             </div>
-            <div id="namespace-239123451" class="accordion-body collapse ">
+            <div id="namespace-632847648" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1369474136"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1628233013"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1369474136" class="accordion-body collapse ">
+            <div id="namespace-1628233013" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -198,10 +198,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1711032475"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2030659318"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-1711032475" class="accordion-body collapse ">
+            <div id="namespace-2030659318" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -280,28 +280,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-968539727"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1969678728"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.html" style="margin-left: 30px; padding-left: 0">Common</a>
             </div>
-            <div id="namespace-968539727" class="accordion-body collapse ">
+            <div id="namespace-1969678728" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1700139068"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1403118867"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1700139068" class="accordion-body collapse ">
+            <div id="namespace-1403118867" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1065609178"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1679834006"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Authentication.html" style="margin-left: 30px; padding-left: 0">Authentication</a>
             </div>
-            <div id="namespace-1065609178" class="accordion-body collapse ">
+            <div id="namespace-1679834006" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -319,33 +319,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-187075036"></a>
-                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
-            </div>
-            <div id="namespace-187075036" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.AuthenticationFilter.html">AuthenticationFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.DateFilter.html">DateFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.ExponentialRetryPolicy.html">ExponentialRetryPolicy</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.HeadersFilter.html">HeadersFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicy.html">RetryPolicy</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicyFilter.html">RetryPolicyFilter</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1538436525"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1300048916"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
             </div>
-            <div id="namespace-1538436525" class="accordion-body collapse ">
+            <div id="namespace-1300048916" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -360,10 +337,30 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1748371727"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-114507943"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Middlewares.html" style="margin-left: 30px; padding-left: 0">Middlewares</a>
+            </div>
+            <div id="namespace-114507943" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.CommonRequestMiddleware.html">CommonRequestMiddleware</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.HistoryMiddleware.html">HistoryMiddleware</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.MiddlewareBase.html">MiddlewareBase</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1860487663"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Serialization.html" style="margin-left: 30px; padding-left: 0">Serialization</a>
             </div>
-            <div id="namespace-1748371727" class="accordion-body collapse ">
+            <div id="namespace-1860487663" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -379,8 +376,7 @@
 
                     
                     <ul>
-                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.FilterableService.html">FilterableService</a></li>
-                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IServiceFilter.html">IServiceFilter</a></li>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IMiddleware.html">IMiddleware</a></li>
                                                                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringParser.html">ConnectionStringParser</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringSource.html">ConnectionStringSource</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.HttpFormatter.html">HttpFormatter</a></li>
@@ -403,10 +399,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-901356371"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1022959997"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-901356371" class="accordion-body collapse ">
+            <div id="namespace-1022959997" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -426,6 +422,7 @@
                     <ul>
                                                                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.CloudConfigurationManager.html">CloudConfigurationManager</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceException.html">ServiceException</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html">ServiceOptionsBase</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServicesBuilder.html">ServicesBuilder</a></li>
                                             </ul>
                 </div>
@@ -436,19 +433,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1909705247"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1935970982"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.html" style="margin-left: 30px; padding-left: 0">Queue</a>
             </div>
-            <div id="namespace-1909705247" class="accordion-body collapse ">
+            <div id="namespace-1935970982" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1008213145"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1434643849"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1008213145" class="accordion-body collapse ">
+            <div id="namespace-1434643849" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -463,10 +460,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-994897962"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-528704128"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-994897962" class="accordion-body collapse ">
+            <div id="namespace-528704128" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -503,19 +500,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1676923017"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-776937074"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
             </div>
-            <div id="namespace-1676923017" class="accordion-body collapse ">
+            <div id="namespace-776937074" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1099962529"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2015856159"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1099962529" class="accordion-body collapse ">
+            <div id="namespace-2015856159" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -534,19 +531,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-792304516"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-687003123"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-792304516" class="accordion-body collapse ">
+            <div id="namespace-687003123" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1628212858"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-160867860"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
             </div>
-            <div id="namespace-1628212858" class="accordion-body collapse ">
+            <div id="namespace-160867860" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -655,8 +652,10 @@
                         </section>
                         <section class="row-fluid public">
                             <section class="span4">
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html#method_getTimeout" class="">getTimeout()</a><br />
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html#method_setTimeout" class="">setTimeout()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#method_getTimeout" class="">getTimeout()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#method_setTimeout" class="">setTimeout()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#method_getRequestOptions" class="">getRequestOptions()</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#method_setRequestOptions" class="">setRequestOptions()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html#method___construct" class="">__construct()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html#method_getAccessCondition" class="">getAccessCondition()</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html#method_setAccessCondition" class="">setAccessCondition()</a><br />
@@ -688,10 +687,11 @@
                         </section>
                         <section class="row-fluid protected">
                             <section class="span4">
-                                                                    <em>No protected methods found</em>
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#method_parseOptions" class="">parseOptions()</a><br />
                                                             </section>
                             <section class="span4">
-                                                                    <em>No protected properties found</em>
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#property_requestOptions" class="">$requestOptions</a><br />
+                                                                    <a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html#property_timeout" class="">$timeout</a><br />
                                                             </section>
                             <section class="span4">
                                 <em>N/A</em>
@@ -702,7 +702,6 @@
                                                                     <em>No private methods found</em>
                                                             </section>
                             <section class="span4">
-                                                                    <a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html#property__timeout" class="">$_timeout</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html#property__blobProperties" class="">$_blobProperties</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html#property__leaseId" class="">$_leaseId</a><br />
                                                                     <a href="../classes/MicrosoftAzure.Storage.Blob.Models.SetBlobPropertiesOptions.html#property__sequenceNumberAction" class="">$_sequenceNumberAction</a><br />
@@ -724,7 +723,9 @@
                             <dd><div class="namespace-wrapper">Blob\Models</div></dd>
                                                 <dt>Class hierarchy</dt>
                             <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                        <div class="namespace-wrapper"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</a></div>
+                                                                    
                                         <div class="namespace-wrapper"><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html">\MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions</a></div>
                                                                                                     <div class="namespace-wrapper">\MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions</div>
                             </dd>
@@ -743,7 +744,7 @@
                                 category
                             </th>
                             <td>
-                                                                    <p>Microsoft</p>
+                                                                                                        <p>Microsoft</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -751,7 +752,7 @@
                                 author
                             </th>
                             <td>
-                                                                    <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
+                                                                                                        <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -759,7 +760,7 @@
                                 copyright
                             </th>
                             <td>
-                                                                    <p>2016 Microsoft Corporation</p>
+                                                                                                        <p>2016 Microsoft Corporation</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -767,15 +768,7 @@
                                 license
                             </th>
                             <td>
-                                                                    <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                version
-                            </th>
-                            <td>
-                                                                    <p>Release: 0.12.0</p>
+                                                                                                        <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
                                                             </td>
                         </tr>
                                         </table>
@@ -791,24 +784,24 @@
                 <aside class="span4 detailsbar"></aside>
             </div>
 
-                                                                    <div class="row-fluid">
+                                                    <div class="row-fluid">
         <div class="span8 content class">
-            <a id="property__timeout" name="property__timeout" class="anchor"></a>
+            <a id="property_requestOptions" name="property_requestOptions" class="anchor"></a>
             <article class="property">
-                <h3 class="private ">$_timeout</h3>
-                <pre class="signature">$_timeout : </pre>
+                <h3 class="protected ">$requestOptions</h3>
+                <pre class="signature">$requestOptions : array</pre>
                 <p><em></em></p>
                 
 
                                 <h4>Type</h4>
-                
+                array
                                             </article>
         </div>
         <aside class="span4 detailsbar">
             <h1><i class="icon-arrow-down"></i></h1>
                         <dl>
                                     <dt>Inherited from</dt>
-                    <dd><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions</div></a></dd>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -818,6 +811,32 @@
     </div>
 
                                     <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_timeout" name="property_timeout" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$timeout</h3>
+                <pre class="signature">$timeout : string</pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                string
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
         <div class="span8 content class">
             <a id="property__blobProperties" name="property__blobProperties" class="anchor"></a>
             <article class="property">
@@ -941,7 +960,7 @@
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
                                                     <dt>Inherited from</dt>
-                    <dd><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions</div></a></dd>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -977,7 +996,73 @@
             <h1><i class="icon-arrow-down"></i></h1>
                                                             <dl>
                                                     <dt>Inherited from</dt>
-                    <dd><a href="../classes/MicrosoftAzure.Storage.Blob.Models.BlobServiceOptions.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions</div></a></dd>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getRequestOptions" name="method_getRequestOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">getRequestOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getRequestOptions() : array</pre>
+                <p><em>Gets the saved request options</em></p>
+                
+
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_setRequestOptions" name="method_setRequestOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">setRequestOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">setRequestOptions(array  <span class="argument">$requestOptions</span>) : void</pre>
+                <p><em>Sets the request options</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$requestOptions </td>
+                                <td><p>the request options to be set.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
                                                             </dl>
             <h2>Tags</h2>
             <table class="table table-condensed">
@@ -1639,7 +1724,47 @@ instance.</em></p>
         </aside>
     </div>
 
-                                                                    </div>
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_parseOptions" name="method_parseOptions" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">parseOptions()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">parseOptions(array  <span class="argument">$options</span>) : array</pre>
+                <p><em>Parse the options, create new options selecting the useful setting in the
+input.</em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td>array</td>
+                                <td>$options </td>
+                                <td><p>the options user passed in.</p></td>
+                            </tr>
+                                            </table>
+                
+                
+                                    <h4>Returns</h4>
+                    array
+                                    				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html"><div class="path-wrapper">\MicrosoftAzure\Storage\Common\ServiceOptionsBase</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    </div>
     </section>
 
     <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
@@ -1689,7 +1814,7 @@ instance.</em></p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 13th, 2017 at 02:59.
+                    on February 23rd, 2017 at 06:58.
                 </section>
             </section>
         </section>

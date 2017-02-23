@@ -32,7 +32,6 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class Resources
@@ -223,6 +222,7 @@ class Resources
     const DEV_STORE_URI = 'http://127.0.0.1';
     const SERVICE_URI_FORMAT = "%s://%s.%s";
     const WRAP_ENDPOINT_URI_FORMAT = "https://%s-sb.accesscontrol.windows.net/WRAPv0.9";
+    const MB_IN_BYTES_1       = 1048576;
     const MB_IN_BYTES_4       = 4194304;
     const MB_IN_BYTES_32      = 33554432;
     const MB_IN_BYTES_64      = 67108864;
@@ -239,7 +239,7 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                                   = '0.12.0';
+    const SDK_VERSION                                   = '0.13.0';
     const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
     const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
     const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';
@@ -277,6 +277,7 @@ class Resources
     const QP_NEXT_RK            = 'NextRowKey';
     const QP_ACTION             = 'action';
     const QP_EMBED_DETAIL       = 'embed-detail';
+    const QP_QUEUE_MESSAGE      = 'QueueMessage';
 
     // Query parameter values
     const QPV_REGENERATE = 'regenerate';

@@ -36,7 +36,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class SetBlobMetadataResult
@@ -62,9 +61,15 @@ class SetBlobMetadataResult
     public static function create(array $headers)
     {
         $result = new SetBlobMetadataResult();
-        $date   = $headers[Resources::LAST_MODIFIED];
+        $date   = Utilities::tryGetValueInsensitive(
+            Resources::LAST_MODIFIED,
+            $headers
+        );
         $result->setLastModified(Utilities::rfc1123ToDateTime($date));
-        $result->setETag($headers[Resources::ETAG]);
+        $result->setETag(Utilities::tryGetValueInsensitive(
+            Resources::ETAG,
+            $headers
+        ));
         
         return $result;
     }
@@ -86,7 +91,7 @@ class SetBlobMetadataResult
      *
      * @return void
      */
-    public function setLastModified(\DateTime $lastModified)
+    protected function setLastModified(\DateTime $lastModified)
     {
         Validate::isDate($lastModified);
         $this->_lastModified = $lastModified;
@@ -109,7 +114,7 @@ class SetBlobMetadataResult
      *
      * @return void
      */
-    public function setETag($etag)
+    protected function setETag($etag)
     {
         Validate::isString($etag, 'etag');
         $this->_etag = $etag;

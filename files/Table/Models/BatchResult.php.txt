@@ -34,6 +34,7 @@ use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+use GuzzleHttp\Psr7\Response;
 
 /**
  * Holds results from batch API.
@@ -43,7 +44,6 @@ use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class BatchResult
@@ -157,9 +157,13 @@ class BatchResult
             
             try {
                 ServiceRestProxy::throwIfError(
-                    $response->statusCode,
-                    $response->reason,
-                    $response->body,
+                    new Response(
+                        $response->statusCode,
+                        $response->headers,
+                        $response->body,
+                        $response->version,
+                        $response->reason
+                    ),
                     $context->getStatusCodes()
                 );
             
@@ -187,6 +191,7 @@ class BatchResult
                 $entries[] = BatchError::create($e, $response->headers);
             }
         }
+        
         $result->setEntries($entries);
         
         return $result;
@@ -209,7 +214,7 @@ class BatchResult
      *
      * @return void
      */
-    public function setEntries(array $entries)
+    protected function setEntries(array $entries)
     {
         $this->_entries = $entries;
     }

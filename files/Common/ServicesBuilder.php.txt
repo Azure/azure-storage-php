@@ -28,9 +28,6 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\Filters\DateFilter;
-use MicrosoftAzure\Storage\Common\Internal\Filters\HeadersFilter;
-use MicrosoftAzure\Storage\Common\Internal\Filters\AuthenticationFilter;
 use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
@@ -41,6 +38,7 @@ use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
+use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
 
 /**
  * Builds azure service objects.
@@ -50,7 +48,6 @@ use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServicesBuilder
@@ -167,20 +164,6 @@ class ServicesBuilder
             $options
         );
 
-        // Adding headers filter
-        $headers = array(
-            Resources::USER_AGENT => self::getUserAgent(),
-        );
-
-        $headers[Resources::X_MS_VERSION] = Resources::STORAGE_API_LATEST_VERSION;
-
-        $headersFilter = new HeadersFilter($headers);
-        $queueWrapper  = $queueWrapper->withFilter($headersFilter);
-
-        // Adding date filter
-        $dateFilter   = new DateFilter();
-        $queueWrapper = $queueWrapper->withFilter($dateFilter);
-
         // Getting authentication scheme
         if ($settings->hasSasToken()) {
             $authScheme = $this->sasAuthenticationScheme(
@@ -193,10 +176,9 @@ class ServicesBuilder
             );
         }
 
-        // Adding authentication filter
-        $authFilter = new AuthenticationFilter($authScheme);
-
-        $queueWrapper = $queueWrapper->withFilter($authFilter);
+        // Adding common request middleware
+        $commonRequestMiddleware = new CommonRequestMiddleware($authScheme);
+        $queueWrapper->pushMiddleware($commonRequestMiddleware);
 
         return $queueWrapper;
     }
@@ -226,20 +208,6 @@ class ServicesBuilder
             $options
         );
 
-        // Adding headers filter
-        $headers = array(
-            Resources::USER_AGENT => self::getUserAgent(),
-        );
-
-        $headers[Resources::X_MS_VERSION] = Resources::STORAGE_API_LATEST_VERSION;
-
-        $headersFilter = new HeadersFilter($headers);
-        $blobWrapper   = $blobWrapper->withFilter($headersFilter);
-
-        // Adding date filter
-        $dateFilter  = new DateFilter();
-        $blobWrapper = $blobWrapper->withFilter($dateFilter);
-
         // Getting authentication scheme
         if ($settings->hasSasToken()) {
             $authScheme = $this->sasAuthenticationScheme(
@@ -252,9 +220,9 @@ class ServicesBuilder
             );
         }
 
-        $authFilter = new AuthenticationFilter($authScheme);
-
-        $blobWrapper = $blobWrapper->withFilter($authFilter);
+        // Adding common request middleware
+        $commonRequestMiddleware = new CommonRequestMiddleware($authScheme);
+        $blobWrapper->pushMiddleware($commonRequestMiddleware);
 
         return $blobWrapper;
     }
@@ -290,27 +258,15 @@ class ServicesBuilder
 
         // Adding headers filter
         $headers               = array();
-        $latestServicesVersion = Resources::STORAGE_API_LATEST_VERSION;
         $currentVersion        = Resources::DATA_SERVICE_VERSION_VALUE;
         $maxVersion            = Resources::MAX_DATA_SERVICE_VERSION_VALUE;
         $accept                = Resources::ACCEPT_HEADER_VALUE;
         $acceptCharset         = Resources::ACCEPT_CHARSET_VALUE;
-        $userAgent             = self::getUserAgent();
 
-        $headers[Resources::X_MS_VERSION]             = $latestServicesVersion;
         $headers[Resources::DATA_SERVICE_VERSION]     = $currentVersion;
-        $headers[Resources::MAX_DATA_SERVICE_VERSION] = $maxVersion;
         $headers[Resources::MAX_DATA_SERVICE_VERSION] = $maxVersion;
         $headers[Resources::ACCEPT_HEADER]            = $accept;
         $headers[Resources::ACCEPT_CHARSET]           = $acceptCharset;
-        $headers[Resources::USER_AGENT]               = $userAgent;
-
-        $headersFilter = new HeadersFilter($headers);
-        $tableWrapper  = $tableWrapper->withFilter($headersFilter);
-
-        // Adding date filter
-        $dateFilter   = new DateFilter();
-        $tableWrapper = $tableWrapper->withFilter($dateFilter);
 
         // Getting authentication scheme
         if ($settings->hasSasToken()) {
@@ -323,24 +279,12 @@ class ServicesBuilder
                 $settings->getKey()
             );
         }
-
-        // Adding authentication filter
-        $authFilter = new AuthenticationFilter($authScheme);
-
-        $tableWrapper = $tableWrapper->withFilter($authFilter);
+        
+        // Adding common request middleware
+        $commonRequestMiddleware = new CommonRequestMiddleware($authScheme, $headers);
+        $tableWrapper->pushMiddleware($commonRequestMiddleware);
 
         return $tableWrapper;
-    }
-
-    /**
-     * Gets the user agent string used in request header.
-     *
-     * @return string
-     */
-    private static function getUserAgent()
-    {
-        // e.g. User-Agent: Azure-Storage/0.10.0 (PHP 5.5.32)
-        return 'Azure-Storage/' . Resources::SDK_VERSION . ' (PHP ' . PHP_VERSION . ')';
     }
 
     /**

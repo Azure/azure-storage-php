@@ -30,15 +30,18 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
+use MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase;
+use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Promise\EachPromise;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
-use GuzzleHttp\Psr7\Request;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\Promise\EachPromise;
-use GuzzleHttp\Promise\PromiseInterface;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Base class for all services rest proxies.
@@ -48,7 +51,6 @@ use GuzzleHttp\Promise\PromiseInterface;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class ServiceRestProxy extends RestProxy
@@ -106,63 +108,20 @@ class ServiceRestProxy extends RestProxy
     }
 
     /**
-     * Filter the request using the filters. This is for users to create
-     * request.
-     * @param \GuzzleHttp\Psr7\Request $request The request to be filtered.
-     *
-     * @return \GuzzleHttp\Psr7\Request
-     */
-    protected function requestWithFilter(Request $request)
-    {
-        // Apply filters to the requests
-        foreach ($this->getFilters() as $filter) {
-            $request = $filter->handleRequest($request);
-        }
-        return $request;
-    }
-
-    /**
      * Static helper function to create a usable client for the proxy.
-     * The clientOptions can contain the following keys that will affect
+     * The requestOptions can contain the following keys that will affect
      * the way retry handler is created and applied.
      * handler:               HandlerStack, if set, this function will not
-     *                        create a handler stack. It will still construct
-     *                        a default retry handler if not specified by the
-     *                        following parameters.
-     * have_retry_middleware: boolean, true if the handler is already specified
-     *                        in the handler stack.
-     * retry_middleware:      Middleware, if specified this method will not create
-     *                        a default retry middle ware.
-     * @param  array $clientOptions Added options for client.
+     *                        create a handler stack.
+     * @param  array $requestOptions Added options for client.
      *
      * @return \GuzzleHttp\Client
      */
-    protected function createClient(array $clientOptions)
+    protected function createClient(array $requestOptions)
     {
-        //If retry handler is not defined by the user, create a default
-        //handler.
-        $stack = null;
-        if (array_key_exists('handler', $this->_options['http'])) {
-            $stack = $this->_options['http']['handler'];
-        } elseif (array_key_exists('handler', $clientOptions)) {
-            $stack = $clientOptions['handler'];
-        } else {
-            $stack = HandlerStack::create();
-            $clientOptions['handler'] = $stack;
-        }
+        //First, extract or create the handler stack for the client.
+        $requestOptions['handler'] = $this->createHandlerStack($requestOptions);
 
-        //If retry middle ware is specified, push it to the client.
-        //Otherwise use the default middle ware.
-        if (array_key_exists('have_retry_middleware', $clientOptions) &&
-            $clientOptions['have_retry_middleware'] == true) {
-            //do nothing
-        } elseif (array_key_exists('retry_middleware', $clientOptions)) {
-            //push the retry middleware to the handler stack.
-            $stack->push($clientOptions['retry_middleware']);
-        } else {
-            //construct the default retry middleware and push to the handler.
-            $stack->push(RetryMiddlewareFactory::create(), 'retry_middleware');
-        }
         return (new \GuzzleHttp\Client(
             array_merge(
                 $this->_options['http'],
@@ -173,19 +132,68 @@ class ServiceRestProxy extends RestProxy
                         "decode_content" => true,
                     ),
                     'cookies' => true,
-                    'verify' => false,
+                    'verify' => true,
                     // For testing with Fiddler
                     //'proxy' => "localhost:8888",
                 ),
-                $clientOptions
+                $requestOptions
             )
         ));
     }
     
     /**
+     * Create a handler stack with given middleware. If the given handler is not
+     * a type of HandlerStack and middleware is to pushed in, exception might be
+     * thrown due to some of the handler stack type does not implement push()
+     * method. e.g. MockHandler.
+     *
+     * @param  array  $requestOptions The options user passed in.
+     *
+     * @return HandlerStack          The HandlerStack that contains all the
+     *                               middleware specified in the $requestOptions.
+     */
+    protected function createHandlerStack(array $requestOptions)
+    {
+        //If handler stack is not defined by the user, create a default
+        //handler stack.
+        $stack = null;
+        if (array_key_exists('handler', $this->_options['http'])) {
+            $stack = $this->_options['http']['handler'];
+        } elseif (array_key_exists('handler', $requestOptions)) {
+            $stack = $requestOptions['handler'];
+        } else {
+            $stack = HandlerStack::create();
+        }
+
+        //Push all the middlewares specified in the $requestOptions to the
+        //handlerstack.
+        if (array_key_exists('middlewares', $requestOptions)) {
+            foreach ($requestOptions['middlewares'] as $middleware) {
+                $stack->push($middleware);
+            }
+        }
+
+        //Push all the middlewares specified in the $_options to the
+        //handlerstack.
+        if (array_key_exists('middlewares', $this->_options)) {
+            foreach ($this->_options['middlewares'] as $middleware) {
+                $stack->push($middleware);
+            }
+        }
+
+        //Push all the middlewares specified in $this->middlewares to the
+        //handlerstack.
+        foreach ($this->getMiddlewares() as $middleware) {
+            $stack->push($middleware);
+        }
+
+        return $stack;
+    }
+
+    /**
      * Send the requests concurrently. Number of concurrency can be modified
      * by inserting a new key/value pair with the key 'number_of_concurrency'
-     * into the $clientOptions. Return only the promise.
+     * into the $requestOptions. Return only the promise.
      *
      * @param  array    $requests              An array holding all the
      *                                         initialized requests. If empty,
@@ -195,7 +203,7 @@ class ServiceRestProxy extends RestProxy
      *                                         generate request upon fullfilment
      * @param  int      $expectedStatusCode    The expected status code for each
      *                                         of the request.
-     * @param  array    $clientOptions         an array of additional options
+     * @param  array    $requestOptions         an array of additional options
      *                                         for the client.
      *
      * @return array
@@ -204,17 +212,17 @@ class ServiceRestProxy extends RestProxy
         array $requests,
         callable $generator,
         $expectedStatusCode,
-        array $clientOptions = []
+        array $requestOptions = []
     ) {
         //set the number of concurrency to default value if not defined
         //in the array.
         $numberOfConcurrency = Resources::NUMBER_OF_CONCURRENCY;
-        if (array_key_exists('number_of_concurrency', $clientOptions)) {
-            $numberOfConcurrency = $clientOptions['number_of_concurrency'];
-            unset($clientOptions['number_of_concurrency']);
+        if (array_key_exists('number_of_concurrency', $requestOptions)) {
+            $numberOfConcurrency = $requestOptions['number_of_concurrency'];
+            unset($requestOptions['number_of_concurrency']);
         }
         //creates the client
-        $client = $this->createClient($clientOptions);
+        $client = $this->createClient($requestOptions);
 
         $promises = \call_user_func(
             function () use ($requests, $generator, $client) {
@@ -237,9 +245,7 @@ class ServiceRestProxy extends RestProxy
             'fulfilled' => function ($response, $index) use ($expectedStatusCode) {
                 //the promise is fulfilled, evaluate the response
                 self::throwIfError(
-                    $response->getStatusCode(),
-                    $response->getReasonPhrase(),
-                    $response->getBody(),
+                    $response,
                     $expectedStatusCode
                 );
             },
@@ -276,7 +282,17 @@ class ServiceRestProxy extends RestProxy
     ) {
         // add query parameters into headers
         $uri = $this->_psrUri;
+        //Append the path, not replacing it.
         if ($path != null) {
+            $exPath = $uri->getPath();
+            if ($exPath != '') {
+                //Remove the duplicated slash in the path.
+                if ($path != '' && $path[0] == '/') {
+                    $path = $exPath . substr($path, 1);
+                } else {
+                    $path = $exPath . $path;
+                }
+            }
             $uri = $uri->withPath($path);
         }
 
@@ -308,8 +324,7 @@ class ServiceRestProxy extends RestProxy
         if ($bodySize > 0) {
             $request = $request->withHeader('content-length', $bodySize);
         }
-        // Apply filters to the requests
-        return $this->requestWithFilter($request);
+        return $request;
     }
 
     /**
@@ -322,7 +337,7 @@ class ServiceRestProxy extends RestProxy
      * @param  string       $path           URL path
      * @param  array|int    $expected       Expected Status Codes.
      * @param  string       $body           Request body
-     * @param  array        $clientOptions  Guzzle Client options
+     * @param  array        $requestOptions Guzzle Client options
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -334,7 +349,7 @@ class ServiceRestProxy extends RestProxy
         $path,
         $expected = Resources::STATUS_OK,
         $body = Resources::EMPTY_STRING,
-        array $clientOptions = []
+        array $requestOptions = []
     ) {
         $request = $this->createRequest(
             $method,
@@ -344,7 +359,7 @@ class ServiceRestProxy extends RestProxy
             $path,
             $body
         );
-        $client = $this->createClient($clientOptions);
+        $client = $this->createClient($requestOptions);
 
         $options = $request->getMethod() == 'HEAD'?
             array('decode_content' => false) : array();
@@ -354,20 +369,19 @@ class ServiceRestProxy extends RestProxy
         return $promise->then(
             function ($response) use ($expected) {
                 self::throwIfError(
-                    $response->getStatusCode(),
-                    $response->getReasonPhrase(),
-                    $response->getBody(),
+                    $response,
                     $expected
                 );
                 return $response;
             },
             function ($reason) use ($expected) {
+                if (!($reason instanceof RequestException)) {
+                    throw $reason;
+                }
                 $response = $reason->getResponse();
                 if ($response != null) {
                     self::throwIfError(
-                        $response->getStatusCode(),
-                        $response->getReasonPhrase(),
-                        $response->getBody(),
+                        $response,
                         $expected
                     );
                 } else {
@@ -406,17 +420,16 @@ class ServiceRestProxy extends RestProxy
             $context->getPostParameters(),
             $context->getPath(),
             $context->getStatusCodes(),
-            $context->getBody()
+            $context->getBody(),
+            $context->getRequestOptions()
         );
     }
 
     /**
      * Throws ServiceException if the recieved status code is not expected.
      *
-     * @param string    $actual   The received status code.
-     * @param string    $reason   The reason phrase.
-     * @param string    $message  The detailed message (if any).
-     * @param array|int $expected The expected status codes.
+     * @param ResponseInterface $response The response received
+     * @param array|int         $expected The expected status codes.
      *
      * @return void
      *
@@ -424,12 +437,12 @@ class ServiceRestProxy extends RestProxy
      *
      * @throws ServiceException
      */
-    public static function throwIfError($actual, $reason, $message, $expected)
+    public static function throwIfError(ResponseInterface $response, $expected)
     {
         $expectedStatusCodes = is_array($expected) ? $expected : array($expected);
 
-        if (!in_array($actual, $expectedStatusCodes)) {
-            throw new ServiceException($actual, $reason, $message);
+        if (!in_array($response->getStatusCode(), $expectedStatusCodes)) {
+            throw new ServiceException($response);
         }
     }
     

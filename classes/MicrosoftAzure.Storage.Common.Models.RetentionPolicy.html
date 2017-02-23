@@ -24,7 +24,7 @@
     <script type="text/javascript">
     function loadExternalCodeSnippets() {
         Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
-            var src = pre.getAttribute('data-src');
+            var src = pre.getAttribute('data-src').replace( /\\/g, '/');
             var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
             var language = 'php';
 
@@ -114,12 +114,12 @@
                         <ul class="dropdown-menu">
                             <li>
                                 <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">280</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">1</span>
                                 </a>
                             </li>
                             <li>
@@ -144,46 +144,46 @@
                                 <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1663580106"></a>
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1115253664"></a>
                                 <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
             </div>
-            <div id="namespace-1663580106" class="accordion-body collapse in">
+            <div id="namespace-1115253664" class="accordion-body collapse in">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-35590851"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-86975047"></a>
                                 <a href="../namespaces/MicrosoftAzure.html" style="margin-left: 30px; padding-left: 0">MicrosoftAzure</a>
             </div>
-            <div id="namespace-35590851" class="accordion-body collapse ">
+            <div id="namespace-86975047" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-291750375"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-311052664"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.html" style="margin-left: 30px; padding-left: 0">Storage</a>
             </div>
-            <div id="namespace-291750375" class="accordion-body collapse ">
+            <div id="namespace-311052664" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-751464764"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1431807198"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.html" style="margin-left: 30px; padding-left: 0">Blob</a>
             </div>
-            <div id="namespace-751464764" class="accordion-body collapse ">
+            <div id="namespace-1431807198" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1418488475"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-902487402"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1418488475" class="accordion-body collapse ">
+            <div id="namespace-902487402" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -198,10 +198,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-264091727"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1486544575"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Blob.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-264091727" class="accordion-body collapse ">
+            <div id="namespace-1486544575" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -280,28 +280,28 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-719889683"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-903762605"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.html" style="margin-left: 30px; padding-left: 0">Common</a>
             </div>
-            <div id="namespace-719889683" class="accordion-body collapse ">
+            <div id="namespace-903762605" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1297991326"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1514838619"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-1297991326" class="accordion-body collapse ">
+            <div id="namespace-1514838619" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1182083840"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1352101049"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Authentication.html" style="margin-left: 30px; padding-left: 0">Authentication</a>
             </div>
-            <div id="namespace-1182083840" class="accordion-body collapse ">
+            <div id="namespace-1352101049" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -319,33 +319,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-652831999"></a>
-                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
-            </div>
-            <div id="namespace-652831999" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.AuthenticationFilter.html">AuthenticationFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.DateFilter.html">DateFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.ExponentialRetryPolicy.html">ExponentialRetryPolicy</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.HeadersFilter.html">HeadersFilter</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicy.html">RetryPolicy</a></li>
-                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Filters.RetryPolicyFilter.html">RetryPolicyFilter</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-320221089"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-596917327"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
             </div>
-            <div id="namespace-320221089" class="accordion-body collapse ">
+            <div id="namespace-596917327" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -360,10 +337,30 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-49310026"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-214909433"></a>
+                                <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Middlewares.html" style="margin-left: 30px; padding-left: 0">Middlewares</a>
+            </div>
+            <div id="namespace-214909433" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.CommonRequestMiddleware.html">CommonRequestMiddleware</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.HistoryMiddleware.html">HistoryMiddleware</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.Middlewares.MiddlewareBase.html">MiddlewareBase</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-774304"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Internal.Serialization.html" style="margin-left: 30px; padding-left: 0">Serialization</a>
             </div>
-            <div id="namespace-49310026" class="accordion-body collapse ">
+            <div id="namespace-774304" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -379,8 +376,7 @@
 
                     
                     <ul>
-                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.FilterableService.html">FilterableService</a></li>
-                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IServiceFilter.html">IServiceFilter</a></li>
+                                                    <li class="interface"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.IMiddleware.html">IMiddleware</a></li>
                                                                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringParser.html">ConnectionStringParser</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.ConnectionStringSource.html">ConnectionStringSource</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.Internal.HttpFormatter.html">HttpFormatter</a></li>
@@ -403,10 +399,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-484976081"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1124139084"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Common.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-484976081" class="accordion-body collapse ">
+            <div id="namespace-1124139084" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -426,6 +422,7 @@
                     <ul>
                                                                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.CloudConfigurationManager.html">CloudConfigurationManager</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceException.html">ServiceException</a></li>
+                                                    <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServiceOptionsBase.html">ServiceOptionsBase</a></li>
                                                     <li class="class"><a href="../classes/MicrosoftAzure.Storage.Common.ServicesBuilder.html">ServicesBuilder</a></li>
                                             </ul>
                 </div>
@@ -436,19 +433,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-873557305"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2090731624"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.html" style="margin-left: 30px; padding-left: 0">Queue</a>
             </div>
-            <div id="namespace-873557305" class="accordion-body collapse ">
+            <div id="namespace-2090731624" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2116612369"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1024680762"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-2116612369" class="accordion-body collapse ">
+            <div id="namespace-1024680762" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -463,10 +460,10 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1669038263"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-797895662"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Queue.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-1669038263" class="accordion-body collapse ">
+            <div id="namespace-797895662" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -503,19 +500,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-440930496"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1178749326"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.html" style="margin-left: 30px; padding-left: 0">Table</a>
             </div>
-            <div id="namespace-440930496" class="accordion-body collapse ">
+            <div id="namespace-1178749326" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-438618526"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1440624175"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Internal.html" style="margin-left: 30px; padding-left: 0">Internal</a>
             </div>
-            <div id="namespace-438618526" class="accordion-body collapse ">
+            <div id="namespace-1440624175" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -534,19 +531,19 @@
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1863225302"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1084403388"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.html" style="margin-left: 30px; padding-left: 0">Models</a>
             </div>
-            <div id="namespace-1863225302" class="accordion-body collapse ">
+            <div id="namespace-1084403388" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                                                     <div class="accordion" style="margin-bottom: 0">
         <div class="accordion-group">
             <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1522781819"></a>
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1085179322"></a>
                                 <a href="../namespaces/MicrosoftAzure.Storage.Table.Models.Filters.html" style="margin-left: 30px; padding-left: 0">Filters</a>
             </div>
-            <div id="namespace-1522781819" class="accordion-body collapse ">
+            <div id="namespace-1085179322" class="accordion-body collapse ">
                 <div class="accordion-inner">
 
                     
@@ -721,7 +718,7 @@
                                 category
                             </th>
                             <td>
-                                                                    <p>Microsoft</p>
+                                                                                                        <p>Microsoft</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -729,7 +726,7 @@
                                 author
                             </th>
                             <td>
-                                                                    <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
+                                                                                                        <p>Azure Storage PHP SDK <a href="mailto:dmsh@microsoft.com">dmsh@microsoft.com</a></p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -737,7 +734,7 @@
                                 copyright
                             </th>
                             <td>
-                                                                    <p>2016 Microsoft Corporation</p>
+                                                                                                        <p>2016 Microsoft Corporation</p>
                                                             </td>
                         </tr>
                                             <tr>
@@ -745,15 +742,7 @@
                                 license
                             </th>
                             <td>
-                                                                    <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
-                                                            </td>
-                        </tr>
-                                            <tr>
-                            <th>
-                                version
-                            </th>
-                            <td>
-                                                                    <p>Release: 0.12.0</p>
+                                                                                                        <p><a href="https://github.com/azure/azure-storage-php/LICENSE">https://github.com/azure/azure-storage-php/LICENSE</a></p>
                                                             </td>
                         </tr>
                                         </table>
@@ -1066,7 +1055,7 @@ the largest value is 365 (one year)</em></p>
                 <section class="span10 offset1">
                     <hr />
                     Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 13th, 2017 at 02:59.
+                    on February 23rd, 2017 at 06:58.
                 </section>
             </section>
         </section>

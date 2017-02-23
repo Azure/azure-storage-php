@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Holds results of listMessages wrapper.
@@ -35,7 +36,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class PeekMessagesResult
@@ -60,7 +60,9 @@ class PeekMessagesResult
         $queueMessages = array();
         
         if (!empty($parsedResponse)) {
-            $rawMessages = Utilities::getArray($parsedResponse['QueueMessage']);
+            $rawMessages = Utilities::getArray(
+                $parsedResponse[Resources::QP_QUEUE_MESSAGE]
+            );
             foreach ($rawMessages as $value) {
                 $message = MicrosoftAzureQueueMessage::createFromPeekMessages($value);
                 
@@ -95,7 +97,7 @@ class PeekMessagesResult
      *
      * @return void
      */
-    public function setQueueMessages($queueMessages)
+    protected function setQueueMessages($queueMessages)
     {
         $this->_queueMessages = $queueMessages;
     }
