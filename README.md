@@ -2,6 +2,8 @@
 
 This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage services (blobs, tables and queues). For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](http://www.windowsazure.com/en-us/develop/php/).
 
+[![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage/v/stable)](https://packagist.org/packages/microsoft/azure-storage)
+
 > **Note**
 > 
 > If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
