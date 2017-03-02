@@ -7,7 +7,8 @@
  <property name="phpdox"  value="phpdox.bat"/>
  <property name="phploc"  value="phploc.bat"/>
  <property name="phpmd"   value="phpmd.bat"/>
- <property name="phpunit" value="phpunit.bat"/> -->
+ <property name="phpunit" value="phpunit.bat"/>
+ <property name="phpdoc"  value="phpdoc.bat"/> -->
 
  <!-- Use this when the tools are located as PHARs in ${basedir}/build/tools
  <property name="pdepend" value="${basedir}/build/tools/pdepend.phar"/>
@@ -16,7 +17,8 @@
  <property name="phpdox"  value="${basedir}/build/tools/phpdox.phar"/>
  <property name="phploc"  value="${basedir}/build/tools/phploc.phar"/>
  <property name="phpmd"   value="${basedir}/build/tools/phpmd.phar"/>
- <property name="phpunit" value="${basedir}/build/tools/phpunit.phar"/>  -->
+ <property name="phpunit" value="${basedir}/build/tools/phpunit.phar"/>
+ <property name="phpdoc"  value="${basedir}/build/tools/phpDocumentator.phar"/>  -->
 
  <!-- Use this when the tools are managed by Composer in ${basedir}/vendor/bin -->
  <property name="pdepend" value="${basedir}/vendor/bin/pdepend.bat"/>
@@ -25,7 +27,8 @@
  <property name="phpdox"  value="${basedir}/vendor/bin/phpdox.bat"/>
  <property name="phploc"  value="${basedir}/vendor/bin/phploc.bat"/>
  <property name="phpmd"   value="${basedir}/vendor/bin/phpmd.bat"/>
- <property name="phpunit" value="${basedir}/vendor/bin/phpunit.bat"/> 
+ <property name="phpunit" value="${basedir}/vendor/bin/phpunit.bat"/>
+ <property name="phpdoc"  value="${basedir}/vendor/bin/phpdoc.bat"/>
 
  <target name="full-build"
          depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
@@ -298,5 +301,18 @@
     </not>
    </condition>
   </fail>
+ </target>
+
+ <target name="doc" description="Generate project documentation using phpDocumentator">
+   <exec executable="${phpdoc}" taskname="phpdoc">
+     <arg value="-t" />
+     <arg value=".\doc" />
+     <arg value="-d" />
+     <arg value=".\src" />
+     <arg value="--visibility" />
+     <arg value="public,protected" />
+     <arg value="--template" />
+     <arg value="zend" />
+   </exec>
  </target>
 </project>
