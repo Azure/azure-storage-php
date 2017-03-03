@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
  */
 class SetContainerMetadataOptions extends BlobServiceOptions
 {
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**

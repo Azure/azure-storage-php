@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Table\Models;
  */
 class QueryEntitiesOptions extends TableServiceOptions
 {
-    /**
-     * @var Query
-     */
     private $_query;
-    
-    /**
-     * @var string
-     */
     private $_nextPartitionKey;
-    
-    /**
-     * @var string
-     */
     private $_nextRowKey;
     
     /**

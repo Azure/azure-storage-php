@@ -39,15 +39,14 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class UpdateEntityResult
 {
-    /**
-     * @var string
-     */
     private $_etag;
     
     /**
      * Creates UpdateEntityResult from HTTP response headers.
      *
      * @param array $headers The HTTP response headers.
+     *
+     * @internal
      *
      * @return UpdateEntityResult
      */

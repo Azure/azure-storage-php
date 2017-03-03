@@ -39,15 +39,14 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class LeaseBlobResult
 {
-    /**
-     * @var string
-     */
     private $_leaseId;
     
     /**
      * Creates LeaseBlobResult from response headers
      *
      * @param array $headers response headers
+     *
+     * @internal 
      *
      * @return \MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
      */

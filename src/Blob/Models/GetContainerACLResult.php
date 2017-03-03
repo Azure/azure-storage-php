@@ -36,19 +36,9 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class GetContainerACLResult
 {
-    /**
-     * @var ContainerAcl
-     */
     private $_containerACL;
-    
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
 
-    /**
-     * @var string
-     */
     private $_etag;
     
     /**
@@ -59,6 +49,8 @@ class GetContainerACLResult
      * @param \DateTime $lastModified last modification date
      * @param array     $parsed       parsed response into array
      * representation
+     *
+     * @internal 
      *
      * @return self
      */

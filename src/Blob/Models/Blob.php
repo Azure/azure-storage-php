@@ -36,29 +36,10 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class Blob
 {
-    /**
-     * @var string
-     */
     private $_name;
-    
-    /**
-     * @var string
-     */
     private $_url;
-    
-    /**
-     * @var string
-     */
     private $_snapshot;
-
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var BlobProperties
-     */
     private $_properties;
 
     /**

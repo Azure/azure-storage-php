@@ -26,7 +26,7 @@ namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
 use GuzzleHttp\Psr7\Request;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -34,6 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * Provides shared key authentication scheme for blob and queue. For more info
  * check: http://msdn.microsoft.com/en-us/library/windowsazure/dd179428.aspx
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -43,8 +44,19 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class SharedKeyAuthScheme implements IAuthScheme
 {
+    /**
+     * The account name
+     */
     protected $accountName;
+
+    /**
+     * The account key
+     */
     protected $accountKey;
+
+    /**
+     * The included headers
+     */
     protected $includedHeaders;
 
     /**

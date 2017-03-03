@@ -38,29 +38,10 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListPageBlobRangesOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var string
-     */
     private $_snapshot;
-    
-    /**
-     * @var integer
-     */
     private $_rangeStart;
-    
-    /**
-     * @var integer
-     */
     private $_rangeEnd;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**

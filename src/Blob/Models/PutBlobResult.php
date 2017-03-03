@@ -39,25 +39,16 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class PutBlobResult
 {
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-
-    /**
-     * @var string
-     */
     private $_contentMD5;
 
     /**
      * Creates PutBlobResult object from the response of the put blob request.
      *
      * @param array $headers The HTTP response headers in array representation.
+     *
+     * @internal 
      *
      * @return PutBlobResult
      */

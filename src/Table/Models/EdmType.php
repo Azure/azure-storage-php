@@ -56,6 +56,8 @@ class EdmType
      *
      * @param string $type The Edm type
      *
+     * @internal
+     *
      * @return string
      */
     public static function processType($type)
@@ -72,6 +74,8 @@ class EdmType
      * @param string $type       The EDM type.
      * @param mixed  $value      The EDM value.
      * @param string &$condition The error message.
+     *
+     * @internal
      *
      * @return boolean
      *
@@ -122,6 +126,8 @@ class EdmType
      * @param string $type  The EDM type.
      * @param mixed  $value The EDM value.
      *
+     * @internal
+     *
      * @return string
      *
      * @throws \InvalidArgumentException
@@ -157,6 +163,8 @@ class EdmType
      *
      * @param string $type  The EDM type.
      * @param mixed  $value The EDM value.
+     *
+     * @internal
      *
      * @return string
      *
@@ -200,6 +208,8 @@ class EdmType
      *
      * @param string $type  The edm type.
      * @param string $value The edm value.
+     *
+     * @internal
      *
      * @return mixed
      *
@@ -245,6 +255,8 @@ class EdmType
      * Check if the $type belongs to valid header types.
      *
      * @param string $type The type string to check.
+     *
+     * @internal
      *
      * @return boolean
      */

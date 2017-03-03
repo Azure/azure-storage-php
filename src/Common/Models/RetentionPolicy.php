@@ -38,27 +38,15 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class RetentionPolicy
 {
-    /**
-     * Indicates whether a retention policy is enabled for the storage service
-     *
-     * @var bool.
-     */
     private $_enabled;
-    
-    /**
-     * If $_enabled is true then this field indicates the number of days that metrics
-     * or logging data should be retained. All data older than this value will be
-     * deleted. The minimum value you can specify is 1;
-     * the largest value is 365 (one year)
-     *
-     * @var int
-     */
     private $_days;
     
     /**
      * Creates object from $parsedResponse.
      *
      * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal
      *
      * @return MicrosoftAzure\Storage\Common\Models\RetentionPolicy
      */
@@ -119,6 +107,8 @@ class RetentionPolicy
     
     /**
      * Converts this object to array with XML tags
+     *
+     * @internal
      *
      * @return array
      */

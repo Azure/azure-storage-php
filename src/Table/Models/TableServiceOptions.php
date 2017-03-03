@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
 
 /**
  * Table service options.

@@ -38,35 +38,15 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class Metrics
 {
-    /**
-     * The version of Storage Analytics to configure
-     *
-     * @var string
-     */
     private $_version;
-    
-    /**
-     * Indicates whether metrics is enabled for the storage service
-     *
-     * @var bool
-     */
     private $_enabled;
-    
-    /**
-     * Indicates whether a retention policy is enabled for the storage service
-     *
-     * @var bool
-     */
     private $_includeAPIs;
-    
-    /**
-     * @var RetentionPolicy
-     */
     private $_retentionPolicy;
     
     /**
      * Creates object from $parsedResponse.
      *
+     * @internal
      * @param array $parsedResponse XML response parsed into array.
      *
      * @return Metrics
@@ -180,6 +160,7 @@ class Metrics
     /**
      * Converts this object to array with XML tags
      *
+     * @internal
      * @return array
      */
     public function toArray()

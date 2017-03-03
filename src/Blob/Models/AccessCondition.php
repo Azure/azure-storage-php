@@ -41,18 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\WindowsAzureUtilities;
  */
 class AccessCondition
 {
-    /**
-     * Represents the header type.
-     *
-     * @var string
-     */
     private $_header = Resources::EMPTY_STRING;
-    
-    /**
-     * Represents the header value.
-     *
-     * @var string
-     */
     private $_value;
 
     /**
@@ -60,6 +49,8 @@ class AccessCondition
      *
      * @param string $headerType header name
      * @param string $value      header value
+     *
+     * @internal
      */
     protected function __construct($headerType, $value)
     {
@@ -226,6 +217,8 @@ class AccessCondition
      * Check if the $headerType belongs to valid header types
      *
      * @param string $headerType candidate header type
+     *
+     * @internal 
      *
      * @return boolean
      */

@@ -47,6 +47,8 @@ class PublicAccessType
      *
      * @param string $type The public access type.
      *
+     * @internal 
+     *
      * @return boolean
      */
     public static function isValid($type)

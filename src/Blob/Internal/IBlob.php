@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Common\Models as CommonModels;
 /**
  * This interface has all REST APIs provided by Windows Azure for Blob service.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

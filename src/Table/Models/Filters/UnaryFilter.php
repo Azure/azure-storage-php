@@ -36,14 +36,7 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
  */
 class UnaryFilter extends Filter
 {
-    /**
-     * @var string
-     */
     private $_operator;
-    
-    /**
-     * @var Filter
-     */
     private $_operand;
     
     /**

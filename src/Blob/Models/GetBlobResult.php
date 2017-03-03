@@ -40,19 +40,8 @@ use Psr\Http\Message\StreamInterface;
  */
 class GetBlobResult
 {
-    /**
-     * @var BlobProperties
-     */
     private $_properties;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var resource
-     */
     private $_contentStream;
     
     /**
@@ -61,6 +50,8 @@ class GetBlobResult
      * @param array           $headers  The HTTP response headers.
      * @param StreamInterface $body     The response body.
      * @param array           $metadata The blob metadata.
+     *
+     * @internal 
      *
      * @return GetBlobResult
      */

@@ -14,6 +14,7 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

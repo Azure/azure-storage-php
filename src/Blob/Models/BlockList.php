@@ -40,16 +40,13 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class BlockList
 {
-    /**
-     * @var array
-     */
     private $_entries;
-    public static $xmlRootName = 'BlockList';
+    private static $xmlRootName = 'BlockList';
     
     /**
      * Creates block list from array of blocks.
      *
-     * @param array $array The blocks array.
+     * @param Block[] The blocks array.
      *
      * @return BlockList
      */
@@ -143,7 +140,7 @@ class BlockList
     /**
      * Gets all blob block entries.
      *
-     * @return string
+     * @return Block[]
      */
     public function getEntries()
     {
@@ -154,6 +151,8 @@ class BlockList
      * Converts the  BlockList object to XML representation
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
+     *
+     * @internal 
      *
      * @return string
      */

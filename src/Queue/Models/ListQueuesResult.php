@@ -52,6 +52,8 @@ class ListQueuesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
+     * @internal 
+     *
      * @return ListQueuesResult
      */
     public static function create(array $parsedResponse)
@@ -113,6 +115,8 @@ class ListQueuesResult
      *
      * @param array $queues list of queues
      *
+     * @internal 
+     *
      * @return void
      */
     protected function setQueues(array $queues)
@@ -138,6 +142,8 @@ class ListQueuesResult
      *
      * @param string $prefix value.
      *
+     * @internal 
+     *
      * @return void
      */
     protected function setPrefix($prefix)
@@ -159,6 +165,8 @@ class ListQueuesResult
      * Sets marker.
      *
      * @param string $marker value.
+     *
+     * @internal 
      *
      * @return void
      */
@@ -182,6 +190,8 @@ class ListQueuesResult
      *
      * @param string $maxResults value.
      *
+     * @internal 
+     *
      * @return void
      */
     protected function setMaxResults($maxResults)
@@ -204,6 +214,8 @@ class ListQueuesResult
      *
      * @param string $nextMarker value.
      *
+     * @internal 
+     *
      * @return void
      */
     protected function setNextMarker($nextMarker)
@@ -225,6 +237,8 @@ class ListQueuesResult
      * Sets account name.
      *
      * @param string $accountName value.
+     *
+     * @internal 
      *
      * @return void
      */

@@ -24,7 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Blob;
 
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -79,7 +79,6 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
 use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
 use MicrosoftAzure\Storage\Blob\Models\PutBlobResult;
-use MicrosoftAzure\Storage\Common\Internal\ServiceFunctionThread;
 use Psr\Http\Message\StreamInterface;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7;
@@ -97,9 +96,6 @@ use GuzzleHttp\Psr7;
  */
 class BlobRestProxy extends ServiceRestProxy implements IBlob
 {
-    /**
-     * @var int Defaults to 32MB
-     */
     private $_SingleBlobUploadThresholdInBytes = Resources::MB_IN_BYTES_32;
 
     /**

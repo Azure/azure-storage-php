@@ -43,11 +43,12 @@ class ServiceProperties
 {
     private $_logging;
     private $_metrics;
-    public static $xmlRootName = 'StorageServiceProperties';
+    private static $xmlRootName = 'StorageServiceProperties';
     
     /**
      * Creates ServiceProperties object from parsed XML response.
      *
+     * @internal
      * @param array $parsedResponse XML response parsed into array.
      *
      * @return ServiceProperties.
@@ -108,6 +109,7 @@ class ServiceProperties
     /**
      * Converts this object to array with XML tags
      *
+     * @internal
      * @return array
      */
     public function toArray()
@@ -121,6 +123,7 @@ class ServiceProperties
     /**
      * Converts this current object to XML representation.
      *
+     * @internal
      * @param XmlSerializer $xmlSerializer The XML serializer.
      *
      * @return string

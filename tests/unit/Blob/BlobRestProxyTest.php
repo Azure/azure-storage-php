@@ -29,7 +29,7 @@ use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
@@ -202,7 +202,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 400
     */
     public function testListContainersWithInvalidNextMarkerFail()
@@ -318,7 +318,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
         $this->setExpectedException(get_class(new ServiceException('400')));
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 400
     */
     public function testCreateContainerInvalidNameFail()
@@ -332,7 +332,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 409
     */
     public function testCreateContainerAlreadyExitsFail()
@@ -365,7 +365,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 404
     */
     public function testDeleteContainerFail()
@@ -912,7 +912,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
-     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage 404
      */
     public function testGetBlobNotExist()

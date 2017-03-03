@@ -25,7 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 

@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 class QueueMessage
 {
     private $_messageText;
-    public static $xmlRootName = 'QueueMessage';
+    private static $xmlRootName = 'QueueMessage';
     
     /**
      * Gets message text field.
@@ -68,6 +68,8 @@ class QueueMessage
      * Converts this current object to XML representation.
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
+     *
+     * @internal
      *
      * @return string
      */

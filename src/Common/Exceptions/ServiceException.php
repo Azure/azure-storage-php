@@ -15,14 +15,14 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common
+ * @package   MicrosoftAzure\Storage\Common\Exceptions
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Common;
+namespace MicrosoftAzure\Storage\Common\Exceptions;
 
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XMLSerializer;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -32,7 +32,7 @@ use Psr\Http\Message\ResponseInterface;
  * Fires when the response code is incorrect.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common
+ * @package   MicrosoftAzure\Storage\Common\Exceptions
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -49,6 +49,8 @@ class ServiceException extends \LogicException
      *
      * @param ResponseInterface $response The response received that causes the
      *                                    exception.
+     *
+     * @internal 
      *
      * @return ServiceException
      */
@@ -72,6 +74,8 @@ class ServiceException extends \LogicException
      * Error message to be parsed.
      *
      * @param  ResponseInterface $response The response with a response body.
+     *
+     * @internal
      *
      * @return string
      */

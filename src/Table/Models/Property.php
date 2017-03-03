@@ -40,14 +40,7 @@ use MicrosoftAzure\Storage\Tests\Unit\Table\Models\EdmTypeTest;
  */
 class Property
 {
-    /**
-     * @var string
-     */
     private $_edmType;
-    
-    /**
-     * @var mixed
-     */
     private $_value;
     
     /**

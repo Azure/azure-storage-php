@@ -39,15 +39,14 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class PutBlockResult
 {
-    /**
-     * @var string
-     */
     private $_contentMD5;
 
     /**
      * Creates PutBlockResult object from the response of the put block request.
      *
      * @param array $headers The HTTP response headers in array representation.
+     *
+     * @internal 
      *
      * @return PutBlockResult
      */

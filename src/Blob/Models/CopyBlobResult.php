@@ -39,20 +39,15 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class CopyBlobResult
 {
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
     
     /**
      * Creates CopyBlobResult object from the response of the copy blob request.
      *
      * @param array $headers The HTTP response headers in array representation.
+     *
+     * @internal
      *
      * @return CopyBlobResult
      */

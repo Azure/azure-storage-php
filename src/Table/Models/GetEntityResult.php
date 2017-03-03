@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
  */
 class GetEntityResult
 {
-    /**
-     * @var Entity
-     */
     private $_entity;
     
     /**
@@ -65,6 +62,16 @@ class GetEntityResult
         $this->_entity = $entity;
     }
 
+    /**
+     * Create GetEntityResult object from HTTP response parts.
+     *
+     * @param string            $body           The HTTP response body.
+     * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
+     *
+     * @internal
+     *
+     * @return GetEntityResult
+     */
     public static function create($body, IAtomReaderWriter $serializer)
     {
         $result = new GetEntityResult();

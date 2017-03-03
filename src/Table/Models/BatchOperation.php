@@ -40,14 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class BatchOperation
 {
-    /**
-     * @var string
-     */
     private $_type;
-    
-    /**
-     * @var array
-     */
     private $_params;
     
     /**

@@ -38,14 +38,7 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class ConstantFilter extends Filter
 {
-    /**
-     * @var mixed
-     */
     private $_value;
-    
-    /**
-     * @var string
-     */
     private $_edmType;
     
     /**

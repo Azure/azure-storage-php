@@ -28,7 +28,7 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
@@ -52,13 +52,12 @@ use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
  */
 class ServicesBuilder
 {
-    /**
-     * @var ServicesBuilder
-     */
     private static $_instance = null;
 
     /**
      * Gets the serializer used in the REST services construction.
+     *
+     * @internal 
      *
      * @return Internal\Serialization\ISerializer
      */
@@ -70,6 +69,8 @@ class ServicesBuilder
     /**
      * Gets the MIME serializer used in the REST services construction.
      *
+     * @internal 
+     *
      * @return \MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter
      */
     protected function mimeSerializer()
@@ -79,6 +80,8 @@ class ServicesBuilder
 
     /**
      * Gets the Atom serializer used in the REST services construction.
+     *
+     * @internal 
      *
      * @return \MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter
      */
@@ -93,6 +96,8 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
+     * @internal 
+     *
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     protected function queueAuthenticationScheme($accountName, $accountKey)
@@ -105,6 +110,8 @@ class ServicesBuilder
      *
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
+     *
+     * @internal 
      *
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
@@ -119,6 +126,8 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
+     * @internal 
+     *
      * @return TableSharedKeyLiteAuthScheme
      */
     protected function tableAuthenticationScheme($accountName, $accountKey)
@@ -131,6 +140,8 @@ class ServicesBuilder
      *
      * @param string $sasToken The SAS token.
      *
+     * @internal 
+     *
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme
      */
     protected function sasAuthenticationScheme($sasToken)
@@ -139,7 +150,14 @@ class ServicesBuilder
     }
 
     /**
-     * Builds a queue object.
+     * Builds a queue service object, it accepts the following
+     * options:
+     * 
+     * - http: (array) the underlying guzzle options. refer to
+     *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
+     *   `callable` that follows the Guzzle middleware implementation convention 
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
@@ -184,7 +202,14 @@ class ServicesBuilder
     }
 
     /**
-     * Builds a blob object.
+     * Builds a blob service object, it accepts the following
+     * options:
+     * 
+     * - http: (array) the underlying guzzle options. refer to
+     *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
+     *   `callable` that follows the Guzzle middleware implementation convention 
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
@@ -228,7 +253,14 @@ class ServicesBuilder
     }
 
     /**
-     * Builds a table object.
+     * Builds a table service object, it accepts the following
+     * options:
+     * 
+     * - http: (array) the underlying guzzle options. refer to
+     *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
+     *   `callable` that follows the Guzzle middleware implementation convention 
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service

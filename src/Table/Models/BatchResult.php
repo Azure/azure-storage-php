@@ -26,8 +26,8 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Table\Models\BatchError;
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
@@ -48,11 +48,6 @@ use GuzzleHttp\Psr7\Response;
  */
 class BatchResult
 {
-    /**
-     * Each entry represents change set result.
-     *
-     * @var array
-     */
     private $_entries;
     
     /**

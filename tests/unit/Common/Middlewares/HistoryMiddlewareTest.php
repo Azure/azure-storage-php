@@ -15,16 +15,16 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Http
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Middlewares;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Middlewares;
 
-use MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware;
+use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
@@ -34,7 +34,7 @@ use GuzzleHttp\Psr7\Request;
  * Unit tests for class HistoryMiddleware
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Http
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -44,9 +44,9 @@ use GuzzleHttp\Psr7\Request;
 class HistoryMiddlewareTest extends ReflectionTestBase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::onFulfilled
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::getHistory
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::onFulfilled
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::getHistory
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::__construct
      */
     public function testOnFulfilled()
     {
@@ -66,9 +66,9 @@ class HistoryMiddlewareTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::onRejected
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::getHistory
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::onRejected
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::getHistory
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::__construct
      */
     public function testOnRejected()
     {
@@ -94,10 +94,10 @@ class HistoryMiddlewareTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::addHistory
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::clearHistory
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::getHistory
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::addHistory
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::clearHistory
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::getHistory
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::__construct
      */
     public function testAddGetClearHistory()
     {

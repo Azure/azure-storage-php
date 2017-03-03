@@ -243,7 +243,7 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $array = $properties->toArray();
 
         // Test
-        $actual = Utilities::serialize($array, ServiceProperties::$xmlRootName);
+        $actual = Utilities::serialize($array, "StorageServiceProperties");
 
         $this->assertEquals($expected, $actual);
     }

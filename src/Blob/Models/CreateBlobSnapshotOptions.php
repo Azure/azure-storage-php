@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class CreateBlobSnapshotOptions extends BlobServiceOptions
 {
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
-    
-    /**
-     * @var string
-     */
     private $_leaseId;
     
     /**

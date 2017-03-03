@@ -36,9 +36,6 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class BlobPrefix
 {
-    /**
-     * @var string
-     */
     private $_name;
     
     /**

@@ -14,6 +14,7 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -46,8 +47,6 @@ class Utilities
      * @param mixed $key     The array key.
      * @param mixed $default The value to return if $key is not found in $array.
      *
-     * @static
-     *
      * @return mixed
      */
     public static function tryGetValue($array, $key, $default = null)
@@ -62,8 +61,6 @@ class Utilities
      *
      * @param string $url    The URL.
      * @param string $scheme The scheme. By default HTTP
-     *
-     * @static
      *
      * @return string
      */
@@ -83,8 +80,6 @@ class Utilities
      *
      * @param string $url The endpoint $url
      *
-     * @static
-     *
      * @return string
      */
     public static function tryParseAccountNameFromUrl($url)
@@ -103,8 +98,6 @@ class Utilities
      * @param string $key   The index name.
      * @param array  $array The array object.
      *
-     * @static
-     *
      * @return array
      */
     public static function tryGetArray($key, array $array)
@@ -121,8 +114,6 @@ class Utilities
      * @param string $key    The key.
      * @param string $value  The value.
      * @param array  &$array The array. If NULL will be used as array.
-     *
-     * @static
      *
      * @return void
      */
@@ -142,8 +133,6 @@ class Utilities
      * that key chain doesn't exist, null is returned.
      *
      * @param array $array Array to be used.
-     *
-     * @static
      *
      * @return mixed
      */
@@ -176,8 +165,6 @@ class Utilities
      * @param boolean $ignoreCase true to ignore case during the comparison;
      * otherwise, false
      *
-     * @static
-     *
      * @return boolean
      */
     public static function startsWith($string, $prefix, $ignoreCase = false)
@@ -193,8 +180,6 @@ class Utilities
      * Returns grouped items from passed $var
      *
      * @param array $var item to group
-     *
-     * @static
      *
      * @return array
      */
@@ -222,8 +207,6 @@ class Utilities
      *
      * @param string $xml XML to be parsed.
      *
-     * @static
-     *
      * @return array
      */
     public static function unserialize($xml)
@@ -239,8 +222,6 @@ class Utilities
      *
      * @param string $sxml SimpleXML object
      * @param array  $arr  Array into which to store results
-     *
-     * @static
      *
      * @return array
      */
@@ -265,8 +246,6 @@ class Utilities
      * @param string $rootName   name of the XML root element.
      * @param string $defaultTag default tag for non-tagged elements.
      * @param string $standalone adds 'standalone' header tag, values 'yes'/'no'
-     *
-     * @static
      *
      * @return string
      */
@@ -303,8 +282,6 @@ class Utilities
      * and is used for creating the XML.
      * @param array     $data       Array to be converted to XML
      * @param string    $defaultTag Default XML tag to be used if none specified.
-     *
-     * @static
      *
      * @return void
      */
@@ -344,8 +321,6 @@ class Utilities
      *
      * @param string $obj boolean value in string format.
      *
-     * @static
-     *
      * @return bool
      */
     public static function toBoolean($obj)
@@ -358,8 +333,6 @@ class Utilities
      *
      * @param bool $obj boolean value to convert.
      *
-     * @static
-     *
      * @return string
      */
     public static function booleanToString($obj)
@@ -371,8 +344,6 @@ class Utilities
      * Converts a given date string into \DateTime object
      *
      * @param string $date windows azure date ins string represntation.
-     *
-     * @static
      *
      * @return \DateTime
      */
@@ -389,8 +360,6 @@ class Utilities
      *
      * @param int $timestamp The unix timestamp to convert
      *     (for DateTime check date_timestamp_get).
-     *
-     * @static
      *
      * @return string
      */
@@ -418,8 +387,6 @@ class Utilities
      *
      * @param mixed $value The datetime value.
      *
-     * @static
-     *
      * @return string
      */
     public static function convertToEdmDateTime($value)
@@ -444,8 +411,6 @@ class Utilities
      *
      * @param string $value The string value to parse.
      *
-     * @static
-     *
      * @return \DateTime
      */
     public static function convertToDateTime($value)
@@ -465,8 +430,6 @@ class Utilities
      * Converts string to stream handle.
      *
      * @param string $string The string contents.
-     *
-     * @static
      *
      * @return resource
      */
@@ -503,8 +466,6 @@ class Utilities
      * @param string $needle   The searched value.
      * @param array  $haystack The array.
      *
-     * @static
-     *
      * @return boolean
      */
     public static function inArrayInsensitive($needle, array $haystack)
@@ -518,8 +479,6 @@ class Utilities
      *
      * @param string $key    The value to check.
      * @param array  $search The array with keys to check.
-     *
-     * @static
      *
      * @return boolean
      */
@@ -536,8 +495,6 @@ class Utilities
      * @param string $key      The array key.
      * @param array  $haystack The array to be used.
      * @param mixed  $default  The value to return if $key is not found in $array.
-     *
-     * @static
      *
      * @return mixed
      */
@@ -557,8 +514,6 @@ class Utilities
      *
      * Note: This function is available on all platforms, while the
      * com_create_guid() is only available for Windows.
-     *
-     * @static
      *
      * @return string A new GUID.
      */
@@ -593,8 +548,6 @@ class Utilities
      * @param array  $parsed The object in array representation
      * @param string $class  The class name. Must have static method create.
      *
-     * @static
-     *
      * @return array
      */
     public static function createInstanceList(array $parsed, $class)
@@ -615,8 +568,6 @@ class Utilities
      * @param string  $needle     postfix to match.
      * @param boolean $ignoreCase Set true to ignore case during the comparison;
      * otherwise, false
-     *
-     * @static
      *
      * @return boolean
      */

@@ -38,56 +38,12 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class MicrosoftAzureQueueMessage
 {
-    /**
-     * GUID value that identifies the message in the queue
-     *
-     * @var string
-     */
     private $_messageId;
-    
-    /**
-     * insertion date of the message.
-     *
-     * @var \DateTime
-     */
     private $_insertionDate;
-    
-    /**
-     * expiration date of the message.
-     *
-     * @var \DateTime
-     */
     private $_expirationDate;
-    
-    /**
-     * The value of PopReceipt is opaque to the client and its only purpose is to
-     * ensure that a message may be deleted with the delete message operation.
-     *
-     * @var string
-     */
     private $_popReceipt;
-    
-    /**
-     * next visibility time of the message.
-     *
-     * @var \DateTime
-     */
     private $_timeNextVisible;
-    
-    /**
-     * Dequeues count for this message. Note that this element is returned in the
-     * response body only if the queue was created with version 2009-09-19 of
-     * the Queue service.
-     *
-     * @var integer
-     */
     private $_dequeueCount;
-    
-    /**
-     * message contents.
-     *
-     * @var string
-     */
     private $_messageText;
     
     /**
@@ -95,6 +51,8 @@ class MicrosoftAzureQueueMessage
      * ListMessages.
      *
      * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal 
      *
      * @return MicrosoftAzureQueueMessage
      */
@@ -115,6 +73,8 @@ class MicrosoftAzureQueueMessage
      * PeekMessages.
      *
      * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal 
      *
      * @return MicrosoftAzureQueueMessage
      */
@@ -196,6 +156,8 @@ class MicrosoftAzureQueueMessage
      * Sets insertionDate field.
      *
      * @param \DateTime $insertionDate message contents.
+     *
+     * @internal 
      *
      * @return void
      */
@@ -284,6 +246,8 @@ class MicrosoftAzureQueueMessage
      * Sets dequeueCount field.
      *
      * @param integer $dequeueCount number of dequeues for that message.
+     *
+     * @internal 
      *
      * @return void
      */

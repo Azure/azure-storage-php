@@ -38,14 +38,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CreateContainerOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_publicAccess;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
     
     /**

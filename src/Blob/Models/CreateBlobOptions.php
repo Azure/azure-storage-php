@@ -38,89 +38,22 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CreateBlobOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_contentType;
-    
-    /**
-     * @var string
-     */
     private $_contentEncoding;
-    
-    /**
-     * @var string
-     */
     private $_contentLanguage;
-    
-    /**
-     * @var string
-     */
     private $_contentMD5;
-    
-    /**
-     * @var string
-     */
     private $_cacheControl;
-    
-    /**
-     * @var string
-     */
     private $_blobContentType;
-    
-    /**
-     * @var string
-     */
     private $_blobContentEncoding;
-    
-    /**
-     * @var string
-     */
     private $_blobContentLanguage;
-    
-    /**
-     * @var integer
-     */
     private $_blobContentLength;
-
-    /**
-     * @var string
-     */
     private $_blobContentMD5;
-    
-    /**
-     * @var string
-     */
     private $_blobCacheControl;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var integer
-     */
     private $_sequenceNumber;
-    
-    /**
-     * @var string
-     */
     private $_sequenceNumberAction;
-
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
-
-    /**
-     * @var int
-     */
     private $_numberOfConcurrency;
     
     /**

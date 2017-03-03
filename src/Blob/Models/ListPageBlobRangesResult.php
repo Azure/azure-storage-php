@@ -41,24 +41,9 @@ use MicrosoftAzure\Storage\Blob\Models\PageRange;
  */
 class ListPageBlobRangesResult
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var integer
-     */
     private $_contentLength;
-    
-    /**
-     * @var array
-     */
     private $_pageRanges;
     
     /**
@@ -66,6 +51,8 @@ class ListPageBlobRangesResult
      *
      * @param array $headers HTTP response headers
      * @param array $parsed  parsed response in array format.
+     *
+     * @internal 
      *
      * @return ListPageBlobRangesResult
      */

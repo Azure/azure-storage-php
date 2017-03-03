@@ -15,14 +15,14 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
+ * @package   MicrosoftAzure\Storage\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Common\Internal\Middlewares;
+namespace MicrosoftAzure\Storage\Common\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use Psr\Http\Message\RequestInterface;
@@ -37,7 +37,7 @@ use GuzzleHttp\Promise\RejectedPromise;
  * intended to persist between different API calls.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
+ * @package   MicrosoftAzure\Storage\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -46,11 +46,6 @@ use GuzzleHttp\Promise\RejectedPromise;
  */
 class HistoryMiddleware extends MiddlewareBase
 {
-    /**
-     * The history of all the request/response pairs or request/reason pairs
-     *
-     * @var array
-     */
     private $history;
 
     /**

@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult;
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
 /**
  * Unit tests for QueueRestProxy class
@@ -146,7 +146,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage 400
      */
     public function testListQueuesWithInvalidNextMarkerFail()
@@ -261,7 +261,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage 400
      */
     public function testCreateQueueInvalidNameFail()
@@ -293,7 +293,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage 404
      */
     public function testDeleteQueueFail()

@@ -15,16 +15,16 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Http
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Middlewares;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Middlewares;
 
-use MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase;
+use MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
@@ -35,7 +35,7 @@ use GuzzleHttp\Client;
  * Unit tests for class MiddlewareBase
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Http
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -45,7 +45,7 @@ use GuzzleHttp\Client;
 class MiddlewareBaseTest extends ReflectionTestBase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase::__invoke
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::__invoke
      */
     public function testInvoke()
     {
@@ -60,7 +60,7 @@ class MiddlewareBaseTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase::onRequest
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::onRequest
      * @depends testInvoke
      */
     public function testOnRequest()
@@ -73,7 +73,7 @@ class MiddlewareBaseTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase::onFulfilled
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::onFulfilled
      * @depends testInvoke
      */
     public function testOnFulfilled()
@@ -88,7 +88,7 @@ class MiddlewareBaseTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase::onRejected
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::onRejected
      * @depends testInvoke
      */
     public function testOnRejected()

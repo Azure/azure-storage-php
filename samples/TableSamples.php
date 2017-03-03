@@ -24,7 +24,7 @@ namespace MicrosoftAzure\Storage\Samples;
 require_once "../vendor/autoload.php";
 
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Table\Models\BatchOperations;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -38,7 +38,7 @@ createTableSample($tableClient);
 // To add an entity to a table, create a new Entity object and pass it to TableRestProxy->insertEntity.
 // Note that when you create an entity you must specify a PartitionKey and RowKey. These are the unique
 // identifiers for an entity and are values that can be queried much faster than other entity properties.
-// The system uses PartitionKey to automatically distribute the table¡¯s entities over many storage nodes.
+// The system uses PartitionKey to automatically distribute the table's entities over many storage nodes.
 insertEntitySample($tableClient);
 
 // To add mutiple entities with one call, create a BatchOperations and pass it to TableRestProxy->batch.

@@ -40,14 +40,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
  */
 class GetBlobPropertiesResult
 {
-    /**
-     * @var BlobProperties
-     */
     private $_properties;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
     
     /**
@@ -98,6 +91,8 @@ class GetBlobPropertiesResult
      * Create a instance using the given headers.
      *
      * @param  array  $headers response headers parsed in an array
+     *
+     * @internal 
      *
      * @return GetBlobPropertiesResult
      */

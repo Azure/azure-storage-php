@@ -43,7 +43,7 @@ use MicrosoftAzure\Storage\Queue\Models\ListMessagesResult;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult;
 use MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult;
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for queue

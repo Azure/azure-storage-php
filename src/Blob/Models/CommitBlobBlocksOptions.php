@@ -38,44 +38,13 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CommitBlobBlocksOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_blobContentType;
-    
-    /**
-     * @var string
-     */
     private $_blobContentEncoding;
-    
-    /**
-     * @var string
-     */
     private $_blobContentLanguage;
-    
-    /**
-     * @var string
-     */
     private $_blobContentMD5;
-    
-    /**
-     * @var string
-     */
     private $_blobCacheControl;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**
@@ -257,6 +226,8 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     /**
      * Create a instance using the given options
      * @param  mixed $options Input options
+     *
+     * @internal 
      *
      * @return self
      */

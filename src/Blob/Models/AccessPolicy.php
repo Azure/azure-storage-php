@@ -39,19 +39,8 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class AccessPolicy
 {
-    /**
-     * @var string
-     */
     private $_start;
-    
-    /**
-     * @var \DateTime
-     */
     private $_expiry;
-    
-    /**
-     * @var \DateTime
-     */
     private $_permission;
     
     /**
@@ -124,6 +113,8 @@ class AccessPolicy
     
     /**
      * Converts this current object to XML representation.
+     *
+     * @internal 
      *
      * @return array
      */

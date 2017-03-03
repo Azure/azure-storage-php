@@ -36,14 +36,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class ContainerProperties
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
     
     /**

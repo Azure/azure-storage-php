@@ -40,14 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class Entity
 {
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var array
-     */
     private $_properties;
     
     /**
@@ -268,6 +261,8 @@ class Entity
      * timestamp.
      *
      * @param string &$msg The error message.
+     *
+     * @internal
      *
      * @return boolean
      */

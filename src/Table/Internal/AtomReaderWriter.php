@@ -32,6 +32,7 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
 /**
  * Serializes and unserializes results from table wrapper calls
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -41,39 +42,12 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  */
 class AtomReaderWriter implements IAtomReaderWriter
 {
-    /**
-     * @var string
-     */
     private $_atomNamespaceName;
-    
-    /**
-     * @var string
-     */
     private $_dataServicesNamespaceName;
-    
-    /**
-     * @var string
-     */
     private $_dataServicesMetadataNamespaceName;
-    
-    /**
-     * @var string
-     */
     private $_xmlVersion;
-    
-    /**
-     * @var string
-     */
     private $_xmlEncoding;
-    
-    /**
-     * @var string
-     */
     private $_dataServicesPrefix;
-    
-    /**
-     * @var string
-     */
     private $_dataServicesMetadataPrefix;
     
     /**

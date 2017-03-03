@@ -36,13 +36,6 @@ namespace MicrosoftAzure\Storage\Queue\Models;
  */
 class PeekMessagesOptions extends QueueServiceOptions
 {
-    /**
-     * A nonzero integer value that specifies the number of messages to peek from
-     * the queue, up to a maximum of 32. By default, a single message is peeked
-     * from the queue with this operation.
-     *
-     * @var integer
-     */
     private $_numberOfMessages;
     
     /**

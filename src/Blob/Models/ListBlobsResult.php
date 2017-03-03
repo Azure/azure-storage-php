@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Blob\Models\Blob;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 /**
  * Hold result of calliing listBlobs wrapper.
@@ -41,50 +41,21 @@ use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
  */
 class ListBlobsResult
 {
-    /**
-     * @var array
-     */
     private $_blobPrefixes;
-            
-    /**
-     * @var Blob[]
-     */
     private $_blobs;
-    
-    /**
-     * @var string
-     */
     private $_delimiter;
-    
-    /**
-     * @var string
-     */
     private $_prefix;
-    
-    /**
-     * @var string
-     */
     private $_marker;
-    
-    /**
-     * @var string
-     */
     private $_nextMarker;
-    
-    /**
-     * @var integer
-     */
     private $_maxResults;
-    
-    /**
-     * @var string
-     */
     private $_containerName;
 
     /**
      * Creates ListBlobsResult object from parsed XML response.
      *
      * @param array $parsed XML response parsed into array.
+     *
+     * @internal 
      *
      * @return ListBlobsResult
      */

@@ -24,7 +24,7 @@ namespace MicrosoftAzure\Storage\Samples;
 require_once "../vendor/autoload.php";
 
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
 

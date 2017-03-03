@@ -41,24 +41,9 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class ContainerACL
 {
-    /**
-     * All available types can be found in PublicAccessType
-     *
-     * @var string
-     */
     private $_publicAccess;
-
-    /**
-     * @var array
-     */
     private $_signedIdentifiers = array();
-    
-    /*
-     * The root name of XML elemenet representation.
-     *
-     * @var string
-     */
-    public static $xmlRootName = 'SignedIdentifiers';
+    private static $xmlRootName = 'SignedIdentifiers';
 
 
     /**
@@ -66,6 +51,8 @@ class ContainerACL
      *
      * @param string $publicAccess The container public access.
      * @param array  $parsed       The parsed response into array representation.
+     *
+     * @internal 
      *
      * @return ContainerACL
      */
@@ -186,6 +173,8 @@ class ContainerACL
     /**
      * Converts this object to array representation for XML serialization
      *
+     * @internal 
+     *
      * @return array
      */
     public function toArray()
@@ -203,6 +192,8 @@ class ContainerACL
      * Converts this current object to XML representation.
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
+     *
+     * @internal 
      *
      * @return string
      */

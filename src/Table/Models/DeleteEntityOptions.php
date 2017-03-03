@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class DeleteEntityOptions extends TableServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_etag;
     
     /**

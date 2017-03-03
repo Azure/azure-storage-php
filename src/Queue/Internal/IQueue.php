@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 /**
  * This interface has all REST APIs provided by Windows Azure for queue service
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Queue\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

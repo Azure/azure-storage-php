@@ -40,70 +40,25 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class BlobProperties
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var string
-     */
     private $_contentType;
-    
-    /**
-     * @var integer
-     */
     private $_contentLength;
-    
-    /**
-     * @var string
-     */
     private $_contentEncoding;
-    
-    /**
-     * @var string
-     */
     private $_contentLanguage;
-    
-    /**
-     * @var string
-     */
     private $_contentMD5;
-    
-    /**
-     * @var string
-     */
     private $_contentRange;
-    
-    /**
-     * @var string
-     */
     private $_cacheControl;
-    
-    /**
-     * @var string
-     */
     private $_blobType;
-    
-    /**
-     * @var string
-     */
     private $_leaseStatus;
-    
-    /**
-     * @var integer
-     */
     private $_sequenceNumber;
     
     /**
      * Creates BlobProperties object from $parsed response in array representation
      *
      * @param array $parsed parsed response in array format.
+     *
+     * @internal
      *
      * @return BlobProperties
      */

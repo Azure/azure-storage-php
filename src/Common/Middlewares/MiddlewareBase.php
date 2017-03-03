@@ -15,19 +15,18 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
+ * @package   MicrosoftAzure\Storage\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Common\Internal\Middlewares;
+namespace MicrosoftAzure\Storage\Common\Middlewares;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Promise\RejectedPromise;
-use MicrosoftAzure\Storage\Common\Internal\IMiddleware;
 
 /**
  * This class provides the base structure of middleware that can be used for
@@ -35,7 +34,7 @@ use MicrosoftAzure\Storage\Common\Internal\IMiddleware;
  * other behaviors like logging, retrying and debugging.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
+ * @package   MicrosoftAzure\Storage\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -45,6 +44,17 @@ use MicrosoftAzure\Storage\Common\Internal\IMiddleware;
 class MiddlewareBase implements IMiddleware
 {
 
+    /**
+     * Middleware augments the functionality of handlers by invoking them 
+     * in the process of generating responses. And it returns a function
+     * that accepts the next handler to invoke. Refer to
+     * http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware
+     * for more detailed information.
+     *
+     * @param  callable  The handler function.
+     *
+     * @return callable  The function that accepts the next handler to invoke.
+     */
     final public function __invoke(callable $handler)
     {
         $reflection = $this;

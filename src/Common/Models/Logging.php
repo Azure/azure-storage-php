@@ -39,45 +39,16 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class Logging
 {
-    /**
-     * The version of Storage Analytics to configure
-     *
-     * @var string
-     */
     private $_version;
-    
-    /**
-     * Applies only to logging configuration. Indicates whether all delete requests
-     * should be logged.
-     *
-     * @var bool
-     */
     private $_delete;
-    
-    /**
-     * Applies only to logging configuration. Indicates whether all read requests
-     * should be logged.
-     *
-     * @var bool.
-     */
     private $_read;
-    
-    /**
-     * Applies only to logging configuration. Indicates whether all write requests
-     * should be logged.
-     *
-     * @var bool
-     */
     private $_write;
-    
-    /**
-     * @var RetentionPolicy
-     */
     private $_retentionPolicy;
     
     /**
      * Creates object from $parsedResponse.
      *
+     * @internal
      * @param array $parsedResponse XML response parsed into array.
      *
      * @return Logging
@@ -97,9 +68,9 @@ class Logging
     }
     
     /**
-     * Gets retention policy
+     * Gets the retention policy
      *
-     * @return RetentionPolicy
+     * @return MicrosoftAzure\Storage\Common\Models\RetentionPolicy
      *
      */
     public function getRetentionPolicy()
@@ -120,7 +91,7 @@ class Logging
     }
     
     /**
-     * Gets write
+     * Gets whether all write requests should be logged.
      *
      * @return bool.
      */
@@ -130,7 +101,7 @@ class Logging
     }
     
     /**
-     * Sets write
+     * Sets whether all write requests should be logged.
      *
      * @param bool $write new value.
      *
@@ -142,7 +113,7 @@ class Logging
     }
             
     /**
-     * Gets read
+     * Gets whether all read requests should be logged.
      *
      * @return bool
      */
@@ -152,7 +123,7 @@ class Logging
     }
     
     /**
-     * Sets read
+     * Sets whether all read requests should be logged.
      *
      * @param bool $read new value.
      *
@@ -164,7 +135,7 @@ class Logging
     }
     
     /**
-     * Gets delete
+     * Gets whether all delete requests should be logged.
      *
      * @return void
      */
@@ -174,7 +145,7 @@ class Logging
     }
     
     /**
-     * Sets delete
+     * Sets whether all delete requests should be logged.
      *
      * @param bool $delete new value.
      *
@@ -186,7 +157,7 @@ class Logging
     }
     
     /**
-     * Gets version
+     * Gets the version of Storage Analytics to configure
      *
      * @return string
      */
@@ -196,7 +167,7 @@ class Logging
     }
     
     /**
-     * Sets version
+     * Sets the version of Storage Analytics to configure
      *
      * @param string $version new value.
      *
@@ -210,6 +181,7 @@ class Logging
     /**
      * Converts this object to array with XML tags
      *
+     * @internal
      * @return array
      */
     public function toArray()

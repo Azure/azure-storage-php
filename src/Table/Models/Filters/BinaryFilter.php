@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
  */
 class BinaryFilter extends Filter
 {
-    /**
-     * @var string
-     */
     private $_operator;
-    
-    /**
-     * @var Filter
-     */
     private $_left;
-    
-    /**
-     * @var Filter
-     */
     private $_right;
     
     /**

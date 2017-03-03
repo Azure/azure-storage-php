@@ -25,7 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
-use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 /**
  * Unit tests for class CreateContainerOptions

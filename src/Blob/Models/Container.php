@@ -39,24 +39,9 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class Container
 {
-    /**
-     * @var string
-     */
     private $_name;
-    
-    /**
-     * @var string
-     */
     private $_url;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var ContainerProperties
-     */
     private $_properties;
 
     /**

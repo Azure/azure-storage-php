@@ -40,21 +40,15 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class SetBlobMetadataResult
 {
-    
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
     
     /**
      * Creates SetBlobMetadataResult from response headers.
      *
      * @param array $headers response headers
+     *
+     * @internal 
      *
      * @return SetBlobMetadataResult
      */

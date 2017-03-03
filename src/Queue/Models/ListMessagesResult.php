@@ -39,17 +39,14 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListMessagesResult
 {
-    /**
-     * Holds all message entries.
-     *
-     * @var array
-     */
     private $_queueMessages;
     
     /**
      * Creates ListMessagesResult object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal 
      *
      * @return ListMessagesResult
      */
@@ -85,6 +82,8 @@ class ListMessagesResult
      * Sets queueMessages field.
      *
      * @param integer $queueMessages value to use.
+     *
+     * @internal 
      *
      * @return void
      */

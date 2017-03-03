@@ -24,7 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal\Middlewares;
 
-use MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase;
+use MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use Psr\Http\Message\RequestInterface;
@@ -34,6 +34,7 @@ use Psr\Http\Message\RequestInterface;
  * and to sign the request with provided authentication scheme. This middleware
  * is by default applied to each of the request.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -44,25 +45,9 @@ use Psr\Http\Message\RequestInterface;
  */
 class CommonRequestMiddleware extends MiddlewareBase
 {
-
-    /**
-     * @var MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme
-     */
     private $authenticationScheme;
-
-    /**
-     * @var array
-     */
     private $headers;
-
-    /**
-     * @var string
-     */
     private $msVersion;
-
-    /**
-     * @var string
-     */
     private $userAgent;
 
     /**

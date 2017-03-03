@@ -40,24 +40,9 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class CreateBlobPagesResult
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var integer
-     */
     private $_sequenceNumber;
-    
-    /**
-     * @var string
-     */
     private $_contentMD5;
     
     /**
@@ -65,6 +50,8 @@ class CreateBlobPagesResult
      * representation
      *
      * @param array $headers HTTP response headers
+     *
+     * @internal 
      *
      * @return CreateBlobPagesResult
      */

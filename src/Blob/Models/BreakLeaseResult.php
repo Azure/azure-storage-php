@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class BreakLeaseResult
 {
-    /**
-     * @var string
-     */
     private $_leaseTime;
     
     /**

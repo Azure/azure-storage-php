@@ -36,26 +36,7 @@ namespace MicrosoftAzure\Storage\Queue\Models;
  */
 class CreateMessageOptions extends QueueServiceOptions
 {
-    /**
-     * If specified, the request must be made using an x-ms-version
-     * of 2011-08-18 or newer. If not specified, the default value is 0.
-     * Specifies the new visibility timeout value, in seconds, relative to server
-     * time. The new value must be larger than or equal to 0, and cannot be
-     * larger than 7 days. The visibility timeout of a message cannot be set to a
-     * value later than the expiry time. visibilitytimeout should be set to a
-     * value smaller than the time-to-live value.
-     *
-     * @var integer
-     */
     private $_visibilityTimeoutInSeconds;
-    
-    /**
-     * Specifies the time-to-live interval for the message, in seconds.
-     * The maximum time-to-live allowed is 7 days. If this parameter is omitted,
-     * the default time-to-live is 7 days.
-     *
-     * @var integer
-     */
     private $_timeToLiveInSeconds;
     
     /**

@@ -53,7 +53,7 @@ use MicrosoftAzure\Storage\Table\Models\GetEntityResult;
 use MicrosoftAzure\Storage\Table\Models\BatchOperationType;
 use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
 use MicrosoftAzure\Storage\Table\Models\BatchResult;
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\ISerializer;

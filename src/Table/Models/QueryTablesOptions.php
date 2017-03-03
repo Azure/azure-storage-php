@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Table\Models;
  */
 class QueryTablesOptions extends TableServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_nextTableName;
-    
-    /**
-     * @var Query
-     */
     private $_query;
-    
-    /**
-     * @var string
-     */
     private $_prefix;
     
     /**

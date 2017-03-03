@@ -40,19 +40,8 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class GetContainerPropertiesResult
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
     
     /**
@@ -129,6 +118,8 @@ class GetContainerPropertiesResult
      * Create an instance using the response headers from the API call.
      *
      * @param  array  $responseHeaders The array contains all the response headers
+     *
+     * @internal 
      *
      * @return GetContainerPropertiesResult
      */

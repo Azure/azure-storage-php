@@ -40,34 +40,11 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListBlobBlocksResult
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var string
-     */
     private $_contentType;
-    
-    /**
-     * @var integer
-     */
     private $_contentLength;
-    
-    /**
-     * @var array
-     */
     private $_committedBlocks;
-    
-    /**
-     * @var array
-     */
     private $_uncommittedBlocks;
     
     /**
@@ -105,6 +82,8 @@ class ListBlobBlocksResult
      *
      * @param array $headers HTTP response headers
      * @param array $parsed  HTTP response body in array representation
+     *
+     * @internal 
      *
      * @return ListBlobBlocksResult
      */

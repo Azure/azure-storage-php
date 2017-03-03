@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
 /**
  * The serialization interface.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Serialization
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -36,7 +37,6 @@ namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
  */
 interface ISerializer
 {
-
     /**
      * Serialize an object into a XML.
      *

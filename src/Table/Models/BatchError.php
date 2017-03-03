@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
 /**
  * Represents an error returned from call to batch API.
@@ -41,21 +41,17 @@ use MicrosoftAzure\Storage\Common\ServiceException;
  */
 class BatchError
 {
-    /**
-     * @var \MicrosoftAzure\Storage\Common\ServiceException
-     */
     private $_error;
-    
-    /**
-     * @var integer
-     */
     private $_contentId;
     
     /**
      * Creates BatchError object.
      *
-     * @param \MicrosoftAzure\Storage\Common\ServiceException $error   The error object.
-     * @param array                                           $headers The response headers.
+     * @param \MicrosoftAzure\Storage\Common\Exceptions\ServiceException $error  
+     * The error object.
+    * @param array                                       $headers The response headers.
+     *
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Table\Models\BatchError
      */
@@ -80,7 +76,7 @@ class BatchError
     /**
      * Gets the error.
      *
-     * @return MicrosoftAzure\Storage\Common\ServiceException
+     * @return MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      */
     public function getError()
     {
@@ -90,7 +86,8 @@ class BatchError
     /**
      * Sets the error.
      *
-     * @param \MicrosoftAzure\Storage\Common\ServiceException $error The error object.
+     * @param \MicrosoftAzure\Storage\Common\Exceptions\ServiceException $error 
+     * The error object.
      *
      * @return void
      */

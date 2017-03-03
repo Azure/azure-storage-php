@@ -88,6 +88,8 @@ class SignedIdentifier
     /**
      * Converts this current object to XML representation.
      *
+     * @internal 
+     *
      * @return array
      */
     public function toArray()

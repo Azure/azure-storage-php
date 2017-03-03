@@ -41,40 +41,19 @@ use MicrosoftAzure\Storage\Tests\Unit\Common\Internal\UtilitiesTest;
  */
 class ListContainersResult
 {
-    /**
-     * @var array
-     */
     private $_containers;
-    
-    /**
-     * @var string
-     */
     private $_prefix;
-    
-    /**
-     * @var string
-     */
     private $_marker;
-    
-    /**
-     * @var string
-     */
     private $_nextMarker;
-    
-    /**
-     * @var integer
-     */
     private $_maxResults;
-    
-    /**
-     * @var string
-     */
     private $_accountName;
 
     /**
      * Creates ListBlobResult object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal 
      *
      * @return ListContainersResult
      */

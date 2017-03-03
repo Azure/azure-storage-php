@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 /**
  * Project resources.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
