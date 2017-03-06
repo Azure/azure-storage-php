@@ -54,23 +54,8 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class TableRestProxyTest extends TableServiceRestProxyTestBase
 {
-    
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendContext
-     */
-    public function testGetServiceProperties()
-    {
-        $this->skipIfEmulated();
-        
-        // Test
-        $result = $this->restProxy->getServiceProperties();
-        
-        // Assert
-        $this->assertEquals($this->defaultProperties->toArray(), $result->getValue()->toArray());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendContext
      */

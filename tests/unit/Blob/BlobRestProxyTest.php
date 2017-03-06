@@ -73,22 +73,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     {
         return sprintf('-%04x', mt_rand(0, 65535));
     }
-
-    /**
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceProperties
-    */
-    public function testGetServiceProperties()
-    {
-        $this->skipIfEmulated();
-        
-        // Test
-        $result = $this->restProxy->getServiceProperties();
-        
-        // Assert
-        $this->assertEquals($this->defaultProperties->toArray(), $result->getValue()->toArray());
-    }
     
     /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceProperties
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setServiceProperties
     */
     public function testSetServiceProperties()

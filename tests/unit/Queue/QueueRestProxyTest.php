@@ -307,19 +307,6 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceProperties
-     */
-    public function testGetServiceProperties()
-    {
-        $this->skipIfEmulated();
-        
-        // Test
-        $result = $this->restProxy->getServiceProperties();
-        
-        // Assert
-        $this->assertEquals($this->defaultProperties->toArray(), $result->getValue()->toArray());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServiceProperties
      */
     public function testSetServiceProperties()
