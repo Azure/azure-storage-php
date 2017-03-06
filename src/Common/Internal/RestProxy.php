@@ -69,7 +69,7 @@ class RestProxy
         $this->dataSerializer = $dataSerializer;
         $this->_uri           = $uri;
         //For logging the request and responses.
-        //$this->middlewares[] = new HistoryMiddleware('.\\messages.log');
+        // $this->middlewares[] = new HistoryMiddleware('.\\messages.log');
     }
     
     /**

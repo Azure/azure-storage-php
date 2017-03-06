@@ -791,6 +791,7 @@ class Utilities
      * Append the content to file.
      * @param  string $path    The file to append to.
      * @param  string $content The content to append.
+     *
      * @return void
      */
     public static function appendToFile($path, $content)

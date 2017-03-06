@@ -12,6 +12,7 @@ ALL
   - `MicrosoftAzure\Storage\Common\Internal\IMiddleware` was moved to `MicrosoftAzure\Storage\Common\Middlewares\IMiddleware`
   - `MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase` was moved to `MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase`
   - `MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory` was moved to `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory`
+* Added Cross-Origin Resource Sharing (CORS) support. Now setting service properties can set CORS rules at the same time.
 
 Blob
 * Added API `createPageBlobFromContent` to support creating page blob directly from contents which includes local file, stream, etc...

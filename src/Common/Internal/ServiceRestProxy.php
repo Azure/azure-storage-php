@@ -97,7 +97,7 @@ class ServiceRestProxy extends RestProxy
     }
 
     /**
-     * Static helper function to create a usable client for the proxy.
+     * Helper function to create a usable client for the proxy.
      * The requestOptions can contain the following keys that will affect
      * the way retry handler is created and applied.
      * handler:               HandlerStack, if set, this function will not
@@ -113,6 +113,7 @@ class ServiceRestProxy extends RestProxy
 
         return (new \GuzzleHttp\Client(
             array_merge(
+                $requestOptions,
                 $this->_options['http'],
                 array(
                     "defaults" => array(
@@ -124,8 +125,7 @@ class ServiceRestProxy extends RestProxy
                     'verify' => true,
                     // For testing with Fiddler
                     //'proxy' => "localhost:8888",
-                ),
-                $requestOptions
+                )
             )
         ));
     }

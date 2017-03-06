@@ -24,9 +24,12 @@
 
 namespace MicrosoftAzure\Storage\Tests\functional\Table;
 
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
+use MicrosoftAzure\Storage\Common\Models\CORS;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -141,9 +144,12 @@ class TableServiceFunctionalTestData
             $m->setEnabled(true);
             $m->setIncludeAPIs(true);
 
+            $c = CORS::create(TestResources::getCORSSingle());
+
             $sp = new ServiceProperties();
             $sp->setLogging($l);
             $sp->setMetrics($m);
+            $sp->setCorses(array($c));
 
             array_push($ret, $sp);
         }
@@ -168,9 +174,15 @@ class TableServiceFunctionalTestData
             $m->setEnabled(true);
             $m->setIncludeAPIs(true);
 
+            $csArray =
+                TestResources::getServicePropertiesSample()[Resources::XTAG_CORS];
+            $c0 = CORS::create($csArray[Resources::XTAG_CORS_RULE][0]);
+            $c1 = CORS::create($csArray[Resources::XTAG_CORS_RULE][1]);
+
             $sp = new ServiceProperties();
             $sp->setLogging($l);
             $sp->setMetrics($m);
+            $sp->setCorses(array($c0, $c1));
 
             array_push($ret, $sp);
         }
@@ -196,9 +208,15 @@ class TableServiceFunctionalTestData
             $m->setIncludeAPIs(null);
             $m->setRetentionPolicy($rp);
 
+            $csArray =
+                TestResources::getServicePropertiesSample()[Resources::XTAG_CORS];
+            $c0 = CORS::create($csArray[Resources::XTAG_CORS_RULE][0]);
+            $c1 = CORS::create($csArray[Resources::XTAG_CORS_RULE][1]);
+
             $sp = new ServiceProperties();
             $sp->setLogging($l);
             $sp->setMetrics($m);
+            $sp->setCorses(array($c0, $c1));
 
             array_push($ret, $sp);
         }

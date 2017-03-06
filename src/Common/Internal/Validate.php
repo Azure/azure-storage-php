@@ -391,4 +391,33 @@ class Validate
             );
         }
     }
+
+    /**
+     * Validate if the provided array has key, throw exception otherwise.
+     *
+     * @param  string  $key   The key to be searched.
+     * @param  string  $name  The name of the array.
+     * @param  array   $array The array to be validated.
+     *
+     * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
+     *
+     * @return  boolean
+     */
+    public static function hasKey($key, $name, array $array)
+    {
+        Validate::isArray($array, $name);
+
+        if (!array_key_exists($key, $array)) {
+            throw new \UnexpectedValueException(
+                sprintf(
+                    Resources::INVALID_VALUE_MSG,
+                    $name,
+                    sprintf(Resources::ERROR_KEY_NOT_EXIST, $key)
+                )
+            );
+        }
+
+        return true;
+    }
 }

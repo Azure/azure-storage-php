@@ -53,11 +53,10 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         $properties = ServiceProperties::create($propertiesSample);
         $xml = $properties->toXml($xmlSerializer);
         $expected = $properties->toArray();
-        
         // Test
         $actual = $xmlSerializer->unserialize($xml);
         
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($propertiesSample, $actual);
     }
     
     /**

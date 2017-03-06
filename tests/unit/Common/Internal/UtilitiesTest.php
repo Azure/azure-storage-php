@@ -217,12 +217,11 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $properties = ServiceProperties::create($propertiesSample);
         $xmlSerializer = new XmlSerializer();
         $xml = $properties->toXml($xmlSerializer);
-        $expected = $properties->toArray();
 
         // Test
         $actual = Utilities::unserialize($xml);
 
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($propertiesSample, $actual);
     }
 
     /**
@@ -234,12 +233,25 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         // Setup
         $propertiesSample = TestResources::getServicePropertiesSample();
         $properties = ServiceProperties::create($propertiesSample);
+
         $expected  = '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
         $expected .= '<StorageServiceProperties><Logging><Version>1.0</Version><Delete>true</Delete>';
         $expected .= '<Read>false</Read><Write>true</Write><RetentionPolicy><Enabled>true</Enabled>';
         $expected .= '<Days>20</Days></RetentionPolicy></Logging><HourMetrics><Version>1.0</Version>';
         $expected .= '<Enabled>true</Enabled><IncludeAPIs>false</IncludeAPIs><RetentionPolicy>';
-        $expected .= '<Enabled>true</Enabled><Days>20</Days></RetentionPolicy></HourMetrics></StorageServiceProperties>';
+        $expected .= '<Enabled>true</Enabled><Days>20</Days></RetentionPolicy></HourMetrics>';
+        $expected .= '<Cors><CorsRule><AllowedOrigins>http://www.microsoft.com,http://www.bing.com</AllowedOrigins>';
+        $expected .= '<AllowedMethods>GET,PUT</AllowedMethods>';
+        $expected .= '<AllowedHeaders>x-ms-meta-customheader0,x-ms-meta-target0*</AllowedHeaders>';
+        $expected .= '<ExposedHeaders>x-ms-meta-customheader0,x-ms-meta-data0*</ExposedHeaders>';
+        $expected .= '<MaxAgeInSeconds>500</MaxAgeInSeconds>';
+        $expected .= '</CorsRule><CorsRule><AllowedOrigins>http://www.azure.com,http://www.office.com</AllowedOrigins>';
+        $expected .= '<AllowedMethods>POST,HEAD</AllowedMethods><AllowedHeaders>';
+        $expected .= 'x-ms-meta-customheader1,x-ms-meta-target1*</AllowedHeaders>';
+        $expected .= '<ExposedHeaders>x-ms-meta-customheader1,x-ms-meta-data1*';
+        $expected .= '</ExposedHeaders><MaxAgeInSeconds>350</MaxAgeInSeconds>';
+        $expected .= '</CorsRule></Cors></StorageServiceProperties>';
+
         $array = $properties->toArray();
 
         // Test

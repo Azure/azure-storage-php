@@ -233,6 +233,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             }
 
             $this->assertFalse($this->isEmulated(), 'Should succeed when not running in emulator');
+
+            \sleep(10);
+            
             $ret = (is_null($options) ?
                 $this->restProxy->getServiceProperties() :
                 $this->restProxy->getServiceProperties($options)
