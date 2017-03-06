@@ -599,7 +599,7 @@ class TestResources
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
         $entity->addProperty('CustomerName', null, 'John');
         $entity->addProperty('IsNew', EdmType::BOOLEAN, true);
-        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000473Z'));
+        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
 
         return $entity;
     }
@@ -613,7 +613,7 @@ class TestResources
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
         $entity->addProperty('CustomerName', EdmType::STRING, 'John');
         $entity->addProperty('IsNew', EdmType::BOOLEAN, true);
-        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000473Z'));
+        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
     
         return $entity;
     }

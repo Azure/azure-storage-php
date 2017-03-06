@@ -146,7 +146,7 @@ class TableServiceFunctionalTestUtils
             self::mutateEntityChangeValues($ent);
         } elseif ($pivot == MutatePivot::ADD_PROPERTY) {
             $ent->addProperty('BOOLEAN' . TableServiceFunctionalTestData::getNewKey(), EdmType::BOOLEAN, true);
-            $ent->addProperty('DATETIME' . TableServiceFunctionalTestData::getNewKey(), EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000473Z'));
+            $ent->addProperty('DATETIME' . TableServiceFunctionalTestData::getNewKey(), EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
             $ent->addProperty('DOUBLE' . TableServiceFunctionalTestData::getNewKey(), EdmType::DOUBLE, 12345678901);
             $ent->addProperty('GUID' . TableServiceFunctionalTestData::getNewKey(), EdmType::GUID, '90ab64d6-d3f8-49ec-b837-b8b5b6367b74');
             $ent->addProperty('INT32' . TableServiceFunctionalTestData::getNewKey(), EdmType::INT32, 23);

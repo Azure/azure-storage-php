@@ -354,7 +354,7 @@ class TableServiceFunctionalTestData
         $e->setRowKey(self::getNewKey());
         $e->addProperty('BINARY', EdmType::BINARY, chr(0) . chr(1) . chr(2) . chr(3) . chr(4));
         $e->addProperty('BOOLEAN', EdmType::BOOLEAN, true);
-        $e->addProperty('DATETIME', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000473Z'));
+        $e->addProperty('DATETIME', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
         $e->addProperty('DOUBLE', EdmType::DOUBLE, 12345678901);
         $e->addProperty('GUID', EdmType::GUID, '90ab64d6-d3f8-49ec-b837-b8b5b6367b74');
         $e->addProperty('INT32', EdmType::INT32, 23);
