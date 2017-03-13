@@ -48,7 +48,7 @@ class SetBlobMetadataResult
      *
      * @param array $headers response headers
      *
-     * @internal 
+     * @internal
      *
      * @return SetBlobMetadataResult
      */

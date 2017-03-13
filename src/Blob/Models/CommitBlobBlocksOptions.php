@@ -227,7 +227,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
      * Create a instance using the given options
      * @param  mixed $options Input options
      *
-     * @internal 
+     * @internal
      *
      * @return self
      */

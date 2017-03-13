@@ -49,7 +49,7 @@ class SetBlobPropertiesResult
      *
      * @param array $headers response headers
      *
-     * @internal 
+     * @internal
      *
      * @return SetBlobPropertiesResult
      */

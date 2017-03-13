@@ -45,7 +45,7 @@ class GetQueueMetadataResult
      * @param integer $approximateMessageCount Approximate number of queue messages.
      * @param array   $metadata                user defined metadata.
      *
-     * @internal 
+     * @internal
      */
     public function __construct($approximateMessageCount, array $metadata)
     {
@@ -68,7 +68,7 @@ class GetQueueMetadataResult
      *
      * @param integer $approximateMessageCount value to use.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -92,7 +92,7 @@ class GetQueueMetadataResult
      *
      * @param array $metadata value to use.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */

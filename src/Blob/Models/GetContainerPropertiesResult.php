@@ -119,7 +119,7 @@ class GetContainerPropertiesResult
      *
      * @param  array  $responseHeaders The array contains all the response headers
      *
-     * @internal 
+     * @internal
      *
      * @return GetContainerPropertiesResult
      */

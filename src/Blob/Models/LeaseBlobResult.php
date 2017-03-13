@@ -46,7 +46,7 @@ class LeaseBlobResult
      *
      * @param array $headers response headers
      *
-     * @internal 
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
      */

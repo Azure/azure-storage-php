@@ -51,7 +51,7 @@ class GetBlobResult
      * @param StreamInterface $body     The response body.
      * @param array           $metadata The blob metadata.
      *
-     * @internal 
+     * @internal
      *
      * @return GetBlobResult
      */

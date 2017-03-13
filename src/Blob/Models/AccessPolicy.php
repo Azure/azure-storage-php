@@ -114,7 +114,7 @@ class AccessPolicy
     /**
      * Converts this current object to XML representation.
      *
-     * @internal 
+     * @internal
      *
      * @return array
      */

@@ -52,7 +52,7 @@ class ListPageBlobRangesResult
      * @param array $headers HTTP response headers
      * @param array $parsed  parsed response in array format.
      *
-     * @internal 
+     * @internal
      *
      * @return ListPageBlobRangesResult
      */

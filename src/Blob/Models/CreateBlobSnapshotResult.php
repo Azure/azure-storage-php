@@ -50,7 +50,7 @@ class CreateBlobSnapshotResult
      *
      * @param array $headers The HTTP response headers in array representation.
      *
-     * @internal 
+     * @internal
      *
      * @return CreateBlobSnapshotResult
      */

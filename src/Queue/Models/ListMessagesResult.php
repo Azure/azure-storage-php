@@ -46,7 +46,7 @@ class ListMessagesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @internal 
+     * @internal
      *
      * @return ListMessagesResult
      */
@@ -83,7 +83,7 @@ class ListMessagesResult
      *
      * @param integer $queueMessages value to use.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */

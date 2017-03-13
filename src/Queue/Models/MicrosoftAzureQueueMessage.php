@@ -52,7 +52,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @internal 
+     * @internal
      *
      * @return MicrosoftAzureQueueMessage
      */
@@ -74,7 +74,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @internal 
+     * @internal
      *
      * @return MicrosoftAzureQueueMessage
      */
@@ -157,7 +157,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param \DateTime $insertionDate message contents.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -247,7 +247,7 @@ class MicrosoftAzureQueueMessage
      *
      * @param integer $dequeueCount number of dequeues for that message.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */

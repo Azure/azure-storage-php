@@ -50,7 +50,7 @@ class ServiceException extends \LogicException
      * @param ResponseInterface $response The response received that causes the
      *                                    exception.
      *
-     * @internal 
+     * @internal
      *
      * @return ServiceException
      */

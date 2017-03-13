@@ -50,7 +50,7 @@ class GetContainerACLResult
      * @param array     $parsed       parsed response into array
      * representation
      *
-     * @internal 
+     * @internal
      *
      * @return self
      */

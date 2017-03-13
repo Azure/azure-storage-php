@@ -48,7 +48,7 @@ class PutBlobResult
      *
      * @param array $headers The HTTP response headers in array representation.
      *
-     * @internal 
+     * @internal
      *
      * @return PutBlobResult
      */

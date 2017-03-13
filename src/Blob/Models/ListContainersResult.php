@@ -53,7 +53,7 @@ class ListContainersResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @internal 
+     * @internal
      *
      * @return ListContainersResult
      */

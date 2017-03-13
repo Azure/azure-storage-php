@@ -52,7 +52,7 @@ class ContainerACL
      * @param string $publicAccess The container public access.
      * @param array  $parsed       The parsed response into array representation.
      *
-     * @internal 
+     * @internal
      *
      * @return ContainerACL
      */
@@ -173,7 +173,7 @@ class ContainerACL
     /**
      * Converts this object to array representation for XML serialization
      *
-     * @internal 
+     * @internal
      *
      * @return array
      */
@@ -193,7 +193,7 @@ class ContainerACL
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
      *
-     * @internal 
+     * @internal
      *
      * @return string
      */

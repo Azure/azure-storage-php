@@ -47,7 +47,7 @@ class PublicAccessType
      *
      * @param string $type The public access type.
      *
-     * @internal 
+     * @internal
      *
      * @return boolean
      */

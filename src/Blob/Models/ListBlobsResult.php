@@ -55,7 +55,7 @@ class ListBlobsResult
      *
      * @param array $parsed XML response parsed into array.
      *
-     * @internal 
+     * @internal
      *
      * @return ListBlobsResult
      */

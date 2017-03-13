@@ -92,7 +92,7 @@ class GetBlobPropertiesResult
      *
      * @param  array  $headers response headers parsed in an array
      *
-     * @internal 
+     * @internal
      *
      * @return GetBlobPropertiesResult
      */

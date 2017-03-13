@@ -83,7 +83,7 @@ class ListBlobBlocksResult
      * @param array $headers HTTP response headers
      * @param array $parsed  HTTP response body in array representation
      *
-     * @internal 
+     * @internal
      *
      * @return ListBlobBlocksResult
      */

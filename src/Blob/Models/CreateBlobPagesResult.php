@@ -51,7 +51,7 @@ class CreateBlobPagesResult
      *
      * @param array $headers HTTP response headers
      *
-     * @internal 
+     * @internal
      *
      * @return CreateBlobPagesResult
      */

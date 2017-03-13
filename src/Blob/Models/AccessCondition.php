@@ -218,7 +218,7 @@ class AccessCondition
      *
      * @param string $headerType candidate header type
      *
-     * @internal 
+     * @internal
      *
      * @return boolean
      */

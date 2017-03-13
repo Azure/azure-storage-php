@@ -52,7 +52,7 @@ class ListQueuesResult
      *
      * @param array $parsedResponse XML response parsed into array.
      *
-     * @internal 
+     * @internal
      *
      * @return ListQueuesResult
      */
@@ -115,7 +115,7 @@ class ListQueuesResult
      *
      * @param array $queues list of queues
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -142,7 +142,7 @@ class ListQueuesResult
      *
      * @param string $prefix value.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -166,7 +166,7 @@ class ListQueuesResult
      *
      * @param string $marker value.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -190,7 +190,7 @@ class ListQueuesResult
      *
      * @param string $maxResults value.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -214,7 +214,7 @@ class ListQueuesResult
      *
      * @param string $nextMarker value.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */
@@ -238,7 +238,7 @@ class ListQueuesResult
      *
      * @param string $accountName value.
      *
-     * @internal 
+     * @internal
      *
      * @return void
      */

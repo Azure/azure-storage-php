@@ -57,7 +57,7 @@ class ServicesBuilder
     /**
      * Gets the serializer used in the REST services construction.
      *
-     * @internal 
+     * @internal
      *
      * @return Internal\Serialization\ISerializer
      */
@@ -69,7 +69,7 @@ class ServicesBuilder
     /**
      * Gets the MIME serializer used in the REST services construction.
      *
-     * @internal 
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter
      */
@@ -81,7 +81,7 @@ class ServicesBuilder
     /**
      * Gets the Atom serializer used in the REST services construction.
      *
-     * @internal 
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter
      */
@@ -96,7 +96,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @internal 
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
@@ -111,7 +111,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @internal 
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
@@ -126,7 +126,7 @@ class ServicesBuilder
      * @param string $accountName The account name.
      * @param string $accountKey  The account key.
      *
-     * @internal 
+     * @internal
      *
      * @return TableSharedKeyLiteAuthScheme
      */
@@ -140,7 +140,7 @@ class ServicesBuilder
      *
      * @param string $sasToken The SAS token.
      *
-     * @internal 
+     * @internal
      *
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme
      */

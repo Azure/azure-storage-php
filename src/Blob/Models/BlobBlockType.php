@@ -45,7 +45,7 @@ class BlobBlockType
      *
      * @param string $type The entry type.
      *
-     * @internal 
+     * @internal
      *
      * @return boolean
      */

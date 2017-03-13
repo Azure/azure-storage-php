@@ -152,7 +152,7 @@ class BlockList
      *
      * @param XmlSerializer $xmlSerializer The XML serializer.
      *
-     * @internal 
+     * @internal
      *
      * @return string
      */
