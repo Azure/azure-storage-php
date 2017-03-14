@@ -125,6 +125,10 @@ class Resources
     const SIGNED_RESOURCE_TYPE_INVALID_VALIDATION_MSG = 'The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject).';
     const SIGNED_PERMISSIONS_INVALID_VALIDATION_MSG = 'The signed permissions should only be a combination of the letters r, w, d, l, a, c, u, p.';
     const SIGNED_PROTOCOL_INVALID_VALIDATION_MSG = 'The signed protocol is invalid: possible values are https or https,http.';
+    const ERROR_RESOURCE_TYPE_NOT_SUPPORTED = 'The given resource type cannot be recognized or is not supported.';
+    const ERROR_TOO_MANY_SIGNED_IDENTIFIERS = 'There can be at most 5 signed identifiers at the same time.';
+    const INVALID_PERMISSION_PROVIDED = 'Invalid permission provided, the permission of resource type \'%s\' can only be of \'%s\'';
+    const INVALID_RESOURCE_TYPE = 'Provided resource type is invalid.';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
@@ -392,6 +396,13 @@ class Resources
     const XTAG_ROLLBACK_UPDATE_OR_UPGRADE = 'RollbackUpdateOrUpgrade';
     const XTAG_CONTAINER_NAME = 'ContainerName';
     const XTAG_ACCOUNT_NAME = 'AccountName';
+    const XTAG_SIGNED_IDENTIFIERS = 'SignedIdentifiers';
+    const XTAG_SIGNED_IDENTIFIER = 'SignedIdentifier';
+    const XTAG_ACCESS_POLICY = 'AccessPolicy';
+    const XTAG_SIGNED_START = 'Start';
+    const XTAG_SIGNED_EXPIRY = 'Expiry';
+    const XTAG_SIGNED_PERMISSION = 'Permission';
+    const XTAG_SIGNED_ID = 'Id';
 
     // PHP URL Keys
     const PHP_URL_SCHEME   = 'scheme';
@@ -410,6 +421,12 @@ class Resources
     const STATUS_NO_CONTENT        = 204;
     const STATUS_PARTIAL_CONTENT   = 206;
     const STATUS_MOVED_PERMANENTLY = 301;
+
+    // Resource Types
+    const RESOURCE_TYPE_BLOB      = 'Blob';
+    const RESOURCE_TYPE_CONTAINER = 'Container';
+    const RESOURCE_TYPE_QUEUE     = 'Queue';
+    const RESOURCE_TYPE_TABLE     = 'Table';
 
     // @codingStandardsIgnoreEnd
 }

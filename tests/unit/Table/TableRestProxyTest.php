@@ -37,6 +37,7 @@ use MicrosoftAzure\Storage\Table\Models\QueryTablesOptions;
 use MicrosoftAzure\Storage\Table\Models\Query;
 use MicrosoftAzure\Storage\Table\Models\Filters\Filter;
 use MicrosoftAzure\Storage\Table\Models\Entity;
+use MicrosoftAzure\Storage\Table\Models\TableACL;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions;
 use MicrosoftAzure\Storage\Table\Models\BatchOperations;
@@ -1178,5 +1179,42 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         
         // Assert
         $this->assertTrue(true);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAcl
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAclAsync
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setTableAcl
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setTableAclAsync
+     */
+    public function testGetSetTableAcl()
+    {
+        // Setup
+        $name = self::getTableNameWithPrefix('testGetSetTableAcl');
+        $this->createTable($name);
+        $sample = TestResources::getTableACLMultipleEntriesSample();
+        $acl = TableACL::create($sample['SignedIdentifiers']);
+        //because the time is randomized, this should create a different instance
+        $negativeSample = TestResources::getTableACLMultipleEntriesSample();
+        $negative = TableACL::create($negativeSample['SignedIdentifiers']);
+
+        // Test
+        $this->restProxy->setTableAcl($name, $acl);
+        $resultAcl = $this->restProxy->getTableAcl($name);
+
+        $this->assertEquals(
+            $acl->getSignedIdentifiers(),
+            $resultAcl->getSignedIdentifiers()
+        );
+
+        $this->assertFalse(
+            $resultAcl->getSignedIdentifiers() == $negative->getSignedIdentifiers(),
+            'Should not equal to the negative test case'
+        );
+    }
+
+    private static function getTableNameWithPrefix($prefix)
+    {
+        return $prefix . sprintf('%04x', mt_rand(0, 65535));
     }
 }

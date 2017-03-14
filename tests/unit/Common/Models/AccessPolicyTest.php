@@ -21,9 +21,10 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\AccessPolicy;
+use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
+use MicrosoftAzure\Storage\Tests\framework\TestResources;
 
 /**
  * Unit tests for class AccessPolicy
@@ -104,36 +105,54 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission
-     */
-    public function testGetPermission()
-    {
-        // Setup
-        $accessPolicy = new AccessPolicy();
-        $expected = 'rw';
-        $accessPolicy->setPermission($expected);
-        
-        // Test
-        $actual = $accessPolicy->getPermission();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setPermission
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission
      */
     public function testSetPermission()
     {
         // Setup
-        $accessPolicy = new AccessPolicy();
-        $expected = 'rw';
-        
-        // Test
-        $accessPolicy->setPermission($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $accessPolicy->getPermission());
+        $validPermissions = TestResources::getValidAccessPermission();
+        $resourceArray = ['Blob', 'Container', 'Table', 'Queue'];
+        foreach ($resourceArray as $resourceType) {
+            $accessPolicy = new AccessPolicy($resourceType);
+
+            foreach ($validPermissions[$resourceType] as $value) {
+                $expected = $value[1];
+            
+                // Test
+                $accessPolicy->setPermission($value[0]);
+                // Assert
+                $this->assertEquals($expected, $accessPolicy->getPermission());
+            }
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setPermission
+     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission
+     */
+    public function testSetPermissionNegative()
+    {
+        // Setup
+        $validPermissions = TestResources::getInvalidAccessPermission();
+        $resourceArray = ['Blob', 'Container', 'Table', 'Queue'];
+        foreach ($resourceArray as $resourceType) {
+            $accessPolicy = new AccessPolicy($resourceType);
+
+            foreach ($validPermissions[$resourceType] as $value) {
+                // Test
+                try {
+                    $accessPolicy->setPermission($value);
+                } catch (\InvalidArgumentException $e) {
+                    $this->assertStringStartsWith(
+                        'Invalid permission provided',
+                        $e->getMessage()
+                    );
+                    continue;
+                }
+                $this->assertTrue(false);
+            }
+        }
     }
     
     /**

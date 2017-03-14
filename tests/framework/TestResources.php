@@ -109,6 +109,36 @@ class TestResources
     const STATUS_PRECONDITION_FAILED   = 412;
     const STATUS_INTERNAL_SERVER_ERROR = 500;
 
+    public static function getValidAccessPermission()
+    {
+        $result = array();
+        $result['Blob'][]      = ['dwcar', 'racwd'];
+        $result['Blob'][]      = ['waradadawadaca', 'racwd'];
+        $result['Container'][] = ['ldwcar', 'racwdl'];
+        $result['Container'][] = ['rcal', 'racl'];
+        $result['Table'][]     = ['dar', 'rad'];
+        $result['Table'][]     = ['duardduar', 'raud'];
+        $result['Queue'][]     = ['puar', 'raup'];
+        $result['Queue'][]     = ['ppap', 'ap'];
+
+        return $result;
+    }
+
+    public static function getInvalidAccessPermission()
+    {
+        $result = array();
+        $result['Blob'][]      = 'dwcarl';
+        $result['Blob'][]      = 'waradadawadacap';
+        $result['Container'][] = 'ldwcarsdf';
+        $result['Container'][] = 'rcalfds';
+        $result['Table'][]     = 'darwer';
+        $result['Table'][]     = 'duardduaras';
+        $result['Queue'][]     = 'puarzxcv';
+        $result['Queue'][]     = '!ppap!';
+
+        return $result;
+    }
+
     public static function getWindowsAzureStorageServicesConnectionString()
     {
         $connectionString = getenv('AZURE_STORAGE_CONNECTION_STRING');
@@ -398,8 +428,8 @@ class TestResources
         $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
             'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
-                'Start' => '2009-09-28T08%3A49%3A37.0000000Z',
-                'Expiry' => '2009-09-29T08%3A49%3A37.0000000Z',
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'rwd')
             ));
 
@@ -412,17 +442,165 @@ class TestResources
         $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
             0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
-                'Start' => '2010-09-28T08%3A49%3A37.0000000Z',
-                'Expiry' => '2010-09-29T08%3A49%3A37.0000000Z',
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'wd')),
             1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
-                'Start' => '2009-09-28T08%3A49%3A37.0000000Z',
-                'Expiry' => '2009-09-29T08%3A49%3A37.0000000Z',
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'rwd'))
             ));
 
         return $sample;
+    }
+
+    public static function getQueueACLOneEntrySample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
+            'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ap')
+            ));
+
+        return $sample;
+    }
+
+    public static function getQueueACLMultipleEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'raup')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ru'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getQueueACLMultipleUnencodedEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'raup')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ru'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getQueueACLMultipleArraySample()
+    {
+        $sample = array();
+        $sample[] = [
+            'Id' => 'a',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'b',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'c',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'd',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'e',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'f',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+
+        return $sample;
+    }
+
+    public static function getTableACLOneEntrySample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
+            'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ad')
+            ));
+
+        return $sample;
+    }
+
+    public static function getTableACLMultipleEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'raud')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ru'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getRandomLaterTime()
+    {
+        $interval = mt_rand(10000, 65535);
+        $now = new \DateTime();
+        return $now->add(\DateInterval::createFromDateString($interval . ' seconds'));
+    }
+
+    public static function getRandomEarlierTime()
+    {
+        $interval = mt_rand(10000, 65535);
+        $now = new \DateTime();
+        return $now->sub(\DateInterval::createFromDateString($interval . ' seconds'));
     }
 
     public static function listBlobsEmpty()

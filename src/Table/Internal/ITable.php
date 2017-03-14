@@ -517,4 +517,68 @@ interface ITable
         TableModels\BatchOperations $batchOperations,
         TableModels\TableServiceOptions $options = null
     );
+
+    /**
+     * Gets the access control list (ACL)
+     *
+     * @param string                          $table   The container name.
+     * @param TableModels\TableServiceOptions $options The optional parameters.
+     *
+     * @return TableModels\TableACL
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-table-acl
+     */
+    public function getTableAcl(
+        $table,
+        TableModels\TableServiceOptions $options = null
+    );
+
+    /**
+     * Creates the promise to gets the access control list (ACL)
+     *
+     * @param string                          $table   The container name.
+     * @param TableModels\TableServiceOptions $options The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-table-acl
+     */
+    public function getTableAclAsync(
+        $table,
+        TableModels\TableServiceOptions $options = null
+    );
+
+    /**
+     * Sets the ACL.
+     *
+     * @param string                          $table   name
+     * @param TableModels\TableACL            $acl     access control list
+     * @param TableModels\TableServiceOptions $options optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-table-acl
+     */
+    public function setTableAcl(
+        $table,
+        TableModels\TableACL $acl,
+        TableModels\TableServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to set the ACL
+     *
+     * @param string                          $table   name
+     * @param TableModels\TableACL            $acl     access control list
+     * @param TableModels\TableServiceOptions $options optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-table-acl
+     */
+    public function setTableAclAsync(
+        $table,
+        TableModels\TableACL $acl,
+        TableModels\TableServiceOptions $options = null
+    );
 }

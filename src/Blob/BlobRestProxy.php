@@ -1109,7 +1109,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
         return $promise->then(function ($response) use ($dataSerializer) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
-        
+            
             $access = Utilities::tryGetValue(
                 $responseHeaders,
                 Resources::X_MS_BLOB_PUBLIC_ACCESS
@@ -1121,7 +1121,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
             $modifiedDate = Utilities::convertToDateTime($modified);
             $parsed       = $dataSerializer->unserialize($response->getBody());
-                    
+            
             return GetContainerAclResult::create(
                 $access,
                 $etag,

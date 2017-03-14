@@ -45,7 +45,7 @@ class MiddlewareBase implements IMiddleware
 {
 
     /**
-     * Middleware augments the functionality of handlers by invoking them 
+     * Middleware augments the functionality of handlers by invoking them
      * in the process of generating responses. And it returns a function
      * that accepts the next handler to invoke. Refer to
      * http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#middleware
