@@ -2217,6 +2217,81 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     /**
      * @group large-scale
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobFromContent
+     */
+    public function testCreateLargePageBlobFromContent()
+    {
+        //Setup
+        //create a temp file that is 2GB in size.
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+        $count = 2 * 1024 / 4;
+        for ($index = 0; $index < $count; ++$index) {
+            fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4));
+        }
+        rewind($resource);
+
+        //upload the blob
+        $container = 'createpageblobfromcontent' . $this->createSuffix();
+        $blob = 'myblob';
+        $length = $count * Resources::MB_IN_BYTES_4;
+        $this->createContainer($container);
+        
+        $metadata = array('m1' => 'v1', 'm2' => 'v2');
+        $contentType = 'text/plain; charset=UTF-8';
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $options->setMetadata($metadata);
+
+        $createPageBlobResult = $this->restProxy->createPageBlobFromContent($container, $blob, $length, $resource, $options);
+        print_r($createPageBlobResult);
+
+        $originMd5 = md5_file($path);
+        $this->assertEquals("PageBlob", $createPageBlobResult->getProperties()->getBlobType());
+        $this->assertEquals($contentType, $createPageBlobResult->getProperties()->getContentType());
+        $this->assertEquals(2, count($createPageBlobResult->getMetadata()));
+        $this->assertEquals($metadata["m1"], $createPageBlobResult->getMetadata()["m1"]);
+        $this->assertEquals($metadata["m2"], $createPageBlobResult->getMetadata()["m2"]);
+
+        // Test
+        $result = $this->restProxy->getBlob($container, $blob);
+
+        //get the path for the file to be downloaded into.
+        $uuid = uniqid('test-file-', true);
+        $downloadPath = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $downloadResource = fopen($downloadPath, 'w');
+
+        //download the file
+        $content = $result->getContentStream();
+        while (!feof($content)) {
+            fwrite(
+                $downloadResource,
+                stream_get_contents($content, Resources::MB_IN_BYTES_4)
+            );
+        }
+        
+        // Assert
+        $this->assertEquals(
+            BlobType::PAGE_BLOB,
+            $result->getProperties()->getBlobType()
+        );
+        $downloadMd5 = md5_file($downloadPath);
+        $this->assertEquals($originMd5, $downloadMd5);
+
+        // Delete file after assertion.
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        fclose($downloadResource);
+        unlink($path);
+        unlink($downloadPath);
+    }
+
+    /**
+     * @group large-scale
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::saveBlobToFile
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
      */

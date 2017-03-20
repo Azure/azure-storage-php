@@ -443,6 +443,75 @@ interface IBlob
     );
 
     /**
+     * Creates a promise to create a new block blob or updates the content of
+     * an existing block blob.
+     *
+     * Updating an existing block blob overwrites any existing metadata on the blob.
+     * Partial updates are not supported with createBlockBlob the content of the
+     * existing blob is overwritten with the content of the new blob. To perform a
+     * partial update of the content of a block blob, use the createBlockList
+     * method.
+     *
+     * @param string                          $container The name of the container.
+     * @param string                          $blob      The name of the blob.
+     * @param string|resource|StreamInterface $content   The content of the blob.
+     * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
+     *
+     * @return BlobModels\PutBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
+     */
+    public function createBlockBlobAsync(
+        $container,
+        $blob,
+        $content,
+        BlobModels\CreateBlobOptions $options = null
+    );
+
+    /**
+     * Create a new page blob and upload the content to the page blob.
+     *
+     * @param string                          $container The name of the container.
+     * @param string                          $blob      The name of the blob.
+     * @param int                             $length    The length of the blob.
+     * @param string|resource|StreamInterface $content   The content of the blob.
+     * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
+     *
+     * @return BlobModels\GetBlobPropertiesResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-blob-properties
+     */
+    public function createPageBlobFromContent(
+        $container,
+        $blob,
+        $length,
+        $content,
+        BlobModels\CreateBlobOptions $options = null
+    );
+
+    /**
+     * Creates a promise to create a new page blob and upload the content
+     * to the page blob.
+     *
+     * @param string                          $container The name of the container.
+     * @param string                          $blob      The name of the blob.
+     * @param int                             $length    The length of the blob.
+     * @param string|resource|StreamInterface $content   The content of the blob.
+     * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-blob-properties
+     */
+    public function createPageBlobFromContentAsync(
+        $container,
+        $blob,
+        $length,
+        $content,
+        BlobModels\CreateBlobOptions $options = null
+    );
+
+    /**
     * Clears a range of pages from the blob.
     *
     * @param string                            $container name of the container

@@ -1617,6 +1617,105 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     }
 
     /**
+     * Create a new page blob and upload the content to the page blob.
+     *
+     * @param string                          $container The name of the container.
+     * @param string                          $blob      The name of the blob.
+     * @param int                             $length    The length of the blob.
+     * @param string|resource|StreamInterface $content   The content of the blob.
+     * @param Models\CreateBlobOptions        $options   The optional parameters.
+     *
+     * @return Models\GetBlobPropertiesResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-blob-properties
+     */
+    public function createPageBlobFromContent(
+        $container,
+        $blob,
+        $length,
+        $content,
+        Models\CreateBlobOptions $options = null
+    ) {
+        return $this->createPageBlobFromContentAsync(
+            $container,
+            $blob,
+            $length,
+            $content,
+            $options
+        )->wait();
+    }
+
+    /**
+     * Creates a promise to create a new page blob and upload the content
+     * to the page blob.
+     *
+     * @param string                          $container The name of the container.
+     * @param string                          $blob      The name of the blob.
+     * @param int                             $length    The length of the blob.
+     * @param string|resource|StreamInterface $content   The content of the blob.
+     * @param Models\CreateBlobOptions        $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-blob-properties
+     */
+    public function createPageBlobFromContentAsync(
+        $container,
+        $blob,
+        $length,
+        $content,
+        Models\CreateBlobOptions $options = null
+    ) {
+        $body = Psr7\stream_for($content);
+        $self = $this;
+
+        $createBlobPromise = $this->createPageBlobAsync(
+            $container,
+            $blob,
+            $length,
+            $options
+        );
+
+        $uploadBlobPromise = $createBlobPromise->then(
+            function ($value) use (
+                $self,
+                $container,
+                $blob,
+                $body,
+                $options
+            ) {
+                $result = $value;
+                return $self->uploadPageBlobAsync(
+                    $container,
+                    $blob,
+                    $body,
+                    $options
+                );
+            },
+            null
+        );
+
+        return $uploadBlobPromise->then(
+            function ($value) use (
+                $self,
+                $container,
+                $blob,
+                $options
+            ) {
+                $getBlobPropertiesOptions = new GetBlobPropertiesOptions();
+                $getBlobPropertiesOptions->setLeaseId($options->getLeaseId());
+
+                return $self->getBlobPropertiesAsync(
+                    $container,
+                    $blob,
+                    $getBlobPropertiesOptions
+                );
+            },
+            null
+        );
+    }
+
+    /**
      * Creates promise to create a new block blob or updates the content of an
      * existing block blob. This only supports contents smaller than single
      * upload threashold.
@@ -1802,6 +1901,128 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
 
         return $commitBlobPromise;
+    }
+
+
+    /**
+     * This method upload the page blob pages. This method will send the request
+     * concurrently for better performance.
+     *
+     * @param  string                   $container  Name of the container
+     * @param  string                   $blob       Name of the blob
+     * @param  StreamInterface          $content    Content's stream
+     * @param  Models\CreateBlobOptions $options    Array that contains
+     *                                                     all the option
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    private function uploadPageBlobAsync(
+        $container,
+        $blob,
+        $content,
+        Models\CreateBlobOptions $options = null
+    ) {
+        Validate::isString($container, 'container');
+        Validate::notNullOrEmpty($container, 'container');
+
+        Validate::isString($blob, 'blob');
+        Validate::notNullOrEmpty($blob, 'blob');
+
+        if (is_null($options)) {
+            $options = new CreateBlobOptions();
+        }
+        
+        $method      = Resources::HTTP_PUT;
+        $postParams  = array();
+        $queryParams = array();
+        $path        = $this->_createPath($container, $blob);
+
+        $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'page');
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+
+        $pageSize = Resources::MB_IN_BYTES_4;
+        $start = 0;
+        $end = -1;
+
+        //create the generator for requests.
+        $generator = function () use (
+            $content,
+            $pageSize,
+            $method,
+            $postParams,
+            $queryParams,
+            $path,
+            &$start,
+            &$end,
+            $options
+        ) {
+            //read the content.
+            $pageContent;
+            $size;
+            
+            do {
+                $pageContent = $content->read($pageSize);
+                $size = strlen($pageContent);
+
+                if ($size == 0) {
+                    return null;
+                }
+                
+                $end += $size;
+                $start = ($end - $size + 1);
+                
+                // If all Zero, skip this range
+            } while (Utilities::allZero($pageContent));
+
+            $headers = array();
+            $headers = $this->_addOptionalRangeHeader(
+                $headers,
+                $start,
+                $end
+            );
+            $headers = $this->addOptionalAccessConditionHeader(
+                $headers,
+                $options->getAccessCondition()
+            );
+            $this->addOptionalHeader(
+                $headers,
+                Resources::X_MS_LEASE_ID,
+                $options->getLeaseId()
+            );
+            $this->addOptionalHeader(
+                $headers,
+                Resources::X_MS_PAGE_WRITE,
+                PageWriteOption::UPDATE_OPTION
+            );
+
+            //return the array of requests.
+            return $this->createRequest(
+                $method,
+                $headers,
+                $queryParams,
+                $postParams,
+                $path,
+                $pageContent
+            );
+        };
+
+        //add number of concurrency if specified in options.
+        $requestOptions = $options->getNumberOfConcurrency() == null?
+            array() : array($options->getNumberOfConcurrency);
+
+        //Send the request concurrently.
+        //Does not need to evaluate the results. If operation is not successful,
+        //exception will be thrown.
+        return $this->sendConcurrentAsync(
+            array(),
+            $generator,
+            Resources::STATUS_CREATED,
+            $requestOptions
+        );
     }
     
     /**

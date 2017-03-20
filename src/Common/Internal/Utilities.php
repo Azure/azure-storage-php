@@ -801,4 +801,22 @@ class Utilities
             fclose($resource);
         }
     }
+
+    /**
+     * Check if all the bytes are zero.
+     * @param string $content The content.
+     */
+    public static function allZero($content)
+    {
+        $size = strlen($content);
+
+        // If all Zero, skip this range
+        for ($i = 0; $i < $size; $i++) {
+            if (ord($content[$i] != 0)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
