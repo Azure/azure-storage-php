@@ -150,6 +150,12 @@ class GetBlobPropertiesResult
             );
         }
         
+        if (array_key_exists(Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT, $headers)) {
+            $properties->setCommittedBlockCount(
+                intval($headers[Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT])
+            );
+        }
+        
         $properties->setBlobType($blobType);
         $properties->setCacheControl($cacheControl);
         $properties->setContentEncoding($contentEncoding);

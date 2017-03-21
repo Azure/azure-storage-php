@@ -144,6 +144,10 @@ class Resources
     const X_MS_BLOB_CONTENT_MD5              = 'x-ms-blob-content-md5';
     const X_MS_BLOB_CACHE_CONTROL            = 'x-ms-blob-cache-control';
     const X_MS_BLOB_CONTENT_LENGTH           = 'x-ms-blob-content-length';
+    const X_MS_BLOB_CONDITION_MAXSIZE        = 'x-ms-blob-condition-maxsize';
+    const X_MS_BLOB_CONDITION_APPENDPOS      = 'x-ms-blob-condition-appendpos';
+    const X_MS_BLOB_APPEND_OFFSET            = 'x-ms-blob-append-offset';
+    const X_MS_BLOB_COMMITTED_BLOCK_COUNT    = 'x-ms-blob-committed-block-count';
     const X_MS_COPY_SOURCE                   = 'x-ms-copy-source';
     const X_MS_RANGE                         = 'x-ms-range';
     const X_MS_RANGE_GET_CONTENT_MD5         = 'x-ms-range-get-content-md5';

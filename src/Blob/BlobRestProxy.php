@@ -32,6 +32,8 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult;
 use MicrosoftAzure\Storage\Blob\Internal\IBlob;
+use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
+use MicrosoftAzure\Storage\Blob\Models\AppendBlockResult;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
@@ -1523,6 +1525,92 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     }
     
     /**
+     * Create a new append blob.
+     * If the blob already exists on the service, it will be overwritten.
+     *
+     * @param string                   $container The container name.
+     * @param string                   $blob      The blob name.
+     * @param Models\CreateBlobOptions $options   The optional parameters.
+     *
+     * @return Models\PutBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
+     */
+    public function createAppendBlob(
+        $container,
+        $blob,
+        Models\CreateBlobOptions $options = null
+    ) {
+        return $this->createAppendBlobAsync(
+            $container,
+            $blob,
+            $options
+        )->wait();
+    }
+
+    /**
+     * Creates promise to create a new append blob.
+     * If the blob already exists on the service, it will be overwritten.
+     *
+     * @param string                   $container The container name.
+     * @param string                   $blob      The blob name.
+     * @param Models\CreateBlobOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
+     */
+    public function createAppendBlobAsync(
+        $container,
+        $blob,
+        Models\CreateBlobOptions $options = null
+    ) {
+        Validate::isString($container, 'container');
+        Validate::notNullOrEmpty($container, 'container');
+        Validate::isString($blob, 'blob');
+        Validate::notNullOrEmpty($blob, 'blob');
+
+        $method      = Resources::HTTP_PUT;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $path        = $this->_createPath($container, $blob);
+        $statusCode  = Resources::STATUS_CREATED;
+
+        if (is_null($options)) {
+            $options = new CreateBlobOptions();
+        }
+        
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_TYPE,
+            BlobType::APPEND_BLOB
+        );
+        $headers = $this->_addCreateBlobOptionalHeaders($options, $headers);
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+        
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_CREATED,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
+        )->then(function ($response) {
+            return PutBlobResult::create(
+                HttpFormatter::formatHeaders($response->getHeaders())
+            );
+        }, null);
+    }
+    
+    /**
      * Creates a new block blob or updates the content of an existing block blob.
      *
      * Updating an existing block blob overwrites any existing metadata on the blob.
@@ -2256,6 +2344,129 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getRequestOptions()
         )->then(function ($response) {
             return PutBlockResult::create(
+                HttpFormatter::formatHeaders($response->getHeaders())
+            );
+        });
+    }
+    
+    /**
+     * Commits a new block of data to the end of an existing append blob.
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param resource|string|StreamInterface $content   the blob block contents
+     * @param Models\AppendBlockOptions       $options   optional parameters
+     *
+     * @return Models\AppendBlockResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/append-block
+     */
+    public function appendBlock(
+        $container,
+        $blob,
+        $content,
+        Models\AppendBlockOptions $options = null
+    ) {
+        return $this->appendBlockAsync(
+            $container,
+            $blob,
+            $content,
+            $options
+        )->wait();
+    }
+
+
+    /**
+     * Creates promise to commit a new block of data to the end of an existing append blob.
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param resource|string|StreamInterface $content   the blob block contents
+     * @param Models\AppendBlockOptions       $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/append-block
+     */
+    public function appendBlockAsync(
+        $container,
+        $blob,
+        $content,
+        Models\AppendBlockOptions $options = null
+    ) {
+        Validate::isString($container, 'container');
+        Validate::notNullOrEmpty($container, 'container');
+        Validate::isString($blob, 'blob');
+        Validate::notNullOrEmpty($blob, 'blob');
+
+        if (is_null($options)) {
+            $options = new AppendBlockOptions();
+        }
+        
+        $method         = Resources::HTTP_PUT;
+        $headers        = array();
+        $postParams     = array();
+        $queryParams    = array();
+        $path           = $this->_createPath($container, $blob);
+        $statusCode     = Resources::STATUS_CREATED;
+
+        $contentStream  = Psr7\stream_for($content);
+        $length         = $contentStream->getSize();
+        $body           = $contentStream->getContents();
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'appendblock'
+        );
+        
+        $headers  = $this->addOptionalAccessConditionHeader(
+            $headers,
+            $options->getAccessCondition()
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::CONTENT_LENGTH,
+            $length
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::CONTENT_MD5,
+            $options->getContentMD5()
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_CONDITION_MAXSIZE,
+            $options->getMaxBlobSize()
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_CONDITION_APPENDPOS,
+            $options->getAppendPosition()
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_ID,
+            $options->getLeaseId()
+        );
+        
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_CREATED,
+            $body,
+            $options->getRequestOptions()
+        )->then(function ($response) {
+            return AppendBlockResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         });

@@ -420,6 +420,43 @@ interface IBlob
     );
 
     /**
+     * Create a new append blob.
+     * If the blob already exists on the service, it will be overwritten.
+     *
+     * @param string                   $container The container name.
+     * @param string                   $blob      The blob name.
+     * @param Models\CreateBlobOptions $options   The optional parameters.
+     *
+     * @return Models\PutBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
+     */
+    public function createAppendBlob(
+        $container,
+        $blob,
+        BlobModels\CreateBlobOptions $options = null
+    );
+
+
+    /**
+     * Creates promise to create a new append blob.
+     * If the blob already exists on the service, it will be overwritten.
+     *
+     * @param string                   $container The container name.
+     * @param string                   $blob      The blob name.
+     * @param Models\CreateBlobOptions $options   The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
+     */
+    public function createAppendBlobAsync(
+        $container,
+        $blob,
+        BlobModels\CreateBlobOptions $options = null
+    );
+
+    /**
     * Creates a new block blob or updates the content of an existing block blob.
     * Updating an existing block blob overwrites any existing metadata on the blob.
     * Partial updates are not supported with createBlockBlob; the content of the
@@ -649,6 +686,44 @@ interface IBlob
         $blockId,
         $content,
         BlobModels\CreateBlobBlockOptions $options = null
+    );
+    
+    /**
+     * Commits a new block of data to the end of an existing append blob.
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param resource|string|StreamInterface $content   the blob block contents
+     * @param Models\AppendBlockOptions       $options   optional parameters
+     *
+     * @return Models\AppendBlockResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/append-block
+     */
+    public function appendBlock(
+        $container,
+        $blob,
+        $content,
+        BlobModels\AppendBlockOptions $options = null
+    );
+
+    /**
+     * Creates promise to commit a new block of data to the end of an existing append blob.
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param resource|string|StreamInterface $content   the blob block contents
+     * @param Models\AppendBlockOptions       $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/append-block
+     */
+    public function appendBlockAsync(
+        $container,
+        $blob,
+        $content,
+        BlobModels\AppendBlockOptions $options = null
     );
 
     /**

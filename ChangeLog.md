@@ -15,6 +15,7 @@ ALL
 
 Blob
 * Added API `createPageBlobFromContent` to support creating page blob directly from contents which includes local file, stream, etc...
+* Added support for append blob.
 
 2017.02 - version 0.13.0
 

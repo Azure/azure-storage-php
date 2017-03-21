@@ -52,6 +52,7 @@ class BlobProperties
     private $_blobType;
     private $_leaseStatus;
     private $_sequenceNumber;
+    private $_committedBlockCount;
     
     /**
      * Creates BlobProperties object from $parsed response in array representation
@@ -114,6 +115,9 @@ class BlobProperties
         );
         $result->setContentType(
             Utilities::tryGetValue($clean, Resources::CONTENT_TYPE)
+        );
+        $result->setCommittedBlockCount(
+            intval(Utilities::tryGetValue($clean, Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT))
         );
         
         return $result;
@@ -384,5 +388,27 @@ class BlobProperties
     {
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;
+    }
+
+    /**
+     * Gets the number of committed blocks present in the blob.
+     *
+     * @return int
+     */
+    public function getCommittedBlockCount()
+    {
+        return $this->_committedBlockCount;
+    }
+
+    /**
+     * Sets the number of committed blocks present in the blob.
+     *
+     * @param int $committedBlockCount the number of committed blocks present in the blob.
+     *
+     * @return void
+     */
+    public function setCommittedBlockCount($committedBlockCount)
+    {
+        $this->_committedBlockCount = $committedBlockCount;
     }
 }
