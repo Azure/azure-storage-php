@@ -120,6 +120,10 @@ class Resources
     const ERROR_BLOB_NOT_EXIST = 'The specified blob does not exist';
     const INVALID_PARAM_GENERAL = 'The provided parameter \'%s\' is invalid';
     const INVALID_NEGATIVE_PARAM = 'The provided parameter \'%s\' should be positive number.';
+    const SIGNED_SERVICE_INVALID_VALIDATION_MSG = 'The signed service should only be a combination of the letters b(lob) q(ueue) t(able) or f(ile).';
+    const SIGNED_RESOURCE_TYPE_INVALID_VALIDATION_MSG = 'The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject).';
+    const SIGNED_PERMISSIONS_INVALID_VALIDATION_MSG = 'The signed permissions should only be a combination of the letters r, w, d, l, a, c, u, p.';
+    const SIGNED_PROTOCOL_INVALID_VALIDATION_MSG = 'The signed protocol is invalid: possible values are https or https,http.';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
