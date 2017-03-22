@@ -100,7 +100,7 @@ class EdmType
 
             case EdmType::DOUBLE:
                 $condition = 'is_double';
-                return is_double($value);
+                return is_double($value) || is_int($value);
                 
             case EdmType::INT32:
                 $condition = 'is_int';

@@ -210,6 +210,30 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($expected, $actual);
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
+     */
+    public function testValidateEdmValueWithDouble()
+    {
+        // Setup
+        $type      = EdmType::DOUBLE;
+        $values    = array();
+        $values[]  = 1;
+        $values[]  = PHP_INT_MAX;
+        $values[]  = pi();
+        $values[]  = 1.0;
+        $values[]  = PHP_INT_MIN;
+        $expected  = true;
+        
+        // Test
+        foreach ($values as $value) {
+            $actual = EdmType::validateEdmValue($type, $value);
+        
+            // Assert
+            $this->assertEquals($expected, $actual);
+        }
+    }
     
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
