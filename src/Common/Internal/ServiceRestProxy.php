@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase;
+use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\EachPromise;
 use GuzzleHttp\Exception\RequestException;
@@ -84,6 +85,9 @@ class ServiceRestProxy extends RestProxy
         $this->_accountName = $accountName;
         $this->_psrUri = new \GuzzleHttp\Psr7\Uri($uri);
         $this->_options = array_merge(array('http' => array()), $options);
+
+        //For logging the request and responses.
+        // $this->_options['middlewares'][] = (new HistoryMiddleware('.\\messages.log'));
     }
 
     /**

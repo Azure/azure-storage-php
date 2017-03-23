@@ -98,6 +98,7 @@ class Resources
     const INVALID_CONNECTION_STRING_SETTING_KEY = "The setting key '%s' is not found in the expected configuration setting keys:\n%s";
     const INVALID_CERTIFICATE_PATH = "The provided certificate path '%s' is invalid.";
     const INSTANCE_TYPE_VALIDATION_MSG = 'The type of %s is %s but is expected to be %s.';
+    const INVALID_MESSAGE_OBJECT_TO_SERIALIZE = 'The given object does not have required methods, so it could not be serialized.';
     const MISSING_CONNECTION_STRING_CHAR = "Missing %s character";
     const ERROR_PARSING_STRING = "'%s' at position %d.";
     const INVALID_CONNECTION_STRING = "Argument '%s' is not a valid connection string: '%s'";

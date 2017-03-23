@@ -25,13 +25,16 @@
 namespace MicrosoftAzure\Storage\Common\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Serialization\MessageSerializer;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Promise\RejectedPromise;
 
 /**
  * This class provides the functionality to log the requests/options/responses.
- * Logging large number of entries may exhaust the memory.
+ * Logging large number of entries without providing a file path may exhaust
+ * the memory.
  *
  * The middleware should be pushed into client options if the logging is
  * intended to persist between different API calls.
@@ -41,12 +44,15 @@ use GuzzleHttp\Promise\RejectedPromise;
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.1
  * @link      https://github.com/azure/azure-storage-php
  */
 class HistoryMiddleware extends MiddlewareBase
 {
     private $history;
+    private $path;
+    private $count;
+
+    const TITLE_LENGTH = 120;
 
     /**
      * Gets the saved paried history.
@@ -60,10 +66,18 @@ class HistoryMiddleware extends MiddlewareBase
 
     /**
      * Constructor
+     *
+     * @param string $path the path to save the history. If path is provided,
+     *                     no data is going to be saved to memory and the
+     *                     entries are going to be serialized and saved to given
+     *                     path.
+     *
      */
-    public function __construct()
+    public function __construct($path = '')
     {
-        $history = array();
+        $this->history = array();
+        $this->path = $path;
+        $this->count = 0;
     }
 
     /**
@@ -73,14 +87,19 @@ class HistoryMiddleware extends MiddlewareBase
      */
     public function addHistory(array $entry)
     {
-        Validate::isTrue(
-            array_key_exists('request', $entry) &&
-            array_key_exists('options', $entry) &&
-            (array_key_exists('response', $entry) ||
-            array_key_exists('reason', $entry)),
-            'Given history entry not in correct format'
-        );
-        $this->history[] = $entry;
+        if ($this->path !== '') {
+            $this->appendNewEntryToPath($entry);
+        } else {
+            Validate::isTrue(
+                array_key_exists('request', $entry) &&
+                array_key_exists('options', $entry) &&
+                (array_key_exists('response', $entry) ||
+                array_key_exists('reason', $entry)),
+                'Given history entry not in correct format'
+            );
+            $this->history[] = $entry;
+        }
+        ++$this->count;
     }
 
     /**
@@ -91,6 +110,7 @@ class HistoryMiddleware extends MiddlewareBase
     public function clearHistory()
     {
         $this->history = array();
+        $this->count = 0;
     }
 
     /**
@@ -143,5 +163,38 @@ class HistoryMiddleware extends MiddlewareBase
             ]);
             return new RejectedPromise($reason);
         };
+    }
+
+    /**
+     * Append the new entry to saved file path.
+     *
+     * @param array $entry the entry to be added.
+     *
+     * @return void
+     */
+    private function appendNewEntryToPath(array $entry)
+    {
+        $entryNoString = "Entry " . $this->count;
+        $delimiter = str_pad(
+            $entryNoString,
+            self::TITLE_LENGTH,
+            '-',
+            STR_PAD_BOTH
+        ) . PHP_EOL;
+        $entryString = $delimiter;
+        $entryString .= sprintf(
+            "Time: %s\n",
+            (new \DateTime())->format('Y-m-d H:i:s')
+        );
+        $entryString .= MessageSerializer::objectSerialize($entry['request']);
+        if (array_key_exists('reason', $entry)) {
+            $entryString .= MessageSerializer::objectSerialize($entry['reason']);
+        } elseif (array_key_exists('response', $entry)) {
+            $entryString .= MessageSerializer::objectSerialize($entry['response']);
+        }
+
+        $entryString .= $delimiter;
+
+        Utilities::appendToFile($this->path, $entryString);
     }
 }
