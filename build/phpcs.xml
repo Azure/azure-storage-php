@@ -33,7 +33,7 @@
  
  <rule ref="Squiz.PHP.Eval.Discouraged"/>
  
- <rule ref="Zend.Files.ClosingTag.NotAllowed">
+ <rule ref="Zend.Files.ClosingTag.NotAllowed/">
 
  <rule ref="PEAR"/>
  
