@@ -34,7 +34,10 @@ use MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions;
 
 class QueueServiceFunctionalTestData
 {
-    const INTERESTING_TTL = 4;
+    //Needs to keep this value as low as possible to quicken the test
+    //but if the test machine is slow, a small value will cause unexpected
+    //failures. Default value: 20.
+    const INTERESTING_TTL = 20;
     public static $testUniqueId;
     public static $tempQueueCounter;
     public static $nonExistQueuePrefix;

@@ -206,7 +206,7 @@ abstract class ACLBase
 
         // There can be no more than 5 signed identifiers at the same time.
         Validate::isTrue(
-            count($this->getSignedIdentifiers()) <= 5,
+            count($this->getSignedIdentifiers()) < 5,
             Resources::ERROR_TOO_MANY_SIGNED_IDENTIFIERS
         );
 

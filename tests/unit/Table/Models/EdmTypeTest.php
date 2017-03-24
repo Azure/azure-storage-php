@@ -223,7 +223,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $values[]  = PHP_INT_MAX;
         $values[]  = pi();
         $values[]  = 1.0;
-        $values[]  = PHP_INT_MIN;
         $expected  = true;
         
         // Test
