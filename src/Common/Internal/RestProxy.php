@@ -28,6 +28,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\IMiddleware;
+use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
 
 /**
  * Base class for all REST proxies.
@@ -67,6 +68,8 @@ class RestProxy
         $this->middlewares    = array();
         $this->dataSerializer = $dataSerializer;
         $this->_uri           = $uri;
+        //For logging the request and responses.
+        //$this->middlewares[] = new HistoryMiddleware('.\\messages.log');
     }
     
     /**

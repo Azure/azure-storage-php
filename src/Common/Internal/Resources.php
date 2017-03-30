@@ -124,7 +124,7 @@ class Resources
     const INVALID_NEGATIVE_PARAM = 'The provided parameter \'%s\' should be positive number.';
     const SIGNED_SERVICE_INVALID_VALIDATION_MSG = 'The signed service should only be a combination of the letters b(lob) q(ueue) t(able) or f(ile).';
     const SIGNED_RESOURCE_TYPE_INVALID_VALIDATION_MSG = 'The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject).';
-    const SIGNED_PERMISSIONS_INVALID_VALIDATION_MSG = 'The signed permissions should only be a combination of the letters r, w, d, l, a, c, u, p.';
+    const STRING_NOT_WITH_GIVEN_COMBINATION = 'The string should only be a combination of the letters %s.';
     const SIGNED_PROTOCOL_INVALID_VALIDATION_MSG = 'The signed protocol is invalid: possible values are https or https,http.';
     const ERROR_RESOURCE_TYPE_NOT_SUPPORTED = 'The given resource type cannot be recognized or is not supported.';
     const ERROR_TOO_MANY_SIGNED_IDENTIFIERS = 'There can be at most 5 signed identifiers at the same time.';

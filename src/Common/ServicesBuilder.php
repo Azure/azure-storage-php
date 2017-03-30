@@ -152,12 +152,12 @@ class ServicesBuilder
     /**
      * Builds a queue service object, it accepts the following
      * options:
-     * 
+     *
      * - http: (array) the underlying guzzle options. refer to
      *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
      * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
      *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
-     *   `callable` that follows the Guzzle middleware implementation convention 
+     *   `callable` that follows the Guzzle middleware implementation convention
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
@@ -204,12 +204,12 @@ class ServicesBuilder
     /**
      * Builds a blob service object, it accepts the following
      * options:
-     * 
+     *
      * - http: (array) the underlying guzzle options. refer to
      *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
      * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
      *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
-     *   `callable` that follows the Guzzle middleware implementation convention 
+     *   `callable` that follows the Guzzle middleware implementation convention
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service
@@ -255,12 +255,12 @@ class ServicesBuilder
     /**
      * Builds a table service object, it accepts the following
      * options:
-     * 
+     *
      * - http: (array) the underlying guzzle options. refer to
      *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
      * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
      *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
-     *   `callable` that follows the Guzzle middleware implementation convention 
+     *   `callable` that follows the Guzzle middleware implementation convention
      *
      * @param string $connectionString The configuration connection string.
      * @param array  $options          Array of options to pass to the service

@@ -22,8 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
-
+namespace MicrosoftAzure\Storage\Common;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -38,11 +37,10 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SharedAccessSignatureHelper {
-
+class SharedAccessSignatureHelper
+{
     protected $accountName;
     protected $accountKey;
-
 
     /**
      * Constructor.
@@ -51,7 +49,7 @@ class SharedAccessSignatureHelper {
      * @param string $accountKey the shared key of the storage account
      *
      * @return
-     * MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper
+     * MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper
      */
     public function __construct($accountName, $accountKey)
     {
@@ -69,13 +67,23 @@ class SharedAccessSignatureHelper {
      * Generates a shared access signature at the account level.
      *
      * @param string $signedVersion         Specifies the signed version to use.
-     * @param string $signedPermissions     Specifies the signed permissions for the account SAS.
-     * @param string $signedService         Specifies the signed services accessible with the account SAS.
-     * @param string $signedResourceType    Specifies the signed resource types that are accessible with the account SAS.
-     * @param string $signedExpiracy        The time at which the shared access signature becomes invalid, in an ISO 8601 format.
-     * @param string $signedStart           The time at which the SAS becomes valid, in an ISO 8601 format.
-     * @param string $signedIP              Specifies an IP address or a range of IP addresses from which to accept requests.
-     * @param string $signedProtocol        Specifies the protocol permitted for a request made with the account SAS.
+     * @param string $signedPermissions     Specifies the signed permissions for
+     *                                      the account SAS.
+     * @param string $signedService         Specifies the signed services
+     *                                      accessible with the account SAS.
+     * @param string $signedResourceType    Specifies the signed resource types
+     *                                      that are accessible with the account
+     *                                      SAS.
+     * @param string $signedExpiracy        The time at which the shared access
+     *                                      signature becomes invalid, in an ISO
+     *                                      8601 format.
+     * @param string $signedStart           The time at which the SAS becomes
+     *                                      valid, in an ISO 8601 format.
+     * @param string $signedIP              Specifies an IP address or a range
+     *                                      of IP addresses from which to accept
+     *                                      requests.
+     * @param string $signedProtocol        Specifies the protocol permitted for
+     *                                      a request made with the account SAS.
      *
      * @see Constructing an account SAS at
      *      https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/constructing-an-account-sas
@@ -113,8 +121,7 @@ class SharedAccessSignatureHelper {
 
         // check that signed start is valid
         Validate::isString($signedStart, 'signedStart');
-        if(strlen($signedStart) > 0)
-        {
+        if (strlen($signedStart) > 0) {
             Validate::isDateString($signedStart, 'signedStart');
         }
 
@@ -137,7 +144,7 @@ class SharedAccessSignatureHelper {
         $parameters[] = urldecode($signedVersion);
 
         // implode the parameters into a string
-        $stringToSign = utf8_encode(implode("\n", $parameters)."\n");
+        $stringToSign = utf8_encode(implode("\n", $parameters) . "\n");
 
         // decode the account key from base64
         $decodedAccountKey = base64_decode($this->accountKey);
@@ -145,111 +152,108 @@ class SharedAccessSignatureHelper {
         // create the signature with hmac sha256
         $signature = hash_hmac("sha256", $stringToSign, $decodedAccountKey, true);
 
-        // encode the signature as base64
-        $base64Signature = base64_encode($signature);
+        // encode the signature as base64 and url encode.
+        $sig = urlencode(base64_encode($signature));
+
+        //adding all the components for account SAS together.
+        $sas  = 'sv=' . $signedVersion;
+        $sas .= '&ss=' . $signedService;
+        $sas .= '&srt=' . $signedResourceType;
+        $sas .= '&sp=' . $signedPermissions;
+        $sas .= '&se=' . $signedExpiracy;
+        $sas .= $signedStart === ''? '' : '&st=' . $signedStart;
+        $sas .= $signedIP === ''? '' : '&sip=' . $signedIP;
+        $sas .= '&spr=' . $signedProtocol;
+        $sas .= '&sig=' . $sig;
 
         // return the signature
-        return $base64Signature;
+        return $sas;
     }
 
     /**
      * Validates and sanitizes the signed service parameter
      *
-     * @param string $signedService         Specifies the signed services accessible with the account SAS.
+     * @param string $signedService Specifies the signed services accessible
+     *                              with the account SAS.
      *
      * @return string
      */
-    private function validateAndSanitizeSignedService($signedService) {
+    private function validateAndSanitizeSignedService($signedService)
+    {
         // validate signed service is not null or empty
         Validate::isString($signedService, 'signedService');
         Validate::notNullOrEmpty($signedService, 'signedService');
 
-        // sanitize signed service
-        $sanitizedSignedService = $this->removeDuplicateCharacters(strtolower($signedService));
-        
         // The signed service should only be a combination of the letters b(lob) q(ueue) t(able) or f(ile)
-        $signedServiceIsValid = preg_match("/^[bqtf]*$/", $sanitizedSignedService);
-        if(!$signedServiceIsValid) {
-            throw new \InvalidArgumentException(Resources::SIGNED_SERVICE_INVALID_VALIDATION_MSG);
-        }
+        $validServices = ['b', 'q', 't', 'f'];
 
-        return $sanitizedSignedService;
+        return $this->validateAndSanitizeStringWithArray(
+            strtolower($signedService),
+            $validServices
+        );
     }
 
     /**
      * Validates and sanitizes the signed resource type parameter
      *
-     * @param string $signedResourceType    Specifies the signed resource types that are accessible with the account SAS.
+     * @param string $signedResourceType    Specifies the signed resource types
+     *                                      that are accessible with the account
+     *                                      SAS.
      *
      * @return string
      */
-    private function validateAndSanitizeSignedResourceType($signedResourceType) {
+    private function validateAndSanitizeSignedResourceType($signedResourceType)
+    {
         // validate signed resource type is not null or empty
         Validate::isString($signedResourceType, 'signedResourceType');
         Validate::notNullOrEmpty($signedResourceType, 'signedResourceType');
 
-        // sanitize signed resource type
-        $sanitizedSignedResourceType = $this->removeDuplicateCharacters(strtolower($signedResourceType));
-        
         // The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject)
-        $signedResourceTypeIsValid = preg_match("/^[sco]*$/", $sanitizedSignedResourceType);
-        if(!$signedResourceTypeIsValid) {
-            throw new \InvalidArgumentException(Resources::SIGNED_RESOURCE_TYPE_INVALID_VALIDATION_MSG);
-        }
+        $validResourceTypes = ['s', 'c', 'o'];
 
-        return $sanitizedSignedResourceType;
+        return $this->validateAndSanitizeStringWithArray(
+            strtolower($signedResourceType),
+            $validResourceTypes
+        );
     }
 
     /**
      * Validates and sanitizes the signed permissions parameter
      *
-     * @param string $signedPermissions     Specifies the signed permissions for the account SAS.
+     * @param string $signedPermissions Specifies the signed permissions for the
+     *                                  account SAS.
 
      * @return string
      */
-    private function validateAndSanitizeSignedPermissions($signedPermissions) {
+    private function validateAndSanitizeSignedPermissions($signedPermissions)
+    {
         // validate signed permissions are not null or empty
         Validate::isString($signedPermissions, 'signedPermissions');
         Validate::notNullOrEmpty($signedPermissions, 'signedPermissions');
 
-        // sanitized signed permissions, service and resource type
-        $sanitizedSignedPermissions = $this->removeDuplicateCharacters(strtolower($signedPermissions));
-
         $validPermissions = ['r', 'w', 'd', 'l', 'a', 'c', 'u', 'p'];
-        $result = '';
-        foreach ($validPermissions as $validPermission) {
-            if (strpos($sanitizedSignedPermissions, $validPermission) !== false) {
-                //append the valid permission to result.
-                $result .= $validPermission;
-                //remove all the character that represents the permission.
-                $sanitizedSignedPermissions = str_replace(
-                    $validPermission,
-                    '',
-                    $sanitizedSignedPermissions
-                );
-            }
-        }
 
-        if(strlen($result) == 0) {
-            throw new \InvalidArgumentException(Resources::SIGNED_PERMISSIONS_INVALID_VALIDATION_MSG);
-        }
-
-        return $result;
+        return $this->validateAndSanitizeStringWithArray(
+            strtolower($signedPermissions),
+            $validPermissions
+        );
     }
 
     /**
      * Validates and sanitizes the signed protocol parameter
      *
-     * @param string $signedProtocol        Specifies the signed protocol for the account SAS.
+     * @param string $signedProtocol Specifies the signed protocol for the
+     *                               account SAS.
 
      * @return string
      */
-    private function validateAndSanitizeSignedProtocol($signedProtocol) {
+    private function validateAndSanitizeSignedProtocol($signedProtocol)
+    {
         Validate::isString($signedProtocol, 'signedProtocol');
         // sanitize string
         $sanitizedSignedProtocol = strtolower($signedProtocol);
-        if(strlen($sanitizedSignedProtocol) > 0) {
-            if(strcmp($sanitizedSignedProtocol,"https") != 0 && strcmp($sanitizedSignedProtocol, "https,http") != 0) {
+        if (strlen($sanitizedSignedProtocol) > 0) {
+            if (strcmp($sanitizedSignedProtocol, "https") != 0 && strcmp($sanitizedSignedProtocol, "https,http") != 0) {
                 throw new \InvalidArgumentException(Resources::SIGNED_PROTOCOL_INVALID_VALIDATION_MSG);
             }
         }
@@ -265,7 +269,8 @@ class SharedAccessSignatureHelper {
 
      * @return bool
      */
-    private function strcontains($input, $toFind) {
+    private function strcontains($input, $toFind)
+    {
         return strpos($input, $toFind) !== false;
     }
 
@@ -276,10 +281,29 @@ class SharedAccessSignatureHelper {
 
      * @return string
      */
-    private function removeDuplicateCharacters($input) {
-        $inputAsArray = str_split($input);
-        $deduplicated = array_unique($inputAsArray);
-        $output = implode("", $deduplicated);
-        return $output;
+    private function validateAndSanitizeStringWithArray($input, array $array)
+    {
+        $result = '';
+        foreach ($array as $value) {
+            if (strpos($input, $value) !== false) {
+                //append the valid permission to result.
+                $result .= $value;
+                //remove all the character that represents the permission.
+                $input = str_replace(
+                    $value,
+                    '',
+                    $input
+                );
+            }
+        }
+
+        Validate::isTrue(
+            strlen($input) == '',
+            sprintf(
+                Resources::STRING_NOT_WITH_GIVEN_COMBINATION,
+                implode(', ', $array)
+            )
+        );
+        return $result;
     }
 }

@@ -51,7 +51,7 @@ class TestResources
     const KEY1          = 'key1';
     const KEY2          = 'key2';
     const KEY3          = 'key3';
-    const KEY4          = 'AhlzsbLRkjfwObuqff3xrhB2yWJNh1EMptmcmxFJ6fvPTVX3PZXwrG2YtYWf5DPMVgNsteKStM5iBLlknYFVoA==';
+    const KEY4          = 'AhlzsbLRkjfwObuqff3xrhB2yWJNh1EMptmcmxFJ6fvPTVX3PZXwrG2YtYWf5DPMVgNsteKStM5iBLlknYFVoA=='; //Faked although looks real.
     const VALUE1        = 'value1';
     const VALUE2        = 'value2';
     const VALUE3        = 'value3';
@@ -108,6 +108,68 @@ class TestResources
     const STATUS_CONFLICT              = 409;
     const STATUS_PRECONDITION_FAILED   = 412;
     const STATUS_INTERNAL_SERVER_ERROR = 500;
+
+    public static function getInterestingName($prefix)
+    {
+        $rint = mt_rand(0, 1000000);
+        return $prefix . $rint . 'ft';
+    }
+
+    public static function getSASInterestingUTCases()
+    {
+        $testCases = array();
+
+        // The SAS token is all generated with fake key.
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "rwdlacup", // signedPermission
+            "bfqt", // signedService
+            "sco", // signedResourceType
+            "2017-03-24T21:14:01Z", // signedExpiracy
+            "2017-03-17T13:14:01Z", // signedStart
+            "", // signedIP
+            "https", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dbqtf%26srt%3Dsco%26sp%3Drwdlacup%26se%3D2017-03-24T21%3A14%3A01Z%26st%3D2017-03-17T13%3A14%3A01Z%26spr%3Dhttps%26sig%3DiApmwEEGPc6EqjvBCekfEons2NRs7aGC1frKyWEO8g8%253D" // expectedSignature
+        ];
+
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "rwdlacup", // signedPermission
+            "bfqt", // signedService
+            "sco", // signedResourceType
+            "2017-03-24T21:14:01Z", // signedExpiracy
+            "2017-03-17T13:14:01Z", // signedStart
+            "168.1.5.65", // signedIP
+            "https,http", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dbqtf%26srt%3Dsco%26sp%3Drwdlacup%26se%3D2017-03-24T21%3A14%3A01Z%26st%3D2017-03-17T13%3A14%3A01Z%26sip%3D168.1.5.65%26spr%3Dhttps%2Chttp%26sig%3D2FT%252FEl0rqE1uwVODaKzBNQKHJeJM3vUsGbr%252FQtwLVcs%253D" // expectedSignature
+        ];
+
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "rw", // signedPermission
+            "bf", // signedService
+            "s", // signedResourceType
+            "2017-03-24T00:00:00Z", // signedExpiracy
+            "2017-03-17T00:00:00Z", // signedStart
+            "", // signedIP
+            "https", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dbf%26srt%3Ds%26sp%3Drw%26se%3D2017-03-24T00%3A00%3A00Z%26st%3D2017-03-17T00%3A00%3A00Z%26spr%3Dhttps%26sig%3DoSxrFQuddGNRUJYab3jU7nhcoSgJaceA%252FFH9EY5istY%253D" // expectedSignature
+        ];
+
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "up", // signedPermission
+            "q", // signedService
+            "o", // signedResourceType
+            "2017-03-24T00:00:00Z", // signedExpiracy
+            "2017-03-17T00:00:00Z", // signedStart
+            "", // signedIP
+            "https", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dq%26srt%3Do%26sp%3Dup%26se%3D2017-03-24T00%3A00%3A00Z%26st%3D2017-03-17T00%3A00%3A00Z%26spr%3Dhttps%26sig%3D4fMFk%252BFE%252BE90wTPMCGY%252FF%252FplPrDM%252BO8veJi1GmY5wWA%253D" // expectedSignature
+        ];
+
+        return $testCases;
+    }
 
     public static function getValidAccessPermission()
     {
@@ -855,6 +917,39 @@ class TestResources
         $operations[] = $operation6;
 
         return $operations;
+    }
+
+    public static function getInterestingAccountSASTestCase(
+        $signedPermissions,
+        $signedService,
+        $signedResourceType,
+        $signedExpiracy = "",
+        $signedStart = "",
+        $signedIP = ""
+    ) {
+        if ($signedExpiracy == "") {
+            $signedExpiracy = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedStart == "") {
+            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedIP == "") {
+            $signedIP = "0.0.0.0-255.255.255.255";
+        }
+
+        $result = array();
+        $result['signedVersion']      = Resources::STORAGE_API_LATEST_VERSION;
+        $result['signedPermissions']  = $signedPermissions;
+        $result['signedService']      = $signedService;
+        $result['signedResourceType'] = $signedResourceType;
+        $result['signedExpiracy']     = $signedExpiracy;
+        $result['signedStart']        = $signedStart;
+        $result['signedIP']           = $signedIP;
+        $result['signedProtocol']     = 'https,http';
+
+        return $result;
     }
 
     public static function getExpectedBatchResultEntries()

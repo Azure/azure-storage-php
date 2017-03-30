@@ -184,7 +184,7 @@ class HistoryMiddleware extends MiddlewareBase
         $entryString = $delimiter;
         $entryString .= sprintf(
             "Time: %s\n",
-            (new \DateTime())->format('Y-m-d H:i:s')
+            (new \DateTime("now", new \DateTimeZone('UTC')))->format('Y-m-d H:i:s')
         );
         $entryString .= MessageSerializer::objectSerialize($entry['request']);
         if (array_key_exists('reason', $entry)) {
