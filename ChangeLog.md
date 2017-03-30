@@ -1,4 +1,4 @@
-2017.03 - version 0.14.0
+2017.04 - version 0.14.0
 
 ALL
 * Improved the documentation.
@@ -13,10 +13,21 @@ ALL
   - `MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase` was moved to `MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase`
   - `MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory` was moved to `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory`
 * Added Cross-Origin Resource Sharing (CORS) support. Now setting service properties can set CORS rules at the same time.
+* Added support for account-level Shared Access Signature generation.
+* Resolved an error reported from some IDEs about the phpcs.xml.
+* Fixed multiple test issues.
 
 Blob
 * Added API `createPageBlobFromContent` to support creating page blob directly from contents which includes local file, stream, etc...
 * Added support for append blob.
+* Added support for Container ACL.
+
+Queue
+* Added support for Queue ACL.
+
+Table
+* Added support for Table ACL.
+* Fixed an issue that user could not set entity type to be double and integer as a value for PHP 7
 
 2017.02 - version 0.13.0
 
