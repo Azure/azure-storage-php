@@ -64,6 +64,156 @@ class SharedAccessSignatureHelper
     }
 
     /**
+     * Generates a shared access signature at the service level.
+     *
+     * This only supports version 2015-04-05 and later.
+     *
+     * @link https://msdn.microsoft.com/library/dn140255.aspx Constructing a service SAS.
+     *
+     * @param  string $signedPermissions  Signed permissions.
+     * @param  string $signedService      Service to generate the canonicalized resource.
+     *                                    It needs to be:
+     *                                    - b: for blob
+     *                                    - f: for file
+     *                                    - q: for queue
+     *                                    - t: for table
+     * @param  string $signedResource     Resource name to generate the canonicalized resource.
+     *                                    It can be:
+     *                                    - {cont}: for container
+     *                                    - {share}: for file shares
+     *                                    - {queue}: for queue
+     *                                    - {table}: for table
+     *                                    - {cont}/{blob}: for blobs
+     *                                    - {share}/{file}: for files
+     * @param  string $signedExpiry       Signed expiry date.
+     * @param  string $signedStart        Signed start date.
+     * @param  string $signedIdentifier   Signed identifier.
+     * @param  string $signedIP           Signed IP address.
+     * @param  string $signedProtocol     Signed protocol.
+     * @param  string $cacheControl       Cache-Control header (rscc).
+     * @param  string $contentDisposition Content-Disposition header (rscd).
+     * @param  string $contentEncoding    Content-Encoding header (rsce).
+     * @param  string $contentLanguage    Content-Language header (rscl).
+     * @param  string $contentType        Content-Type header (rsct).
+     *
+     * @return string                     Service Shared Access Signature.
+     */
+    public function generateServiceSharedAccessSignatureToken(
+        $signedPermissions,
+        $signedService,
+        $signedResource,
+        $signedExpiry,
+        $signedStart = "",
+        $signedIdentifier = "",
+        $signedIP = "",
+        $signedProtocol = "",
+        $cacheControl = "",
+        $contentDisposition = "",
+        $contentEncoding = "",
+        $contentLanguage = "",
+        $contentType = "",
+        $startingPartitionKey = "",
+        $startingRowKey = "",
+        $endingPartitionKey = "",
+        $endingRowKey = ""
+    ) {
+        // use the latest version
+        $signedVersion = Resources::STORAGE_API_LATEST_VERSION;
+
+        // validate and sanitize signed service
+        $signedService = $this->validateAndSanitizeSignedService($signedService);
+        // for a service SAS, the signed service should be limited to one
+        Validate::isTrue(
+            (strlen($signedService) === 1),
+            sprintf(Resources::INVALID_STRING_LENGTH, 'signedService', '1')
+        );
+
+        // validate and sanitize signed permissions
+        $signedPermissions = $this->validateAndSanitizeSignedPermissions($signedPermissions);
+
+        // check that expiracy is valid
+        Validate::isString($signedExpiry, 'signedExpiry');
+        Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
+        Validate::isDateString($signedExpiry, 'signedExpiry');
+
+        // check that signed start is valid
+        Validate::isString($signedStart, 'signedStart');
+        if (strlen($signedStart) > 0) {
+            Validate::isDateString($signedStart, 'signedStart');
+        }
+
+        // check that signed IP is valid
+        Validate::isString($signedIP, 'signedIP');
+
+        // validate and sanitize signed protocol
+        $signedProtocol = $this->validateAndSanitizeSignedProtocol($signedProtocol);
+
+        // check that signed identifier is valid
+        Validate::isString($signedIdentifier, 'signedIdentifier');
+        Validate::isTrue(
+            (strlen($signedIdentifier) <= 64),
+            sprintf(Resources::INVALID_STRING_LENGTH, 'signedIdentifier', 'maximum 64')
+        );
+
+        // Validate additional parameters per service type
+        if ($signedService === 'b' || $signedService === 'f') {
+            Validate::isString($cacheControl, 'cacheControl');
+            Validate::isString($contentDisposition, 'contentDisposition');
+            Validate::isString($contentEncoding, 'contentEncoding');
+            Validate::isString($contentLanguage, 'contentLanguage');
+            Validate::isString($contentType, 'contentType');
+        } elseif ($signedService === 't') {
+            Validate::isString($startingPartitionKey, 'startingPartitionKey');
+            Validate::isString($startingRowKey, 'startingRowKey');
+            Validate::isString($endingPartitionKey, 'endingPartitionKey');
+            Validate::isString($endingRowKey, 'endingRowKey');
+        }
+
+        // construct an array with the parameters to generate the shared access signature at the account level
+        $parameters = array();
+        $parameters[] = urldecode($signedPermissions);
+        $parameters[] = urldecode($signedStart);
+        $parameters[] = urldecode($signedExpiry);
+        $parameters[] = urldecode(static::generateCanonicalResource(
+            $this->accountName,
+            $signedService,
+            $signedResource
+        ));
+        $parameters[] = urldecode($signedIdentifier);
+        $parameters[] = urldecode($signedIP);
+        $parameters[] = urldecode($signedProtocol);
+        $parameters[] = urldecode($signedVersion);
+
+        if ($signedService === 'b' || $signedService === 'f') {
+            $parameters[] = urldecode($cacheControl);
+            $parameters[] = urldecode($contentDisposition);
+            $parameters[] = urldecode($contentEncoding);
+            $parameters[] = urldecode($contentLanguage);
+            $parameters[] = urldecode($contentType);
+        } elseif ($signedService === 't') {
+            $parameters[] = urldecode($startingPartitionKey);
+            $parameters[] = urldecode($startingRowKey);
+            $parameters[] = urldecode($endingPartitionKey);
+            $parameters[] = urldecode($endingRowKey);
+        }
+
+        // implode the parameters into a string
+        $stringToSign = utf8_encode(implode("\n", $parameters));
+
+        // decode the account key from base64
+        $decodedAccountKey = base64_decode($this->accountKey);
+
+        // create the signature with hmac sha256
+        $signature = hash_hmac("sha256", $stringToSign, $decodedAccountKey, true);
+
+        // encode the signature as base64
+        $base64Signature = base64_encode($signature);
+
+        // return the signature
+        return $base64Signature;
+    }
+
+    /**
      * Generates a shared access signature at the account level.
      *
      * @param string $signedVersion         Specifies the signed version to use.
@@ -168,6 +318,44 @@ class SharedAccessSignatureHelper
 
         // return the signature
         return $sas;
+    }
+
+    /**
+     * Generates canonicalized resource name.
+     *
+     * @param  string $accountName Account name.
+     * @param  string $service     Service to generate the canonicalized resource.
+     *                             It needs to be:
+     *                             - b: for blob
+     *                             - f: for file
+     *                             - q: for queue
+     *                             - t: for table
+     * @param  string $resource    Resource name to generate the canonicalized resource.
+     *                             It can be:
+     *                             - {cont}: for container
+     *                             - {share}: for file shares
+     *                             - {queue}: for queue
+     *                             - {table}: for table
+     *                             - {cont}/{blob}: for blobs
+     *                             - {share}/{file}: for files
+     *
+     * @return string              Canonicalized resource name.
+     */
+    private static function generateCanonicalResource(
+        $accountName,
+        $service,
+        $resource
+    ) {
+        static $serviceMap = array(
+            'b' => 'blob',
+            'f' => 'file',
+            'q' => 'queue',
+            't' => 'table',
+        );
+
+        $serviceName = $serviceMap[$service];
+
+        return sprintf('/%s/%s/%s', $accountName, $serviceName, $resource);
     }
 
     /**
