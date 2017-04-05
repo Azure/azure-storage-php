@@ -1,0 +1,227 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Blob\Models\PageRange;
+
+/**
+ * Holds result of calling listPageBlobRanges wrapper
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class ListPageBlobRangesResult
+{
+    private $_lastModified;
+    private $_etag;
+    private $_contentLength;
+    private $_pageRanges;
+    
+    /**
+     * Creates BlobProperties object from $parsed response in array representation
+     *
+     * @param array $headers HTTP response headers
+     * @param array $parsed  parsed response in array format.
+     *
+     * @internal
+     *
+     * @return ListPageBlobRangesResult
+     */
+    public static function create(array $headers, array $parsed = null)
+    {
+        $result  = new ListPageBlobRangesResult();
+        $headers = array_change_key_case($headers);
+        
+        $date          = $headers[Resources::LAST_MODIFIED];
+        $date          = Utilities::rfc1123ToDateTime($date);
+        $blobLength    = intval($headers[Resources::X_MS_BLOB_CONTENT_LENGTH]);
+        $rawPageRanges = array();
+        
+        if (!empty($parsed['PageRange'])) {
+            $parsed        = array_change_key_case($parsed);
+            $rawPageRanges = Utilities::getArray($parsed['pagerange']);
+        }
+        
+        $pageRanges = array();
+        foreach ($rawPageRanges as $value) {
+            $pageRanges[] = new PageRange(
+                intval($value['Start']),
+                intval($value['End'])
+            );
+        }
+        $result-&gt;setPageRanges($pageRanges);
+        $result-&gt;setContentLength($blobLength);
+        $result-&gt;setETag($headers[Resources::ETAG]);
+        $result-&gt;setLastModified($date);
+        
+        return $result;
+    }
+    
+    /**
+     * Gets blob lastModified.
+     *
+     * @return \DateTime
+     */
+    public function getLastModified()
+    {
+        return $this-&gt;_lastModified;
+    }
+
+    /**
+     * Sets blob lastModified.
+     *
+     * @param \DateTime $lastModified value.
+     *
+     * @return void
+     */
+    protected function setLastModified(\DateTime $lastModified)
+    {
+        Validate::isDate($lastModified);
+        $this-&gt;_lastModified = $lastModified;
+    }
+
+    /**
+     * Gets blob etag.
+     *
+     * @return string
+     */
+    public function getETag()
+    {
+        return $this-&gt;_etag;
+    }
+
+    /**
+     * Sets blob etag.
+     *
+     * @param string $etag value.
+     *
+     * @return void
+     */
+    protected function setETag($etag)
+    {
+        Validate::isString($etag, 'etag');
+        $this-&gt;_etag = $etag;
+    }
+    
+    /**
+     * Gets blob contentLength.
+     *
+     * @return integer
+     */
+    public function getContentLength()
+    {
+        return $this-&gt;_contentLength;
+    }
+
+    /**
+     * Sets blob contentLength.
+     *
+     * @param integer $contentLength value.
+     *
+     * @return void
+     */
+    protected function setContentLength($contentLength)
+    {
+        Validate::isInteger($contentLength, 'contentLength');
+        $this-&gt;_contentLength = $contentLength;
+    }
+    
+    /**
+     * Gets page ranges
+     *
+     * @return array
+     */
+    public function getPageRanges()
+    {
+        return $this-&gt;_pageRanges;
+    }
+    
+    /**
+     * Sets page ranges
+     *
+     * @param array $pageRanges page ranges to set
+     *
+     * @return void
+     */
+    protected function setPageRanges(array $pageRanges)
+    {
+        $this-&gt;_pageRanges = array();
+        foreach ($pageRanges as $pageRange) {
+            $this-&gt;_pageRanges[] = clone $pageRange;
+        }
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

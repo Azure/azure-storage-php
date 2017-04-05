@@ -1,0 +1,214 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+
+/**
+ * Holds result of calling create or clear blob pages
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class CreateBlobPagesResult
+{
+    private $_lastModified;
+    private $_etag;
+    private $_sequenceNumber;
+    private $_contentMD5;
+    
+    /**
+     * Creates CreateBlobPagesResult object from $parsed response in array
+     * representation
+     *
+     * @param array $headers HTTP response headers
+     *
+     * @internal
+     *
+     * @return CreateBlobPagesResult
+     */
+    public static function create(array $headers)
+    {
+        $result = new CreateBlobPagesResult();
+        $clean  = array_change_key_case($headers);
+        
+        $date = $clean[Resources::LAST_MODIFIED];
+        $date = Utilities::rfc1123ToDateTime($date);
+        $result-&gt;setETag($clean[Resources::ETAG]);
+        $result-&gt;setLastModified($date);
+        $result-&gt;setContentMD5(
+            Utilities::tryGetValue($clean, Resources::CONTENT_MD5)
+        );
+        $result-&gt;setSequenceNumber(
+            intval(
+                Utilities::tryGetValue($clean, Resources::X_MS_BLOB_SEQUENCE_NUMBER)
+            )
+        );
+        
+        return $result;
+    }
+    
+    /**
+     * Gets blob lastModified.
+     *
+     * @return \DateTime.
+     */
+    public function getLastModified()
+    {
+        return $this-&gt;_lastModified;
+    }
+
+    /**
+     * Sets blob lastModified.
+     *
+     * @param \DateTime $lastModified value.
+     *
+     * @return void
+     */
+    protected function setLastModified($lastModified)
+    {
+        Validate::isDate($lastModified);
+        $this-&gt;_lastModified = $lastModified;
+    }
+
+    /**
+     * Gets blob etag.
+     *
+     * @return string
+     */
+    public function getETag()
+    {
+        return $this-&gt;_etag;
+    }
+
+    /**
+     * Sets blob etag.
+     *
+     * @param string $etag value.
+     *
+     * @return void
+     */
+    protected function setETag($etag)
+    {
+        Validate::isString($etag, 'etag');
+        $this-&gt;_etag = $etag;
+    }
+    
+    /**
+     * Gets blob contentMD5.
+     *
+     * @return string
+     */
+    public function getContentMD5()
+    {
+        return $this-&gt;_contentMD5;
+    }
+
+    /**
+     * Sets blob contentMD5.
+     *
+     * @param string $contentMD5 value.
+     *
+     * @return void
+     */
+    protected function setContentMD5($contentMD5)
+    {
+        $this-&gt;_contentMD5 = $contentMD5;
+    }
+    
+    /**
+     * Gets blob sequenceNumber.
+     *
+     * @return int
+     */
+    public function getSequenceNumber()
+    {
+        return $this-&gt;_sequenceNumber;
+    }
+
+    /**
+     * Sets blob sequenceNumber.
+     *
+     * @param int $sequenceNumber value.
+     *
+     * @return void
+     */
+    protected function setSequenceNumber($sequenceNumber)
+    {
+        Validate::isInteger($sequenceNumber, 'sequenceNumber');
+        $this-&gt;_sequenceNumber = $sequenceNumber;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+
+/**
+ * Options for listBlobs API.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class ListContainersOptions extends BlobServiceOptions
+{
+    private $_prefix;
+    private $_marker;
+    private $_maxResults;
+    private $_includeMetadata;
+
+    /**
+     * Gets prefix - filters the results to return only containers whose name
+     * begins with the specified prefix.
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this-&gt;_prefix;
+    }
+
+    /**
+     * Sets prefix - filters the results to return only containers whose name
+     * begins with the specified prefix.
+     *
+     * @param string $prefix value.
+     *
+     * @return void
+     */
+    public function setPrefix($prefix)
+    {
+        Validate::isString($prefix, 'prefix');
+        $this-&gt;_prefix = $prefix;
+    }
+
+    /**
+     * Gets marker which identifies the portion of the list to be returned with 
+     * the next list operation. The operation returns a marker value within the
+     * response body if the list returned was not complete. The marker value may
+     * then be used in a subsequent call to request the next set of list items.
+     * The marker value is opaque to the client.
+     *
+     * @return string
+     */
+    public function getMarker()
+    {
+        return $this-&gt;_marker;
+    }
+
+    /**
+     * Sets marker which identifies the portion of the list to be returned with 
+     * the next list operation. The operation returns a marker value within the
+     * response body if the list returned was not complete. The marker value may
+     * then be used in a subsequent call to request the next set of list items.
+     * The marker value is opaque to the client.
+     *
+     * @param string $marker value.
+     *
+     * @return void
+     */
+    public function setMarker($marker)
+    {
+        Validate::isString($marker, 'marker');
+        $this-&gt;_marker = $marker;
+    }
+
+    /**
+     * Gets max results which specifies the maximum number of containers to return. 
+     * If the request does not specify maxresults, or specifies a value 
+     * greater than 5,000, the server will return up to 5,000 items.
+     * If the parameter is set to a value less than or equal to zero,
+     * the server will return status code 400 (Bad Request).
+     *
+     * @return string
+     */
+    public function getMaxResults()
+    {
+        return $this-&gt;_maxResults;
+    }
+
+    /**
+     * Sets max results which specifies the maximum number of containers to return. 
+     * If the request does not specify maxresults, or specifies a value 
+     * greater than 5,000, the server will return up to 5,000 items.
+     * If the parameter is set to a value less than or equal to zero,
+     * the server will return status code 400 (Bad Request).
+     *
+     * @param string $maxResults value.
+     *
+     * @return void
+     */
+    public function setMaxResults($maxResults)
+    {
+        Validate::isString($maxResults, 'maxResults');
+        $this-&gt;_maxResults = $maxResults;
+    }
+
+    /**
+     * Indicates if metadata is included or not.
+     *
+     * @return string
+     */
+    public function getIncludeMetadata()
+    {
+        return $this-&gt;_includeMetadata;
+    }
+
+    /**
+     * Sets the include metadata flag.
+     *
+     * @param bool $includeMetadata value.
+     *
+     * @return void
+     */
+    public function setIncludeMetadata($includeMetadata)
+    {
+        Validate::isBoolean($includeMetadata);
+        $this-&gt;_includeMetadata = $includeMetadata;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

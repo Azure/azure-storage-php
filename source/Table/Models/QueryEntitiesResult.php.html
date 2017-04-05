@@ -1,0 +1,186 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Table\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+
+/**
+ * Holds results of calling queryEntities API
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class QueryEntitiesResult
+{
+    private $_nextRowKey;
+    private $_nextPartitionKey;
+    private $_entities;
+    
+    /**
+     * Creates new QueryEntitiesResult instance.
+     *
+     * @param array $headers  The HTTP response headers.
+     * @param array $entities The entities.
+     *
+     * @internal
+     *
+     * @return QueryEntitiesResult
+     */
+    public static function create(array $headers, array $entities)
+    {
+        $result  = new QueryEntitiesResult();
+        $headers = array_change_key_case($headers);
+        $nextPK  = Utilities::tryGetValue(
+            $headers,
+            Resources::X_MS_CONTINUATION_NEXTPARTITIONKEY
+        );
+        $nextRK  = Utilities::tryGetValue(
+            $headers,
+            Resources::X_MS_CONTINUATION_NEXTROWKEY
+        );
+        
+        $result-&gt;setEntities($entities);
+        $result-&gt;setNextPartitionKey($nextPK);
+        $result-&gt;setNextRowKey($nextRK);
+        
+        return $result;
+    }
+    
+    /**
+     * Gets entities.
+     *
+     * @return array
+     */
+    public function getEntities()
+    {
+        return $this-&gt;_entities;
+    }
+    
+    /**
+     * Sets entities.
+     *
+     * @param array $entities The entities array.
+     *
+     * @return void
+     */
+    protected function setEntities(array $entities)
+    {
+        $this-&gt;_entities = $entities;
+    }
+    
+    /**
+     * Gets entity next partition key.
+     *
+     * @return string
+     */
+    public function getNextPartitionKey()
+    {
+        return $this-&gt;_nextPartitionKey;
+    }
+
+    /**
+     * Sets entity next partition key.
+     *
+     * @param string $nextPartitionKey The entity next partition key value.
+     *
+     * @return void
+     */
+    protected function setNextPartitionKey($nextPartitionKey)
+    {
+        $this-&gt;_nextPartitionKey = $nextPartitionKey;
+    }
+    
+    /**
+     * Gets entity next row key.
+     *
+     * @return string
+     */
+    public function getNextRowKey()
+    {
+        return $this-&gt;_nextRowKey;
+    }
+
+    /**
+     * Sets entity next row key.
+     *
+     * @param string $nextRowKey The entity next row key value.
+     *
+     * @return void
+     */
+    protected function setNextRowKey($nextRowKey)
+    {
+        $this-&gt;_nextRowKey = $nextRowKey;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,143 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Queue\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+
+namespace MicrosoftAzure\Storage\Queue\Models;
+
+use MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+
+/**
+ * Holds results of listMessages wrapper.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Queue\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class ListMessagesResult
+{
+    private $_queueMessages;
+    
+    /**
+     * Creates ListMessagesResult object from parsed XML response.
+     *
+     * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal
+     *
+     * @return ListMessagesResult
+     */
+    public static function create(array $parsedResponse = null)
+    {
+        $result        = new ListMessagesResult();
+        $queueMessages = array();
+        
+        if (!empty($parsedResponse)) {
+            $rawMessages = Utilities::getArray($parsedResponse['QueueMessage']);
+            foreach ($rawMessages as $value) {
+                $message = MicrosoftAzureQueueMessage::createFromListMessages($value);
+                
+                $queueMessages[] = $message;
+            }
+        }
+        $result-&gt;setQueueMessages($queueMessages);
+        
+        return $result;
+    }
+    
+    /**
+     * Gets queueMessages field.
+     *
+     * @return array
+     */
+    public function getQueueMessages()
+    {
+        return $this-&gt;_queueMessages;
+    }
+    
+    /**
+     * Sets queueMessages field.
+     *
+     * @param integer $queueMessages value to use.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setQueueMessages($queueMessages)
+    {
+        $this-&gt;_queueMessages = array();
+        
+        foreach ($queueMessages as $value) {
+            $this-&gt;_queueMessages[] = clone $value;
+        }
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>
