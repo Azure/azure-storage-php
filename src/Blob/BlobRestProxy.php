@@ -1714,11 +1714,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($container, 'container');
         Validate::isString($blob, 'blob');
 
-        $createBlobBlockOptions = new CreateBlobBlockOptions();
         if (is_null($options)) {
             $options = new CreateBlobOptions();
         }
-        
+
+        $createBlobBlockOptions = CreateBlobBlockOptions::create($options);
+
         $method      = Resources::HTTP_PUT;
         $headers     = $this->createBlobBlockHeader($createBlobBlockOptions);
         $postParams  = array();
