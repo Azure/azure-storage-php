@@ -8,6 +8,7 @@ test-file-*
 /vendor/*
 /output/*
 /build/*
+/doc/*
 
 
 

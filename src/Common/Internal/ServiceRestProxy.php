@@ -24,7 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal;
 
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -46,6 +46,7 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Base class for all services rest proxies.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -55,20 +56,8 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ServiceRestProxy extends RestProxy
 {
-    /**
-     * @var string
-     */
     private $_accountName;
-
-    /**
-     *
-     * @var \Uri
-     */
     private $_psrUri;
-
-    /**
-     * @var array
-     */
     private $_options;
 
     /**
@@ -108,7 +97,7 @@ class ServiceRestProxy extends RestProxy
     }
 
     /**
-     * Static helper function to create a usable client for the proxy.
+     * Helper function to create a usable client for the proxy.
      * The requestOptions can contain the following keys that will affect
      * the way retry handler is created and applied.
      * handler:               HandlerStack, if set, this function will not
@@ -124,6 +113,7 @@ class ServiceRestProxy extends RestProxy
 
         return (new \GuzzleHttp\Client(
             array_merge(
+                $requestOptions,
                 $this->_options['http'],
                 array(
                     "defaults" => array(
@@ -135,8 +125,7 @@ class ServiceRestProxy extends RestProxy
                     'verify' => true,
                     // For testing with Fiddler
                     //'proxy' => "localhost:8888",
-                ),
-                $requestOptions
+                )
             )
         ));
     }
@@ -432,8 +421,6 @@ class ServiceRestProxy extends RestProxy
      * @param array|int         $expected The expected status codes.
      *
      * @return void
-     *
-     * @static
      *
      * @throws ServiceException
      */

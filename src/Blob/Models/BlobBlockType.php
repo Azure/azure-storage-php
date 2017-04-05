@@ -45,6 +45,8 @@ class BlobBlockType
      *
      * @param string $type The entry type.
      *
+     * @internal
+     *
      * @return boolean
      */
     public static function isValid($type)

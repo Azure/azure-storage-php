@@ -38,32 +38,10 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListBlobBlocksOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var string
-     */
     private $_snapshot;
-    
-    /**
-     * @var boolean
-     */
     private $_includeUncommittedBlobs;
-    
-    /**
-     * @var boolean
-     */
     private $_includeCommittedBlobs;
-    
-    /**
-     * Holds result of list type. You can access it by this order:
-     * $_listType[$this->_includeUncommittedBlobs][$this->_includeCommittedBlobs]
-     *
-     * @var array
-     */
     private static $_listType;
     
     /**

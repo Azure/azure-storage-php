@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 /**
  * Holder for default connection string sources used in CloudConfigurationManager.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -36,21 +37,8 @@ namespace MicrosoftAzure\Storage\Common\Internal;
  */
 class ConnectionStringSource
 {
-    /**
-     * The list of all sources which comes as default.
-     *
-     * @var type
-     */
     private static $_defaultSources;
-    
-    /**
-     * @var boolean
-     */
     private static $_isInitialized;
-    
-    /**
-     * Environment variable source name.
-     */
     const ENVIRONMENT_SOURCE = 'environment_source';
     
     /**

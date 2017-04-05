@@ -14,6 +14,7 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -24,7 +25,7 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
@@ -389,5 +390,34 @@ class Validate
                 )
             );
         }
+    }
+
+    /**
+     * Validate if the provided array has key, throw exception otherwise.
+     *
+     * @param  string  $key   The key to be searched.
+     * @param  string  $name  The name of the array.
+     * @param  array   $array The array to be validated.
+     *
+     * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
+     *
+     * @return  boolean
+     */
+    public static function hasKey($key, $name, array $array)
+    {
+        Validate::isArray($array, $name);
+
+        if (!array_key_exists($key, $array)) {
+            throw new \UnexpectedValueException(
+                sprintf(
+                    Resources::INVALID_VALUE_MSG,
+                    $name,
+                    sprintf(Resources::ERROR_KEY_NOT_EXIST, $key)
+                )
+            );
+        }
+
+        return true;
     }
 }

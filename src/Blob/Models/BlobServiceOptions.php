@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
 
 /**
  * Blob service options.

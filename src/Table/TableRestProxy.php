@@ -53,7 +53,8 @@ use MicrosoftAzure\Storage\Table\Models\GetEntityResult;
 use MicrosoftAzure\Storage\Table\Models\BatchOperationType;
 use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
 use MicrosoftAzure\Storage\Table\Models\BatchResult;
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Table\Models\TableACL;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\ISerializer;
@@ -1683,5 +1684,152 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                 $mimeSerializer
             );
         }, null);
+    }
+
+    /**
+     * Gets the access control list (ACL)
+     *
+     * @param string                     $table   The table name.
+     * @param Models\TableServiceOptions $options The optional parameters.
+     *
+     * @return Models\TableACL
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-table-acl
+     */
+    public function getTableAcl(
+        $table,
+        Models\TableServiceOptions $options = null
+    ) {
+        return $this->getTableAclAsync($table, $options)->wait();
+    }
+
+    /**
+     * Creates the promise to gets the access control list (ACL)
+     *
+     * @param string                     $table   The table name.
+     * @param Models\TableServiceOptions $options The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-table-acl
+     */
+    public function getTableAclAsync(
+        $table,
+        Models\TableServiceOptions $options = null
+    ) {
+        Validate::isString($table, 'table');
+        
+        $method      = Resources::HTTP_GET;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $statusCode  = Resources::STATUS_OK;
+        $path        = $table;
+        
+        if (is_null($options)) {
+            $options = new TableServiceOptions();
+        }
+        
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'acl'
+        );
+
+        $dataSerializer = $this->dataSerializer;
+        
+        $promise = $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
+        );
+
+        return $promise->then(function ($response) use ($dataSerializer) {
+            $parsed       = $dataSerializer->unserialize($response->getBody());
+            return TableACL::create($parsed);
+        }, null);
+    }
+    
+    /**
+     * Sets the ACL.
+     *
+     * @param string                     $table   name
+     * @param Models\TableACL            $acl     access control list for Table
+     * @param Models\TableServiceOptions $options optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-table-acl
+     */
+    public function setTableAcl(
+        $table,
+        Models\TableACL $acl,
+        Models\TableServiceOptions $options = null
+    ) {
+        $this->setTableAclAsync($table, $acl, $options)->wait();
+    }
+
+    /**
+     * Creates promise to set the ACL
+     *
+     * @param string                     $table   name
+     * @param Models\TableACL            $acl     access control list for Table
+     * @param Models\TableServiceOptions $options optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-table-acl
+     */
+    public function setTableAclAsync(
+        $table,
+        Models\TableACL $acl,
+        Models\TableServiceOptions $options = null
+    ) {
+        Validate::isString($table, 'table');
+        Validate::notNullOrEmpty($acl, 'acl');
+        
+        $method      = Resources::HTTP_PUT;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $body        = $acl->toXml($this->dataSerializer);
+        $path        = $table;
+        
+        if (is_null($options)) {
+            $options = new TableServiceOptions();
+        }
+        
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'acl'
+        );
+
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_NO_CONTENT,
+            $body,
+            $options->getRequestOptions()
+        );
     }
 }

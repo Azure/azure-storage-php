@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 /**
  * Short description
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Serialization
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

@@ -40,9 +40,6 @@ use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
  */
 class InsertEntityResult
 {
-    /**
-     * @var Entity
-     */
     private $_entity;
     
     /**
@@ -52,9 +49,9 @@ class InsertEntityResult
      * @param array             $headers        The HTTP response headers.
      * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
      *
-     * @return InsertEntityResult
+     * @internal
      *
-     * @static
+     * @return InsertEntityResult
      */
     public static function create($body, $headers, $atomSerializer)
     {

@@ -40,14 +40,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
  */
 class GetBlobPropertiesResult
 {
-    /**
-     * @var BlobProperties
-     */
     private $_properties;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
     
     /**
@@ -98,6 +91,8 @@ class GetBlobPropertiesResult
      * Create a instance using the given headers.
      *
      * @param  array  $headers response headers parsed in an array
+     *
+     * @internal
      *
      * @return GetBlobPropertiesResult
      */
@@ -152,6 +147,12 @@ class GetBlobPropertiesResult
         if (array_key_exists(Resources::X_MS_BLOB_SEQUENCE_NUMBER, $headers)) {
             $properties->setSequenceNumber(
                 intval($headers[Resources::X_MS_BLOB_SEQUENCE_NUMBER])
+            );
+        }
+        
+        if (array_key_exists(Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT, $headers)) {
+            $properties->setCommittedBlockCount(
+                intval($headers[Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT])
             );
         }
         

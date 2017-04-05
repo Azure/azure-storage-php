@@ -15,16 +15,16 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Middlewares
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Middlewares;
 
-use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use GuzzleHttp\Psr7\Response;
@@ -33,7 +33,7 @@ use GuzzleHttp\Psr7\Request;
 class RetryMiddlewareFactoryTest extends ReflectionTestBase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage should be positive number
      */
@@ -48,7 +48,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage should be positive number
      */
@@ -63,7 +63,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -78,7 +78,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -93,8 +93,8 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::createRetryDecider
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::generalRetryDecider
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::createRetryDecider
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::generalRetryDecider
      */
     public function testCreateRetryDeciderWithGeneralRetryDecider()
     {
@@ -121,7 +121,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::createLinearDelayCalculator
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::createLinearDelayCalculator
      */
     public function testCreateLinearDelayCalculator()
     {
@@ -133,7 +133,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory::createExponentialDelayCalculator
+     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::createExponentialDelayCalculator
      */
     public function testCreateExponentialDelayCalculator()
     {

@@ -32,6 +32,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * service. For more information about storage service connection strings check this
  * page: http://msdn.microsoft.com/en-us/library/ee758697
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -41,126 +42,33 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class StorageServiceSettings extends ServiceSettings
 {
-    /**
-     * The storage service name.
-     *
-     * @var string
-     */
     private $_name;
-    
-    /**
-     * A base64 representation.
-     *
-     * @var string
-     */
     private $_key;
-    
-    /**
-     * The SAS token.
-     *
-     * @var string
-     */
     private $_sas;
-
-    /**
-     * The endpoint for the blob service.
-     *
-     * @var string
-     */
     private $_blobEndpointUri;
-    
-    /**
-     * The endpoint for the queue service.
-     *
-     * @var string
-     */
     private $_queueEndpointUri;
-    
-    /**
-     * The endpoint for the table service.
-     *
-     * @var string
-     */
     private $_tableEndpointUri;
-    
-    /**
-     * @var StorageServiceSettings
-     */
+
     private static $_devStoreAccount;
-    
-    /**
-     * Validator for the UseDevelopmentStorage setting. Must be "true".
-     *
-     * @var array
-     */
     private static $_useDevelopmentStorageSetting;
-    
-    /**
-     * Validator for the DevelopmentStorageProxyUri setting. Must be a valid Uri.
-     *
-     * @var array
-     */
     private static $_developmentStorageProxyUriSetting;
-    
-    /**
-     * Validator for the DefaultEndpointsProtocol setting. Must be either "http"
-     * or "https".
-     *
-     * @var array
-     */
     private static $_defaultEndpointsProtocolSetting;
-    
-    /**
-     * Validator for the AccountName setting. No restrictions.
-     *
-     * @var array
-     */
     private static $_accountNameSetting;
-    
-    /**
-     * Validator for the AccountKey setting. Must be a valid base64 string.
-     *
-     * @var array
-     */
     private static $_accountKeySetting;
+    private static $_sasTokenSetting;
+    private static $_blobEndpointSetting;
+    private static $_queueEndpointSetting;
+    private static $_tableEndpointSetting;
 
     /**
-     * Validator for the SharedAccessSignature setting. Must be a valid URI query.
-     *
-     * @var array
-     */
-    private static $_sasTokenSetting;
-    
-    /**
-     * Validator for the BlobEndpoint setting. Must be a valid Uri.
-     *
-     * @var array
-     */
-    private static $_blobEndpointSetting;
-    
-    /**
-     * Validator for the QueueEndpoint setting. Must be a valid Uri.
-     *
-     * @var array
-     */
-    private static $_queueEndpointSetting;
-    
-    /**
-     * Validator for the TableEndpoint setting. Must be a valid Uri.
-     *
-     * @var array
-     */
-    private static $_tableEndpointSetting;
-    
-    /**
-     * @var boolean
+     * If initialized or not
+     * @internal
      */
     protected static $isInitialized = false;
     
     /**
-     * Holds the expected setting keys.
-     *
-     * @var array
+     * Valid setting keys
+     * @internal
      */
     protected static $validSettingKeys = array();
     

@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
  */
 class GetTableResult
 {
-    /**
-     * @var string
-     */
     private $_name;
     
     /**
@@ -49,6 +46,8 @@ class GetTableResult
      *
      * @param string           $body           The HTTP response body.
      * @param AtomReaderWriter $atomSerializer The Atom reader and writer.
+     *
+     * @internal
      *
      * @return GetTableResult
      */

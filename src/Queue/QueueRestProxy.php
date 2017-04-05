@@ -37,13 +37,14 @@ use MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions;
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
 use MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult;
 use MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions;
+use MicrosoftAzure\Storage\Queue\Models\QueueACL;
 use MicrosoftAzure\Storage\Queue\Models\QueueMessage;
 use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
 use MicrosoftAzure\Storage\Queue\Models\ListMessagesResult;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult;
 use MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult;
-use MicrosoftAzure\Storage\Common\Internal\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for queue
@@ -1036,5 +1037,152 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             return UpdateMessageResult::create($responseHeaders);
         }, null);
+    }
+
+    /**
+     * Gets the access control list (ACL)
+     *
+     * @param string                     $queue   The queue name.
+     * @param Models\QueueServiceOptions $options The optional parameters.
+     *
+     * @return Models\QueueACL
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-queue-acl
+     */
+    public function getQueueAcl(
+        $queue,
+        Models\QueueServiceOptions $options = null
+    ) {
+        return $this->getQueueAclAsync($queue, $options)->wait();
+    }
+
+    /**
+     * Creates the promise to gets the access control list (ACL)
+     *
+     * @param string                     $queue   The queue name.
+     * @param Models\QueueServiceOptions $options The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-queue-acl
+     */
+    public function getQueueAclAsync(
+        $queue,
+        Models\QueueServiceOptions $options = null
+    ) {
+        Validate::isString($queue, 'queue');
+        
+        $method      = Resources::HTTP_GET;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $statusCode  = Resources::STATUS_OK;
+        $path        = $queue;
+        
+        if (is_null($options)) {
+            $options = new QueueServiceOptions();
+        }
+        
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'acl'
+        );
+
+        $dataSerializer = $this->dataSerializer;
+        
+        $promise = $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
+        );
+
+        return $promise->then(function ($response) use ($dataSerializer) {
+            $parsed       = $dataSerializer->unserialize($response->getBody());
+            return QueueACL::create($parsed);
+        }, null);
+    }
+    
+    /**
+     * Sets the ACL.
+     *
+     * @param string                     $queue   name
+     * @param Models\QueueACL            $acl     access control list for Queue
+     * @param Models\QueueServiceOptions $options optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-queue-acl
+     */
+    public function setQueueAcl(
+        $queue,
+        Models\QueueACL $acl,
+        Models\QueueServiceOptions $options = null
+    ) {
+        $this->setQueueAclAsync($queue, $acl, $options)->wait();
+    }
+
+    /**
+     * Creates promise to set the ACL
+     *
+     * @param string                     $queue   name
+     * @param Models\QueueACL            $acl     access control list for Queue
+     * @param Models\QueueServiceOptions $options optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-queue-acl
+     */
+    public function setQueueAclAsync(
+        $queue,
+        Models\QueueACL $acl,
+        Models\QueueServiceOptions $options = null
+    ) {
+        Validate::isString($queue, 'queue');
+        Validate::notNullOrEmpty($acl, 'acl');
+        
+        $method      = Resources::HTTP_PUT;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $body        = $acl->toXml($this->dataSerializer);
+        $path        = $queue;
+        
+        if (is_null($options)) {
+            $options = new QueueServiceOptions();
+        }
+        
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'acl'
+        );
+
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_NO_CONTENT,
+            $body,
+            $options->getRequestOptions()
+        );
     }
 }

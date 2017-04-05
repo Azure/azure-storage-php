@@ -29,8 +29,9 @@ use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
@@ -73,22 +74,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     {
         return sprintf('-%04x', mt_rand(0, 65535));
     }
-
-    /**
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceProperties
-    */
-    public function testGetServiceProperties()
-    {
-        $this->skipIfEmulated();
-        
-        // Test
-        $result = $this->restProxy->getServiceProperties();
-        
-        // Assert
-        $this->assertEquals($this->defaultProperties->toArray(), $result->getValue()->toArray());
-    }
     
     /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceProperties
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setServiceProperties
     */
     public function testSetServiceProperties()
@@ -202,7 +190,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 400
     */
     public function testListContainersWithInvalidNextMarkerFail()
@@ -318,7 +306,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
         $this->setExpectedException(get_class(new ServiceException('400')));
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 400
     */
     public function testCreateContainerInvalidNameFail()
@@ -332,7 +320,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 409
     */
     public function testCreateContainerAlreadyExitsFail()
@@ -365,7 +353,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-    * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
     * @expectedExceptionMessage 404
     */
     public function testDeleteContainerFail()
@@ -674,6 +662,158 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
     
     /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
+     */
+    public function testCreateAppendBlob()
+    {
+        // Setup
+        $name = 'createappendblob' . $this->createSuffix();
+        $this->createContainer($name);
+        
+        // Test
+        $createResult = $this->restProxy->createAppendBlob($name, 'myblob');
+        
+        // Assert
+        $this->assertNotNull($createResult->getETag());
+        $this->assertInstanceOf('\DateTime', $createResult->getLastModified());
+
+        $appendBlob = $this->restProxy->getBlobProperties($name, 'myblob');
+        $this->assertEquals('AppendBlob', $appendBlob->getProperties()->getBlobType());
+        $this->assertEquals(0, $appendBlob->getProperties()->getCommittedBlockCount());
+    }
+    
+    /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
+    */
+    public function testAppendBlock()
+    {
+        // Setup
+        $name = 'createappendblob' . $this->createSuffix();
+        $this->createContainer($name);
+        $textToBeAppended = 'text to be appended';
+        
+        // Test
+        $this->restProxy->createAppendBlob($name, 'myblob');
+        $appendResult = $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended);
+
+        // Assert
+        $this->assertNotNull($appendResult->getETag());
+        $this->assertInstanceOf('\DateTime', $appendResult->getLastModified());
+        $this->assertEquals(0, $appendResult->getAppendOffset());
+        $this->assertEquals(1, $appendResult->getCommittedBlockCount());
+
+        // List blobs
+        $listBlobs = $this->restProxy->listBlobs($name, null)->getBlobs();
+        $this->assertCount(1, $listBlobs);
+        $this->assertEquals('AppendBlob', $listBlobs[0]->getProperties()->getBlobType());
+
+
+        // Get append blob properties
+        $appendBlob = $this->restProxy->getBlobProperties($name, 'myblob');
+        $this->assertEquals('AppendBlob', $appendBlob->getProperties()->getBlobType());
+        $this->assertEquals(1, $appendBlob->getProperties()->getCommittedBlockCount());
+        $this->assertEquals(strlen($textToBeAppended), $appendBlob->getProperties()->getContentLength());
+
+        // Append again
+        $appendResult = $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended);
+        $this->assertNotNull($appendResult->getETag());
+        $this->assertInstanceOf('\DateTime', $appendResult->getLastModified());
+        $this->assertEquals(19, $appendResult->getAppendOffset());
+        $this->assertEquals(2, $appendResult->getCommittedBlockCount());
+
+        $appendBlob = $this->restProxy->getBlobProperties($name, 'myblob');
+        $this->assertEquals('AppendBlob', $appendBlob->getProperties()->getBlobType());
+        $this->assertEquals(2, $appendBlob->getProperties()->getCommittedBlockCount());
+        $this->assertEquals(2 * strlen($textToBeAppended), $appendBlob->getProperties()->getContentLength());
+    }
+
+    /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
+    */
+    public function testAppendBlockSuccessWithAppendPosition()
+    {
+        // Setup
+        $name = 'appendblockappendpositionsuccess' . $this->createSuffix();
+        $this->createContainer($name);
+        $textToBeAppended = 'text to be appended';
+        $appendBlockOption = new AppendBlockOptions();
+        $appendBlockOption->setAppendPosition(0);
+        
+        // Test
+        $this->restProxy->createAppendBlob($name, 'myblob');
+        $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended, $appendBlockOption);
+
+        // Append again
+        $appendBlockOption->setAppendPosition(strlen($textToBeAppended));
+        $appendResult = $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended, $appendBlockOption);
+        $this->assertNotNull($appendResult->getETag());
+    }
+    
+    /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedExceptionMessage 412
+    */
+    public function testAppendBlockConflictBecauseOfAppendPosition()
+    {
+        // Setup
+        $name = 'appendblockappendpositionconflict' . $this->createSuffix();
+        $this->createContainer($name);
+        $textToBeAppended = 'text to be appended';
+        $appendBlockOption = new AppendBlockOptions();
+        $appendBlockOption->setAppendPosition(1);
+        
+        // Test
+        $this->restProxy->createAppendBlob($name, 'myblob');
+        $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended, $appendBlockOption);
+    }
+    
+    /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
+    */
+    public function testAppendBlockSuccessWithMaxBlobSize()
+    {
+        // Setup
+        $name = 'appendblockmaxblobsizeconflict' . $this->createSuffix();
+        $this->createContainer($name);
+        $textToBeAppended = 'text to be appended';
+        $appendBlockOption = new AppendBlockOptions();
+        $appendBlockOption->setMaxBlobSize(1000);
+        
+        // Test
+        $this->restProxy->createAppendBlob($name, 'myblob');
+        $appendResult = $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended, $appendBlockOption);
+        $this->assertNotNull($appendResult->getETag());
+    }
+    
+    /**
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedExceptionMessage 412
+    */
+    public function testAppendBlockConflictBecauseOfMaxBlobSize()
+    {
+        // Setup
+        $name = 'appendblockmaxblobsizeconflict' . $this->createSuffix();
+        $this->createContainer($name);
+        $textToBeAppended = 'text to be appended';
+        $appendBlockOption = new AppendBlockOptions();
+        $appendBlockOption->setMaxBlobSize(1);
+        
+        // Test
+        $this->restProxy->createAppendBlob($name, 'myblob');
+        $this->restProxy->appendBlock($name, 'myblob', $textToBeAppended, $appendBlockOption);
+    }
+    
+    /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addCreateBlobOptionalHeaders
      */
@@ -912,7 +1052,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
-     * @expectedException MicrosoftAzure\Storage\Common\ServiceException
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage 404
      */
     public function testGetBlobNotExist()
@@ -2216,6 +2356,80 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             $result->getProperties()->getBlobType()
         );
         $originMd5 = md5_file($path);
+        $downloadMd5 = md5_file($downloadPath);
+        $this->assertEquals($originMd5, $downloadMd5);
+
+        // Delete file after assertion.
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        fclose($downloadResource);
+        unlink($path);
+        unlink($downloadPath);
+    }
+
+    /**
+     * @group large-scale
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobFromContent
+     */
+    public function testCreateLargePageBlobFromContent()
+    {
+        //Setup
+        //create a temp file that is 2GB in size.
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+        $count = 2 * 1024 / 4;
+        for ($index = 0; $index < $count; ++$index) {
+            fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4));
+        }
+        rewind($resource);
+
+        //upload the blob
+        $container = 'createpageblobfromcontent' . $this->createSuffix();
+        $blob = 'myblob';
+        $length = $count * Resources::MB_IN_BYTES_4;
+        $this->createContainer($container);
+        
+        $metadata = array('m1' => 'v1', 'm2' => 'v2');
+        $contentType = 'text/plain; charset=UTF-8';
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $options->setMetadata($metadata);
+
+        $createPageBlobResult = $this->restProxy->createPageBlobFromContent($container, $blob, $length, $resource, $options);
+
+        $originMd5 = md5_file($path);
+        $this->assertEquals("PageBlob", $createPageBlobResult->getProperties()->getBlobType());
+        $this->assertEquals($contentType, $createPageBlobResult->getProperties()->getContentType());
+        $this->assertEquals(2, count($createPageBlobResult->getMetadata()));
+        $this->assertEquals($metadata["m1"], $createPageBlobResult->getMetadata()["m1"]);
+        $this->assertEquals($metadata["m2"], $createPageBlobResult->getMetadata()["m2"]);
+
+        // Test
+        $result = $this->restProxy->getBlob($container, $blob);
+
+        //get the path for the file to be downloaded into.
+        $uuid = uniqid('test-file-', true);
+        $downloadPath = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $downloadResource = fopen($downloadPath, 'w');
+
+        //download the file
+        $content = $result->getContentStream();
+        while (!feof($content)) {
+            fwrite(
+                $downloadResource,
+                stream_get_contents($content, Resources::MB_IN_BYTES_4)
+            );
+        }
+        
+        // Assert
+        $this->assertEquals(
+            BlobType::PAGE_BLOB,
+            $result->getProperties()->getBlobType()
+        );
         $downloadMd5 = md5_file($downloadPath);
         $this->assertEquals($originMd5, $downloadMd5);
 

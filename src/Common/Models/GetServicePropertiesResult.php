@@ -43,6 +43,7 @@ class GetServicePropertiesResult
     /**
      * Creates object from $parsedResponse.
      *
+     * @internal
      * @param array $parsedResponse XML response parsed into array.
      *
      * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult

@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Table\Models;
  */
 class Query
 {
-    /**
-     * @var array
-     */
     private $_selectFields;
-    
-    /**
-     * @var Filters\Filter
-     */
     private $_filter;
-    
-    /**
-     * @var integer
-     */
     private $_top;
     
     /**

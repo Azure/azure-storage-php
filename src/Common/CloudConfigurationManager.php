@@ -41,16 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource;
  */
 class CloudConfigurationManager
 {
-    /**
-     * @var boolean
-     */
     private static $_isInitialized = false;
-    
-    /**
-     * The list of connection string sources.
-     *
-     * @var array
-     */
     private static $_sources;
     
     /**

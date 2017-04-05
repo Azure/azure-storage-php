@@ -40,26 +40,15 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class UpdateMessageResult
 {
-    /**
-     * The value of PopReceipt is opaque to the client and its only purpose is to
-     * ensure that a message may be deleted with the delete message operation.
-     *
-     * @var string
-     */
     private $_popReceipt;
-    
-    /**
-     * A UTC date/time value that represents when the message will be visible on the
-     * queue.
-     *
-     * @var \DateTime
-     */
     private $_timeNextVisible;
 
     /**
      * Creates an instance with the given response headers.
      *
      * @param  array  $headers The response headers used to create the instance.
+     *
+     * @internal
      *
      * @return UpdateMessageResult
      */
@@ -96,6 +85,8 @@ class UpdateMessageResult
      * @param \DateTime $timeNextVisible A UTC date/time value that represents when
      * the message will be visible on the queue.
      *
+     * @internal
+     *
      * @return void
      */
     protected function setTimeNextVisible(\DateTime $timeNextVisible)
@@ -119,6 +110,8 @@ class UpdateMessageResult
      * Sets popReceipt field.
      *
      * @param string $popReceipt The pop receipt of the queue message.
+     *
+     * @internal
      *
      * @return void
      */

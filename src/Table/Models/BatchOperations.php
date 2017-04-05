@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class BatchOperations
 {
-    /**
-     * @var array
-     */
     private $_operations;
 
     /**

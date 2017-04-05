@@ -40,70 +40,26 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class BlobProperties
 {
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var string
-     */
     private $_contentType;
-    
-    /**
-     * @var integer
-     */
     private $_contentLength;
-    
-    /**
-     * @var string
-     */
     private $_contentEncoding;
-    
-    /**
-     * @var string
-     */
     private $_contentLanguage;
-    
-    /**
-     * @var string
-     */
     private $_contentMD5;
-    
-    /**
-     * @var string
-     */
     private $_contentRange;
-    
-    /**
-     * @var string
-     */
     private $_cacheControl;
-    
-    /**
-     * @var string
-     */
     private $_blobType;
-    
-    /**
-     * @var string
-     */
     private $_leaseStatus;
-    
-    /**
-     * @var integer
-     */
     private $_sequenceNumber;
+    private $_committedBlockCount;
     
     /**
      * Creates BlobProperties object from $parsed response in array representation
      *
      * @param array $parsed parsed response in array format.
+     *
+     * @internal
      *
      * @return BlobProperties
      */
@@ -159,6 +115,9 @@ class BlobProperties
         );
         $result->setContentType(
             Utilities::tryGetValue($clean, Resources::CONTENT_TYPE)
+        );
+        $result->setCommittedBlockCount(
+            intval(Utilities::tryGetValue($clean, Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT))
         );
         
         return $result;
@@ -429,5 +388,27 @@ class BlobProperties
     {
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;
+    }
+
+    /**
+     * Gets the number of committed blocks present in the blob.
+     *
+     * @return int
+     */
+    public function getCommittedBlockCount()
+    {
+        return $this->_committedBlockCount;
+    }
+
+    /**
+     * Sets the number of committed blocks present in the blob.
+     *
+     * @param int $committedBlockCount the number of committed blocks present in the blob.
+     *
+     * @return void
+     */
+    public function setCommittedBlockCount($committedBlockCount)
+    {
+        $this->_committedBlockCount = $committedBlockCount;
     }
 }

@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 /**
  * Holds basic elements for making HTTP call.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Http
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -40,65 +41,14 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class HttpCallContext
 {
-    /**
-     * The HTTP method used to make this call.
-     *
-     * @var string
-     */
     private $_method;
-    
-    /**
-     * HTTP request headers.
-     *
-     * @var array
-     */
     private $_headers;
-    
-    /**
-     * The URI query parameters.
-     *
-     * @var array
-     */
     private $_queryParams;
-
-    /**
-     * The HTTP POST parameters.
-     *
-     * @var array
-     */
     private $_postParameters;
-    
-    /**
-     * @var string
-     */
     private $_uri;
-    
-    /**
-     * The URI path.
-     *
-     * @var string
-     */
     private $_path;
-    
-    /**
-     * The expected status codes.
-     *
-     * @var array
-     */
     private $_statusCodes;
-    
-    /**
-     * The HTTP request body.
-     *
-     * @var string
-     */
     private $_body;
-
-    /**
-     * The request option this context will be sent with
-     *
-     * @var array
-     */
     private $_requestOptions;
     
     /**

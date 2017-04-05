@@ -36,26 +36,7 @@ namespace MicrosoftAzure\Storage\Queue\Models;
  */
 class ListMessagesOptions extends QueueServiceOptions
 {
-    /**
-     * A nonzero integer value that specifies the number of messages to retrieve
-     * from the queue, up to a maximum of 32. If fewer are visible,
-     * the visible messages are returned. By default, a single message is retrieved
-     * from the queue with this operation.
-     *
-     * @var integer
-     */
     private $_numberOfMessages;
-    
-    /**
-     * Specifies the new visibility timeout value, in seconds,
-     * relative to server time. The new value must be larger than or equal to
-     * 1 second, and cannot be larger than 7 days, or larger than 2 hours on
-     * REST protocol versions prior to version 2011-08-18.
-     * The visibility timeout of a message can be set to a value later than the
-     * expiry time.
-     *
-     * @var integer
-     */
     private $_visibilityTimeoutInSeconds;
     
     /**

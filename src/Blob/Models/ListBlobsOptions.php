@@ -38,39 +38,12 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListBlobsOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_prefix;
-    
-    /**
-     * @var string
-     */
     private $_marker;
-    
-    /**
-     * @var string
-     */
     private $_delimiter;
-    
-    /**
-     * @var integer
-     */
     private $_maxResults;
-    
-    /**
-     * @var boolean
-     */
     private $_includeMetadata;
-    
-    /**
-     * @var boolean
-     */
     private $_includeSnapshots;
-    
-    /**
-     * @var boolean
-     */
     private $_includeUncommittedBlobs;
 
     /**

@@ -39,15 +39,16 @@ use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\SetContainerMetadataOptions;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
-use MicrosoftAzure\Storage\Common\Internal\Middlewares\HistoryMiddleware;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
+use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Client;
 
 class BlobServiceFunctionalTest extends FunctionalTestBase
 {
@@ -274,6 +275,8 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             } else {
                 $this->assertFalse($this->isEmulated(), 'Should succeed when not running in emulator');
             }
+            
+            \sleep(10);
 
             $ret = (is_null($options) ?
                 $this->restProxy->getServiceProperties() :
@@ -1194,14 +1197,17 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
     private function canDownloadFromUrl($blobAddress, $expectedStartingValue)
     {
-        $url = parse_url($blobAddress);
-        $host = $url['host'];
-        $fp = fsockopen($host, '80');
-        $request = 'GET ' . $blobAddress . ' HTTP/1.1' . "\r\n" . 'Host: ' . $host ."\r\n\r\n";
-        fputs($fp, $request);
-        $value = fread($fp, 1000);
-        fclose($fp);
-        return strpos($value, $expectedStartingValue) !== false;
+        $client = new Client();
+        $body = '';
+        try {
+            $response = $client->request('GET', $blobAddress);
+            $body = $response->getBody();
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                $body = $e->getResponse()->getBody();
+            }
+        }
+        return strpos($body, $expectedStartingValue) !== false;
     }
 
     /**

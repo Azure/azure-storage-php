@@ -15,23 +15,23 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Exceptions
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common;
+namespace MicrosoftAzure\Storage\Tests\unit\Common\Exceptions;
 
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Tests\framework\TestResources;
 
 /**
  * Unit tests for class ServiceException
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Exceptions
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Tests\framework\TestResources;
 class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
      */
     public function testConstruct()
     {
@@ -57,8 +57,8 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::getErrorText
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getErrorText
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
      */
     public function testGetErrorText()
     {
@@ -73,9 +73,9 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::getErrorMessage
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::parseErrorMessage
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getErrorMessage
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::parseErrorMessage
      */
     public function testGetErrorMessage()
     {
@@ -91,8 +91,8 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::getRequestID
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getRequestID
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
      */
     public function testGetRequestID()
     {
@@ -105,8 +105,8 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::getDate
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getDate
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
      */
     public function testGetDate()
     {
@@ -119,8 +119,8 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::getResponse
-     * @covers MicrosoftAzure\Storage\Common\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getResponse
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
      */
     public function testGetResponse()
     {

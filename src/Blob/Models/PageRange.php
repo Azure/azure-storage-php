@@ -36,14 +36,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class PageRange
 {
-    /**
-     * @var integer
-     */
     private $_start;
-    
-    /**
-     * @var integer
-     */
     private $_end;
 
     /**

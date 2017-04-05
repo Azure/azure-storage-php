@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class GetBlobMetadataOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var string
-     */
     private $_snapshot;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**

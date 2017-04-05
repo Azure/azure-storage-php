@@ -40,20 +40,8 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class GetBlobMetadataResult
 {
-    
-    /**
-     * @var \DateTime
-     */
     private $_lastModified;
-    
-    /**
-     * @var string
-     */
     private $_etag;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
     
     /**

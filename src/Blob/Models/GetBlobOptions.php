@@ -38,34 +38,11 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class GetBlobOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var string
-     */
     private $_snapshot;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
-    
-    /**
-     * @var boolean
-     */
     private $_computeRangeMD5;
-    
-    /**
-     * @var integer
-     */
     private $_rangeStart;
-    
-    /**
-     * @var integer
-     */
     private $_rangeEnd;
     
     /**

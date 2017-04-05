@@ -38,24 +38,9 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class DeleteBlobOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var string
-     */
     private $_snapshot;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
-    
-    /**
-     * @var boolean
-     */
     private $_deleteSnaphotsOnly;
     
     /**

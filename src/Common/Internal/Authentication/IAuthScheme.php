@@ -29,6 +29,7 @@ use GuzzleHttp\Psr7\Request;
 /**
  * Interface for azure authentication schemes.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

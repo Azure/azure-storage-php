@@ -36,19 +36,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class CreateBlobPagesOptions extends BlobServiceOptions
 {
-    /**
-     * @var string
-     */
     private $_contentMD5;
-    
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**

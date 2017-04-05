@@ -14,6 +14,7 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -81,12 +82,12 @@ abstract class ServiceSettings
             static::init();
             static::$isInitialized = true;
         }
-        
+
         $tokenizedSettings = ConnectionStringParser::parseConnectionString(
             'connectionString',
             $connectionString
         );
-        
+ 
         // Assure that all given keys are valid.
         foreach ($tokenizedSettings as $key => $value) {
             if (!Utilities::inArrayInsensitive($key, static::$validSettingKeys)) {

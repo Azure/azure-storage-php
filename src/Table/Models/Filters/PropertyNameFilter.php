@@ -25,7 +25,7 @@
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 /**
- * Constant filter
+ * Property name filter
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Models\Filters
@@ -36,9 +36,6 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
  */
 class PropertyNameFilter extends Filter
 {
-    /**
-     * @var string
-     */
     private $_propertyName;
     
     /**

@@ -36,14 +36,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class Block
 {
-    /**
-     * @var string
-     */
     private $_blockId;
-    
-    /**
-     * @var string
-     */
     private $_type;
 
     /**

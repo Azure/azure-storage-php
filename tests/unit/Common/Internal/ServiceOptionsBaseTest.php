@@ -15,7 +15,7 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -24,13 +24,13 @@
 
 namespace MicrosoftAzure\Storage\Tests\unit\Common;
 
-use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
 
 /**
  * Unit tests for class ServiceOptionsBase
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -39,8 +39,8 @@ use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
 class ServiceOptionsBaseTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::setTimeout
-     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::getTimeout
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::setTimeout
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::getTimeout
      */
     public function testSetGetTimeout()
     {
@@ -56,8 +56,8 @@ class ServiceOptionsBaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::setRequestOptions
-     * @covers MicrosoftAzure\Storage\Common\ServiceOptionsBase::getRequestOptions
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::setRequestOptions
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::getRequestOptions
      */
     public function testSetGetRequestOptions()
     {

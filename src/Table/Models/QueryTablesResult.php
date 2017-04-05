@@ -39,14 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class QueryTablesResult
 {
-    /**
-     * @var string
-     */
     private $_nextTableName;
-    
-    /**
-     * @var array
-     */
     private $_tables;
     
     /**
@@ -54,6 +47,8 @@ class QueryTablesResult
      *
      * @param array $headers The HTTP response headers
      * @param array $entries The table entriess
+     *
+     * @internal
      *
      * @return QueryTablesResult
      */

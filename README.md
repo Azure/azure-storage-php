@@ -4,7 +4,8 @@ This project provides a set of PHP client libraries that make it easy to access 
 
 > **Note**
 > 
-> If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
+> * If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
+> * If you need big file or 64-bit integer support, please install PHP 7 64-bit version.
 
 # Features
 

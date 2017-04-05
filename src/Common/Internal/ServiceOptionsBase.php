@@ -22,12 +22,13 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Common;
+namespace MicrosoftAzure\Storage\Common\Internal;
 
 /**
  * This class provides the base structure of service options, granting user to
  * send with different options for each individual API call.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -39,17 +40,19 @@ namespace MicrosoftAzure\Storage\Common;
 class ServiceOptionsBase
 {
     /**
-     * @var array
+     * The request options
+     * @internal
      */
     protected $requestOptions;
-
+    
     /**
-     * @var string
+     * The getTimeout
+     * @internal
      */
     protected $timeout;
 
     /**
-     * Gets timeout.
+     * Gets the timeout value
      *
      * @return string
      */
@@ -87,6 +90,15 @@ class ServiceOptionsBase
      * Sets the request options
      *
      * @param array $requestOptions the request options to be set.
+     * it accepts the following
+     * options:
+     * - number_of_concurrency:  integer  the number of concurrency for upload/download APIs
+     * - handler: GuzzleHttp\HandlerStack  the guzzle handler stack. refer to
+     *   http://docs.guzzlephp.org/en/latest/handlers-and-middleware.html#handlerstack
+     *   for detailed information
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware} or a
+     *   callable that follows the Guzzle middleware implementation convention 
      *
      * @return void
      */

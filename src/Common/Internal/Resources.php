@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 /**
  * Project resources.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -80,6 +81,7 @@ class Resources
     const BATCH_ENTITY_DEL_MSG = 'The entity was deleted successfully.';
     const INVALID_PROP_VAL_MSG = "'%s' property value must satisfy %s.";
     const INVALID_PARAM_MSG = "The provided variable '%s' should be of type '%s'";
+    const INVALID_VALUE_MSG = "The provided variable '%s' has unexpected value. Reason: '%s'";
     const INVALID_STRING_LENGTH = "The provided variable '%s' should be of %s characters long";
     const INVALID_BTE_MSG = "The blob block type must exist in %s";
     const INVALID_BLOB_PAT_MSG = 'The provided access type is invalid.';
@@ -97,6 +99,7 @@ class Resources
     const INVALID_CONNECTION_STRING_SETTING_KEY = "The setting key '%s' is not found in the expected configuration setting keys:\n%s";
     const INVALID_CERTIFICATE_PATH = "The provided certificate path '%s' is invalid.";
     const INSTANCE_TYPE_VALIDATION_MSG = 'The type of %s is %s but is expected to be %s.';
+    const INVALID_MESSAGE_OBJECT_TO_SERIALIZE = 'The given object does not have required methods, so it could not be serialized.';
     const MISSING_CONNECTION_STRING_CHAR = "Missing %s character";
     const ERROR_PARSING_STRING = "'%s' at position %d.";
     const INVALID_CONNECTION_STRING = "Argument '%s' is not a valid connection string: '%s'";
@@ -122,9 +125,14 @@ class Resources
     const INVALID_NEGATIVE_PARAM = 'The provided parameter \'%s\' should be positive number.';
     const SIGNED_SERVICE_INVALID_VALIDATION_MSG = 'The signed service should only be a combination of the letters b(lob) q(ueue) t(able) or f(ile).';
     const SIGNED_RESOURCE_TYPE_INVALID_VALIDATION_MSG = 'The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject).';
-    const SIGNED_PERMISSIONS_INVALID_VALIDATION_MSG = 'The signed permissions should only be a combination of the letters r, w, d, l, a, c, u, p.';
+    const STRING_NOT_WITH_GIVEN_COMBINATION = 'The string should only be a combination of the letters %s.';
     const SIGNED_PROTOCOL_INVALID_VALIDATION_MSG = 'The signed protocol is invalid: possible values are https or https,http.';
-
+    const ERROR_RESOURCE_TYPE_NOT_SUPPORTED = 'The given resource type cannot be recognized or is not supported.';
+    const ERROR_TOO_MANY_SIGNED_IDENTIFIERS = 'There can be at most 5 signed identifiers at the same time.';
+    const INVALID_PERMISSION_PROVIDED = 'Invalid permission provided, the permission of resource type \'%s\' can only be of \'%s\'';
+    const INVALID_RESOURCE_TYPE = 'Provided resource type is invalid.';
+    const ERROR_KEY_NOT_EXIST = "The key '%s' does not exist in the given array.";
+    
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
     const X_MS_META_HEADER_PREFIX            = 'x-ms-meta-';
@@ -143,6 +151,10 @@ class Resources
     const X_MS_BLOB_CONTENT_MD5              = 'x-ms-blob-content-md5';
     const X_MS_BLOB_CACHE_CONTROL            = 'x-ms-blob-cache-control';
     const X_MS_BLOB_CONTENT_LENGTH           = 'x-ms-blob-content-length';
+    const X_MS_BLOB_CONDITION_MAXSIZE        = 'x-ms-blob-condition-maxsize';
+    const X_MS_BLOB_CONDITION_APPENDPOS      = 'x-ms-blob-condition-appendpos';
+    const X_MS_BLOB_APPEND_OFFSET            = 'x-ms-blob-append-offset';
+    const X_MS_BLOB_COMMITTED_BLOCK_COUNT    = 'x-ms-blob-committed-block-count';
     const X_MS_COPY_SOURCE                   = 'x-ms-copy-source';
     const X_MS_RANGE                         = 'x-ms-range';
     const X_MS_RANGE_GET_CONTENT_MD5         = 'x-ms-range-get-content-md5';
@@ -243,7 +255,7 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                                   = '0.13.0';
+    const SDK_VERSION                                   = '0.14.0';
     const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
     const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
     const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';
@@ -303,90 +315,106 @@ class Resources
     const MULTIPART_MIXED_TYPE     = 'multipart/mixed';
 
     // Common used XML tags
-    const XTAG_ATTRIBUTES                 = '@attributes';
-    const XTAG_NAMESPACE                  = '@namespace';
-    const XTAG_LABEL                      = 'Label';
-    const XTAG_NAME                       = 'Name';
-    const XTAG_DESCRIPTION                = 'Description';
-    const XTAG_LOCATION                   = 'Location';
-    const XTAG_AFFINITY_GROUP             = 'AffinityGroup';
-    const XTAG_HOSTED_SERVICES            = 'HostedServices';
-    const XTAG_STORAGE_SERVICES           = 'StorageServices';
-    const XTAG_STORAGE_SERVICE            = 'StorageService';
-    const XTAG_DISPLAY_NAME               = 'DisplayName';
-    const XTAG_SERVICE_NAME               = 'ServiceName';
-    const XTAG_URL                        = 'Url';
-    const XTAG_ID                         = 'ID';
-    const XTAG_STATUS                     = 'Status';
-    const XTAG_HTTP_STATUS_CODE           = 'HttpStatusCode';
-    const XTAG_CODE                       = 'Code';
-    const XTAG_MESSAGE                    = 'Message';
-    const XTAG_STORAGE_SERVICE_PROPERTIES = 'StorageServiceProperties';
-    const XTAG_SERVICE_ENDPOINT           = 'ServiceEndpoint';
-    const XTAG_ENDPOINT                   = 'Endpoint';
-    const XTAG_ENDPOINTS                  = 'Endpoints';
-    const XTAG_PRIMARY                    = 'Primary';
-    const XTAG_SECONDARY                  = 'Secondary';
-    const XTAG_KEY_TYPE                   = 'KeyType';
-    const XTAG_STORAGE_SERVICE_KEYS       = 'StorageServiceKeys';
-    const XTAG_ERROR                      = 'Error';
-    const XTAG_HOSTED_SERVICE             = 'HostedService';
-    const XTAG_HOSTED_SERVICE_PROPERTIES  = 'HostedServiceProperties';
-    const XTAG_CREATE_HOSTED_SERVICE      = 'CreateHostedService';
+    const XTAG_ATTRIBUTES                   = '@attributes';
+    const XTAG_NAMESPACE                    = '@namespace';
+    const XTAG_LABEL                        = 'Label';
+    const XTAG_NAME                         = 'Name';
+    const XTAG_DESCRIPTION                  = 'Description';
+    const XTAG_LOCATION                     = 'Location';
+    const XTAG_AFFINITY_GROUP               = 'AffinityGroup';
+    const XTAG_HOSTED_SERVICES              = 'HostedServices';
+    const XTAG_STORAGE_SERVICES             = 'StorageServices';
+    const XTAG_STORAGE_SERVICE              = 'StorageService';
+    const XTAG_DISPLAY_NAME                 = 'DisplayName';
+    const XTAG_SERVICE_NAME                 = 'ServiceName';
+    const XTAG_URL                          = 'Url';
+    const XTAG_ID                           = 'ID';
+    const XTAG_STATUS                       = 'Status';
+    const XTAG_HTTP_STATUS_CODE             = 'HttpStatusCode';
+    const XTAG_CODE                         = 'Code';
+    const XTAG_MESSAGE                      = 'Message';
+    const XTAG_STORAGE_SERVICE_PROPERTIES   = 'StorageServiceProperties';
+    const XTAG_SERVICE_ENDPOINT             = 'ServiceEndpoint';
+    const XTAG_ENDPOINT                     = 'Endpoint';
+    const XTAG_ENDPOINTS                    = 'Endpoints';
+    const XTAG_PRIMARY                      = 'Primary';
+    const XTAG_SECONDARY                    = 'Secondary';
+    const XTAG_KEY_TYPE                     = 'KeyType';
+    const XTAG_STORAGE_SERVICE_KEYS         = 'StorageServiceKeys';
+    const XTAG_ERROR                        = 'Error';
+    const XTAG_HOSTED_SERVICE               = 'HostedService';
+    const XTAG_HOSTED_SERVICE_PROPERTIES    = 'HostedServiceProperties';
+    const XTAG_CREATE_HOSTED_SERVICE        = 'CreateHostedService';
     const XTAG_CREATE_STORAGE_SERVICE_INPUT = 'CreateStorageServiceInput';
     const XTAG_UPDATE_STORAGE_SERVICE_INPUT = 'UpdateStorageServiceInput';
-    const XTAG_CREATE_AFFINITY_GROUP = 'CreateAffinityGroup';
-    const XTAG_UPDATE_AFFINITY_GROUP = 'UpdateAffinityGroup';
-    const XTAG_UPDATE_HOSTED_SERVICE = 'UpdateHostedService';
-    const XTAG_PACKAGE_URL = 'PackageUrl';
-    const XTAG_CONFIGURATION = 'Configuration';
-    const XTAG_START_DEPLOYMENT = 'StartDeployment';
-    const XTAG_TREAT_WARNINGS_AS_ERROR = 'TreatWarningsAsError';
-    const XTAG_CREATE_DEPLOYMENT = 'CreateDeployment';
-    const XTAG_DEPLOYMENT_SLOT = 'DeploymentSlot';
-    const XTAG_PRIVATE_ID = 'PrivateID';
-    const XTAG_ROLE_INSTANCE_LIST = 'RoleInstanceList';
-    const XTAG_UPGRADE_DOMAIN_COUNT = 'UpgradeDomainCount';
-    const XTAG_ROLE_LIST = 'RoleList';
-    const XTAG_SDK_VERSION = 'SdkVersion';
-    const XTAG_INPUT_ENDPOINT_LIST = 'InputEndpointList';
-    const XTAG_LOCKED = 'Locked';
-    const XTAG_ROLLBACK_ALLOWED = 'RollbackAllowed';
-    const XTAG_UPGRADE_STATUS = 'UpgradeStatus';
-    const XTAG_UPGRADE_TYPE = 'UpgradeType';
+    const XTAG_CREATE_AFFINITY_GROUP        = 'CreateAffinityGroup';
+    const XTAG_UPDATE_AFFINITY_GROUP        = 'UpdateAffinityGroup';
+    const XTAG_UPDATE_HOSTED_SERVICE        = 'UpdateHostedService';
+    const XTAG_PACKAGE_URL                  = 'PackageUrl';
+    const XTAG_CONFIGURATION                = 'Configuration';
+    const XTAG_START_DEPLOYMENT             = 'StartDeployment';
+    const XTAG_TREAT_WARNINGS_AS_ERROR      = 'TreatWarningsAsError';
+    const XTAG_CREATE_DEPLOYMENT            = 'CreateDeployment';
+    const XTAG_DEPLOYMENT_SLOT              = 'DeploymentSlot';
+    const XTAG_PRIVATE_ID                   = 'PrivateID';
+    const XTAG_ROLE_INSTANCE_LIST           = 'RoleInstanceList';
+    const XTAG_UPGRADE_DOMAIN_COUNT         = 'UpgradeDomainCount';
+    const XTAG_ROLE_LIST                    = 'RoleList';
+    const XTAG_SDK_VERSION                  = 'SdkVersion';
+    const XTAG_INPUT_ENDPOINT_LIST          = 'InputEndpointList';
+    const XTAG_LOCKED                       = 'Locked';
+    const XTAG_ROLLBACK_ALLOWED             = 'RollbackAllowed';
+    const XTAG_UPGRADE_STATUS               = 'UpgradeStatus';
+    const XTAG_UPGRADE_TYPE                 = 'UpgradeType';
     const XTAG_CURRENT_UPGRADE_DOMAIN_STATE = 'CurrentUpgradeDomainState';
-    const XTAG_CURRENT_UPGRADE_DOMAIN = 'CurrentUpgradeDomain';
-    const XTAG_ROLE_NAME = 'RoleName';
-    const XTAG_INSTANCE_NAME = 'InstanceName';
-    const XTAG_INSTANCE_STATUS = 'InstanceStatus';
-    const XTAG_INSTANCE_UPGRADE_DOMAIN = 'InstanceUpgradeDomain';
-    const XTAG_INSTANCE_FAULT_DOMAIN = 'InstanceFaultDomain';
-    const XTAG_INSTANCE_SIZE = 'InstanceSize';
-    const XTAG_INSTANCE_STATE_DETAILS = 'InstanceStateDetails';
-    const XTAG_INSTANCE_ERROR_CODE = 'InstanceErrorCode';
-    const XTAG_OS_VERSION = 'OsVersion';
-    const XTAG_ROLE_INSTANCE = 'RoleInstance';
-    const XTAG_ROLE = 'Role';
-    const XTAG_INPUT_ENDPOINT = 'InputEndpoint';
-    const XTAG_VIP = 'Vip';
-    const XTAG_PORT = 'Port';
-    const XTAG_DEPLOYMENT = 'Deployment';
-    const XTAG_DEPLOYMENTS = 'Deployments';
-    const XTAG_REGENERATE_KEYS = 'RegenerateKeys';
-    const XTAG_SWAP = 'Swap';
-    const XTAG_PRODUCTION = 'Production';
-    const XTAG_SOURCE_DEPLOYMENT = 'SourceDeployment';
-    const XTAG_CHANGE_CONFIGURATION = 'ChangeConfiguration';
-    const XTAG_MODE = 'Mode';
-    const XTAG_UPDATE_DEPLOYMENT_STATUS = 'UpdateDeploymentStatus';
-    const XTAG_ROLE_TO_UPGRADE = 'RoleToUpgrade';
-    const XTAG_FORCE = 'Force';
-    const XTAG_UPGRADE_DEPLOYMENT = 'UpgradeDeployment';
-    const XTAG_UPGRADE_DOMAIN = 'UpgradeDomain';
-    const XTAG_WALK_UPGRADE_DOMAIN = 'WalkUpgradeDomain';
-    const XTAG_ROLLBACK_UPDATE_OR_UPGRADE = 'RollbackUpdateOrUpgrade';
-    const XTAG_CONTAINER_NAME = 'ContainerName';
-    const XTAG_ACCOUNT_NAME = 'AccountName';
+    const XTAG_CURRENT_UPGRADE_DOMAIN       = 'CurrentUpgradeDomain';
+    const XTAG_ROLE_NAME                    = 'RoleName';
+    const XTAG_INSTANCE_NAME                = 'InstanceName';
+    const XTAG_INSTANCE_STATUS              = 'InstanceStatus';
+    const XTAG_INSTANCE_UPGRADE_DOMAIN      = 'InstanceUpgradeDomain';
+    const XTAG_INSTANCE_FAULT_DOMAIN        = 'InstanceFaultDomain';
+    const XTAG_INSTANCE_SIZE                = 'InstanceSize';
+    const XTAG_INSTANCE_STATE_DETAILS       = 'InstanceStateDetails';
+    const XTAG_INSTANCE_ERROR_CODE          = 'InstanceErrorCode';
+    const XTAG_OS_VERSION                   = 'OsVersion';
+    const XTAG_ROLE_INSTANCE                = 'RoleInstance';
+    const XTAG_ROLE                         = 'Role';
+    const XTAG_INPUT_ENDPOINT               = 'InputEndpoint';
+    const XTAG_VIP                          = 'Vip';
+    const XTAG_PORT                         = 'Port';
+    const XTAG_DEPLOYMENT                   = 'Deployment';
+    const XTAG_DEPLOYMENTS                  = 'Deployments';
+    const XTAG_REGENERATE_KEYS              = 'RegenerateKeys';
+    const XTAG_SWAP                         = 'Swap';
+    const XTAG_PRODUCTION                   = 'Production';
+    const XTAG_SOURCE_DEPLOYMENT            = 'SourceDeployment';
+    const XTAG_CHANGE_CONFIGURATION         = 'ChangeConfiguration';
+    const XTAG_MODE                         = 'Mode';
+    const XTAG_UPDATE_DEPLOYMENT_STATUS     = 'UpdateDeploymentStatus';
+    const XTAG_ROLE_TO_UPGRADE              = 'RoleToUpgrade';
+    const XTAG_FORCE                        = 'Force';
+    const XTAG_UPGRADE_DEPLOYMENT           = 'UpgradeDeployment';
+    const XTAG_UPGRADE_DOMAIN               = 'UpgradeDomain';
+    const XTAG_WALK_UPGRADE_DOMAIN          = 'WalkUpgradeDomain';
+    const XTAG_ROLLBACK_UPDATE_OR_UPGRADE   = 'RollbackUpdateOrUpgrade';
+    const XTAG_CONTAINER_NAME               = 'ContainerName';
+    const XTAG_ACCOUNT_NAME                 = 'AccountName';
+    const XTAG_LOGGING                      = 'Logging';
+    const XTAG_HOUR_METRICS                 = 'HourMetrics';
+    const XTAG_CORS                         = 'Cors';
+    const XTAG_CORS_RULE                    = 'CorsRule';
+    const XTAG_ALLOWED_ORIGINS              = 'AllowedOrigins';
+    const XTAG_ALLOWED_METHODS              = 'AllowedMethods';
+    const XTAG_ALLOWED_HEADERS              = 'AllowedHeaders';
+    const XTAG_EXPOSED_HEADERS              = 'ExposedHeaders';
+    const XTAG_MAX_AGE_IN_SECONDS           = 'MaxAgeInSeconds';
+    const XTAG_SIGNED_IDENTIFIERS           = 'SignedIdentifiers';
+    const XTAG_SIGNED_IDENTIFIER            = 'SignedIdentifier';
+    const XTAG_ACCESS_POLICY                = 'AccessPolicy';
+    const XTAG_SIGNED_START                 = 'Start';
+    const XTAG_SIGNED_EXPIRY                = 'Expiry';
+    const XTAG_SIGNED_PERMISSION            = 'Permission';
+    const XTAG_SIGNED_ID                    = 'Id';
 
     // PHP URL Keys
     const PHP_URL_SCHEME   = 'scheme';
@@ -405,6 +433,12 @@ class Resources
     const STATUS_NO_CONTENT        = 204;
     const STATUS_PARTIAL_CONTENT   = 206;
     const STATUS_MOVED_PERMANENTLY = 301;
+
+    // Resource Types
+    const RESOURCE_TYPE_BLOB      = 'Blob';
+    const RESOURCE_TYPE_CONTAINER = 'Container';
+    const RESOURCE_TYPE_QUEUE     = 'Queue';
+    const RESOURCE_TYPE_TABLE     = 'Table';
 
     // @codingStandardsIgnoreEnd
 }

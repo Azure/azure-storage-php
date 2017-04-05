@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 /**
  * This interface has all REST APIs provided by Windows Azure for queue service
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Queue\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
@@ -443,6 +444,70 @@ interface IQueue
      */
     public function clearMessagesAsync(
         $queueName,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Gets the access control list (ACL)
+     *
+     * @param string                          $queue   The queue name.
+     * @param QueueModels\QueueServiceOptions $options The optional parameters.
+     *
+     * @return QueueModels\QueueACL
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-queue-acl
+     */
+    public function getQueueAcl(
+        $queue,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates the promise to gets the access control list (ACL)
+     *
+     * @param string                          $queue   The queue name.
+     * @param QueueModels\QueueServiceOptions $options The optional parameters.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/get-queue-acl
+     */
+    public function getQueueAclAsync(
+        $queue,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Sets the ACL.
+     *
+     * @param string                          $queue   name
+     * @param QueueModels\QueueACL            $acl     access control list
+     * @param QueueModels\QueueServiceOptions $options optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-queue-acl
+     */
+    public function setQueueAcl(
+        $queue,
+        QueueModels\QueueACL $acl,
+        QueueModels\QueueServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to set the ACL
+     *
+     * @param string                     $queue   name
+     * @param QueueModels\QueueACL            $acl     access control list
+     * @param QueueModels\QueueServiceOptions $options optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/set-queue-acl
+     */
+    public function setQueueAclAsync(
+        $queue,
+        QueueModels\QueueACL $acl,
         QueueModels\QueueServiceOptions $options = null
     );
 }

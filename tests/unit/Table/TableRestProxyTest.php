@@ -15,20 +15,20 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Table\internal
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Table
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\Unit\Table\internal;
+namespace MicrosoftAzure\Storage\Tests\Unit\Table;
 
 use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
 use MicrosoftAzure\Storage\Tests\Framework\TableServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Table\TableRestProxy;
@@ -37,6 +37,7 @@ use MicrosoftAzure\Storage\Table\Models\QueryTablesOptions;
 use MicrosoftAzure\Storage\Table\Models\Query;
 use MicrosoftAzure\Storage\Table\Models\Filters\Filter;
 use MicrosoftAzure\Storage\Table\Models\Entity;
+use MicrosoftAzure\Storage\Table\Models\TableACL;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions;
 use MicrosoftAzure\Storage\Table\Models\BatchOperations;
@@ -46,7 +47,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * Unit tests for class TableRestProxy
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Table\internal
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Table
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -54,23 +55,8 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class TableRestProxyTest extends TableServiceRestProxyTestBase
 {
-    
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendContext
-     */
-    public function testGetServiceProperties()
-    {
-        $this->skipIfEmulated();
-        
-        // Test
-        $result = $this->restProxy->getServiceProperties();
-        
-        // Assert
-        $this->assertEquals($this->defaultProperties->toArray(), $result->getValue()->toArray());
-    }
-    
-    /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendContext
      */
@@ -1193,5 +1179,42 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         
         // Assert
         $this->assertTrue(true);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAcl
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAclAsync
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setTableAcl
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setTableAclAsync
+     */
+    public function testGetSetTableAcl()
+    {
+        // Setup
+        $name = self::getTableNameWithPrefix('testGetSetTableAcl');
+        $this->createTable($name);
+        $sample = TestResources::getTableACLMultipleEntriesSample();
+        $acl = TableACL::create($sample['SignedIdentifiers']);
+        //because the time is randomized, this should create a different instance
+        $negativeSample = TestResources::getTableACLMultipleEntriesSample();
+        $negative = TableACL::create($negativeSample['SignedIdentifiers']);
+
+        // Test
+        $this->restProxy->setTableAcl($name, $acl);
+        $resultAcl = $this->restProxy->getTableAcl($name);
+
+        $this->assertEquals(
+            $acl->getSignedIdentifiers(),
+            $resultAcl->getSignedIdentifiers()
+        );
+
+        $this->assertFalse(
+            $resultAcl->getSignedIdentifiers() == $negative->getSignedIdentifiers(),
+            'Should not equal to the negative test case'
+        );
+    }
+
+    private static function getTableNameWithPrefix($prefix)
+    {
+        return $prefix . sprintf('%04x', mt_rand(0, 65535));
     }
 }

@@ -38,35 +38,11 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CopyBlobOptions extends BlobServiceOptions
 {
-
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_sourceAccessCondition;
-    
-    /**
-     * @var array
-     */
     private $_metadata;
-    
-    /**
-     * @var string
-     */
     private $_sourceSnapshot;
-    
-    /**
-     * @var string
-     */
-    private $_leaseId;
-    
-    /**
-     * @var string
-     */
+    private $_leaseId;    
     private $_sourceLeaseId;
   
     /**

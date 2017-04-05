@@ -51,7 +51,7 @@ class TestResources
     const KEY1          = 'key1';
     const KEY2          = 'key2';
     const KEY3          = 'key3';
-    const KEY4          = 'AhlzsbLRkjfwObuqff3xrhB2yWJNh1EMptmcmxFJ6fvPTVX3PZXwrG2YtYWf5DPMVgNsteKStM5iBLlknYFVoA==';
+    const KEY4          = 'AhlzsbLRkjfwObuqff3xrhB2yWJNh1EMptmcmxFJ6fvPTVX3PZXwrG2YtYWf5DPMVgNsteKStM5iBLlknYFVoA=='; //Faked although looks real.
     const VALUE1        = 'value1';
     const VALUE2        = 'value2';
     const VALUE3        = 'value3';
@@ -108,6 +108,98 @@ class TestResources
     const STATUS_CONFLICT              = 409;
     const STATUS_PRECONDITION_FAILED   = 412;
     const STATUS_INTERNAL_SERVER_ERROR = 500;
+
+    public static function getInterestingName($prefix)
+    {
+        $rint = mt_rand(0, 1000000);
+        return $prefix . $rint . 'ft';
+    }
+
+    public static function getSASInterestingUTCases()
+    {
+        $testCases = array();
+
+        // The SAS token is all generated with fake key.
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "rwdlacup", // signedPermission
+            "bfqt", // signedService
+            "sco", // signedResourceType
+            "2017-03-24T21:14:01Z", // signedExpiracy
+            "2017-03-17T13:14:01Z", // signedStart
+            "", // signedIP
+            "https", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dbqtf%26srt%3Dsco%26sp%3Drwdlacup%26se%3D2017-03-24T21%3A14%3A01Z%26st%3D2017-03-17T13%3A14%3A01Z%26spr%3Dhttps%26sig%3DiApmwEEGPc6EqjvBCekfEons2NRs7aGC1frKyWEO8g8%253D" // expectedSignature
+        ];
+
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "rwdlacup", // signedPermission
+            "bfqt", // signedService
+            "sco", // signedResourceType
+            "2017-03-24T21:14:01Z", // signedExpiracy
+            "2017-03-17T13:14:01Z", // signedStart
+            "168.1.5.65", // signedIP
+            "https,http", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dbqtf%26srt%3Dsco%26sp%3Drwdlacup%26se%3D2017-03-24T21%3A14%3A01Z%26st%3D2017-03-17T13%3A14%3A01Z%26sip%3D168.1.5.65%26spr%3Dhttps%2Chttp%26sig%3D2FT%252FEl0rqE1uwVODaKzBNQKHJeJM3vUsGbr%252FQtwLVcs%253D" // expectedSignature
+        ];
+
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "rw", // signedPermission
+            "bf", // signedService
+            "s", // signedResourceType
+            "2017-03-24T00:00:00Z", // signedExpiracy
+            "2017-03-17T00:00:00Z", // signedStart
+            "", // signedIP
+            "https", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dbf%26srt%3Ds%26sp%3Drw%26se%3D2017-03-24T00%3A00%3A00Z%26st%3D2017-03-17T00%3A00%3A00Z%26spr%3Dhttps%26sig%3DoSxrFQuddGNRUJYab3jU7nhcoSgJaceA%252FFH9EY5istY%253D" // expectedSignature
+        ];
+
+        $testCases[] = [
+            "2016-05-31", // signedVersion
+            "up", // signedPermission
+            "q", // signedService
+            "o", // signedResourceType
+            "2017-03-24T00:00:00Z", // signedExpiracy
+            "2017-03-17T00:00:00Z", // signedStart
+            "", // signedIP
+            "https", // signedProtocol
+            "sv%3D2016-05-31%26ss%3Dq%26srt%3Do%26sp%3Dup%26se%3D2017-03-24T00%3A00%3A00Z%26st%3D2017-03-17T00%3A00%3A00Z%26spr%3Dhttps%26sig%3D4fMFk%252BFE%252BE90wTPMCGY%252FF%252FplPrDM%252BO8veJi1GmY5wWA%253D" // expectedSignature
+        ];
+
+        return $testCases;
+    }
+
+    public static function getValidAccessPermission()
+    {
+        $result = array();
+        $result['Blob'][]      = ['dwcar', 'racwd'];
+        $result['Blob'][]      = ['waradadawadaca', 'racwd'];
+        $result['Container'][] = ['ldwcar', 'racwdl'];
+        $result['Container'][] = ['rcal', 'racl'];
+        $result['Table'][]     = ['dar', 'rad'];
+        $result['Table'][]     = ['duardduar', 'raud'];
+        $result['Queue'][]     = ['puar', 'raup'];
+        $result['Queue'][]     = ['ppap', 'ap'];
+
+        return $result;
+    }
+
+    public static function getInvalidAccessPermission()
+    {
+        $result = array();
+        $result['Blob'][]      = 'dwcarl';
+        $result['Blob'][]      = 'waradadawadacap';
+        $result['Container'][] = 'ldwcarsdf';
+        $result['Container'][] = 'rcalfds';
+        $result['Table'][]     = 'darwer';
+        $result['Table'][]     = 'duardduaras';
+        $result['Queue'][]     = 'puarzxcv';
+        $result['Queue'][]     = '!ppap!';
+
+        return $result;
+    }
 
     public static function getWindowsAzureStorageServicesConnectionString()
     {
@@ -228,6 +320,21 @@ class TestResources
         return $value;
     }
 
+    public static function getCORSSingle()
+    {
+        $sample = array();
+        $sample['AllowedOrigins'] =
+            'http://www.microsoft.com,http://www.bing.com';
+        $sample['AllowedMethods'] = 'GET,PUT';
+        $sample['MaxAgeInSeconds'] = '500';
+        $sample['ExposedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-data0*';
+        $sample['AllowedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-target0*';
+        
+        return $sample;
+    }
+
     public static function getServicePropertiesSample()
     {
         $sample = array();
@@ -242,6 +349,24 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '20';
+        //1st cors
+        $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
+            'http://www.microsoft.com,http://www.bing.com';
+        $sample['Cors']['CorsRule'][0]['AllowedMethods'] = 'GET,PUT';
+        $sample['Cors']['CorsRule'][0]['MaxAgeInSeconds'] = '500';
+        $sample['Cors']['CorsRule'][0]['ExposedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-data0*';
+        $sample['Cors']['CorsRule'][0]['AllowedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-target0*';
+        //2nd cors
+        $sample['Cors']['CorsRule'][1]['AllowedOrigins'] =
+            'http://www.azure.com,http://www.office.com';
+        $sample['Cors']['CorsRule'][1]['AllowedMethods'] = 'POST,HEAD';
+        $sample['Cors']['CorsRule'][1]['MaxAgeInSeconds'] = '350';
+        $sample['Cors']['CorsRule'][1]['ExposedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-data1*';
+        $sample['Cors']['CorsRule'][1]['AllowedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-target1*';
 
         return $sample;
     }
@@ -260,6 +385,24 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        //1st cors
+        $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
+            'http://www.microsoft.com,http://www.bing.com';
+        $sample['Cors']['CorsRule'][0]['AllowedMethods'] = 'GET,PUT';
+        $sample['Cors']['CorsRule'][0]['MaxAgeInSeconds'] = '500';
+        $sample['Cors']['CorsRule'][0]['ExposedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-data0*';
+        $sample['Cors']['CorsRule'][0]['AllowedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-target0*';
+        //2nd cors
+        $sample['Cors']['CorsRule'][1]['AllowedOrigins'] =
+            'http://www.azure.com,http://www.office.com';
+        $sample['Cors']['CorsRule'][1]['AllowedMethods'] = 'POST,HEAD';
+        $sample['Cors']['CorsRule'][1]['MaxAgeInSeconds'] = '350';
+        $sample['Cors']['CorsRule'][1]['ExposedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-data1*';
+        $sample['Cors']['CorsRule'][1]['AllowedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-target1*';
 
         return $sample;
     }
@@ -398,8 +541,8 @@ class TestResources
         $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
             'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
-                'Start' => '2009-09-28T08%3A49%3A37.0000000Z',
-                'Expiry' => '2009-09-29T08%3A49%3A37.0000000Z',
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'rwd')
             ));
 
@@ -412,17 +555,165 @@ class TestResources
         $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
             0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
-                'Start' => '2010-09-28T08%3A49%3A37.0000000Z',
-                'Expiry' => '2010-09-29T08%3A49%3A37.0000000Z',
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'wd')),
             1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
-                'Start' => '2009-09-28T08%3A49%3A37.0000000Z',
-                'Expiry' => '2009-09-29T08%3A49%3A37.0000000Z',
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'rwd'))
             ));
 
         return $sample;
+    }
+
+    public static function getQueueACLOneEntrySample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
+            'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ap')
+            ));
+
+        return $sample;
+    }
+
+    public static function getQueueACLMultipleEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'raup')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ru'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getQueueACLMultipleUnencodedEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'raup')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ru'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getQueueACLMultipleArraySample()
+    {
+        $sample = array();
+        $sample[] = [
+            'Id' => 'a',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'b',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'c',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'd',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'e',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+        $sample[] = [
+            'Id' => 'f',
+            'AccessPolicy' => array(
+                'Start' => self::getRandomEarlierTime(),
+                'Expiry' => self::getRandomLaterTime(),
+                'Permission' => 'raup')
+        ];
+
+        return $sample;
+    }
+
+    public static function getTableACLOneEntrySample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array('SignedIdentifier' => array(
+            'Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ad')
+            ));
+
+        return $sample;
+    }
+
+    public static function getTableACLMultipleEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'raud')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'ru'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getRandomLaterTime()
+    {
+        $interval = mt_rand(10000, 65535);
+        $now = new \DateTime();
+        return $now->add(\DateInterval::createFromDateString($interval . ' seconds'));
+    }
+
+    public static function getRandomEarlierTime()
+    {
+        $interval = mt_rand(10000, 65535);
+        $now = new \DateTime();
+        return $now->sub(\DateInterval::createFromDateString($interval . ' seconds'));
     }
 
     public static function listBlobsEmpty()
@@ -599,7 +890,7 @@ class TestResources
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
         $entity->addProperty('CustomerName', null, 'John');
         $entity->addProperty('IsNew', EdmType::BOOLEAN, true);
-        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000473Z'));
+        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
 
         return $entity;
     }
@@ -613,7 +904,7 @@ class TestResources
         $entity->addProperty('CustomerId', EdmType::INT32, 890);
         $entity->addProperty('CustomerName', EdmType::STRING, 'John');
         $entity->addProperty('IsNew', EdmType::BOOLEAN, true);
-        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000473Z'));
+        $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
     
         return $entity;
     }
@@ -677,6 +968,39 @@ class TestResources
         $operations[] = $operation6;
 
         return $operations;
+    }
+
+    public static function getInterestingAccountSASTestCase(
+        $signedPermissions,
+        $signedService,
+        $signedResourceType,
+        $signedExpiracy = "",
+        $signedStart = "",
+        $signedIP = ""
+    ) {
+        if ($signedExpiracy == "") {
+            $signedExpiracy = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedStart == "") {
+            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedIP == "") {
+            $signedIP = "0.0.0.0-255.255.255.255";
+        }
+
+        $result = array();
+        $result['signedVersion']      = Resources::STORAGE_API_LATEST_VERSION;
+        $result['signedPermissions']  = $signedPermissions;
+        $result['signedService']      = $signedService;
+        $result['signedResourceType'] = $signedResourceType;
+        $result['signedExpiracy']     = $signedExpiracy;
+        $result['signedStart']        = $signedStart;
+        $result['signedIP']           = $signedIP;
+        $result['signedProtocol']     = 'https,http';
+
+        return $result;
     }
 
     public static function getExpectedBatchResultEntries()

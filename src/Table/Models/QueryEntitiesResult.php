@@ -39,19 +39,8 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class QueryEntitiesResult
 {
-    /**
-     * @var Query
-     */
     private $_nextRowKey;
-    
-    /**
-     * @var string
-     */
     private $_nextPartitionKey;
-    
-    /**
-     * @var array
-     */
     private $_entities;
     
     /**
@@ -59,6 +48,8 @@ class QueryEntitiesResult
      *
      * @param array $headers  The HTTP response headers.
      * @param array $entities The entities.
+     *
+     * @internal
      *
      * @return QueryEntitiesResult
      */

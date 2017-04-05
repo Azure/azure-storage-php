@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
 use MicrosoftAzure\Storage\Common\ServiceException;
 use MicrosoftAzure\Storage\Tests\framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
-use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper;
+use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 
 /**
 * Unit tests for class SharedAccessSignatureHelper
@@ -42,7 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureH
 class SharedAccessSignatureHelperTest extends ReflectionTestBase
 {
     /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::__construct
+    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
     */
     public function testConstruct()
     {
@@ -60,7 +60,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::validateAndSanitizeSignedService
+     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedService
      */
     public function testValidateAndSanitizeSignedService()
     {
@@ -78,8 +78,8 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $expected = array();
         $expected[] = "bqtf";
         $expected[] = "bqtf";
-        $expected[] = "fqtb";
-        $expected[] = "fq";
+        $expected[] = "bqtf";
+        $expected[] = "qf";
         $expected[] = "b";
         
         for ($i = 0; $i < count($authorizedSignedService); $i++) {
@@ -92,9 +92,9 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::validateAndSanitizeSignedService
+     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedService
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage The signed service should only be a combination of the letters b(lob) q(ueue) t(able) or f(ile).
+     * @expectedExceptionMessage The string should only be a combination of
      */
     public function testValidateAndSanitizeSignedServiceThrowsException()
     {
@@ -108,7 +108,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::validateAndSanitizeSignedResourceType
+     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedResourceType
      */
     public function testValidateAndSanitizeSignedResourceType()
     {
@@ -124,13 +124,16 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         
         $expected = array();
         $expected[] = "sco";
-        $expected[] = "ocs";
-        $expected[] = "osc";
+        $expected[] = "sco";
+        $expected[] = "sco";
         $expected[] = "o";
         
         for ($i = 0; $i < count($authorizedSignedResourceType); $i++) {
             // Test
-            $actual = $validateAndSanitizeSignedResourceType->invokeArgs($sasHelper, array($authorizedSignedResourceType[$i]));
+            $actual = $validateAndSanitizeSignedResourceType->invokeArgs(
+                $sasHelper,
+                array($authorizedSignedResourceType[$i])
+            );
 
             // Assert
             $this->assertEquals($expected[$i], $actual);
@@ -138,9 +141,9 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::validateAndSanitizeSignedResourceType
+     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedResourceType
      * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject).
+     * @expectedExceptionMessage The string should only be a combination of
      */
     public function testValidateAndSanitizeSignedResourceTypeThrowsException()
     {
@@ -155,7 +158,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::validateAndSanitizeSignedProtocol
+     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedProtocol
      */
     public function testValidateAndSanitizeSignedProtocol()
     {
@@ -181,7 +184,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureHelper::validateAndSanitizeSignedProtocol
+     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedProtocol
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -197,163 +200,37 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $validateAndSanitizeSignedProtocol->invokeArgs($sasHelper, array($unauthorizedSignedProtocol));
     }
 
+    /**
+    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
+    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
+    */
     public function testGenerateAccountSharedAccessSignatureToken()
     {
         // Setup
-        $accountName = "phptests";
-        $accountKey = "WaZvixrkMok53QDmj8Tc99+BV6vO9cCOJNsdm+wD9QVEScwl8c1eYPcQ182ndNFqxX1+SEKs18SmOxh8OpzIUg==";
+        $accountName = TestResources::ACCOUNT_NAME;
+        $accountKey = TestResources::KEY4;
 
         // Test
         $sasHelper = new SharedAccessSignatureHelper($accountName, $accountKey);
 
         // create the test cases
-        $testCases = GenerateAccountSASTestCase::BuildTestCases();
+        $testCases = TestResources::getSASInterestingUTCases();
         
-        foreach($testCases as $testCase) {
-
+        foreach ($testCases as $testCase) {
             // test
             $actualSignature = $sasHelper->generateAccountSharedAccessSignatureToken(
-                $testCase->getSignedVersion(),
-                $testCase->getSignedPermission(),
-                $testCase->getSignedService(),
-                $testCase->getSignedResourceType(),
-                $testCase->getSignedExpiracy(),
-                $testCase->getSignedStart(),
-                $testCase->getSignedIP(),
-                $testCase->getSignedProtocol()
+                $testCase[0],
+                $testCase[1],
+                $testCase[2],
+                $testCase[3],
+                $testCase[4],
+                $testCase[5],
+                $testCase[6],
+                $testCase[7]
             );
 
             // assert
-            $this->assertEquals($testCase->getExpectedSignature(), urlencode($actualSignature));
+            $this->assertEquals($testCase[8], urlencode($actualSignature));
         }
-    }
-}
-
-class GenerateAccountSASTestCase {
-
-    protected $signedVersion;
-    protected $signedService;
-    protected $signedResourceType;
-    protected $signedPermission;
-    protected $signedExpiracy;
-    protected $signedStart;
-    protected $signedProtocol;
-    protected $signedIP;
-    protected $expectedSignature;
-
-    public function __construct(
-        $signedVersion,
-        $signedService,
-        $signedResourceType,
-        $signedPermission,
-        $signedExpiracy,
-        $signedStart,
-        $signedProtocol,
-        $signedIP,
-        $expectedSignature
-    ) {
-        $this->signedVersion = $signedVersion;
-        $this->signedService = $signedService;
-        $this->signedResourceType = $signedResourceType;
-        $this->signedPermission = $signedPermission;
-        $this->signedExpiracy = $signedExpiracy;
-        $this->signedStart = $signedStart;
-        $this->signedProtocol = $signedProtocol;
-        $this->signedIP = $signedIP;
-        $this->expectedSignature = $expectedSignature;
-    }
-
-    public function getSignedVersion() {
-        return $this->signedVersion;
-    }
-
-    public function getSignedService() {
-        return $this->signedService;
-    }
-    
-    public function getSignedResourceType() {
-        return $this->signedResourceType;
-    }
-    
-    public function getSignedPermission() {
-        return $this->signedPermission;
-    }
-    
-    public function getSignedExpiracy() {
-        return $this->signedExpiracy;
-    }
-    
-    public function getSignedStart() {
-        return $this->signedStart;
-    }
-    
-    public function getSignedProtocol() {
-        return $this->signedProtocol;
-    }
-    
-    public function getSignedIP() {
-        return $this->signedIP;
-    }
-    
-    public function getExpectedSignature() {
-        return $this->expectedSignature;
-    }
-
-    public static function BuildTestCases() {
-        $testCases = array();
-
-        // ?sv=2016-05-31&ss=bfqt&srt=sco&sp=rwdlacup&se=2017-03-24T21:14:01Z&st=2017-03-17T13:14:01Z&spr=https&sig=ZpEYbkT%2B9NJTYyMIuFnXQ9RzOehYF1mjnsk00B%2FX1nw%3D
-        $testCases[] = new GenerateAccountSASTestCase(
-            "2016-05-31", // signedVersion
-            "bfqt", // signedService
-            "sco", // signedResourceType
-            "rwdlacup", // signedPermission
-            "2017-03-24T21:14:01Z", // signedExpiracy
-            "2017-03-17T13:14:01Z", // signedStart
-            "https", // signedProtocol
-            "", // signedIP
-            "ZpEYbkT%2B9NJTYyMIuFnXQ9RzOehYF1mjnsk00B%2FX1nw%3D" // expectedSignature
-        );
-
-        // ?sv=2016-05-31&ss=bfqt&srt=sco&sp=rwdlacup&se=2017-03-24T21:14:01Z&st=2017-03-17T13:14:01Z&sip=168.1.5.65&spr=https,http&sig=GZcWRjLJk%2FJSbM9zKb1XufTt2OueTSSgwsa03nYn5yM%3D
-        $testCases[] = new GenerateAccountSASTestCase(
-            "2016-05-31", // signedVersion
-            "bfqt", // signedService
-            "sco", // signedResourceType
-            "rwdlacup", // signedPermission
-            "2017-03-24T21:14:01Z", // signedExpiracy
-            "2017-03-17T13:14:01Z", // signedStart
-            "https,http", // signedProtocol
-            "168.1.5.65", // signedIP
-            "GZcWRjLJk%2FJSbM9zKb1XufTt2OueTSSgwsa03nYn5yM%3D" // expectedSignature
-        );
-
-        // ?sv=2016-05-31&ss=bf&srt=s&sp=rw&se=2017-03-24T00:00:00Z&st=2017-03-17T00:00:00Z&spr=https&sig=1%2BAozefG5VZDx9XorEGrAjOiTS8dX%2BJelK5SW91Zvq0%3D
-        $testCases[] = new GenerateAccountSASTestCase(
-            "2016-05-31", // signedVersion
-            "bf", // signedService
-            "s", // signedResourceType
-            "rw", // signedPermission
-            "2017-03-24T00:00:00Z", // signedExpiracy
-            "2017-03-17T00:00:00Z", // signedStart
-            "https", // signedProtocol
-            "", // signedIP
-            "1%2BAozefG5VZDx9XorEGrAjOiTS8dX%2BJelK5SW91Zvq0%3D" // expectedSignature
-        );
-
-        // ?sv=2016-05-31&ss=q&srt=o&sp=up&se=2017-03-24T00:00:00Z&st=2017-03-17T00:00:00Z&spr=https&sig=k1BKI65TdXs7rdAJiqDSJ6wYHjfJD0CJgplvOyqBK7Y%3D
-        $testCases[] = new GenerateAccountSASTestCase(
-            "2016-05-31", // signedVersion
-            "q", // signedService
-            "o", // signedResourceType
-            "up", // signedPermission
-            "2017-03-24T00:00:00Z", // signedExpiracy
-            "2017-03-17T00:00:00Z", // signedStart
-            "https", // signedProtocol
-            "", // signedIP
-            "k1BKI65TdXs7rdAJiqDSJ6wYHjfJD0CJgplvOyqBK7Y%3D" // expectedSignature
-        );
-
-        return $testCases;
     }
 }

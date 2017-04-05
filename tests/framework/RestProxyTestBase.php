@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Tests\framework;
 
-use MicrosoftAzure\Storage\Common\Internal\Logger;
+use MicrosoftAzure\Storage\Common\Logger;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
 

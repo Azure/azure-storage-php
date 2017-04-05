@@ -47,6 +47,8 @@ class BatchOperationParameterName
      *
      * @param string $paramName The batch operation parameter name.
      *
+     * @internal
+     *
      * @return boolean
      */
     public static function isValid($paramName)

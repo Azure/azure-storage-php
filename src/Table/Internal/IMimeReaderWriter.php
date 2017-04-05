@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Table\Internal;
 /**
  * Interface for MIME reading and writing.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

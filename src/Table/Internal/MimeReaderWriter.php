@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 /**
  * Reads and writes MIME for batch API.
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

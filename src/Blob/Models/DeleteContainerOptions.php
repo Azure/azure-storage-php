@@ -36,9 +36,6 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class DeleteContainerOptions extends BlobServiceOptions
 {
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**

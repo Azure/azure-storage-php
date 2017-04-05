@@ -48,6 +48,8 @@ class BatchOperationType
      *
      * @param string $type The operation type.
      *
+     * @internal
+     *
      * @return boolean
      */
     public static function isValid($type)

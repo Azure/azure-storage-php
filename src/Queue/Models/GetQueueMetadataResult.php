@@ -36,18 +36,7 @@ namespace MicrosoftAzure\Storage\Queue\Models;
  */
 class GetQueueMetadataResult
 {
-    /**
-     * Indicates the approximate number of messages in the queue
-     *
-     * @var integer
-     */
     private $_approximateMessageCount;
-    
-    /**
-     * A user-defined name/value pair
-     *
-     * @var array
-     */
     private $_metadata;
     
     /**
@@ -55,6 +44,8 @@ class GetQueueMetadataResult
      *
      * @param integer $approximateMessageCount Approximate number of queue messages.
      * @param array   $metadata                user defined metadata.
+     *
+     * @internal
      */
     public function __construct($approximateMessageCount, array $metadata)
     {
@@ -77,6 +68,8 @@ class GetQueueMetadataResult
      *
      * @param integer $approximateMessageCount value to use.
      *
+     * @internal
+     *
      * @return void
      */
     protected function setApproximateMessageCount($approximateMessageCount)
@@ -98,6 +91,8 @@ class GetQueueMetadataResult
      * Sets metadata.
      *
      * @param array $metadata value to use.
+     *
+     * @internal
      *
      * @return void
      */

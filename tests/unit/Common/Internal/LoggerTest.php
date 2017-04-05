@@ -24,7 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\Logger;
+use MicrosoftAzure\Storage\Common\Logger;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 
@@ -41,8 +41,8 @@ use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 class LoggerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Logger::log
-     * @covers MicrosoftAzure\Storage\Common\Internal\Logger::setLogFile
+     * @covers MicrosoftAzure\Storage\Common\Logger::log
+     * @covers MicrosoftAzure\Storage\Common\Logger::setLogFile
      */
     public function testLogWithArray()
     {
@@ -61,8 +61,8 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Logger::log
-     * @covers MicrosoftAzure\Storage\Common\Internal\Logger::setLogFile
+     * @covers MicrosoftAzure\Storage\Common\Logger::log
+     * @covers MicrosoftAzure\Storage\Common\Logger::setLogFile
      */
     public function testLogWithString()
     {

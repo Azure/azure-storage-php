@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Common\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
 
 /**
  * Queue service options.

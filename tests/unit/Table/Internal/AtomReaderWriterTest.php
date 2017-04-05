@@ -257,7 +257,7 @@ class AtomReaderWriterTest extends \PHPUnit_Framework_TestCase
                                 <d:CustomerId m:type="Edm.Int32">890</d:CustomerId>
                                 <d:CustomerName>John</d:CustomerName>
                                 <d:IsNew m:type="Edm.Boolean">true</d:IsNew>
-                                <d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.0000473Z</d:JoinDate>
+                                <d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.0000470Z</d:JoinDate>
                             </m:properties>
                             </content>
                         </entry>
@@ -278,7 +278,7 @@ class AtomReaderWriterTest extends \PHPUnit_Framework_TestCase
                                 <d:CustomerId m:type="Edm.Int32">890</d:CustomerId>
                                 <d:CustomerName>John</d:CustomerName>
                                 <d:IsNew m:type="Edm.Boolean">true</d:IsNew>
-                                <d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.0000473Z</d:JoinDate>
+                                <d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.0000470Z</d:JoinDate>
                             </m:properties>
                             </content>
                         </entry>
@@ -299,7 +299,7 @@ class AtomReaderWriterTest extends \PHPUnit_Framework_TestCase
                                 <d:CustomerId m:type="Edm.Int32">890</d:CustomerId>
                                 <d:CustomerName>John</d:CustomerName>
                                 <d:IsNew m:type="Edm.Boolean">true</d:IsNew>
-                                <d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.0000473Z</d:JoinDate>
+                                <d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.0000470Z</d:JoinDate>
                             </m:properties>
                             </content>
                         </entry>

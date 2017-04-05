@@ -38,24 +38,9 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class SetBlobPropertiesOptions extends BlobServiceOptions
 {
-    /**
-     * @var BlobProperties
-     */
     private $_blobProperties;
-    
-    /**
-     * @var string
-     */
     private $_leaseId;
-    
-    /**
-     * @var string
-     */
     private $_sequenceNumberAction;
-    
-    /**
-     * @var AccessCondition
-     */
     private $_accessCondition;
     
     /**

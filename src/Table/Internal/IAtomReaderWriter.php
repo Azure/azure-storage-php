@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Table\Internal;
 /**
  * Defines how to serialize and unserialize table wrapper xml
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Internal
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>

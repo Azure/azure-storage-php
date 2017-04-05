@@ -139,9 +139,19 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $properties = ServiceProperties::create(TestResources::getServicePropertiesSample());
+        $corsesArray = array();
+        if (count($properties->getCorses()) == 1) {
+            $corsesArray = ['CorsRule' => $properties->getCorses()[0]->toArray()];
+        } else {
+            foreach ($properties->getCorses() as $cors) {
+                $corsesArray[] = ['CorsRule' => $cors->toArray()];
+            }
+        }
+        
         $expected = array(
             'Logging' => $properties->getLogging()->toArray(),
-            'HourMetrics' => $properties->getMetrics()->toArray()
+            'HourMetrics' => $properties->getMetrics()->toArray(),
+            'Cors' => !empty($corsesArray) ? $corsesArray : null
         );
         
         // Test

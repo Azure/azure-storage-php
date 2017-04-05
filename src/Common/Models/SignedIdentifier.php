@@ -15,125 +15,105 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Blob\Models;
+namespace MicrosoftAzure\Storage\Common\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
- * Holds container access policy elements
+ * Holds signed identifiers.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AccessPolicy
+class SignedIdentifier
 {
-    /**
-     * @var string
-     */
-    private $_start;
+    private $id;
+    private $accessPolicy;
     
     /**
-     * @var \DateTime
-     */
-    private $_expiry;
-    
-    /**
-     * @var \DateTime
-     */
-    private $_permission;
-    
-    /**
-     * Gets start.
+     * Constructor
      *
-     * @return \DateTime.
+     * @param string            $id           The id of this signed identifier.
+     * @param AccessPolicy|null $accessPolicy The access policy.
      */
-    public function getStart()
+    public function __construct($id = '', AccessPolicy $accessPolicy = null)
     {
-        return $this->_start;
+        $this->setId($id);
+        $this->setAccessPolicy($accessPolicy);
     }
 
     /**
-     * Sets start.
+     * Gets id.
      *
-     * @param \DateTime $start value.
-     *
-     * @return void
+     * @return string
      */
-    public function setStart($start)
+    public function getId()
     {
-        Validate::isDate($start);
-        $this->_start = $start;
-    }
-    
-    /**
-     * Gets expiry.
-     *
-     * @return \DateTime.
-     */
-    public function getExpiry()
-    {
-        return $this->_expiry;
+        return $this->id;
     }
 
     /**
-     * Sets expiry.
+     * Sets id.
      *
-     * @param \DateTime $expiry value.
+     * @param string $id value.
      *
      * @return void
      */
-    public function setExpiry($expiry)
+    public function setId($id)
     {
-        Validate::isDate($expiry);
-        $this->_expiry = $expiry;
+        $this->id = $id;
     }
     
     /**
-     * Gets permission.
+     * Gets accessPolicy.
      *
-     * @return string.
+     * @return AccessPolicy
      */
-    public function getPermission()
+    public function getAccessPolicy()
     {
-        return $this->_permission;
+        return $this->accessPolicy;
     }
 
     /**
-     * Sets permission.
+     * Sets accessPolicy.
      *
-     * @param string $permission value.
+     * @param AccessPolicy|null $accessPolicy value.
      *
      * @return void
      */
-    public function setPermission($permission)
+    public function setAccessPolicy(AccessPolicy $accessPolicy = null)
     {
-        $this->_permission = $permission;
+        $this->accessPolicy = $accessPolicy;
     }
     
     /**
      * Converts this current object to XML representation.
+     *
+     * @internal
      *
      * @return array
      */
     public function toArray()
     {
         $array = array();
-        
-        $array['Start']      = Utilities::convertToEdmDateTime($this->_start);
-        $array['Expiry']     = Utilities::convertToEdmDateTime($this->_expiry);
-        $array['Permission'] = $this->_permission;
+        $accessPolicyArray = array();
+        $accessPolicyArray[Resources::XTAG_SIGNED_ID] = $this->getId();
+        $accessPolicyArray[Resources::XTAG_ACCESS_POLICY] =
+            $this->getAccessPolicy()->toArray();
+        $array[Resources::XTAG_SIGNED_IDENTIFIER] = $accessPolicyArray;
         
         return $array;
     }
