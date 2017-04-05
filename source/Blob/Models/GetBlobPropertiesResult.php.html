@@ -1,0 +1,220 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
+
+/**
+ * Holds result of calling getBlobProperties
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class GetBlobPropertiesResult
+{
+    private $_properties;
+    private $_metadata;
+    
+    /**
+     * Gets blob metadata.
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return $this-&gt;_metadata;
+    }
+
+    /**
+     * Sets blob metadata.
+     *
+     * @param array $metadata value.
+     *
+     * @return void
+     */
+    protected function setMetadata(array $metadata)
+    {
+        $this-&gt;_metadata = $metadata;
+    }
+    
+    /**
+     * Gets blob properties.
+     *
+     * @return BlobProperties
+     */
+    public function getProperties()
+    {
+        return $this-&gt;_properties;
+    }
+
+    /**
+     * Sets blob properties.
+     *
+     * @param BlobProperties $properties value.
+     *
+     * @return void
+     */
+    protected function setProperties($properties)
+    {
+        $this-&gt;_properties = $properties;
+    }
+
+    /**
+     * Create a instance using the given headers.
+     *
+     * @param  array  $headers response headers parsed in an array
+     *
+     * @internal
+     *
+     * @return GetBlobPropertiesResult
+     */
+    public static function create(array $headers)
+    {
+        $result          = new GetBlobPropertiesResult();
+        $properties      = new BlobProperties();
+        $lastModified    = Utilities::tryGetValueInsensitive(
+            Resources::LAST_MODIFIED,
+            $headers
+        );
+        $blobType        = Utilities::tryGetValueInsensitive(
+            Resources::X_MS_BLOB_TYPE,
+            $headers
+        );
+        $contentLength   = intval(Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_LENGTH,
+            $headers
+        ));
+
+        $leaseStatus     = Utilities::tryGetValueInsensitive(
+            Resources::X_MS_LEASE_STATUS,
+            $headers
+        );
+        $contentType     = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_TYPE,
+            $headers
+        );
+        $contentMD5      = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_MD5,
+            $headers
+        );
+        $contentEncoding = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_ENCODING,
+            $headers
+        );
+        $contentLanguage = Utilities::tryGetValueInsensitive(
+            Resources::CONTENT_LANGUAGE,
+            $headers
+        );
+        $cacheControl    = Utilities::tryGetValueInsensitive(
+            Resources::CACHE_CONTROL,
+            $headers
+        );
+
+        $etag            = Utilities::tryGetValueInsensitive(
+            Resources::ETAG,
+            $headers
+        );
+        $metadata        = Utilities::getMetadataArray($headers);
+        
+        if (array_key_exists(Resources::X_MS_BLOB_SEQUENCE_NUMBER, $headers)) {
+            $properties-&gt;setSequenceNumber(
+                intval($headers[Resources::X_MS_BLOB_SEQUENCE_NUMBER])
+            );
+        }
+        
+        if (array_key_exists(Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT, $headers)) {
+            $properties-&gt;setCommittedBlockCount(
+                intval($headers[Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT])
+            );
+        }
+        
+        $properties-&gt;setBlobType($blobType);
+        $properties-&gt;setCacheControl($cacheControl);
+        $properties-&gt;setContentEncoding($contentEncoding);
+        $properties-&gt;setContentLanguage($contentLanguage);
+        $properties-&gt;setContentLength($contentLength);
+        $properties-&gt;setContentMD5($contentMD5);
+        $properties-&gt;setContentType($contentType);
+        $properties-&gt;setETag($etag);
+        $properties-&gt;setLastModified(Utilities::rfc1123ToDateTime($lastModified));
+        $properties-&gt;setLeaseStatus($leaseStatus);
+        
+        $result-&gt;setProperties($properties);
+        $result-&gt;setMetadata($metadata);
+        
+        return $result;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

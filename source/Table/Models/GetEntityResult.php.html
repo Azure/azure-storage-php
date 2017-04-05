@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Table\Models;
+
+use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+
+/**
+ * Holds result of calling getEntity wrapper.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class GetEntityResult
+{
+    private $_entity;
+    
+    /**
+     * Gets table entity.
+     *
+     * @return Entity
+     */
+    public function getEntity()
+    {
+        return $this-&gt;_entity;
+    }
+    
+    /**
+     * Sets table entity.
+     *
+     * @param Entity $entity The table entity instance.
+     *
+     * @return void
+     */
+    protected function setEntity($entity)
+    {
+        $this-&gt;_entity = $entity;
+    }
+
+    /**
+     * Create GetEntityResult object from HTTP response parts.
+     *
+     * @param string            $body           The HTTP response body.
+     * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
+     *
+     * @internal
+     *
+     * @return GetEntityResult
+     */
+    public static function create($body, IAtomReaderWriter $serializer)
+    {
+        $result = new GetEntityResult();
+        $result-&gt;setEntity($serializer-&gt;parseEntity($body));
+
+        return $result;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,193 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Table\Models;
+
+/**
+ * Optional parameters for queryTables wrapper.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class QueryTablesOptions extends TableServiceOptions
+{
+    private $_nextTableName;
+    private $_query;
+    private $_prefix;
+    
+    /**
+     * Constructs new QueryTablesOptions object.
+     */
+    public function __construct()
+    {
+        $this-&gt;_query = new Query();
+    }
+    
+    /**
+     * Gets nextTableName
+     *
+     * @return string
+     */
+    public function getNextTableName()
+    {
+        return $this-&gt;_nextTableName;
+    }
+    
+    /**
+     * Sets nextTableName
+     *
+     * @param string $nextTableName value
+     *
+     * @return void
+     */
+    public function setNextTableName($nextTableName)
+    {
+        $this-&gt;_nextTableName = $nextTableName;
+    }
+    
+    /**
+     * Gets prefix
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this-&gt;_prefix;
+    }
+    
+    /**
+     * Sets prefix
+     *
+     * @param string $prefix value
+     *
+     * @return void
+     */
+    public function setPrefix($prefix)
+    {
+        $this-&gt;_prefix = $prefix;
+    }
+    
+    /**
+     * Gets top.
+     *
+     * @return integer
+     */
+    public function getTop()
+    {
+        return $this-&gt;_query-&gt;getTop();
+    }
+
+    /**
+     * Sets top.
+     *
+     * @param integer $top value.
+     *
+     * @return void
+     */
+    public function setTop($top)
+    {
+        $this-&gt;_query-&gt;setTop($top);
+    }
+    
+    /**
+     * Gets query.
+     *
+     * @return Query
+     */
+    public function getQuery()
+    {
+        return $this-&gt;_query;
+    }
+    
+    /**
+     * Gets filter.
+     *
+     * @return Filters\Filter
+     */
+    public function getFilter()
+    {
+        return $this-&gt;_query-&gt;getFilter();
+    }
+
+    /**
+     * Sets filter.
+     *
+     * @param Filters\Filter $filter value.
+     *
+     * @return void
+     */
+    public function setFilter(Filters\Filter $filter)
+    {
+        $this-&gt;_query-&gt;setFilter($filter);
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

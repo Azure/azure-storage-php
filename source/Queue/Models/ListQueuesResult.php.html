@@ -1,0 +1,294 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Queue\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Queue\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Queue\Models\Queue;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+
+/**
+ * Container to hold list queue response object.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Queue\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class ListQueuesResult
+{
+    private $_queues;
+    private $_prefix;
+    private $_marker;
+    private $_nextMarker;
+    private $_maxResults;
+    private $_accountName;
+
+    /**
+     * Creates ListQueuesResult object from parsed XML response.
+     *
+     * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal
+     *
+     * @return ListQueuesResult
+     */
+    public static function create(array $parsedResponse)
+    {
+        $result               = new ListQueuesResult();
+        $serviceEndpoint      = Utilities::tryGetKeysChainValue(
+            $parsedResponse,
+            Resources::XTAG_ATTRIBUTES,
+            Resources::XTAG_SERVICE_ENDPOINT
+        );
+        $result-&gt;setAccountName(Utilities::tryParseAccountNameFromUrl(
+            $serviceEndpoint
+        ));
+        $result-&gt;setPrefix(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_PREFIX
+        ));
+        $result-&gt;setMarker(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_MARKER
+        ));
+        $result-&gt;setNextMarker(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_NEXT_MARKER
+        ));
+        $result-&gt;setMaxResults(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_MAX_RESULTS
+        ));
+        $queues      = array();
+        $rawQueues            = array();
+        
+        if (!empty($parsedResponse['Queues'])) {
+            $rawQueues = Utilities::getArray($parsedResponse['Queues']['Queue']);
+        }
+        
+        foreach ($rawQueues as $value) {
+            $queue    = new Queue($value['Name'], $serviceEndpoint . $value['Name']);
+            $metadata = Utilities::tryGetValue($value, Resources::QP_METADATA);
+            $queue-&gt;setMetadata(is_null($metadata) ? array() : $metadata);
+            $queues[] = $queue;
+        }
+        $result-&gt;setQueues($queues);
+        return $result;
+    }
+
+    /**
+     * Gets queues.
+     *
+     * @return array
+     */
+    public function getQueues()
+    {
+        return $this-&gt;_queues;
+    }
+    
+    /**
+     * Sets queues.
+     *
+     * @param array $queues list of queues
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setQueues(array $queues)
+    {
+        $this-&gt;_queues = array();
+        foreach ($queues as $queue) {
+            $this-&gt;_queues[] = clone $queue;
+        }
+    }
+
+    /**
+     * Gets prefix.
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this-&gt;_prefix;
+    }
+
+    /**
+     * Sets prefix.
+     *
+     * @param string $prefix value.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setPrefix($prefix)
+    {
+        $this-&gt;_prefix = $prefix;
+    }
+
+    /**
+     * Gets marker.
+     *
+     * @return string
+     */
+    public function getMarker()
+    {
+        return $this-&gt;_marker;
+    }
+
+    /**
+     * Sets marker.
+     *
+     * @param string $marker value.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setMarker($marker)
+    {
+        $this-&gt;_marker = $marker;
+    }
+
+    /**
+     * Gets max results.
+     *
+     * @return string
+     */
+    public function getMaxResults()
+    {
+        return $this-&gt;_maxResults;
+    }
+
+    /**
+     * Sets max results.
+     *
+     * @param string $maxResults value.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setMaxResults($maxResults)
+    {
+        $this-&gt;_maxResults = $maxResults;
+    }
+
+    /**
+     * Gets next marker.
+     *
+     * @return string
+     */
+    public function getNextMarker()
+    {
+        return $this-&gt;_nextMarker;
+    }
+
+    /**
+     * Sets next marker.
+     *
+     * @param string $nextMarker value.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setNextMarker($nextMarker)
+    {
+        $this-&gt;_nextMarker = $nextMarker;
+    }
+    
+    /**
+     * Gets account name.
+     *
+     * @return string
+     */
+    public function getAccountName()
+    {
+        return $this-&gt;_accountName;
+    }
+
+    /**
+     * Sets account name.
+     *
+     * @param string $accountName value.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setAccountName($accountName)
+    {
+        $this-&gt;_accountName = $accountName;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

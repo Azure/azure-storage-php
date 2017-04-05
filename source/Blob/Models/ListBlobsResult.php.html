@@ -1,0 +1,368 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Blob\Models\Blob;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
+
+/**
+ * Hold result of calliing listBlobs wrapper.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class ListBlobsResult
+{
+    private $_blobPrefixes;
+    private $_blobs;
+    private $_delimiter;
+    private $_prefix;
+    private $_marker;
+    private $_nextMarker;
+    private $_maxResults;
+    private $_containerName;
+
+    /**
+     * Creates ListBlobsResult object from parsed XML response.
+     *
+     * @param array $parsed XML response parsed into array.
+     *
+     * @internal
+     *
+     * @return ListBlobsResult
+     */
+    public static function create(array $parsed)
+    {
+        $result                 = new ListBlobsResult();
+        $serviceEndpoint        = Utilities::tryGetKeysChainValue(
+            $parsed,
+            Resources::XTAG_ATTRIBUTES,
+            Resources::XTAG_SERVICE_ENDPOINT
+        );
+        $containerName          = Utilities::tryGetKeysChainValue(
+            $parsed,
+            Resources::XTAG_ATTRIBUTES,
+            Resources::XTAG_CONTAINER_NAME
+        );
+        $result-&gt;setContainerName($containerName);
+        $result-&gt;setPrefix(Utilities::tryGetValue(
+            $parsed,
+            Resources::QP_PREFIX
+        ));
+        $result-&gt;setMarker(Utilities::tryGetValue(
+            $parsed,
+            Resources::QP_MARKER
+        ));
+        $result-&gt;setNextMarker(Utilities::tryGetValue(
+            $parsed,
+            Resources::QP_NEXT_MARKER
+        ));
+        $result-&gt;setMaxResults(intval(
+            Utilities::tryGetValue($parsed, Resources::QP_MAX_RESULTS, 0)
+        ));
+        $result-&gt;setDelimiter(Utilities::tryGetValue(
+            $parsed,
+            Resources::QP_DELIMITER
+        ));
+        $blobs           = array();
+        $blobPrefixes    = array();
+        $rawBlobs        = array();
+        $rawBlobPrefixes = array();
+        
+        if (is_array($parsed['Blobs'])
+            &amp;&amp; array_key_exists('Blob', $parsed['Blobs'])
+        ) {
+            $rawBlobs = Utilities::getArray($parsed['Blobs']['Blob']);
+        }
+        
+        foreach ($rawBlobs as $value) {
+            $blob = new Blob();
+            $blob-&gt;setName($value['Name']);
+            $blob-&gt;setUrl($serviceEndpoint . $containerName . '/' . $value['Name']);
+            $blob-&gt;setSnapshot(Utilities::tryGetValue($value, 'Snapshot'));
+            $blob-&gt;setProperties(
+                BlobProperties::create(
+                    Utilities::tryGetValue($value, 'Properties')
+                )
+            );
+            $blob-&gt;setMetadata(
+                Utilities::tryGetValue($value, Resources::QP_METADATA, array())
+            );
+            
+            $blobs[] = $blob;
+        }
+        
+        if (is_array($parsed['Blobs'])
+            &amp;&amp; array_key_exists('BlobPrefix', $parsed['Blobs'])
+        ) {
+            $rawBlobPrefixes = Utilities::getArray($parsed['Blobs']['BlobPrefix']);
+        }
+        
+        foreach ($rawBlobPrefixes as $value) {
+            $blobPrefix = new BlobPrefix();
+            $blobPrefix-&gt;setName($value['Name']);
+            
+            $blobPrefixes[] = $blobPrefix;
+        }
+
+        $result-&gt;setBlobs($blobs);
+        $result-&gt;setBlobPrefixes($blobPrefixes);
+        
+        return $result;
+    }
+    
+    /**
+     * Gets blobs.
+     *
+     * @return Blob[]
+     */
+    public function getBlobs()
+    {
+        return $this-&gt;_blobs;
+    }
+    
+    /**
+     * Sets blobs.
+     *
+     * @param Blob[] $blobs list of blobs
+     *
+     * @return void
+     */
+    protected function setBlobs(array $blobs)
+    {
+        $this-&gt;_blobs = array();
+        foreach ($blobs as $blob) {
+            $this-&gt;_blobs[] = clone $blob;
+        }
+    }
+    
+    /**
+     * Gets blobPrefixes.
+     *
+     * @return array
+     */
+    public function getBlobPrefixes()
+    {
+        return $this-&gt;_blobPrefixes;
+    }
+    
+    /**
+     * Sets blobPrefixes.
+     *
+     * @param array $blobPrefixes list of blobPrefixes
+     *
+     * @return void
+     */
+    protected function setBlobPrefixes(array $blobPrefixes)
+    {
+        $this-&gt;_blobPrefixes = array();
+        foreach ($blobPrefixes as $blob) {
+            $this-&gt;_blobPrefixes[] = clone $blob;
+        }
+    }
+
+    /**
+     * Gets prefix.
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this-&gt;_prefix;
+    }
+
+    /**
+     * Sets prefix.
+     *
+     * @param string $prefix value.
+     *
+     * @return void
+     */
+    protected function setPrefix($prefix)
+    {
+        $this-&gt;_prefix = $prefix;
+    }
+    
+    /**
+     * Gets prefix.
+     *
+     * @return string
+     */
+    public function getDelimiter()
+    {
+        return $this-&gt;_delimiter;
+    }
+
+    /**
+     * Sets prefix.
+     *
+     * @param string $delimiter value.
+     *
+     * @return void
+     */
+    protected function setDelimiter($delimiter)
+    {
+        $this-&gt;_delimiter = $delimiter;
+    }
+
+    /**
+     * Gets marker.
+     *
+     * @return string
+     */
+    public function getMarker()
+    {
+        return $this-&gt;_marker;
+    }
+
+    /**
+     * Sets marker.
+     *
+     * @param string $marker value.
+     *
+     * @return void
+     */
+    protected function setMarker($marker)
+    {
+        $this-&gt;_marker = $marker;
+    }
+
+    /**
+     * Gets max results.
+     *
+     * @return integer
+     */
+    public function getMaxResults()
+    {
+        return $this-&gt;_maxResults;
+    }
+
+    /**
+     * Sets max results.
+     *
+     * @param integer $maxResults value.
+     *
+     * @return void
+     */
+    protected function setMaxResults($maxResults)
+    {
+        $this-&gt;_maxResults = $maxResults;
+    }
+
+    /**
+     * Gets next marker.
+     *
+     * @return string
+     */
+    public function getNextMarker()
+    {
+        return $this-&gt;_nextMarker;
+    }
+
+    /**
+     * Sets next marker.
+     *
+     * @param string $nextMarker value.
+     *
+     * @return void
+     */
+    protected function setNextMarker($nextMarker)
+    {
+        $this-&gt;_nextMarker = $nextMarker;
+    }
+    
+    /**
+     * Gets container name.
+     *
+     * @return string
+     */
+    public function getContainerName()
+    {
+        return $this-&gt;_containerName;
+    }
+
+    /**
+     * Sets container name.
+     *
+     * @param string $containerName value.
+     *
+     * @return void
+     */
+    protected function setContainerName($containerName)
+    {
+        $this-&gt;_containerName = $containerName;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

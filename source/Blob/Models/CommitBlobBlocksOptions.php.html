@@ -1,0 +1,292 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+
+/**
+ * Optional parameters for commitBlobBlocks
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class CommitBlobBlocksOptions extends BlobServiceOptions
+{
+    private $_blobContentType;
+    private $_blobContentEncoding;
+    private $_blobContentLanguage;
+    private $_blobContentMD5;
+    private $_blobCacheControl;
+    private $_metadata;
+    private $_leaseId;
+    private $_accessCondition;
+    
+    /**
+     * Gets blob ContentType.
+     *
+     * @return string
+     */
+    public function getBlobContentType()
+    {
+        return $this-&gt;_blobContentType;
+    }
+
+    /**
+     * Sets blob ContentType.
+     *
+     * @param string $blobContentType value.
+     *
+     * @return void
+     */
+    public function setBlobContentType($blobContentType)
+    {
+        $this-&gt;_blobContentType = $blobContentType;
+    }
+    
+    /**
+     * Gets blob ContentEncoding.
+     *
+     * @return string
+     */
+    public function getBlobContentEncoding()
+    {
+        return $this-&gt;_blobContentEncoding;
+    }
+
+    /**
+     * Sets blob ContentEncoding.
+     *
+     * @param string $blobContentEncoding value.
+     *
+     * @return void
+     */
+    public function setBlobContentEncoding($blobContentEncoding)
+    {
+        $this-&gt;_blobContentEncoding = $blobContentEncoding;
+    }
+    
+    /**
+     * Gets blob ContentLanguage.
+     *
+     * @return string
+     */
+    public function getBlobContentLanguage()
+    {
+        return $this-&gt;_blobContentLanguage;
+    }
+
+    /**
+     * Sets blob ContentLanguage.
+     *
+     * @param string $blobContentLanguage value.
+     *
+     * @return void
+     */
+    public function setBlobContentLanguage($blobContentLanguage)
+    {
+        $this-&gt;_blobContentLanguage = $blobContentLanguage;
+    }
+    
+    /**
+     * Gets blob ContentMD5.
+     *
+     * @return string
+     */
+    public function getBlobContentMD5()
+    {
+        return $this-&gt;_blobContentMD5;
+    }
+
+    /**
+     * Sets blob ContentMD5.
+     *
+     * @param string $blobContentMD5 value.
+     *
+     * @return void
+     */
+    public function setBlobContentMD5($blobContentMD5)
+    {
+        $this-&gt;_blobContentMD5 = $blobContentMD5;
+    }
+    
+    /**
+     * Gets blob cache control.
+     *
+     * @return string
+     */
+    public function getBlobCacheControl()
+    {
+        return $this-&gt;_blobCacheControl;
+    }
+    
+    /**
+     * Sets blob cacheControl.
+     *
+     * @param string $blobCacheControl value to use.
+     *
+     * @return void
+     */
+    public function setBlobCacheControl($blobCacheControl)
+    {
+        $this-&gt;_blobCacheControl = $blobCacheControl;
+    }
+    
+    /**
+     * Gets access condition
+     *
+     * @return AccessCondition
+     */
+    public function getAccessCondition()
+    {
+        return $this-&gt;_accessCondition;
+    }
+    
+    /**
+     * Sets access condition
+     *
+     * @param AccessCondition $accessCondition value to use.
+     *
+     * @return void
+     */
+    public function setAccessCondition(AccessCondition $accessCondition = null)
+    {
+        $this-&gt;_accessCondition = $accessCondition;
+    }
+    
+    /**
+     * Gets blob metadata.
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return $this-&gt;_metadata;
+    }
+
+    /**
+     * Sets blob metadata.
+     *
+     * @param array $metadata value.
+     *
+     * @return void
+     */
+    public function setMetadata(array $metadata = null)
+    {
+        $this-&gt;_metadata = $metadata;
+    }
+    
+    /**
+     * Gets lease Id for the blob
+     *
+     * @return string
+     */
+    public function getLeaseId()
+    {
+        return $this-&gt;_leaseId;
+    }
+    
+    /**
+     * Sets lease Id for the blob
+     *
+     * @param string $leaseId the blob lease id.
+     *
+     * @return void
+     */
+    public function setLeaseId($leaseId)
+    {
+        $this-&gt;_leaseId = $leaseId;
+    }
+
+    /**
+     * Create a instance using the given options
+     * @param  mixed $options Input options
+     *
+     * @internal
+     *
+     * @return self
+     */
+    public static function create($options)
+    {
+        $result = new CommitBlobBlocksOptions();
+        $result-&gt;setBlobContentType($options-&gt;getBlobContentType());
+        $result-&gt;setBlobContentEncoding($options-&gt;getBlobContentEncoding());
+        $result-&gt;setBlobContentLanguage($options-&gt;getBlobContentLanguage());
+        $result-&gt;setBlobContentMD5($options-&gt;getBlobContentMD5());
+        $result-&gt;setBlobCacheControl($options-&gt;getBlobCacheControl());
+        $result-&gt;setMetadata($options-&gt;getMetadata());
+        $result-&gt;setAccessCondition($options-&gt;getAccessCondition());
+
+        return $result;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

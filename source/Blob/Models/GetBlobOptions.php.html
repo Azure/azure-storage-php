@@ -1,0 +1,227 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+
+/**
+ * Optional parameters for getBlob wrapper
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class GetBlobOptions extends BlobServiceOptions
+{
+    private $_leaseId;
+    private $_snapshot;
+    private $_accessCondition;
+    private $_computeRangeMD5;
+    private $_rangeStart;
+    private $_rangeEnd;
+    
+    /**
+     * Gets lease Id for the blob
+     *
+     * @return string
+     */
+    public function getLeaseId()
+    {
+        return $this-&gt;_leaseId;
+    }
+    
+    /**
+     * Sets lease Id for the blob
+     *
+     * @param string $leaseId the blob lease id.
+     *
+     * @return void
+     */
+    public function setLeaseId($leaseId)
+    {
+        $this-&gt;_leaseId = $leaseId;
+    }
+    
+    /**
+     * Gets access condition
+     *
+     * @return AccessCondition
+     */
+    public function getAccessCondition()
+    {
+        return $this-&gt;_accessCondition;
+    }
+    
+    /**
+     * Sets access condition
+     *
+     * @param AccessCondition $accessCondition value to use.
+     *
+     * @return void
+     */
+    public function setAccessCondition($accessCondition)
+    {
+        $this-&gt;_accessCondition = $accessCondition;
+    }
+    
+    /**
+     * Gets blob snapshot.
+     *
+     * @return string
+     */
+    public function getSnapshot()
+    {
+        return $this-&gt;_snapshot;
+    }
+
+    /**
+     * Sets blob snapshot.
+     *
+     * @param string $snapshot value.
+     *
+     * @return void
+     */
+    public function setSnapshot($snapshot)
+    {
+        $this-&gt;_snapshot = $snapshot;
+    }
+    
+    /**
+     * Gets rangeStart
+     *
+     * @return integer
+     */
+    public function getRangeStart()
+    {
+        return $this-&gt;_rangeStart;
+    }
+    
+    /**
+     * Sets rangeStart
+     *
+     * @param integer $rangeStart the blob lease id.
+     *
+     * @return void
+     */
+    public function setRangeStart($rangeStart)
+    {
+        Validate::isInteger($rangeStart, 'rangeStart');
+        $this-&gt;_rangeStart = $rangeStart;
+    }
+    
+    /**
+     * Gets rangeEnd
+     *
+     * @return integer
+     */
+    public function getRangeEnd()
+    {
+        return $this-&gt;_rangeEnd;
+    }
+    
+    /**
+     * Sets rangeEnd
+     *
+     * @param integer $rangeEnd range end value in bytes
+     *
+     * @return void
+     */
+    public function setRangeEnd($rangeEnd)
+    {
+        Validate::isInteger($rangeEnd, 'rangeEnd');
+        $this-&gt;_rangeEnd = $rangeEnd;
+    }
+    
+    /**
+     * Gets computeRangeMD5
+     *
+     * @return boolean
+     */
+    public function getComputeRangeMD5()
+    {
+        return $this-&gt;_computeRangeMD5;
+    }
+    
+    /**
+     * Sets computeRangeMD5
+     *
+     * @param boolean $computeRangeMD5 value
+     *
+     * @return void
+     */
+    public function setComputeRangeMD5($computeRangeMD5)
+    {
+        Validate::isBoolean($computeRangeMD5);
+        $this-&gt;_computeRangeMD5 = $computeRangeMD5;
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>
