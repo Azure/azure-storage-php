@@ -1773,8 +1773,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         };
 
         //add number of concurrency if specified int options.
-        $requestOptions = $options->getNumberOfConcurrency() == null?
-            array() : array($options->getNumberOfConcurrency);
+        if ($options->getNumberOfConcurrency() == null) {
+            $requestOptions = array();
+        } else {
+            $requestOptions = array(
+                'number_of_concurrency' => $options->getNumberOfConcurrency(),
+            );
+        }
 
         //Send the request concurrently.
         //Does not need to evaluate the results. If operation not successful,
