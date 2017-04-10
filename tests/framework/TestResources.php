@@ -407,6 +407,43 @@ class TestResources
         return $sample;
     }
 
+    public static function setBlobServicePropertiesSample()
+    {
+        $sample = array();
+        $sample['Logging']['Version'] = '1.0';
+        $sample['Logging']['Delete'] = 'true';
+        $sample['Logging']['Read'] = 'false';
+        $sample['Logging']['Write'] = 'true';
+        $sample['Logging']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['Logging']['RetentionPolicy']['Days'] = '10';
+        $sample['HourMetrics']['Version'] = '1.0';
+        $sample['HourMetrics']['Enabled'] = 'true';
+        $sample['HourMetrics']['IncludeAPIs'] = 'false';
+        $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        //1st cors
+        $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
+            'http://www.microsoft.com,http://www.bing.com';
+        $sample['Cors']['CorsRule'][0]['AllowedMethods'] = 'GET,PUT';
+        $sample['Cors']['CorsRule'][0]['MaxAgeInSeconds'] = '500';
+        $sample['Cors']['CorsRule'][0]['ExposedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-data0*';
+        $sample['Cors']['CorsRule'][0]['AllowedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-target0*';
+        //2nd cors
+        $sample['Cors']['CorsRule'][1]['AllowedOrigins'] =
+            'http://www.azure.com,http://www.office.com';
+        $sample['Cors']['CorsRule'][1]['AllowedMethods'] = 'POST,HEAD';
+        $sample['Cors']['CorsRule'][1]['MaxAgeInSeconds'] = '350';
+        $sample['Cors']['CorsRule'][1]['ExposedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-data1*';
+        $sample['Cors']['CorsRule'][1]['AllowedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-target1*';
+        $sample['DefaultServiceVersion'] = '2015-04-05';
+
+        return $sample;
+    }
+
     public static function listMessagesSample()
     {
         $sample = array();
