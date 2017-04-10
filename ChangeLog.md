@@ -26,7 +26,6 @@ Blob
 * Refactored Options class:
   - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
   - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
-  - Removed `DeleteContainerOptions`, `SetBlobMetadataOptions`, `SetContainerMetadataOptions` class. Use `BlobServiceOptions` instead.
   
 * Blob service properties feature parity:
   - Added `getDefaultServiceVersion`, `setDefaultServiceVersion`, `getMinuteMetrics` and `setMinuteMetrics` to `ServiceProperties` class.
@@ -34,6 +33,9 @@ Blob
 
 * Changed the return type of API `commitBlobBlocks` from `void` to `PutBlobResult`.
 * Removed the useless API `ctrCrypt` from `Utilities` class.
+
+Table
+* Removed `MicrosoftAzure\Storage\Table\Models\BatchError`. When batch operation fails, exception is thrown immediately instead. 
 
 
 2017.04 - version 0.14.0
