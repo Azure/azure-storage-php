@@ -423,6 +423,7 @@ class Resources
     const XTAG_SIGNED_EXPIRY                = 'Expiry';
     const XTAG_SIGNED_PERMISSION            = 'Permission';
     const XTAG_SIGNED_ID                    = 'Id';
+    const XTAG_DEFAULT_SERVICE_VERSION      = 'DefaultServiceVersion';
 
     // PHP URL Keys
     const PHP_URL_SCHEME   = 'scheme';

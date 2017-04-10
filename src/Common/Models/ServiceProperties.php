@@ -46,6 +46,7 @@ class ServiceProperties
     private $logging;
     private $metrics;
     private $corses;
+    private $defaultServiceVersion;
     
     private static $xmlRootName = 'StorageServiceProperties';
     
@@ -60,6 +61,12 @@ class ServiceProperties
     public static function create(array $parsedResponse)
     {
         $result = new ServiceProperties();
+
+        if (array_key_exists(Resources::XTAG_DEFAULT_SERVICE_VERSION, $parsedResponse) &&
+            $parsedResponse[Resources::XTAG_DEFAULT_SERVICE_VERSION] != null) {
+            $result->setDefaultServiceVersion($parsedResponse[Resources::XTAG_DEFAULT_SERVICE_VERSION]);
+        }
+
         $result->setLogging(Logging::create($parsedResponse[Resources::XTAG_LOGGING]));
         $result->setMetrics(Metrics::create($parsedResponse[Resources::XTAG_HOUR_METRICS]));
         if (array_key_exists(Resources::XTAG_CORS, $parsedResponse) &&
@@ -151,6 +158,28 @@ class ServiceProperties
     {
         $this->corses = $corses;
     }
+
+    /**
+     * Gets the default service version.
+     *
+     * @return string
+     */
+    public function getDefaultServiceVersion()
+    {
+        return $this->defaultServiceVersion;
+    }
+
+    /**
+     * Sets the default service version. This can obly be set for the blob service.
+     *
+     * @param string $defaultServiceVersion the default service version
+     *
+     * @return void
+     */
+    public function setDefaultServiceVersion($defaultServiceVersion)
+    {
+        return $this->defaultServiceVersion = $defaultServiceVersion;
+    }
     
     /**
      * Converts this object to array with XML tags
@@ -161,7 +190,7 @@ class ServiceProperties
     public function toArray()
     {
         $corsesArray = $this->getCorsesArray();
-        return array(
+        $result = array(
             Resources::XTAG_LOGGING
                 => !empty($this->getLogging()) ?
                     $this->getLogging()->toArray() : null,
@@ -170,8 +199,13 @@ class ServiceProperties
                     $this->getMetrics()->toArray() : null,
             Resources::XTAG_CORS
                 => !empty($corsesArray) ? $corsesArray : null
-
         );
+
+        if ($this->defaultServiceVersion != null) {
+            $result[Resources::XTAG_DEFAULT_SERVICE_VERSION] = $this->defaultServiceVersion;
+        }
+
+        return $result;
     }
 
     /**

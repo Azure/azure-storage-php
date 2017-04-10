@@ -84,7 +84,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->skipIfEmulated();
         
         // Setup
-        $expected = ServiceProperties::create(TestResources::setServicePropertiesSample());
+        $expected = ServiceProperties::create(TestResources::setBlobServicePropertiesSample());
         
         // Test
         $this->setServiceProperties($expected);
