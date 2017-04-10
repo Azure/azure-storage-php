@@ -1607,8 +1607,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             $sourceContainerName,
             $sourceBlobName
         );
+        $copyId = $result->getCopyId();
+        $copyStatus = $result->getCopyStatus();
         
         // Assert
+        $this->assertNotNull($copyId);
+        $this->assertNotNull($copyStatus);
+
         $sourceBlob = $this->restProxy->getBlob($sourceContainerName, $sourceBlobName);
         $destinationBlob = $this->restProxy->getBlob($destinationContainerName, $destinationBlobName);
         $sourceBlobContent = stream_get_contents($sourceBlob->getContentStream());
@@ -1645,6 +1650,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertNotNull($copyState->getSource());
         $this->assertNotNull($copyState->getBytesCopied());
         $this->assertNotNull($copyState->getTotalBytes());
+
+        try {
+            $this->restProxy->abortCopy($destinationContainerName, $destinationBlobName, $copyId);
+        } catch (ServiceException $e) {
+            $this->assertEquals(409, $e->getCode());
+            $this->assertContains('There is currently no pending copy operation.', $e->getErrorText());
+        }
     }
     
     /**

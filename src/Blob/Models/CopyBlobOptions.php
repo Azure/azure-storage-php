@@ -42,7 +42,7 @@ class CopyBlobOptions extends BlobServiceOptions
     private $_sourceAccessCondition;
     private $_metadata;
     private $_sourceSnapshot;
-    private $_leaseId;    
+    private $_leaseId;
     private $_sourceLeaseId;
   
     /**

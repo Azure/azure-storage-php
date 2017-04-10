@@ -73,6 +73,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlockList;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
 use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult;
+use MicrosoftAzure\Storage\Blob\Models\AbortCopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
@@ -3825,6 +3826,111 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         }, null);
+    }
+    /**
+     * Abort a blob copy operation
+     *
+     * @param string                        $container            name of the container
+     * @param string                        $blob                 name of the blob
+     * @param string                        $copyId               copy operation identifier.
+     * @param Models\AbortCopyBlobOptions   $options              optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/abort-copy-blob
+     */
+    public function abortCopy(
+        $container,
+        $blob,
+        $copyId,
+        Models\AbortCopyBlobOptions $options = null
+    ) {
+        return $this->abortCopyAsync(
+            $container,
+            $blob,
+            $copyId,
+            $options
+        )->wait();
+    }
+
+    /**
+     * Creates promise to abort a blob copy operation
+     *
+     * @param string                        $container            name of the container
+     * @param string                        $blob                 name of the blob
+     * @param string                        $copyId               copy operation identifier.
+     * @param Models\AbortCopyBlobOptions   $options              optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/abort-copy-blob
+     */
+    public function abortCopyAsync(
+        $container,
+        $blob,
+        $copyId,
+        Models\AbortCopyBlobOptions $options = null
+    ) {
+        Validate::isString($container, 'container');
+        Validate::isString($blob, 'blob');
+        Validate::isString($copyId, 'copyId');
+        Validate::notNullOrEmpty($container, 'container');
+        Validate::notNullOrEmpty($blob, 'blob');
+        Validate::notNullOrEmpty($copyId, 'copyId');
+        
+        $method              = Resources::HTTP_PUT;
+        $headers             = array();
+        $postParams          = array();
+        $queryParams         = array();
+        $destinationBlobPath = $this->_createPath(
+            $container,
+            $blob
+        );
+        
+        if (is_null($options)) {
+            $options = new AbortCopyBlobOptions();
+        }
+        
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'copy'
+        );
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COPY_ID,
+            $copyId
+        );
+        
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_ID,
+            $options->getLeaseId()
+        );
+        
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_COPY_ACTION,
+            'abort'
+        );
+        
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $destinationBlobPath,
+            Resources::STATUS_NO_CONTENT,
+            Resources::EMPTY_STRING,
+            $options->getRequestOptions()
+        );
     }
         
     /**
