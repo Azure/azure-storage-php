@@ -32,7 +32,6 @@ use MicrosoftAzure\Storage\Tests\Functional\Table\Models\BatchWorkerConfig;
 use MicrosoftAzure\Storage\Tests\Functional\Table\Models\FakeTableInfoEntry;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Table\Models\BatchError;
 use MicrosoftAzure\Storage\Table\Models\BatchOperations;
 use MicrosoftAzure\Storage\Table\Models\DeleteEntityOptions;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -1785,32 +1784,41 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 );
             }
 
-            // Execute the batch.
-            $ret = (is_null($options) ?
-                $this->restProxy->batch($operations) :
-                $this->restProxy->batch(
-                    $operations,
-                    $options
-                )
-            );
-
-            if (is_null($options)) {
-                $options = new QueryEntitiesOptions();
-            }
-
             // Verify results.
             if ($expectedError) {
-                $this->assertEquals($expectedErrorCount, count($ret->getEntries()), 'count $ret->getEntries()');
+                $exception = null;
+                try {
+                    // Execute the batch.
+                    $ret = (is_null($options) ?
+                        $this->restProxy->batch($operations) :
+                        $this->restProxy->batch(
+                            $operations,
+                            $options
+                        )
+                    );
+                } catch (ServiceException $e) {
+                    $exception = $e;
+                }
+
+                $this->assertNotNull($exception, 'Caught exception should not be null');
 
                 // No changes should have gone through.
                 for ($i = 0; $i < count($configs); $i++) {
                     $this->verifyCrudWorker($configs[$i]->opType, $table, $configs[$i]->ent, $configs[$i]->ent, false);
                 }
             } else {
+                // Execute the batch.
+                $ret = (is_null($options) ?
+                    $this->restProxy->batch($operations) :
+                    $this->restProxy->batch(
+                        $operations,
+                        $options
+                    )
+                );
+
                 $this->assertEquals($expectedReturned, count($ret->getEntries()), 'count $ret->getEntries()');
                 for ($i = 0; $i < count($ret->getEntries()); $i++) {
-                    $opResult = $ret->getEntries();
-                    $opResult = $opResult[$i];
+                    $opResult = $ret->getEntries()[$i];
                     $this->verifyBatchEntryType($configs[$i]->opType, $exptErrs[$i], $opResult);
                     $this->verifyEntryData($table, $exptErrs[$i], $targetEnts[$i], $opResult);
                     // Check out the entities.
@@ -1840,8 +1848,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $this->assertEquals($opResult->getETag(), $ger->getEntity()->getETag(), 'op->getETag');
         } elseif (is_string($opResult)) {
             // Nothing special to do.
-        } elseif ($opResult instanceof BatchError) {
-            $this->assertEquals($exptErr, $opResult->getError()->getCode(), 'getError()->getCode');
         } else {
             $this->fail('opResult is of an unknown type');
         }
@@ -1873,11 +1879,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                     );
                     break;
             }
-        } else {
-            $this->assertTrue(
-                $opResult instanceof BatchError,
-                'When expect an error, expect opResult instanceof BatchError'
-            );
         }
     }
 

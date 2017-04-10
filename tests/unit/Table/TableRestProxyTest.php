@@ -1152,6 +1152,8 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
      * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::_constructResponses
      * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::_compareUsingContentId
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendContext
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedExceptionMessage All commands in a batch must operate on same entity group.
      */
     public function testBatchWithDifferentPKFail()
     {
@@ -1176,9 +1178,6 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         
         // Test
         $result = $this->restProxy->batch($operations);
-        
-        // Assert
-        $this->assertTrue(true);
     }
 
     /**
