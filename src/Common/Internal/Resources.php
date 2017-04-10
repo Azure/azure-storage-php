@@ -155,6 +155,7 @@ class Resources
     const X_MS_BLOB_CONDITION_APPENDPOS      = 'x-ms-blob-condition-appendpos';
     const X_MS_BLOB_APPEND_OFFSET            = 'x-ms-blob-append-offset';
     const X_MS_BLOB_COMMITTED_BLOCK_COUNT    = 'x-ms-blob-committed-block-count';
+    const X_MS_COPY_ACTION                   = 'x-ms-copy-action';
     const X_MS_COPY_ID                       = 'x-ms-copy-id';
     const X_MS_COPY_COMPLETION_TIME          = 'x-ms-copy-completion-time';
     const X_MS_COPY_STATUS                   = 'x-ms-copy-status';
@@ -300,6 +301,7 @@ class Resources
     const QP_ACTION             = 'action';
     const QP_EMBED_DETAIL       = 'embed-detail';
     const QP_QUEUE_MESSAGE      = 'QueueMessage';
+    const QP_COPY_ID            = 'copyid';
 
     // Query parameter values
     const QPV_REGENERATE = 'regenerate';

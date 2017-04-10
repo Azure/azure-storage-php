@@ -137,7 +137,7 @@ class CopyState
     /**
      * Sets copy Id
      *
-     * @param string $leaseId the blob lease id.
+     * @param string $copyId the blob copy id.
      *
      * @internal
      *
