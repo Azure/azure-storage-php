@@ -109,7 +109,7 @@ class ListBlobsResult
             $blob->setUrl($serviceEndpoint . $containerName . '/' . $value['Name']);
             $blob->setSnapshot(Utilities::tryGetValue($value, 'Snapshot'));
             $blob->setProperties(
-                BlobProperties::create(
+                BlobProperties::createFromXml(
                     Utilities::tryGetValue($value, 'Properties')
                 )
             );

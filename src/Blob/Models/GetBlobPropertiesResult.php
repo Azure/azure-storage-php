@@ -98,77 +98,10 @@ class GetBlobPropertiesResult
      */
     public static function create(array $headers)
     {
-        $result          = new GetBlobPropertiesResult();
-        $properties      = new BlobProperties();
-        $lastModified    = Utilities::tryGetValueInsensitive(
-            Resources::LAST_MODIFIED,
-            $headers
-        );
-        $blobType        = Utilities::tryGetValueInsensitive(
-            Resources::X_MS_BLOB_TYPE,
-            $headers
-        );
-        $contentLength   = intval(Utilities::tryGetValueInsensitive(
-            Resources::CONTENT_LENGTH,
-            $headers
-        ));
+        $result = new GetBlobPropertiesResult();
 
-        $leaseStatus     = Utilities::tryGetValueInsensitive(
-            Resources::X_MS_LEASE_STATUS,
-            $headers
-        );
-        $contentType     = Utilities::tryGetValueInsensitive(
-            Resources::CONTENT_TYPE,
-            $headers
-        );
-        $contentMD5      = Utilities::tryGetValueInsensitive(
-            Resources::CONTENT_MD5,
-            $headers
-        );
-        $contentEncoding = Utilities::tryGetValueInsensitive(
-            Resources::CONTENT_ENCODING,
-            $headers
-        );
-        $contentLanguage = Utilities::tryGetValueInsensitive(
-            Resources::CONTENT_LANGUAGE,
-            $headers
-        );
-        $cacheControl    = Utilities::tryGetValueInsensitive(
-            Resources::CACHE_CONTROL,
-            $headers
-        );
-
-        $etag            = Utilities::tryGetValueInsensitive(
-            Resources::ETAG,
-            $headers
-        );
-        $metadata        = Utilities::getMetadataArray($headers);
-        
-        if (array_key_exists(Resources::X_MS_BLOB_SEQUENCE_NUMBER, $headers)) {
-            $properties->setSequenceNumber(
-                intval($headers[Resources::X_MS_BLOB_SEQUENCE_NUMBER])
-            );
-        }
-        
-        if (array_key_exists(Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT, $headers)) {
-            $properties->setCommittedBlockCount(
-                intval($headers[Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT])
-            );
-        }
-        
-        $properties->setBlobType($blobType);
-        $properties->setCacheControl($cacheControl);
-        $properties->setContentEncoding($contentEncoding);
-        $properties->setContentLanguage($contentLanguage);
-        $properties->setContentLength($contentLength);
-        $properties->setContentMD5($contentMD5);
-        $properties->setContentType($contentType);
-        $properties->setETag($etag);
-        $properties->setLastModified(Utilities::rfc1123ToDateTime($lastModified));
-        $properties->setLeaseStatus($leaseStatus);
-        
-        $result->setProperties($properties);
-        $result->setMetadata($metadata);
+        $result->setProperties(BlobProperties::createFromHttpHeaders($headers));
+        $result->setMetadata(Utilities::getMetadataArray($headers));
         
         return $result;
     }

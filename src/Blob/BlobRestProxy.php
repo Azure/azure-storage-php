@@ -1380,12 +1380,14 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $includeMetadata         = $options->getIncludeMetadata();
         $includeSnapshots        = $options->getIncludeSnapshots();
         $includeUncommittedBlobs = $options->getIncludeUncommittedBlobs();
+        $includecopy             = $options->getIncludeCopy();
         
         $includeValue = static::groupQueryValues(
             array(
                 $includeMetadata ? 'metadata' : null,
                 $includeSnapshots ? 'snapshots' : null,
-                $includeUncommittedBlobs ? 'uncommittedblobs' : null
+                $includeUncommittedBlobs ? 'uncommittedblobs' : null,
+                $includecopy ? 'copy' : null
             )
         );
         

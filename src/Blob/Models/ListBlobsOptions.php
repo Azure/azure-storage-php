@@ -45,6 +45,7 @@ class ListBlobsOptions extends BlobServiceOptions
     private $_includeMetadata;
     private $_includeSnapshots;
     private $_includeUncommittedBlobs;
+    private $_includeCopy;
 
     /**
      * Gets prefix.
@@ -205,5 +206,28 @@ class ListBlobsOptions extends BlobServiceOptions
     {
         Validate::isBoolean($includeUncommittedBlobs);
         $this->_includeUncommittedBlobs = $includeUncommittedBlobs;
+    }
+    
+    /**
+     * Indicates if copy is included or not.
+     *
+     * @return boolean
+     */
+    public function getIncludeCopy()
+    {
+        return $this->_includeCopy;
+    }
+
+    /**
+     * Sets the include copy flag.
+     *
+     * @param bool $includeCopy value.
+     *
+     * @return void
+     */
+    public function setIncludeCopy($includeCopy)
+    {
+        Validate::isBoolean($includeCopy);
+        $this->_includeCopy = $includeCopy;
     }
 }

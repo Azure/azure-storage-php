@@ -1618,6 +1618,33 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
         $this->assertNotNull($result->getETag());
         $this->assertInstanceOf('\DateTime', $result->getlastModified());
+
+        $destinationBlobProperties =
+            $this->restProxy->getBlobProperties($destinationContainerName, $destinationBlobName);
+        $copyState = $destinationBlobProperties->getProperties()->getCopyState();
+
+        $this->assertNotNull($copyState);
+        $this->assertNotNull($copyState->getCopyId());
+        $this->assertNotNull($copyState->getCompletionTime());
+        $this->assertNotNull($copyState->getStatus());
+        $this->assertNotNull($copyState->getSource());
+        $this->assertNotNull($copyState->getBytesCopied());
+        $this->assertNotNull($copyState->getTotalBytes());
+
+        $listBlobsOptions = new ListBlobsOptions();
+        $listBlobsOptions->setIncludeCopy(true);
+        $listedDestinationBlobs = $this->restProxy->listBlobs($destinationContainerName, $listBlobsOptions);
+        
+        $destBlob = $listedDestinationBlobs->getBlobs()[0];
+        $copyState = $destBlob->getProperties()->getCopyState();
+
+        $this->assertNotNull($copyState);
+        $this->assertNotNull($copyState->getCopyId());
+        $this->assertNotNull($copyState->getCompletionTime());
+        $this->assertNotNull($copyState->getStatus());
+        $this->assertNotNull($copyState->getSource());
+        $this->assertNotNull($copyState->getBytesCopied());
+        $this->assertNotNull($copyState->getTotalBytes());
     }
     
     /**

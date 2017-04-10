@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::createFromHttpHeaders
      */
     public function testCreate()
     {
@@ -50,7 +50,7 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
         
         // Test
-        $actual = BlobProperties::create($expected);
+        $actual = BlobProperties::createFromHttpHeaders($expected);
         
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
