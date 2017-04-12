@@ -3820,6 +3820,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
         }, null);
     }
+    
     /**
      * Abort a blob copy operation
      *
