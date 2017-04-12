@@ -40,4 +40,5 @@ class LeaseMode
     const RENEW_ACTION   = 'renew';
     const RELEASE_ACTION = 'release';
     const BREAK_ACTION   = 'break';
+    const CHANGE_ACTION   = 'change';
 }

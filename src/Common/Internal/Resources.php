@@ -168,8 +168,10 @@ class Resources
     const X_MS_LEASE_ID                      = 'x-ms-lease-id';
     const X_MS_LEASE_TIME                    = 'x-ms-lease-time';
     const X_MS_LEASE_STATUS                  = 'x-ms-lease-status';
-    const X_MS_LEASE_STATE                  = 'x-ms-lease-state';
+    const X_MS_LEASE_STATE                   = 'x-ms-lease-state';
     const X_MS_LEASE_ACTION                  = 'x-ms-lease-action';
+    const X_MS_PROPOSED_LEASE_ID             = 'x-ms-proposed-lease-id';
+    const X_MS_LEASE_BREAK_PERIOD            = 'x-ms-lease-break-period';
     const X_MS_DELETE_SNAPSHOTS              = 'x-ms-delete-snapshots';
     const X_MS_PAGE_WRITE                    = 'x-ms-page-write';
     const X_MS_SNAPSHOT                      = 'x-ms-snapshot';

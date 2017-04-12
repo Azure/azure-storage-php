@@ -428,50 +428,43 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $leaseAction,
         $container,
         $blob,
+        $proposedLeaseId,
+        $leaseDuration,
         $leaseId,
+        $breakPeriod,
         $expectedStatusCode,
         Models\BlobServiceOptions $options,
         Models\AccessCondition $accessCondition = null
     ) {
         Validate::isString($blob, 'blob');
-        Validate::notNullOrEmpty($blob, 'blob');
         Validate::isString($container, 'container');
+        Validate::notNullOrEmpty($container, 'container');
         
         $method      = Resources::HTTP_PUT;
         $headers     = array();
         $queryParams = array();
         $postParams  = array();
-        $path        = $this->_createPath($container, $blob);
-        
-        if ($leaseAction == LeaseMode::ACQUIRE_ACTION) {
-            $this->addOptionalHeader(
-                $headers,
-                Resources::X_MS_LEASE_DURATION,
-                -1
-            );
+        $path;
+
+        if (empty($blob)) {
+            $path = $this->_createPath($container);
+            $this->addOptionalQueryParam($queryParams, Resources::QP_REST_TYPE, 'container');
+        } else {
+            $path = $this->_createPath($container, $blob);
         }
+        $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'lease');
+        $this->addOptionalQueryParam($queryParams, Resources::QP_TIMEOUT, $options->getTimeout());
         
+        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_ID, $leaseId);
+        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_ACTION, $leaseAction);
+        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_BREAK_PERIOD, $breakPeriod);
+        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_DURATION, $leaseDuration);
+        $this->addOptionalHeader($headers, Resources::X_MS_PROPOSED_LEASE_ID, $proposedLeaseId);
+        $this->addOptionalAccessConditionHeader($headers, $accessCondition);
+
         if (!is_null($options)) {
             $options = new BlobServiceOptions();
         }
-        
-        $headers = $this->addOptionalAccessConditionHeader(
-            $headers,
-            $accessCondition
-        );
-
-        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_ID, $leaseId);
-        $this->addOptionalHeader(
-            $headers,
-            Resources::X_MS_LEASE_ACTION,
-            $leaseAction
-        );
-        $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'lease');
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         
         return $this->sendAsync(
             $method,
@@ -3934,12 +3927,16 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     }
         
     /**
-     * Establishes an exclusive one-minute write lock on a blob. To write to a locked
+     * Establishes an exclusive write lock on a blob. To write to a locked
      * blob, a client must provide a lease ID.
      *
-     * @param string                     $container name of the container
-     * @param string                     $blob      name of the blob
-     * @param Models\AcquireLeaseOptions $options   optional parameters
+     * @param string                     $container         name of the container
+     * @param string                     $blob              name of the blob
+     * @param string                     $proposedLeaseId   lease id when acquiring
+     * @param int                        $leaseDuration     the lease duration. A non-infinite
+     *                                                      lease can be between 15 and 60 seconds.
+     *                                                      Default is never to expire.
+     * @param Models\AcquireLeaseOptions $options           optional parameters
      *
      * @return Models\LeaseBlobResult
      *
@@ -3948,18 +3945,30 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function acquireLease(
         $container,
         $blob,
+        $proposedLeaseId = null,
+        $leaseDuration = null,
         Models\AcquireLeaseOptions $options = null
     ) {
-        return $this->acquireLeaseAsync($container, $blob, $options)->wait();
+        return $this->acquireLeaseAsync(
+            $container,
+            $blob,
+            $proposedLeaseId,
+            $leaseDuration,
+            $options
+        )->wait();
     }
 
     /**
      * Creates promise to establish an exclusive one-minute write lock on a blob.
      * To write to a locked blob, a client must provide a lease ID.
      *
-     * @param string                     $container name of the container
-     * @param string                     $blob      name of the blob
-     * @param Models\AcquireLeaseOptions $options   optional parameters
+     * @param string                     $container         name of the container
+     * @param string                     $blob              name of the blob
+     * @param string                     $proposedLeaseId   lease id when acquiring
+     * @param int                        $leaseDuration     the lease duration. A non-infinite
+     *                                                      lease can be between 15 and 60 seconds.
+     *                                                      Default is never to expire.
+     * @param Models\AcquireLeaseOptions $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -3968,16 +3977,108 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function acquireLeaseAsync(
         $container,
         $blob,
+        $proposedLeaseId = null,
+        $leaseDuration = null,
         Models\AcquireLeaseOptions $options = null
     ) {
+        if ($options === null) {
+            $options = new AcquireLeaseOptions();
+        }
+
+        if ($leaseDuration === null) {
+            $leaseDuration = -1;
+        }
+
         return $this->_putLeaseAsyncImpl(
             LeaseMode::ACQUIRE_ACTION,
             $container,
             $blob,
+            $proposedLeaseId,
+            $leaseDuration,
             null /* leaseId */,
+            null /* breakPeriod */,
             self::getStatusCodeOfLeaseAction(LeaseMode::ACQUIRE_ACTION),
-            is_null($options) ? new AcquireLeaseOptions() : $options,
-            is_null($options) ? null : $options->getAccessCondition()
+            $options,
+            $options->getAccessCondition()
+        )->then(function ($response) {
+            return LeaseBlobResult::create(
+                HttpFormatter::formatHeaders($response->getHeaders())
+            );
+        }, null);
+    }
+    
+    /**
+     * change an existing lease
+     *
+     * @param string                    $container         name of the container
+     * @param string                    $blob              name of the blob
+     * @param string                    $leaseId           lease id when acquiring
+     * @param string                    $proposedLeaseId   lease id when acquiring
+     * @param int                       $leaseDuration     the lease duration. A non-infinite
+     *                                                     lease can be between 15 and 60 seconds.
+     *                                                     Default is never to expire.
+     * @param Models\BlobServiceOptions $options           optional parameters
+     *
+     * @return Models\LeaseBlobResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
+     */
+    public function changeLease(
+        $container,
+        $blob,
+        $leaseId,
+        $proposedLeaseId,
+        $leaseDuration = null,
+        Models\BlobServiceOptions $options = null
+    ) {
+        return $this->changeLeaseAsync(
+            $container,
+            $blob,
+            $leaseId,
+            $proposedLeaseId,
+            $leaseDuration,
+            $options
+        )->wait();
+    }
+
+    /**
+     * Creates promise to change an existing lease
+     *
+     * @param string                    $container         name of the container
+     * @param string                    $blob              name of the blob
+     * @param string                    $leaseId           lease id when acquiring
+     * @param string                    $proposedLeaseId   the proposed lease id
+     * @param int                       $leaseDuration     the lease duration. A non-infinite
+     *                                                     lease can be between 15 and 60 seconds.
+     *                                                     Default is never to expire.
+     * @param Models\BlobServiceOptions $options           optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
+     */
+    public function changeLeaseAsync(
+        $container,
+        $blob,
+        $leaseId,
+        $proposedLeaseId,
+        $leaseDuration = null,
+        Models\BlobServiceOptions $options = null
+    ) {
+        if ($leaseDuration === null) {
+            $leaseDuration = -1;
+        }
+
+        return $this->_putLeaseAsyncImpl(
+            LeaseMode::CHANGE_ACTION,
+            $container,
+            $blob,
+            $proposedLeaseId,
+            $leaseDuration,
+            $leaseId,
+            null /* breakPeriod */,
+            self::getStatusCodeOfLeaseAction(LeaseMode::RENEW_ACTION),
+            is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {
             return LeaseBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3995,7 +4096,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return Models\LeaseBlobResult
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
     public function renewLease(
         $container,
@@ -4021,7 +4122,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
     public function renewLeaseAsync(
         $container,
@@ -4033,7 +4134,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             LeaseMode::RENEW_ACTION,
             $container,
             $blob,
+            null /* proposedLeaseId */,
+            null /* leaseDuration */,
             $leaseId,
+            null /* breakPeriod */,
             self::getStatusCodeOfLeaseAction(LeaseMode::RENEW_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {
@@ -4054,7 +4158,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return void
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
     public function releaseLease(
         $container,
@@ -4076,7 +4180,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
     public function releaseLeaseAsync(
         $container,
@@ -4088,7 +4192,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             LeaseMode::RELEASE_ACTION,
             $container,
             $blob,
+            null /* proposedLeaseId */,
+            null /* leaseDuration */,
             $leaseId,
+            null /* breakPeriod */,
             self::getStatusCodeOfLeaseAction(LeaseMode::RELEASE_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         );
@@ -4098,19 +4205,23 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * Ends the lease but ensure that another client cannot acquire a new lease until
      * the current lease period has expired.
      *
-     * @param string                    $container name of the container
-     * @param string                    $blob      name of the blob
-     * @param string                    $leaseId   lease id when acquiring
+     * @param string                    $container     name of the container
+     * @param string                    $blob          name of the blob
+     * @param string                    $leaseId       lease id when acquiring
+     * @param int                       $breakPeriod   the proposed duration of seconds that
+     *                                                 lease should continue before it it broken,
+     *                                                 between 0 and 60 seconds.
      * @param Models\BlobServiceOptions $options   optional parameters
      *
      * @return BreakLeaseResult
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
     public function breakLease(
         $container,
         $blob,
         $leaseId,
+        $breakPeriod = null,
         Models\BlobServiceOptions $options = null
     ) {
         return $this->breakLeaseAsync(
@@ -4132,19 +4243,23 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
     public function breakLeaseAsync(
         $container,
         $blob,
         $leaseId,
+        $breakPeriod = null,
         Models\BlobServiceOptions $options = null
     ) {
         return $this->_putLeaseAsyncImpl(
             LeaseMode::BREAK_ACTION,
             $container,
             $blob,
+            null /* proposedLeaseId */,
+            null /* leaseDuration */,
             $leaseId,
+            $breakPeriod,
             self::getStatusCodeOfLeaseAction(LeaseMode::BREAK_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {

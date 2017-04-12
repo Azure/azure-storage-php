@@ -1173,20 +1173,26 @@ interface IBlob
     );
 
     /**
-    * Establishes an exclusive one-minute write lock on a blob. To write to a locked
-    * blob, a client must provide a lease ID.
-    *
-    * @param string                         $container name of the container
-    * @param string                         $blob      name of the blob
-    * @param BlobModels\AcquireLeaseOptions $options   optional parameters
-    *
-    * @return BlobModels\AcquireLeaseResult
-    *
-    * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
-    */
+     * Establishes an exclusive write lock on a blob. To write to a locked
+     * blob, a client must provide a lease ID.
+     *
+     * @param string                     $container         name of the container
+     * @param string                     $blob              name of the blob
+     * @param string                     $proposedLeaseId   lease id when acquiring
+     * @param int                        $leaseDuration     the lease duration. A non-infinite
+     *                                                      lease can be between 15 and 60 seconds.
+     *                                                      Default is never to expire.
+     * @param Models\AcquireLeaseOptions $options           optional parameters
+     *
+     * @return Models\LeaseBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     */
     public function acquireLease(
         $container,
         $blob,
+        $proposedLeaseId = null,
+        $leaseDuration = null,
         BlobModels\AcquireLeaseOptions $options = null
     );
 
@@ -1194,9 +1200,13 @@ interface IBlob
      * Creates promise to establish an exclusive one-minute write lock on a blob.
      * To write to a locked blob, a client must provide a lease ID.
      *
-     * @param string                         $container name of the container
-     * @param string                         $blob      name of the blob
-     * @param BlobModels\AcquireLeaseOptions $options   optional parameters
+     * @param string                     $container         name of the container
+     * @param string                     $blob              name of the blob
+     * @param string                     $proposedLeaseId   lease id when acquiring
+     * @param int                        $leaseDuration     the lease duration. A non-infinite
+     *                                                      lease can be between 15 and 60 seconds.
+     *                                                      Default is never to expire.
+     * @param Models\AcquireLeaseOptions $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1205,6 +1215,8 @@ interface IBlob
     public function acquireLeaseAsync(
         $container,
         $blob,
+        $proposedLeaseId = null,
+        $leaseDuration = null,
         BlobModels\AcquireLeaseOptions $options = null
     );
 
@@ -1304,6 +1316,7 @@ interface IBlob
         $container,
         $blob,
         $leaseId,
+        $breakPeriod = null,
         BlobModels\BlobServiceOptions $options = null
     );
 
@@ -1324,6 +1337,7 @@ interface IBlob
         $container,
         $blob,
         $leaseId,
+        $breakPeriod = null,
         BlobModels\BlobServiceOptions $options = null
     );
 }
