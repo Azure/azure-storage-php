@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Blob\Models\AcquireLeaseOptions;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
@@ -1272,10 +1273,64 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         
         // Test
-        $result = $this->restProxy->acquireLease($name, $blob);
+        $proposedLeaseId = '6c75960f-2837-4c35-9948-e35e87d00edf';
+        $result = $this->restProxy->acquireLease($name, $blob, $proposedLeaseId, 20);
         
         // Assert
-        $this->assertNotNull($result->getLeaseId());
+        $this->assertEquals($proposedLeaseId, $result->getLeaseId());
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     */
+    public function testAcquireContainerLease()
+    {
+        // Setup
+        $name = 'acquirelease' . $this->createSuffix();
+        $blob = 'myblob';
+        $contentType = 'text/plain; charset=UTF-8';
+        $this->createContainer($name);
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
+        
+        // Test
+        $proposedLeaseId = '47809df9-8f4a-4243-828b-56243e702a04';
+        $result = $this->restProxy->acquireLease($name, null, $proposedLeaseId);
+        
+        // Assert
+        $this->assertEquals($proposedLeaseId, $result->getLeaseId());
+
+        // Break the lease so that the clean-up can delete the container
+        $result = $this->restProxy->breakLease($name, null, $result->getLeaseId());
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::changeLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     */
+    public function testChangeLease()
+    {
+        // Setup
+        $name = 'changelease' . $this->createSuffix();
+        $blob = 'myblob';
+        $contentType = 'text/plain; charset=UTF-8';
+        $this->createContainer($name);
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
+        
+        // Test
+        $result = $this->restProxy->acquireLease($name, $blob);
+        
+        $proposedLeaseId = '6c75960f-2837-4c35-9948-e35e87d00edf';
+        $result = $this->restProxy->changeLease($name, $blob, $result->getLeaseId(), $proposedLeaseId);
+        
+        // Assert
+        $this->assertEquals($proposedLeaseId, $result->getLeaseId());
     }
     
     /**
@@ -1342,7 +1397,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->restProxy->acquireLease($name, $blob);
         
         // Test
-        $result = $this->restProxy->breakLease($name, $blob, null);
+        $result = $this->restProxy->breakLease($name, $blob, 10);
         
         // Assert
         $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult', $result);
