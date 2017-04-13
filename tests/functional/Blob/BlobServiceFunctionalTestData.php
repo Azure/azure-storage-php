@@ -32,15 +32,12 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\DeleteContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
-use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
-use MicrosoftAzure\Storage\Blob\Models\SetContainerMetadataOptions;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
@@ -560,30 +557,30 @@ class BlobServiceFunctionalTestData
         $past = new \DateTime("01/01/2010");
         $future = new \DateTime("01/01/2020");
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(10);
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(-10);
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setAccessCondition(AccessCondition::ifModifiedSince($past));
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setAccessCondition(AccessCondition::ifNotModifiedSince($past));
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setAccessCondition(AccessCondition::ifModifiedSince($future));
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setAccessCondition(AccessCondition::ifNotModifiedSince($future));
         array_push($ret, $options);
 
@@ -594,21 +591,21 @@ class BlobServiceFunctionalTestData
     {
         $ret = array();
 
-        $options = new SetContainerMetadataOptions();
+        $options = new BlobServiceOptions();
         array_push($ret, $options);
 
-        $options = new SetContainerMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(10);
         array_push($ret, $options);
 
-        $options = new SetContainerMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(-10);
         array_push($ret, $options);
 
         // Set Container Metadata only supports the If-Modified-Since access condition.
         // But easier to special-case If-Unmodified-Since in the test.
         foreach (self::getTemporalAccessConditions() as $ac) {
-            $options = new SetContainerMetadataOptions();
+            $options = new BlobServiceOptions();
             $options->setAccessCondition($ac);
             array_push($ret, $options);
         }
@@ -620,25 +617,25 @@ class BlobServiceFunctionalTestData
     {
         $ret = array();
 
-        $options = new SetBlobMetadataOptions();
+        $options = new BlobServiceOptions();
         array_push($ret, $options);
 
-        $options = new SetBlobMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(10);
         array_push($ret, $options);
 
-        $options = new SetBlobMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(-10);
         array_push($ret, $options);
 
         foreach (self::getAllAccessConditions() as $ac) {
-            $options = new SetBlobMetadataOptions();
+            $options = new BlobServiceOptions();
             $options->setAccessCondition($ac);
             array_push($ret, $options);
         }
 
         // TODO: Make sure the lease id part is tested in the leasing part.
-        //        $options = new SetBlobMetadataOptions();
+        //        $options = new BlobServiceOptions();
         //        $options->setLeaseId(leaseId)
         //        array_push($ret, $options);
 

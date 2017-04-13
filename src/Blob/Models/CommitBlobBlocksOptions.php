@@ -44,8 +44,6 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     private $_blobContentMD5;
     private $_blobCacheControl;
     private $_metadata;
-    private $_leaseId;
-    private $_accessCondition;
     
     /**
      * Gets blob ContentType.
@@ -158,28 +156,6 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     }
     
     /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition = null)
-    {
-        $this->_accessCondition = $accessCondition;
-    }
-    
-    /**
      * Gets blob metadata.
      *
      * @return array
@@ -200,28 +176,6 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_metadata = $metadata;
     }
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
-    }
 
     /**
      * Create a instance using the given options
@@ -240,7 +194,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
         $result->setBlobContentMD5($options->getBlobContentMD5());
         $result->setBlobCacheControl($options->getBlobCacheControl());
         $result->setMetadata($options->getMetadata());
-        $result->setAccessCondition($options->getAccessCondition());
+        $result->setLeaseId($options->getLeaseId());
 
         return $result;
     }

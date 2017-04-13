@@ -104,6 +104,16 @@ class ListContainersResult
             $date       = Utilities::rfc1123ToDateTime($date);
             $properties->setLastModified($date);
             $properties->setETag($value['Properties']['Etag']);
+            
+            if (array_key_exists('LeaseStatus', $value['Properties'])) {
+                $properties->setLeaseStatus($value['Properties']['LeaseStatus']);
+            }
+            if (array_key_exists('LeaseState', $value['Properties'])) {
+                $properties->setLeaseStatus($value['Properties']['LeaseState']);
+            }
+            if (array_key_exists('LeaseDuration', $value['Properties'])) {
+                $properties->setLeaseStatus($value['Properties']['LeaseDuration']);
+            }
             $container->setProperties($properties);
             $containers[] = $container;
         }

@@ -36,53 +36,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class GetBlobPropertiesOptions extends BlobServiceOptions
 {
-    private $_leaseId;
     private $_snapshot;
-    private $_accessCondition;
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
-    }
-    
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition($accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
-    }
     
     /**
      * Gets blob snapshot.

@@ -50,10 +50,8 @@ class CreateBlobOptions extends BlobServiceOptions
     private $_blobContentMD5;
     private $_blobCacheControl;
     private $_metadata;
-    private $_leaseId;
     private $_sequenceNumber;
     private $_sequenceNumberAction;
-    private $_accessCondition;
     private $_numberOfConcurrency;
     
     /**
@@ -300,28 +298,6 @@ class CreateBlobOptions extends BlobServiceOptions
     }
     
     /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
-    }
-    
-    /**
      * Gets blob metadata.
      *
      * @return array
@@ -389,28 +365,6 @@ class CreateBlobOptions extends BlobServiceOptions
     }
 
     /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
-    }
-
-    /**
      * Gets number of concurrency for sending a blob.
      *
      * @return int
@@ -443,6 +397,7 @@ class CreateBlobOptions extends BlobServiceOptions
         $result->setTimeout($createBlobBlockOptions->getTimeout());
         $result->setContentMD5($createBlobBlockOptions->getContentMD5());
         $result->setLeaseId($createBlobBlockOptions->getLeaseId());
+        $result->setLeaseId($createBlobBlockOptions->getAccessCondition());
         $result->setNumberOfConcurrency(
             $createBlobBlockOptions->getNumberOfConcurrency()
         );
