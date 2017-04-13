@@ -190,32 +190,4 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         // Test
         $proxy->generateMetadataHeaders($metadata);
     }
-
-    /**
-     * @expectedException \GuzzleHttp\Exception\RequestException
-     * @expectedExceptionMessage foo
-     */
-    public function testSetGuzzleOptions()
-    {
-        $uri = 'http://www.microsoft.com';
-        $accountName = 'myaccount';
-        $dataSerializer = new XmlSerializer();
-        $mockRequestHandler = new MockHandler(
-            array(new RequestException('foo', new Request('GET', $uri)))
-        );
-
-        $guzzleOptions = array('http' => array('handler' => HandlerStack::create($mockRequestHandler)));
-        $proxy = new ServiceRestProxy($uri, $accountName, $dataSerializer, $guzzleOptions);
-        $reflection = new \ReflectionClass($proxy);
-        $method = $reflection->getMethod('sendAsync');
-        $method->setAccessible(true);
-
-        $method->invokeArgs($proxy, array(
-            'GET',
-            [],
-            [],
-            [],
-            '/',
-        ))->wait();
-    }
 }

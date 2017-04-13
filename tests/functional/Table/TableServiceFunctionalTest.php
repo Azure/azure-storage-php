@@ -2165,15 +2165,16 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             new Response(500, ['test_header' => 'test_header_value']),
             $response
         ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new QueryTablesOptions();
         $options->setRequestOptions(
             [
-            'middlewares' => [$retryMiddleware, $historyMiddleware],
-            'handler' => $mock
+            'middlewares' => [$retryMiddleware, $historyMiddleware]
             ]
         );
-        $newResult = $this->restProxy->queryTables($options);
+        $newResult = $mockProxy->queryTables($options);
         $this->assertTrue(
             $result == $newResult,
             'Mock result does not match server behavior'
@@ -2183,7 +2184,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             'Mock handler does not gave the first 408 exception correctly'
         );
         $this->assertTrue(
-            $historyMiddleware->getHistory()[2]['response']->getStatusCode() == 500,
+            $historyMiddleware->getHistory()[2]['reason']->getCode() == 500,
             'Mock handler does not gave the second 500 response correctly'
         );
     }
