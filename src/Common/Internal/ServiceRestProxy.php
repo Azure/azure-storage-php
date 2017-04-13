@@ -31,14 +31,13 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase;
+use MicrosoftAzure\Storage\Common\Middlewares\MiddlewareStack;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\EachPromise;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7;
 use Psr\Http\Message\ResponseInterface;
@@ -56,9 +55,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class ServiceRestProxy extends RestProxy
 {
-    private $_accountName;
-    private $_psrUri;
-    private $_options;
+    private $accountName;
+    private $psrUri;
+    private $options;
+    private $client;
 
     /**
      * Initializes new ServiceRestProxy object.
@@ -81,40 +81,12 @@ class ServiceRestProxy extends RestProxy
 
         parent::__construct($dataSerializer, $uri);
 
-        $this->_accountName = $accountName;
-        $this->_psrUri = new \GuzzleHttp\Psr7\Uri($uri);
-        $this->_options = array_merge(array('http' => array()), $options);
-    }
-
-    /**
-     * Gets the account name.
-     *
-     * @return string
-     */
-    public function getAccountName()
-    {
-        return $this->_accountName;
-    }
-
-    /**
-     * Helper function to create a usable client for the proxy.
-     * The requestOptions can contain the following keys that will affect
-     * the way retry handler is created and applied.
-     * handler:               HandlerStack, if set, this function will not
-     *                        create a handler stack.
-     * @param  array $requestOptions Added options for client.
-     *
-     * @return \GuzzleHttp\Client
-     */
-    protected function createClient(array $requestOptions)
-    {
-        //First, extract or create the handler stack for the client.
-        $requestOptions['handler'] = $this->createHandlerStack($requestOptions);
-
-        return (new \GuzzleHttp\Client(
+        $this->accountName = $accountName;
+        $this->psrUri = new \GuzzleHttp\Psr7\Uri($uri);
+        $this->options = array_merge(array('http' => array()), $options);
+        $this->client = (new \GuzzleHttp\Client(
             array_merge(
-                $requestOptions,
-                $this->_options['http'],
+                $this->options['http'],
                 array(
                     "defaults" => array(
                         "allow_redirects" => true,
@@ -129,29 +101,35 @@ class ServiceRestProxy extends RestProxy
             )
         ));
     }
-    
+
     /**
-     * Create a handler stack with given middleware. If the given handler is not
-     * a type of HandlerStack and middleware is to pushed in, exception might be
-     * thrown due to some of the handler stack type does not implement push()
-     * method. e.g. MockHandler.
+     * Gets the account name.
+     *
+     * @return string
+     */
+    public function getAccountName()
+    {
+        return $this->accountName;
+    }
+
+    /**
+     * Create a middleware stack with given middleware.
      *
      * @param  array  $requestOptions The options user passed in.
      *
-     * @return HandlerStack          The HandlerStack that contains all the
-     *                               middleware specified in the $requestOptions.
+     * @return MiddlewareStack
      */
-    protected function createHandlerStack(array $requestOptions)
+    protected function createMiddlewareStack(array $requestOptions)
     {
         //If handler stack is not defined by the user, create a default
-        //handler stack.
+        //middleware stack.
         $stack = null;
-        if (array_key_exists('handler', $this->_options['http'])) {
-            $stack = $this->_options['http']['handler'];
-        } elseif (array_key_exists('handler', $requestOptions)) {
-            $stack = $requestOptions['handler'];
+        if (array_key_exists('stack', $this->options['http'])) {
+            $stack = $this->options['http']['stack'];
+        } elseif (array_key_exists('stack', $requestOptions)) {
+            $stack = $requestOptions['stack'];
         } else {
-            $stack = HandlerStack::create();
+            $stack = new MiddlewareStack();
         }
 
         //Push all the middlewares specified in the $requestOptions to the
@@ -162,10 +140,10 @@ class ServiceRestProxy extends RestProxy
             }
         }
 
-        //Push all the middlewares specified in the $_options to the
+        //Push all the middlewares specified in the $options to the
         //handlerstack.
-        if (array_key_exists('middlewares', $this->_options)) {
-            foreach ($this->_options['middlewares'] as $middleware) {
+        if (array_key_exists('middlewares', $this->options)) {
+            foreach ($this->options['middlewares'] as $middleware) {
                 $stack->push($middleware);
             }
         }
@@ -210,15 +188,30 @@ class ServiceRestProxy extends RestProxy
             $numberOfConcurrency = $requestOptions['number_of_concurrency'];
             unset($requestOptions['number_of_concurrency']);
         }
-        //creates the client
-        $client = $this->createClient($requestOptions);
+        $client = $this->client;
+        $middlewareStack = $this->createMiddlewareStack($requestOptions);
 
         $promises = \call_user_func(
-            function () use ($requests, $generator, $client) {
-                $sendAsync = function ($request) use ($client) {
-                    $options = $request->getMethod() == 'HEAD'?
-                        array('decode_content' => false) : array();
-                    return $client->sendAsync($request, $options);
+            function () use (
+                $requests,
+                $generator,
+                $client,
+                $middlewareStack,
+                $requestOptions
+            ) {
+                $sendAsync = function ($request) use (
+                    $client,
+                    $middlewareStack,
+                    $requestOptions
+                ) {
+                    if ($request->getMethod() == 'HEAD') {
+                        $requestOptions['decode_content'] = false;
+                    }
+                    $callable = function ($request, $options) use ($client) {
+                        return $client->sendAsync($request, $options);
+                    };
+                    $handler = $middlewareStack->apply($callable);
+                    return \call_user_func($handler, $request, $requestOptions);
                 };
                 foreach ($requests as $request) {
                     yield $sendAsync($request);
@@ -253,9 +246,9 @@ class ServiceRestProxy extends RestProxy
      * Create the request to be sent.
      *
      * @param  string $method         The method of the HTTP request
-     * @param  array $headers        The header field of the request
-     * @param  array $queryParams    The query parameter of the request
-     * @param  array $postParameters The HTTP POST parameters
+     * @param  array  $headers        The header field of the request
+     * @param  array  $queryParams    The query parameter of the request
+     * @param  array  $postParameters The HTTP POST parameters
      * @param  string $path           URL path
      * @param  string $body           Request body
      *
@@ -270,7 +263,7 @@ class ServiceRestProxy extends RestProxy
         $body = Resources::EMPTY_STRING
     ) {
         // add query parameters into headers
-        $uri = $this->_psrUri;
+        $uri = $this->psrUri;
         //Append the path, not replacing it.
         if ($path != null) {
             $exPath = $uri->getPath();
@@ -348,12 +341,21 @@ class ServiceRestProxy extends RestProxy
             $path,
             $body
         );
-        $client = $this->createClient($requestOptions);
+        $client = $this->client;
 
-        $options = $request->getMethod() == 'HEAD'?
-            array('decode_content' => false) : array();
+        $middlewareStack = $this->createMiddlewareStack($requestOptions);
 
-        $promise = $client->sendAsync($request, $options);
+        if ($request->getMethod() == 'HEAD') {
+            $requestOptions['decode_content'] = false;
+        }
+
+        $sendAsync = function ($request, $options) use ($client) {
+            return $client->sendAsync($request, $options);
+        };
+
+        $handler = $middlewareStack->apply($sendAsync);
+
+        $promise = \call_user_func($handler, $request, $requestOptions);
 
         return $promise->then(
             function ($response) use ($expected) {
