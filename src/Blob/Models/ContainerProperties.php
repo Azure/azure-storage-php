@@ -38,6 +38,9 @@ class ContainerProperties
 {
     private $_lastModified;
     private $_etag;
+    private $_leaseStatus;
+    private $_leaseState;
+    private $_leaseDuration;
     
     /**
      * Gets container lastModified.
@@ -81,5 +84,71 @@ class ContainerProperties
     public function setETag($etag)
     {
         $this->_etag = $etag;
+    }
+    
+    /**
+     * Gets blob leaseStatus.
+     *
+     * @return string
+     */
+    public function getLeaseStatus()
+    {
+        return $this->_leaseStatus;
+    }
+
+    /**
+     * Sets blob leaseStatus.
+     *
+     * @param string $leaseStatus value.
+     *
+     * @return void
+     */
+    public function setLeaseStatus($leaseStatus)
+    {
+        $this->_leaseStatus = $leaseStatus;
+    }
+    
+    /**
+     * Gets blob lease state.
+     *
+     * @return string
+     */
+    public function getLeaseState()
+    {
+        return $this->_leaseState;
+    }
+
+    /**
+     * Sets blob lease state.
+     *
+     * @param string $leaseState value.
+     *
+     * @return void
+     */
+    public function setLeaseState($leaseState)
+    {
+        $this->_leaseState = $leaseState;
+    }
+    
+    /**
+     * Gets blob lease duration.
+     *
+     * @return string
+     */
+    public function getLeaseDuration()
+    {
+        return $this->_leaseDuration;
+    }
+
+    /**
+     * Sets blob leaseStatus.
+     *
+     * @param string $leaseDuration value.
+     *
+     * @return void
+     */
+    public function setLeaseDuration($leaseDuration)
+    {
+        $this->_leaseDuration = $leaseDuration;
     }
 }

@@ -155,7 +155,7 @@ interface IBlob
     * Creates a new container in the given storage account.
     *
     * @param string                            $container name
-    * @param BlobModels\DeleteContainerOptions $options   optional parameters
+    * @param BlobModels\BlobServiceOptions     $options   optional parameters
     *
     * @return void
     *
@@ -163,20 +163,20 @@ interface IBlob
     */
     public function deleteContainer(
         $container,
-        BlobModels\DeleteContainerOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
      * Create a promise for deleting a container.
      *
      * @param  string                             $container name of the container
-     * @param  BlobModels\DeleteContainerOptions  $options   optional parameters
+     * @param  BlobModels\BlobServiceOptions      $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteContainerAsync(
         $container,
-        BlobModels\DeleteContainerOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -310,9 +310,9 @@ interface IBlob
     /**
     * Sets metadata headers on the container.
     *
-    * @param string                              $container name
-    * @param array                               $metadata  metadata key/value pair.
-    * @param BlobModels\SetContainerMetadataOptions $options   optional parameters
+    * @param string                        $container name
+    * @param array                         $metadata  metadata key/value pair.
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
     * @return void
     *
@@ -321,15 +321,15 @@ interface IBlob
     public function setContainerMetadata(
         $container,
         array $metadata,
-        BlobModels\SetContainerMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
      * Sets metadata headers on the container.
      *
-     * @param string                                 $container name
-     * @param array                                  $metadata  metadata key/value pair.
-     * @param BlobModels\SetContainerMetadataOptions $options   optional parameters
+     * @param string                        $container name
+     * @param array                         $metadata  metadata key/value pair.
+     * @param BlobModels\BlobServiceOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -338,7 +338,7 @@ interface IBlob
     public function setContainerMetadataAsync(
         $container,
         array $metadata,
-        BlobModels\SetContainerMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -977,7 +977,7 @@ interface IBlob
     * @param string                         $container name of the container
     * @param string                         $blob      name of the blob
     * @param array                          $metadata  key/value pair representation
-    * @param BlobModels\SetBlobMetadataOptions $options   optional parameters
+    * @param BlobModels\BlobServiceOptions  $options   optional parameters
     *
     * @return BlobModels\SetBlobMetadataResult
     *
@@ -987,7 +987,7 @@ interface IBlob
         $container,
         $blob,
         array $metadata,
-        BlobModels\SetBlobMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -996,7 +996,7 @@ interface IBlob
      * @param string                            $container name of the container
      * @param string                            $blob      name of the blob
      * @param array                             $metadata  key/value pair representation
-     * @param BlobModels\SetBlobMetadataOptions $options   optional parameters
+     * @param BlobModels\BlobServiceOptions     $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1006,7 +1006,7 @@ interface IBlob
         $container,
         $blob,
         array $metadata,
-        BlobModels\SetBlobMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -1178,7 +1178,7 @@ interface IBlob
      * @param string                        $container            name of the container
      * @param string                        $blob                 name of the blob
      * @param string                        $copyId               copy operation identifier.
-     * @param Models\AbortCopyBlobOptions   $options              optional parameters
+     * @param BlobModels\BlobServiceOptions $options              optional parameters
      *
      * @return void
      *
@@ -1188,7 +1188,7 @@ interface IBlob
         $container,
         $blob,
         $copyId,
-        Models\AbortCopyBlobOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -1197,7 +1197,7 @@ interface IBlob
      * @param string                        $container            name of the container
      * @param string                        $blob                 name of the blob
      * @param string                        $copyId               copy operation identifier.
-     * @param Models\AbortCopyBlobOptions   $options              optional parameters
+     * @param BlobModels\BlobServiceOptions $options              optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1207,7 +1207,7 @@ interface IBlob
         $container,
         $blob,
         $copyId,
-        Models\AbortCopyBlobOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -1220,7 +1220,7 @@ interface IBlob
      * @param int                        $leaseDuration     the lease duration. A non-infinite
      *                                                      lease can be between 15 and 60 seconds.
      *                                                      Default is never to expire.
-     * @param Models\AcquireLeaseOptions $options           optional parameters
+     * @param Models\BlobServiceOptions  $options           optional parameters
      *
      * @return Models\LeaseBlobResult
      *
@@ -1231,7 +1231,7 @@ interface IBlob
         $blob,
         $proposedLeaseId = null,
         $leaseDuration = null,
-        BlobModels\AcquireLeaseOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -1244,7 +1244,7 @@ interface IBlob
      * @param int                        $leaseDuration     the lease duration. A non-infinite
      *                                                      lease can be between 15 and 60 seconds.
      *                                                      Default is never to expire.
-     * @param Models\AcquireLeaseOptions $options           optional parameters
+     * @param Models\BlobServiceOptions  $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1255,7 +1255,7 @@ interface IBlob
         $blob,
         $proposedLeaseId = null,
         $leaseDuration = null,
-        BlobModels\AcquireLeaseOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**

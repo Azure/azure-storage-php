@@ -30,15 +30,12 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\DeleteContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
-use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataOptions;
-use MicrosoftAzure\Storage\Blob\Models\SetContainerMetadataOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
@@ -618,7 +615,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $deleted = true;
 
             if (is_null($options)) {
-                $options = new DeleteContainerOptions();
+                $options = new BlobServiceOptions();
             }
 
             if (!is_null($options->getTimeout()) && $options->getTimeout() < 1) {
@@ -644,7 +641,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             // Nothing else interesting to check for the $options.
         } catch (ServiceException $e) {
             if (is_null($options)) {
-                $options = new DeleteContainerOptions();
+                $options = new BlobServiceOptions();
             }
 
             if (!is_null($options->getTimeout()) && $options->getTimeout() < 1) {
@@ -1636,7 +1633,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
                 $options
             ));
             if (is_null($options)) {
-                $options = new SetBlobMetadataOptions();
+                $options = new BlobServiceOptions();
             }
 
             if (!is_null($options->getTimeout()) && $options->getTimeout() < 1) {

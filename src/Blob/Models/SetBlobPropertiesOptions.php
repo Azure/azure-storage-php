@@ -39,9 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 class SetBlobPropertiesOptions extends BlobServiceOptions
 {
     private $_blobProperties;
-    private $_leaseId;
     private $_sequenceNumberAction;
-    private $_accessCondition;
     
     /**
      * Creates a new SetBlobPropertiesOptions with a specified BlobProperties
@@ -53,28 +51,6 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     {
         $this->_blobProperties = is_null($blobProperties)
                                  ? new BlobProperties() : clone $blobProperties;
-    }
-    
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
     }
     
     /**
@@ -119,28 +95,6 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
     public function setSequenceNumberAction($sequenceNumberAction)
     {
         $this->_sequenceNumberAction = $sequenceNumberAction;
-    }
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
     }
     
     /**

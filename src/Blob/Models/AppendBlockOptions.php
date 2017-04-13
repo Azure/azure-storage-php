@@ -37,32 +37,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 class AppendBlockOptions extends BlobServiceOptions
 {
     private $_contentMD5;
-    private $_leaseId;
     private $_maxBlobSize;
     private $_appendPosition;
-    private $_accessCondition;
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
-    }
     
     /**
      * Gets block contentMD5.
@@ -84,28 +60,6 @@ class AppendBlockOptions extends BlobServiceOptions
     public function setContentMD5($contentMD5)
     {
         $this->_contentMD5 = $contentMD5;
-    }
-    
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition($accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
     }
     
     /**

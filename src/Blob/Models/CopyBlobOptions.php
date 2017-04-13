@@ -38,34 +38,10 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CopyBlobOptions extends BlobServiceOptions
 {
-    private $_accessCondition;
+    private $_sourceLeaseId;
     private $_sourceAccessCondition;
     private $_metadata;
     private $_sourceSnapshot;
-    private $_leaseId;
-    private $_sourceLeaseId;
-  
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
-    }
     
     /**
      * Gets source access condition
@@ -131,28 +107,6 @@ class CopyBlobOptions extends BlobServiceOptions
     public function setSourceSnapshot($sourceSnapshot)
     {
         $this->_sourceSnapshot = $sourceSnapshot;
-    }
-   
-    /**
-     * Gets lease ID.
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-
-    /**
-     * Sets lease ID.
-     *
-     * @param string $leaseId value.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this->_leaseId = $leaseId;
     }
     
     /**
