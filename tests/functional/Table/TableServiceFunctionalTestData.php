@@ -112,7 +112,7 @@ class TableServiceFunctionalTestData
 
         $sp = new ServiceProperties();
         $sp->setLogging($l);
-        $sp->setMetrics($m);
+        $sp->setHourMetrics($m);
 
         return $sp;
     }
@@ -148,7 +148,7 @@ class TableServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c));
 
             array_push($ret, $sp);
@@ -181,7 +181,7 @@ class TableServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
 
             array_push($ret, $sp);
@@ -215,7 +215,7 @@ class TableServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
 
             array_push($ret, $sp);

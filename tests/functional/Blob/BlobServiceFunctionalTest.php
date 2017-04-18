@@ -186,36 +186,36 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             'getValue()->getLogging()->getRetentionPolicy()->getDays'
         );
 
-        $m = $sp->getMetrics();
+        $m = $sp->getHourMetrics();
         $this->assertNotNull(
             $m,
-            'getValue()->getMetrics() should be non-null'
+            'getValue()->getHourMetrics() should be non-null'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getVersion(),
+            $serviceProperties->getHourMetrics()->getVersion(),
             $m->getVersion(),
-            'getValue()->getMetrics()->getVersion'
+            'getValue()->getHourMetrics()->getVersion'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getEnabled(),
+            $serviceProperties->getHourMetrics()->getEnabled(),
             $m->getEnabled(),
-            'getValue()->getMetrics()->getEnabled'
+            'getValue()->getHourMetrics()->getEnabled'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getIncludeAPIs(),
+            $serviceProperties->getHourMetrics()->getIncludeAPIs(),
             $m->getIncludeAPIs(),
-            'getValue()->getMetrics()->getIncludeAPIs'
+            'getValue()->getHourMetrics()->getIncludeAPIs'
         );
 
         $r = $m->getRetentionPolicy();
         $this->assertNotNull(
             $r,
-            'getValue()->getMetrics()->getRetentionPolicy should be non-null'
+            'getValue()->getHourMetrics()->getRetentionPolicy should be non-null'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getRetentionPolicy()->getDays(),
+            $serviceProperties->getHourMetrics()->getRetentionPolicy()->getDays(),
             $r->getDays(),
-            'getValue()->getMetrics()->getRetentionPolicy()->getDays'
+            'getValue()->getHourMetrics()->getRetentionPolicy()->getDays'
         );
     }
 
@@ -817,7 +817,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             }
             
             if (is_null($options)) {
-                $options = new SetContainerMetadataOptions();
+                $options = new BlobServiceOptions();
             }
             
             $this->assertFalse(
@@ -1133,18 +1133,18 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         for ($i = 0; $i < count($expIds); $i++) {
             $expId = $expIds[$i];
             $actId = $actIds[$i];
-            $this->assertEquals($expId->getId(), $actId->getId(), 'SignedIdentifiers['+$i+']->getId');
+            $this->assertEquals($expId->getId(), $actId->getId(), 'SignedIdentifiers[' . $i .']->getId');
             $this->assertEquals(
                 $expId->getAccessPolicy()->getPermission(),
                 $actId->getAccessPolicy()->getPermission(),
-                'SignedIdentifiers['+$i+']->getAccessPolicy->getPermission'
+                'SignedIdentifiers['. $i .']->getAccessPolicy->getPermission'
             );
             $this->assertTrue(
                 BlobServiceFunctionalTestData::diffInTotalSeconds(
                     $expId->getAccessPolicy()->getStart(),
                     $actId->getAccessPolicy()->getStart()
                 ) < 1,
-                'SignedIdentifiers['+$i+']->getAccessPolicy->getStart should match within 1 second, ' .
+                'SignedIdentifiers[' . $i .']->getAccessPolicy->getStart should match within 1 second, ' .
                     'exp=' . $expId->getAccessPolicy()->getStart()->format(\DateTime::RFC1123) . ', ' .
                     'act=' . $actId->getAccessPolicy()->getStart()->format(\DateTime::RFC1123)
             );
@@ -1153,7 +1153,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
                     $expId->getAccessPolicy()->getExpiry(),
                     $actId->getAccessPolicy()->getExpiry()
                 ) < 1,
-                'SignedIdentifiers['+$i+']->getAccessPolicy->getExpiry should match within 1 second, ' .
+                'SignedIdentifiers['. $i .']->getAccessPolicy->getExpiry should match within 1 second, ' .
                     'exp=' . $expId->getAccessPolicy()->getExpiry()->format(\DateTime::RFC1123) . ', ' .
                     'act=' . $actId->getAccessPolicy()->getExpiry()->format(\DateTime::RFC1123)
             );

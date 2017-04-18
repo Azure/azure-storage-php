@@ -411,6 +411,7 @@ class Resources
     const XTAG_ACCOUNT_NAME                 = 'AccountName';
     const XTAG_LOGGING                      = 'Logging';
     const XTAG_HOUR_METRICS                 = 'HourMetrics';
+    const XTAG_MINUTE_METRICS               = 'MinuteMetrics';
     const XTAG_CORS                         = 'Cors';
     const XTAG_CORS_RULE                    = 'CorsRule';
     const XTAG_ALLOWED_ORIGINS              = 'AllowedOrigins';

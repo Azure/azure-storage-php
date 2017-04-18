@@ -349,6 +349,11 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '20';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '20';
         //1st cors
         $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
             'http://www.microsoft.com,http://www.bing.com';
@@ -385,6 +390,11 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '10';
         //1st cors
         $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
             'http://www.microsoft.com,http://www.bing.com';
@@ -421,6 +431,11 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '10';
         //1st cors
         $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
             'http://www.microsoft.com,http://www.bing.com';

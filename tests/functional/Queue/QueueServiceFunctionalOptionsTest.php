@@ -113,12 +113,12 @@ class QueueServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
 
         $sp = new ServiceProperties();
         $this->assertNull($sp->getLogging(), 'Default ServiceProperties->getLogging should not be null');
-        $this->assertNull($sp->getMetrics(), 'Default ServiceProperties->getMetrics should not be null');
+        $this->assertNull($sp->getHourMetrics(), 'Default ServiceProperties->getHourMetrics should not be null');
 
         $sp->setLogging($l);
-        $sp->setMetrics($m);
+        $sp->setHourMetrics($m);
         $this->assertEquals($sp->getLogging(), $l, 'Set ServiceProperties->getLogging');
-        $this->assertEquals($sp->getMetrics(), $m, 'Set ServiceProperties->getMetrics');
+        $this->assertEquals($sp->getHourMetrics(), $m, 'Set ServiceProperties->getHourMetrics');
     }
 
     public function testCheckListQueuesOptions()

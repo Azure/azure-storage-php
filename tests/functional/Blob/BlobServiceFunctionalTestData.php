@@ -28,6 +28,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
@@ -219,7 +220,7 @@ class BlobServiceFunctionalTestData
 
         $sp = new ServiceProperties();
         $sp->setLogging($l);
-        $sp->setMetrics($m);
+        $sp->setHourMetrics($m);
 
         return $sp;
     }
@@ -262,7 +263,7 @@ class BlobServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c));
 
             array_push($ret, $sp);
@@ -296,7 +297,7 @@ class BlobServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
 
             array_push($ret, $sp);
@@ -330,7 +331,7 @@ class BlobServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
             
             array_push($ret, $sp);
