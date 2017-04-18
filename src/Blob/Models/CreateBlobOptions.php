@@ -51,8 +51,10 @@ class CreateBlobOptions extends BlobServiceOptions
     private $_blobCacheControl;
     private $_metadata;
     private $_sequenceNumber;
+    //TODO: Remove it
     private $_sequenceNumberAction;
     private $_numberOfConcurrency;
+    //TODO: x-ms-blob-content-disposition
     
     /**
      * Gets blob ContentType.

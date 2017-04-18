@@ -1222,7 +1222,7 @@ interface IBlob
      *                                                      Default is never to expire.
      * @param Models\BlobServiceOptions  $options           optional parameters
      *
-     * @return Models\LeaseBlobResult
+     * @return Models\LeaseResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
      */
@@ -1255,6 +1255,48 @@ interface IBlob
         $blob,
         $proposedLeaseId = null,
         $leaseDuration = null,
+        BlobModels\BlobServiceOptions $options = null
+    );
+    
+    /**
+     * change an existing lease
+     *
+     * @param string                        $container         name of the container
+     * @param string                        $blob              name of the blob
+     * @param string                        $leaseId           lease id when acquiring
+     * @param string                        $proposedLeaseId   lease id when acquiring
+     * @param BlobModels\BlobServiceOptions $options           optional parameters
+     *
+     * @return BlobModels\LeaseResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
+     */
+    public function changeLease(
+        $container,
+        $blob,
+        $leaseId,
+        $proposedLeaseId,
+        BlobModels\BlobServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to change an existing lease
+     *
+     * @param string                        $container         name of the container
+     * @param string                        $blob              name of the blob
+     * @param string                        $leaseId           lease id when acquiring
+     * @param string                        $proposedLeaseId   the proposed lease id
+     * @param BlobModels\BlobServiceOptions $options           optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
+     */
+    public function changeLeaseAsync(
+        $container,
+        $blob,
+        $leaseId,
+        $proposedLeaseId,
         BlobModels\BlobServiceOptions $options = null
     );
 
@@ -1343,7 +1385,6 @@ interface IBlob
     *
     * @param string                        $container name of the container
     * @param string                        $blob      name of the blob
-    * @param string                        $leaseId   lease id when acquiring
     * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
     * @return void
@@ -1353,7 +1394,6 @@ interface IBlob
     public function breakLease(
         $container,
         $blob,
-        $leaseId,
         $breakPeriod = null,
         BlobModels\BlobServiceOptions $options = null
     );
@@ -1364,7 +1404,6 @@ interface IBlob
      *
      * @param string                        $container name of the container
      * @param string                        $blob      name of the blob
-     * @param string                        $leaseId   lease id when acquiring
      * @param BlobModels\BlobServiceOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1374,7 +1413,6 @@ interface IBlob
     public function breakLeaseAsync(
         $container,
         $blob,
-        $leaseId,
         $breakPeriod = null,
         BlobModels\BlobServiceOptions $options = null
     );

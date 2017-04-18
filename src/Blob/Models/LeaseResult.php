@@ -37,22 +37,22 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class LeaseBlobResult
+class LeaseResult
 {
     private $_leaseId;
     
     /**
-     * Creates LeaseBlobResult from response headers
+     * Creates LeaseResult from response headers
      *
      * @param array $headers response headers
      *
      * @internal
      *
-     * @return \MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
+     * @return \MicrosoftAzure\Storage\Blob\Models\LeaseResult
      */
     public static function create(array $headers)
     {
-        $result = new LeaseBlobResult();
+        $result = new LeaseResult();
         
         $result->setLeaseId(
             Utilities::tryGetValue($headers, Resources::X_MS_LEASE_ID)

@@ -57,7 +57,7 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\LeaseMode;
-use MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult;
+use MicrosoftAzure\Storage\Blob\Models\LeaseResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
 use MicrosoftAzure\Storage\Blob\Models\PageWriteOption;
@@ -1102,7 +1102,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             Resources::X_MS_LEASE_ID,
             $options->getLeaseId()
-        );        
+        );
         $this->addOptionalAccessConditionHeader(
             $headers,
             $options->getAccessCondition()
@@ -1304,6 +1304,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $queryParams,
             Resources::QP_COMP,
             'metadata'
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_ID,
+            $options->getLeaseId()
         );
         
         $headers = $this->addOptionalAccessConditionHeader(
@@ -3968,7 +3974,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *                                                      Default is never to expire.
      * @param Models\BlobServiceOptions  $options           optional parameters
      *
-     * @return Models\LeaseBlobResult
+     * @return Models\LeaseResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
      */
@@ -4031,7 +4037,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options,
             $options->getAccessCondition()
         )->then(function ($response) {
-            return LeaseBlobResult::create(
+            return LeaseResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         }, null);
@@ -4044,12 +4050,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                    $blob              name of the blob
      * @param string                    $leaseId           lease id when acquiring
      * @param string                    $proposedLeaseId   lease id when acquiring
-     * @param int                       $leaseDuration     the lease duration. A non-infinite
-     *                                                     lease can be between 15 and 60 seconds.
-     *                                                     Default is never to expire.
      * @param Models\BlobServiceOptions $options           optional parameters
      *
-     * @return Models\LeaseBlobResult
+     * @return Models\LeaseResult
      *
      * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
@@ -4058,7 +4061,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         $leaseId,
         $proposedLeaseId,
-        $leaseDuration = null,
         Models\BlobServiceOptions $options = null
     ) {
         return $this->changeLeaseAsync(
@@ -4066,7 +4068,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $blob,
             $leaseId,
             $proposedLeaseId,
-            $leaseDuration,
             $options
         )->wait();
     }
@@ -4078,9 +4079,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                    $blob              name of the blob
      * @param string                    $leaseId           lease id when acquiring
      * @param string                    $proposedLeaseId   the proposed lease id
-     * @param int                       $leaseDuration     the lease duration. A non-infinite
-     *                                                     lease can be between 15 and 60 seconds.
-     *                                                     Default is never to expire.
      * @param Models\BlobServiceOptions $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -4092,25 +4090,20 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         $leaseId,
         $proposedLeaseId,
-        $leaseDuration = null,
         Models\BlobServiceOptions $options = null
     ) {
-        if ($leaseDuration === null) {
-            $leaseDuration = -1;
-        }
-
         return $this->_putLeaseAsyncImpl(
             LeaseMode::CHANGE_ACTION,
             $container,
             $blob,
             $proposedLeaseId,
-            $leaseDuration,
+            null /* leaseDuration */,
             $leaseId,
             null /* breakPeriod */,
             self::getStatusCodeOfLeaseAction(LeaseMode::RENEW_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {
-            return LeaseBlobResult::create(
+            return LeaseResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         }, null);
@@ -4124,7 +4117,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                    $leaseId   lease id when acquiring
      * @param Models\BlobServiceOptions $options   optional parameters
      *
-     * @return Models\LeaseBlobResult
+     * @return Models\LeaseResult
      *
      * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
      */
@@ -4171,7 +4164,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             self::getStatusCodeOfLeaseAction(LeaseMode::RENEW_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {
-            return LeaseBlobResult::create(
+            return LeaseResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         }, null);
@@ -4237,7 +4230,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @param string                    $container     name of the container
      * @param string                    $blob          name of the blob
-     * @param string                    $leaseId       lease id when acquiring
      * @param int                       $breakPeriod   the proposed duration of seconds that
      *                                                 lease should continue before it it broken,
      *                                                 between 0 and 60 seconds.
@@ -4250,14 +4242,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function breakLease(
         $container,
         $blob,
-        $leaseId,
         $breakPeriod = null,
         Models\BlobServiceOptions $options = null
     ) {
         return $this->breakLeaseAsync(
             $container,
             $blob,
-            $leaseId,
             $options
         )->wait();
     }
@@ -4268,7 +4258,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @param string                    $container name of the container
      * @param string                    $blob      name of the blob
-     * @param string                    $leaseId   lease id when acquiring
      * @param Models\BlobServiceOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -4278,7 +4267,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function breakLeaseAsync(
         $container,
         $blob,
-        $leaseId,
         $breakPeriod = null,
         Models\BlobServiceOptions $options = null
     ) {
@@ -4288,7 +4276,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $blob,
             null /* proposedLeaseId */,
             null /* leaseDuration */,
-            $leaseId,
+            null /* leaseId */,
             $breakPeriod,
             self::getStatusCodeOfLeaseAction(LeaseMode::BREAK_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options

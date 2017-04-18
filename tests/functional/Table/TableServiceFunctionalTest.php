@@ -164,30 +164,30 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             'getValue()->getLogging()->getRetentionPolicy()->getDays'
         );
 
-        $m = $sp->getMetrics();
-        $this->assertNotNull($m, 'getValue()->getMetrics() should be non-null');
+        $m = $sp->getHourMetrics();
+        $this->assertNotNull($m, 'getValue()->getHourMetrics() should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getVersion(),
+            $serviceProperties->getHourMetrics()->getVersion(),
             $m->getVersion(),
-            'getValue()->getMetrics()->getVersion'
+            'getValue()->getHourMetrics()->getVersion'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getEnabled(),
+            $serviceProperties->getHourMetrics()->getEnabled(),
             $m->getEnabled(),
-            'getValue()->getMetrics()->getEnabled'
+            'getValue()->getHourMetrics()->getEnabled'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getIncludeAPIs(),
+            $serviceProperties->getHourMetrics()->getIncludeAPIs(),
             $m->getIncludeAPIs(),
-            'getValue()->getMetrics()->getIncludeAPIs'
+            'getValue()->getHourMetrics()->getIncludeAPIs'
         );
 
         $r = $m->getRetentionPolicy();
-        $this->assertNotNull($r, 'getValue()->getMetrics()->getRetentionPolicy should be non-null');
+        $this->assertNotNull($r, 'getValue()->getHourMetrics()->getRetentionPolicy should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getRetentionPolicy()->getDays(),
+            $serviceProperties->getHourMetrics()->getRetentionPolicy()->getDays(),
             $r->getDays(),
-            'getValue()->getMetrics()->getRetentionPolicy()->getDays'
+            'getValue()->getHourMetrics()->getRetentionPolicy()->getDays'
         );
     }
 
@@ -1555,9 +1555,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $configs = array();
             foreach (TableServiceFunctionalTestData::getSimpleEntities(6) as $ent) {
                 $config = new BatchWorkerConfig();
-                $config->concurType = $concurTypes[mt_rand(0, count($concurTypes))];
-                $config->opType = $opTypes[mt_rand(0, count($opTypes))];
-                $config->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots))];
+                $config->concurType = $concurTypes[mt_rand(0, count($concurTypes) -1)];
+                $config->opType = $opTypes[mt_rand(0, count($opTypes) -1)];
+                $config->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots) -1)];
                 $config->ent = $ent;
                 array_push($configs, $config);
             }
@@ -1697,14 +1697,14 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $firstConfig->concurType = $firstConcurType;
             $firstConfig->opType = $firstOpType;
             $firstConfig->ent = $simpleEntities[0];
-            $firstConfig->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots))];
+            $firstConfig->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots) -1)];
             array_push($configs, $firstConfig);
 
             for ($i = 1; $i < count($simpleEntities); $i++) {
                 $config = new BatchWorkerConfig();
                 while (!is_null($this->expectConcurrencyFailure($config->opType, $config->concurType))) {
-                    $config->concurType = $concurTypes[mt_rand(0, count($concurTypes))];
-                    $config->opType = $opTypes[mt_rand(0, count($opTypes))];
+                    $config->concurType = $concurTypes[mt_rand(0, count($concurTypes) -1)];
+                    $config->opType = $opTypes[mt_rand(0, count($opTypes) -1)];
                     if ($this->isEmulated()) {
                         if ($config->opType == OpType::INSERT_OR_MERGE_ENTITY) {
                             $config->opType = OpType::MERGE_ENTITY;

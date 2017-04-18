@@ -240,6 +240,9 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $expected .= '<Days>20</Days></RetentionPolicy></Logging><HourMetrics><Version>1.0</Version>';
         $expected .= '<Enabled>true</Enabled><IncludeAPIs>false</IncludeAPIs><RetentionPolicy>';
         $expected .= '<Enabled>true</Enabled><Days>20</Days></RetentionPolicy></HourMetrics>';
+        $expected .= '<MinuteMetrics><Version>1.0</Version><Enabled>true</Enabled>';
+        $expected .= '<IncludeAPIs>false</IncludeAPIs><RetentionPolicy><Enabled>true</Enabled>';
+        $expected .= '<Days>20</Days></RetentionPolicy></MinuteMetrics>';
         $expected .= '<Cors><CorsRule><AllowedOrigins>http://www.microsoft.com,http://www.bing.com</AllowedOrigins>';
         $expected .= '<AllowedMethods>GET,PUT</AllowedMethods>';
         $expected .= '<AllowedHeaders>x-ms-meta-customheader0,x-ms-meta-target0*</AllowedHeaders>';

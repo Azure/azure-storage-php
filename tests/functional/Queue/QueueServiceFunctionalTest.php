@@ -176,30 +176,30 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             'getValue()->getLogging()->getRetentionPolicy()->getDays'
         );
 
-        $m = $sp->getMetrics();
-        $this->assertNotNull($m, 'getValue()->getMetrics() should be non-null');
+        $m = $sp->getHourMetrics();
+        $this->assertNotNull($m, 'getValue()->getHourMetrics() should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getVersion(),
+            $serviceProperties->getHourMetrics()->getVersion(),
             $m->getVersion(),
-            'getValue()->getMetrics()->getVersion'
+            'getValue()->getHourMetrics()->getVersion'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getEnabled(),
+            $serviceProperties->getHourMetrics()->getEnabled(),
             $m->getEnabled(),
-            'getValue()->getMetrics()->getEnabled'
+            'getValue()->getHourMetrics()->getEnabled'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getIncludeAPIs(),
+            $serviceProperties->getHourMetrics()->getIncludeAPIs(),
             $m->getIncludeAPIs(),
-            'getValue()->getMetrics()->getIncludeAPIs'
+            'getValue()->getHourMetrics()->getIncludeAPIs'
         );
 
         $r = $m->getRetentionPolicy();
-        $this->assertNotNull($r, 'getValue()->getMetrics()->getRetentionPolicy should be non-null');
+        $this->assertNotNull($r, 'getValue()->getHourMetrics()->getRetentionPolicy should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getRetentionPolicy()->getDays(),
+            $serviceProperties->getHourMetrics()->getRetentionPolicy()->getDays(),
             $r->getDays(),
-            'getValue()->getMetrics()->getRetentionPolicy()->getDays'
+            'getValue()->getHourMetrics()->getRetentionPolicy()->getDays'
         );
     }
 

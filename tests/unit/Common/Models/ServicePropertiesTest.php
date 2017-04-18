@@ -59,7 +59,7 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertEquals($logging, $result->getLogging());
-        $this->assertEquals($metrics, $result->getMetrics());
+        $this->assertEquals($metrics, $result->getHourMetrics());
     }
     
     /**
@@ -98,9 +98,9 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMetrics
+     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::setHourMetrics
      */
-    public function testSetMetrics()
+    public function testSetHourMetrics()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
@@ -108,25 +108,25 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $result = new ServiceProperties();
         
         // Test
-        $result->setMetrics($metrics);
+        $result->setHourMetrics($metrics);
         
         // Assert
-        $this->assertEquals($metrics, $result->getMetrics());
+        $this->assertEquals($metrics, $result->getHourMetrics());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMetrics
+     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::getHourMetrics
      */
-    public function testGetMetrics()
+    public function testGetHourMetrics()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $metrics = Metrics::create($sample['HourMetrics']);
         $result = new ServiceProperties();
-        $result->setMetrics($metrics);
+        $result->setHourMetrics($metrics);
         
         // Test
-        $actual = $result->getMetrics($metrics);
+        $actual = $result->getHourMetrics($metrics);
         
         // Assert
         $this->assertEquals($metrics, $actual);
@@ -150,7 +150,8 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         
         $expected = array(
             'Logging' => $properties->getLogging()->toArray(),
-            'HourMetrics' => $properties->getMetrics()->toArray(),
+            'HourMetrics' => $properties->getHourMetrics()->toArray(),
+            'MinuteMetrics' => $properties->getMinuteMetrics()->toArray(),
             'Cors' => !empty($corsesArray) ? $corsesArray : null
         );
         
