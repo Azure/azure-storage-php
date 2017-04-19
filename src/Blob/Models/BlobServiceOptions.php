@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
 class BlobServiceOptions extends ServiceOptionsBase
 {
     private $_leaseId;
-    private $_accessCondition;
+    private $_accessConditions;
     
     /**
      * Gets lease Id for the blob
@@ -66,22 +66,27 @@ class BlobServiceOptions extends ServiceOptionsBase
     /**
      * Gets access condition
      *
-     * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition
+     * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition[]
      */
-    public function getAccessCondition()
+    public function getAccessConditions()
     {
-        return $this->_accessCondition;
+        return $this->_accessConditions;
     }
     
     /**
      * Sets access condition
      *
-     * @param \MicrosoftAzure\Storage\Blob\Models\AccessCondition $accessCondition value to use.
+     * @param mixed $accessConditions value to use.
      *
      * @return void
      */
-    public function setAccessCondition(AccessCondition $accessCondition)
+    public function setAccessConditions($accessConditions)
     {
-        $this->_accessCondition = $accessCondition;
+        if (!is_null($accessConditions) &&
+            is_array($accessConditions)) {
+            $this->_accessConditions = $accessConditions;
+        } else {
+            $this->_accessConditions = [$accessConditions];
+        }
     }
 }

@@ -253,7 +253,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         return $this->sendAsync(
@@ -285,7 +285,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     ) {
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -507,7 +507,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -913,7 +913,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalQueryParam(
@@ -1077,7 +1077,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
 
         $dataSerializer = $this->dataSerializer;
@@ -1199,7 +1199,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
 
         return $this->sendAsync(
@@ -1286,7 +1286,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
 
         return $this->sendAsync(
@@ -2083,7 +2083,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
             $headers = $this->addOptionalAccessConditionHeader(
                 $headers,
-                $options->getAccessCondition()
+                $options->getAccessConditions()
             );
             $this->addOptionalHeader(
                 $headers,
@@ -2436,7 +2436,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers  = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
 
         $this->addOptionalHeader(
@@ -2638,7 +2638,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $headers  = $this->generateMetadataHeaders($metadata);
         $headers  = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -2872,7 +2872,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -2957,7 +2957,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -3054,7 +3054,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $headers = $this->_addOptionalRangeHeader(
@@ -3170,7 +3170,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -3308,7 +3308,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         $headers = $this->addMetadataHeaders($headers, $metadata);
         
@@ -3468,7 +3468,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $getMD5  = $options->getComputeRangeMD5();
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         $headers = $this->_addOptionalRangeHeader(
             $headers,
@@ -3597,7 +3597,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -3686,7 +3686,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         $headers = $this->addMetadataHeaders($headers, $options->getMetadata());
         $this->addOptionalHeader(
@@ -3796,12 +3796,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         );
         
         $headers = $this->addOptionalSourceAccessConditionHeader(
             $headers,
-            $options->getSourceAccessCondition()
+            $options->getSourceAccessConditions()
         );
         
         $this->addOptionalHeader(
@@ -4019,7 +4019,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             null /* breakPeriod */,
             self::getStatusCodeOfLeaseAction(LeaseMode::ACQUIRE_ACTION),
             $options,
-            $options->getAccessCondition()
+            $options->getAccessConditions()
         )->then(function ($response) {
             return LeaseResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -4281,20 +4281,24 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      */
     public function addOptionalAccessConditionHeader(
         array $headers,
-        Models\AccessCondition $accessCondition = null
+        array $accessConditions = null
     ) {
-        if (!is_null($accessCondition)) {
-            $header = $accessCondition->getHeader();
+        if (!empty($accessConditions)) {
+            foreach ($accessConditions as $accessCondition) {
+                if (!is_null($accessCondition)) {
+                    $header = $accessCondition->getHeader();
 
-            if ($header != Resources::EMPTY_STRING) {
-                $value = $accessCondition->getValue();
-                if ($value instanceof \DateTime) {
-                    $value = gmdate(
-                        Resources::AZURE_DATE_FORMAT,
-                        $value->getTimestamp()
-                    );
+                    if ($header != Resources::EMPTY_STRING) {
+                        $value = $accessCondition->getValue();
+                        if ($value instanceof \DateTime) {
+                            $value = gmdate(
+                                Resources::AZURE_DATE_FORMAT,
+                                $value->getTimestamp()
+                            );
+                        }
+                        $headers[$header] = $value;
+                    }
                 }
-                $headers[$header] = $value;
             }
         }
 
@@ -4305,45 +4309,49 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * Adds optional header to headers if set
      *
      * @param array                  $headers         The array of request headers.
-     * @param Models\AccessCondition $accessCondition The access condition object.
+     * @param array                  $accessCondition The access condition object.
      *
      * @return array
      */
     public function addOptionalSourceAccessConditionHeader(
         array $headers,
-        Models\AccessCondition $accessCondition = null
+        array $accessConditions = null
     ) {
-        if (!is_null($accessCondition)) {
-            $header     = $accessCondition->getHeader();
-            $headerName = null;
-            if (!empty($header)) {
-                switch ($header) {
-                    case Resources::IF_MATCH:
-                        $headerName = Resources::X_MS_SOURCE_IF_MATCH;
-                        break;
-                    case Resources::IF_UNMODIFIED_SINCE:
-                        $headerName = Resources::X_MS_SOURCE_IF_UNMODIFIED_SINCE;
-                        break;
-                    case Resources::IF_MODIFIED_SINCE:
-                        $headerName = Resources::X_MS_SOURCE_IF_MODIFIED_SINCE;
-                        break;
-                    case Resources::IF_NONE_MATCH:
-                        $headerName = Resources::X_MS_SOURCE_IF_NONE_MATCH;
-                        break;
-                    default:
-                        throw new \Exception(Resources::INVALID_ACH_MSG);
-                        break;
+        if (!empty($accessConditions)) {
+            foreach ($accessConditions as $accessCondition) {
+                if (!is_null($accessCondition)) {
+                    $header     = $accessCondition->getHeader();
+                    $headerName = null;
+                    if (!empty($header)) {
+                        switch ($header) {
+                            case Resources::IF_MATCH:
+                                $headerName = Resources::X_MS_SOURCE_IF_MATCH;
+                                break;
+                            case Resources::IF_UNMODIFIED_SINCE:
+                                $headerName = Resources::X_MS_SOURCE_IF_UNMODIFIED_SINCE;
+                                break;
+                            case Resources::IF_MODIFIED_SINCE:
+                                $headerName = Resources::X_MS_SOURCE_IF_MODIFIED_SINCE;
+                                break;
+                            case Resources::IF_NONE_MATCH:
+                                $headerName = Resources::X_MS_SOURCE_IF_NONE_MATCH;
+                                break;
+                            default:
+                                throw new \Exception(Resources::INVALID_ACH_MSG);
+                                break;
+                        }
+                    }
+                    $value = $accessCondition->getValue();
+                    if ($value instanceof \DateTime) {
+                        $value = gmdate(
+                            Resources::AZURE_DATE_FORMAT,
+                            $value->getTimestamp()
+                        );
+                    }
+
+                    $this->addOptionalHeader($headers, $headerName, $value);
                 }
             }
-            $value = $accessCondition->getValue();
-            if ($value instanceof \DateTime) {
-                $value = gmdate(
-                    Resources::AZURE_DATE_FORMAT,
-                    $value->getTimestamp()
-                );
-            }
-
-            $this->addOptionalHeader($headers, $headerName, $value);
         }
 
         return $headers;

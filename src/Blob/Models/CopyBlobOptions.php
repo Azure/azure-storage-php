@@ -39,30 +39,35 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 class CopyBlobOptions extends BlobServiceOptions
 {
     private $_sourceLeaseId;
-    private $_sourceAccessCondition;
+    private $_sourceAccessConditions;
     private $_metadata;
     private $_sourceSnapshot;
     
     /**
      * Gets source access condition
      *
-     * @return AccessCondition
+     * @return AccessCondition[]
      */
-    public function getSourceAccessCondition()
+    public function getSourceAccessConditions()
     {
-        return $this->_sourceAccessCondition;
+        return $this->_sourceAccessConditions;
     }
     
     /**
      * Sets source access condition
      *
-     * @param AccessCondition $sourceAccessCondition value to use.
+     * @param array $sourceAccessCondition value to use.
      *
      * @return void
      */
-    public function setSourceAccessCondition(AccessCondition $sourceAccessCondition)
+    public function setSourceAccessConditions($sourceAccessConditions)
     {
-        $this->_sourceAccessCondition = $sourceAccessCondition;
+        if (!is_null($sourceAccessConditions) &&
+            is_array($sourceAccessConditions)) {
+            $this->_sourceAccessConditions = $sourceAccessConditions;
+        } else {
+            $this->_sourceAccessConditions = [$sourceAccessConditions];
+        }
     }
     
     /**
