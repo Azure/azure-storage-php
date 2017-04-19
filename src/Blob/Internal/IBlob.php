@@ -742,7 +742,7 @@ interface IBlob
     * @param BlobModels\BlockList|array         $blockList the block list entries
     * @param BlobModels\CommitBlobBlocksOptions $options   optional parameters
     *
-    * @return void
+    * @return BlobModels\PutBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179467.aspx
     */
