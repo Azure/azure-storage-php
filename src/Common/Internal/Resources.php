@@ -58,6 +58,8 @@ class Resources
     const DEV_STORE_CONNECTION_STRING = 'BlobEndpoint=127.0.0.1:10000;QueueEndpoint=127.0.0.1:10001;TableEndpoint=127.0.0.1:10002;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
     const SUBSCRIPTION_ID_NAME = 'SubscriptionID';
     const CERTIFICATE_PATH_NAME = 'CertificatePath';
+    const SECONDARY_STRING = '-secondary';
+    const PRIMARY_STRING = '-primary';
 
     // Messages
     const INVALID_FUNCTION_NAME = 'The class %s does not have a function named %s.';
@@ -185,6 +187,7 @@ class Resources
     const X_MS_CONTINUATION_NEXTPARTITIONKEY = 'x-ms-continuation-nextpartitionkey';
     const X_MS_CONTINUATION_NEXTROWKEY       = 'x-ms-continuation-nextrowkey';
     const X_MS_REQUEST_ID                    = 'x-ms-request-id';
+    const X_MS_CONTINUATION_LOCATION_MODE    = 'x-ms-continuation-location-mode';
     const ETAG                               = 'etag';
     const LAST_MODIFIED                      = 'last-modified';
     const DATE                               = 'date';
@@ -434,6 +437,8 @@ class Resources
     const XTAG_SIGNED_PERMISSION            = 'Permission';
     const XTAG_SIGNED_ID                    = 'Id';
     const XTAG_DEFAULT_SERVICE_VERSION      = 'DefaultServiceVersion';
+    const XTAG_GEO_REPLICATION              = 'GeoReplication';
+    const XTAG_LAST_SYNC_TIME               = 'LastSyncTime';
 
     // PHP URL Keys
     const PHP_URL_SCHEME   = 'scheme';
@@ -458,6 +463,14 @@ class Resources
     const RESOURCE_TYPE_CONTAINER = 'Container';
     const RESOURCE_TYPE_QUEUE     = 'Queue';
     const RESOURCE_TYPE_TABLE     = 'Table';
+
+    // Request Options String
+    const ROS_LOCATION_MODE  = 'location_mode';
+    const ROS_SECONDARY_URI  = 'secondary_uri';
+    const ROS_PRIMARY_URI    = 'primary_uri';
+    const ROS_DECODE_CONTENT = 'decode_content';
+    const ROS_STREAM         = 'stream';
+    const ROS_HANDLER        = 'requestHandler';
 
     // @codingStandardsIgnoreEnd
 }

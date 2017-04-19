@@ -49,6 +49,7 @@ class SetBlobPropertiesOptions extends BlobServiceOptions
      */
     public function __construct(BlobProperties $blobProperties = null)
     {
+        parent::__construct();
         $this->_blobProperties = is_null($blobProperties)
                                  ? new BlobProperties() : clone $blobProperties;
     }

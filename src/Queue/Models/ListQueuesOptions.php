@@ -25,7 +25,9 @@
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
-use \MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Queue\Models\QueueContinuationToken;
+use MicrosoftAzure\Storage\Queue\Models\QueueContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
  * Options for listQueues API.
@@ -39,8 +41,9 @@ use \MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListQueuesOptions extends QueueServiceOptions
 {
+    use QueueContinuationTokenTrait;
+
     private $_prefix;
-    private $_marker;
     private $_maxResults;
     private $_includeMetadata;
 
@@ -65,29 +68,6 @@ class ListQueuesOptions extends QueueServiceOptions
     {
         Validate::isString($prefix, 'prefix');
         $this->_prefix = $prefix;
-    }
-
-    /**
-     * Gets marker.
-     *
-     * @return string
-     */
-    public function getMarker()
-    {
-        return $this->_marker;
-    }
-
-    /**
-     * Sets marker.
-     *
-     * @param string $marker value.
-     *
-     * @return void
-     */
-    public function setMarker($marker)
-    {
-        Validate::isString($marker, 'marker');
-        $this->_marker = $marker;
     }
 
     /**

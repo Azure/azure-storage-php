@@ -1,5 +1,9 @@
 Tracking Breaking changes in 0.15.0
 
+All
+* Removed `setRequestOptions` for service options, instead, added `middlewares`, `middlewareStack`, `numberOfConcurrency`, `isStreaming`, `locationMode` and `decodeContent` for user to specify the corresponding options.
+* Added `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware` to support retry from secondary endpoint. Advice to use this instead of Guzzle's retry middleware for secondary endpoint retry support.
+
 Blob
 * Lease feature parity
   - Renamed `LeaseBlobResult` to `LeaseResult` to support container and blob lease.

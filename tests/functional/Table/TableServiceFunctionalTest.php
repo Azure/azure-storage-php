@@ -44,6 +44,7 @@ use MicrosoftAzure\Storage\Table\Models\TableServiceOptions;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
+use MicrosoftAzure\Storage\Common\LocationMode;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -2149,7 +2150,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         
         //setup options for the first try.
         $options = new QueryTablesOptions();
-        $options->setRequestOptions(['middlewares' => [$historyMiddleware]]);
+        $options->setMiddlewares([$historyMiddleware]);
         //get the response of the server.
         $result = $this->restProxy->queryTables($options);
         $response = $historyMiddleware->getHistory()[0]['response'];
@@ -2169,11 +2170,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new QueryTablesOptions();
-        $options->setRequestOptions(
-            [
-            'middlewares' => [$retryMiddleware, $historyMiddleware]
-            ]
-        );
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
         $newResult = $mockProxy->queryTables($options);
         $this->assertTrue(
             $result == $newResult,
@@ -2186,6 +2183,71 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $this->assertTrue(
             $historyMiddleware->getHistory()[2]['reason']->getCode() == 500,
             'Mock handler does not gave the second 500 response correctly'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     */
+    public function testRetryFromSecondary()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        
+        //setup options for the first try.
+        $options = new QueryTablesOptions();
+        $options->setMiddlewares([$historyMiddleware]);
+        //get the response of the server.
+        $result = $this->restProxy->queryTables($options);
+        $response = $historyMiddleware->getHistory()[0]['response'];
+        $request = $historyMiddleware->getHistory()[0]['request'];
+
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new Response(500, ['test_header' => 'test_header_value']),
+            new RequestException(
+                'mock 404 exception',
+                $request,
+                new Response(404, ['test_header' => 'test_header_value'])
+            ),
+            $response
+        ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
+        //test using mock handler.
+        $options = new QueryTablesOptions();
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
+        $newResult = $mockProxy->queryTables($options);
+        $this->assertTrue(
+            $result == $newResult,
+            'Mock result does not match server behavior'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[2]['reason']->getMessage() == 'mock 404 exception',
+            'Mock handler does not gave the first 404 exception correctly'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[1]['reason']->getCode() == 500,
+            'Mock handler does not gave the second 500 response correctly'
+        );
+
+        $uri2 = (string)($historyMiddleware->getHistory()[2]['request']->getUri());
+        $uri3 = (string)($historyMiddleware->getHistory()[3]['request']->getUri());
+
+        $this->assertTrue(
+            strpos($uri2, '-secondary') !== false,
+            'Did not retry to secondary uri.'
+        );
+        $this->assertFalse(
+            strpos($uri3, '-secondary'),
+            'Did not switch back to primary uri.'
         );
     }
 }

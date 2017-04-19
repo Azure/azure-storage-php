@@ -17,64 +17,66 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-
+ 
 namespace MicrosoftAzure\Storage\Common\Models;
 
-use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\LocationMode;
 
 /**
- * Result from calling GetServiceProperties REST wrapper.
+ * Provides functionality and data structure for continuation token.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetServicePropertiesResult
+class ContinuationToken
 {
-    private $_serviceProperties;
-    
-    /**
-     * Creates object from $parsedResponse.
-     *
-     * @internal
-     * @param array $parsedResponse XML response parsed into array.
-     *
-     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
-     */
-    public static function create(array $parsedResponse)
-    {
-        $result = new GetServicePropertiesResult();
-        $result->setValue(ServiceProperties::create($parsedResponse));
-        
-        return $result;
+    private $location;
+
+    public function __construct(
+        $location = ''
+    ) {
+        $this->setLocation($location);
     }
-    
+
     /**
-     * Gets service properties object.
+     * Setter for location
      *
-     * @return \MicrosoftAzure\Storage\Common\Models\ServiceProperties
+     * @param string $location the location to be set.
      */
-    public function getValue()
+    public function setLocation($location)
     {
-        return $this->_serviceProperties;
+        Validate::isString($location, 'location');
+        Validate::isTrue(
+            $location == LocationMode::PRIMARY_ONLY ||
+            $location == LocationMode::SECONDARY_ONLY ||
+            $location == '',
+            sprintf(
+                Resources::INVALID_VALUE_MSG,
+                'location',
+                LocationMode::PRIMARY_ONLY . ' or ' . LocationMode::SECONDARY_ONLY
+            )
+        );
+
+        $this->location = $location;
     }
-    
+
     /**
-     * Sets service properties object.
+     * Getter for location
      *
-     * @param ServiceProperties $serviceProperties object to use.
-     *
-     * @return void
+     * @return string
      */
-    protected function setValue($serviceProperties)
+    public function getLocation()
     {
-        $this->_serviceProperties = clone $serviceProperties;
+        return $this->location;
     }
 }

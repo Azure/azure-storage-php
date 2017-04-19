@@ -24,6 +24,9 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
+use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
+use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
+
 /**
  * Optional parameters for queryTables wrapper.
  *
@@ -36,7 +39,8 @@ namespace MicrosoftAzure\Storage\Table\Models;
  */
 class QueryTablesOptions extends TableServiceOptions
 {
-    private $_nextTableName;
+    use TableContinuationTokenTrait;
+
     private $_query;
     private $_prefix;
     
@@ -45,29 +49,8 @@ class QueryTablesOptions extends TableServiceOptions
      */
     public function __construct()
     {
+        parent::__construct();
         $this->_query = new Query();
-    }
-    
-    /**
-     * Gets nextTableName
-     *
-     * @return string
-     */
-    public function getNextTableName()
-    {
-        return $this->_nextTableName;
-    }
-    
-    /**
-     * Sets nextTableName
-     *
-     * @param string $nextTableName value
-     *
-     * @return void
-     */
-    public function setNextTableName($nextTableName)
-    {
-        $this->_nextTableName = $nextTableName;
     }
     
     /**

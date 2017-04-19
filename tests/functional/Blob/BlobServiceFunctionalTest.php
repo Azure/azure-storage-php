@@ -42,6 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
+use MicrosoftAzure\Storage\Common\LocationMode;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -361,7 +362,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
     private function verifyListContainersWorker($ret, $options)
     {
         // Cannot really check the next marker. Just make sure it is not null.
-        $this->assertEquals($options->getMarker(), $ret->getMarker(), 'getMarker');
+        $this->assertEquals($options->getNextMarker(), $ret->getMarker(), 'getNextMarker');
         $this->assertEquals($options->getMaxResults(), $ret->getMaxResults(), 'getMaxResults');
         $this->assertEquals($options->getPrefix(), $ret->getPrefix(), 'getPrefix');
 
@@ -1295,7 +1296,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
     private function verifyListBlobsWorker($ret, $options)
     {
-        $this->assertEquals($options->getMarker(), $ret->getMarker(), 'getMarker');
+        $this->assertEquals($options->getNextMarker(), $ret->getMarker(), 'getNextMarker');
         $this->assertEquals($options->getMaxResults(), $ret->getMaxResults(), 'getMaxResults');
         $this->assertEquals($options->getPrefix(), $ret->getPrefix(), 'getPrefix');
 
@@ -2843,7 +2844,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         
         //setup options for the first try.
         $options = new ListContainersOptions();
-        $options->setRequestOptions(['middlewares' => [$historyMiddleware]]);
+        $options->setMiddlewares([$historyMiddleware]);
         //get the response of the server.
         $result = $this->restProxy->listContainers($options);
         $response = $historyMiddleware->getHistory()[0]['response'];
@@ -2864,11 +2865,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
         //test using mock handler.
         $options = new ListContainersOptions();
-        $options->setRequestOptions(
-            [
-            'middlewares' => [$retryMiddleware, $historyMiddleware],
-            ]
-        );
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
         $newResult = $mockProxy->listContainers($options);
         $this->assertTrue(
             $result == $newResult,
@@ -2881,6 +2878,159 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         $this->assertTrue(
             $historyMiddleware->getHistory()[2]['reason']->getCode() == 500,
             'Mock handler does not gave the second 500 response correctly'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onFulfilled
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onRejected
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::retry
+     */
+    public function testRetryFromSecondary()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        
+        //setup options for the first try.
+        $options = new ListContainersOptions();
+        $options->setMiddlewares([$historyMiddleware]);
+        //get the response of the server.
+        $result = $this->restProxy->listContainers($options);
+        $response = $historyMiddleware->getHistory()[0]['response'];
+        $request = $historyMiddleware->getHistory()[0]['request'];
+
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new Response(500, ['test_header' => 'test_header_value']),
+            new RequestException(
+                'mock 404 exception',
+                $request,
+                new Response(404, ['test_header' => 'test_header_value'])
+            ),
+            $response
+        ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+
+        //test using mock handler.
+        $options = new ListContainersOptions();
+        $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $newResult = $mockProxy->listContainers($options);
+        $this->assertTrue(
+            $result == $newResult,
+            'Mock result does not match server behavior'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[1]['reason']->getCode() == 500,
+            'Mock handler does not gave the second 500 response correctly'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[2]['reason']->getMessage() == 'mock 404 exception',
+            'Mock handler does not gave the first 404 exception correctly'
+        );
+
+
+        $uri2 = (string)($historyMiddleware->getHistory()[2]['request']->getUri());
+        $uri3 = (string)($historyMiddleware->getHistory()[3]['request']->getUri());
+
+        $this->assertTrue(
+            strpos($uri2, '-secondary') !== false,
+            'Did not retry to secondary uri.'
+        );
+        $this->assertFalse(
+            strpos($uri3, '-secondary'),
+            'Did not switch back to primary uri.'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onFulfilled
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onRejected
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::retry
+     */
+    public function testListRetryWithSecondEndpoint()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        $marker = 'next';
+        //Construct response
+        $bodyArray = TestResources::listContainersMultipleRandomEntriesBody(5, $marker);
+        $bodyString = Utilities::serialize($bodyArray, 'EnumerationResults');
+        $mockResponse = new Response(200, array(), $bodyString);
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new Response(500, ['test_header' => 'test_header_value']),
+            $mockResponse
+        ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+        //test using mock handler.
+        $options = new ListContainersOptions();
+        $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $result = $mockProxy->listContainers($options);
+
+        $this->assertNotNull($result->getContinuationToken());
+        $this->assertEquals(LocationMode::SECONDARY_ONLY, $result->getLocation());
+        $request = $historyMiddleware->getHistory()[1]['request'];
+        $options = $historyMiddleware->getHistory()[1]['options'];
+        $this->assertNotNull(
+            strpos(
+                (string)$request->getUri(),
+                (string)$options[Resources::ROS_SECONDARY_URI]
+            )
+        );
+
+        //List containers with the continuation token.
+        $options = new ListContainersOptions();
+        $options->setContinuationToken($result->getContinuationToken());
+        $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        //make sure the continuation's location overwrites the options.
+        $this->assertEquals(LocationMode::SECONDARY_ONLY, $options->getLocationMode());
+
+        $mock = MockHandler::createWithMiddleware([
+            $mockResponse
+        ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+        $newResult = $mockProxy->listContainers($options);
+
+
+        $this->assertNotNull($newResult->getContinuationToken());
+        $this->assertEquals(LocationMode::SECONDARY_ONLY, $newResult->getLocation());
+        $request = $historyMiddleware->getHistory()[2]['request'];
+        $options = $historyMiddleware->getHistory()[2]['options'];
+        $this->assertNotNull(
+            strpos(
+                (string)$request->getUri(),
+                (string)$options[Resources::ROS_SECONDARY_URI]
+            )
+        );
+
+        //Make sure queried with next marker.
+        $this->assertNotNull(
+            strpos(
+                (string)$request->getUri(),
+                'marker=' . $marker
+            )
         );
     }
 

@@ -54,7 +54,7 @@ class MiddlewareBase implements IMiddleware
      *
      * @return callable  The function that accepts the next handler to invoke.
      */
-    final public function __invoke(callable $handler)
+    public function __invoke(callable $handler)
     {
         $reflection = $this;
         return function ($request, $options) use ($handler, $reflection) {

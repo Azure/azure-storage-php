@@ -17,25 +17,56 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
 namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Models\ContinuationToken;
 
 /**
- * Queue service options.
+ * Provides functionality and data structure for queue continuation token.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueueServiceOptions extends ServiceOptions
+class QueueContinuationToken extends ContinuationToken
 {
+    private $nextMarker;
+
+    public function __construct(
+        $nextMarker = '',
+        $location = ''
+    ) {
+        parent::__construct($location);
+        $this->setNextMarker($nextMarker);
+    }
+
+    /**
+     * Setter for nextMarker
+     *
+     * @param string $nextMarker the next marker to be set.
+     */
+    public function setNextMarker($nextMarker)
+    {
+        Validate::isString($nextMarker, 'nextMarker');
+        $this->nextMarker = $nextMarker;
+    }
+
+    /**
+     * Getter for nextMarker
+     *
+     * @return string
+     */
+    public function getNextMarker()
+    {
+        return $this->nextMarker;
+    }
 }

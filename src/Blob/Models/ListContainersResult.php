@@ -27,7 +27,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Blob\Models\Container;
-use MicrosoftAzure\Storage\Tests\Unit\Common\Internal\UtilitiesTest;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
 
 /**
  * Container to hold list container response object.
@@ -41,23 +42,26 @@ use MicrosoftAzure\Storage\Tests\Unit\Common\Internal\UtilitiesTest;
  */
 class ListContainersResult
 {
+    use BlobContinuationTokenTrait;
+
     private $_containers;
     private $_prefix;
     private $_marker;
-    private $_nextMarker;
     private $_maxResults;
     private $_accountName;
 
     /**
      * Creates ListBlobResult object from parsed XML response.
      *
-     * @param array $parsedResponse XML response parsed into array.
+     * @param array  $parsedResponse XML response parsed into array.
+     * @param string $location       Contains the location for the previous
+     *                               request.
      *
      * @internal
      *
      * @return ListContainersResult
      */
-    public static function create(array $parsedResponse)
+    public static function create(array $parsedResponse, $location = '')
     {
         $result               = new ListContainersResult();
         $serviceEndpoint      = Utilities::tryGetKeysChainValue(
@@ -76,10 +80,15 @@ class ListContainersResult
             $parsedResponse,
             Resources::QP_MARKER
         ));
-        $result->setNextMarker(Utilities::tryGetValue(
-            $parsedResponse,
-            Resources::QP_NEXT_MARKER
-        ));
+        $result->setContinuationToken(
+            new BlobContinuationToken(
+                Utilities::tryGetValue(
+                    $parsedResponse,
+                    Resources::QP_NEXT_MARKER
+                ),
+                $location
+            )
+        );
         $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS
@@ -212,28 +221,6 @@ class ListContainersResult
         $this->_maxResults = $maxResults;
     }
 
-    /**
-     * Gets next marker.
-     *
-     * @return string
-     */
-    public function getNextMarker()
-    {
-        return $this->_nextMarker;
-    }
-
-    /**
-     * Sets next marker.
-     *
-     * @param string $nextMarker value.
-     *
-     * @return void
-     */
-    protected function setNextMarker($nextMarker)
-    {
-        $this->_nextMarker = $nextMarker;
-    }
-    
     /**
      * Gets account name.
      *

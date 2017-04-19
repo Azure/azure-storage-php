@@ -2812,4 +2812,18 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertCount(3, $actual);
         $this->assertEquals($expectedValue, $actual[$expectedHeader]);
     }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceStats
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceStatsAsync
+     */
+    public function testGetServiceStats()
+    {
+        $result = $this->restProxy->getServiceStats();
+
+        // Assert
+        $this->assertNotNull($result->getStatus());
+        $this->assertNotNull($result->getLastSyncTime());
+        $this->assertTrue($result->getLastSyncTime() instanceof \DateTime);
+    }
 }

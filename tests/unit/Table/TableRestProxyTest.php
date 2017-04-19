@@ -1212,6 +1212,20 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         );
     }
 
+    /**
+     * @covers  \MicrosoftAzure\Storage\Table\TableRestProxy::getServiceStats
+     * @covers  \MicrosoftAzure\Storage\Table\TableRestProxy::getServiceStatsAsync
+     */
+    public function testGetServiceStats()
+    {
+        $result = $this->restProxy->getServiceStats();
+
+        // Assert
+        $this->assertNotNull($result->getStatus());
+        $this->assertNotNull($result->getLastSyncTime());
+        $this->assertTrue($result->getLastSyncTime() instanceof \DateTime);
+    }
+
     private static function getTableNameWithPrefix($prefix)
     {
         return $prefix . sprintf('%04x', mt_rand(0, 65535));

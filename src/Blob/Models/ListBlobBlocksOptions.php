@@ -48,6 +48,7 @@ class ListBlobBlocksOptions extends BlobServiceOptions
      */
     public function __construct()
     {
+        parent::__construct();
         self::$_listType[true][true]   = 'all';
         self::$_listType[true][false]  = 'uncommitted';
         self::$_listType[false][true]  = 'committed';

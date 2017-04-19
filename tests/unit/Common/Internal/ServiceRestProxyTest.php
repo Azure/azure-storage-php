@@ -52,19 +52,26 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     public function testConstruct()
     {
         // Setup
-        $uri     = 'http://www.microsoft.com';
-        $accountName = 'myaccount';
+        $primaryUri     = 'http://www.microsoft.com';
+        $secondaryUri   = 'http://www.bing.com';
+        $accountName    = 'myaccount';
         $dataSerializer = new XmlSerializer();
 
         // Test
-        $proxy = new ServiceRestProxy($uri, $accountName, $dataSerializer);
+        $proxy = new ServiceRestProxy(
+            $primaryUri,
+            $secondaryUri,
+            $accountName,
+            $dataSerializer
+        );
 
         // Assert
         $this->assertNotNull($proxy);
         $this->assertEquals($accountName, $proxy->getAccountName());
 
         // Auto append an '/' at the end of uri.
-        $this->assertEquals($uri . '/', $proxy->getUri());
+        $this->assertEquals($primaryUri . '/', (string)($proxy->getPsrPrimaryUri()));
+        $this->assertEquals($secondaryUri . '/', (string)($proxy->getPsrSecondaryUri()));
 
         return $proxy;
     }

@@ -25,7 +25,9 @@
 namespace MicrosoftAzure\Storage\Blob\Internal;
 
 use MicrosoftAzure\Storage\Blob\Models as BlobModels;
-use MicrosoftAzure\Storage\Common\Models as CommonModels;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
+use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Blob service.
@@ -42,60 +44,82 @@ use MicrosoftAzure\Storage\Common\Models as CommonModels;
 interface IBlob
 {
     /**
-    * Gets the properties of the Blob service.
+    * Gets the properties of the service.
     *
-    * @param BlobModels\BlobServiceOptions $options optional blob service options.
+    * @param ServiceOptions $options optional service options.
     *
-    * @return CommonModels\GetServicePropertiesResult
+    * @return GetServicePropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
     */
-    public function getServiceProperties(BlobModels\BlobServiceOptions $options = null);
+    public function getServiceProperties(ServiceOptions $options = null);
 
     /**
-     * Creates promise to get the properties of the Blob service.
+     * Creates promise to get the properties of the service.
      *
-     * @param BlobModels\BlobServiceOptions $options The optional parameters.
+     * @param ServiceOptions $options The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
      */
-    public function getServicePropertiesAsync(
-        BlobModels\BlobServiceOptions $options = null
-    );
+    public function getServicePropertiesAsync(ServiceOptions $options = null);
 
     /**
-    * Sets the properties of the Blob service.
+    * Sets the properties of the service.
     *
-    * @param CommonModels\ServiceProperties  $serviceProperties new service properties
-    * @param BlobModels\BlobServiceOptions   $options           optional parameters
+    * @param ServiceProperties           $serviceProperties new service properties
+    * @param ServiceOptions $options           optional parameters
     *
     * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
     */
     public function setServiceProperties(
-        CommonModels\ServiceProperties $serviceProperties,
-        BlobModels\BlobServiceOptions $options = null
+        ServiceProperties $serviceProperties,
+        ServiceOptions    $options = null
     );
 
     /**
-     * Creates the promise to set the properties of the Blob service.
+     * Retieves statistics related to replication for the service. The operation
+     * will only be sent to secondary location endpoint.
+     *
+     * @param  ServiceOptions|null $options The options this operation sends with.
+     *
+     * @return GetServiceStatsResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-blob-service-stats
+     */
+    public function getServiceStats(ServiceOptions $options = null);
+
+    /**
+     * Creates promise that retrieves statistics related to replication for the
+     * service. The operation will only be sent to secondary location endpoint.
+     *
+     * @param  ServiceOptions|null $options The options this operation sends with.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see  https://docs.microsoft.com/en-us/rest/api/storageservices/get-blob-service-stats
+     */
+    public function getServiceStatsAsync(ServiceOptions $options = null);
+
+    /**
+     * Creates the promise to set the properties of the service.
      *
      * It's recommended to use getServiceProperties, alter the returned object and
      * then use setServiceProperties with this altered object.
      *
-     * @param CommonModels\ServiceProperties $serviceProperties new service properties.
-     * @param BlobModels\BlobServiceOptions  $options           optional parameters
+     * @param ServiceProperties           $serviceProperties new service properties.
+     * @param ServiceOptions $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
      */
     public function setServicePropertiesAsync(
-        CommonModels\ServiceProperties $serviceProperties,
-        BlobModels\BlobServiceOptions $options = null
+        ServiceProperties $serviceProperties,
+        ServiceOptions    $options = null
     );
 
     /**
