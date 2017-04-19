@@ -2556,7 +2556,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param Models\BlockList|array         $blockList The block entries.
      * @param Models\CommitBlobBlocksOptions $options   The optional parameters.
      *
-     * @return \GuzzleHttp\Psr7\Response
+     * @return Models\PutBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179467.aspx
      */
@@ -2702,7 +2702,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::STATUS_CREATED,
             $body,
             $options->getRequestOptions()
-        );
+        )->then(function ($response) {
+            return PutBlobResult::create(
+                HttpFormatter::formatHeaders($response->getHeaders())
+            );
+        }, null);
     }
     
     /**
