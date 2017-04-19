@@ -1874,7 +1874,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         $this->assertEquals('unlocked', $res->getProperties()->getLeaseStatus(), 'blob getProperties->getLeaseStatus');
 
         if (is_null($properties) ||
-                !is_null($properties->getBlobContentLength()) ||
+                !is_null($properties->getContentLength()) ||
                 !is_null($properties->getSequenceNumber())) {
             $this->assertNull($res->getProperties()->getCacheControl(), 'blob getProperties->getCacheControl');
             $this->assertEquals(
@@ -1887,37 +1887,37 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $this->assertNull($res->getProperties()->getContentLanguage(), 'blob getProperties->getContentLanguage');
         } else {
             $this->assertEquals(
-                $properties->getBlobCacheControl(),
+                $properties->getCacheControl(),
                 $res->getProperties()->getCacheControl(),
                 'blob getProperties->getCacheControl'
             );
             $this->assertEquals(
-                $properties->getBlobContentType(),
+                $properties->getContentType(),
                 $res->getProperties()->getContentType(),
                 'blob getProperties->getContentType'
             );
             $this->assertEquals(
-                $properties->getBlobContentMD5(),
+                $properties->getContentMD5(),
                 $res->getProperties()->getContentMD5(),
                 'blob getProperties->getContentMD5'
             );
             $this->assertEquals(
-                $properties->getBlobContentEncoding(),
+                $properties->getContentEncoding(),
                 $res->getProperties()->getContentEncoding(),
                 'blob getProperties->getContentEncoding'
             );
             $this->assertEquals(
-                $properties->getBLobContentLanguage(),
+                $properties->getContentLanguage(),
                 $res->getProperties()->getContentLanguage(),
                 'blob getProperties->getContentLanguage'
             );
         }
 
-        if (is_null($properties) || is_null($properties->getBlobContentLength())) {
+        if (is_null($properties) || is_null($properties->getContentLength())) {
             $this->assertEquals(512, $res->getProperties()->getContentLength(), 'blob getProperties->getContentLength');
         } else {
             $this->assertEquals(
-                $properties->getBlobContentLength(),
+                $properties->getContentLength(),
                 $res->getProperties()->getContentLength(),
                 'blob getProperties->getContentLength'
             );

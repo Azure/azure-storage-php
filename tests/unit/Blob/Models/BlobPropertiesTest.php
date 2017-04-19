@@ -229,6 +229,24 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::setContentDisposition
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::getContentDisposition
+     */
+    public function testSetContentDisposition()
+    {
+        // Setup
+        $expected = '0x8CAFB82EFF70C46';
+        $properties = new BlobProperties();
+        $properties->setContentDisposition($expected);
+        
+        // Test
+        $properties->setContentDisposition($expected);
+        
+        // Assert
+        $this->assertEquals($expected, $properties->getContentDisposition());
+    }
+    
+    /**
      * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::setBlobType
      * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::getBlobType
      */

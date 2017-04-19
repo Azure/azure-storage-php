@@ -944,7 +944,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, 'myblob', 512);
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentLength($contentLength);
+        $options->setContentLength($contentLength);
         
         // Test
         $this->restProxy->setBlobProperties($name, $blob, $options);

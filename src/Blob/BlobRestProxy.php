@@ -283,29 +283,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         CreateBlobOptions $options,
         array $headers
     ) {
-        $contentType         = $options->getContentType();
-        $metadata            = $options->getMetadata();
-        $blobContentType     = $options->getBlobContentType();
-        $blobContentEncoding = $options->getBlobContentEncoding();
-        $blobContentLanguage = $options->getBlobContentLanguage();
-        $blobContentMD5      = $options->getBlobContentMD5();
-        $blobCacheControl    = $options->getBlobCacheControl();
-        $leaseId             = $options->getLeaseId();
-        
-        if (!is_null($contentType)) {
-            $this->addOptionalHeader(
-                $headers,
-                Resources::CONTENT_TYPE,
-                $options->getContentType()
-            );
-        } else {
-            $this->addOptionalHeader(
-                $headers,
-                Resources::CONTENT_TYPE,
-                Resources::BINARY_FILE_TYPE
-            );
-        }
-        $headers = $this->addMetadataHeaders($headers, $metadata);
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
             $options->getAccessCondition()
@@ -313,54 +290,49 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalHeader(
             $headers,
-            Resources::CONTENT_ENCODING,
-            $options->getContentEncoding()
-        );
-        $this->addOptionalHeader(
-            $headers,
-            Resources::CONTENT_LANGUAGE,
-            $options->getContentLanguage()
-        );
-        $this->addOptionalHeader(
-            $headers,
-            Resources::CONTENT_MD5,
-            $options->getContentMD5()
-        );
-        $this->addOptionalHeader(
-            $headers,
-            Resources::CACHE_CONTROL,
-            $options->getCacheControl()
-        );
-        
-        $this->addOptionalHeader(
-            $headers,
             Resources::X_MS_LEASE_ID,
-            $leaseId
+            $options->getLeaseId()
         );
+
+        $headers = $this->addMetadataHeaders(
+            $headers,
+            $options->getMetadata()
+        );
+
+        $contentType = $options->getContentType();
+        if (is_null($contentType)) {
+            $contentType = Resources::BINARY_FILE_TYPE;
+        }
+
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_BLOB_CONTENT_TYPE,
-            $blobContentType
+            $contentType
         );
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_BLOB_CONTENT_ENCODING,
-            $blobContentEncoding
+            $options->getContentEncoding()
         );
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_BLOB_CONTENT_LANGUAGE,
-            $blobContentLanguage
+            $options->getContentLanguage()
         );
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_BLOB_CONTENT_MD5,
-            $blobContentMD5
+            $options->getContentMD5()
         );
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_BLOB_CACHE_CONTROL,
-            $blobCacheControl
+            $options->getCacheControl()
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_CONTENT_DISPOSITION,
+            $options->getContentDisposition()
         );
         
         return $headers;
@@ -2653,13 +2625,14 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new CommitBlobBlocksOptions();
         }
         
-        $blobContentType     = $options->getBlobContentType();
-        $blobContentEncoding = $options->getBlobContentEncoding();
-        $blobContentLanguage = $options->getBlobContentLanguage();
-        $blobContentMD5      = $options->getBlobContentMD5();
-        $blobCacheControl    = $options->getBlobCacheControl();
-        $leaseId             = $options->getLeaseId();
-        $contentType         = Resources::URL_ENCODED_CONTENT_TYPE;
+        $blobContentType            = $options->getContentType();
+        $blobContentEncoding        = $options->getContentEncoding();
+        $blobContentLanguage        = $options->getContentLanguage();
+        $blobContentMD5             = $options->getContentMD5();
+        $blobCacheControl           = $options->getCacheControl();
+        $blobCcontentDisposition    = $options->getContentDisposition();
+        $leaseId                    = $options->getLeaseId();
+        $contentType                = Resources::URL_ENCODED_CONTENT_TYPE;
         
         $metadata = $options->getMetadata();
         $headers  = $this->generateMetadataHeaders($metadata);
@@ -2677,6 +2650,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             Resources::X_MS_BLOB_CACHE_CONTROL,
             $blobCacheControl
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_CONTENT_DISPOSITION,
+            $blobCcontentDisposition
         );
         $this->addOptionalHeader(
             $headers,
@@ -3179,12 +3157,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new SetBlobPropertiesOptions();
         }
         
-        $blobContentType     = $options->getBlobContentType();
-        $blobContentEncoding = $options->getBlobContentEncoding();
-        $blobContentLanguage = $options->getBlobContentLanguage();
-        $blobContentLength   = $options->getBlobContentLength();
-        $blobContentMD5      = $options->getBlobContentMD5();
-        $blobCacheControl    = $options->getBlobCacheControl();
+        $blobContentType            = $options->getContentType();
+        $blobContentEncoding        = $options->getContentEncoding();
+        $blobContentLanguage        = $options->getContentLanguage();
+        $blobContentLength          = $options->getContentLength();
+        $blobContentMD5             = $options->getContentMD5();
+        $blobCacheControl           = $options->getCacheControl();
+        $blobContentDisposition    = $options->getContentDisposition();
         $leaseId             = $options->getLeaseId();
         $sNumberAction       = $options->getSequenceNumberAction();
         $sNumber             = $options->getSequenceNumber();
@@ -3203,6 +3182,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             Resources::X_MS_BLOB_CACHE_CONTROL,
             $blobCacheControl
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_CONTENT_DISPOSITION,
+            $blobContentDisposition
         );
         $this->addOptionalHeader(
             $headers,
