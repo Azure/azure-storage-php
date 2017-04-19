@@ -150,6 +150,7 @@ class Resources
     const X_MS_BLOB_CONTENT_LANGUAGE         = 'x-ms-blob-content-language';
     const X_MS_BLOB_CONTENT_MD5              = 'x-ms-blob-content-md5';
     const X_MS_BLOB_CACHE_CONTROL            = 'x-ms-blob-cache-control';
+    const X_MS_BLOB_CONTENT_DISPOSITION      = 'x-ms-blob-content-disposition';
     const X_MS_BLOB_CONTENT_LENGTH           = 'x-ms-blob-content-length';
     const X_MS_BLOB_CONDITION_MAXSIZE        = 'x-ms-blob-condition-maxsize';
     const X_MS_BLOB_CONDITION_APPENDPOS      = 'x-ms-blob-condition-appendpos';
@@ -198,6 +199,7 @@ class Resources
     const CONTENT_ID                         = 'content-id';
     const CONTENT_RANGE                      = 'content-range';
     const CACHE_CONTROL                      = 'cache-control';
+    const CONTENT_DISPOSITION                = 'content-disposition';
     const IF_MODIFIED_SINCE                  = 'if-modified-since';
     const IF_MATCH                           = 'if-match';
     const IF_NONE_MATCH                      = 'if-none-match';

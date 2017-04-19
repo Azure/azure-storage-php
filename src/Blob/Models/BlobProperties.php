@@ -49,6 +49,7 @@ class BlobProperties
     private $_contentMD5;
     private $_contentRange;
     private $_cacheControl;
+    private $_contentDisposition;
     private $_blobType;
     private $_leaseStatus;
     private $_leaseState;
@@ -309,6 +310,28 @@ class BlobProperties
     }
     
     /**
+     * Gets blob contentDisposition.
+     *
+     * @return string
+     */
+    public function getContentDisposition()
+    {
+        return $this->_contentDisposition;
+    }
+
+    /**
+     * Sets blob contentDisposition.
+     *
+     * @param string $contentDisposition value.
+     *
+     * @return void
+     */
+    public function setContentDisposition($contentDisposition)
+    {
+        $this->_contentDisposition = $contentDisposition;
+    }
+    
+    /**
      * Gets blob blobType.
      *
      * @return string
@@ -485,6 +508,9 @@ class BlobProperties
         );
         $this->setCacheControl(
             Utilities::tryGetValue($clean, Resources::CACHE_CONTROL)
+        );
+        $this->setContentDisposition(
+            Utilities::tryGetValue($clean, Resources::CONTENT_DISPOSITION)
         );
         $this->setContentEncoding(
             Utilities::tryGetValue($clean, Resources::CONTENT_ENCODING)

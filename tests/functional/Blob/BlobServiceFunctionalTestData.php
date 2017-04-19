@@ -691,28 +691,28 @@ class BlobServiceFunctionalTestData
         }
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobCacheControl('setBlobCacheControl');
+        $options->setCacheControl('setCacheControl');
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentEncoding('setBlobContentEncoding');
+        $options->setContentEncoding('setContentEncoding');
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentLanguage('setBlobContentLanguage');
+        $options->setContentLanguage('setContentLanguage');
         array_push($ret, $options);
 
         // Note: This is not allowed on block blobs
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentLength(2048);
+        $options->setContentLength(2048);
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentMD5('d41d8cd98f00b204e9800998ecf8427e');
+        $options->setContentMD5('d41d8cd98f00b204e9800998ecf8427e');
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentType('setContentType');
+        $options->setContentType('setContentType');
         array_push($ret, $options);
 
         // TODO: Handle Lease ID

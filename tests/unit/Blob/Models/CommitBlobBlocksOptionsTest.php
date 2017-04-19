@@ -39,93 +39,111 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setBlobContentType
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getBlobContentType
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentType
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentType
      */
-    public function testSetBlobContentType()
+    public function testSetContentType()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
-        $options->setBlobContentType($expected);
+        $options->setContentType($expected);
         
         // Test
-        $options->setBlobContentType($expected);
+        $options->setContentType($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getBlobContentType());
+        $this->assertEquals($expected, $options->getContentType());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setBlobContentEncoding
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getBlobContentEncoding
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentEncoding
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentEncoding
      */
-    public function testSetBlobContentEncoding()
+    public function testSetContentEncoding()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
-        $options->setBlobContentEncoding($expected);
+        $options->setContentEncoding($expected);
         
         // Test
-        $options->setBlobContentEncoding($expected);
+        $options->setContentEncoding($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getBlobContentEncoding());
+        $this->assertEquals($expected, $options->getContentEncoding());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setBlobContentLanguage
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getBlobContentLanguage
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentLanguage
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentLanguage
      */
-    public function testSetBlobContentLanguage()
+    public function testSetContentLanguage()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
-        $options->setBlobContentLanguage($expected);
+        $options->setContentLanguage($expected);
         
         // Test
-        $options->setBlobContentLanguage($expected);
+        $options->setContentLanguage($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getBlobContentLanguage());
+        $this->assertEquals($expected, $options->getContentLanguage());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setBlobContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getBlobContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentMD5
      */
-    public function testSetBlobContentMD5()
+    public function testSetContentMD5()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
-        $options->setBlobContentMD5($expected);
+        $options->setContentMD5($expected);
         
         // Test
-        $options->setBlobContentMD5($expected);
+        $options->setContentMD5($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getBlobContentMD5());
+        $this->assertEquals($expected, $options->getContentMD5());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setBlobCacheControl
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getBlobCacheControl
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setCacheControl
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getCacheControl
      */
-    public function testSetBlobCacheControl()
+    public function testSetCacheControl()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
-        $options->setBlobCacheControl($expected);
+        $options->setCacheControl($expected);
         
         // Test
-        $options->setBlobCacheControl($expected);
+        $options->setCacheControl($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getBlobCacheControl());
+        $this->assertEquals($expected, $options->getCacheControl());
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentDisposition
+     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentDisposition
+     */
+    public function testSetContentDisposition()
+    {
+        // Setup
+        $expected = '0x8CAFB82EFF70C46';
+        $options = new CommitBlobBlocksOptions();
+        $options->setContentDisposition($expected);
+        
+        // Test
+        $options->setContentDisposition($expected);
+        
+        // Assert
+        $this->assertEquals($expected, $options->getContentDisposition());
     }
     
     /**

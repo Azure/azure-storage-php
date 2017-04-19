@@ -43,151 +43,10 @@ class CreateBlobOptions extends BlobServiceOptions
     private $_contentLanguage;
     private $_contentMD5;
     private $_cacheControl;
-    private $_blobContentType;
-    private $_blobContentEncoding;
-    private $_blobContentLanguage;
-    private $_blobContentLength;
-    private $_blobContentMD5;
-    private $_blobCacheControl;
+    private $_contentDisposition;
     private $_metadata;
     private $_sequenceNumber;
-    //TODO: Remove it
-    private $_sequenceNumberAction;
     private $_numberOfConcurrency;
-    //TODO: x-ms-blob-content-disposition
-    
-    /**
-     * Gets blob ContentType.
-     *
-     * @return string
-     */
-    public function getBlobContentType()
-    {
-        return $this->_blobContentType;
-    }
-
-    /**
-     * Sets blob ContentType.
-     *
-     * @param string $blobContentType value.
-     *
-     * @return void
-     */
-    public function setBlobContentType($blobContentType)
-    {
-        $this->_blobContentType = $blobContentType;
-    }
-    
-    /**
-     * Gets blob ContentEncoding.
-     *
-     * @return string
-     */
-    public function getBlobContentEncoding()
-    {
-        return $this->_blobContentEncoding;
-    }
-
-    /**
-     * Sets blob ContentEncoding.
-     *
-     * @param string $blobContentEncoding value.
-     *
-     * @return void
-     */
-    public function setBlobContentEncoding($blobContentEncoding)
-    {
-        $this->_blobContentEncoding = $blobContentEncoding;
-    }
-    
-    /**
-     * Gets blob ContentLanguage.
-     *
-     * @return string
-     */
-    public function getBlobContentLanguage()
-    {
-        return $this->_blobContentLanguage;
-    }
-
-    /**
-     * Sets blob ContentLanguage.
-     *
-     * @param string $blobContentLanguage value.
-     *
-     * @return void
-     */
-    public function setBlobContentLanguage($blobContentLanguage)
-    {
-        $this->_blobContentLanguage = $blobContentLanguage;
-    }
-    
-    /**
-     * Gets blob ContentLength.
-     *
-     * @return integer
-     */
-    public function getBlobContentLength()
-    {
-        return $this->_blobContentLength;
-    }
-
-    /**
-     * Sets blob ContentLength.
-     *
-     * @param integer $blobContentLength value.
-     *
-     * @return void
-     */
-    public function setBlobContentLength($blobContentLength)
-    {
-        Validate::isInteger($blobContentLength, 'blobContentLength');
-        $this->_blobContentLength = $blobContentLength;
-    }
-
-    /**
-     * Gets blob ContentMD5.
-     *
-     * @return string
-     */
-    public function getBlobContentMD5()
-    {
-        return $this->_blobContentMD5;
-    }
-
-    /**
-     * Sets blob ContentMD5.
-     *
-     * @param string $blobContentMD5 value.
-     *
-     * @return void
-     */
-    public function setBlobContentMD5($blobContentMD5)
-    {
-        $this->_blobContentMD5 = $blobContentMD5;
-    }
-    
-    /**
-     * Gets blob cache control.
-     *
-     * @return string
-     */
-    public function getBlobCacheControl()
-    {
-        return $this->_blobCacheControl;
-    }
-    
-    /**
-     * Sets blob cacheControl.
-     *
-     * @param string $blobCacheControl value to use.
-     *
-     * @return void
-     */
-    public function setBlobCacheControl($blobCacheControl)
-    {
-        $this->_blobCacheControl = $blobCacheControl;
-    }
     
     /**
      * Gets blob contentType.
@@ -300,6 +159,28 @@ class CreateBlobOptions extends BlobServiceOptions
     }
     
     /**
+     * Gets content disposition.
+     *
+     * @return string
+     */
+    public function getContentDisposition()
+    {
+        return $this->_contentDisposition;
+    }
+    
+    /**
+     * Sets content disposition.
+     *
+     * @param string $contentDisposition value to use.
+     *
+     * @return void
+     */
+    public function setContentDisposition($contentDisposition)
+    {
+        $this->_contentDisposition = $contentDisposition;
+    }
+    
+    /**
      * Gets blob metadata.
      *
      * @return array
@@ -343,28 +224,6 @@ class CreateBlobOptions extends BlobServiceOptions
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;
     }
-    
-    /**
-     * Gets blob sequenceNumberAction.
-     *
-     * @return string
-     */
-    public function getSequenceNumberAction()
-    {
-        return $this->_sequenceNumberAction;
-    }
-
-    /**
-     * Sets blob sequenceNumberAction.
-     *
-     * @param string $sequenceNumberAction value.
-     *
-     * @return void
-     */
-    public function setSequenceNumberAction($sequenceNumberAction)
-    {
-        $this->_sequenceNumberAction = $sequenceNumberAction;
-    }
 
     /**
      * Gets number of concurrency for sending a blob.
@@ -384,25 +243,5 @@ class CreateBlobOptions extends BlobServiceOptions
     public function setNumberOfConcurrency($numberOfConcurrency)
     {
         $this->_numberOfConcurrency = $numberOfConcurrency;
-    }
-
-    /**
-     * Construct a CreateBlobOptions object from a createBlockBlobOptions.
-     *
-     * @param  CreateBlobBlockOptions $createBlobBlockOptions
-     *
-     * @return CreateBlobOptions
-     */
-    public static function create(CreateBlobBlockOptions $createBlobBlockOptions)
-    {
-        $result = new CreateBlobOptions();
-        $result->setTimeout($createBlobBlockOptions->getTimeout());
-        $result->setContentMD5($createBlobBlockOptions->getContentMD5());
-        $result->setLeaseId($createBlobBlockOptions->getLeaseId());
-        $result->setLeaseId($createBlobBlockOptions->getAccessCondition());
-        $result->setNumberOfConcurrency(
-            $createBlobBlockOptions->getNumberOfConcurrency()
-        );
-        return $result;
     }
 }
