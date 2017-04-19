@@ -135,16 +135,16 @@ class BlobServiceFunctionalTestData
 
     public static function passTemporalAccessCondition($ac)
     {
-        if (is_null($ac)) {
+        if (is_null($ac) ||  empty($ac)) {
             return true;
         }
 
         $now = new \DateTime();
 
-        if ($ac->getHeader() == Resources::IF_UNMODIFIED_SINCE) {
-            return $ac->getValue() > $now;
-        } elseif ($ac->getHeader() == Resources::IF_MODIFIED_SINCE) {
-            return $ac->getValue() < $now;
+        if ($ac[0]->getHeader() == Resources::IF_UNMODIFIED_SINCE) {
+            return $ac[0]->getValue() > $now;
+        } elseif ($ac[0]->getHeader() == Resources::IF_MODIFIED_SINCE) {
+            return $ac[0]->getValue() < $now;
         } else {
             return true;
         }
@@ -152,12 +152,12 @@ class BlobServiceFunctionalTestData
 
     public static function passETagAccessCondition($ac)
     {
-        if (is_null($ac)) {
+        if (is_null($ac) || empty($ac)) {
             return true;
-        } elseif ($ac->getHeader() == Resources::IF_MATCH) {
-            return self::$badETag != $ac->getValue();
-        } elseif ($ac->getHeader() == Resources::IF_NONE_MATCH) {
-            return self::$badETag == $ac->getValue();
+        } elseif ($ac[0]->getHeader() == Resources::IF_MATCH) {
+            return self::$badETag != $ac[0]->getValue();
+        } elseif ($ac[0]->getHeader() == Resources::IF_NONE_MATCH) {
+            return self::$badETag == $ac[0]->getValue();
         } else {
             return true;
         }
@@ -165,10 +165,10 @@ class BlobServiceFunctionalTestData
 
     public static function fixETagAccessCondition($ac, $etag)
     {
-        if (!is_null($ac)) {
-            if ($ac->getHeader() == Resources::IF_MATCH || $ac->getHeader() == Resources::IF_NONE_MATCH) {
-                if (is_null($ac->getValue()) || self::$badETag != $ac->getValue()) {
-                    $ac->setValue($etag);
+        if (!is_null($ac) && !empty($ac)) {
+            if ($ac[0]->getHeader() == Resources::IF_MATCH || $ac[0]->getHeader() == Resources::IF_NONE_MATCH) {
+                if (is_null($ac[0]->getValue()) || self::$badETag != $ac[0]->getValue()) {
+                    $ac[0]->setValue($etag);
                 }
             }
         }
@@ -570,19 +570,19 @@ class BlobServiceFunctionalTestData
         array_push($ret, $options);
 
         $options = new BlobServiceOptions();
-        $options->setAccessCondition(AccessCondition::ifModifiedSince($past));
+        $options->setAccessConditions(AccessCondition::ifModifiedSince($past));
         array_push($ret, $options);
 
         $options = new BlobServiceOptions();
-        $options->setAccessCondition(AccessCondition::ifNotModifiedSince($past));
+        $options->setAccessConditions(AccessCondition::ifNotModifiedSince($past));
         array_push($ret, $options);
 
         $options = new BlobServiceOptions();
-        $options->setAccessCondition(AccessCondition::ifModifiedSince($future));
+        $options->setAccessConditions(AccessCondition::ifModifiedSince($future));
         array_push($ret, $options);
 
         $options = new BlobServiceOptions();
-        $options->setAccessCondition(AccessCondition::ifNotModifiedSince($future));
+        $options->setAccessConditions(AccessCondition::ifNotModifiedSince($future));
         array_push($ret, $options);
 
         return $ret;
@@ -607,7 +607,7 @@ class BlobServiceFunctionalTestData
         // But easier to special-case If-Unmodified-Since in the test.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new BlobServiceOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -631,7 +631,7 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new BlobServiceOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -661,7 +661,7 @@ class BlobServiceFunctionalTestData
         // Get Blob Properties only supports the temporal access conditions.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new GetBlobPropertiesOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -686,7 +686,7 @@ class BlobServiceFunctionalTestData
         // Get Blob Properties only supports the temporal access conditions.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new SetBlobPropertiesOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -776,7 +776,7 @@ class BlobServiceFunctionalTestData
         // Get Blob only supports the temporal access conditions.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new GetBlobOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -837,7 +837,7 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new DeleteBlobOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -878,7 +878,7 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new CreateBlobSnapshotOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -911,13 +911,13 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new CopyBlobOptions();
-            $options->setSourceAccessCondition($ac);
+            $options->setSourceAccessConditions($ac);
             array_push($ret, $options);
         }
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new CopyBlobOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 

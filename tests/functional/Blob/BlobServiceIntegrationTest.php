@@ -1335,7 +1335,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->restProxy->createPageBlob(self::$_test_container_for_blobs, 'test', 4096);
         try {
             $opts = new GetBlobOptions();
-            $opts->setAccessCondition(AccessCondition::ifMatch('123'));
+            $opts->setAccessConditions(AccessCondition::ifMatch('123'));
             $this->restProxy->getBlob(self::$_test_container_for_blobs, 'test', $opts);
             $this->fail('getBlob should throw an exception');
         } catch (ServiceException $e) {
@@ -1355,7 +1355,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $props = $this->restProxy->getBlobProperties(self::$_test_container_for_blobs, 'test');
         try {
             $opts = new GetBlobOptions();
-            $opts->setAccessCondition(AccessCondition::ifNoneMatch($props->getProperties()->getETag()));
+            $opts->setAccessConditions(AccessCondition::ifNoneMatch($props->getProperties()->getETag()));
             $this->restProxy->getBlob(self::$_test_container_for_blobs, 'test', $opts);
             $this->fail('getBlob should throw an exception');
         } catch (ServiceException $e) {
@@ -1384,7 +1384,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         try {
             $opts = new GetBlobOptions();
             $lastMod = $props->getProperties()->getLastModified();
-            $opts->setAccessCondition(AccessCondition::ifModifiedSince($lastMod));
+            $opts->setAccessConditions(AccessCondition::ifModifiedSince($lastMod));
             $this->restProxy->getBlob(self::$_test_container_for_blobs, 'test', $opts);
             $this->fail('getBlob should throw an exception');
         } catch (ServiceException $e) {
@@ -1431,7 +1431,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         }
         try {
             $opts = new GetBlobOptions();
-            $opts->setAccessCondition(AccessCondition::ifNotModifiedSince($lastModifiedBase));
+            $opts->setAccessConditions(AccessCondition::ifNotModifiedSince($lastModifiedBase));
             $this->restProxy->getBlob($container, $blob, $opts);
             $this->fail('getBlob should throw an exception');
         } catch (ServiceException $e) {

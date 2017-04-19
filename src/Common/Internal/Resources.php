@@ -204,6 +204,11 @@ class Resources
     const IF_MATCH                           = 'if-match';
     const IF_NONE_MATCH                      = 'if-none-match';
     const IF_UNMODIFIED_SINCE                = 'if-unmodified-since';
+    const MAX_BLOB_SIZE                      = 'x-ms-blob-condition-maxsize';
+    const MAX_APPEND_POSITION                = 'x-ms-blob-condition-appendpos';
+    const SEQUENCE_NUMBER_LESS_THAN_OR_EQUAL = 'x-ms-if-sequence-number-le';
+    const SEQUENCE_NUMBER_LESS_THAN          = 'x-ms-if-sequence-number-lt';
+    const SEQUENCE_NUMBER_EQUAL              = 'x-ms-if-sequence-number-eq';
     const RANGE                              = 'range';
     const DATA_SERVICE_VERSION               = 'dataserviceversion';
     const MAX_DATA_SERVICE_VERSION           = 'maxdataserviceversion';

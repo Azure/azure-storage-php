@@ -2787,7 +2787,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
 
         // Test
-        $actual = $this->restProxy->addOptionalAccessConditionHeader($headers, $accessCondition);
+        $actual = $this->restProxy->addOptionalAccessConditionHeader($headers, [$accessCondition]);
 
         // Assert
         $this->assertCount(3, $actual);
@@ -2806,7 +2806,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
 
         // Test
-        $actual = $this->restProxy->addOptionalSourceAccessConditionHeader($headers, $accessCondition);
+        $actual = $this->restProxy->addOptionalSourceAccessConditionHeader($headers, [$accessCondition]);
 
         // Assert
         $this->assertCount(3, $actual);
