@@ -376,6 +376,17 @@ class TestResources
         return $sample;
     }
 
+    public static function getServiceStatsSample()
+    {
+        $sample = array();
+        $geo = array();
+        $geo[Resources::XTAG_STATUS] = 'live';
+        $geo[Resources::XTAG_LAST_SYNC_TIME] = 'Sun, 23 Apr 2017 02:14:35 GMT';
+        $sample[Resources::XTAG_GEO_REPLICATION] = $geo;
+
+        return $sample;
+    }
+
     public static function setServicePropertiesSample()
     {
         $sample = array();
@@ -585,6 +596,35 @@ class TestResources
         $sample['NextMarker'] = 'video';
 
         return $sample;
+    }
+
+    public static function listContainersMultipleRandomEntriesBody($count, $nextMarker)
+    {
+        $sample = array();
+        $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
+        $sample['MaxResults'] = $count;
+        $sample['account'] = 'myaccount';
+        $sample['Prefix'] = 'myprefix';
+        $containers = array();
+        for ($i = 0; $i < $count; ++$i) {
+            $containers[] = ['Container' => self::randomContainerEntry()];
+        }
+        $sample['Containers'] = $containers;
+        $sample['NextMarker'] = $nextMarker;
+
+        return $sample;
+    }
+
+    public static function randomContainerEntry()
+    {
+        $entry = array();
+        $entry['Name'] = self::getInterestingName('myprefix');
+        $time = self::getRandomEarlierTime();
+        $entry['Properties']['Last-Modified'] =
+            $time->format(Resources::AZURE_DATE_FORMAT);
+        $entry['Properties']['Etag'] = \uniqid();
+
+        return $entry;
     }
 
     public static function getContainerAclOneEntrySample()

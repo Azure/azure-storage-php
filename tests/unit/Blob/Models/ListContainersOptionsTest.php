@@ -85,24 +85,7 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setMarker($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getMarker());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::getMarker
-     */
-    public function testGetMarker()
-    {
-        // Setup
-        $options = new ListContainersOptions();
-        $expected = 'mymarker';
-        $options->setMarker($expected);
-        
-        // Test
-        $actual = $options->getMarker();
-        
-        // Assert
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $options->getNextMarker());
     }
     
     /**

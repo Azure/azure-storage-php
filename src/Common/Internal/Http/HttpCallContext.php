@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Common\Internal\Http;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
  * Holds basic elements for making HTTP call.
@@ -49,7 +50,7 @@ class HttpCallContext
     private $_path;
     private $_statusCodes;
     private $_body;
-    private $_requestOptions;
+    private $_serviceOptions;
     
     /**
      * Default constructor.
@@ -64,7 +65,7 @@ class HttpCallContext
         $this->_postParameters = array();
         $this->_statusCodes    = array();
         $this->_headers        = array();
-        $this->_requestOptions = array();
+        $this->_serviceOptions = new ServiceOptions();
     }
     
     /**
@@ -379,28 +380,28 @@ class HttpCallContext
     }
 
     /**
-     * Gets the saved request options
+     * Gets the saved service options
      *
-     * @return array
+     * @return ServiceOptions
      */
-    public function getRequestOptions()
+    public function getServiceOptions()
     {
-        if ($this->_requestOptions == null) {
-            $this->_requestOptions = [];
+        if ($this->_serviceOptions == null) {
+            $this->_serviceOptions = new ServiceOptions();
         }
-        return $this->_requestOptions;
+        return $this->_serviceOptions;
     }
 
     /**
-     * Sets the request options
+     * Sets the service options
      *
-     * @param array $requestOptions the request options to be set.
+     * @param ServiceOptions $serviceOptions the service options to be set.
      *
      * @return void
      */
-    public function setRequestOptions(array $requestOptions)
+    public function setServiceOptions(ServiceOptions $serviceOptions)
     {
-        $this->_requestOptions = $requestOptions;
+        $this->_serviceOptions = $serviceOptions;
     }
     
     /**

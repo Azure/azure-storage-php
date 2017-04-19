@@ -117,6 +117,9 @@ implements `MicrosoftAzure\Storage\Common\Internal\IMiddleware`, or a
 
 User can create self-defined middleware that inherits from `MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase`.
 
+### Using proxies
+To use proxies during HTTP requests, set system variable `HTTP_PROXY` and the proxy will be used.
+
 ## Troubleshooting
 ### Error: Unable to get local issuer certificate
 cURL can't verify the validity of Microsoft certificate when trying to issue a request call to Azure Storage Services. You must configure cURL to use a certificate when issuing https requests by the following steps:

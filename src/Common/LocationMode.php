@@ -15,27 +15,39 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Table\Models
+ * @package   MicrosoftAzure\Storage\Common
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Table\Models;
-
-use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
+namespace MicrosoftAzure\Storage\Common;
 
 /**
- * Table service options.
+ * Location mode for the service.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Table\Models
+ * @package   MicrosoftAzure\Storage\Common
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class TableServiceOptions extends ServiceOptions
+class LocationMode
 {
+    //Request will only be sent to primary endpoint, except for
+    //getServiceStats APIs.
+    const PRIMARY_ONLY           = 'PrimaryOnly';
+
+    //Request will only be sent to secondary endpoint.
+    const SECONDARY_ONLY         = 'SecondaryOnly';
+
+    //Request will be sent to primary endpoint first, and retry for secondary
+    //endpoint.
+    const PRIMARY_THEN_SECONDARY = 'PrimaryThenSecondary';
+
+    //Request will be sent to secondary endpoint first, and retry for primary
+    //endpoint.
+    const SECONDARY_THEN_PRIMARY = 'SecondaryThenPrimary';
 }

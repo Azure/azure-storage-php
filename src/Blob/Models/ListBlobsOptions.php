@@ -25,6 +25,9 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
 
 /**
  * Optional parameters for listBlobs API.
@@ -38,8 +41,9 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListBlobsOptions extends BlobServiceOptions
 {
+    use BlobContinuationTokenTrait;
+
     private $_prefix;
-    private $_marker;
     private $_delimiter;
     private $_maxResults;
     private $_includeMetadata;
@@ -91,29 +95,6 @@ class ListBlobsOptions extends BlobServiceOptions
     {
         Validate::isString($delimiter, 'delimiter');
         $this->_delimiter = $delimiter;
-    }
-
-    /**
-     * Gets marker.
-     *
-     * @return string
-     */
-    public function getMarker()
-    {
-        return $this->_marker;
-    }
-
-    /**
-     * Sets marker.
-     *
-     * @param string $marker value.
-     *
-     * @return void
-     */
-    public function setMarker($marker)
-    {
-        Validate::isString($marker, 'marker');
-        $this->_marker = $marker;
     }
 
     /**

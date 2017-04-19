@@ -1,5 +1,11 @@
 2017.04 - version 0.15.0
 
+All
+* Removed `setRequestOptions` for service options, instead, added `middlewares`, `middlewareStack`, `numberOfConcurrency`, `isStreaming`, `locationMode` and `decodeContent` for user to specify the corresponding options.
+* Added `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware` to support retry from secondary endpoint. Advice to use this instead of Guzzle's retry middleware for secondary endpoint retry support.
+* By setting `$locationMode` in `MicrosoftAzure\Storage\Common\Models\ServiceOptions`, user can perform read operations from secondary endpoint.
+* Added support for user to use proxies. If `HTTP_PROXY` is set as a system variable, the proxy specified with it will be used for HTTP connections.
+
 Blob
 * Access condition feature parity:
   - Single `AccessCondition` has been changed to multiple `AccessCondition` for the options which support access conditions.
@@ -33,9 +39,14 @@ Blob
 
 * Changed the return type of API `commitBlobBlocks` from `void` to `PutBlobResult`.
 * Removed the useless API `ctrCrypt` from `Utilities` class.
+* Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
 
 Table
 * Removed `MicrosoftAzure\Storage\Table\Models\BatchError`. When batch operation fails, exception is thrown immediately instead. 
+* Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
+
+Queue
+* Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
 
 
 2017.04 - version 0.14.0

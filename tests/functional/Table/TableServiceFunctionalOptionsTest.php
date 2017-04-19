@@ -125,7 +125,7 @@ class TableServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
         $nextTableName = 'foo';
         $filter = new Filter();
 
-        $this->assertNull($options->getNextTableName(), 'Default QueryTablesOptions->getNextTableName');
+        $this->assertEquals('', $options->getNextTableName(), 'Default QueryTablesOptions->getNextTableName');
         $this->assertNotNull($options->getQuery(), 'Default QueryTablesOptions->getQuery');
         $options->setNextTableName($nextTableName);
         $options->setFilter($filter);
@@ -154,8 +154,8 @@ class TableServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
         $nextPartitionKey = 'aaa';
         $nextRowKey = 'bbb';
 
-        $this->assertNull($options->getNextPartitionKey(), 'Default QueryEntitiesOptions->getNextPartitionKey');
-        $this->assertNull($options->getNextRowKey(), 'Default QueryEntitiesOptions->getNextRowKey');
+        $this->assertEquals('', $options->getNextPartitionKey(), 'Default QueryEntitiesOptions->getNextPartitionKey');
+        $this->assertEquals('', $options->getNextRowKey(), 'Default QueryEntitiesOptions->getNextRowKey');
         $this->assertNotNull($options->getQuery(), 'Default QueryEntitiesOptions->getQuery');
         $options->setNextPartitionKey($nextPartitionKey);
         $options->setNextRowKey($nextRowKey);

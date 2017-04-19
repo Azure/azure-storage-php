@@ -24,13 +24,13 @@
 
 namespace MicrosoftAzure\Storage\Blob;
 
+use MicrosoftAzure\Storage\Common\Internal\ServiceRestTrait;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
-use MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult;
+use MicrosoftAzure\Storage\Common\LocationMode;
 use MicrosoftAzure\Storage\Blob\Internal\IBlob;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockResult;
@@ -94,6 +94,8 @@ use GuzzleHttp\Psr7;
  */
 class BlobRestProxy extends ServiceRestProxy implements IBlob
 {
+    use ServiceRestTrait;
+
     private $_SingleBlobUploadThresholdInBytes = Resources::MB_IN_BYTES_32;
 
     /**
@@ -193,14 +195,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     {
         $encodedBlob = $this->_createPath($container, $blob);
 
-        if (substr($encodedBlob, 0, 1) != '/' &&
-            substr($this->getUri(), -1, 1) != '/') {
-            $encodedBlob =  '/' .  $encodedBlob;
-        } elseif (substr($encodedBlob, 0, 1) == '/' &&
-            substr($this->getUri(), -1, 1) == '/') {
-            $encodedBlob = substr($encodedBlob, 1);
-        }
-        return $this->getUri() . $encodedBlob;
+        return (string)($this->getPsrPrimaryUri()->withPath($encodedBlob));
     }
       
     /**
@@ -240,11 +235,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_COMP,
             $operation
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
 
         $this->addOptionalHeader(
             $headers,
@@ -264,7 +254,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             return GetContainerPropertiesResult::create($responseHeaders);
@@ -333,6 +323,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             Resources::X_MS_BLOB_CONTENT_DISPOSITION,
             $options->getContentDisposition()
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::CONTENT_TYPE,
+            Resources::URL_ENCODED_CONTENT_TYPE
         );
         
         return $headers;
@@ -443,6 +438,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new BlobServiceOptions();
         }
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -451,7 +448,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             $expectedStatusCode,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
     }
 
@@ -531,12 +528,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::URL_ENCODED_CONTENT_TYPE
         );
         $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'page');
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -545,168 +539,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             $body,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return CreateBlobPagesResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
             );
         }, null);
-    }
-    
-    /**
-     * Gets the properties of the Blob service.
-     *
-     * @param Models\BlobServiceOptions $options The optional parameters.
-     *
-     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
-     */
-    public function getServiceProperties(
-        Models\BlobServiceOptions $options = null
-    ) {
-        return $this->getServicePropertiesAsync($options)->wait();
-    }
-
-    /**
-     * Creates promise to get the properties of the Blob service.
-     *
-     * @param Models\BlobServiceOptions $options The optional parameters.
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
-     */
-    public function getServicePropertiesAsync(
-        Models\BlobServiceOptions $options = null
-    ) {
-        $method      = Resources::HTTP_GET;
-        $headers     = array();
-        $queryParams = array();
-        $postParams  = array();
-        $path        = Resources::EMPTY_STRING;
-        
-        if (is_null($options)) {
-            $options = new BlobServiceOptions();
-        }
-        
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_REST_TYPE,
-            'service'
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_COMP,
-            'properties'
-        );
-
-        $dataSerializer = $this->dataSerializer;
-        
-        return $this->sendAsync(
-            $method,
-            $headers,
-            $queryParams,
-            $postParams,
-            $path,
-            Resources::STATUS_OK,
-            Resources::EMPTY_STRING,
-            $options->getRequestOptions()
-        )->then(function ($response) use ($dataSerializer) {
-            $parsed = $dataSerializer->unserialize($response->getBody());
-            return GetServicePropertiesResult::create($parsed);
-        }, null);
-    }
-
-    /**
-     * Sets the properties of the Blob service.
-     *
-     * It's recommended to use getServiceProperties, alter the returned object and
-     * then use setServiceProperties with this altered object.
-     *
-     * @param ServiceProperties         $serviceProperties The service properties.
-     * @param Models\BlobServiceOptions $options           The optional parameters.
-     *
-     * @return void
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
-     */
-    public function setServiceProperties(
-        ServiceProperties $serviceProperties,
-        Models\BlobServiceOptions $options = null
-    ) {
-        $this->setServicePropertiesAsync($serviceProperties, $options)->wait();
-    }
-
-    /**
-     * Creates the promise to set the properties of the Blob service.
-     *
-     * It's recommended to use getServiceProperties, alter the returned object and
-     * then use setServiceProperties with this altered object.
-     *
-     * @param ServiceProperties         $serviceProperties The service properties.
-     * @param Models\BlobServiceOptions $options           The optional parameters.
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
-     */
-    public function setServicePropertiesAsync(
-        ServiceProperties $serviceProperties,
-        Models\BlobServiceOptions $options = null
-    ) {
-        Validate::isTrue(
-            $serviceProperties instanceof ServiceProperties,
-            Resources::INVALID_SVC_PROP_MSG
-        );
-                
-        $method      = Resources::HTTP_PUT;
-        $headers     = array();
-        $queryParams = array();
-        $postParams  = array();
-        $path        = Resources::EMPTY_STRING;
-        $body        = $serviceProperties->toXml($this->dataSerializer);
-        
-        if (is_null($options)) {
-            $options = new BlobServiceOptions();
-        }
-    
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_REST_TYPE,
-            'service'
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_COMP,
-            'properties'
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalHeader(
-            $headers,
-            Resources::CONTENT_TYPE,
-            Resources::URL_ENCODED_CONTENT_TYPE
-        );
-        
-        return $this->sendAsync(
-            $method,
-            $headers,
-            $queryParams,
-            $postParams,
-            $path,
-            Resources::STATUS_ACCEPTED,
-            $body,
-            $options->getRequestOptions()
-        );
     }
     
     /**
@@ -746,11 +584,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'list'
         );
@@ -762,7 +595,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_MARKER,
-            $options->getMarker()
+            $options->getNextMarker()
         );
         $this->addOptionalQueryParam(
             $queryParams,
@@ -787,10 +620,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $this->dataSerializer->unserialize($response->getBody());
-            return ListContainersResult::create($parsed);
+            return ListContainersResult::create(
+                $parsed,
+                Utilities::getLocationFromHeaders($response->getHeaders())
+            );
         });
     }
     
@@ -838,12 +674,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new CreateContainerOptions();
         }
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-
         $metadata = $options->getMetadata();
         $headers  = $this->generateMetadataHeaders($metadata);
         $this->addOptionalHeader(
@@ -851,6 +681,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::X_MS_BLOB_PUBLIC_ACCESS,
             $options->getPublicAccess()
         );
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
         
         return $this->sendAsync(
             $method,
@@ -860,7 +692,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -918,14 +750,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_REST_TYPE,
             'container'
         );
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
 
         return $this->sendAsync(
             $method,
@@ -935,7 +764,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_ACCEPTED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -1056,11 +885,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_REST_TYPE,
             'container'
         );
@@ -1090,7 +914,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
 
         return $promise->then(function ($response) use ($dataSerializer) {
@@ -1169,11 +993,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_REST_TYPE,
             'container'
         );
@@ -1202,6 +1021,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getAccessConditions()
         );
 
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -1210,7 +1031,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             $body,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -1264,11 +1085,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_REST_TYPE,
             'container'
         );
@@ -1289,6 +1105,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getAccessConditions()
         );
 
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -1297,7 +1115,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -1344,11 +1162,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_REST_TYPE,
             'container'
         );
@@ -1365,7 +1178,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_MARKER,
-            $options->getMarker()
+            $options->getNextMarker()
         );
         $this->addOptionalQueryParam(
             $queryParams,
@@ -1399,7 +1212,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
 
         $dataSerializer = $this->dataSerializer;
-        
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -1408,10 +1221,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
-            return ListBlobsResult::create($parsed);
+            return ListBlobsResult::create(
+                $parsed,
+                Utilities::getLocationFromHeaders($response->getHeaders())
+            );
         }, null);
     }
     
@@ -1505,12 +1321,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $headers = $this->_addCreateBlobOptionalHeaders($options, $headers);
         
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -1519,7 +1331,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return PutBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -1591,12 +1403,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $headers = $this->_addCreateBlobOptionalHeaders($options, $headers);
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -1605,7 +1413,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return PutBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -1697,14 +1505,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         }
 
         //return the parsed result, instead of the raw response.
-        return $promise->then(
-            function ($response) {
-                return PutBlobResult::create(
-                    HttpFormatter::formatHeaders($response->getHeaders())
-                );
-            },
-            null
-        );
+        return $promise;
     }
 
     /**
@@ -1861,11 +1662,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             BlobType::BLOCK_BLOB
         );
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
 
         return $this->sendAsync(
             $method,
@@ -1875,7 +1672,14 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             $content,
-            $options->getRequestOptions()
+            $options
+        )->then(
+            function ($response) {
+                return PutBlobResult::create(
+                    HttpFormatter::formatHeaders($response->getHeaders())
+                );
+            },
+            null
         );
     }
 
@@ -1905,6 +1709,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         }
 
         $createBlobBlockOptions = CreateBlobBlockOptions::create($options);
+        $selfInstance = $this;
 
         $method      = Resources::HTTP_PUT;
         $headers     = $this->createBlobBlockHeader($createBlobBlockOptions);
@@ -1929,7 +1734,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $postParams,
             $path,
-            &$counter
+            &$counter,
+            $selfInstance
         ) {
             //read the content.
             $blockContent = $content->read($blockSize);
@@ -1943,41 +1749,32 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             }
             //add the id to array.
             array_push($blockIds, new Block($blockId, 'Uncommitted'));
-            $queryParams = $this->createBlobBlockQueryParams(
+            $queryParams = $selfInstance->createBlobBlockQueryParams(
                 $createBlobBlockOptions,
-                $blockId
+                $blockId,
+                true
             );
             //return the array of requests.
-            return $this->createRequest(
+            return $selfInstance->createRequest(
                 $method,
                 $headers,
                 $queryParams,
                 $postParams,
                 $path,
+                LocationMode::PRIMARY_ONLY,
                 $blockContent
             );
         };
-
-        //add number of concurrency if specified int options.
-        if ($options->getNumberOfConcurrency() == null) {
-            $requestOptions = array();
-        } else {
-            $requestOptions = array(
-                'number_of_concurrency' => $options->getNumberOfConcurrency(),
-            );
-        }
 
         //Send the request concurrently.
         //Does not need to evaluate the results. If operation not successful,
         //exception will be thrown.
         $putBlobPromise = $this->sendConcurrentAsync(
-            array(),
             $generator,
             Resources::STATUS_CREATED,
-            $requestOptions
+            $options
         );
 
-        $selfInstance = $this;
         $commitBlobPromise = $putBlobPromise->then(
             function ($value) use (
                 $selfInstance,
@@ -2103,22 +1900,18 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 $queryParams,
                 $postParams,
                 $path,
+                LocationMode::PRIMARY_ONLY,
                 $pageContent
             );
         };
-
-        //add number of concurrency if specified in options.
-        $requestOptions = $options->getNumberOfConcurrency() == null?
-            array() : array($options->getNumberOfConcurrency);
 
         //Send the request concurrently.
         //Does not need to evaluate the results. If operation is not successful,
         //exception will be thrown.
         return $this->sendConcurrentAsync(
-            array(),
             $generator,
             Resources::STATUS_CREATED,
-            $requestOptions
+            $options->getRequestOptions()
         );
     }
     
@@ -2342,6 +2135,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $contentStream  = Psr7\stream_for($content);
         $body           = $contentStream->getContents();
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -2350,7 +2145,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             $body,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return PutBlockResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -2425,11 +2220,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'appendblock'
         );
@@ -2465,6 +2255,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getLeaseId()
         );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -2473,7 +2265,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             $body,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return AppendBlockResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -2511,21 +2303,22 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
     /**
      * create the query params for createBlobBlock(s)
-     * @param  Models\CreateBlobBlockOptions $options the option of the request
-     * @param  string                        $blockId the block id of the block.
+     * @param  Models\CreateBlobBlockOptions $options      the option of the
+     *                                                     request
+     * @param  string                        $blockId      the block id of the
+     *                                                     block.
+     * @param  bool                          $isConcurrent if the query
+     *                                                     parameter is for
+     *                                                     concurrent upload.
      *
      * @return array  the constructed query parameters.
      */
     protected function createBlobBlockQueryParams(
         Models\CreateBlobBlockOptions $options,
-        $blockId
+        $blockId,
+        $isConcurrent = false
     ) {
         $queryParams = array();
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_COMP,
@@ -2536,7 +2329,14 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_BLOCKID,
             $blockId
         );
-
+        if ($isConcurrent) {
+            $this->addOptionalQueryParam(
+                $queryParams,
+                Resources::QP_TIMEOUT,
+                $options->getTimeout()
+            );
+        }
+        
         return $queryParams;
     }
 
@@ -2684,15 +2484,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'blocklist'
         );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -2701,7 +2498,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             $body,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return PutBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -2783,11 +2580,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_BLOCK_LIST_TYPE,
             $options->getBlockListType()
         );
@@ -2810,7 +2602,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             $parsed = $this->dataSerializer->unserialize($response->getBody());
         
@@ -2889,11 +2681,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_SNAPSHOT,
             $options->getSnapshot()
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         
         return $this->sendAsync(
             $method,
@@ -2903,7 +2690,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             $formattedHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             return GetBlobPropertiesResult::create($formattedHeaders);
@@ -2974,11 +2761,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_SNAPSHOT,
             $options->getSnapshot()
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_COMP,
@@ -2993,7 +2776,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
             $metadata = Utilities::getMetadataArray($responseHeaders);
@@ -3079,11 +2862,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'pagelist'
         );
@@ -3098,7 +2876,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use ($dataSerializer) {
             $parsed = $dataSerializer->unserialize($response->getBody());
             return ListPageBlobRangesResult::create(
@@ -3229,12 +3007,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
 
         $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'properties');
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -3243,7 +3018,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return SetBlobPropertiesResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3323,15 +3098,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'metadata'
         );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -3340,7 +3112,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return SetBlobMetadataResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3492,18 +3264,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_SNAPSHOT,
             $options->getSnapshot()
         );
 
-        $requestOptions = $options->getRequestOptions();
-        //setting stream to true to enable streaming
-        $requestOptions['stream'] = true;
+        $options->setIsStreaming(true);
         
         return $this->sendAsync(
             $method,
@@ -3513,7 +3278,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             array(Resources::STATUS_OK, Resources::STATUS_PARTIAL_CONTENT),
             Resources::EMPTY_STRING,
-            $requestOptions
+            $options
         )->then(function ($response) {
             $metadata = Utilities::getMetadataArray(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3610,12 +3375,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getLeaseId()
         );
         
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -3624,7 +3385,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_ACCEPTED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -3682,11 +3443,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         }
         
         $queryParams[Resources::QP_COMP] = 'snapshot';
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
 
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
@@ -3699,6 +3455,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getLeaseId()
         );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -3707,7 +3465,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $path,
             Resources::STATUS_CREATED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return CreateBlobSnapshotResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3786,12 +3544,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new CopyBlobOptions();
         }
         
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        
         $sourceBlobPath = $this->_getCopyBlobSourceName(
             $sourceContainer,
             $sourceBlob,
@@ -3828,6 +3580,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getSourceLeaseId()
         );
         
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+        
         return $this->sendAsync(
             $method,
             $headers,
@@ -3836,7 +3590,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $destinationBlobPath,
             Resources::STATUS_ACCEPTED,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) {
             return CopyBlobResult::create(
                 HttpFormatter::formatHeaders($response->getHeaders())
@@ -3946,7 +3700,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $destinationBlobPath,
             Resources::STATUS_NO_CONTENT,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
     }
         

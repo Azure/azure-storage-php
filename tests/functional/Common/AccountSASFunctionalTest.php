@@ -33,7 +33,7 @@ use MicrosoftAzure\Storage\Tests\framework\TestResources;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
 /**
- * Testbase for all REST proxy tests.
+ * Tests for account SAS proxy tests.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Tests\Framework

@@ -27,6 +27,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Blob\Models\Blob;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 /**
@@ -41,25 +43,28 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  */
 class ListBlobsResult
 {
+    use BlobContinuationTokenTrait;
+
     private $_blobPrefixes;
     private $_blobs;
     private $_delimiter;
     private $_prefix;
     private $_marker;
-    private $_nextMarker;
     private $_maxResults;
     private $_containerName;
 
     /**
      * Creates ListBlobsResult object from parsed XML response.
      *
-     * @param array $parsed XML response parsed into array.
+     * @param array  $parsed      XML response parsed into array.
+     * @param string $location       Contains the location for the previous
+     *                               request.
      *
      * @internal
      *
      * @return ListBlobsResult
      */
-    public static function create(array $parsed)
+    public static function create(array $parsed, $location = '')
     {
         $result                 = new ListBlobsResult();
         $serviceEndpoint        = Utilities::tryGetKeysChainValue(
@@ -81,10 +86,17 @@ class ListBlobsResult
             $parsed,
             Resources::QP_MARKER
         ));
-        $result->setNextMarker(Utilities::tryGetValue(
-            $parsed,
-            Resources::QP_NEXT_MARKER
-        ));
+
+        $result->setContinuationToken(
+            new BlobContinuationToken(
+                Utilities::tryGetValue(
+                    $parsed,
+                    Resources::QP_NEXT_MARKER
+                ),
+                $location
+            )
+        );
+
         $result->setMaxResults(intval(
             Utilities::tryGetValue($parsed, Resources::QP_MAX_RESULTS, 0)
         ));
@@ -277,28 +289,6 @@ class ListBlobsResult
         $this->_maxResults = $maxResults;
     }
 
-    /**
-     * Gets next marker.
-     *
-     * @return string
-     */
-    public function getNextMarker()
-    {
-        return $this->_nextMarker;
-    }
-
-    /**
-     * Sets next marker.
-     *
-     * @param string $nextMarker value.
-     *
-     * @return void
-     */
-    protected function setNextMarker($nextMarker)
-    {
-        $this->_nextMarker = $nextMarker;
-    }
-    
     /**
      * Gets container name.
      *

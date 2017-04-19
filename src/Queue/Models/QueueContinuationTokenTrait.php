@@ -14,28 +14,43 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Table\Models
+ * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Table\Models;
+namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+use MicrosoftAzure\Storage\Queue\Models\QueueContinuationToken;
 
 /**
- * Table service options.
+ * Trait implementing logic for Queue continuation tokens.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Table\Models
+ * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class TableServiceOptions extends ServiceOptions
+trait QueueContinuationTokenTrait
 {
+    use MarkerContinuationTokenTrait;
+
+    /**
+     * Creates a continuation token if current one is null.
+     *
+     * @return void
+     */
+    private function createContinuationTokenIfNotExist()
+    {
+        if ($this->continuationToken == null) {
+            $this->continuationToken = new QueueContinuationToken();
+        }
+    }
 }

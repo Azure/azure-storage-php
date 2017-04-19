@@ -57,7 +57,7 @@ class Utilities
     }
 
     /**
-     * Adds a url scheme if there is no scheme.
+     * Adds a url scheme if there is no scheme. Return null if input URL is null.
      *
      * @param string $url    The URL.
      * @param string $scheme The scheme. By default HTTP
@@ -66,6 +66,10 @@ class Utilities
      */
     public static function tryAddUrlScheme($url, $scheme = 'http')
     {
+        if ($url == null) {
+            return $url;
+        }
+
         $urlScheme = parse_url($url, PHP_URL_SCHEME);
 
         if (empty($urlScheme)) {
@@ -767,5 +771,70 @@ class Utilities
         }
 
         return true;
+    }
+
+    /**
+     * Append the delimiter to the string. The delimiter will not be added if
+     * the string already ends with this delimiter.
+     *
+     * @param string $string    The string to add delimiter to.
+     * @param string $delimiter The delimiter to be added.
+     *
+     * @return string
+     */
+    public static function appendDelimiter($string, $delimiter)
+    {
+        if (!self::endsWith($string, $delimiter)) {
+            $string .= $delimiter;
+        }
+
+        return $string;
+    }
+
+    /**
+     * Static function used to determine if the request is performed against
+     * secondary endpoint.
+     *
+     * @param  Psr\Http\Message\RequestInterface $request The request performed.
+     * @param  array                             $options The options of the
+     *                                                    request. Must contain
+     *                                                    Resources::ROS_SECONDARY_URI
+     *
+     * @return boolean
+     */
+    public static function requestSentToSecondary(
+        \Psr\Http\Message\RequestInterface $request,
+        array $options
+    ) {
+        $uri = $request->getUri();
+        $secondaryUri = $options[Resources::ROS_SECONDARY_URI];
+        $isSecondary = false;
+        if (strpos((string)$uri, (string)$secondaryUri) !== false) {
+            $isSecondary = true;
+        }
+        return $isSecondary;
+    }
+
+    /**
+     * Gets the location value from the headers.
+     *
+     * @param  array  $headers request/response headers.
+     *
+     * @return string
+     */
+    public static function getLocationFromHeaders(array $headers)
+    {
+        $value = Utilities::tryGetValue(
+            $headers,
+            Resources::X_MS_CONTINUATION_LOCATION_MODE
+        );
+
+        $result = '';
+        if (\is_string($value)) {
+            $result = $value;
+        } elseif (!empty($value)) {
+            $result = $value[0];
+        }
+        return $result;
     }
 }

@@ -26,6 +26,8 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
+use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
 
 /**
  * Holds results of calling queryEntities API
@@ -39,8 +41,8 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class QueryEntitiesResult
 {
-    private $_nextRowKey;
-    private $_nextPartitionKey;
+    use TableContinuationTokenTrait;
+
     private $_entities;
     
     /**
@@ -65,10 +67,17 @@ class QueryEntitiesResult
             $headers,
             Resources::X_MS_CONTINUATION_NEXTROWKEY
         );
+
+        $result->setContinuationToken(
+            new TableContinuationToken(
+                '',
+                $nextPK,
+                $nextRK,
+                Utilities::getLocationFromHeaders($headers)
+            )
+        );
         
         $result->setEntities($entities);
-        $result->setNextPartitionKey($nextPK);
-        $result->setNextRowKey($nextRK);
         
         return $result;
     }
@@ -93,49 +102,5 @@ class QueryEntitiesResult
     protected function setEntities(array $entities)
     {
         $this->_entities = $entities;
-    }
-    
-    /**
-     * Gets entity next partition key.
-     *
-     * @return string
-     */
-    public function getNextPartitionKey()
-    {
-        return $this->_nextPartitionKey;
-    }
-
-    /**
-     * Sets entity next partition key.
-     *
-     * @param string $nextPartitionKey The entity next partition key value.
-     *
-     * @return void
-     */
-    protected function setNextPartitionKey($nextPartitionKey)
-    {
-        $this->_nextPartitionKey = $nextPartitionKey;
-    }
-    
-    /**
-     * Gets entity next row key.
-     *
-     * @return string
-     */
-    public function getNextRowKey()
-    {
-        return $this->_nextRowKey;
-    }
-
-    /**
-     * Sets entity next row key.
-     *
-     * @param string $nextRowKey The entity next row key value.
-     *
-     * @return void
-     */
-    protected function setNextRowKey($nextRowKey)
-    {
-        $this->_nextRowKey = $nextRowKey;
     }
 }

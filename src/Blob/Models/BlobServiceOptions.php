@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
  * Blob service options.
@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlobServiceOptions extends ServiceOptionsBase
+class BlobServiceOptions extends ServiceOptions
 {
     private $_leaseId;
     private $_accessConditions;
