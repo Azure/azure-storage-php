@@ -1,3 +1,41 @@
+2017.04 - version 0.15.0
+
+Blob
+* Access condition feature parity:
+  - Single `AccessCondition` has been changed to multiple `AccessCondition` for the options which support access conditions.
+  - Added `appendPosition`, `maxBlobSize`, `ifSequenceNumberLessThan`, `ifSequenceNumberEqual` and `ifSequenceNumberLessThanOrEqual` to `AccessCondition` class.
+  - Added access conditions support for `getContainerProperties`, `setContainerProperties`, `getContainerMetadata` and `setContainerMetadata`.
+
+* Copy blob feature parity:
+  - Added new API `abortCopy`.
+  - Added `setIncludeCopy` to `ListBlobsOptions` to support getting copy state information when listing blobs.
+  - Added properties and getters/setters for `CopyId` and `CopyStatus` to `CopyBlobResult` class.
+
+* Lease feature parity
+  - Added lease support for `getContainerProperties`, `setContainerProperties`, `getContainerMetadata`, `setContainerMetadata` and `deleteContainer`.
+  - Renamed `LeaseBlobResult` to `LeaseResult` to support container and blob lease.
+  - Added container lease support - passing `null` to `$blob` parameter of the lease related APIs.
+  - Added new parameters `$proposedLeaseId` and `$leaseDuration` to `acquireLease` API and changed the `$options` parameter from `AcquireLeaseOptions` to `BlobServiceOptions`.
+  - Added the API `changeLease` to support changing lease.
+  - Added new parameter `$breakPeriod` to  `breakLease` API and removed the `$leaseId` parameter.
+  - Added properties and getters/setters for `LeaseStatus`, `LeaseState` and `LeaseDuration` to `ContainerProperties` class.
+
+* Container/Blob properties feature parity:
+  - Added properties and getters/setters for `ContentDisposition`, `LeaseState`, `LeaseDuration` and `CopyState` to `BlobProperties` class.
+
+* Refactored Options class:
+  - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
+  - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
+  - Removed `DeleteContainerOptions`, `SetBlobMetadataOptions`, `SetContainerMetadataOptions` class. Use `BlobServiceOptions` instead.
+  
+* Blob service properties feature parity:
+  - Added `getDefaultServiceVersion`, `setDefaultServiceVersion`, `getMinuteMetrics` and `setMinuteMetrics` to `ServiceProperties` class.
+  - Renamed `getMetrics` to `getHourMetrics` and `setMetrics` to `setHourMetrics` of `ServiceProperties` class.
+
+* Changed the return type of API `commitBlobBlocks` from `void` to `PutBlobResult`.
+* Removed the useless API `ctrCrypt` from `Utilities` class.
+
+
 2017.04 - version 0.14.0
 
 ALL
