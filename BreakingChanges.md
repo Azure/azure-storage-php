@@ -1,3 +1,22 @@
+Tracking Breaking changes in 0.15.0
+
+Blob
+* Lease feature parity
+  - Renamed `LeaseBlobResult` to `LeaseResult` to support container and blob lease.
+  - Added container lease support - passing `null` to `$blob` parameter of the lease related APIs.
+  - Added new parameters `$proposedLeaseId` and `$leaseDuration` to `acquireLease` API and changed the `$options` parameter from `AcquireLeaseOptions` to `BlobServiceOptions`.
+  - Added new parameter `$breakPeriod` to  `breakLease` API and removed the `$leaseId` parameter.
+
+* Refactored Options class:
+  - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
+  - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
+  - Removed `DeleteContainerOptions`, `SetBlobMetadataOptions`, `SetContainerMetadataOptions` class. Use `BlobServiceOptions` instead. 
+
+* Blob service properties feature parity:
+  - Renamed `getMetrics` to `getHourMetrics` and `setMetrics` to `setHourMetrics` of `ServiceProperties` class.
+  
+* Removed the useless API `ctrCrypt` from `Utilities` class.
+
 Tracking Breaking changes in 0.14.0
 
 * Restructured the classes based on their intended functionality and visiblity. The changes includes:
