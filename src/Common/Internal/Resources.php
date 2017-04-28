@@ -274,7 +274,7 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                                   = '0.14.0';
+    const SDK_VERSION                                   = '0.15.0';
     const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
     const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
     const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';
