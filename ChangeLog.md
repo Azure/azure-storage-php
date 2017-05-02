@@ -5,6 +5,13 @@ All
 * Added `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware` to support retry from secondary endpoint. Advice to use this instead of Guzzle's retry middleware for secondary endpoint retry support.
 * By setting `$locationMode` in `MicrosoftAzure\Storage\Common\Models\ServiceOptions`, user can perform read operations from secondary endpoint.
 * Added support for user to use proxies. If `HTTP_PROXY` is set as a system variable, the proxy specified with it will be used for HTTP connections.
+* Removed `MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMetrics` and `MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMetrics`. Added following methods to access hour metrics and minute metrics.
+```
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMinuteMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMinuteMetrics
+```
 
 Blob
 * Access condition feature parity:
@@ -35,7 +42,6 @@ Blob
   
 * Blob service properties feature parity:
   - Added `getDefaultServiceVersion`, `setDefaultServiceVersion`, `getMinuteMetrics` and `setMinuteMetrics` to `ServiceProperties` class.
-  - Renamed `getMetrics` to `getHourMetrics` and `setMetrics` to `setHourMetrics` of `ServiceProperties` class.
 
 * Changed the return type of API `commitBlobBlocks` from `void` to `PutBlobResult`.
 * Removed the useless API `ctrCrypt` from `Utilities` class.

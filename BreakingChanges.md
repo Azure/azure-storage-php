@@ -3,6 +3,13 @@ Tracking Breaking changes in 0.15.0
 All
 * Removed `setRequestOptions` for service options, instead, added `middlewares`, `middlewareStack`, `numberOfConcurrency`, `isStreaming`, `locationMode` and `decodeContent` for user to specify the corresponding options.
 * Added `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware` to support retry from secondary endpoint. Advice to use this instead of Guzzle's retry middleware for secondary endpoint retry support.
+* Removed `MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMetrics` and `MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMetrics`. Added following methods to access hour metrics and minute metrics.
+```
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMinuteMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMinuteMetrics
+```
 
 Blob
 * Lease feature parity
@@ -15,9 +22,6 @@ Blob
   - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
   - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
 
-* Blob service properties feature parity:
-  - Renamed `getMetrics` to `getHourMetrics` and `setMetrics` to `setHourMetrics` of `ServiceProperties` class.
-  
 * Removed the useless API `ctrCrypt` from `Utilities` class.
 
 Table

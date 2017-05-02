@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
 use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
+use MicrosoftAzure\Storage\Table\Models\Query;
 
 /**
  * Holds optional parameters for queryEntities API
@@ -68,11 +69,11 @@ class QueryEntitiesOptions extends TableServiceOptions
      * You can either sets the whole query *or* use the individual query functions
      * like (setTop).
      *
-     * @param string $query The query instance.
+     * @param Query $query The query instance.
      *
      * @return void
      */
-    public function setQuery($query)
+    public function setQuery(Query $query)
     {
         $this->_query = $query;
     }
