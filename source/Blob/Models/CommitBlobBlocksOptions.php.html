@@ -74,145 +74,144 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class CommitBlobBlocksOptions extends BlobServiceOptions
 {
-    private $_blobContentType;
-    private $_blobContentEncoding;
-    private $_blobContentLanguage;
-    private $_blobContentMD5;
-    private $_blobCacheControl;
+    private $_contentType;
+    private $_contentEncoding;
+    private $_contentLanguage;
+    private $_contentMD5;
+    private $_cacheControl;
+    private $_contentDisposition;
     private $_metadata;
-    private $_leaseId;
-    private $_accessCondition;
     
     /**
-     * Gets blob ContentType.
+     * Gets ContentType.
      *
      * @return string
      */
-    public function getBlobContentType()
+    public function getContentType()
     {
-        return $this-&gt;_blobContentType;
+        return $this-&gt;_contentType;
     }
 
     /**
-     * Sets blob ContentType.
+     * Sets ContentType.
      *
-     * @param string $blobContentType value.
+     * @param string $contentType value.
      *
      * @return void
      */
-    public function setBlobContentType($blobContentType)
+    public function setContentType($contentType)
     {
-        $this-&gt;_blobContentType = $blobContentType;
+        $this-&gt;_contentType = $contentType;
     }
     
     /**
-     * Gets blob ContentEncoding.
+     * Gets ContentEncoding.
      *
      * @return string
      */
-    public function getBlobContentEncoding()
+    public function getContentEncoding()
     {
-        return $this-&gt;_blobContentEncoding;
+        return $this-&gt;_contentEncoding;
     }
 
     /**
-     * Sets blob ContentEncoding.
+     * Sets ContentEncoding.
      *
-     * @param string $blobContentEncoding value.
+     * @param string $contentEncoding value.
      *
      * @return void
      */
-    public function setBlobContentEncoding($blobContentEncoding)
+    public function setContentEncoding($contentEncoding)
     {
-        $this-&gt;_blobContentEncoding = $blobContentEncoding;
+        $this-&gt;_contentEncoding = $contentEncoding;
     }
     
     /**
-     * Gets blob ContentLanguage.
+     * Gets ContentLanguage.
      *
      * @return string
      */
-    public function getBlobContentLanguage()
+    public function getContentLanguage()
     {
-        return $this-&gt;_blobContentLanguage;
+        return $this-&gt;_contentLanguage;
     }
 
     /**
-     * Sets blob ContentLanguage.
+     * Sets ContentLanguage.
      *
-     * @param string $blobContentLanguage value.
+     * @param string $contentLanguage value.
      *
      * @return void
      */
-    public function setBlobContentLanguage($blobContentLanguage)
+    public function setContentLanguage($contentLanguage)
     {
-        $this-&gt;_blobContentLanguage = $blobContentLanguage;
+        $this-&gt;_contentLanguage = $contentLanguage;
     }
     
     /**
-     * Gets blob ContentMD5.
+     * Gets ContentMD5.
      *
      * @return string
      */
-    public function getBlobContentMD5()
+    public function getContentMD5()
     {
-        return $this-&gt;_blobContentMD5;
+        return $this-&gt;_contentMD5;
     }
 
     /**
-     * Sets blob ContentMD5.
+     * Sets ContentMD5.
      *
-     * @param string $blobContentMD5 value.
+     * @param string $contentMD5 value.
      *
      * @return void
      */
-    public function setBlobContentMD5($blobContentMD5)
+    public function setContentMD5($contentMD5)
     {
-        $this-&gt;_blobContentMD5 = $blobContentMD5;
+        $this-&gt;_contentMD5 = $contentMD5;
     }
     
     /**
-     * Gets blob cache control.
+     * Gets cache control.
      *
      * @return string
      */
-    public function getBlobCacheControl()
+    public function getCacheControl()
     {
-        return $this-&gt;_blobCacheControl;
+        return $this-&gt;_cacheControl;
     }
     
     /**
-     * Sets blob cacheControl.
+     * Sets cacheControl.
      *
-     * @param string $blobCacheControl value to use.
+     * @param string $cacheControl value to use.
      *
      * @return void
      */
-    public function setBlobCacheControl($blobCacheControl)
+    public function setCacheControl($cacheControl)
     {
-        $this-&gt;_blobCacheControl = $blobCacheControl;
+        $this-&gt;_cacheControl = $cacheControl;
     }
     
     /**
-     * Gets access condition
+     * Gets content disposition.
      *
-     * @return AccessCondition
+     * @return string
      */
-    public function getAccessCondition()
+    public function getContentDisposition()
     {
-        return $this-&gt;_accessCondition;
+        return $this-&gt;_contentDisposition;
     }
     
     /**
-     * Sets access condition
+     * Sets contentDisposition.
      *
-     * @param AccessCondition $accessCondition value to use.
+     * @param string $contentDisposition value to use.
      *
      * @return void
      */
-    public function setAccessCondition(AccessCondition $accessCondition = null)
+    public function setContentDisposition($contentDisposition)
     {
-        $this-&gt;_accessCondition = $accessCondition;
+        $this-&gt;_contentDisposition = $contentDisposition;
     }
     
     /**
@@ -236,28 +235,6 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this-&gt;_metadata = $metadata;
     }
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this-&gt;_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this-&gt;_leaseId = $leaseId;
-    }
 
     /**
      * Create a instance using the given options
@@ -270,13 +247,14 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     public static function create($options)
     {
         $result = new CommitBlobBlocksOptions();
-        $result-&gt;setBlobContentType($options-&gt;getBlobContentType());
-        $result-&gt;setBlobContentEncoding($options-&gt;getBlobContentEncoding());
-        $result-&gt;setBlobContentLanguage($options-&gt;getBlobContentLanguage());
-        $result-&gt;setBlobContentMD5($options-&gt;getBlobContentMD5());
-        $result-&gt;setBlobCacheControl($options-&gt;getBlobCacheControl());
+        $result-&gt;setContentType($options-&gt;getContentType());
+        $result-&gt;setContentEncoding($options-&gt;getContentEncoding());
+        $result-&gt;setContentLanguage($options-&gt;getContentLanguage());
+        $result-&gt;setContentMD5($options-&gt;getContentMD5());
+        $result-&gt;setCacheControl($options-&gt;getCacheControl());
+        $result-&gt;setContentDisposition($options-&gt;getContentDisposition());
         $result-&gt;setMetadata($options-&gt;getMetadata());
-        $result-&gt;setAccessCondition($options-&gt;getAccessCondition());
+        $result-&gt;setLeaseId($options-&gt;getLeaseId());
 
         return $result;
     }

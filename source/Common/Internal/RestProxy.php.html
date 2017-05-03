@@ -89,21 +89,14 @@ class RestProxy
     protected $dataSerializer;
     
     /**
-     * @var string
-     */
-    private $_uri;
-    
-    /**
      * Initializes new RestProxy object.
      *
      * @param Serialization\ISerializer $dataSerializer The data serializer.
-     * @param string                    $uri            The uri of the service.
      */
-    public function __construct(Serialization\ISerializer $dataSerializer = null, $uri)
+    public function __construct(Serialization\ISerializer $dataSerializer = null)
     {
         $this-&gt;middlewares    = array();
         $this-&gt;dataSerializer = $dataSerializer;
-        $this-&gt;_uri           = $uri;
         //For logging the request and responses.
         // $this-&gt;middlewares[] = new HistoryMiddleware('.\\messages.log');
     }
@@ -116,28 +109,6 @@ class RestProxy
     public function getMiddlewares()
     {
         return $this-&gt;middlewares;
-    }
-
-    /**
-     * Gets the Uri of the service.
-     *
-     * @return string
-     */
-    public function getUri()
-    {
-        return $this-&gt;_uri;
-    }
-
-    /**
-     * Sets the Uri of the service.
-     *
-     * @param string $uri The URI of the request.
-     *
-     * @return void
-     */
-    public function setUri($uri)
-    {
-        $this-&gt;_uri = $uri;
     }
 
     /**

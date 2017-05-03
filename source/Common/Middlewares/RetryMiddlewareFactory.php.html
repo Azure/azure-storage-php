@@ -62,7 +62,8 @@ namespace MicrosoftAzure\Storage\Common\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
-use GuzzleHttp\Middleware;
+use MicrosoftAzure\Storage\Common\LocationMode;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -105,7 +106,7 @@ class RetryMiddlewareFactory
      *                                     Possible value can be
      *                                     self::LINEAR_INTERVAL_ACCUMULATION or
      *                                     self::EXPONENTIAL_INTERVAL_ACCUMULATION
-     * @return \GuzzleHttp\RetryMiddleware A RetryMiddleware object that contains
+     * @return RetryMiddleware             A RetryMiddleware object that contains
      *                                     the logic of how the request should be
      *                                     handled after a response.
      */
@@ -163,7 +164,7 @@ class RetryMiddlewareFactory
         $retryDecider = self::createRetryDecider($type, $numberOfRetries);
 
         //construct the retry middle ware.
-        return Middleware::retry($retryDecider, $intervalCalculator);
+        return new RetryMiddleware($intervalCalculator, $retryDecider);
     }
 
     /**
@@ -183,7 +184,8 @@ class RetryMiddlewareFactory
             $retries,
             $request,
             $response = null,
-            $exception = null
+            $exception = null,
+            $isSecondary = false
         ) use (
             $type,
             $maxRetries
@@ -203,9 +205,15 @@ class RetryMiddlewareFactory
             }
             
             if ($type == self::GENERAL_RETRY_TYPE) {
-                return self::generalRetryDecider($response-&gt;getStatusCode());
+                return self::generalRetryDecider(
+                    $response-&gt;getStatusCode(),
+                    $isSecondary
+                );
             } else {
-                return self::appendBlobRetryDecider($response-&gt;getStatusCode());
+                return self::appendBlobRetryDecider(
+                    $response-&gt;getStatusCode(),
+                    $isSecondary
+                );
             }
             
             return true;
@@ -219,7 +227,7 @@ class RetryMiddlewareFactory
      *
      * @return bool            true if the request should be retried.
      */
-    protected static function generalRetryDecider($statusCode)
+    protected static function generalRetryDecider($statusCode, $isSecondary)
     {
         $retry = false;
         if ($statusCode == 408) {
@@ -228,6 +236,8 @@ class RetryMiddlewareFactory
             if ($statusCode != 501 &amp;&amp; $statusCode != 505) {
                 $retry = true;
             }
+        } elseif ($isSecondary &amp;&amp; $statusCode == 404) {
+            $retry = true;
         }
         return $retry;
     }

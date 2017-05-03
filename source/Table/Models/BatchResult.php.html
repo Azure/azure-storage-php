@@ -65,7 +65,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
-use MicrosoftAzure\Storage\Table\Models\BatchError;
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
@@ -185,41 +184,38 @@ class BatchResult
             $type      = $operation-&gt;getType();
             $body      = $response-&gt;body;
             $headers   = HttpFormatter::formatHeaders($response-&gt;headers);
-            
-            try {
-                ServiceRestProxy::throwIfError(
-                    new Response(
-                        $response-&gt;statusCode,
-                        $response-&gt;headers,
-                        $response-&gt;body,
-                        $response-&gt;version,
-                        $response-&gt;reason
-                    ),
-                    $context-&gt;getStatusCodes()
-                );
-            
-                switch ($type) {
-                    case BatchOperationType::INSERT_ENTITY_OPERATION:
-                        $entries[] = InsertEntityResult::create(
-                            $body,
-                            $headers,
-                            $atomSerializer
-                        );
-                        break;
-                    case BatchOperationType::UPDATE_ENTITY_OPERATION:
-                    case BatchOperationType::MERGE_ENTITY_OPERATION:
-                    case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
-                    case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
-                        $entries[] = UpdateEntityResult::create($headers);
-                        break;
-                    case BatchOperationType::DELETE_ENTITY_OPERATION:
-                        $entries[] = Resources::BATCH_ENTITY_DEL_MSG;
-                        break;
-                    default:
-                        throw new \InvalidArgumentException();
-                }
-            } catch (ServiceException $e) {
-                $entries[] = BatchError::create($e, $response-&gt;headers);
+
+            //Throw the error directly if error occurs in the batch operation.
+            ServiceRestProxy::throwIfError(
+                new Response(
+                    $response-&gt;statusCode,
+                    $response-&gt;headers,
+                    $response-&gt;body,
+                    $response-&gt;version,
+                    $response-&gt;reason
+                ),
+                $context-&gt;getStatusCodes()
+            );
+        
+            switch ($type) {
+                case BatchOperationType::INSERT_ENTITY_OPERATION:
+                    $entries[] = InsertEntityResult::create(
+                        $body,
+                        $headers,
+                        $atomSerializer
+                    );
+                    break;
+                case BatchOperationType::UPDATE_ENTITY_OPERATION:
+                case BatchOperationType::MERGE_ENTITY_OPERATION:
+                case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
+                case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
+                    $entries[] = UpdateEntityResult::create($headers);
+                    break;
+                case BatchOperationType::DELETE_ENTITY_OPERATION:
+                    $entries[] = Resources::BATCH_ENTITY_DEL_MSG;
+                    break;
+                default:
+                    throw new \InvalidArgumentException();
             }
         }
         

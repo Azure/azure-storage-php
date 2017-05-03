@@ -74,33 +74,9 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListPageBlobRangesOptions extends BlobServiceOptions
 {
-    private $_leaseId;
     private $_snapshot;
     private $_rangeStart;
     private $_rangeEnd;
-    private $_accessCondition;
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this-&gt;_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
-     *
-     * @return void
-     */
-    public function setLeaseId($leaseId)
-    {
-        $this-&gt;_leaseId = $leaseId;
-    }
     
     /**
      * Gets blob snapshot.
@@ -168,28 +144,6 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
     {
         Validate::isInteger($rangeEnd, 'rangeEnd');
         $this-&gt;_rangeEnd = $rangeEnd;
-    }
-    
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this-&gt;_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition)
-    {
-        $this-&gt;_accessCondition = $accessCondition;
     }
 }
 </pre>
