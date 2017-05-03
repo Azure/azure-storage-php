@@ -74,7 +74,6 @@ use GuzzleHttp\Promise\RejectedPromise;
  * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @version   Release: 0.12.0
  * @link      https://github.com/azure/azure-storage-php
  */
 class MiddlewareBase implements IMiddleware
@@ -91,7 +90,7 @@ class MiddlewareBase implements IMiddleware
      *
      * @return callable  The function that accepts the next handler to invoke.
      */
-    final public function __invoke(callable $handler)
+    public function __invoke(callable $handler)
     {
         $reflection = $this;
         return function ($request, $options) use ($handler, $reflection) {

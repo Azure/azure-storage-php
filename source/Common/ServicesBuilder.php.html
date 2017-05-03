@@ -200,19 +200,25 @@ class ServicesBuilder
      *
      * @return \MicrosoftAzure\Storage\Queue\Internal\IQueue
      */
-    public function createQueueService($connectionString, array $options = [])
-    {
+    public function createQueueService(
+        $connectionString,
+        array $options = []
+    ) {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
         );
 
         $serializer = $this-&gt;serializer();
-        $uri        = Utilities::tryAddUrlScheme(
+        $primaryUri = Utilities::tryAddUrlScheme(
             $settings-&gt;getQueueEndpointUri()
+        );
+        $secondaryUri = Utilities::tryAddUrlScheme(
+            $settings-&gt;getQueueSecondaryEndpointUri()
         );
 
         $queueWrapper = new QueueRestProxy(
-            $uri,
+            $primaryUri,
+            $secondaryUri,
             $settings-&gt;getName(),
             $serializer,
             $options
@@ -251,19 +257,27 @@ class ServicesBuilder
      * @param array  $options          Array of options to pass to the service
      * @return \MicrosoftAzure\Storage\Blob\Internal\IBlob
      */
-    public function createBlobService($connectionString, array $options = [])
-    {
+    public function createBlobService(
+        $connectionString,
+        array $options = []
+    ) {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
         );
 
         $serializer = $this-&gt;serializer();
-        $uri        = Utilities::tryAddUrlScheme(
+
+        $primaryUri = Utilities::tryAddUrlScheme(
             $settings-&gt;getBlobEndpointUri()
         );
 
+        $secondaryUri = Utilities::tryAddUrlScheme(
+            $settings-&gt;getBlobSecondaryEndpointUri()
+        );
+
         $blobWrapper = new BlobRestProxy(
-            $uri,
+            $primaryUri,
+            $secondaryUri,
             $settings-&gt;getName(),
             $serializer,
             $options
@@ -303,8 +317,10 @@ class ServicesBuilder
      *
      * @return \MicrosoftAzure\Storage\Table\Internal\ITable
      */
-    public function createTableService($connectionString, array $options = [])
-    {
+    public function createTableService(
+        $connectionString,
+        array $options = []
+    ) {
         $settings = StorageServiceSettings::createFromConnectionString(
             $connectionString
         );
@@ -312,12 +328,17 @@ class ServicesBuilder
         $atomSerializer = $this-&gt;atomSerializer();
         $mimeSerializer = $this-&gt;mimeSerializer();
         $serializer     = $this-&gt;serializer();
-        $uri            = Utilities::tryAddUrlScheme(
+
+        $primaryUri = Utilities::tryAddUrlScheme(
             $settings-&gt;getTableEndpointUri()
+        );
+        $secondaryUri = Utilities::tryAddUrlScheme(
+            $settings-&gt;getTableSecondaryEndpointUri()
         );
 
         $tableWrapper = new TableRestProxy(
-            $uri,
+            $primaryUri,
+            $secondaryUri,
             $atomSerializer,
             $mimeSerializer,
             $serializer,

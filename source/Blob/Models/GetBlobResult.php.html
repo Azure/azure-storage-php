@@ -98,7 +98,7 @@ class GetBlobResult
     ) {
         $result = new GetBlobResult();
         $result-&gt;setContentStream($body-&gt;detach());
-        $result-&gt;setProperties(BlobProperties::create($headers));
+        $result-&gt;setProperties(BlobProperties::createFromHttpHeaders($headers));
         $result-&gt;setMetadata(is_null($metadata) ? array() : $metadata);
         
         return $result;

@@ -1,0 +1,217 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @ignore
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2017 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+ 
+namespace MicrosoftAzure\Storage\Table\Models;
+
+use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
+
+/**
+ * Trait implementing logic for Table continuation tokens.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Table\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2017 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+trait TableContinuationTokenTrait
+{
+    private $continuationToken;
+
+    /**
+     * Setter for continuationToken
+     *
+     * @param string $continuationToken the continuation token to be set.
+     */
+    public function setContinuationToken($continuationToken)
+    {
+        $this-&gt;continuationToken = $continuationToken;
+    }
+
+    /**
+     * Getter for continuationToken
+     *
+     * @return string
+     */
+    public function getContinuationToken()
+    {
+        return $this-&gt;continuationToken;
+    }
+
+    /**
+     * Gets for location for previous request.
+     *
+     * @return string
+     */
+    public function getLocation()
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        return $this-&gt;continuationToken-&gt;getLocation();
+    }
+
+    public function getLocationMode()
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        if ($this-&gt;continuationToken-&gt;getLocation() == '') {
+            return parent::getLocationMode();
+        } else {
+            return $this-&gt;getLocation();
+        }
+    }
+
+    /**
+     * Gets nextTableName
+     *
+     * @return string
+     */
+    public function getNextTableName()
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        return $this-&gt;continuationToken-&gt;getNextTableName();
+    }
+
+    /**
+     * Gets entity next partition key.
+     *
+     * @return string
+     */
+    public function getNextPartitionKey()
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        return $this-&gt;continuationToken-&gt;getNextPartitionKey();
+    }
+
+    /**
+     * Gets entity next row key.
+     *
+     * @return string
+     */
+    public function getNextRowKey()
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        return $this-&gt;continuationToken-&gt;getNextRowKey();
+    }
+
+    /**
+     * Sets entity next row key.
+     *
+     * @param string $nextRowKey The entity next row key value.
+     *
+     * @return void
+     */
+    public function setNextRowKey($nextRowKey)
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        $this-&gt;continuationToken-&gt;setNextRowKey($nextRowKey);
+    }
+
+    /**
+     * Sets entity next partition key.
+     *
+     * @param string $nextPartitionKey The entity next partition key value.
+     *
+     * @return void
+     */
+    public function setNextPartitionKey($nextPartitionKey)
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        $this-&gt;continuationToken-&gt;setNextPartitionKey($nextPartitionKey);
+    }
+
+    /**
+     * Sets nextTableName
+     *
+     * @param string $nextTableName value
+     *
+     * @return void
+     */
+    public function setNextTableName($nextTableName)
+    {
+        if ($this-&gt;continuationToken == null) {
+            $this-&gt;setContinuationToken(new TableContinuationToken());
+        }
+        $this-&gt;continuationToken-&gt;setNextTableName($nextTableName);
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

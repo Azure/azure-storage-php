@@ -84,6 +84,9 @@ class StorageServiceSettings extends ServiceSettings
     private $_blobEndpointUri;
     private $_queueEndpointUri;
     private $_tableEndpointUri;
+    private $_blobSecondaryEndpointUri;
+    private $_queueSecondaryEndpointUri;
+    private $_tableSecondaryEndpointUri;
 
     private static $_devStoreAccount;
     private static $_useDevelopmentStorageSetting;
@@ -179,12 +182,21 @@ class StorageServiceSettings extends ServiceSettings
     /**
      * Creates new storage service settings instance.
      *
-     * @param string $name             The storage service name.
-     * @param string $key              The storage service key.
-     * @param string $blobEndpointUri  The sotrage service blob endpoint.
-     * @param string $queueEndpointUri The sotrage service queue endpoint.
-     * @param string $tableEndpointUri The sotrage service table endpoint.
-     * @param string $sas              The storage service SAS token.
+     * @param string $name                      The storage service name.
+     * @param string $key                       The storage service key.
+     * @param string $blobEndpointUri           The storage service blob
+     *                                          endpoint.
+     * @param string $queueEndpointUri          The storage service queue
+     *                                          endpoint.
+     * @param string $tableEndpointUri          The storage service table
+     *                                          endpoint.
+     * @param string $blobSecondaryEndpointUri  The storage service secondary
+     *                                          blob endpoint.
+     * @param string $queueSecondaryEndpointUri The storage service secondary
+     *                                          queue endpoint.
+     * @param string $tableSecondaryEndpointUri The storage service secondary
+     *                                          table endpoint.
+     * @param string $sas                       The storage service SAS token.
      */
     public function __construct(
         $name,
@@ -192,14 +204,20 @@ class StorageServiceSettings extends ServiceSettings
         $blobEndpointUri,
         $queueEndpointUri,
         $tableEndpointUri,
+        $blobSecondaryEndpointUri = null,
+        $queueSecondaryEndpointUri = null,
+        $tableSecondaryEndpointUri = null,
         $sas = null
     ) {
-        $this-&gt;_name             = $name;
-        $this-&gt;_key              = $key;
-        $this-&gt;_sas              = $sas;
-        $this-&gt;_blobEndpointUri  = $blobEndpointUri;
-        $this-&gt;_queueEndpointUri = $queueEndpointUri;
-        $this-&gt;_tableEndpointUri = $tableEndpointUri;
+        $this-&gt;_name                      = $name;
+        $this-&gt;_key                       = $key;
+        $this-&gt;_sas                       = $sas;
+        $this-&gt;_blobEndpointUri           = $blobEndpointUri;
+        $this-&gt;_queueEndpointUri          = $queueEndpointUri;
+        $this-&gt;_tableEndpointUri          = $tableEndpointUri;
+        $this-&gt;_blobSecondaryEndpointUri  = $blobSecondaryEndpointUri;
+        $this-&gt;_queueSecondaryEndpointUri = $queueSecondaryEndpointUri;
+        $this-&gt;_tableSecondaryEndpointUri = $tableSecondaryEndpointUri;
     }
     
     /**
@@ -251,32 +269,40 @@ class StorageServiceSettings extends ServiceSettings
      * Gets the default service endpoint using the specified protocol and account
      * name.
      *
-     * @param array  $settings The service settings.
-     * @param string $dns      The service DNS.
+     * @param string $scheme      The scheme of the service end point.
+     * @param string $accountName The account name of the service.
+     * @param string $dns         The service DNS.
+     * @param bool   $isSecondary If generating secondary endpoint.
      *
      * @return string
      */
-    private static function _getDefaultServiceEndpoint(array $settings, $dns)
-    {
-        $scheme      = Utilities::tryGetValueInsensitive(
-            Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME,
-            $settings
+    private static function getServiceEndpoint(
+        $scheme,
+        $accountName,
+        $dns,
+        $isSecondary = false
+    ) {
+        if ($isSecondary) {
+            $accountName .= Resources::SECONDARY_STRING;
+        }
+        return sprintf(
+            Resources::SERVICE_URI_FORMAT,
+            $scheme,
+            $accountName,
+            $dns
         );
-        $accountName = Utilities::tryGetValueInsensitive(
-            Resources::ACCOUNT_NAME_NAME,
-            $settings
-        );
-        
-        return sprintf(Resources::SERVICE_URI_FORMAT, $scheme, $accountName, $dns);
     }
     
     /**
      * Creates StorageServiceSettings object given endpoints uri.
      *
-     * @param array  $settings         The service settings.
-     * @param string $blobEndpointUri  The blob endpoint uri.
-     * @param string $queueEndpointUri The queue endpoint uri.
-     * @param string $tableEndpointUri The table endpoint uri.
+     * @param array  $settings                  The service settings.
+     * @param string $blobEndpointUri           The blob endpoint uri.
+     * @param string $queueEndpointUri          The queue endpoint uri.
+     * @param string $tableEndpointUri          The table endpoint uri.
+     * @param string $blobSecondaryEndpointUri  The blob secondary endpoint uri.
+     * @param string $queueSecondaryEndpointUri The queue secondary endpoint uri.
+     * @param string $tableSecondaryEndpointUri The table secondary endpoint uri.
      *
      * @return StorageServiceSettings
      */
@@ -284,7 +310,10 @@ class StorageServiceSettings extends ServiceSettings
         array $settings,
         $blobEndpointUri = null,
         $queueEndpointUri = null,
-        $tableEndpointUri = null
+        $tableEndpointUri = null,
+        $blobSecondaryEndpointUri = null,
+        $queueSecondaryEndpointUri = null,
+        $tableSecondaryEndpointUri = null
     ) {
         $blobEndpointUri  = Utilities::tryGetValueInsensitive(
             Resources::BLOB_ENDPOINT_NAME,
@@ -320,6 +349,9 @@ class StorageServiceSettings extends ServiceSettings
             $blobEndpointUri,
             $queueEndpointUri,
             $tableEndpointUri,
+            $blobSecondaryEndpointUri,
+            $queueSecondaryEndpointUri,
+            $tableSecondaryEndpointUri,
             $sasToken
         );
     }
@@ -365,19 +397,48 @@ class StorageServiceSettings extends ServiceSettings
             )
         );
         if ($matchedSpecs) {
+            $scheme      = Utilities::tryGetValueInsensitive(
+                Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME,
+                $tokenizedSettings
+            );
+            $accountName = Utilities::tryGetValueInsensitive(
+                Resources::ACCOUNT_NAME_NAME,
+                $tokenizedSettings
+            );
             return self::_createStorageServiceSettings(
                 $tokenizedSettings,
-                self::_getDefaultServiceEndpoint(
-                    $tokenizedSettings,
+                self::getServiceEndpoint(
+                    $scheme,
+                    $accountName,
                     Resources::BLOB_BASE_DNS_NAME
                 ),
-                self::_getDefaultServiceEndpoint(
-                    $tokenizedSettings,
+                self::getServiceEndpoint(
+                    $scheme,
+                    $accountName,
                     Resources::QUEUE_BASE_DNS_NAME
                 ),
-                self::_getDefaultServiceEndpoint(
-                    $tokenizedSettings,
+                self::getServiceEndpoint(
+                    $scheme,
+                    $accountName,
                     Resources::TABLE_BASE_DNS_NAME
+                ),
+                self::getServiceEndpoint(
+                    $scheme,
+                    $accountName,
+                    Resources::BLOB_BASE_DNS_NAME,
+                    true
+                ),
+                self::getServiceEndpoint(
+                    $scheme,
+                    $accountName,
+                    Resources::QUEUE_BASE_DNS_NAME,
+                    true
+                ),
+                self::getServiceEndpoint(
+                    $scheme,
+                    $accountName,
+                    Resources::TABLE_BASE_DNS_NAME,
+                    true
                 )
             );
         }
@@ -486,6 +547,36 @@ class StorageServiceSettings extends ServiceSettings
     public function getTableEndpointUri()
     {
         return $this-&gt;_tableEndpointUri;
+    }
+
+    /**
+     * Gets storage service secondary blob endpoint uri.
+     *
+     * @return string
+     */
+    public function getBlobSecondaryEndpointUri()
+    {
+        return $this-&gt;_blobSecondaryEndpointUri;
+    }
+    
+    /**
+     * Gets storage service secondary queue endpoint uri.
+     *
+     * @return string
+     */
+    public function getQueueSecondaryEndpointUri()
+    {
+        return $this-&gt;_queueSecondaryEndpointUri;
+    }
+
+    /**
+     * Gets storage service secondary table endpoint uri.
+     *
+     * @return string
+     */
+    public function getTableSecondaryEndpointUri()
+    {
+        return $this-&gt;_tableSecondaryEndpointUri;
     }
 }
 </pre>
