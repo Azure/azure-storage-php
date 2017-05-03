@@ -113,19 +113,19 @@ class QueueServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
 
         $sp = new ServiceProperties();
         $this->assertNull($sp->getLogging(), 'Default ServiceProperties->getLogging should not be null');
-        $this->assertNull($sp->getMetrics(), 'Default ServiceProperties->getMetrics should not be null');
+        $this->assertNull($sp->getHourMetrics(), 'Default ServiceProperties->getHourMetrics should not be null');
 
         $sp->setLogging($l);
-        $sp->setMetrics($m);
+        $sp->setHourMetrics($m);
         $this->assertEquals($sp->getLogging(), $l, 'Set ServiceProperties->getLogging');
-        $this->assertEquals($sp->getMetrics(), $m, 'Set ServiceProperties->getMetrics');
+        $this->assertEquals($sp->getHourMetrics(), $m, 'Set ServiceProperties->getHourMetrics');
     }
 
     public function testCheckListQueuesOptions()
     {
         $options = new ListQueuesOptions();
         $this->assertNull($options->getIncludeMetadata(), 'Default ListQueuesOptions->getIncludeMetadata');
-        $this->assertNull($options->getMarker(), 'Default ListQueuesOptions->getMarker');
+        $this->assertEquals('', $options->getNextMarker(), 'Default ListQueuesOptions->getNextMarker');
         $this->assertEquals(0, $options->getMaxResults(), 'Default ListQueuesOptions->getMaxResults');
         $this->assertNull($options->getPrefix(), 'Default ListQueuesOptions->getPrefix');
         $this->assertNull($options->getTimeout(), 'Default ListQueuesOptions->getTimeout');
@@ -135,7 +135,7 @@ class QueueServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setPrefix('bar');
         $options->setTimeout(self::INT_MAX_VALUE);
         $this->assertTrue($options->getIncludeMetadata(), 'Set ListQueuesOptions->getIncludeMetadata');
-        $this->assertEquals('foo', $options->getMarker(), 'Set ListQueuesOptions->getMarker');
+        $this->assertEquals('foo', $options->getNextMarker(), 'Set ListQueuesOptions->getMarker');
         $this->assertEquals(-10, $options->getMaxResults(), 'Set ListQueuesOptions->getMaxResults');
         $this->assertEquals('bar', $options->getPrefix(), 'Set ListQueuesOptions->getPrefix');
         $this->assertEquals(self::INT_MAX_VALUE, $options->getTimeout(), 'Set ListQueuesOptions->getTimeout');

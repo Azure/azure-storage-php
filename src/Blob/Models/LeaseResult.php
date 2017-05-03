@@ -24,8 +24,11 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+
 /**
- * The optional parameters for setBlobMetadata API.
+ * The result of calling acquireLease API.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -34,10 +37,29 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SetBlobMetadataOptions extends BlobServiceOptions
+class LeaseResult
 {
     private $_leaseId;
-    private $_accessCondition;
+    
+    /**
+     * Creates LeaseResult from response headers
+     *
+     * @param array $headers response headers
+     *
+     * @internal
+     *
+     * @return \MicrosoftAzure\Storage\Blob\Models\LeaseResult
+     */
+    public static function create(array $headers)
+    {
+        $result = new LeaseResult();
+        
+        $result->setLeaseId(
+            Utilities::tryGetValue($headers, Resources::X_MS_LEASE_ID)
+        );
+        
+        return $result;
+    }
     
     /**
      * Gets lease Id for the blob
@@ -56,30 +78,8 @@ class SetBlobMetadataOptions extends BlobServiceOptions
      *
      * @return void
      */
-    public function setLeaseId($leaseId)
+    protected function setLeaseId($leaseId)
     {
         $this->_leaseId = $leaseId;
-    }
-    
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
     }
 }

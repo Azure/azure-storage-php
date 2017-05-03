@@ -44,8 +44,10 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 class ServiceProperties
 {
     private $logging;
-    private $metrics;
+    private $hourMetrics;
+    private $minuteMetrics;
     private $corses;
+    private $defaultServiceVersion;
     
     private static $xmlRootName = 'StorageServiceProperties';
     
@@ -60,8 +62,17 @@ class ServiceProperties
     public static function create(array $parsedResponse)
     {
         $result = new ServiceProperties();
+
+        if (array_key_exists(Resources::XTAG_DEFAULT_SERVICE_VERSION, $parsedResponse) &&
+            $parsedResponse[Resources::XTAG_DEFAULT_SERVICE_VERSION] != null) {
+            $result->setDefaultServiceVersion($parsedResponse[Resources::XTAG_DEFAULT_SERVICE_VERSION]);
+        }
+
         $result->setLogging(Logging::create($parsedResponse[Resources::XTAG_LOGGING]));
-        $result->setMetrics(Metrics::create($parsedResponse[Resources::XTAG_HOUR_METRICS]));
+        $result->setHourMetrics(Metrics::create($parsedResponse[Resources::XTAG_HOUR_METRICS]));
+        if (array_key_exists(Resources::XTAG_MINUTE_METRICS, $parsedResponse)) {
+            $result->setMinuteMetrics(Metrics::create($parsedResponse[Resources::XTAG_MINUTE_METRICS]));
+        }
         if (array_key_exists(Resources::XTAG_CORS, $parsedResponse) &&
             $parsedResponse[Resources::XTAG_CORS] != null) {
             //There could be multiple CORS rules, so need to extract them all.
@@ -109,25 +120,47 @@ class ServiceProperties
     }
     
     /**
-     * Gets metrics element.
+     * Gets hour metrics element.
      *
      * @return Metrics
      */
-    public function getMetrics()
+    public function getHourMetrics()
     {
-        return $this->metrics;
+        return $this->hourMetrics;
     }
     
     /**
-     * Sets metrics element.
+     * Sets hour metrics element.
      *
      * @param Metrics $metrics new element.
      *
      * @return void
      */
-    public function setMetrics(Metrics $metrics)
+    public function setHourMetrics(Metrics $hourMetrics)
     {
-        $this->metrics = clone $metrics;
+        $this->hourMetrics = clone $hourMetrics;
+    }
+    
+    /**
+     * Gets minute metrics element.
+     *
+     * @return Metrics
+     */
+    public function getMinuteMetrics()
+    {
+        return $this->minuteMetrics;
+    }
+    
+    /**
+     * Sets minute metrics element.
+     *
+     * @param Metrics $metrics new element.
+     *
+     * @return void
+     */
+    public function setMinuteMetrics(Metrics $minuteMetrics)
+    {
+        $this->minuteMetrics = clone $minuteMetrics;
     }
 
     /**
@@ -151,6 +184,28 @@ class ServiceProperties
     {
         $this->corses = $corses;
     }
+
+    /**
+     * Gets the default service version.
+     *
+     * @return string
+     */
+    public function getDefaultServiceVersion()
+    {
+        return $this->defaultServiceVersion;
+    }
+
+    /**
+     * Sets the default service version. This can obly be set for the blob service.
+     *
+     * @param string $defaultServiceVersion the default service version
+     *
+     * @return void
+     */
+    public function setDefaultServiceVersion($defaultServiceVersion)
+    {
+        return $this->defaultServiceVersion = $defaultServiceVersion;
+    }
     
     /**
      * Converts this object to array with XML tags
@@ -160,18 +215,33 @@ class ServiceProperties
      */
     public function toArray()
     {
-        $corsesArray = $this->getCorsesArray();
-        return array(
-            Resources::XTAG_LOGGING
-                => !empty($this->getLogging()) ?
-                    $this->getLogging()->toArray() : null,
-            Resources::XTAG_HOUR_METRICS
-                => !empty($this->getMetrics()) ?
-                    $this->getMetrics()->toArray() : null,
-            Resources::XTAG_CORS
-                => !empty($corsesArray) ? $corsesArray : null
+        $result = array();
 
-        );
+        if (!empty($this->getLogging())) {
+            $result[Resources::XTAG_LOGGING] =
+                    $this->getLogging()->toArray();
+        }
+
+        if (!empty($this->getHourMetrics())) {
+            $result[Resources::XTAG_HOUR_METRICS] =
+                    $this->getHourMetrics()->toArray();
+        }
+
+        if (!empty($this->getMinuteMetrics())) {
+            $result[Resources::XTAG_MINUTE_METRICS] =
+                    $this->getMinuteMetrics()->toArray();
+        }
+
+        $corsesArray = $this->getCorsesArray();
+        if (!empty($corsesArray)) {
+            $result[Resources::XTAG_CORS] =$corsesArray;
+        }
+
+        if ($this->defaultServiceVersion != null) {
+            $result[Resources::XTAG_DEFAULT_SERVICE_VERSION] = $this->defaultServiceVersion;
+        }
+
+        return $result;
     }
 
     /**

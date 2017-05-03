@@ -1,3 +1,60 @@
+2017.04 - version 0.15.0
+
+All
+* Removed `setRequestOptions` for service options, instead, added `middlewares`, `middlewareStack`, `numberOfConcurrency`, `isStreaming`, `locationMode` and `decodeContent` for user to specify the corresponding options.
+* Added `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware` to support retry from secondary endpoint. Advice to use this instead of Guzzle's retry middleware for secondary endpoint retry support.
+* By setting `$locationMode` in `MicrosoftAzure\Storage\Common\Models\ServiceOptions`, user can perform read operations from secondary endpoint.
+* Added support for user to use proxies. If `HTTP_PROXY` is set as a system variable, the proxy specified with it will be used for HTTP connections.
+* Removed `MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMetrics` and `MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMetrics`. Added following methods to access hour metrics and minute metrics.
+```
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMinuteMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMinuteMetrics
+```
+
+Blob
+* Access condition feature parity:
+  - Single `AccessCondition` has been changed to multiple `AccessCondition` for the options which support access conditions.
+  - Added `appendPosition`, `maxBlobSize`, `ifSequenceNumberLessThan`, `ifSequenceNumberEqual` and `ifSequenceNumberLessThanOrEqual` to `AccessCondition` class.
+  - Added access conditions support for `getContainerProperties`, `setContainerProperties`, `getContainerMetadata` and `setContainerMetadata`.
+
+* Copy blob feature parity:
+  - Added new API `abortCopy`.
+  - Added `setIncludeCopy` to `ListBlobsOptions` to support getting copy state information when listing blobs.
+  - Added properties and getters/setters for `CopyId` and `CopyStatus` to `CopyBlobResult` class.
+
+* Lease feature parity
+  - Added lease support for `getContainerProperties`, `setContainerProperties`, `getContainerMetadata`, `setContainerMetadata` and `deleteContainer`.
+  - Renamed `LeaseBlobResult` to `LeaseResult` to support container and blob lease.
+  - Added container lease support - passing `null` to `$blob` parameter of the lease related APIs.
+  - Added new parameters `$proposedLeaseId` and `$leaseDuration` to `acquireLease` API and changed the `$options` parameter from `AcquireLeaseOptions` to `BlobServiceOptions`.
+  - Added the API `changeLease` to support changing lease.
+  - Added new parameter `$breakPeriod` to  `breakLease` API and removed the `$leaseId` parameter.
+  - Added properties and getters/setters for `LeaseStatus`, `LeaseState` and `LeaseDuration` to `ContainerProperties` class.
+
+* Container/Blob properties feature parity:
+  - Added properties and getters/setters for `ContentDisposition`, `LeaseState`, `LeaseDuration` and `CopyState` to `BlobProperties` class.
+
+* Refactored Options class:
+  - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
+  - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
+  
+* Blob service properties feature parity:
+  - Added `getDefaultServiceVersion`, `setDefaultServiceVersion`, `getMinuteMetrics` and `setMinuteMetrics` to `ServiceProperties` class.
+
+* Changed the return type of API `commitBlobBlocks` from `void` to `PutBlobResult`.
+* Removed the useless API `ctrCrypt` from `Utilities` class.
+* Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
+
+Table
+* Removed `MicrosoftAzure\Storage\Table\Models\BatchError`. When batch operation fails, exception is thrown immediately instead. 
+* Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
+
+Queue
+* Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
+
+
 2017.04 - version 0.14.0
 
 ALL

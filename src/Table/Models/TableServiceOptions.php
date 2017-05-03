@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
  * Table service options.
@@ -36,6 +36,6 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class TableServiceOptions extends ServiceOptionsBase
+class TableServiceOptions extends ServiceOptions
 {
 }

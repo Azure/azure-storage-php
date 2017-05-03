@@ -1,3 +1,32 @@
+Tracking Breaking changes in 0.15.0
+
+All
+* Removed `setRequestOptions` for service options, instead, added `middlewares`, `middlewareStack`, `numberOfConcurrency`, `isStreaming`, `locationMode` and `decodeContent` for user to specify the corresponding options.
+* Added `MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware` to support retry from secondary endpoint. Advice to use this instead of Guzzle's retry middleware for secondary endpoint retry support.
+* Removed `MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMetrics` and `MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMetrics`. Added following methods to access hour metrics and minute metrics.
+```
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setHourMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::getMinuteMetrics
+MicrosoftAzure\Storage\Common\Models\ServiceProperties::setMinuteMetrics
+```
+
+Blob
+* Lease feature parity
+  - Renamed `LeaseBlobResult` to `LeaseResult` to support container and blob lease.
+  - Added container lease support - passing `null` to `$blob` parameter of the lease related APIs.
+  - Added new parameters `$proposedLeaseId` and `$leaseDuration` to `acquireLease` API and changed the `$options` parameter from `AcquireLeaseOptions` to `BlobServiceOptions`.
+  - Added new parameter `$breakPeriod` to  `breakLease` API and removed the `$leaseId` parameter.
+
+* Refactored Options class:
+  - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
+  - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
+
+* Removed the useless API `ctrCrypt` from `Utilities` class.
+
+Table
+* Removed `MicrosoftAzure\Storage\Table\Models\BatchError`. When batch operation fails, exception is thrown immediately instead.
+
 Tracking Breaking changes in 0.14.0
 
 * Restructured the classes based on their intended functionality and visiblity. The changes includes:

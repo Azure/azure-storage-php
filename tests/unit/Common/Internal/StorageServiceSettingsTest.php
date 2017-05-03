@@ -265,7 +265,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $expected = 'mysas=bla&mysas2=bla%2F';
-        $setting = new StorageServiceSettings(null, null, null, null, null, $expected);
+        $setting = new StorageServiceSettings(null, null, null, null, null, null, null, null, $expected);
 
         // Test
         $actual = $setting->getSasToken();

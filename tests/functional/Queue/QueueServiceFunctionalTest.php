@@ -34,6 +34,7 @@ use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
+use MicrosoftAzure\Storage\Common\LocationMode;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -176,30 +177,30 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             'getValue()->getLogging()->getRetentionPolicy()->getDays'
         );
 
-        $m = $sp->getMetrics();
-        $this->assertNotNull($m, 'getValue()->getMetrics() should be non-null');
+        $m = $sp->getHourMetrics();
+        $this->assertNotNull($m, 'getValue()->getHourMetrics() should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getVersion(),
+            $serviceProperties->getHourMetrics()->getVersion(),
             $m->getVersion(),
-            'getValue()->getMetrics()->getVersion'
+            'getValue()->getHourMetrics()->getVersion'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getEnabled(),
+            $serviceProperties->getHourMetrics()->getEnabled(),
             $m->getEnabled(),
-            'getValue()->getMetrics()->getEnabled'
+            'getValue()->getHourMetrics()->getEnabled'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getIncludeAPIs(),
+            $serviceProperties->getHourMetrics()->getIncludeAPIs(),
             $m->getIncludeAPIs(),
-            'getValue()->getMetrics()->getIncludeAPIs'
+            'getValue()->getHourMetrics()->getIncludeAPIs'
         );
 
         $r = $m->getRetentionPolicy();
-        $this->assertNotNull($r, 'getValue()->getMetrics()->getRetentionPolicy should be non-null');
+        $this->assertNotNull($r, 'getValue()->getHourMetrics()->getRetentionPolicy should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getRetentionPolicy()->getDays(),
+            $serviceProperties->getHourMetrics()->getRetentionPolicy()->getDays(),
             $r->getDays(),
-            'getValue()->getMetrics()->getRetentionPolicy()->getDays'
+            'getValue()->getHourMetrics()->getRetentionPolicy()->getDays'
         );
     }
 
@@ -352,7 +353,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         // https://github.com/azure/azure-storage-php/issues/98
         //$this->assertEquals($accountName, $ret->getAccountName(), 'getAccountName');
 
-        $this->assertEquals($options->getMarker(), $ret->getMarker(), 'getMarker');
+        $this->assertEquals($options->getNextMarker(), $ret->getMarker(), 'getNextMarker');
         $this->assertEquals($options->getMaxResults(), $ret->getMaxResults(), 'getMaxResults');
         $this->assertEquals($options->getPrefix(), $ret->getPrefix(), 'getPrefix');
 
@@ -1623,7 +1624,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         
         //setup options for the first try.
         $options = new ListQueuesOptions();
-        $options->setRequestOptions(['middlewares' => [$historyMiddleware]]);
+        $options->setMiddlewares([$historyMiddleware]);
         //get the response of the server.
         $result = $this->restProxy->listQueues($options);
         $response = $historyMiddleware->getHistory()[0]['response'];
@@ -1639,15 +1640,12 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             new Response(500, ['test_header' => 'test_header_value']),
             $response
         ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createQueueService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new ListQueuesOptions();
-        $options->setRequestOptions(
-            [
-            'middlewares' => [$retryMiddleware, $historyMiddleware],
-            'handler' => $mock
-            ]
-        );
-        $newResult = $this->restProxy->listQueues($options);
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $newResult = $mockProxy->listQueues($options);
         $this->assertTrue(
             $result == $newResult,
             'Mock result does not match server behavior'
@@ -1657,8 +1655,73 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             'Mock handler does not gave the first 408 exception correctly'
         );
         $this->assertTrue(
-            $historyMiddleware->getHistory()[2]['response']->getStatusCode() == 500,
+            $historyMiddleware->getHistory()[2]['reason']->getCode() == 500,
             'Mock handler does not gave the second 500 response correctly'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     */
+    public function testRetryFromSecondary()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        
+        //setup options for the first try.
+        $options = new ListQueuesOptions();
+        $options->setMiddlewares([$historyMiddleware]);
+        //get the response of the server.
+        $result = $this->restProxy->listQueues($options);
+        $response = $historyMiddleware->getHistory()[0]['response'];
+        $request = $historyMiddleware->getHistory()[0]['request'];
+
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new Response(500, ['test_header' => 'test_header_value']),
+            new RequestException(
+                'mock 404 exception',
+                $request,
+                new Response(404, ['test_header' => 'test_header_value'])
+            ),
+            $response
+        ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createQueueService($this->connectionString, $restOptions);
+        //test using mock handler.
+        $options = new ListQueuesOptions();
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
+        $newResult = $mockProxy->listQueues($options);
+        $this->assertTrue(
+            $result == $newResult,
+            'Mock result does not match server behavior'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[2]['reason']->getMessage() == 'mock 404 exception',
+            'Mock handler does not gave the first 404 exception correctly'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[1]['reason']->getCode() == 500,
+            'Mock handler does not gave the second 500 response correctly'
+        );
+
+        $uri2 = (string)($historyMiddleware->getHistory()[2]['request']->getUri());
+        $uri3 = (string)($historyMiddleware->getHistory()[3]['request']->getUri());
+
+        $this->assertTrue(
+            strpos($uri2, '-secondary') !== false,
+            'Did not retry to secondary uri.'
+        );
+        $this->assertFalse(
+            strpos($uri3, '-secondary'),
+            'Did not switch back to primary uri.'
         );
     }
 }

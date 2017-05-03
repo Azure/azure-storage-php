@@ -25,7 +25,9 @@
 namespace MicrosoftAzure\Storage\Blob\Internal;
 
 use MicrosoftAzure\Storage\Blob\Models as BlobModels;
-use MicrosoftAzure\Storage\Common\Models as CommonModels;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
+use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Blob service.
@@ -42,60 +44,82 @@ use MicrosoftAzure\Storage\Common\Models as CommonModels;
 interface IBlob
 {
     /**
-    * Gets the properties of the Blob service.
+    * Gets the properties of the service.
     *
-    * @param BlobModels\BlobServiceOptions $options optional blob service options.
+    * @param ServiceOptions $options optional service options.
     *
-    * @return CommonModels\GetServicePropertiesResult
+    * @return GetServicePropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
     */
-    public function getServiceProperties(BlobModels\BlobServiceOptions $options = null);
+    public function getServiceProperties(ServiceOptions $options = null);
 
     /**
-     * Creates promise to get the properties of the Blob service.
+     * Creates promise to get the properties of the service.
      *
-     * @param BlobModels\BlobServiceOptions $options The optional parameters.
+     * @param ServiceOptions $options The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452239.aspx
      */
-    public function getServicePropertiesAsync(
-        BlobModels\BlobServiceOptions $options = null
-    );
+    public function getServicePropertiesAsync(ServiceOptions $options = null);
 
     /**
-    * Sets the properties of the Blob service.
+    * Sets the properties of the service.
     *
-    * @param CommonModels\ServiceProperties  $serviceProperties new service properties
-    * @param BlobModels\BlobServiceOptions   $options           optional parameters
+    * @param ServiceProperties           $serviceProperties new service properties
+    * @param ServiceOptions $options           optional parameters
     *
     * @return void
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
     */
     public function setServiceProperties(
-        CommonModels\ServiceProperties $serviceProperties,
-        BlobModels\BlobServiceOptions $options = null
+        ServiceProperties $serviceProperties,
+        ServiceOptions    $options = null
     );
 
     /**
-     * Creates the promise to set the properties of the Blob service.
+     * Retieves statistics related to replication for the service. The operation
+     * will only be sent to secondary location endpoint.
+     *
+     * @param  ServiceOptions|null $options The options this operation sends with.
+     *
+     * @return GetServiceStatsResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-blob-service-stats
+     */
+    public function getServiceStats(ServiceOptions $options = null);
+
+    /**
+     * Creates promise that retrieves statistics related to replication for the
+     * service. The operation will only be sent to secondary location endpoint.
+     *
+     * @param  ServiceOptions|null $options The options this operation sends with.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see  https://docs.microsoft.com/en-us/rest/api/storageservices/get-blob-service-stats
+     */
+    public function getServiceStatsAsync(ServiceOptions $options = null);
+
+    /**
+     * Creates the promise to set the properties of the service.
      *
      * It's recommended to use getServiceProperties, alter the returned object and
      * then use setServiceProperties with this altered object.
      *
-     * @param CommonModels\ServiceProperties $serviceProperties new service properties.
-     * @param BlobModels\BlobServiceOptions  $options           optional parameters
+     * @param ServiceProperties           $serviceProperties new service properties.
+     * @param ServiceOptions $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452235.aspx
      */
     public function setServicePropertiesAsync(
-        CommonModels\ServiceProperties $serviceProperties,
-        BlobModels\BlobServiceOptions $options = null
+        ServiceProperties $serviceProperties,
+        ServiceOptions    $options = null
     );
 
     /**
@@ -155,7 +179,7 @@ interface IBlob
     * Creates a new container in the given storage account.
     *
     * @param string                            $container name
-    * @param BlobModels\DeleteContainerOptions $options   optional parameters
+    * @param BlobModels\BlobServiceOptions     $options   optional parameters
     *
     * @return void
     *
@@ -163,20 +187,20 @@ interface IBlob
     */
     public function deleteContainer(
         $container,
-        BlobModels\DeleteContainerOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
      * Create a promise for deleting a container.
      *
      * @param  string                             $container name of the container
-     * @param  BlobModels\DeleteContainerOptions  $options   optional parameters
+     * @param  BlobModels\BlobServiceOptions      $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function deleteContainerAsync(
         $container,
-        BlobModels\DeleteContainerOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -310,9 +334,9 @@ interface IBlob
     /**
     * Sets metadata headers on the container.
     *
-    * @param string                              $container name
-    * @param array                               $metadata  metadata key/value pair.
-    * @param BlobModels\SetContainerMetadataOptions $options   optional parameters
+    * @param string                        $container name
+    * @param array                         $metadata  metadata key/value pair.
+    * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
     * @return void
     *
@@ -321,15 +345,15 @@ interface IBlob
     public function setContainerMetadata(
         $container,
         array $metadata,
-        BlobModels\SetContainerMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
      * Sets metadata headers on the container.
      *
-     * @param string                                 $container name
-     * @param array                                  $metadata  metadata key/value pair.
-     * @param BlobModels\SetContainerMetadataOptions $options   optional parameters
+     * @param string                        $container name
+     * @param array                         $metadata  metadata key/value pair.
+     * @param BlobModels\BlobServiceOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -338,7 +362,7 @@ interface IBlob
     public function setContainerMetadataAsync(
         $container,
         array $metadata,
-        BlobModels\SetContainerMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -742,7 +766,7 @@ interface IBlob
     * @param BlobModels\BlockList|array         $blockList the block list entries
     * @param BlobModels\CommitBlobBlocksOptions $options   optional parameters
     *
-    * @return void
+    * @return BlobModels\PutBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179467.aspx
     */
@@ -977,7 +1001,7 @@ interface IBlob
     * @param string                         $container name of the container
     * @param string                         $blob      name of the blob
     * @param array                          $metadata  key/value pair representation
-    * @param BlobModels\SetBlobMetadataOptions $options   optional parameters
+    * @param BlobModels\BlobServiceOptions  $options   optional parameters
     *
     * @return BlobModels\SetBlobMetadataResult
     *
@@ -987,7 +1011,7 @@ interface IBlob
         $container,
         $blob,
         array $metadata,
-        BlobModels\SetBlobMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -996,7 +1020,7 @@ interface IBlob
      * @param string                            $container name of the container
      * @param string                            $blob      name of the blob
      * @param array                             $metadata  key/value pair representation
-     * @param BlobModels\SetBlobMetadataOptions $options   optional parameters
+     * @param BlobModels\BlobServiceOptions     $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1006,7 +1030,7 @@ interface IBlob
         $container,
         $blob,
         array $metadata,
-        BlobModels\SetBlobMetadataOptions $options = null
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -1171,32 +1195,80 @@ interface IBlob
         $sourceBlob,
         BlobModels\CopyBlobOptions $options = null
     );
+    
+    /**
+     * Abort a blob copy operation
+     *
+     * @param string                        $container            name of the container
+     * @param string                        $blob                 name of the blob
+     * @param string                        $copyId               copy operation identifier.
+     * @param BlobModels\BlobServiceOptions $options              optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/abort-copy-blob
+     */
+    public function abortCopy(
+        $container,
+        $blob,
+        $copyId,
+        BlobModels\BlobServiceOptions $options = null
+    );
 
     /**
-    * Establishes an exclusive one-minute write lock on a blob. To write to a locked
-    * blob, a client must provide a lease ID.
-    *
-    * @param string                         $container name of the container
-    * @param string                         $blob      name of the blob
-    * @param BlobModels\AcquireLeaseOptions $options   optional parameters
-    *
-    * @return BlobModels\AcquireLeaseResult
-    *
-    * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
-    */
+     * Creates promise to abort a blob copy operation
+     *
+     * @param string                        $container            name of the container
+     * @param string                        $blob                 name of the blob
+     * @param string                        $copyId               copy operation identifier.
+     * @param BlobModels\BlobServiceOptions $options              optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/abort-copy-blob
+     */
+    public function abortCopyAsync(
+        $container,
+        $blob,
+        $copyId,
+        BlobModels\BlobServiceOptions $options = null
+    );
+
+    /**
+     * Establishes an exclusive write lock on a blob. To write to a locked
+     * blob, a client must provide a lease ID.
+     *
+     * @param string                     $container         name of the container
+     * @param string                     $blob              name of the blob
+     * @param string                     $proposedLeaseId   lease id when acquiring
+     * @param int                        $leaseDuration     the lease duration. A non-infinite
+     *                                                      lease can be between 15 and 60 seconds.
+     *                                                      Default is never to expire.
+     * @param Models\BlobServiceOptions  $options           optional parameters
+     *
+     * @return Models\LeaseResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
+     */
     public function acquireLease(
         $container,
         $blob,
-        BlobModels\AcquireLeaseOptions $options = null
+        $proposedLeaseId = null,
+        $leaseDuration = null,
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
      * Creates promise to establish an exclusive one-minute write lock on a blob.
      * To write to a locked blob, a client must provide a lease ID.
      *
-     * @param string                         $container name of the container
-     * @param string                         $blob      name of the blob
-     * @param BlobModels\AcquireLeaseOptions $options   optional parameters
+     * @param string                     $container         name of the container
+     * @param string                     $blob              name of the blob
+     * @param string                     $proposedLeaseId   lease id when acquiring
+     * @param int                        $leaseDuration     the lease duration. A non-infinite
+     *                                                      lease can be between 15 and 60 seconds.
+     *                                                      Default is never to expire.
+     * @param Models\BlobServiceOptions  $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1205,7 +1277,51 @@ interface IBlob
     public function acquireLeaseAsync(
         $container,
         $blob,
-        BlobModels\AcquireLeaseOptions $options = null
+        $proposedLeaseId = null,
+        $leaseDuration = null,
+        BlobModels\BlobServiceOptions $options = null
+    );
+    
+    /**
+     * change an existing lease
+     *
+     * @param string                        $container         name of the container
+     * @param string                        $blob              name of the blob
+     * @param string                        $leaseId           lease id when acquiring
+     * @param string                        $proposedLeaseId   lease id when acquiring
+     * @param BlobModels\BlobServiceOptions $options           optional parameters
+     *
+     * @return BlobModels\LeaseResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
+     */
+    public function changeLease(
+        $container,
+        $blob,
+        $leaseId,
+        $proposedLeaseId,
+        BlobModels\BlobServiceOptions $options = null
+    );
+
+    /**
+     * Creates promise to change an existing lease
+     *
+     * @param string                        $container         name of the container
+     * @param string                        $blob              name of the blob
+     * @param string                        $leaseId           lease id when acquiring
+     * @param string                        $proposedLeaseId   the proposed lease id
+     * @param BlobModels\BlobServiceOptions $options           optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/lease-blob
+     */
+    public function changeLeaseAsync(
+        $container,
+        $blob,
+        $leaseId,
+        $proposedLeaseId,
+        BlobModels\BlobServiceOptions $options = null
     );
 
     /**
@@ -1293,7 +1409,6 @@ interface IBlob
     *
     * @param string                        $container name of the container
     * @param string                        $blob      name of the blob
-    * @param string                        $leaseId   lease id when acquiring
     * @param BlobModels\BlobServiceOptions $options   optional parameters
     *
     * @return void
@@ -1303,7 +1418,7 @@ interface IBlob
     public function breakLease(
         $container,
         $blob,
-        $leaseId,
+        $breakPeriod = null,
         BlobModels\BlobServiceOptions $options = null
     );
 
@@ -1313,7 +1428,6 @@ interface IBlob
      *
      * @param string                        $container name of the container
      * @param string                        $blob      name of the blob
-     * @param string                        $leaseId   lease id when acquiring
      * @param BlobModels\BlobServiceOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -1323,7 +1437,7 @@ interface IBlob
     public function breakLeaseAsync(
         $container,
         $blob,
-        $leaseId,
+        $breakPeriod = null,
         BlobModels\BlobServiceOptions $options = null
     );
 }

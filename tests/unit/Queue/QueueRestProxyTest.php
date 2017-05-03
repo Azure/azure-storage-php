@@ -712,4 +712,18 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
             'Should not equal to the negative test case'
         );
     }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceStats
+     * @covers  \MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceStatsAsync
+     */
+    public function testGetServiceStats()
+    {
+        $result = $this->restProxy->getServiceStats();
+
+        // Assert
+        $this->assertNotNull($result->getStatus());
+        $this->assertNotNull($result->getLastSyncTime());
+        $this->assertTrue($result->getLastSyncTime() instanceof \DateTime);
+    }
 }

@@ -41,6 +41,8 @@ class CopyBlobResult
 {
     private $_etag;
     private $_lastModified;
+    private $_copyId;
+    private $_copyStatus;
     
     /**
      * Creates CopyBlobResult object from the response of the copy blob request.
@@ -60,6 +62,18 @@ class CopyBlobResult
                 $headers
             )
         );
+        $result->setCopyId(
+            Utilities::tryGetValueInsensitive(
+                Resources::X_MS_COPY_ID,
+                $headers
+            )
+        );
+        $result->setCopyStatus(
+            Utilities::tryGetValueInsensitive(
+                Resources::X_MS_COPY_STATUS,
+                $headers
+            )
+        );
         if (Utilities::arrayKeyExistsInsensitive(Resources::LAST_MODIFIED, $headers)) {
             $lastModified = Utilities::tryGetValueInsensitive(
                 Resources::LAST_MODIFIED,
@@ -69,6 +83,54 @@ class CopyBlobResult
         }
         
         return $result;
+    }
+    
+    /**
+     * Gets copy Id
+     *
+     * @return string
+     */
+    public function getCopyId()
+    {
+        return $this->_copyId;
+    }
+    
+    /**
+     * Sets copy Id
+     *
+     * @param string $copyId the blob copy id.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setCopyId($copyId)
+    {
+        $this->_copyId = $copyId;
+    }
+    
+    /**
+     * Gets copy status
+     *
+     * @return string
+     */
+    public function getCopyStatus()
+    {
+        return $this->_copyStatus;
+    }
+    
+    /**
+     * Sets copy status
+     *
+     * @param string $status the copy status.
+     *
+     * @internal
+     *
+     * @return void
+     */
+    protected function setCopyStatus($copystatus)
+    {
+        $this->_copyStatus = $copystatus;
     }
     
     /**

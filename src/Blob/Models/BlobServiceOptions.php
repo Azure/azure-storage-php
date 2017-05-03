@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
  * Blob service options.
@@ -36,6 +36,57 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlobServiceOptions extends ServiceOptionsBase
+class BlobServiceOptions extends ServiceOptions
 {
+    private $_leaseId;
+    private $_accessConditions;
+    
+    /**
+     * Gets lease Id for the blob
+     *
+     * @return string
+     */
+    public function getLeaseId()
+    {
+        return $this->_leaseId;
+    }
+    
+    /**
+     * Sets lease Id for the blob
+     *
+     * @param string $leaseId the blob lease id.
+     *
+     * @return void
+     */
+    public function setLeaseId($leaseId)
+    {
+        $this->_leaseId = $leaseId;
+    }
+    
+    /**
+     * Gets access condition
+     *
+     * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition[]
+     */
+    public function getAccessConditions()
+    {
+        return $this->_accessConditions;
+    }
+    
+    /**
+     * Sets access condition
+     *
+     * @param mixed $accessConditions value to use.
+     *
+     * @return void
+     */
+    public function setAccessConditions($accessConditions)
+    {
+        if (!is_null($accessConditions) &&
+            is_array($accessConditions)) {
+            $this->_accessConditions = $accessConditions;
+        } else {
+            $this->_accessConditions = [$accessConditions];
+        }
+    }
 }

@@ -32,7 +32,6 @@ use MicrosoftAzure\Storage\Tests\Functional\Table\Models\BatchWorkerConfig;
 use MicrosoftAzure\Storage\Tests\Functional\Table\Models\FakeTableInfoEntry;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Table\Models\BatchError;
 use MicrosoftAzure\Storage\Table\Models\BatchOperations;
 use MicrosoftAzure\Storage\Table\Models\DeleteEntityOptions;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -45,6 +44,7 @@ use MicrosoftAzure\Storage\Table\Models\TableServiceOptions;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
+use MicrosoftAzure\Storage\Common\LocationMode;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
@@ -164,30 +164,30 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             'getValue()->getLogging()->getRetentionPolicy()->getDays'
         );
 
-        $m = $sp->getMetrics();
-        $this->assertNotNull($m, 'getValue()->getMetrics() should be non-null');
+        $m = $sp->getHourMetrics();
+        $this->assertNotNull($m, 'getValue()->getHourMetrics() should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getVersion(),
+            $serviceProperties->getHourMetrics()->getVersion(),
             $m->getVersion(),
-            'getValue()->getMetrics()->getVersion'
+            'getValue()->getHourMetrics()->getVersion'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getEnabled(),
+            $serviceProperties->getHourMetrics()->getEnabled(),
             $m->getEnabled(),
-            'getValue()->getMetrics()->getEnabled'
+            'getValue()->getHourMetrics()->getEnabled'
         );
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getIncludeAPIs(),
+            $serviceProperties->getHourMetrics()->getIncludeAPIs(),
             $m->getIncludeAPIs(),
-            'getValue()->getMetrics()->getIncludeAPIs'
+            'getValue()->getHourMetrics()->getIncludeAPIs'
         );
 
         $r = $m->getRetentionPolicy();
-        $this->assertNotNull($r, 'getValue()->getMetrics()->getRetentionPolicy should be non-null');
+        $this->assertNotNull($r, 'getValue()->getHourMetrics()->getRetentionPolicy should be non-null');
         $this->assertEquals(
-            $serviceProperties->getMetrics()->getRetentionPolicy()->getDays(),
+            $serviceProperties->getHourMetrics()->getRetentionPolicy()->getDays(),
             $r->getDays(),
-            'getValue()->getMetrics()->getRetentionPolicy()->getDays'
+            'getValue()->getHourMetrics()->getRetentionPolicy()->getDays'
         );
     }
 
@@ -1555,9 +1555,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $configs = array();
             foreach (TableServiceFunctionalTestData::getSimpleEntities(6) as $ent) {
                 $config = new BatchWorkerConfig();
-                $config->concurType = $concurTypes[mt_rand(0, count($concurTypes))];
-                $config->opType = $opTypes[mt_rand(0, count($opTypes))];
-                $config->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots))];
+                $config->concurType = $concurTypes[mt_rand(0, count($concurTypes) -1)];
+                $config->opType = $opTypes[mt_rand(0, count($opTypes) -1)];
+                $config->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots) -1)];
                 $config->ent = $ent;
                 array_push($configs, $config);
             }
@@ -1697,14 +1697,14 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $firstConfig->concurType = $firstConcurType;
             $firstConfig->opType = $firstOpType;
             $firstConfig->ent = $simpleEntities[0];
-            $firstConfig->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots))];
+            $firstConfig->mutatePivot = $mutatePivots[mt_rand(0, count($mutatePivots) -1)];
             array_push($configs, $firstConfig);
 
             for ($i = 1; $i < count($simpleEntities); $i++) {
                 $config = new BatchWorkerConfig();
                 while (!is_null($this->expectConcurrencyFailure($config->opType, $config->concurType))) {
-                    $config->concurType = $concurTypes[mt_rand(0, count($concurTypes))];
-                    $config->opType = $opTypes[mt_rand(0, count($opTypes))];
+                    $config->concurType = $concurTypes[mt_rand(0, count($concurTypes) -1)];
+                    $config->opType = $opTypes[mt_rand(0, count($opTypes) -1)];
                     if ($this->isEmulated()) {
                         if ($config->opType == OpType::INSERT_OR_MERGE_ENTITY) {
                             $config->opType = OpType::MERGE_ENTITY;
@@ -1785,32 +1785,41 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 );
             }
 
-            // Execute the batch.
-            $ret = (is_null($options) ?
-                $this->restProxy->batch($operations) :
-                $this->restProxy->batch(
-                    $operations,
-                    $options
-                )
-            );
-
-            if (is_null($options)) {
-                $options = new QueryEntitiesOptions();
-            }
-
             // Verify results.
             if ($expectedError) {
-                $this->assertEquals($expectedErrorCount, count($ret->getEntries()), 'count $ret->getEntries()');
+                $exception = null;
+                try {
+                    // Execute the batch.
+                    $ret = (is_null($options) ?
+                        $this->restProxy->batch($operations) :
+                        $this->restProxy->batch(
+                            $operations,
+                            $options
+                        )
+                    );
+                } catch (ServiceException $e) {
+                    $exception = $e;
+                }
+
+                $this->assertNotNull($exception, 'Caught exception should not be null');
 
                 // No changes should have gone through.
                 for ($i = 0; $i < count($configs); $i++) {
                     $this->verifyCrudWorker($configs[$i]->opType, $table, $configs[$i]->ent, $configs[$i]->ent, false);
                 }
             } else {
+                // Execute the batch.
+                $ret = (is_null($options) ?
+                    $this->restProxy->batch($operations) :
+                    $this->restProxy->batch(
+                        $operations,
+                        $options
+                    )
+                );
+
                 $this->assertEquals($expectedReturned, count($ret->getEntries()), 'count $ret->getEntries()');
                 for ($i = 0; $i < count($ret->getEntries()); $i++) {
-                    $opResult = $ret->getEntries();
-                    $opResult = $opResult[$i];
+                    $opResult = $ret->getEntries()[$i];
                     $this->verifyBatchEntryType($configs[$i]->opType, $exptErrs[$i], $opResult);
                     $this->verifyEntryData($table, $exptErrs[$i], $targetEnts[$i], $opResult);
                     // Check out the entities.
@@ -1840,8 +1849,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $this->assertEquals($opResult->getETag(), $ger->getEntity()->getETag(), 'op->getETag');
         } elseif (is_string($opResult)) {
             // Nothing special to do.
-        } elseif ($opResult instanceof BatchError) {
-            $this->assertEquals($exptErr, $opResult->getError()->getCode(), 'getError()->getCode');
         } else {
             $this->fail('opResult is of an unknown type');
         }
@@ -1873,11 +1880,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                     );
                     break;
             }
-        } else {
-            $this->assertTrue(
-                $opResult instanceof BatchError,
-                'When expect an error, expect opResult instanceof BatchError'
-            );
         }
     }
 
@@ -2148,7 +2150,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         
         //setup options for the first try.
         $options = new QueryTablesOptions();
-        $options->setRequestOptions(['middlewares' => [$historyMiddleware]]);
+        $options->setMiddlewares([$historyMiddleware]);
         //get the response of the server.
         $result = $this->restProxy->queryTables($options);
         $response = $historyMiddleware->getHistory()[0]['response'];
@@ -2164,15 +2166,12 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             new Response(500, ['test_header' => 'test_header_value']),
             $response
         ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new QueryTablesOptions();
-        $options->setRequestOptions(
-            [
-            'middlewares' => [$retryMiddleware, $historyMiddleware],
-            'handler' => $mock
-            ]
-        );
-        $newResult = $this->restProxy->queryTables($options);
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $newResult = $mockProxy->queryTables($options);
         $this->assertTrue(
             $result == $newResult,
             'Mock result does not match server behavior'
@@ -2182,8 +2181,73 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             'Mock handler does not gave the first 408 exception correctly'
         );
         $this->assertTrue(
-            $historyMiddleware->getHistory()[2]['response']->getStatusCode() == 500,
+            $historyMiddleware->getHistory()[2]['reason']->getCode() == 500,
             'Mock handler does not gave the second 500 response correctly'
+        );
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     */
+    public function testRetryFromSecondary()
+    {
+        //setup middlewares.
+        $historyMiddleware = new HistoryMiddleware();
+        $retryMiddleware = RetryMiddlewareFactory::create(
+            RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
+            3,
+            1
+        );
+        
+        //setup options for the first try.
+        $options = new QueryTablesOptions();
+        $options->setMiddlewares([$historyMiddleware]);
+        //get the response of the server.
+        $result = $this->restProxy->queryTables($options);
+        $response = $historyMiddleware->getHistory()[0]['response'];
+        $request = $historyMiddleware->getHistory()[0]['request'];
+
+        //setup the mock handler
+        $mock = MockHandler::createWithMiddleware([
+            new Response(500, ['test_header' => 'test_header_value']),
+            new RequestException(
+                'mock 404 exception',
+                $request,
+                new Response(404, ['test_header' => 'test_header_value'])
+            ),
+            $response
+        ]);
+        $restOptions = ['http' => ['handler' => $mock]];
+        $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
+        //test using mock handler.
+        $options = new QueryTablesOptions();
+        $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
+        $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
+        $newResult = $mockProxy->queryTables($options);
+        $this->assertTrue(
+            $result == $newResult,
+            'Mock result does not match server behavior'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[2]['reason']->getMessage() == 'mock 404 exception',
+            'Mock handler does not gave the first 404 exception correctly'
+        );
+        $this->assertTrue(
+            $historyMiddleware->getHistory()[1]['reason']->getCode() == 500,
+            'Mock handler does not gave the second 500 response correctly'
+        );
+
+        $uri2 = (string)($historyMiddleware->getHistory()[2]['request']->getUri());
+        $uri3 = (string)($historyMiddleware->getHistory()[3]['request']->getUri());
+
+        $this->assertTrue(
+            strpos($uri2, '-secondary') !== false,
+            'Did not retry to secondary uri.'
+        );
+        $this->assertFalse(
+            strpos($uri3, '-secondary'),
+            'Did not switch back to primary uri.'
         );
     }
 }

@@ -28,19 +28,17 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\DeleteContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
-use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
-use MicrosoftAzure\Storage\Blob\Models\SetContainerMetadataOptions;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
@@ -137,16 +135,16 @@ class BlobServiceFunctionalTestData
 
     public static function passTemporalAccessCondition($ac)
     {
-        if (is_null($ac)) {
+        if (is_null($ac) ||  empty($ac)) {
             return true;
         }
 
         $now = new \DateTime();
 
-        if ($ac->getHeader() == Resources::IF_UNMODIFIED_SINCE) {
-            return $ac->getValue() > $now;
-        } elseif ($ac->getHeader() == Resources::IF_MODIFIED_SINCE) {
-            return $ac->getValue() < $now;
+        if ($ac[0]->getHeader() == Resources::IF_UNMODIFIED_SINCE) {
+            return $ac[0]->getValue() > $now;
+        } elseif ($ac[0]->getHeader() == Resources::IF_MODIFIED_SINCE) {
+            return $ac[0]->getValue() < $now;
         } else {
             return true;
         }
@@ -154,12 +152,12 @@ class BlobServiceFunctionalTestData
 
     public static function passETagAccessCondition($ac)
     {
-        if (is_null($ac)) {
+        if (is_null($ac) || empty($ac)) {
             return true;
-        } elseif ($ac->getHeader() == Resources::IF_MATCH) {
-            return self::$badETag != $ac->getValue();
-        } elseif ($ac->getHeader() == Resources::IF_NONE_MATCH) {
-            return self::$badETag == $ac->getValue();
+        } elseif ($ac[0]->getHeader() == Resources::IF_MATCH) {
+            return self::$badETag != $ac[0]->getValue();
+        } elseif ($ac[0]->getHeader() == Resources::IF_NONE_MATCH) {
+            return self::$badETag == $ac[0]->getValue();
         } else {
             return true;
         }
@@ -167,10 +165,10 @@ class BlobServiceFunctionalTestData
 
     public static function fixETagAccessCondition($ac, $etag)
     {
-        if (!is_null($ac)) {
-            if ($ac->getHeader() == Resources::IF_MATCH || $ac->getHeader() == Resources::IF_NONE_MATCH) {
-                if (is_null($ac->getValue()) || self::$badETag != $ac->getValue()) {
-                    $ac->setValue($etag);
+        if (!is_null($ac) && !empty($ac)) {
+            if ($ac[0]->getHeader() == Resources::IF_MATCH || $ac[0]->getHeader() == Resources::IF_NONE_MATCH) {
+                if (is_null($ac[0]->getValue()) || self::$badETag != $ac[0]->getValue()) {
+                    $ac[0]->setValue($etag);
                 }
             }
         }
@@ -222,7 +220,7 @@ class BlobServiceFunctionalTestData
 
         $sp = new ServiceProperties();
         $sp->setLogging($l);
-        $sp->setMetrics($m);
+        $sp->setHourMetrics($m);
 
         return $sp;
     }
@@ -265,7 +263,7 @@ class BlobServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c));
 
             array_push($ret, $sp);
@@ -299,7 +297,7 @@ class BlobServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
 
             array_push($ret, $sp);
@@ -333,7 +331,7 @@ class BlobServiceFunctionalTestData
 
             $sp = new ServiceProperties();
             $sp->setLogging($l);
-            $sp->setMetrics($m);
+            $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
             
             array_push($ret, $sp);
@@ -560,31 +558,31 @@ class BlobServiceFunctionalTestData
         $past = new \DateTime("01/01/2010");
         $future = new \DateTime("01/01/2020");
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(10);
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(-10);
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
-        $options->setAccessCondition(AccessCondition::ifModifiedSince($past));
+        $options = new BlobServiceOptions();
+        $options->setAccessConditions(AccessCondition::ifModifiedSince($past));
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
-        $options->setAccessCondition(AccessCondition::ifNotModifiedSince($past));
+        $options = new BlobServiceOptions();
+        $options->setAccessConditions(AccessCondition::ifNotModifiedSince($past));
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
-        $options->setAccessCondition(AccessCondition::ifModifiedSince($future));
+        $options = new BlobServiceOptions();
+        $options->setAccessConditions(AccessCondition::ifModifiedSince($future));
         array_push($ret, $options);
 
-        $options = new DeleteContainerOptions();
-        $options->setAccessCondition(AccessCondition::ifNotModifiedSince($future));
+        $options = new BlobServiceOptions();
+        $options->setAccessConditions(AccessCondition::ifNotModifiedSince($future));
         array_push($ret, $options);
 
         return $ret;
@@ -594,22 +592,22 @@ class BlobServiceFunctionalTestData
     {
         $ret = array();
 
-        $options = new SetContainerMetadataOptions();
+        $options = new BlobServiceOptions();
         array_push($ret, $options);
 
-        $options = new SetContainerMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(10);
         array_push($ret, $options);
 
-        $options = new SetContainerMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(-10);
         array_push($ret, $options);
 
         // Set Container Metadata only supports the If-Modified-Since access condition.
         // But easier to special-case If-Unmodified-Since in the test.
         foreach (self::getTemporalAccessConditions() as $ac) {
-            $options = new SetContainerMetadataOptions();
-            $options->setAccessCondition($ac);
+            $options = new BlobServiceOptions();
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -620,25 +618,25 @@ class BlobServiceFunctionalTestData
     {
         $ret = array();
 
-        $options = new SetBlobMetadataOptions();
+        $options = new BlobServiceOptions();
         array_push($ret, $options);
 
-        $options = new SetBlobMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(10);
         array_push($ret, $options);
 
-        $options = new SetBlobMetadataOptions();
+        $options = new BlobServiceOptions();
         $options->setTimeout(-10);
         array_push($ret, $options);
 
         foreach (self::getAllAccessConditions() as $ac) {
-            $options = new SetBlobMetadataOptions();
-            $options->setAccessCondition($ac);
+            $options = new BlobServiceOptions();
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
         // TODO: Make sure the lease id part is tested in the leasing part.
-        //        $options = new SetBlobMetadataOptions();
+        //        $options = new BlobServiceOptions();
         //        $options->setLeaseId(leaseId)
         //        array_push($ret, $options);
 
@@ -663,7 +661,7 @@ class BlobServiceFunctionalTestData
         // Get Blob Properties only supports the temporal access conditions.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new GetBlobPropertiesOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -688,33 +686,33 @@ class BlobServiceFunctionalTestData
         // Get Blob Properties only supports the temporal access conditions.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new SetBlobPropertiesOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobCacheControl('setBlobCacheControl');
+        $options->setCacheControl('setCacheControl');
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentEncoding('setBlobContentEncoding');
+        $options->setContentEncoding('setContentEncoding');
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentLanguage('setBlobContentLanguage');
+        $options->setContentLanguage('setContentLanguage');
         array_push($ret, $options);
 
         // Note: This is not allowed on block blobs
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentLength(2048);
+        $options->setContentLength(2048);
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentMD5('d41d8cd98f00b204e9800998ecf8427e');
+        $options->setContentMD5('d41d8cd98f00b204e9800998ecf8427e');
         array_push($ret, $options);
 
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentType('setContentType');
+        $options->setContentType('setContentType');
         array_push($ret, $options);
 
         // TODO: Handle Lease ID
@@ -778,7 +776,7 @@ class BlobServiceFunctionalTestData
         // Get Blob only supports the temporal access conditions.
         foreach (self::getTemporalAccessConditions() as $ac) {
             $options = new GetBlobOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -839,7 +837,7 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new DeleteBlobOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -880,7 +878,7 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new CreateBlobSnapshotOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 
@@ -913,13 +911,13 @@ class BlobServiceFunctionalTestData
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new CopyBlobOptions();
-            $options->setSourceAccessCondition($ac);
+            $options->setSourceAccessConditions($ac);
             array_push($ret, $options);
         }
 
         foreach (self::getAllAccessConditions() as $ac) {
             $options = new CopyBlobOptions();
-            $options->setAccessCondition($ac);
+            $options->setAccessConditions($ac);
             array_push($ret, $options);
         }
 

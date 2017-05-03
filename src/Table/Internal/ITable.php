@@ -26,6 +26,8 @@ namespace MicrosoftAzure\Storage\Table\Internal;
 
 use MicrosoftAzure\Storage\Table\Models as TableModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
+use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Table service.
@@ -42,36 +44,36 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 interface ITable
 {
     /**
-    * Gets the properties of the Table service.
+    * Gets the properties of the service.
     *
-    * @param TableModels\TableServiceOptions $options optional table service options.
+    * @param ServiceOptions $options optional table service options.
     *
     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452238.aspx
     */
     public function getServiceProperties(
-        TableModels\TableServiceOptions $options = null
+        ServiceOptions $options = null
     );
 
     /**
-     * Creates promise to get the properties of the Table service.
+     * Creates promise to get the properties of the service.
      *
-     * @param TableModels\TableServiceOptions $options optional table service options.
+     * @param ServiceOptions $options optional table service options.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452238.aspx
      */
     public function getServicePropertiesAsync(
-        TableModels\TableServiceOptions $options = null
+        ServiceOptions $options = null
     );
 
     /**
-    * Sets the properties of the Table service.
+    * Sets the properties of the service.
     *
-    * @param ServiceProperties               $serviceProperties new service properties
-    * @param TableModels\TableServiceOptions $options           optional parameters
+    * @param ServiceProperties $serviceProperties new service properties
+    * @param ServiceOptions    $options           optional parameters
     *
     * @return void
     *
@@ -79,17 +81,17 @@ interface ITable
     */
     public function setServiceProperties(
         ServiceProperties $serviceProperties,
-        TableModels\TableServiceOptions $options = null
+        ServiceOptions $options = null
     );
 
     /**
-     * Creates promise to set the properties of the Table service.
+     * Creates promise to set the properties of the service.
      *
      * It's recommended to use getServiceProperties, alter the returned object and
      * then use setServiceProperties with this altered object.
      *
-     * @param ServiceProperties               $serviceProperties new service properties
-     * @param TableModels\TableServiceOptions $options           optional parameters
+     * @param ServiceProperties $serviceProperties new service properties
+     * @param ServiceOptions    $options           optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -97,8 +99,32 @@ interface ITable
      */
     public function setServicePropertiesAsync(
         ServiceProperties $serviceProperties,
-        TableModels\TableServiceOptions $options = null
+        ServiceOptions $options = null
     );
+
+    /**
+     * Retieves statistics related to replication for the service. The operation
+     * will only be sent to secondary location endpoint.
+     *
+     * @param  ServiceOptions|null $options The options this operation sends with.
+     *
+     * @return GetServiceStatsResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-table-service-stats
+     */
+    public function getServiceStats(ServiceOptions $options = null);
+
+    /**
+     * Creates promise that retrieves statistics related to replication for the
+     * service. The operation will only be sent to secondary location endpoint.
+     *
+     * @param  ServiceOptions|null $options The options this operation sends with.
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-table-service-stats
+     */
+    public function getServiceStatsAsync(ServiceOptions $options = null);
     
     /**
      * Quries tables in the given storage account.

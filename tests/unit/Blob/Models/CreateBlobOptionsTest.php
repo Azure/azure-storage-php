@@ -131,93 +131,21 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setBlobContentType
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getBlobContentType
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setContentDisposition
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getContentDisposition
      */
-    public function testSetBlobContentType()
+    public function testSetContentDisposition()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CreateBlobOptions();
-        $options->setBlobContentType($expected);
+        $options->setContentDisposition($expected);
         
         // Test
-        $options->setBlobContentType($expected);
+        $options->setContentDisposition($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getBlobContentType());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setBlobContentEncoding
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getBlobContentEncoding
-     */
-    public function testSetBlobContentEncoding()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $options = new CreateBlobOptions();
-        $options->setBlobContentEncoding($expected);
-        
-        // Test
-        $options->setBlobContentEncoding($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getBlobContentEncoding());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setBlobContentLanguage
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getBlobContentLanguage
-     */
-    public function testSetBlobContentLanguage()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $options = new CreateBlobOptions();
-        $options->setBlobContentLanguage($expected);
-        
-        // Test
-        $options->setBlobContentLanguage($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getBlobContentLanguage());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setBlobContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getBlobContentMD5
-     */
-    public function testSetBlobContentMD5()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $options = new CreateBlobOptions();
-        $options->setBlobContentMD5($expected);
-        
-        // Test
-        $options->setBlobContentMD5($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getBlobContentMD5());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setBlobCacheControl
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getBlobCacheControl
-     */
-    public function testSetBlobCacheControl()
-    {
-        // Setup
-        $expected = '0x8CAFB82EFF70C46';
-        $options = new CreateBlobOptions();
-        $options->setBlobCacheControl($expected);
-        
-        // Test
-        $options->setBlobCacheControl($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $options->getBlobCacheControl());
+        $this->assertEquals($expected, $options->getContentDisposition());
     }
     
     /**
@@ -290,35 +218,35 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getAccessCondition
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getAccessConditions
      */
-    public function testGetAccessCondition()
+    public function testGetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new CreateBlobOptions();
-        $result->setAccessCondition($expected);
+        $result->setAccessConditions($expected);
         
         // Test
-        $actual = $result->getAccessCondition();
+        $actual = $result->getAccessConditions();
         
         // Assert
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual[0]);
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setAccessCondition
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setAccessConditions
      */
-    public function testSetAccessCondition()
+    public function testSetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new CreateBlobOptions();
         
         // Test
-        $result->setAccessCondition($expected);
+        $result->setAccessConditions($expected);
         
         // Assert
-        $this->assertEquals($expected, $result->getAccessCondition());
+        $this->assertEquals($expected, $result->getAccessConditions()[0]);
     }
 }

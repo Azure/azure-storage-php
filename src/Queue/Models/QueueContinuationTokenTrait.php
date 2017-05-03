@@ -14,49 +14,43 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Blob\Models;
+namespace MicrosoftAzure\Storage\Queue\Models;
+
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+use MicrosoftAzure\Storage\Queue\Models\QueueContinuationToken;
 
 /**
- * Optional parameters for acquireLease wrapper
+ * Trait implementing logic for Queue continuation tokens.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AcquireLeaseOptions extends BlobServiceOptions
+trait QueueContinuationTokenTrait
 {
-    private $_accessCondition;
-    
+    use MarkerContinuationTokenTrait;
+
     /**
-     * Gets access condition
-     *
-     * @return \MicrosoftAzure\Storage\Blob\Models\AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param \MicrosoftAzure\Storage\Blob\Models\AccessCondition $accessCondition value to use.
+     * Creates a continuation token if current one is null.
      *
      * @return void
      */
-    public function setAccessCondition(AccessCondition $accessCondition)
+    private function createContinuationTokenIfNotExist()
     {
-        $this->_accessCondition = $accessCondition;
+        if ($this->continuationToken == null) {
+            $this->continuationToken = new QueueContinuationToken();
+        }
     }
 }

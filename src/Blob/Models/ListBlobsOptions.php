@@ -25,6 +25,9 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
 
 /**
  * Optional parameters for listBlobs API.
@@ -38,13 +41,15 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListBlobsOptions extends BlobServiceOptions
 {
+    use BlobContinuationTokenTrait;
+
     private $_prefix;
-    private $_marker;
     private $_delimiter;
     private $_maxResults;
     private $_includeMetadata;
     private $_includeSnapshots;
     private $_includeUncommittedBlobs;
+    private $_includeCopy;
 
     /**
      * Gets prefix.
@@ -90,29 +95,6 @@ class ListBlobsOptions extends BlobServiceOptions
     {
         Validate::isString($delimiter, 'delimiter');
         $this->_delimiter = $delimiter;
-    }
-
-    /**
-     * Gets marker.
-     *
-     * @return string
-     */
-    public function getMarker()
-    {
-        return $this->_marker;
-    }
-
-    /**
-     * Sets marker.
-     *
-     * @param string $marker value.
-     *
-     * @return void
-     */
-    public function setMarker($marker)
-    {
-        Validate::isString($marker, 'marker');
-        $this->_marker = $marker;
     }
 
     /**
@@ -205,5 +187,28 @@ class ListBlobsOptions extends BlobServiceOptions
     {
         Validate::isBoolean($includeUncommittedBlobs);
         $this->_includeUncommittedBlobs = $includeUncommittedBlobs;
+    }
+    
+    /**
+     * Indicates if copy is included or not.
+     *
+     * @return boolean
+     */
+    public function getIncludeCopy()
+    {
+        return $this->_includeCopy;
+    }
+
+    /**
+     * Sets the include copy flag.
+     *
+     * @param bool $includeCopy value.
+     *
+     * @return void
+     */
+    public function setIncludeCopy($includeCopy)
+    {
+        Validate::isBoolean($includeCopy);
+        $this->_includeCopy = $includeCopy;
     }
 }

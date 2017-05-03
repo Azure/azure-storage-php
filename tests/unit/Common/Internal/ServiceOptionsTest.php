@@ -15,7 +15,7 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -24,28 +24,28 @@
 
 namespace MicrosoftAzure\Storage\Tests\unit\Common;
 
-use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
- * Unit tests for class ServiceOptionsBase
+ * Unit tests for class ServiceOptions
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Internal
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ServiceOptionsBaseTest extends \PHPUnit_Framework_TestCase
+class ServiceOptionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::setTimeout
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::getTimeout
+     * @covers MicrosoftAzure\Storage\Common\Models\ServiceOptions::setTimeout
+     * @covers MicrosoftAzure\Storage\Common\Models\ServiceOptions::getTimeout
      */
     public function testSetGetTimeout()
     {
         // Setup
-        $options = new ServiceOptionsBase();
+        $options = new ServiceOptions();
         $value = 10;
         
         // Test
@@ -55,23 +55,4 @@ class ServiceOptionsBaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $options->getTimeout());
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::setRequestOptions
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase::getRequestOptions
-     */
-    public function testSetGetRequestOptions()
-    {
-        // Setup
-        $options = new ServiceOptionsBase();
-        $requestOptions = array(
-            'middlewares' => 'test_middleware',
-            'handler' => 'test_handler'
-        );
-        
-        // Test
-        $options->setRequestOptions($requestOptions);
-        
-        // Assert
-        $this->assertEquals($requestOptions, $options->getRequestOptions());
-    }
 }

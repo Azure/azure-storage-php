@@ -25,6 +25,8 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -39,8 +41,9 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListContainersOptions extends BlobServiceOptions
 {
+    use BlobContinuationTokenTrait;
+
     private $_prefix;
-    private $_marker;
     private $_maxResults;
     private $_includeMetadata;
 
@@ -70,39 +73,8 @@ class ListContainersOptions extends BlobServiceOptions
     }
 
     /**
-     * Gets marker which identifies the portion of the list to be returned with 
-     * the next list operation. The operation returns a marker value within the
-     * response body if the list returned was not complete. The marker value may
-     * then be used in a subsequent call to request the next set of list items.
-     * The marker value is opaque to the client.
-     *
-     * @return string
-     */
-    public function getMarker()
-    {
-        return $this->_marker;
-    }
-
-    /**
-     * Sets marker which identifies the portion of the list to be returned with 
-     * the next list operation. The operation returns a marker value within the
-     * response body if the list returned was not complete. The marker value may
-     * then be used in a subsequent call to request the next set of list items.
-     * The marker value is opaque to the client.
-     *
-     * @param string $marker value.
-     *
-     * @return void
-     */
-    public function setMarker($marker)
-    {
-        Validate::isString($marker, 'marker');
-        $this->_marker = $marker;
-    }
-
-    /**
-     * Gets max results which specifies the maximum number of containers to return. 
-     * If the request does not specify maxresults, or specifies a value 
+     * Gets max results which specifies the maximum number of containers to return.
+     * If the request does not specify maxresults, or specifies a value
      * greater than 5,000, the server will return up to 5,000 items.
      * If the parameter is set to a value less than or equal to zero,
      * the server will return status code 400 (Bad Request).
@@ -115,8 +87,8 @@ class ListContainersOptions extends BlobServiceOptions
     }
 
     /**
-     * Sets max results which specifies the maximum number of containers to return. 
-     * If the request does not specify maxresults, or specifies a value 
+     * Sets max results which specifies the maximum number of containers to return.
+     * If the request does not specify maxresults, or specifies a value
      * greater than 5,000, the server will return up to 5,000 items.
      * If the parameter is set to a value less than or equal to zero,
      * the server will return status code 400 (Bad Request).

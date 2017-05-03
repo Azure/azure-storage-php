@@ -15,59 +15,58 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Blob\Models;
+namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
-use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Models\ContinuationToken;
 
 /**
- * Optional parameters for setContainerMetadata wrapper
+ * Provides functionality and data structure for queue continuation token.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SetContainerMetadataOptions extends BlobServiceOptions
+class QueueContinuationToken extends ContinuationToken
 {
-    private $_accessCondition;
-    
-    /**
-     * Constructs the access condition object with none option.
-     */
-    public function __construct()
-    {
-        $this->_accessCondition = AccessCondition::none();
+    private $nextMarker;
+
+    public function __construct(
+        $nextMarker = '',
+        $location = ''
+    ) {
+        parent::__construct($location);
+        $this->setNextMarker($nextMarker);
     }
-    
+
     /**
-     * Gets access condition
+     * Setter for nextMarker
      *
-     * @return AccessCondition
+     * @param string $nextMarker the next marker to be set.
      */
-    public function getAccessCondition()
+    public function setNextMarker($nextMarker)
     {
-        return $this->_accessCondition;
+        Validate::isString($nextMarker, 'nextMarker');
+        $this->nextMarker = $nextMarker;
     }
-    
+
     /**
-     * Sets access condition
+     * Getter for nextMarker
      *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
+     * @return string
      */
-    public function setAccessCondition(AccessCondition $accessCondition)
+    public function getNextMarker()
     {
-        $this->_accessCondition = $accessCondition;
+        return $this->nextMarker;
     }
 }

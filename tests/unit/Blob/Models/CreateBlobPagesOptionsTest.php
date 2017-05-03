@@ -39,36 +39,36 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::getAccessCondition
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::getAccessConditions
      */
-    public function testGetAccessCondition()
+    public function testGetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $options = new CreateBlobPagesOptions();
-        $options->setAccessCondition($expected);
+        $options->setAccessConditions($expected);
         
         // Test
-        $actual = $options->getAccessCondition();
+        $actual = $options->getAccessConditions();
         
         // Assert
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual[0]);
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::setAccessCondition
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::setAccessConditions
      */
-    public function testSetAccessCondition()
+    public function testSetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $options = new CreateBlobPagesOptions();
         
         // Test
-        $options->setAccessCondition($expected);
+        $options->setAccessConditions($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getAccessCondition());
+        $this->assertEquals($expected, $options->getAccessConditions()[0]);
     }
     
     /**

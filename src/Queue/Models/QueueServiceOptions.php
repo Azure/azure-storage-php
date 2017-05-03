@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
  * Queue service options.
@@ -36,6 +36,6 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceOptionsBase;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueueServiceOptions extends ServiceOptionsBase
+class QueueServiceOptions extends ServiceOptions
 {
 }

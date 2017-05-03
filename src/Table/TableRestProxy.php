@@ -24,13 +24,13 @@
 
 namespace MicrosoftAzure\Storage\Table;
 
+use MicrosoftAzure\Storage\Common\Internal\ServiceRestTrait;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
-use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
-use MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult;
+use MicrosoftAzure\Storage\Common\LocationMode;
 use MicrosoftAzure\Storage\Table\Internal\ITable;
 use MicrosoftAzure\Storage\Table\Models\TableServiceOptions;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -72,6 +72,8 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\ISerializer;
  */
 class TableRestProxy extends ServiceRestProxy implements ITable
 {
+    use ServiceRestTrait;
+
     /**
      * @var Internal\IAtomReaderWriter
      */
@@ -299,16 +301,13 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
         $etagObj = $options->getETag();
         $ETag    = !is_null($etagObj);
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         $this->addOptionalHeader(
             $headers,
             Resources::IF_MATCH,
             $ETag ? $etagObj : Resources::ASTERISK
         );
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
 
         $context = new HttpCallContext();
         $context->setHeaders($headers);
@@ -316,9 +315,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setPath($path);
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
-        $context->setUri($this->getUri());
         $context->setBody('');
-        $context->setRequestOptions($options->getRequestOptions());
+        $context->setServiceOptions($options);
 
         return $context;
     }
@@ -367,17 +365,13 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $this->addOptionalHeader($headers, Resources::IF_MATCH, $ifMatchValue);
         }
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         $this->addOptionalHeader(
             $headers,
             Resources::CONTENT_TYPE,
             Resources::XML_ATOM_CONTENT_TYPE
         );
 
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
         $context = new HttpCallContext();
         $context->setBody($body);
         $context->setHeaders($headers);
@@ -385,8 +379,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setPath($path);
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
-        $context->setUri($this->getUri());
-        $context->setRequestOptions($options->getRequestOptions());
+        $context->setServiceOptions($options);
 
         return $context;
     }
@@ -422,25 +415,20 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $options = new TableServiceOptions();
         }
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
         $this->addOptionalHeader(
             $headers,
             Resources::CONTENT_TYPE,
             Resources::XML_ATOM_CONTENT_TYPE
         );
 
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
         $context->setBody($body);
         $context->setHeaders($headers);
         $context->setMethod($method);
         $context->setPath($path);
         $context->setQueryParameters($queryParams);
         $context->addStatusCode($statusCode);
-        $context->setUri($this->getUri());
-        $context->setRequestOptions($options->getRequestOptions());
+        $context->setServiceOptions($options);
 
         return $context;
     }
@@ -590,7 +578,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
             if (!is_null($query->getFilter())) {
                 $final = $this->_buildFilterExpression($query->getFilter());
-
                 $this->addOptionalQueryParam(
                     $queryParam,
                     Resources::QP_FILTER,
@@ -642,165 +629,30 @@ class TableRestProxy extends ServiceRestProxy implements ITable
     /**
      * Initializes new TableRestProxy object.
      *
-     * @param string            $uri            The storage account uri.
+     * @param string            $primaryUri     The storage account primary uri.
+     * @param string            $secondaryUri   The storage account secondary uri.
      * @param IAtomReaderWriter $atomSerializer The atom serializer.
      * @param IMimeReaderWriter $mimeSerializer The MIME serializer.
      * @param ISerializer       $dataSerializer The data serializer.
      * @param array             $options        Array of options to pass to the service
      */
     public function __construct(
-        $uri,
+        $primaryUri,
+        $secondaryUri,
         IAtomReaderWriter $atomSerializer,
         IMimeReaderWriter $mimeSerializer,
         ISerializer $dataSerializer,
         array $options = []
     ) {
         parent::__construct(
-            $uri,
+            $primaryUri,
+            $secondaryUri,
             Resources::EMPTY_STRING,
             $dataSerializer,
             $options
         );
         $this->_atomSerializer = $atomSerializer;
         $this->_mimeSerializer = $mimeSerializer;
-    }
-
-    /**
-     * Gets the properties of the Table service.
-     *
-     * @param Models\TableServiceOptions $options optional table service options.
-     *
-     * @return \MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452238.aspx
-     */
-    public function getServiceProperties(Models\TableServiceOptions $options = null)
-    {
-        return $this->getServicePropertiesAsync($options)->wait();
-    }
-
-    /**
-     * Creates promise to get the properties of the Table service.
-     *
-     * @param Models\TableServiceOptions $options optional table service options.
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452238.aspx
-     */
-    public function getServicePropertiesAsync(
-        Models\TableServiceOptions $options = null
-    ) {
-        if (is_null($options)) {
-            $options = new TableServiceOptions();
-        }
-
-        $context = new HttpCallContext();
-        $timeout = $options->getTimeout();
-        $context->setMethod(Resources::HTTP_GET);
-        $context->addOptionalQueryParameter(Resources::QP_REST_TYPE, 'service');
-        $context->addOptionalQueryParameter(Resources::QP_COMP, 'properties');
-        $context->addOptionalQueryParameter(Resources::QP_TIMEOUT, $timeout);
-        $context->setStatusCodes(array(Resources::STATUS_OK));
-        $context->setRequestOptions($options->getRequestOptions());
-
-        $dataSerializer = $this->dataSerializer;
-
-        return $this->sendContextAsync($context)->then(
-            function ($response) use ($dataSerializer) {
-                $parsed = $dataSerializer->unserialize($response->getBody());
-                return GetServicePropertiesResult::create($parsed);
-            },
-            null
-        );
-    }
-
-    /**
-     * Sets the properties of the Table service.
-     *
-     * It's recommended to use getServiceProperties, alter the returned object and
-     * then use setServiceProperties with this altered object.
-     *
-     * @param ServiceProperties          $serviceProperties new service properties
-     * @param Models\TableServiceOptions $options           optional parameters
-     *
-     * @return void
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452240.aspx
-     */
-    public function setServiceProperties(
-        ServiceProperties $serviceProperties,
-        Models\TableServiceOptions $options = null
-    ) {
-        $this->setServicePropertiesAsync($serviceProperties, $options)->wait();
-    }
-
-    /**
-     * Creates promise to set the properties of the Table service.
-     *
-     * It's recommended to use getServiceProperties, alter the returned object and
-     * then use setServiceProperties with this altered object.
-     *
-     * @param ServiceProperties          $serviceProperties new service properties
-     * @param Models\TableServiceOptions $options           optional parameters
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/hh452240.aspx
-     */
-    public function setServicePropertiesAsync(
-        ServiceProperties $serviceProperties,
-        Models\TableServiceOptions $options = null
-    ) {
-        Validate::isTrue(
-            $serviceProperties instanceof ServiceProperties,
-            Resources::INVALID_SVC_PROP_MSG
-        );
-
-        $method      = Resources::HTTP_PUT;
-        $headers     = array();
-        $postParams  = array();
-        $queryParams = array();
-        $path        = Resources::EMPTY_STRING;
-        $body        = Resources::EMPTY_STRING;
-
-        if (is_null($options)) {
-            $options = new TableServiceOptions();
-        }
-
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_REST_TYPE,
-            'service'
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_COMP,
-            'properties'
-        );
-
-        $this->addOptionalHeader(
-            $headers,
-            Resources::CONTENT_TYPE,
-            Resources::XML_ATOM_CONTENT_TYPE
-        );
-        $body = $serviceProperties->toXml($this->dataSerializer);
-
-        return $this->sendAsync(
-            $method,
-            $headers,
-            $queryParams,
-            $postParams,
-            $path,
-            Resources::STATUS_ACCEPTED,
-            $body,
-            $options->getRequestOptions()
-        );
     }
 
     /**
@@ -851,7 +703,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $query   = $options->getQuery();
         $next    = $options->getNextTableName();
         $prefix  = $options->getPrefix();
-        $timeout = $options->getTimeout();
 
         if (!empty($prefix)) {
             // Append Max char to end '{' is 1 + 'z' in AsciiTable ==> upperBound
@@ -891,11 +742,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             Resources::QP_NEXT_TABLE_NAME,
             $next
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $timeout
-        );
 
         // One can specify the NextTableName option to get table entities starting
         // from the specified name. However, there appears to be an issue in the
@@ -918,7 +764,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use ($atomSerializer) {
             $tables = $atomSerializer->parseTableEntries($response->getBody());
             return QueryTablesResult::create(
@@ -976,11 +822,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             Resources::CONTENT_TYPE,
             Resources::XML_ATOM_CONTENT_TYPE
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
 
         return $this->sendAsync(
             $method,
@@ -990,7 +833,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_CREATED,
             $body,
-            $options->getRequestOptions()
+            $options
         );
     }
 
@@ -1037,11 +880,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             Resources::CONTENT_TYPE,
             Resources::XML_ATOM_CONTENT_TYPE
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
 
         $atomSerializer = $this->_atomSerializer;
 
@@ -1053,7 +891,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use ($atomSerializer) {
             return GetTableResult::create($response->getBody(), $atomSerializer);
         }, null);
@@ -1101,12 +939,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $options = new TableServiceOptions();
         }
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-
         return $this->sendAsync(
             $method,
             $headers,
@@ -1114,7 +946,8 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $postParams,
             $path,
             Resources::STATUS_NO_CONTENT,
-            $options->getRequestOptions()
+            Resources::EMPTY_STRING,
+            $options
         );
     }
 
@@ -1174,11 +1007,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
 
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_NEXT_PK,
             $options->getNextPartitionKey()
         );
@@ -1214,7 +1042,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use ($atomSerializer) {
             $entities = $atomSerializer->parseEntities($response->getBody());
 
@@ -1582,11 +1410,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             Resources::CONTENT_TYPE,
             Resources::XML_ATOM_CONTENT_TYPE
         );
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
 
         $context = new HttpCallContext();
         $context->setHeaders($headers);
@@ -1594,7 +1417,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $context->setPath($path);
         $context->setQueryParameters($queryParams);
         $context->setStatusCodes(array(Resources::STATUS_OK));
-        $context->setRequestOptions($options->getRequestOptions());
+        $context->setServiceOptions($options);
 
         $atomSerializer = $this->_atomSerializer;
 
@@ -1652,14 +1475,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $options = new TableServiceOptions();
         }
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-
         $atomSerializer = $this->_atomSerializer;
         $mimeSerializer = $this->_mimeSerializer;
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
 
         return $this->sendAsync(
             $method,
@@ -1669,7 +1488,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_ACCEPTED,
             $body,
-            $options->getRequestOptions()
+            $options
         )->then(function ($response) use (
             $operations,
             $contexts,
@@ -1732,11 +1551,6 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'acl'
         );
@@ -1751,7 +1565,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
-            $options->getRequestOptions()
+            $options
         );
 
         return $promise->then(function ($response) use ($dataSerializer) {
@@ -1811,16 +1625,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_TIMEOUT,
-            $options->getTimeout()
-        );
-
-        $this->addOptionalQueryParam(
-            $queryParams,
             Resources::QP_COMP,
             'acl'
         );
 
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+        
         return $this->sendAsync(
             $method,
             $headers,
@@ -1829,7 +1639,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $path,
             Resources::STATUS_NO_CONTENT,
             $body,
-            $options->getRequestOptions()
+            $options
         );
     }
 }

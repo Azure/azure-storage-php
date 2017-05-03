@@ -1152,6 +1152,8 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
      * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::_constructResponses
      * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::_compareUsingContentId
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendContext
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedExceptionMessage All commands in a batch must operate on same entity group.
      */
     public function testBatchWithDifferentPKFail()
     {
@@ -1176,9 +1178,6 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         
         // Test
         $result = $this->restProxy->batch($operations);
-        
-        // Assert
-        $this->assertTrue(true);
     }
 
     /**
@@ -1211,6 +1210,20 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
             $resultAcl->getSignedIdentifiers() == $negative->getSignedIdentifiers(),
             'Should not equal to the negative test case'
         );
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Table\TableRestProxy::getServiceStats
+     * @covers  \MicrosoftAzure\Storage\Table\TableRestProxy::getServiceStatsAsync
+     */
+    public function testGetServiceStats()
+    {
+        $result = $this->restProxy->getServiceStats();
+
+        // Assert
+        $this->assertNotNull($result->getStatus());
+        $this->assertNotNull($result->getLastSyncTime());
+        $this->assertTrue($result->getLastSyncTime() instanceof \DateTime);
     }
 
     private static function getTableNameWithPrefix($prefix)

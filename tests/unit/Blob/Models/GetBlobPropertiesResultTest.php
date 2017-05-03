@@ -51,7 +51,7 @@ class GetBlobPropertiesResultTest extends \PHPUnit_Framework_TestCase
         // Setup
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
-        $expectedProperties = BlobProperties::create($expected);
+        $expectedProperties = BlobProperties::createFromHttpHeaders($expected);
         $expected['x-ms-meta-'] = $sample['Blobs']['Blob']['Metadata'];
         
         // Test

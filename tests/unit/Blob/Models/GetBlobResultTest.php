@@ -56,7 +56,7 @@ class GetBlobResultTest extends \PHPUnit_Framework_TestCase
         // Setup
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
-        $expectedProperties = BlobProperties::create($expected);
+        $expectedProperties = BlobProperties::createFromHttpHeaders($expected);
         $expectedMetadata = $sample['Blobs']['Blob']['Metadata'];
         $expectedBody = 'test data';
         

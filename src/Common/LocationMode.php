@@ -15,48 +15,39 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Blob\Models;
+namespace MicrosoftAzure\Storage\Common;
 
 /**
- * The optional for deleteContainer API.
+ * Location mode for the service.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class DeleteContainerOptions extends BlobServiceOptions
+class LocationMode
 {
-    private $_accessCondition;
-    
-    /**
-     * Gets access condition
-     *
-     * @return AccessCondition
-     */
-    public function getAccessCondition()
-    {
-        return $this->_accessCondition;
-    }
-    
-    /**
-     * Sets access condition
-     *
-     * @param AccessCondition $accessCondition value to use.
-     *
-     * @return void
-     */
-    public function setAccessCondition(AccessCondition $accessCondition)
-    {
-        $this->_accessCondition = $accessCondition;
-    }
+    //Request will only be sent to primary endpoint, except for
+    //getServiceStats APIs.
+    const PRIMARY_ONLY           = 'PrimaryOnly';
+
+    //Request will only be sent to secondary endpoint.
+    const SECONDARY_ONLY         = 'SecondaryOnly';
+
+    //Request will be sent to primary endpoint first, and retry for secondary
+    //endpoint.
+    const PRIMARY_THEN_SECONDARY = 'PrimaryThenSecondary';
+
+    //Request will be sent to secondary endpoint first, and retry for primary
+    //endpoint.
+    const SECONDARY_THEN_PRIMARY = 'SecondaryThenPrimary';
 }

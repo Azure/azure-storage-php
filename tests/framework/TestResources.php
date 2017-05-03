@@ -349,6 +349,11 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '20';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '20';
         //1st cors
         $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
             'http://www.microsoft.com,http://www.bing.com';
@@ -371,6 +376,17 @@ class TestResources
         return $sample;
     }
 
+    public static function getServiceStatsSample()
+    {
+        $sample = array();
+        $geo = array();
+        $geo[Resources::XTAG_STATUS] = 'live';
+        $geo[Resources::XTAG_LAST_SYNC_TIME] = 'Sun, 23 Apr 2017 02:14:35 GMT';
+        $sample[Resources::XTAG_GEO_REPLICATION] = $geo;
+
+        return $sample;
+    }
+
     public static function setServicePropertiesSample()
     {
         $sample = array();
@@ -385,6 +401,11 @@ class TestResources
         $sample['HourMetrics']['IncludeAPIs'] = 'false';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '10';
         //1st cors
         $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
             'http://www.microsoft.com,http://www.bing.com';
@@ -403,6 +424,48 @@ class TestResources
             'x-ms-meta-customheader1,x-ms-meta-data1*';
         $sample['Cors']['CorsRule'][1]['AllowedHeaders'] =
             'x-ms-meta-customheader1,x-ms-meta-target1*';
+
+        return $sample;
+    }
+
+    public static function setBlobServicePropertiesSample()
+    {
+        $sample = array();
+        $sample['Logging']['Version'] = '1.0';
+        $sample['Logging']['Delete'] = 'true';
+        $sample['Logging']['Read'] = 'false';
+        $sample['Logging']['Write'] = 'true';
+        $sample['Logging']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['Logging']['RetentionPolicy']['Days'] = '10';
+        $sample['HourMetrics']['Version'] = '1.0';
+        $sample['HourMetrics']['Enabled'] = 'true';
+        $sample['HourMetrics']['IncludeAPIs'] = 'false';
+        $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '10';
+        //1st cors
+        $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
+            'http://www.microsoft.com,http://www.bing.com';
+        $sample['Cors']['CorsRule'][0]['AllowedMethods'] = 'GET,PUT';
+        $sample['Cors']['CorsRule'][0]['MaxAgeInSeconds'] = '500';
+        $sample['Cors']['CorsRule'][0]['ExposedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-data0*';
+        $sample['Cors']['CorsRule'][0]['AllowedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-target0*';
+        //2nd cors
+        $sample['Cors']['CorsRule'][1]['AllowedOrigins'] =
+            'http://www.azure.com,http://www.office.com';
+        $sample['Cors']['CorsRule'][1]['AllowedMethods'] = 'POST,HEAD';
+        $sample['Cors']['CorsRule'][1]['MaxAgeInSeconds'] = '350';
+        $sample['Cors']['CorsRule'][1]['ExposedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-data1*';
+        $sample['Cors']['CorsRule'][1]['AllowedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-target1*';
+        $sample['DefaultServiceVersion'] = '2015-04-05';
 
         return $sample;
     }
@@ -533,6 +596,35 @@ class TestResources
         $sample['NextMarker'] = 'video';
 
         return $sample;
+    }
+
+    public static function listContainersMultipleRandomEntriesBody($count, $nextMarker)
+    {
+        $sample = array();
+        $sample['@attributes']['ServiceEndpoint'] = 'http://myaccount.blob.core.windows.net/';
+        $sample['MaxResults'] = $count;
+        $sample['account'] = 'myaccount';
+        $sample['Prefix'] = 'myprefix';
+        $containers = array();
+        for ($i = 0; $i < $count; ++$i) {
+            $containers[] = ['Container' => self::randomContainerEntry()];
+        }
+        $sample['Containers'] = $containers;
+        $sample['NextMarker'] = $nextMarker;
+
+        return $sample;
+    }
+
+    public static function randomContainerEntry()
+    {
+        $entry = array();
+        $entry['Name'] = self::getInterestingName('myprefix');
+        $time = self::getRandomEarlierTime();
+        $entry['Properties']['Last-Modified'] =
+            $time->format(Resources::AZURE_DATE_FORMAT);
+        $entry['Properties']['Etag'] = \uniqid();
+
+        return $entry;
     }
 
     public static function getContainerAclOneEntrySample()

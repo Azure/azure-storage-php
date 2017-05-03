@@ -14,72 +14,43 @@
  *
  * PHP version 5
  *
+ * @ignore
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
 
 /**
- * The result of calling acquireLease API.
+ * Trait implementing logic for Blob continuation tokens.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class LeaseBlobResult
+trait BlobContinuationTokenTrait
 {
-    private $_leaseId;
-    
+    use MarkerContinuationTokenTrait;
+
     /**
-     * Creates LeaseBlobResult from response headers
-     *
-     * @param array $headers response headers
-     *
-     * @internal
-     *
-     * @return \MicrosoftAzure\Storage\Blob\Models\LeaseBlobResult
-     */
-    public static function create(array $headers)
-    {
-        $result = new LeaseBlobResult();
-        
-        $result->setLeaseId(
-            Utilities::tryGetValue($headers, Resources::X_MS_LEASE_ID)
-        );
-        
-        return $result;
-    }
-    
-    /**
-     * Gets lease Id for the blob
-     *
-     * @return string
-     */
-    public function getLeaseId()
-    {
-        return $this->_leaseId;
-    }
-    
-    /**
-     * Sets lease Id for the blob
-     *
-     * @param string $leaseId the blob lease id.
+     * Creates a continuation token if current one is null.
      *
      * @return void
      */
-    protected function setLeaseId($leaseId)
+    private function createContinuationTokenIfNotExist()
     {
-        $this->_leaseId = $leaseId;
+        if ($this->continuationToken == null) {
+            $this->continuationToken = new BlobContinuationToken();
+        }
     }
 }

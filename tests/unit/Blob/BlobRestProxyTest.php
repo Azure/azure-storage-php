@@ -84,7 +84,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->skipIfEmulated();
         
         // Setup
-        $expected = ServiceProperties::create(TestResources::setServicePropertiesSample());
+        $expected = ServiceProperties::create(TestResources::setBlobServicePropertiesSample());
         
         // Test
         $this->setServiceProperties($expected);
@@ -944,7 +944,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, 'myblob', 512);
         $options = new SetBlobPropertiesOptions();
-        $options->setBlobContentLength($contentLength);
+        $options->setContentLength($contentLength);
         
         // Test
         $this->restProxy->setBlobProperties($name, $blob, $options);
@@ -1272,10 +1272,64 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         
         // Test
-        $result = $this->restProxy->acquireLease($name, $blob);
+        $proposedLeaseId = '6c75960f-2837-4c35-9948-e35e87d00edf';
+        $result = $this->restProxy->acquireLease($name, $blob, $proposedLeaseId, 20);
         
         // Assert
-        $this->assertNotNull($result->getLeaseId());
+        $this->assertEquals($proposedLeaseId, $result->getLeaseId());
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     */
+    public function testAcquireContainerLease()
+    {
+        // Setup
+        $name = 'acquirelease' . $this->createSuffix();
+        $blob = 'myblob';
+        $contentType = 'text/plain; charset=UTF-8';
+        $this->createContainer($name);
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
+        
+        // Test
+        $proposedLeaseId = '47809df9-8f4a-4243-828b-56243e702a04';
+        $result = $this->restProxy->acquireLease($name, null, $proposedLeaseId);
+        
+        // Assert
+        $this->assertEquals($proposedLeaseId, $result->getLeaseId());
+
+        // Break the lease so that the clean-up can delete the container
+        $result = $this->restProxy->breakLease($name, null, $result->getLeaseId());
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::changeLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     */
+    public function testChangeLease()
+    {
+        // Setup
+        $name = 'changelease' . $this->createSuffix();
+        $blob = 'myblob';
+        $contentType = 'text/plain; charset=UTF-8';
+        $this->createContainer($name);
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
+        
+        // Test
+        $result = $this->restProxy->acquireLease($name, $blob);
+        
+        $proposedLeaseId = '6c75960f-2837-4c35-9948-e35e87d00edf';
+        $result = $this->restProxy->changeLease($name, $blob, $result->getLeaseId(), $proposedLeaseId);
+        
+        // Assert
+        $this->assertEquals($proposedLeaseId, $result->getLeaseId());
     }
     
     /**
@@ -1342,7 +1396,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->restProxy->acquireLease($name, $blob);
         
         // Test
-        $result = $this->restProxy->breakLease($name, $blob, null);
+        $result = $this->restProxy->breakLease($name, $blob, 10);
         
         // Assert
         $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult', $result);
@@ -1607,8 +1661,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             $sourceContainerName,
             $sourceBlobName
         );
+        $copyId = $result->getCopyId();
+        $copyStatus = $result->getCopyStatus();
         
         // Assert
+        $this->assertNotNull($copyId);
+        $this->assertNotNull($copyStatus);
+
         $sourceBlob = $this->restProxy->getBlob($sourceContainerName, $sourceBlobName);
         $destinationBlob = $this->restProxy->getBlob($destinationContainerName, $destinationBlobName);
         $sourceBlobContent = stream_get_contents($sourceBlob->getContentStream());
@@ -1618,6 +1677,40 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
         $this->assertNotNull($result->getETag());
         $this->assertInstanceOf('\DateTime', $result->getlastModified());
+
+        $destinationBlobProperties =
+            $this->restProxy->getBlobProperties($destinationContainerName, $destinationBlobName);
+        $copyState = $destinationBlobProperties->getProperties()->getCopyState();
+
+        $this->assertNotNull($copyState);
+        $this->assertNotNull($copyState->getCopyId());
+        $this->assertNotNull($copyState->getCompletionTime());
+        $this->assertNotNull($copyState->getStatus());
+        $this->assertNotNull($copyState->getSource());
+        $this->assertNotNull($copyState->getBytesCopied());
+        $this->assertNotNull($copyState->getTotalBytes());
+
+        $listBlobsOptions = new ListBlobsOptions();
+        $listBlobsOptions->setIncludeCopy(true);
+        $listedDestinationBlobs = $this->restProxy->listBlobs($destinationContainerName, $listBlobsOptions);
+        
+        $destBlob = $listedDestinationBlobs->getBlobs()[0];
+        $copyState = $destBlob->getProperties()->getCopyState();
+
+        $this->assertNotNull($copyState);
+        $this->assertNotNull($copyState->getCopyId());
+        $this->assertNotNull($copyState->getCompletionTime());
+        $this->assertNotNull($copyState->getStatus());
+        $this->assertNotNull($copyState->getSource());
+        $this->assertNotNull($copyState->getBytesCopied());
+        $this->assertNotNull($copyState->getTotalBytes());
+
+        try {
+            $this->restProxy->abortCopy($destinationContainerName, $destinationBlobName, $copyId);
+        } catch (ServiceException $e) {
+            $this->assertEquals(409, $e->getCode());
+            $this->assertContains('There is currently no pending copy operation.', $e->getErrorText());
+        }
     }
     
     /**
@@ -2694,7 +2787,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
 
         // Test
-        $actual = $this->restProxy->addOptionalAccessConditionHeader($headers, $accessCondition);
+        $actual = $this->restProxy->addOptionalAccessConditionHeader($headers, [$accessCondition]);
 
         // Assert
         $this->assertCount(3, $actual);
@@ -2713,10 +2806,24 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $headers = array('Header1' => 'Value1', 'Header2' => 'Value2');
 
         // Test
-        $actual = $this->restProxy->addOptionalSourceAccessConditionHeader($headers, $accessCondition);
+        $actual = $this->restProxy->addOptionalSourceAccessConditionHeader($headers, [$accessCondition]);
 
         // Assert
         $this->assertCount(3, $actual);
         $this->assertEquals($expectedValue, $actual[$expectedHeader]);
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceStats
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceStatsAsync
+     */
+    public function testGetServiceStats()
+    {
+        $result = $this->restProxy->getServiceStats();
+
+        // Assert
+        $this->assertNotNull($result->getStatus());
+        $this->assertNotNull($result->getLastSyncTime());
+        $this->assertTrue($result->getLastSyncTime() instanceof \DateTime);
     }
 }

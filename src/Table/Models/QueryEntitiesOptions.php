@@ -24,6 +24,10 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
+use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
+use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
+use MicrosoftAzure\Storage\Table\Models\Query;
+
 /**
  * Holds optional parameters for queryEntities API
  *
@@ -36,15 +40,16 @@ namespace MicrosoftAzure\Storage\Table\Models;
  */
 class QueryEntitiesOptions extends TableServiceOptions
 {
+    use TableContinuationTokenTrait;
+
     private $_query;
-    private $_nextPartitionKey;
-    private $_nextRowKey;
     
     /**
      * Constructs new QueryEntitiesOptions object.
      */
     public function __construct()
     {
+        parent::__construct();
         $this->_query = new Query();
     }
     
@@ -64,57 +69,13 @@ class QueryEntitiesOptions extends TableServiceOptions
      * You can either sets the whole query *or* use the individual query functions
      * like (setTop).
      *
-     * @param string $query The query instance.
+     * @param Query $query The query instance.
      *
      * @return void
      */
-    public function setQuery($query)
+    public function setQuery(Query $query)
     {
         $this->_query = $query;
-    }
-    
-    /**
-     * Gets entity next partition key.
-     *
-     * @return string
-     */
-    public function getNextPartitionKey()
-    {
-        return $this->_nextPartitionKey;
-    }
-
-    /**
-     * Sets entity next partition key.
-     *
-     * @param string $nextPartitionKey The entity next partition key value.
-     *
-     * @return void
-     */
-    public function setNextPartitionKey($nextPartitionKey)
-    {
-        $this->_nextPartitionKey = $nextPartitionKey;
-    }
-    
-    /**
-     * Gets entity next row key.
-     *
-     * @return string
-     */
-    public function getNextRowKey()
-    {
-        return $this->_nextRowKey;
-    }
-
-    /**
-     * Sets entity next row key.
-     *
-     * @param string $nextRowKey The entity next row key value.
-     *
-     * @return void
-     */
-    public function setNextRowKey($nextRowKey)
-    {
-        $this->_nextRowKey = $nextRowKey;
     }
     
     /**
