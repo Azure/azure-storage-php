@@ -1,3 +1,8 @@
+2017.05 - version 0.16.0
+
+Queue
+* Renamed `MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage` to `MicrosoftAzure\Storage\Queue\Models\QueueMessage`
+
 2017.04 - version 0.15.0
 
 All

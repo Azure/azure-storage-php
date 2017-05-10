@@ -3,6 +3,9 @@ Tracking Breaking changes in 0.16.0
 All
 * Renamed and moved `MicrosoftAzure\Storage\Blob\Models\PageRange` to `MicrosoftAzure\Storage\Common\Models\Range`.
 
+Queue
+* Renamed `MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage` to `MicrosoftAzure\Storage\Queue\Models\QueueMessage`
+
 Tracking Breaking changes in 0.15.0
 
 All
