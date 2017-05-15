@@ -15,107 +15,128 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Blob\Models;
+namespace MicrosoftAzure\Storage\Common\Models;
 
 /**
- * Holds info about page range used in HTTP requests
+ * Holds info about resource+ range used in HTTP requests
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PageRange
+class Range
 {
-    private $_start;
-    private $_end;
+    private $start;
+    private $end;
 
     /**
      * Constructor
      *
-     * @param integer $start the page start value
-     * @param integer $end   the page end value
+     * @param integer $start the resource start value
+     * @param integer $end   the resource end value
      *
-     * @return PageRange
+     * @return Range
      */
-    public function __construct($start = null, $end = null)
+    public function __construct($start, $end = null)
     {
-        $this->_start = $start;
-        $this->_end   = $end;
+        $this->start = $start;
+        $this->end   = $end;
     }
     
     /**
-     * Sets page start range
+     * Sets resource start range
      *
-     * @param integer $start the page range start
+     * @param integer $start the resource range start
      *
      * @return void
      */
     public function setStart($start)
     {
-        $this->_start = $start;
+        $this->start = $start;
     }
     
     /**
-     * Gets page start range
+     * Gets resource start range
      *
      * @return integer
      */
     public function getStart()
     {
-        return $this->_start;
+        return $this->start;
     }
     
     /**
-     * Sets page end range
+     * Sets resource end range
      *
-     * @param integer $end the page range end
+     * @param integer $end the resource range end
      *
      * @return void
      */
     public function setEnd($end)
     {
-        $this->_end = $end;
+        $this->end = $end;
     }
     
     /**
-     * Gets page end range
+     * Gets resource end range
      *
      * @return integer
      */
     public function getEnd()
     {
-        return $this->_end;
+        return $this->end;
     }
     
     /**
-     * Gets page range length
+     * Gets resource range length
      *
      * @return integer
      */
     public function getLength()
     {
-        return $this->_end - $this->_start + 1;
+        if ($this->end != null) {
+            return $this->end - $this->start + 1;
+        } else {
+            return null;
+        }
     }
     
     /**
-     * Sets page range length
+     * Sets resource range length
      *
-     * @param integer $value new page range
+     * @param integer $value new resource range
      *
      * @return void
      */
     public function setLength($value)
     {
-        $this->_end = $this->_start + $value - 1;
+        $this->end = $this->start + $value - 1;
+    }
+
+    /**
+     * Constructs the range string according to the set start and end
+     *
+     * @return string
+     */
+    public function getRangeString()
+    {
+        $rangeString = '';
+
+        $rangeString .= ('bytes=' . $this->start . '-');
+        if ($this->end != null) {
+            $rangeString .= $this->end;
+        }
+
+        return $rangeString;
     }
 }

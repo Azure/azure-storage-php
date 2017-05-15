@@ -28,6 +28,7 @@ use MicrosoftAzure\Storage\Blob\Models as BlobModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
+use MicrosoftAzure\Storage\Common\Models\Range;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Blob service.
@@ -577,7 +578,7 @@ interface IBlob
     *
     * @param string                            $container name of the container
     * @param string                            $blob      name of the blob
-    * @param BlobModels\PageRange              $range     Can be up to the value
+    * @param Range                             $range     Can be up to the value
     * of the blob's full size.
     * @param BlobModels\CreateBlobPagesOptions $options   optional parameters
     *
@@ -588,7 +589,7 @@ interface IBlob
     public function clearBlobPages(
         $container,
         $blob,
-        BlobModels\PageRange $range,
+        Range $range,
         BlobModels\CreateBlobPagesOptions $options = null
     );
 
@@ -597,7 +598,7 @@ interface IBlob
      *
      * @param string                            $container name of the container
      * @param string                            $blob      name of the blob
-     * @param BlobModels\PageRange              $range     Can be up to the value
+     * @param Range                             $range     Can be up to the value
      *                                                     of the blob's full size.
      *                                                     Note that ranges must be
      *                                                     aligned to 512 (0-511,
@@ -611,7 +612,7 @@ interface IBlob
     public function clearBlobPagesAsync(
         $container,
         $blob,
-        BlobModels\PageRange $range,
+        Range $range,
         BlobModels\CreateBlobPagesOptions $options = null
     );
 
@@ -620,7 +621,7 @@ interface IBlob
     *
     * @param string                            $container name of the container
     * @param string                            $blob      name of the blob
-    * @param BlobModels\PageRange              $range     Can be up to 4 MB in size
+    * @param Range                             $range     Can be up to 4 MB in size
     * @param string                            $content   the blob contents
     * @param BlobModels\CreateBlobPagesOptions $options   optional parameters
     *
@@ -631,7 +632,7 @@ interface IBlob
     public function createBlobPages(
         $container,
         $blob,
-        BlobModels\PageRange $range,
+        Range $range,
         $content,
         BlobModels\CreateBlobPagesOptions $options = null
     );
@@ -641,7 +642,7 @@ interface IBlob
      *
      * @param string                            $container name of the container
      * @param string                            $blob      name of the blob
-     * @param BlobModels\PageRange              $range     Can be up to 4 MB in
+     * @param Range                             $range     Can be up to 4 MB in
      *                                                     size. Note that ranges
      *                                                     must be aligned to 512
      *                                                     (0-511, 512-1023)
@@ -655,7 +656,7 @@ interface IBlob
     public function createBlobPagesAsync(
         $container,
         $blob,
-        BlobModels\PageRange $range,
+        Range $range,
         $content,
         BlobModels\CreateBlobPagesOptions $options = null
     );

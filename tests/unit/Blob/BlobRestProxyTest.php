@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
@@ -46,7 +47,6 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\BlobType;
-use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
 use MicrosoftAzure\Storage\Blob\Models\BlockList;
 use MicrosoftAzure\Storage\Blob\Models\BlobBlockType;
@@ -1088,7 +1088,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($name);
         $this->_createdContainers[] = '$root';
         $length = 512;
-        $range = new PageRange(0, 511);
+        $range = new Range(0, 511);
         $contentStream = Resources::EMPTY_STRING;
         $this->restProxy->createPageBlob('', $blob, $length);
         for ($i = 0; $i < 512; $i++) {
@@ -1122,7 +1122,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $this->createContainer($name);
         $length = 512;
-        $range = new PageRange(0, 511);
+        $range = new Range(0, 511);
         $contentStream = Resources::EMPTY_STRING;
         $this->restProxy->createPageBlob($name, $blob, $length);
         for ($i = 0; $i < 512; $i++) {
@@ -1416,7 +1416,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $name = 'createblobpages' . $this->createSuffix();
         $blob = 'myblob';
         $length = 512;
-        $range = new PageRange(0, 511);
+        $range = new Range(0, 511);
         $content = Resources::EMPTY_STRING;
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, $blob, $length);
@@ -1442,7 +1442,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $name = 'clearblobpages' . $this->createSuffix();
         $blob = 'myblob';
         $length = 512;
-        $range = new PageRange(0, 511);
+        $range = new Range(0, 511);
         $content = Resources::EMPTY_STRING;
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, $blob, $length);
@@ -1468,7 +1468,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $name = 'listpageblobranges' . $this->createSuffix();
         $blob = 'myblob';
         $length = 512;
-        $range = new PageRange(0, 511);
+        $range = new Range(0, 511);
         $content = Resources::EMPTY_STRING;
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, $blob, $length);
@@ -1482,7 +1482,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertNotNull($result->getETag());
-        $this->assertCount(1, $result->getPageRanges());
+        $this->assertCount(1, $result->getRanges());
     }
     
     /**
@@ -1503,7 +1503,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $this->assertNotNull($result->getETag());
-        $this->assertCount(0, $result->getPageRanges());
+        $this->assertCount(0, $result->getRanges());
     }
     
     /**
@@ -2018,7 +2018,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $name = 'createblobpages' . $this->createSuffix();
         $blob = 'myblob';
         $length = 512;
-        $range = new PageRange(0, 511);
+        $range = new Range(0, 511);
         $content = Resources::EMPTY_STRING;
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, $blob, $length);
@@ -2414,7 +2414,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $chunkSize = Resources::MB_IN_BYTES_4;
         $uploadCount = $length / $chunkSize;
         for ($chunkIdx = 0; $chunkIdx < $uploadCount; ++$chunkIdx) {
-            $range = new PageRange(
+            $range = new Range(
                 $chunkSize * $chunkIdx,
                 ($chunkSize * ($chunkIdx + 1)) - 1
             );
@@ -2624,7 +2624,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $chunkSize = Resources::MB_IN_BYTES_4;
         $uploadCount = $length / $chunkSize;
         for ($chunkIdx = 0; $chunkIdx < $uploadCount; ++$chunkIdx) {
-            $range = new PageRange(
+            $range = new Range(
                 $chunkSize * $chunkIdx,
                 ($chunkSize * ($chunkIdx + 1)) - 1
             );
@@ -2664,7 +2664,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
      */
-    public function testPageRangeCreationWithInvalidRange()
+    public function testRangeCreationWithInvalidRange()
     {
         $errorMsg = '';
         //upload the blob
@@ -2674,7 +2674,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($name);
         $this->restProxy->createPageBlob($name, $blob, $length);
         //upload the blob
-        $range = new PageRange(0, 255);
+        $range = new Range(0, 255);
         $body = openssl_random_pseudo_bytes(256);
         try {
             $actual = $this->restProxy->createBlobPages(

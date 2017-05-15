@@ -36,6 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuth
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Table\TableRestProxy;
+use MicrosoftAzure\Storage\File\FileRestProxy;
 use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
@@ -52,7 +53,7 @@ use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
  */
 class ServicesBuilder
 {
-    private static $_instance = null;
+    private static $instance = null;
 
     /**
      * Gets the serializer used in the REST services construction.
@@ -116,6 +117,21 @@ class ServicesBuilder
      * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
      */
     protected function blobAuthenticationScheme($accountName, $accountKey)
+    {
+        return new SharedKeyAuthScheme($accountName, $accountKey);
+    }
+
+    /**
+     * Gets the File authentication scheme.
+     *
+     * @param string $accountName The account name.
+     * @param string $accountKey  The account key.
+     *
+     * @internal
+     *
+     * @return \MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme
+     */
+    protected function fileAuthenticationScheme($accountName, $accountKey)
     {
         return new SharedKeyAuthScheme($accountName, $accountKey);
     }
@@ -267,6 +283,65 @@ class ServicesBuilder
     }
 
     /**
+     * Builds a file service object, it accepts the following
+     * options:
+     *
+     * - http: (array) the underlying guzzle options. refer to
+     *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
+     *   `callable` that follows the Guzzle middleware implementation convention
+     *
+     * @param string $connectionString The configuration connection string.
+     * @param array  $options          Array of options to pass to the service
+     * @return \MicrosoftAzure\Storage\File\Internal\IFile
+     */
+    public function createFileService(
+        $connectionString,
+        array $options = []
+    ) {
+        $settings = StorageServiceSettings::createFromConnectionString(
+            $connectionString
+        );
+
+        $serializer = $this->serializer();
+
+        $primaryUri = Utilities::tryAddUrlScheme(
+            $settings->getFileEndpointUri()
+        );
+
+        $secondaryUri = Utilities::tryAddUrlScheme(
+            $settings->getFileSecondaryEndpointUri()
+        );
+
+        $fileWrapper = new FileRestProxy(
+            $primaryUri,
+            $secondaryUri,
+            $settings->getName(),
+            $serializer,
+            $options
+        );
+
+        // Getting authentication scheme
+        if ($settings->hasSasToken()) {
+            $authScheme = $this->sasAuthenticationScheme(
+                $settings->getSasToken()
+            );
+        } else {
+            $authScheme = $this->fileAuthenticationScheme(
+                $settings->getName(),
+                $settings->getKey()
+            );
+        }
+
+        // Adding common request middleware
+        $commonRequestMiddleware = new CommonRequestMiddleware($authScheme);
+        $fileWrapper->pushMiddleware($commonRequestMiddleware);
+
+        return $fileWrapper;
+    }
+
+    /**
      * Builds a table service object, it accepts the following
      * options:
      *
@@ -347,10 +422,10 @@ class ServicesBuilder
      */
     public static function getInstance()
     {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new ServicesBuilder();
+        if (!isset(self::$instance)) {
+            self::$instance = new ServicesBuilder();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 }

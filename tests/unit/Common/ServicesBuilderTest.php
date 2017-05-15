@@ -97,6 +97,23 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createFileService
+     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::serializer
+     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::fileAuthenticationScheme
+     */
+    public function testBuildForFile()
+    {
+        // Setup
+        $builder = new ServicesBuilder();
+
+        // Test
+        $fileRestProxy = $builder->createFileService(TestResources::getWindowsAzureStorageServicesConnectionString());
+
+        // Assert
+        $this->assertInstanceOf('MicrosoftAzure\Storage\File\Internal\IFile', $fileRestProxy);
+    }
+
+    /**
      * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::getInstance
      */
     public function testGetInstance()

@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Common\LocationMode;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Blob\Internal\IBlob;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockResult;
@@ -72,7 +73,6 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
-use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
 use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
 use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
@@ -420,18 +420,42 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
         if (empty($blob)) {
             $path = $this->_createPath($container);
-            $this->addOptionalQueryParam($queryParams, Resources::QP_REST_TYPE, 'container');
+            $this->addOptionalQueryParam(
+                $queryParams,
+                Resources::QP_REST_TYPE,
+                'container'
+            );
         } else {
             $path = $this->_createPath($container, $blob);
         }
         $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'lease');
-        $this->addOptionalQueryParam($queryParams, Resources::QP_TIMEOUT, $options->getTimeout());
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_TIMEOUT,
+            $options->getTimeout()
+        );
         
         $this->addOptionalHeader($headers, Resources::X_MS_LEASE_ID, $leaseId);
-        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_ACTION, $leaseAction);
-        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_BREAK_PERIOD, $breakPeriod);
-        $this->addOptionalHeader($headers, Resources::X_MS_LEASE_DURATION, $leaseDuration);
-        $this->addOptionalHeader($headers, Resources::X_MS_PROPOSED_LEASE_ID, $proposedLeaseId);
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_ACTION,
+            $leaseAction
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_BREAK_PERIOD,
+            $breakPeriod
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_DURATION,
+            $leaseDuration
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_PROPOSED_LEASE_ID,
+            $proposedLeaseId
+        );
         $this->addOptionalAccessConditionHeader($headers, $accessCondition);
 
         if (!is_null($options)) {
@@ -458,7 +482,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                 $action    Either clear or create.
      * @param string                 $container The container name.
      * @param string                 $blob      The blob name.
-     * @param PageRange              $range     The page ranges.
+     * @param Range          $range     The page ranges.
      * @param string                 $content   The content string.
      * @param CreateBlobPagesOptions $options   The optional parameters.
      *
@@ -468,7 +492,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $action,
         $container,
         $blob,
-        PageRange $range,
+        Range $range,
         $content,
         CreateBlobPagesOptions $options = null
     ) {
@@ -477,11 +501,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::isString($container, 'container');
         Validate::isString($content, 'content');
         Validate::isTrue(
-            $range instanceof PageRange,
+            $range instanceof Range,
             sprintf(
                 Resources::INVALID_PARAM_MSG,
                 'range',
-                get_class(new PageRange())
+                get_class(new Range(0))
             )
         );
         $body = Psr7\stream_for($content);
@@ -550,13 +574,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     /**
      * Lists all of the containers in the given storage account.
      *
-     * @param Models\ListContainersOptions $options The optional parameters.
+     * @param ListContainersOptions $options The optional parameters.
      *
-     * @return Models\ListContainersResult
+     * @return ListContainersResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179352.aspx
      */
-    public function listContainers(Models\ListContainersOptions $options = null)
+    public function listContainers(ListContainersOptions $options = null)
     {
         return $this->listContainersAsync($options)->wait();
     }
@@ -565,12 +589,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * Create a promise for lists all of the containers in the given
      * storage account.
      *
-     * @param  Models\ListContainersOptions $options The optional parameters.
+     * @param  ListContainersOptions $options The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function listContainersAsync(
-        Models\ListContainersOptions $options = null
+        ListContainersOptions $options = null
     ) {
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1920,7 +1944,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @param string                        $container name of the container
      * @param string                        $blob      name of the blob
-     * @param Models\PageRange              $range     Can be up to the value of
+     * @param Range                         $range     Can be up to the value of
      *                                                 the blob's full size.
      *                                                 Note that ranges must be
      *                                                 aligned to 512 (0-511,
@@ -1934,7 +1958,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function clearBlobPages(
         $container,
         $blob,
-        Models\PageRange $range,
+        Range $range,
         Models\CreateBlobPagesOptions $options = null
     ) {
         return $this->clearBlobPagesAsync(
@@ -1950,7 +1974,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @param string                        $container name of the container
      * @param string                        $blob      name of the blob
-     * @param Models\PageRange              $range     Can be up to the value of
+     * @param Range                         $range     Can be up to the value of
      *                                                 the blob's full size.
      *                                                 Note that ranges must be
      *                                                 aligned to 512 (0-511,
@@ -1964,7 +1988,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function clearBlobPagesAsync(
         $container,
         $blob,
-        Models\PageRange $range,
+        Range $range,
         Models\CreateBlobPagesOptions $options = null
     ) {
         return $this->_updatePageBlobPagesAsyncImpl(
@@ -1982,7 +2006,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @param string                          $container name of the container
      * @param string                          $blob      name of the blob
-     * @param Models\PageRange                $range     Can be up to 4 MB in
+     * @param Range                           $range     Can be up to 4 MB in
      *                                                   size. Note that ranges
      *                                                   must be aligned to 512
      *                                                   (0-511, 512-1023)
@@ -1996,7 +2020,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function createBlobPages(
         $container,
         $blob,
-        Models\PageRange $range,
+        Range $range,
         $content,
         Models\CreateBlobPagesOptions $options = null
     ) {
@@ -2014,7 +2038,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @param string                          $container name of the container
      * @param string                          $blob      name of the blob
-     * @param Models\PageRange                $range     Can be up to 4 MB in
+     * @param Range                           $range     Can be up to 4 MB in
      *                                                   size. Note that ranges
      *                                                   must be aligned to 512
      *                                                   (0-511, 512-1023)
@@ -2028,7 +2052,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     public function createBlobPagesAsync(
         $container,
         $blob,
-        Models\PageRange $range,
+        Range $range,
         $content,
         Models\CreateBlobPagesOptions $options = null
     ) {
@@ -2779,8 +2803,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options
         )->then(function ($response) {
             $responseHeaders = HttpFormatter::formatHeaders($response->getHeaders());
-            $metadata = Utilities::getMetadataArray($responseHeaders);
-            return GetBlobMetadataResult::create($responseHeaders, $metadata);
+            return GetBlobMetadataResult::create($responseHeaders);
         });
     }
     

@@ -171,6 +171,128 @@ class TestResources
         return $testCases;
     }
 
+    public static function getInterestingSharePropertiesArray()
+    {
+        $result = array();
+        $result[Resources::QP_LAST_MODIFIED] = self::getRandomEarlierTimeInAzureFormatString();
+        $result[Resources::QP_ETAG] = \uniqid();
+        $result[Resources::QP_QUOTA] = \rand(1, 100);
+
+        return $result;
+    }
+
+    public static function getInterestingSharePropertiesWithMetadataArray()
+    {
+        $meta = self::getInterestingMetadataArray(5);
+        $result = array();
+        foreach ($meta as $value) {
+            foreach ($value as $key => $v) {
+                $result[$key] = $v;
+            }
+        }
+        $result[Resources::QP_LAST_MODIFIED] = self::getRandomEarlierTimeInAzureFormatString();
+        $result[Resources::QP_ETAG] = \uniqid();
+        $result[Resources::X_MS_SHARE_QUOTA] = \rand(1, 100);
+
+        return $result;
+    }
+
+    public static function getInterestingPropertiesArray()
+    {
+        $meta = self::getInterestingMetadataArray(5);
+        $result = array();
+        foreach ($meta as $value) {
+            foreach ($value as $key => $v) {
+                $result[$key] = $v;
+            }
+        }
+        $result[Resources::QP_LAST_MODIFIED] = self::getRandomEarlierTimeInAzureFormatString();
+        $result[Resources::QP_ETAG] = \uniqid();
+
+        return $result;
+    }
+
+    public static function getInterestingShareArray()
+    {
+        $result = array();
+        $result[Resources::QP_NAME] = self::getInterestingName('myshare-');
+        $result[Resources::QP_PROPERTIES] = self::getInterestingSharePropertiesArray();
+        $metadata = self::getInterestingMetadataArray(\rand(0, 5));
+        if (!empty($metadata)) {
+            $result[Resources::QP_METADATA] = $metadata;
+        }
+        return $result;
+    }
+
+    public static function getInterestingMetadataArray($count)
+    {
+        $result = array();
+        for ($i = 0; $i < $count; ++$i) {
+            $result[] = ['x-ms-meta-name' . $i => 'test-metadata-value' . $i];
+        }
+        return $result;
+    }
+
+    public static function getInterestingListShareResultArray($count = 0)
+    {
+        $result = array();
+        $result['@attributes'][Resources::XTAG_SERVICE_ENDPOINT] = 'http://myaccount.file.core.windows.net/';
+        $result[Resources::QP_MAX_RESULTS] = '3';
+        $result['account'] = 'myaccount';
+        $result[Resources::QP_PREFIX] = 'myprefix';
+        $shareArrays = array();
+        for ($i = 0; $i < $count; ++$i) {
+            $shareArrays[] = self::getInterestingShareArray();
+        }
+        if (!empty($shareArrays)) {
+            if (count($shareArrays) != 1) {
+                $result[Resources::QP_SHARES][Resources::QP_SHARE] = $shareArrays;
+            } else {
+                $result[Resources::QP_SHARES][Resources::QP_SHARE] = $shareArrays[0];
+            }
+        }
+        $result[Resources::QP_NEXT_MARKER] = 'video';
+        $result[Resources::QP_MARKER] = 'audio';
+
+        return $result;
+    }
+
+    public static function getInterestingListDirectoriesAndFilesResultArray(
+        $directoriesCount = 0,
+        $filesCount = 0
+    ) {
+        $result = array();
+        $result['@attributes'][Resources::XTAG_SERVICE_ENDPOINT] = 'http://myaccount.file.core.windows.net/';
+        $result['@attributes']['ShareName'] = 'testfileshare';
+        $result['@attributes']['DirectoryPath'] = '';
+        $result[Resources::QP_ENTRIES] = array();
+        $result[Resources::QP_MAX_RESULTS] = 5;
+        $directoriesArray = array();
+        for ($i = 0; $i < $directoriesCount; ++$i) {
+            $directoriesArray[] = [
+                Resources::QP_NAME => 'testdirectory' . $i,
+                Resources::QP_PROPERTIES => array()
+            ];
+        }
+        $filesArray = array();
+        for ($i = 0; $i < $filesCount; ++$i) {
+            $filesArray[] = [
+                Resources::QP_NAME => 'testfile' . $i,
+                Resources::QP_PROPERTIES =>
+                    [Resources::QP_CONTENT_LENGTH => rand(0, Resources::GB_IN_BYTES)]
+            ];
+        }
+        if (!empty($directoriesArray)) {
+            $result[Resources::QP_ENTRIES][Resources::QP_DIRECTORY] = $directoriesArray;
+        }
+        if (!empty($filesArray)) {
+            $result[Resources::QP_ENTRIES][Resources::QP_FILE] = $filesArray;
+        }
+        $result[Resources::QP_NEXT_MARKER] = \uniqid();
+
+        return $result;
+    }
+
     public static function getValidAccessPermission()
     {
         $result = array();
@@ -428,6 +550,41 @@ class TestResources
         return $sample;
     }
 
+    public static function setFileServicePropertiesSample()
+    {
+        $sample = array();
+        $sample['HourMetrics']['Version'] = '1.0';
+        $sample['HourMetrics']['Enabled'] = 'true';
+        $sample['HourMetrics']['IncludeAPIs'] = 'false';
+        $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
+        $sample['MinuteMetrics']['Version'] = '1.0';
+        $sample['MinuteMetrics']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['IncludeAPIs'] = 'false';
+        $sample['MinuteMetrics']['RetentionPolicy']['Enabled'] = 'true';
+        $sample['MinuteMetrics']['RetentionPolicy']['Days'] = '10';
+        //1st cors
+        $sample['Cors']['CorsRule'][0]['AllowedOrigins'] =
+            'http://www.microsoft.com,http://www.bing.com';
+        $sample['Cors']['CorsRule'][0]['AllowedMethods'] = 'GET,PUT';
+        $sample['Cors']['CorsRule'][0]['MaxAgeInSeconds'] = '500';
+        $sample['Cors']['CorsRule'][0]['ExposedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-data0*';
+        $sample['Cors']['CorsRule'][0]['AllowedHeaders'] =
+            'x-ms-meta-customheader0,x-ms-meta-target0*';
+        //2nd cors
+        $sample['Cors']['CorsRule'][1]['AllowedOrigins'] =
+            'http://www.azure.com,http://www.office.com';
+        $sample['Cors']['CorsRule'][1]['AllowedMethods'] = 'POST,HEAD';
+        $sample['Cors']['CorsRule'][1]['MaxAgeInSeconds'] = '350';
+        $sample['Cors']['CorsRule'][1]['ExposedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-data1*';
+        $sample['Cors']['CorsRule'][1]['AllowedHeaders'] =
+            'x-ms-meta-customheader1,x-ms-meta-target1*';
+
+        return $sample;
+    }
+
     public static function setBlobServicePropertiesSample()
     {
         $sample = array();
@@ -619,9 +776,7 @@ class TestResources
     {
         $entry = array();
         $entry['Name'] = self::getInterestingName('myprefix');
-        $time = self::getRandomEarlierTime();
-        $entry['Properties']['Last-Modified'] =
-            $time->format(Resources::AZURE_DATE_FORMAT);
+        $entry['Properties']['Last-Modified'] = self::getRandomEarlierTimeInAzureFormatString();
         $entry['Properties']['Etag'] = \uniqid();
 
         return $entry;
@@ -650,6 +805,25 @@ class TestResources
                 'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
                 'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
                 'Permission' => 'wd')),
+            1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'rwd'))
+            ));
+
+        return $sample;
+    }
+
+    public static function getShareAclMultipleEntriesSample()
+    {
+        $sample = array();
+        $sample['SignedIdentifiers'] = array( 'SignedIdentifier' => array(
+            0 => array('Id' => 'HYQzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
+            'AccessPolicy' => array(
+                'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
+                'Expiry' => Utilities::convertToEdmDateTime(self::getRandomLaterTime()),
+                'Permission' => 'cwd')),
             1 => array('Id' => 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=',
             'AccessPolicy' => array(
                 'Start' => Utilities::convertToEdmDateTime(self::getRandomEarlierTime()),
@@ -806,6 +980,22 @@ class TestResources
         $interval = mt_rand(10000, 65535);
         $now = new \DateTime();
         return $now->sub(\DateInterval::createFromDateString($interval . ' seconds'));
+    }
+
+    public static function getRandomLaterTimeInAzureFormatString()
+    {
+        $interval = mt_rand(10000, 65535);
+        $now = new \DateTime();
+        $new = $now->add(\DateInterval::createFromDateString($interval . ' seconds'));
+        return $new->format(Resources::AZURE_DATE_FORMAT);
+    }
+
+    public static function getRandomEarlierTimeInAzureFormatString()
+    {
+        $interval = mt_rand(10000, 65535);
+        $now = new \DateTime();
+        $new = $now->sub(\DateInterval::createFromDateString($interval . ' seconds'));
+        return $new->format(Resources::AZURE_DATE_FORMAT);
     }
 
     public static function listBlobsEmpty()

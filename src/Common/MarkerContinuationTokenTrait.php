@@ -44,9 +44,9 @@ trait MarkerContinuationTokenTrait
     /**
      * Setter for continuationToken
      *
-     * @param string $continuationToken the continuation token to be set.
+     * @param ContinuationToken $continuationToken the continuation token to be set.
      */
-    public function setContinuationToken($continuationToken)
+    public function setContinuationToken(ContinuationToken $continuationToken)
     {
         $this->continuationToken = $continuationToken;
     }
@@ -60,7 +60,7 @@ trait MarkerContinuationTokenTrait
     /**
      * Getter for continuationToken
      *
-     * @return string
+     * @return ContinuationToken
      */
     public function getContinuationToken()
     {

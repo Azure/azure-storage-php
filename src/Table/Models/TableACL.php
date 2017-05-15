@@ -68,7 +68,7 @@ class TableACL extends ACLBase
     }
 
     /**
-     * Validate if the resource type for the class.
+     * Validate if the resource type is for the class.
      *
      * @param  string $resourceType the resource type to be validated.
      *

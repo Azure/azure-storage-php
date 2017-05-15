@@ -38,9 +38,9 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
-use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
@@ -809,7 +809,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $blob = 'test';
         $this->restProxy->createPageBlob($container, $blob, 512);
 
-        $result = $this->restProxy->clearBlobPages($container, $blob, new PageRange(0, 511));
+        $result = $this->restProxy->clearBlobPages($container, $blob, new Range(0, 511));
 
         // Assert
         $this->assertNotNull($result, '$result');
@@ -831,7 +831,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $content = str_pad('', 512);
         $this->restProxy->createPageBlob($container, $blob, 512);
 
-        $result = $this->restProxy->createBlobPages($container, $blob, new PageRange(0, 511), $content);
+        $result = $this->restProxy->createBlobPages($container, $blob, new Range(0, 511), $content);
 
         // Assert
         $this->assertNotNull($result, '$result');
@@ -854,10 +854,10 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $content = str_pad('', 512);
         $this->restProxy->createPageBlob($container, $blob, 16384 + 512);
 
-        $this->restProxy->createBlobPages($container, $blob, new PageRange(0, 511), $content);
-        $this->restProxy->createBlobPages($container, $blob, new PageRange(1024, 1024 + 511), $content);
-        $this->restProxy->createBlobPages($container, $blob, new PageRange(8192, 8192 + 511), $content);
-        $this->restProxy->createBlobPages($container, $blob, new PageRange(16384, 16384 + 511), $content);
+        $this->restProxy->createBlobPages($container, $blob, new Range(0, 511), $content);
+        $this->restProxy->createBlobPages($container, $blob, new Range(1024, 1024 + 511), $content);
+        $this->restProxy->createBlobPages($container, $blob, new Range(8192, 8192 + 511), $content);
+        $this->restProxy->createBlobPages($container, $blob, new Range(16384, 16384 + 511), $content);
 
 //        $result = $this->restProxy->listBlobRegions($container, $blob);
         $result = $this->restProxy->listPageBlobRanges($container, $blob);
@@ -867,9 +867,9 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($result->getLastModified(), '$result->getLastModified()');
         $this->assertNotNull($result->getETag(), '$result->getETag()');
         $this->assertEquals(16384 + 512, $result->getContentLength(), '$result->getContentLength()');
-        $this->assertNotNull($result->getPageRanges(), '$result->getPageRanges()');
-        $this->assertEquals(4, count($result->getPageRanges()), 'count($result->getPageRanges())');
-        $ranges = $result->getPageRanges();
+        $this->assertNotNull($result->getRanges(), '$result->getRanges()');
+        $this->assertEquals(4, count($result->getRanges()), 'count($result->getRanges())');
+        $ranges = $result->getRanges();
         $this->assertEquals(0, $ranges[0]->getStart(), '$ranges[0]->getStart()');
         $this->assertEquals(511, $ranges[0]->getEnd(), '$ranges[0]->getEnd()');
         $this->assertEquals(1024, $ranges[1]->getStart(), '$ranges[1]->getStart()');
