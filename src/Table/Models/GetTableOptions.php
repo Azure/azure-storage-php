@@ -17,66 +17,26 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\AcceptOptionTrait;
 
 /**
- * Holds result of calling getEntity wrapper.
+ * Holds optional parameters for getTable.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetEntityResult
+class GetTableOptions extends TableServiceOptions
 {
-    private $_entity;
-    
-    /**
-     * Gets table entity.
-     *
-     * @return Entity
-     */
-    public function getEntity()
-    {
-        return $this->_entity;
-    }
-    
-    /**
-     * Sets table entity.
-     *
-     * @param Entity $entity The table entity instance.
-     *
-     * @return void
-     */
-    protected function setEntity($entity)
-    {
-        $this->_entity = $entity;
-    }
-
-    /**
-     * Create GetEntityResult object from HTTP response parts.
-     *
-     * @param string             $body            The HTTP response body.
-     * @param IODataReaderWriter $odataSerializer The OData reader and writer.
-     *
-     * @internal
-     *
-     * @return GetEntityResult
-     */
-    public static function create($body, IODataReaderWriter $serializer)
-    {
-        $result = new GetEntityResult();
-        $result->setEntity($serializer->parseEntity($body));
-
-        return $result;
-    }
+    use AcceptOptionTrait;
 }

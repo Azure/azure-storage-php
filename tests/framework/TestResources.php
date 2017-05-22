@@ -71,6 +71,7 @@ class TestResources
     const HEADER2       = 'testheader2';
     const HEADER1_VALUE = 'HeaderValue1';
     const HEADER2_VALUE = 'HeaderValue2';
+    const ENTITY_JSON_STRING = '{"PartitionKey":"123","RowKey":"456","CustomerId":890,"CustomerName":"John","IsNew":true,"IsNew@odata.type":"Edm.Boolean","JoinDate":"2012-01-26T18:26:19.0000470Z","JoinDate@odata.type":"Edm.DateTime","Cost":"12.45","Cost@odata.type":"Edm.Double"}';
 
     // Media services
     const MEDIA_SERVICES_ASSET_NAME             = 'TestAsset';
@@ -507,6 +508,101 @@ class TestResources
         $sample[Resources::XTAG_GEO_REPLICATION] = $geo;
 
         return $sample;
+    }
+
+    public static function getTableJSONFormat($name)
+    {
+        return sprintf('{"TableName":"%s"}', $name);
+    }
+
+    public static function getTableEntryMinimalMetaResult()
+    {
+        $result = '';
+        $result .= '{"odata.metadata":"https://myaccount.table.core.windows.net/$metadata#Tables/@Element",';
+        $result .= '"TableName":"mytable"}';
+
+        return $result;
+    }
+
+    public static function getTableEntriesMinimalMetaResult()
+    {
+        $result = '';
+        $result .= '{"odata.metadata":"https://myaccount.table.core.windows.net/$metadata#Tables",';
+        $result .= '"value":[{"TableName":"mytable1"},{"TableName":"mytable2"},';
+        $result .= '{"TableName":"mytable3"},{"TableName":"mytable4"},';
+        $result .= '{"TableName":"mytable5"}]}';
+
+        return $result;
+    }
+
+    public static function getTableEntriesNoMetaResult()
+    {
+        $result = '{"value":[{"TableName":"mytable1"},{"TableName":"mytable2"},';
+        $result .= '{"TableName":"mytable3"},{"TableName":"mytable4"},';
+        $result .= '{"TableName":"mytable5"}]}';
+
+        return $result;
+    }
+
+    public static function getTableEntriesFullMetaResult()
+    {
+        $result = '{"odata.metadata":';
+        $result .= '"https://myaccount.table.core.windows.net/$metadata#Tables",';
+        $result .= '"value":[{"odata.type":"myaccount.Tables","odata.id":';
+        $result .= '"https://myaccount.table.core.windows.net/Tables(\'mytable1\')",';
+        $result .= '"odata.editLink":"Tables(\'mytable1\')","TableName":"mytable1"},';
+        $result .= '{"odata.type":"myaccount.Tables",';
+        $result .= '"odata.id":"https://myaccount.table.core.windows.net/Tables(\'mytable2\')",';
+        $result .= '"odata.editLink":"Tables(\'mytable2\')","TableName":"mytable2"},';
+        $result .= '{"odata.type":"myaccount.Tables",';
+        $result .= '"odata.id":"https://myaccount.table.core.windows.net/Tables(\'mytable3\')",';
+        $result .= '"odata.editLink":"Tables(\'mytable3\')","TableName":"mytable3"},';
+        $result .= '{"odata.type":"myaccount.Tables",';
+        $result .= '"odata.id":"https://myaccount.table.core.windows.net/Tables(\'mytable4\')",';
+        $result .= '"odata.editLink":"Tables(\'mytable4\')","TableName":"mytable4"},';
+        $result .= '{"odata.type":"myaccount.Tables",';
+        $result .= '"odata.id":"https://myaccount.table.core.windows.net/Tables(\'mytable5\')",';
+        $result .= '"odata.editLink":"Tables(\'mytable5\')","TableName":"mytable5"}]}';
+
+        return $result;
+    }
+
+    public static function getEntityMinimalMetaResult($partitionKey, $rowKey)
+    {
+        $result = '{"odata.metadata":"https://myaccount.table.core.windows.net/$metadata#getentity/@Element",';
+        $result .= '"odata.etag":"W/\"datetime\'2017-06-06T07%3A08%3A22.7118743Z\'\"",';
+        $result .= "\"PartitionKey\":\"$partitionKey\",\"RowKey\":\"$rowKey\",";
+        $result .= '"Timestamp":"2017-06-06T07:08:22.7118743Z","CustomerId":890,';
+        $result .= '"CustomerName":"John","IsNew":true,';
+        $result .= '"JoinDate@odata.type":"Edm.DateTime",';
+        $result .= '"JoinDate":"2012-01-26T18:26:19.000047Z"}';
+
+        return $result;
+    }
+
+    public static function getEntitiesMinimalMetaResult()
+    {
+        $result = '{"odata.metadata":"https://myaccount.table.core.windows.net/$metadata#table",';
+        $result .= '"value":[{"odata.etag":"W/\"datetime\'2012-05-17T00%3A59%3A32.1131734Z\'\"",';
+        $result .= '"PartitionKey":"123","RowKey":"1",';
+        $result .= '"Timestamp":"2012-05-17T00:59:32.1131734Z","CustomerId":890,';
+        $result .= '"CustomerName":"John","IsNew":true,';
+        $result .= '"JoinDate@odata.type":"Edm.DateTime",';
+        $result .= '"JoinDate":"2012-01-26T18:26:19.000047Z"},';
+        $result .= '{"odata.etag":"W/\"datetime\'2012-05-17T00%3A59%3A32.4252358Z\'\"",';
+        $result .= '"PartitionKey":"124","RowKey":"2",';
+        $result .= '"Timestamp":"2012-05-17T00:59:32.4252358Z","CustomerId":890,';
+        $result .= '"CustomerName":"John","IsNew":true,';
+        $result .= '"JoinDate@odata.type":"Edm.DateTime",';
+        $result .= '"JoinDate":"2012-01-26T18:26:19.000047Z"},';
+        $result .= '{"odata.etag":"W/\"datetime\'2012-05-17T00%3A59%3A32.7533014Z\'\"",';
+        $result .= '"PartitionKey":"125","RowKey":"3",';
+        $result .= '"Timestamp":"2012-05-17T00:59:32.7533014Z","CustomerId":890,';
+        $result .= '"CustomerName":"John","IsNew":true,';
+        $result .= '"JoinDate@odata.type":"Edm.DateTime",';
+        $result .= '"JoinDate":"2012-01-26T18:26:19.000047Z"}]}';
+
+        return $result;
     }
 
     public static function setServicePropertiesSample()
@@ -1163,6 +1259,38 @@ class TestResources
         );
     }
 
+    public static function getVariousTypesEntity()
+    {
+        $stringVal       = 'mystring';
+        $int64Val        = '4294967296';// larger than INT32_MAX.
+        $int64LargeVal   = "1234567890123456789"; //Number should not be truncated
+        $int32Val        = 123;
+        $doubleVal       = 123.45;
+        $doubleLargeVal  = '12345678901234567890123.0123456789012345678';//Number should not be truncated
+        $boolVal         = false;
+        $dateVal         = (new \DateTime());
+        $guidVal         = 'debc44d5-04a9-42ea-ab2f-4e2cb49ff833';
+        $binaryVals      = chr(0) . chr(1) . chr(2) . chr(3) . chr(4);//Should be binary buffer.
+        $timestamp       = '2016-01-07T02:59:28.6909350Z';//Should not lose precision
+        $doublePresVal   = '1.0';//Should not lose precision.
+
+        $e = new Entity();
+        $e->addProperty('stringVal', EdmType::STRING, $stringVal, strval($stringVal));
+        $e->addProperty('int64Val', EdmType::INT64, $int64Val, strval($int64Val));
+        $e->addProperty('int64LargeVal', EdmType::INT64, $int64LargeVal, strval($int64LargeVal));
+        $e->addProperty('int32Val', EdmType::INT32, $int32Val, '');
+        $e->addProperty('doubleVal', EdmType::DOUBLE, $doubleVal, strval($doubleVal));
+        $e->addProperty('doubleLargeVal', EdmType::DOUBLE, $doubleLargeVal, strval($doubleLargeVal));
+        $e->addProperty('boolVal', EdmType::BOOLEAN, $boolVal, strval($boolVal));
+        $e->addProperty('dateVal', EdmType::DATETIME, $dateVal, Utilities::convertToEdmDateTime($dateVal));
+        $e->addProperty('guidVal', EdmType::GUID, $guidVal, strval($guidVal));
+        $e->addProperty('binaryVals', EdmType::BINARY, $binaryVals, base64_encode($binaryVals));
+        $e->addProperty('timestamp', EdmType::DATETIME, Utilities::convertToDateTime($timestamp), $timestamp);
+        $e->addProperty('doublePresVal', EdmType::DOUBLE, $doublePresVal, strval($doublePresVal));
+
+        return $e;
+    }
+
     public static function getTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
@@ -1386,7 +1514,7 @@ DataServiceVersion: 1.0;
 
     public static function getEntitySampleBody()
     {
-        return '<?xml version="1.0" encoding="utf-8"?><entry xml:base="https://phput.table.core.windows.net/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:etag="W/&quot;datetime\'2017-02-16T03%3A39%3A51.7780193Z\'&quot;"><id>https://phput.table.core.windows.net/getentity(PartitionKey=\'123\',RowKey=\'456\')</id><category term="phput.getentity" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /><link rel="edit" title="getentity" href="getentity(PartitionKey=\'123\',RowKey=\'456\')" /><title /><updated>2017-02-16T03:39:52Z</updated><author><name /></author><content type="application/xml"><m:properties><d:PartitionKey>123</d:PartitionKey><d:RowKey>456</d:RowKey><d:Timestamp m:type="Edm.DateTime">2017-02-16T03:39:51.7780193Z</d:Timestamp><d:CustomerId m:type="Edm.Int32">890</d:CustomerId><d:CustomerName>John</d:CustomerName><d:IsNew m:type="Edm.Boolean">true</d:IsNew><d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.000047Z</d:JoinDate></m:properties></content></entry>';
+        return '{"PartitionKey":"qaX12817Xkey20","RowKey":"qaX12817Xkey21","Timestamp":"2017-06-02T03:52:03.9416308Z"}';
     }
 
     public static function getTableSampleBody()
@@ -1396,7 +1524,7 @@ DataServiceVersion: 1.0;
 
     public static function getInsertEntitySampleBody()
     {
-        return '<?xml version="1.0" encoding="utf-8"?><entry xml:base="https://phput.table.core.windows.net/" xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:etag="W/&quot;datetime\'2017-02-16T06%3A47%3A05.1541526Z\'&quot;"><id>https://phput.table.core.windows.net/insertentity(PartitionKey=\'123\',RowKey=\'456\')</id><category term="phput.insertentity" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" /><link rel="edit" title="insertentity" href="insertentity(PartitionKey=\'123\',RowKey=\'456\')" /><title /><updated>2017-02-16T06:47:05Z</updated><author><name /></author><content type="application/xml"><m:properties><d:PartitionKey>123</d:PartitionKey><d:RowKey>456</d:RowKey><d:Timestamp m:type="Edm.DateTime">2017-02-16T06:47:05.1541526Z</d:Timestamp><d:CustomerId m:type="Edm.Int32">890</d:CustomerId><d:CustomerName>John</d:CustomerName><d:IsNew m:type="Edm.Boolean">true</d:IsNew><d:JoinDate m:type="Edm.DateTime">2012-01-26T18:26:19.000047Z</d:JoinDate></m:properties></content></entry>';
+        return '{"PartitionKey":"foo","RowKey":"qaX12817Xkey5","Timestamp":"2017-06-02T03:51:58.7435809Z","foo":" !\"#$%&\'()*+,-./\t0123456789:;<=>?\n@ABCDEFGHIJKLMNO\nPQRSTUVWXYZ[\\\\]^_`abcdefghijklmnopqrstuvwxyz{|}~"}';
     }
 
     public static function getInsertEntitySampleHeaders()

@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
 use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
 use MicrosoftAzure\Storage\Table\Models\Query;
+use MicrosoftAzure\Storage\Table\Internal\AcceptOptionTrait;
 
 /**
  * Holds optional parameters for queryEntities API
@@ -41,16 +42,17 @@ use MicrosoftAzure\Storage\Table\Models\Query;
 class QueryEntitiesOptions extends TableServiceOptions
 {
     use TableContinuationTokenTrait;
+    use AcceptOptionTrait;
 
-    private $_query;
-    
+    private $query;
+
     /**
      * Constructs new QueryEntitiesOptions object.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->_query = new Query();
+        $this->query = new Query();
     }
     
     /**
@@ -60,7 +62,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function getQuery()
     {
-        return $this->_query;
+        return $this->query;
     }
     
     /**
@@ -75,7 +77,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function setQuery(Query $query)
     {
-        $this->_query = $query;
+        $this->query = $query;
     }
     
     /**
@@ -85,7 +87,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function getFilter()
     {
-        return $this->_query->getFilter();
+        return $this->query->getFilter();
     }
 
     /**
@@ -100,7 +102,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function setFilter(Filters\Filter $filter)
     {
-        $this->_query->setFilter($filter);
+        $this->query->setFilter($filter);
     }
     
     /**
@@ -110,7 +112,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function getTop()
     {
-        return $this->_query->getTop();
+        return $this->query->getTop();
     }
 
     /**
@@ -125,7 +127,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function setTop($top)
     {
-        $this->_query->setTop($top);
+        $this->query->setTop($top);
     }
     
     /**
@@ -140,7 +142,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function addSelectField($field)
     {
-        $this->_query->addSelectField($field);
+        $this->query->addSelectField($field);
     }
     
     /**
@@ -150,7 +152,7 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function getSelectFields()
     {
-        return $this->_query->getSelectFields();
+        return $this->query->getSelectFields();
     }
 
     /**
@@ -165,6 +167,6 @@ class QueryEntitiesOptions extends TableServiceOptions
      */
     public function setSelectFields(array $selectFields = null)
     {
-        $this->_query->setSelectFields($selectFields);
+        $this->query->setSelectFields($selectFields);
     }
 }

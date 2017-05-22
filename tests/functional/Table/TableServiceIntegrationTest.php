@@ -395,10 +395,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
             '$result->getEntity()->getProperty(\'test5\')->getValue() instanceof \DateTime'
         );
 
-        $this->assertNotNull(
-            $result->getEntity()->getProperty('test6'),
-            '$result->getEntity()->getProperty(\'test6\')'
-        );
         $returnedBinaryData = $result->getEntity()->getProperty('test6')->getValue();
         $this->assertTrue(is_string($returnedBinaryData), 'binary data is string');
         $this->assertEquals(strlen($binaryData), strlen($returnedBinaryData), 'binary data lengths are the same');
@@ -745,7 +741,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals('001', $result->getEntity()->getPartitionKey(), '$result->getEntity()->getPartitionKey()');
         $this->assertEquals('getEntityWorks', $result->getEntity()->getRowKey(), '$result->getEntity()->getRowKey()');
         $this->assertNotNull($result->getEntity()->getTimestamp(), '$result->getEntity()->getTimestamp()');
-        $this->assertNotNull($result->getEntity()->getETag(), '$result->getEntity()->getETag()');
 
         $this->assertNotNull($result->getEntity()->getProperty('test'), '$result->getEntity()->getProperty(\'test\')');
         $this->assertEquals(
@@ -844,7 +839,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals('001', $entities[0]->getPartitionKey(), '$entities[0]->getPartitionKey()');
         $this->assertEquals('queryEntitiesWorks', $entities[0]->getRowKey(), '$entities[0]->getRowKey()');
         $this->assertNotNull($entities[0]->getTimestamp(), '$entities[0]->getTimestamp()');
-        $this->assertNotNull($entities[0]->getETag(), '$entities[0]->getETag()');
 
         $this->assertNotNull($entities[0]->getProperty('test'), '$entities[0]->getProperty(\'test\')');
         $this->assertEquals(

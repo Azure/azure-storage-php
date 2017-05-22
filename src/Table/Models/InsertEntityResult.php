@@ -26,7 +26,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
 
 /**
  * Holds result of calling insertEntity wrapper
@@ -40,23 +40,23 @@ use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
  */
 class InsertEntityResult
 {
-    private $_entity;
+    private $entity;
     
     /**
      * Create InsertEntityResult object from HTTP response parts.
      *
-     * @param string            $body           The HTTP response body.
-     * @param array             $headers        The HTTP response headers.
-     * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
+     * @param string              $body            The HTTP response body.
+     * @param array               $headers         The HTTP response headers.
+     * @param IODataReaderWriter  $odataSerializer The OData reader and writer.
      *
      * @internal
      *
      * @return InsertEntityResult
      */
-    public static function create($body, $headers, $atomSerializer)
+    public static function create($body, $headers, $odataSerializer)
     {
         $result = new InsertEntityResult();
-        $entity = $atomSerializer->parseEntity($body);
+        $entity = $odataSerializer->parseEntity($body);
         $entity->setETag(Utilities::tryGetValue($headers, Resources::ETAG));
         $result->setEntity($entity);
         
@@ -70,7 +70,7 @@ class InsertEntityResult
      */
     public function getEntity()
     {
-        return $this->_entity;
+        return $this->entity;
     }
     
     /**
@@ -82,6 +82,6 @@ class InsertEntityResult
      */
     protected function setEntity($entity)
     {
-        $this->_entity = $entity;
+        $this->entity = $entity;
     }
 }

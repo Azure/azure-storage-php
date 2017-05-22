@@ -26,7 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
-use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
@@ -51,7 +51,7 @@ class InsertEntityResultTest extends \PHPUnit_Framework_TestCase
         // Setup
         $sampleBody     = TestResources::getInsertEntitySampleBody();
         $sampleHeaders  = TestResources::getInsertEntitySampleHeaders();
-        $serializer     = new AtomReaderWriter();
+        $serializer     = new JsonODataReaderWriter();
         $expectedEntity = $serializer->parseEntity($sampleBody);
         $expectedEntity->setETag(Utilities::tryGetValue(
             $sampleHeaders,

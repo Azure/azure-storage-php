@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\File\FileRestProxy;
-use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
 
@@ -80,15 +80,15 @@ class ServicesBuilder
     }
 
     /**
-     * Gets the Atom serializer used in the REST services construction.
+     * Gets the odata serializer used in the REST services construction.
      *
      * @internal
      *
-     * @return \MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter
+     * @return \MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter
      */
-    protected function atomSerializer()
+    protected function odataSerializer()
     {
-        return new AtomReaderWriter();
+        return new JsonODataReaderWriter();
     }
 
     /**
@@ -364,7 +364,7 @@ class ServicesBuilder
             $connectionString
         );
 
-        $atomSerializer = $this->atomSerializer();
+        $odataSerializer = $this->odataSerializer();
         $mimeSerializer = $this->mimeSerializer();
         $serializer     = $this->serializer();
 
@@ -378,7 +378,7 @@ class ServicesBuilder
         $tableWrapper = new TableRestProxy(
             $primaryUri,
             $secondaryUri,
-            $atomSerializer,
+            $odataSerializer,
             $mimeSerializer,
             $serializer,
             $options

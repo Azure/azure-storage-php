@@ -81,7 +81,7 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createTableService
      * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::serializer
      * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::mimeSerializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::atomSerializer
+     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::odataSerializer
      * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::tableAuthenticationScheme
      */
     public function testBuildForTable()

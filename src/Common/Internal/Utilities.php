@@ -837,4 +837,17 @@ class Utilities
         }
         return $result;
     }
+
+    /**
+     * Gets if the value is a double value or string representation of a double
+     * value
+     *
+     * @param  mixed  $value The value to be verified.
+     *
+     * @return boolean
+     */
+    public static function isDouble($value)
+    {
+        return is_double($value + 0);
+    }
 }

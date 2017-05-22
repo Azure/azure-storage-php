@@ -3,6 +3,15 @@ Tracking Breaking changes in 0.16.0
 All
 * Renamed and moved `MicrosoftAzure\Storage\Blob\Models\PageRange` to `MicrosoftAzure\Storage\Common\Models\Range`.
 
+Table
+* Created new types for the following APIs to support specifying accepted content type of response payload. Payload is now by default `application/json;odata=minimalmetadata`.
+  - `MicrosoftAzure\Storage\Table\TableRestProxy::createTable` & `MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync` now uses `MicrosoftAzure\Storage\Table\Models\TableServiceCreateOptions`.
+  - `MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity` & `MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync` now uses `MicrosoftAzure\Storage\Table\Models\TableServiceCreateOptions`.
+  - `MicrosoftAzure\Storage\Table\TableRestProxy::getTable` & `MicrosoftAzure\Storage\Table\TableRestProxy::getTableAsync` now uses `MicrosoftAzure\Storage\Table\Models\GetTableOptions`.
+  - `MicrosoftAzure\Storage\Table\TableRestProxy::getEntity` & `MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync` now uses `MicrosoftAzure\Storage\Table\Models\GetEntityOptions`.
+* E-Tag can now be null value since when user specified to return minimal/no metadata, E-Tag will not be returned with response.
+* When specifying `NO_METADATA` for querying entities, some Edm type, including Edm.Binary, Edm.DateTime and Edm.Guid could not be determined through the type detection heuristics. For more information, please see [Payload Format for Table Service Operations](https://docs.microsoft.com/en-us/rest/api/storageservices/payload-format-for-table-service-operations).
+
 Queue
 * Renamed `MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage` to `MicrosoftAzure\Storage\Queue\Models\QueueMessage`
 

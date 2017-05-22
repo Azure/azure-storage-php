@@ -139,7 +139,8 @@ class Resources
     const FILE_LOCATION_IS_PRIMARY_ONLY = "Can only specify PRIMARY_ONLY for file service's location mode.";
     const FILE_SHARE_PROPERTIES_OPERATION_INVALID = "The operation is invalid. Can only be 'metadata' or 'properties'.";
     const RESOURCE_RANGE_LENGTH_MUST_SET = "The start and end/length of the range must be set.";
-    
+    const INVALID_ACCEPT_CONTENT_TYPE = "The given accept content type is not valid.";
+
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
     const X_MS_META_HEADER_PREFIX            = 'x-ms-meta-';
@@ -233,6 +234,7 @@ class Resources
     const ACCEPT_HEADER                      = 'accept';
     const ACCEPT_CHARSET                     = 'accept-charset';
     const USER_AGENT                         = 'User-Agent';
+    const PREFER                             = 'Prefer';
 
     // Type
     const QUEUE_TYPE_NAME              = 'IQueue';
@@ -278,6 +280,7 @@ class Resources
     const MB_IN_BYTES_64      = 67108864;
     const GB_IN_BYTES         = 1073741824;
     const MAX_BLOB_BLOCKS     = 50000;
+    const RETURN_CONTENT      = 'return-content';
 
     // Xml Namespaces
     const WA_XML_NAMESPACE   = 'http://schemas.microsoft.com/windowsazure';
@@ -290,15 +293,19 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                                   = '0.15.0';
-    const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
-    const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
-    const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';
-    const ACCEPT_HEADER_VALUE                           = 'application/atom+xml,application/xml';
-    const ATOM_ENTRY_CONTENT_TYPE                       = 'application/atom+xml;type=entry;charset=utf-8';
-    const ATOM_FEED_CONTENT_TYPE                        = 'application/atom+xml;type=feed;charset=utf-8';
-    const ACCEPT_CHARSET_VALUE                          = 'utf-8';
-    const INT32_MAX                                     = 2147483647;
+    const SDK_VERSION                        = '0.15.0';
+    const STORAGE_API_LATEST_VERSION         = '2015-04-05';
+    const DATA_SERVICE_VERSION_VALUE         = '3.0';
+    const MAX_DATA_SERVICE_VERSION_VALUE     = '3.0;NetFx';
+    const ACCEPT_HEADER_VALUE                = 'application/atom+xml,application/xml';
+    const ATOM_ENTRY_CONTENT_TYPE            = 'application/atom+xml;type=entry;charset=utf-8';
+    const ATOM_FEED_CONTENT_TYPE             = 'application/atom+xml;type=feed;charset=utf-8';
+    const JSON_FULL_METADATA_CONTENT_TYPE    = 'application/json;odata=fullmetadata';
+    const JSON_MINIMAL_METADATA_CONTENT_TYPE = 'application/json;odata=minimalmetadata';
+    const JSON_NO_METADATA_CONTENT_TYPE      = 'application/json;odata=nometadata';
+    const ACCEPT_CHARSET_VALUE               = 'utf-8';
+    const INT32_MAX                          = 2147483647;
+    const INT32_MIN                          = -2147483648;
 
     // Query parameter names
     const QP_PREFIX             = 'Prefix';
@@ -467,6 +474,20 @@ class Resources
     const XTAG_GEO_REPLICATION              = 'GeoReplication';
     const XTAG_LAST_SYNC_TIME               = 'LastSyncTime';
     const XTAG_SHARE_USAGE                  = 'ShareUsage';
+
+    //JSON Tags
+    const JSON_TABLE_NAME        = 'TableName';
+    const JSON_VALUE             = 'value';
+    const JSON_ODATA_METADATA    = 'odata.metadata';
+    const JSON_ODATA_TYPE        = 'odata.type';
+    const JSON_ODATA_ID          = 'odata.id';
+    const JSON_ODATA_EDITLINK    = 'odata.editLink';
+    const JSON_ODATA_TYPE_SUFFIX = '@odata.type';
+    const JSON_ODATA_ETAG        = 'odata.etag';
+    const JSON_PARTITION_KEY     = 'PartitionKey';
+    const JSON_ROW_KEY           = 'RowKey';
+    const JSON_TIMESTAMP         = 'Timestamp';
+    const JSON_CUSTOMER_SINCE    = 'CustomerSince';
 
     // PHP URL Keys
     const PHP_URL_SCHEME   = 'scheme';

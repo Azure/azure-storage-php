@@ -17,66 +17,40 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
- * Holds result of calling getEntity wrapper.
+ * Holds constant and logic for accept JSON content type.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Table\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetEntityResult
+class AcceptJSONContentType
 {
-    private $_entity;
-    
-    /**
-     * Gets table entity.
-     *
-     * @return Entity
-     */
-    public function getEntity()
-    {
-        return $this->_entity;
-    }
-    
-    /**
-     * Sets table entity.
-     *
-     * @param Entity $entity The table entity instance.
-     *
-     * @return void
-     */
-    protected function setEntity($entity)
-    {
-        $this->_entity = $entity;
-    }
+    const NO_METADATA      = Resources::JSON_NO_METADATA_CONTENT_TYPE;
+    const MINIMAL_METADATA = Resources::JSON_MINIMAL_METADATA_CONTENT_TYPE;
+    const FULL_METADATA    = Resources::JSON_FULL_METADATA_CONTENT_TYPE;
 
-    /**
-     * Create GetEntityResult object from HTTP response parts.
-     *
-     * @param string             $body            The HTTP response body.
-     * @param IODataReaderWriter $odataSerializer The OData reader and writer.
-     *
-     * @internal
-     *
-     * @return GetEntityResult
-     */
-    public static function create($body, IODataReaderWriter $serializer)
+    public static function validateAcceptContentType($contentType)
     {
-        $result = new GetEntityResult();
-        $result->setEntity($serializer->parseEntity($body));
-
-        return $result;
+        Validate::isTrue(
+            $contentType == self::NO_METADATA ||
+            $contentType == self::MINIMAL_METADATA ||
+            $contentType == self::FULL_METADATA,
+            Resources::INVALID_ACCEPT_CONTENT_TYPE
+        );
     }
 }
