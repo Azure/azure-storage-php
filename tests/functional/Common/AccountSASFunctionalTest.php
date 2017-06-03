@@ -51,9 +51,11 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
     protected $createdContainer;
     protected $createdTable;
     protected $createdQueue;
+    protected $createdShare;
     protected $blobRestProxy;
     protected $tableRestProxy;
     protected $queueRestProxy;
+    protected $fileRestProxy;
 
     public function __construct()
     {
@@ -72,9 +74,11 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         $this->createdContainer = array();
         $this->createdTable     = array();
         $this->createdQueue     = array();
+        $this->createdShare     = array();
         $this->blobRestProxy    = null;
         $this->tableRestProxy   = null;
         $this->queueRestProxy   = null;
+        $this->fileRestProxy    = null;
     }
 
     protected function tearDown()
@@ -94,6 +98,12 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         if ($this->queueRestProxy != null) {
             foreach ($this->createdQueue as $queue) {
                 $this->safeDeleteQueue($queue);
+            }
+        }
+
+        if ($this->fileRestProxy != null) {
+            foreach ($this->createdShare as $share) {
+                $this->safeDeleteShare($share);
             }
         }
     }
@@ -140,6 +150,28 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             $count0,
             $count1,
             sprintf("Expected %d container(s), listed %d container(s).", $count0, $count1)
+        );
+
+        $share = TestResources::getInterestingName('share');
+        $count0 = count($this->fileRestProxy->listShares()->getShares());
+        $this->safeCreateShare($share);
+        $count1 = count($this->fileRestProxy->listShares()->getShares());
+        $this->assertEquals(
+            $count0 + 1,
+            $count1,
+            sprintf("Expected %d share(s), listed %d share(s).", $count0 + 1, $count1)
+        );
+        $file = TestResources::getInterestingName('file');
+        $content = 'test content';
+        $this->fileRestProxy->createFileFromContent($share, $file, $content);
+        $getContent = stream_get_contents($this->fileRestProxy->getFile($share, $file)->getContentStream());
+        $this->assertEquals($content, $getContent, "Expected {$content}, got {$getContent}.");
+        $this->safeDeleteShare($share);
+        $count1 = count($this->fileRestProxy->listShares()->getShares());
+        $this->assertEquals(
+            $count0,
+            $count1,
+            sprintf("Expected %d share(s), listed %d share(s).", $count0, $count1)
         );
 
         //Validate 'aup'
@@ -220,9 +252,10 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             $message,
             'Error: access not blocked for blob service.'
         );
-        //Validate can access table and queue service
+        //Validate can access table, file and queue service
         $this->tableRestProxy->queryTables();
         $this->queueRestProxy->listQueues();
+        $this->fileRestProxy->listShares();
 
         //btf permission
         $this->initializeProxiesWithSASfromArray(
@@ -246,9 +279,10 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             $message,
             'Error: access not blocked for queue service.'
         );
-        //Validate can access table and queue service
+        //Validate can access blob, file and table service
         $this->tableRestProxy->queryTables();
         $this->blobRestProxy->listContainers();
+        $this->fileRestProxy->listShares();
 
         //bqf permission
         $this->initializeProxiesWithSASfromArray(
@@ -272,9 +306,37 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             $message,
             'Error: access not blocked for table service.'
         );
-        //Validate can access table and queue service
+        //Validate can access blob, table and file service
         $this->queueRestProxy->listQueues();
         $this->blobRestProxy->listContainers();
+        $this->fileRestProxy->listShares();
+
+        //btq permission
+        $this->initializeProxiesWithSASfromArray(
+            $helper,
+            TestResources::getInterestingAccountSASTestCase(
+                'pucaldwr',
+                'qtb',
+                'ocs'
+            )
+        );
+
+        //Validate cannot access file service
+        $message = '';
+        try {
+            $this->fileRestProxy->listShares();
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains(
+            'not authorized to perform this operation',
+            $message,
+            'Error: access not blocked for file service.'
+        );
+        //Validate can access blob, table and queue service
+        $this->queueRestProxy->listQueues();
+        $this->blobRestProxy->listContainers();
+        $this->tableRestProxy->queryTables();
     }
 
     /**
@@ -404,6 +466,13 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
                              '.' .
                              Resources::TABLE_BASE_DNS_NAME .
                              ';';
+        $connectionString .= Resources::FILE_ENDPOINT_NAME .
+                             '='.
+                             'https://' .
+                             $accountName .
+                             '.' .
+                             Resources::FILE_BASE_DNS_NAME .
+                             ';';
         $connectionString .= Resources::SAS_TOKEN_NAME .
                              '='.
                              $sas;
@@ -414,6 +483,8 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             $this->builder->createQueueService($connectionString);
         $this->tableRestProxy =
             $this->builder->createTableService($connectionString);
+        $this->fileRestProxy =
+            $this->builder->createFileService($connectionString);
     }
 
     /**
@@ -474,7 +545,7 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
     private function safeDeleteTable($name)
     {
         try {
-            $this->blobRestProxy->deleteTable($name);
+            $this->tableRestProxy->deleteTable($name);
             $this->createdTable = array_diff($this->createdTable, [$name]);
         } catch (ServiceException $e) {
             error_log($e->getMessage());
@@ -489,6 +560,32 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         try {
             $this->tableRestProxy->createTable($name);
             $this->createdTable[] = $name;
+        } catch (ServiceException $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
+     */
+    private function safeDeleteShare($name)
+    {
+        try {
+            $this->fileRestProxy->deleteShare($name);
+            $this->createdShare = array_diff($this->createdShare, [$name]);
+        } catch (ServiceException $e) {
+            error_log($e->getMessage());
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
+     */
+    private function safeCreateShare($name)
+    {
+        try {
+            $this->fileRestProxy->createShare($name);
+            $this->createdShare[] = $name;
         } catch (ServiceException $e) {
             error_log($e->getMessage());
         }
