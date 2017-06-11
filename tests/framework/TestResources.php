@@ -126,7 +126,7 @@ class TestResources
             "rwdlacup", // signedPermission
             "bfqt", // signedService
             "sco", // signedResourceType
-            "2017-03-24T21:14:01Z", // signedExpiracy
+            "2017-03-24T21:14:01Z", // signedExpiry
             "2017-03-17T13:14:01Z", // signedStart
             "", // signedIP
             "https", // signedProtocol
@@ -138,7 +138,7 @@ class TestResources
             "rwdlacup", // signedPermission
             "bfqt", // signedService
             "sco", // signedResourceType
-            "2017-03-24T21:14:01Z", // signedExpiracy
+            "2017-03-24T21:14:01Z", // signedExpiry
             "2017-03-17T13:14:01Z", // signedStart
             "168.1.5.65", // signedIP
             "https,http", // signedProtocol
@@ -150,7 +150,7 @@ class TestResources
             "rw", // signedPermission
             "bf", // signedService
             "s", // signedResourceType
-            "2017-03-24T00:00:00Z", // signedExpiracy
+            "2017-03-24T00:00:00Z", // signedExpiry
             "2017-03-17T00:00:00Z", // signedStart
             "", // signedIP
             "https", // signedProtocol
@@ -162,7 +162,7 @@ class TestResources
             "up", // signedPermission
             "q", // signedService
             "o", // signedResourceType
-            "2017-03-24T00:00:00Z", // signedExpiracy
+            "2017-03-24T00:00:00Z", // signedExpiry
             "2017-03-17T00:00:00Z", // signedStart
             "", // signedIP
             "https", // signedProtocol
@@ -170,6 +170,85 @@ class TestResources
         ];
 
         return $testCases;
+    }
+
+    public static function getInterestingSignedResourcePermissionsPair()
+    {
+        //sr for signedResource, sp for signedPermissions, expected set to
+        //empty string if signed permission is invalid.
+        $result = array();
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_BLOB,
+            'sp' => 'ddwwccaarr',
+            'expected' => 'racwd'
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_BLOB,
+            'sp' => 'racwdl',
+            'expected' => ''
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_CONTAINER,
+            'sp' => 'ldwwwwccccar',
+            'expected' => 'racwdl'
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_CONTAINER,
+            'sp' => 'raup',
+            'expected' => ''
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_QUEUE,
+            'sp' => 'puaaar',
+            'expected' => 'raup'
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_QUEUE,
+            'sp' => 'raud',
+            'expected' => ''
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_TABLE,
+            'sp' => 'duarrrr',
+            'expected' => 'raud'
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_TABLE,
+            'sp' => 'rcwd',
+            'expected' => ''
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_FILE,
+            'sp' => 'dwcrdwcr',
+            'expected' => 'rcwd'
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_FILE,
+            'sp' => 'rcwdl',
+            'expected' => ''
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_SHARE,
+            'sp' => 'ldwcrcwdl',
+            'expected' => 'rcwdl'
+        ];
+        $result[] = [
+            'sr' => Resources::RESOURCE_TYPE_SHARE,
+            'sp' => 'racwd',
+            'expected' => ''
+        ];
+        $result[] = [
+            'sr' => '',//account sas
+            'sp' => 'rwdlrwdlacupacup',
+            'expected' => 'rwdlacup'
+        ];
+        $result[] = [
+            'sr' => '',//account sas
+            'sp' => 'abcdefg',
+            'expected' => ''
+        ];
+
+        return $result;
     }
 
     public static function getInterestingSharePropertiesArray()
@@ -297,14 +376,18 @@ class TestResources
     public static function getValidAccessPermission()
     {
         $result = array();
-        $result['Blob'][]      = ['dwcar', 'racwd'];
-        $result['Blob'][]      = ['waradadawadaca', 'racwd'];
-        $result['Container'][] = ['ldwcar', 'racwdl'];
-        $result['Container'][] = ['rcal', 'racl'];
-        $result['Table'][]     = ['dar', 'rad'];
-        $result['Table'][]     = ['duardduar', 'raud'];
-        $result['Queue'][]     = ['puar', 'raup'];
-        $result['Queue'][]     = ['ppap', 'ap'];
+        $result['b'][] = ['dwcar', 'racwd'];
+        $result['b'][] = ['waradadawadaca', 'racwd'];
+        $result['c'][] = ['ldwcar', 'racwdl'];
+        $result['c'][] = ['rcal', 'racl'];
+        $result['t'][] = ['dar', 'rad'];
+        $result['t'][] = ['duardduar', 'raud'];
+        $result['q'][] = ['puar', 'raup'];
+        $result['q'][] = ['ppap', 'ap'];
+        $result['f'][] = ['dwcr', 'rcwd'];
+        $result['f'][] = ['wrddwdc', 'rcwd'];
+        $result['s'][] = ['ldwcr', 'rcwdl'];
+        $result['s'][] = ['rcl', 'rcl'];
 
         return $result;
     }
@@ -312,14 +395,18 @@ class TestResources
     public static function getInvalidAccessPermission()
     {
         $result = array();
-        $result['Blob'][]      = 'dwcarl';
-        $result['Blob'][]      = 'waradadawadacap';
-        $result['Container'][] = 'ldwcarsdf';
-        $result['Container'][] = 'rcalfds';
-        $result['Table'][]     = 'darwer';
-        $result['Table'][]     = 'duardduaras';
-        $result['Queue'][]     = 'puarzxcv';
-        $result['Queue'][]     = '!ppap!';
+        $result['b'][] = 'dwcarl';
+        $result['b'][] = 'waradadawadacap';
+        $result['c'][] = 'ldwcarsdf';
+        $result['c'][] = 'rcalfds';
+        $result['t'][] = 'darwer';
+        $result['t'][] = 'duardduaras';
+        $result['q'][] = 'puarzxcv';
+        $result['q'][] = '!ppap!';
+        $result['f'][] = 'dwcar';
+        $result['f'][] = 'waradadawadaca';
+        $result['s'][] = 'ldwcar';
+        $result['s'][] = 'rcal';
 
         return $result;
     }
@@ -1384,12 +1471,12 @@ class TestResources
         $signedPermissions,
         $signedService,
         $signedResourceType,
-        $signedExpiracy = "",
+        $signedExpiry = "",
         $signedStart = "",
         $signedIP = ""
     ) {
-        if ($signedExpiracy == "") {
-            $signedExpiracy = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+        if ($signedExpiry == "") {
+            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
         }
 
         if ($signedStart == "") {
@@ -1405,10 +1492,123 @@ class TestResources
         $result['signedPermissions']  = $signedPermissions;
         $result['signedService']      = $signedService;
         $result['signedResourceType'] = $signedResourceType;
-        $result['signedExpiracy']     = $signedExpiracy;
+        $result['signedExpiry']       = $signedExpiry;
         $result['signedStart']        = $signedStart;
         $result['signedIP']           = $signedIP;
         $result['signedProtocol']     = 'https,http';
+
+        return $result;
+    }
+
+    public static function getInterestingBlobOrFileSASTestCase(
+        $signedPermissions,
+        $signedResource,
+        $resourceName,
+        $signedExpiry = "",
+        $signedStart = "",
+        $signedIP = "",
+        $cacheControl = "",
+        $contentDisposition = "",
+        $contentEncoding = "",
+        $contentLanguage = "",
+        $contentType = ""
+    ) {
+        if ($signedExpiry == "") {
+            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedStart == "") {
+            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedIP == "") {
+            $signedIP = "0.0.0.0-255.255.255.255";
+        }
+
+        $result = array();
+        $result['signedResource']     = $signedResource;
+        $result['resourceName']       = $resourceName;
+        $result['signedExpiry']       = $signedExpiry;
+        $result['signedPermissions']  = $signedPermissions;
+        $result['signedStart']        = $signedStart;
+        $result['signedIP']           = $signedIP;
+        $result['signedProtocol']     = 'https,http';
+        $result['signedIdentifier']   = '';
+        $result['cacheControl']       = $cacheControl;
+        $result['contentDisposition'] = $contentDisposition;
+        $result['contentEncoding']    = $contentEncoding;
+        $result['contentLanguage']    = $contentLanguage;
+        $result['contentType']        = $contentType;
+
+        return $result;
+    }
+
+    public static function getInterestingTableSASTestCase(
+        $signedPermissions,
+        $tableName,
+        $signedExpiry = "",
+        $signedStart = "",
+        $signedIP = "",
+        $startingPartitionKey = "",
+        $startingRowKey = "",
+        $endingPartitionKey = "",
+        $endingRowKey = ""
+    ) {
+        if ($signedExpiry == "") {
+            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedStart == "") {
+            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedIP == "") {
+            $signedIP = "0.0.0.0-255.255.255.255";
+        }
+
+        $result = array();
+        $result['tableName']            = $tableName;
+        $result['signedExpiry']         = $signedExpiry;
+        $result['signedPermissions']    = $signedPermissions;
+        $result['signedStart']          = $signedStart;
+        $result['signedIP']             = $signedIP;
+        $result['signedProtocol']       = 'https,http';
+        $result['signedIdentifier']     = '';
+        $result['startingPartitionKey'] = $startingPartitionKey;
+        $result['startingRowKey']       = $startingRowKey;
+        $result['endingPartitionKey']   = $endingPartitionKey;
+        $result['endingRowKey']         = $endingRowKey;
+
+        return $result;
+    }
+
+    public static function getInterestingQueueSASTestCase(
+        $signedPermissions,
+        $queueName,
+        $signedExpiry = "",
+        $signedStart = "",
+        $signedIP = ""
+    ) {
+        if ($signedExpiry == "") {
+            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedStart == "") {
+            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+        }
+
+        if ($signedIP == "") {
+            $signedIP = "0.0.0.0-255.255.255.255";
+        }
+
+        $result = array();
+        $result['queueName']            = $queueName;
+        $result['signedExpiry']         = $signedExpiry;
+        $result['signedPermissions']    = $signedPermissions;
+        $result['signedStart']          = $signedStart;
+        $result['signedIP']             = $signedIP;
+        $result['signedProtocol']       = 'https,http';
+        $result['signedIdentifier']     = '';
 
         return $result;
     }

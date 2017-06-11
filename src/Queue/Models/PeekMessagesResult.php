@@ -74,7 +74,7 @@ class PeekMessagesResult
     /**
      * Gets queueMessages field.
      *
-     * @return integer
+     * @return QueueMessage[]
      */
     public function getQueueMessages()
     {
@@ -90,7 +90,7 @@ class PeekMessagesResult
     /**
      * Sets queueMessages field.
      *
-     * @param integer $queueMessages value to use.
+     * @param QueueMessage[] $queueMessages value to use.
      *
      * @internal
      *

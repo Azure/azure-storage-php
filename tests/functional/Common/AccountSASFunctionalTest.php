@@ -24,13 +24,11 @@
  
 namespace MicrosoftAzure\Storage\Tests\functional\Common;
 
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
-use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
+use MicrosoftAzure\Storage\Tests\framework\SASFunctionalTestBase;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
-use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\Tests\framework\TestResources;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Tests\functional\Common\SharedAccessSignatureHelperMock;
 
 /**
  * Tests for account SAS proxy tests.
@@ -42,77 +40,13 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
+class AccountSASFunctionalTest extends SASFunctionalTestBase
 {
-    protected $connectionString;
-    protected $xmlSerializer;
-    protected $builder;
-    protected $serviceSettings;
-    protected $createdContainer;
-    protected $createdTable;
-    protected $createdQueue;
-    protected $createdShare;
-    protected $blobRestProxy;
-    protected $tableRestProxy;
-    protected $queueRestProxy;
-    protected $fileRestProxy;
-
-    public function __construct()
-    {
-        $this->xmlSerializer = new XmlSerializer();
-        $this->builder = new ServicesBuilder();
-        $this->connectionString = TestResources::getWindowsAzureStorageServicesConnectionString();
-        $this->serviceSettings =
-            StorageServiceSettings::createFromConnectionString(
-                $this->connectionString
-            );
-    }
-
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->createdContainer = array();
-        $this->createdTable     = array();
-        $this->createdQueue     = array();
-        $this->createdShare     = array();
-        $this->blobRestProxy    = null;
-        $this->tableRestProxy   = null;
-        $this->queueRestProxy   = null;
-        $this->fileRestProxy    = null;
-    }
-
-    protected function tearDown()
-    {
-        if ($this->blobRestProxy != null) {
-            foreach ($this->createdContainer as $container) {
-                $this->safeDeleteContainer($container);
-            }
-        }
-
-        if ($this->tableRestProxy != null) {
-            foreach ($this->createdTable as $table) {
-                $this->safeDeleteTable($table);
-            }
-        }
-
-        if ($this->queueRestProxy != null) {
-            foreach ($this->createdQueue as $queue) {
-                $this->safeDeleteQueue($queue);
-            }
-        }
-
-        if ($this->fileRestProxy != null) {
-            foreach ($this->createdShare as $share) {
-                $this->safeDeleteShare($share);
-            }
-        }
-    }
-
     /**
     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
     */
-    public function testServiceAccountSASPositive()
+    public function testAccountSASPositive()
     {
         $helper = new SharedAccessSignatureHelperMock(
             $this->serviceSettings->getName(),
@@ -120,7 +54,7 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         );
 
         //Full permission
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'pucaldwr',
@@ -223,7 +157,7 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
     */
-    public function testServiceAccountSASSSNegative()
+    public function testAccountSASSSNegative()
     {
         $helper = new SharedAccessSignatureHelperMock(
             $this->serviceSettings->getName(),
@@ -231,7 +165,7 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         );
 
         //qtf permission
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'pucaldwr',
@@ -240,16 +174,13 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             )
         );
 
+        $reflection = $this;
         //Validate cannot access blob service
-        $message = '';
-        try {
-            $this->blobRestProxy->listContainers();
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection) {
+                $reflection->blobRestProxy->listContainers();
+            },
             'Error: access not blocked for blob service.'
         );
         //Validate can access table, file and queue service
@@ -258,7 +189,7 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         $this->fileRestProxy->listShares();
 
         //btf permission
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'pucaldwr',
@@ -268,15 +199,11 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         );
 
         //Validate cannot access queue service
-        $message = '';
-        try {
-            $this->queueRestProxy->listQueues();
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection) {
+                $reflection->queueRestProxy->listQueues();
+            },
             'Error: access not blocked for queue service.'
         );
         //Validate can access blob, file and table service
@@ -285,7 +212,7 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         $this->fileRestProxy->listShares();
 
         //bqf permission
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'pucaldwr',
@@ -294,25 +221,21 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        //Validate cannot access queue service
-        $message = '';
-        try {
-            $this->tableRestProxy->queryTables();
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        //Validate cannot access table service
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection) {
+                $reflection->tableRestProxy->queryTables();
+            },
             'Error: access not blocked for table service.'
         );
-        //Validate can access blob, table and file service
+        //Validate can access blob, queue and file service
         $this->queueRestProxy->listQueues();
         $this->blobRestProxy->listContainers();
         $this->fileRestProxy->listShares();
 
         //btq permission
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'pucaldwr',
@@ -322,15 +245,11 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         );
 
         //Validate cannot access file service
-        $message = '';
-        try {
-            $this->fileRestProxy->listShares();
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection) {
+                $reflection->fileRestProxy->listShares();
+            },
             'Error: access not blocked for file service.'
         );
         //Validate can access blob, table and queue service
@@ -343,15 +262,16 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
     */
-    public function testServiceAccountSASSPNegative()
+    public function testAccountSASSPNegative()
     {
         $helper = new SharedAccessSignatureHelperMock(
             $this->serviceSettings->getName(),
             $this->serviceSettings->getKey()
         );
 
+        $reflection = $this;
         //rdaup permit
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'rdaup',
@@ -359,32 +279,23 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
                 'ocs'
             )
         );
-        $queue = TestResources::getInterestingName('queue');
-        $message = '';
-        try {
-            $this->queueRestProxy->listQueues();
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection) {
+                $reflection->queueRestProxy->listQueues();
+            },
             'Error: access not blocked for list queue operation.'
         );
-        $message = '';
-        try {
-            $this->queueRestProxy->createQueue('exceptionqueue');
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection) {
+                $reflection->queueRestProxy->createQueue('exceptionqueue');
+            },
             'Error: access not blocked for create queue operation.'
         );
 
         //wlcu permit
-        $this->initializeProxiesWithSASfromArray(
+        $this->initializeProxiesWithAccountSASfromArray(
             $helper,
             TestResources::getInterestingAccountSASTestCase(
                 'wlcu',
@@ -396,48 +307,30 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
         $blob = TestResources::getInterestingName('blob');
         $this->safeCreateContainer($container);
         $this->blobRestProxy->createBlockBlob($container, $blob, 'test message');
-        $message = '';
-        try {
-            $this->blobRestProxy->getBlob($container, $blob);
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection, $container, $blob) {
+                $reflection->blobRestProxy->getBlob($container, $blob);
+            },
             'Error: access not blocked for get blob operation.'
         );
-        $message = '';
-        try {
-            $this->blobRestProxy->deleteBlob($container, $blob);
-        } catch (ServiceException $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains(
+        $this->validateServiceExceptionErrorMessage(
             'not authorized to perform this operation',
-            $message,
+            function () use ($reflection, $container, $blob) {
+                $reflection->blobRestProxy->deleteBlob($container, $blob);
+            },
             'Error: access not blocked for delete blob operation.'
-        );
-
-        //initialize with full permision for tearDown
-        $this->initializeProxiesWithSASfromArray(
-            $helper,
-            TestResources::getInterestingAccountSASTestCase(
-                'rdlwaup',
-                'btqf',
-                'ocs'
-            )
         );
     }
 
-    private function initializeProxiesWithSASfromArray($helper, $testCase)
+    private function initializeProxiesWithAccountSASfromArray($helper, $testCase)
     {
         $sas = $helper->generateAccountSharedAccessSignatureToken(
             $testCase['signedVersion'],
             $testCase['signedPermissions'],
             $testCase['signedService'],
             $testCase['signedResourceType'],
-            $testCase['signedExpiracy'],
+            $testCase['signedExpiry'],
             $testCase['signedStart'],
             $testCase['signedIP'],
             $testCase['signedProtocol']
@@ -445,149 +338,6 @@ class AccountSASFunctionalTest extends \PHPUnit_Framework_TestCase
 
         $accountName = $helper->getAccountName();
 
-        $connectionString = Resources::BLOB_ENDPOINT_NAME .
-                             '='.
-                             'https://' .
-                             $accountName .
-                             '.' .
-                             Resources::BLOB_BASE_DNS_NAME .
-                             ';';
-        $connectionString .= Resources::QUEUE_ENDPOINT_NAME .
-                             '='.
-                             'https://' .
-                             $accountName .
-                             '.' .
-                             Resources::QUEUE_BASE_DNS_NAME .
-                             ';';
-        $connectionString .= Resources::TABLE_ENDPOINT_NAME .
-                             '='.
-                             'https://' .
-                             $accountName .
-                             '.' .
-                             Resources::TABLE_BASE_DNS_NAME .
-                             ';';
-        $connectionString .= Resources::FILE_ENDPOINT_NAME .
-                             '='.
-                             'https://' .
-                             $accountName .
-                             '.' .
-                             Resources::FILE_BASE_DNS_NAME .
-                             ';';
-        $connectionString .= Resources::SAS_TOKEN_NAME .
-                             '='.
-                             $sas;
-
-        $this->blobRestProxy  =
-            $this->builder->createBlobService($connectionString);
-        $this->queueRestProxy =
-            $this->builder->createQueueService($connectionString);
-        $this->tableRestProxy =
-            $this->builder->createTableService($connectionString);
-        $this->fileRestProxy =
-            $this->builder->createFileService($connectionString);
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     */
-    private function safeDeleteContainer($name)
-    {
-        try {
-            $this->blobRestProxy->deleteContainer($name);
-            $this->createdContainer = array_diff($this->createdContainer, [$name]);
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     */
-    private function safeCreateContainer($name)
-    {
-        try {
-            $this->blobRestProxy->createContainer($name);
-            $this->createdContainer[] = $name;
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-     */
-    private function safeDeleteQueue($name)
-    {
-        try {
-            $this->queueRestProxy->deleteQueue($name);
-            $this->createdQueue = array_diff($this->createdQueue, [$name]);
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-     */
-    private function safeCreateQueue($name)
-    {
-        try {
-            $this->queueRestProxy->createQueue($name);
-            $this->createdQueue[] = $name;
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-     */
-    private function safeDeleteTable($name)
-    {
-        try {
-            $this->tableRestProxy->deleteTable($name);
-            $this->createdTable = array_diff($this->createdTable, [$name]);
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-     */
-    private function safeCreateTable($name)
-    {
-        try {
-            $this->tableRestProxy->createTable($name);
-            $this->createdTable[] = $name;
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     */
-    private function safeDeleteShare($name)
-    {
-        try {
-            $this->fileRestProxy->deleteShare($name);
-            $this->createdShare = array_diff($this->createdShare, [$name]);
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
-    }
-
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     */
-    private function safeCreateShare($name)
-    {
-        try {
-            $this->fileRestProxy->createShare($name);
-            $this->createdShare[] = $name;
-        } catch (ServiceException $e) {
-            error_log($e->getMessage());
-        }
+        $this->initializeProxiesWithSASandAccountName($sas, $accountName);
     }
 }

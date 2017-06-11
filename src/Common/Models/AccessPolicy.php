@@ -52,9 +52,9 @@ class AccessPolicy
      *
      * @return array
      */
-    private static function getResourceValidPermissions()
+    public static function getResourceValidPermissions()
     {
-        return [
+        static $validPermissions = [
             Resources::RESOURCE_TYPE_BLOB      => ['r', 'a', 'c', 'w', 'd'],
             Resources::RESOURCE_TYPE_CONTAINER => ['r', 'a', 'c', 'w', 'd', 'l'],
             Resources::RESOURCE_TYPE_QUEUE     => ['r', 'a', 'u', 'p'],
@@ -62,6 +62,8 @@ class AccessPolicy
             Resources::RESOURCE_TYPE_FILE      => ['r', 'c', 'w', 'd'],
             Resources::RESOURCE_TYPE_SHARE     => ['r', 'c', 'w', 'd', 'l']
         ];
+
+        return $validPermissions;
     }
 
     /**

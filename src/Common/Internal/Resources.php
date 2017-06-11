@@ -508,12 +508,12 @@ class Resources
     const STATUS_MOVED_PERMANENTLY = 301;
 
     // Resource Types
-    const RESOURCE_TYPE_BLOB      = 'Blob';
-    const RESOURCE_TYPE_CONTAINER = 'Container';
-    const RESOURCE_TYPE_QUEUE     = 'Queue';
-    const RESOURCE_TYPE_TABLE     = 'Table';
-    const RESOURCE_TYPE_SHARE     = 'Share';
-    const RESOURCE_TYPE_FILE      = 'File';
+    const RESOURCE_TYPE_BLOB      = 'b';
+    const RESOURCE_TYPE_CONTAINER = 'c';
+    const RESOURCE_TYPE_QUEUE     = 'q';
+    const RESOURCE_TYPE_TABLE     = 't';
+    const RESOURCE_TYPE_SHARE     = 's';
+    const RESOURCE_TYPE_FILE      = 'f';
 
     // Request Options String
     const ROS_LOCATION_MODE  = 'location_mode';

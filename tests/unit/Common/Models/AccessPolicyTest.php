@@ -112,7 +112,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $validPermissions = TestResources::getValidAccessPermission();
-        $resourceArray = ['Blob', 'Container', 'Table', 'Queue'];
+        $resourceArray = ['b', 'c', 't', 'q', 'f', 's'];
         foreach ($resourceArray as $resourceType) {
             $accessPolicy = new AccessPolicy($resourceType);
 
@@ -135,7 +135,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $validPermissions = TestResources::getInvalidAccessPermission();
-        $resourceArray = ['Blob', 'Container', 'Table', 'Queue'];
+        $resourceArray = ['b', 'c', 't', 'q', 'f', 's'];
         foreach ($resourceArray as $resourceType) {
             $accessPolicy = new AccessPolicy($resourceType);
 

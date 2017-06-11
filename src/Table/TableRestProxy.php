@@ -439,7 +439,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             Resources::PREFER,
             $options->getDoesReturnContent() ? Resources::RETURN_CONTENT : null
         );
-
+        
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
         $context->setBody($body);
         $context->setHeaders($headers);
