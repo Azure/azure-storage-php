@@ -850,4 +850,20 @@ class Utilities
     {
         return is_double($value + 0);
     }
+
+    /**
+     * Calculates the content MD5 which is base64 encoded. This should be align
+     * with the server calculated MD5.
+     *
+     * @param  string $content the content to be calculated.
+     *
+     * @return string
+     */
+    public static function calculateContentMD5($content)
+    {
+        Validate::notNull($content, 'content');
+        Validate::isString($content, 'content');
+
+        return base64_encode(md5($content, true));
+    }
 }

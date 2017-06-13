@@ -49,8 +49,8 @@ class FileServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function setUp()
     {
         parent::setUp();
-        $blobRestProxy = $this->builder->createFileService($this->connectionString);
-        parent::setProxy($blobRestProxy);
+        $fileRestProxy = $this->builder->createFileService($this->connectionString);
+        parent::setProxy($fileRestProxy);
         $this->createdShares = array();
         $this->createdDirectories = array();
     }

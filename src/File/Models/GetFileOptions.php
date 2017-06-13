@@ -92,7 +92,7 @@ class GetFileOptions extends FileServiceOptions
         if ($this->range != null) {
             return $this->range->getRangeString();
         } else {
-            return '';
+            return null;
         }
     }
 }

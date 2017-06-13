@@ -108,12 +108,12 @@ class FileRestProxy extends ServiceRestProxy implements IFile
     /**
      * Helper method to create promise for getShareProperties API call.
      *
-     * @param string                    $share The share name.
+     * @param string             $share     The share name.
      * @param FileServiceOptions $options   The optional parameters.
-     * @param string                    $operation The operation string. Should be
-     *                                             'metadata' to set metadata,
-     *                                             and 'properties' to set
-     *                                             properties.
+     * @param string             $operation The operation string. Should be
+     *                                      'metadata' to set metadata,
+     *                                      and 'properties' to set
+     *                                      properties.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -176,15 +176,15 @@ class FileRestProxy extends ServiceRestProxy implements IFile
     /**
      * Helper method to create promise for setShareProperties API call.
      *
-     * @param string                    $share      The share name.
-     * @param array                     $properties The array that contains
-     *                                              either the properties or
-     *                                              the metadata to be set.
+     * @param string             $share      The share name.
+     * @param array              $properties The array that contains
+     *                                       either the properties or
+     *                                       the metadata to be set.
      * @param FileServiceOptions $options    The optional parameters.
-     * @param string                    $operation  The operation string. Should be
-     *                                              'metadata' to set metadata,
-     *                                              and 'properties' to set
-     *                                              properties.
+     * @param string             $operation  The operation string. Should be
+     *                                       'metadata' to set metadata,
+     *                                       and 'properties' to set
+     *                                       properties.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
@@ -254,7 +254,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
      * @param  string                   $share   The share name.
      * @param  string                   $path    The path of the file.
      * @param  StreamInterface          $content The content to be uploaded.
-     * @param  Range            $range   The range in the file to be put.
+     * @param  Range                    $range   The range in the file to be put.
      *                                           4MB length min.
      * @param  PutFileRangeOptions|null $options The optional parameters.
      *
@@ -2506,7 +2506,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
      * @param  string                  $share      The share name.
      * @param  string                  $path       The path of the file.
      * @param  string                  $sourcePath The path of the source.
-     * @param  array                   $metadata   The path of the file.
+     * @param  array                   $metadata   The metadata of the file.
+     *                                             If specified, source metadata
+     *                                             will not be copied.
      * @param  FileServiceOptions|null $options    The optional parameters.
      *
      * @return CopyFileResult
@@ -2546,7 +2548,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
      * @param  string                  $share      The share name.
      * @param  string                  $path       The path of the file.
      * @param  string                  $sourcePath The path of the source.
-     * @param  array                   $metadata   The path of the file.
+     * @param  array                   $metadata   The metadata of the file.
+     *                                             If specified, source metadata
+     *                                             will not be copied.
      * @param  FileServiceOptions|null $options    The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface

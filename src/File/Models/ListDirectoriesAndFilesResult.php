@@ -48,6 +48,7 @@ class ListDirectoriesAndFilesResult
     private $files;
     private $maxResults;
     private $accountName;
+    private $marker;
 
     /**
      * Creates ListDirectoriesAndFilesResult object from parsed XML response.
@@ -81,9 +82,20 @@ class ListDirectoriesAndFilesResult
                 $location
             )
         );
+
+        $nextMarker = Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_NEXT_MARKER
+        );
+
         $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS
+        ));
+
+        $result->setMarker(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_MARKER
         ));
 
         $entries = Utilities::tryGetValue(
@@ -202,6 +214,28 @@ class ListDirectoriesAndFilesResult
     protected function setMaxResults($maxResults)
     {
         $this->maxResults = $maxResults;
+    }
+
+    /**
+     * Gets marker.
+     *
+     * @return string
+     */
+    public function getMarker()
+    {
+        return $this->marker;
+    }
+
+    /**
+     * Sets marker.
+     *
+     * @param string $marker value.
+     *
+     * @return void
+     */
+    protected function setMarker($marker)
+    {
+        $this->marker = $marker;
     }
 
     /**

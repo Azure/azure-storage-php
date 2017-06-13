@@ -1068,7 +1068,11 @@ interface IFile
      * @param  string                             $share      The share name.
      * @param  string                             $path       The path of the file.
      * @param  string                             $sourcePath The path of the source.
-     * @param  array                              $metadata   The path of the file.
+     * @param  array                              $metadata   The metadata of
+     *                                                        the file. If
+     *                                                        specified, source
+     *                                                        metadata will not
+     *                                                        be copied.
      * @param  FileModels\FileServiceOptions|null $options    The optional parameters.
      *
      * @return FileModels\CopyFileResult
@@ -1100,7 +1104,11 @@ interface IFile
      * @param  string                             $share      The share name.
      * @param  string                             $path       The path of the file.
      * @param  string                             $sourcePath The path of the source.
-     * @param  array                              $metadata   The path of the file.
+     * @param  array                              $metadata   The metadata of
+     *                                                        the file. If
+     *                                                        specified, source
+     *                                                        metadata will not
+     *                                                        be copied.
      * @param  FileModels\FileServiceOptions|null $options    The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
