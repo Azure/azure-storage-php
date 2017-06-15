@@ -32,9 +32,9 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
-use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
 use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
@@ -43,12 +43,10 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$connectionString = 'DefaultEndpointsProtocol=https;AccountName=phput;AccountKey=LCtFmRVvbWj9C+U2GPF4oLXWZRABJgRn8pS6hBxeoFYDQNPk/2teTxqAJO8GmYHoNPKU+bIWtBxTN42BorMlXQ==';
-
 $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
 
 // Get and Set Blob Service Properties
-blobServiceProperties($blobClient);
+setBlobServiceProperties($blobClient);
 
 // To create a container call createContainer.
 createContainerSample($blobClient);
@@ -111,7 +109,7 @@ try {
     echo $code.": ".$error_message.PHP_EOL;
 }
 
-function blobServiceProperties($blobClient)
+function setBlobServiceProperties($blobClient)
 {
      // Get blob service properties
     echo "Get Blob Service properties" . PHP_EOL;
@@ -447,13 +445,13 @@ function pageBlobOperations($blobClient)
     $blobClient->createBlobPages(
         $containerName,
         $blobName,
-        new PageRange(0, 511),
+        new Range(0, 511),
         generateRandomString(512)
     );
     $blobClient->createBlobPages(
         $containerName,
         $blobName,
-        new PageRange(512, 1023),
+        new Range(512, 1023),
         generateRandomString(512)
     );
     # List page blob ranges
@@ -467,11 +465,11 @@ function pageBlobOperations($blobClient)
         $listPageBlobRangesOptions
     );
     
-    foreach ($listPageBlobRangesResult->getPageRanges() as $pageRange) {
-        echo "Range:".$pageRange->getStart()."-".$pageRange->getEnd().PHP_EOL;
+    foreach ($listPageBlobRangesResult->getRanges() as $range) {
+        echo "Range:".$range->getStart()."-".$range->getEnd().PHP_EOL;
         $getBlobOptions = new GetBlobOptions();
-        $getBlobOptions->setRangeStart($pageRange->getStart());
-        $getBlobOptions->setRangeEnd($pageRange->getEnd());
+        $getBlobOptions->setRangeStart($range->getStart());
+        $getBlobOptions->setRangeEnd($range->getEnd());
         $getBlobResult = $blobClient->getBlob($containerName, $blobName, $getBlobOptions);
         file_put_contents("PageContent.txt", $getBlobResult->getContentStream());
     }

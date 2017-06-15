@@ -1,5 +1,10 @@
 2017.06 - version 0.16.0
 
+All
+* Renamed and moved `MicrosoftAzure\Storage\Blob\Models\PageRange` to `MicrosoftAzure\Storage\Common\Models\Range`.
+* Added support for Service Shared Access Signature.
+* With File service feature parity to 2015-04-05 and Service Shared Access Signature support in this release, the SDK now have full parity for Blob, Table, Queue and File services to REST API version 2015-04-05.
+
 Table
 * Created new types for the following APIs to support specifying accepted content type of response payload. Payload is now by default `application/json;odata=minimalmetadata`.
   - `MicrosoftAzure\Storage\Table\TableRestProxy::createTable` & `MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync` now uses `MicrosoftAzure\Storage\Table\Models\TableServiceCreateOptions`.
@@ -11,6 +16,9 @@ Table
 
 Queue
 * Renamed `MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage` to `MicrosoftAzure\Storage\Queue\Models\QueueMessage`
+
+File
+* Added full support for File service, with parity to REST API 2015-04-05.
 
 2017.04 - version 0.15.0
 
