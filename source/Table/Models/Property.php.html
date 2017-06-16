@@ -76,8 +76,9 @@ use MicrosoftAzure\Storage\Tests\Unit\Table\Models\EdmTypeTest;
  */
 class Property
 {
-    private $_edmType;
-    private $_value;
+    private $edmType;
+    private $value;
+    private $rawValue;
     
     /**
      * Gets the type of the property.
@@ -86,7 +87,7 @@ class Property
      */
     public function getEdmType()
     {
-        return $this-&gt;_edmType;
+        return $this-&gt;edmType;
     }
     
     /**
@@ -99,17 +100,17 @@ class Property
     public function setEdmType($edmType)
     {
         EdmType::isValid($edmType);
-        $this-&gt;_edmType = $edmType;
+        $this-&gt;edmType = $edmType;
     }
     
     /**
      * Gets the value of the property.
      *
-     * @return string
+     * @return mixed
      */
     public function getValue()
     {
-        return $this-&gt;_value;
+        return $this-&gt;value;
     }
     
     /**
@@ -121,7 +122,29 @@ class Property
      */
     public function setValue($value)
     {
-        $this-&gt;_value = $value;
+        $this-&gt;value = $value;
+    }
+
+    /**
+     * Gets the raw value of the property.
+     *
+     * @return string
+     */
+    public function getRawValue()
+    {
+        return $this-&gt;rawValue;
+    }
+    
+    /**
+     * Sets the raw property value.
+     *
+     * @param mixed $rawValue The raw value of property.
+     *
+     * @return void
+     */
+    public function setRawValue($rawValue)
+    {
+        $this-&gt;rawValue = $rawValue;
     }
 }
 </pre>
