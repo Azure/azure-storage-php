@@ -24,7 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Queue\Models\MicrosoftAzureQueueMessage;
+use MicrosoftAzure\Storage\Queue\Models\QueueMessage;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -61,7 +61,7 @@ class PeekMessagesResult
                 $parsedResponse[Resources::QP_QUEUE_MESSAGE]
             );
             foreach ($rawMessages as $value) {
-                $message = MicrosoftAzureQueueMessage::createFromPeekMessages($value);
+                $message = QueueMessage::createFromPeekMessages($value);
                 
                 $queueMessages[] = $message;
             }
@@ -74,7 +74,7 @@ class PeekMessagesResult
     /**
      * Gets queueMessages field.
      *
-     * @return integer
+     * @return QueueMessage[]
      */
     public function getQueueMessages()
     {
@@ -90,7 +90,7 @@ class PeekMessagesResult
     /**
      * Sets queueMessages field.
      *
-     * @param integer $queueMessages value to use.
+     * @param QueueMessage[] $queueMessages value to use.
      *
      * @internal
      *

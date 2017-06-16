@@ -54,14 +54,22 @@ class GetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
         $sample = TestResources::listBlobsOneEntry();
         $expectedProperties = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expectedProperties['Last-Modified']);
-        $expectedMetadata = $sample['Blobs']['Blob']['Metadata'];
+        $expectedProperties['x-ms-meta-test0'] = 'test0';
+        $expectedProperties['x-ms-meta-test1'] = 'test1';
+        $expectedProperties['x-ms-meta-test2'] = 'test2';
+        $expectedProperties['x-ms-meta-test3'] = 'test3';
         
         // Test
-        $actual = GetBlobMetadataResult::create($expectedProperties, $expectedMetadata);
+        $actual = GetBlobMetadataResult::create($expectedProperties);
         
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expectedProperties['Etag'], $actual->getETag());
-        $this->assertEquals($expectedMetadata, $actual->getMetadata());
+
+        $metadata = $actual->getMetadata();
+        $this->assertEquals('test0', $metadata['test0']);
+        $this->assertEquals('test1', $metadata['test1']);
+        $this->assertEquals('test2', $metadata['test2']);
+        $this->assertEquals('test3', $metadata['test3']);
     }
 }

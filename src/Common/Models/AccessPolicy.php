@@ -52,14 +52,18 @@ class AccessPolicy
      *
      * @return array
      */
-    private static function getResourceValidPermissions()
+    public static function getResourceValidPermissions()
     {
-        return [
+        static $validPermissions = [
             Resources::RESOURCE_TYPE_BLOB      => ['r', 'a', 'c', 'w', 'd'],
             Resources::RESOURCE_TYPE_CONTAINER => ['r', 'a', 'c', 'w', 'd', 'l'],
             Resources::RESOURCE_TYPE_QUEUE     => ['r', 'a', 'u', 'p'],
-            Resources::RESOURCE_TYPE_TABLE     => ['r', 'a', 'u', 'd']
+            Resources::RESOURCE_TYPE_TABLE     => ['r', 'a', 'u', 'd'],
+            Resources::RESOURCE_TYPE_FILE      => ['r', 'c', 'w', 'd'],
+            Resources::RESOURCE_TYPE_SHARE     => ['r', 'c', 'w', 'd', 'l']
         ];
+
+        return $validPermissions;
     }
 
     /**
@@ -74,7 +78,9 @@ class AccessPolicy
             $resourceType == Resources::RESOURCE_TYPE_BLOB      ||
             $resourceType == Resources::RESOURCE_TYPE_CONTAINER ||
             $resourceType == Resources::RESOURCE_TYPE_QUEUE     ||
-            $resourceType == Resources::RESOURCE_TYPE_TABLE,
+            $resourceType == Resources::RESOURCE_TYPE_TABLE     ||
+            $resourceType == Resources::RESOURCE_TYPE_FILE      ||
+            $resourceType == Resources::RESOURCE_TYPE_SHARE,
             Resources::ERROR_RESOURCE_TYPE_NOT_SUPPORTED
         );
 

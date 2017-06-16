@@ -22,8 +22,9 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
+namespace MicrosoftAzure\Storage\Tests\unit\Common;
 
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\ServiceException;
 use MicrosoftAzure\Storage\Tests\framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
@@ -197,7 +198,10 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $unauthorizedSignedProtocol = "htTp";
 
         // Test: should throw an InvalidArgumentException
-        $validateAndSanitizeSignedProtocol->invokeArgs($sasHelper, array($unauthorizedSignedProtocol));
+        $validateAndSanitizeSignedProtocol->invokeArgs(
+            $sasHelper,
+            array($unauthorizedSignedProtocol)
+        );
     }
 
     /**
@@ -231,6 +235,52 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
 
             // assert
             $this->assertEquals($testCase[8], urlencode($actualSignature));
+        }
+    }
+
+    /**
+    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
+    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedPermissions
+    */
+    public function testValidateAndSanitizeSignedPermissions()
+    {
+        // Setup
+        $sasHelper = $this->testConstruct();
+        $validateAndSanitizeSignedPermissions = self::getMethod(
+            'validateAndSanitizeSignedPermissions',
+            $sasHelper
+        );
+
+        $pairs = TestResources::getInterestingSignedResourcePermissionsPair();
+
+        $expectedErrorMessage = \substr(
+            Resources::STRING_NOT_WITH_GIVEN_COMBINATION,
+            0,
+            strpos(Resources::STRING_NOT_WITH_GIVEN_COMBINATION, '%s')
+        );
+
+        foreach ($pairs as $pair) {
+            if ($pair['expected'] == '') {
+                $message = '';
+                try {
+                    $validateAndSanitizeSignedPermissions->invokeArgs(
+                        $sasHelper,
+                        array($pair['sp'], $pair['sr'])
+                    );
+                } catch (\InvalidArgumentException $e) {
+                    $message = $e->getMessage();
+                }
+                $this->assertContains(
+                    $expectedErrorMessage,
+                    $message
+                );
+            } else {
+                $result = $validateAndSanitizeSignedPermissions->invokeArgs(
+                    $sasHelper,
+                    array($pair['sp'], $pair['sr'])
+                );
+                $this->assertEquals($pair['expected'], $result);
+            }
         }
     }
 }

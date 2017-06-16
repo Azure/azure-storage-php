@@ -393,8 +393,6 @@ class TableServiceFunctionalTestData
 
         $e = new Entity();
         $e->setPartitionKey(self::getNewKey());
-        +
-
 
         $e->setRowKey(self::getNewKey());
         $e->addProperty('BINARY', EdmType::BINARY, null);

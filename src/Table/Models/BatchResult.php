@@ -32,7 +32,7 @@ use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Table\Internal\IMimeReaderWriter;
-use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
 use GuzzleHttp\Psr7\Response;
 
 /**
@@ -115,11 +115,11 @@ class BatchResult
     /**
      * Creates BatchResult object.
      *
-     * @param string            $body           The HTTP response body.
-     * @param array             $operations     The batch operations.
-     * @param array             $contexts       The batch operations context.
-     * @param IAtomReaderWriter $atomSerializer The Atom reader and writer.
-     * @param IMimeReaderWriter $mimeSerializer The MIME reader and writer.
+     * @param string             $body            The HTTP response body.
+     * @param array              $operations      The batch operations.
+     * @param array              $contexts        The batch operations context.
+     * @param IODataReaderWriter $odataSerializer The OData reader and writer.
+     * @param IMimeReaderWriter  $mimeSerializer  The MIME reader and writer.
      *
      * @return \MicrosoftAzure\Storage\Table\Models\BatchResult
      *
@@ -129,7 +129,7 @@ class BatchResult
         $body,
         array $operations,
         array $contexts,
-        IAtomReaderWriter $atomSerializer,
+        IODataReaderWriter $odataSerializer,
         IMimeReaderWriter $mimeSerializer
     ) {
         $result       = new BatchResult();
@@ -166,7 +166,7 @@ class BatchResult
                     $entries[] = InsertEntityResult::create(
                         $body,
                         $headers,
-                        $atomSerializer
+                        $odataSerializer
                     );
                     break;
                 case BatchOperationType::UPDATE_ENTITY_OPERATION:

@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Blob\Models\PageRange;
+use MicrosoftAzure\Storage\Common\Models\Range;
 
 /**
  * Holds result of calling listPageBlobRanges wrapper
@@ -64,21 +64,21 @@ class ListPageBlobRangesResult
         $date          = $headers[Resources::LAST_MODIFIED];
         $date          = Utilities::rfc1123ToDateTime($date);
         $blobLength    = intval($headers[Resources::X_MS_BLOB_CONTENT_LENGTH]);
-        $rawPageRanges = array();
+        $rawRanges = array();
         
         if (!empty($parsed['PageRange'])) {
             $parsed        = array_change_key_case($parsed);
-            $rawPageRanges = Utilities::getArray($parsed['pagerange']);
+            $rawRanges = Utilities::getArray($parsed['pagerange']);
         }
         
         $pageRanges = array();
-        foreach ($rawPageRanges as $value) {
-            $pageRanges[] = new PageRange(
+        foreach ($rawRanges as $value) {
+            $pageRanges[] = new Range(
                 intval($value['Start']),
                 intval($value['End'])
             );
         }
-        $result->setPageRanges($pageRanges);
+        $result->setRanges($pageRanges);
         $result->setContentLength($blobLength);
         $result->setETag($headers[Resources::ETAG]);
         $result->setLastModified($date);
@@ -160,7 +160,7 @@ class ListPageBlobRangesResult
      *
      * @return array
      */
-    public function getPageRanges()
+    public function getRanges()
     {
         return $this->_pageRanges;
     }
@@ -172,7 +172,7 @@ class ListPageBlobRangesResult
      *
      * @return void
      */
-    protected function setPageRanges(array $pageRanges)
+    protected function setRanges(array $pageRanges)
     {
         $this->_pageRanges = array();
         foreach ($pageRanges as $pageRange) {

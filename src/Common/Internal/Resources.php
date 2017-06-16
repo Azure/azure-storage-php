@@ -49,12 +49,14 @@ class Resources
     const BLOB_ENDPOINT_NAME = 'BlobEndpoint';
     const QUEUE_ENDPOINT_NAME = 'QueueEndpoint';
     const TABLE_ENDPOINT_NAME = 'TableEndpoint';
+    const FILE_ENDPOINT_NAME = 'FileEndpoint';
     const SHARED_ACCESS_SIGNATURE_NAME = 'SharedAccessSignature';
     const DEV_STORE_NAME = 'devstoreaccount1';
     const DEV_STORE_KEY = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
     const BLOB_BASE_DNS_NAME = 'blob.core.windows.net';
     const QUEUE_BASE_DNS_NAME = 'queue.core.windows.net';
     const TABLE_BASE_DNS_NAME = 'table.core.windows.net';
+    const FILE_BASE_DNS_NAME = 'file.core.windows.net';
     const DEV_STORE_CONNECTION_STRING = 'BlobEndpoint=127.0.0.1:10000;QueueEndpoint=127.0.0.1:10001;TableEndpoint=127.0.0.1:10002;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
     const SUBSCRIPTION_ID_NAME = 'SubscriptionID';
     const CERTIFICATE_PATH_NAME = 'CertificatePath';
@@ -134,7 +136,11 @@ class Resources
     const INVALID_PERMISSION_PROVIDED = 'Invalid permission provided, the permission of resource type \'%s\' can only be of \'%s\'';
     const INVALID_RESOURCE_TYPE = 'Provided resource type is invalid.';
     const ERROR_KEY_NOT_EXIST = "The key '%s' does not exist in the given array.";
-    
+    const FILE_LOCATION_IS_PRIMARY_ONLY = "Can only specify PRIMARY_ONLY for file service's location mode.";
+    const FILE_SHARE_PROPERTIES_OPERATION_INVALID = "The operation is invalid. Can only be 'metadata' or 'properties'.";
+    const RESOURCE_RANGE_LENGTH_MUST_SET = "The start and end/length of the range must be set.";
+    const INVALID_ACCEPT_CONTENT_TYPE = "The given accept content type is not valid.";
+
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
     const X_MS_META_HEADER_PREFIX            = 'x-ms-meta-';
@@ -158,6 +164,7 @@ class Resources
     const X_MS_BLOB_CONDITION_APPENDPOS      = 'x-ms-blob-condition-appendpos';
     const X_MS_BLOB_APPEND_OFFSET            = 'x-ms-blob-append-offset';
     const X_MS_BLOB_COMMITTED_BLOCK_COUNT    = 'x-ms-blob-committed-block-count';
+    const X_MS_SHARE_QUOTA                   = 'x-ms-share-quota';
     const X_MS_COPY_ACTION                   = 'x-ms-copy-action';
     const X_MS_COPY_ID                       = 'x-ms-copy-id';
     const X_MS_COPY_COMPLETION_TIME          = 'x-ms-copy-completion-time';
@@ -188,6 +195,15 @@ class Resources
     const X_MS_CONTINUATION_NEXTROWKEY       = 'x-ms-continuation-nextrowkey';
     const X_MS_REQUEST_ID                    = 'x-ms-request-id';
     const X_MS_CONTINUATION_LOCATION_MODE    = 'x-ms-continuation-location-mode';
+    const X_MS_TYPE                          = 'x-ms-type';
+    const X_MS_CONTENT_LENGTH                = 'x-ms-content-length';
+    const X_MS_CACHE_CONTROL                 = 'x-ms-cache-control';
+    const X_MS_CONTENT_TYPE                  = 'x-ms-content-type';
+    const X_MS_CONTENT_MD5                   = 'x-ms-content-md5';
+    const X_MS_CONTENT_ENCODING              = 'x-ms-content-encoding';
+    const X_MS_CONTENT_LANGUAGE              = 'x-ms-content-language';
+    const X_MS_CONTENT_DISPOSITION           = 'x-ms-content-disposition';
+    const X_MS_WRITE                         = 'x-ms-write';
     const ETAG                               = 'etag';
     const LAST_MODIFIED                      = 'last-modified';
     const DATE                               = 'date';
@@ -218,6 +234,7 @@ class Resources
     const ACCEPT_HEADER                      = 'accept';
     const ACCEPT_CHARSET                     = 'accept-charset';
     const USER_AGENT                         = 'User-Agent';
+    const PREFER                             = 'Prefer';
 
     // Type
     const QUEUE_TYPE_NAME              = 'IQueue';
@@ -261,7 +278,9 @@ class Resources
     const MB_IN_BYTES_4       = 4194304;
     const MB_IN_BYTES_32      = 33554432;
     const MB_IN_BYTES_64      = 67108864;
+    const GB_IN_BYTES         = 1073741824;
     const MAX_BLOB_BLOCKS     = 50000;
+    const RETURN_CONTENT      = 'return-content';
 
     // Xml Namespaces
     const WA_XML_NAMESPACE   = 'http://schemas.microsoft.com/windowsazure';
@@ -274,15 +293,19 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                                   = '0.15.0';
-    const STORAGE_API_LATEST_VERSION                    = '2015-04-05';
-    const DATA_SERVICE_VERSION_VALUE                    = '1.0;NetFx';
-    const MAX_DATA_SERVICE_VERSION_VALUE                = '2.0;NetFx';
-    const ACCEPT_HEADER_VALUE                           = 'application/atom+xml,application/xml';
-    const ATOM_ENTRY_CONTENT_TYPE                       = 'application/atom+xml;type=entry;charset=utf-8';
-    const ATOM_FEED_CONTENT_TYPE                        = 'application/atom+xml;type=feed;charset=utf-8';
-    const ACCEPT_CHARSET_VALUE                          = 'utf-8';
-    const INT32_MAX                                     = 2147483647;
+    const SDK_VERSION                        = '0.15.0';
+    const STORAGE_API_LATEST_VERSION         = '2015-04-05';
+    const DATA_SERVICE_VERSION_VALUE         = '3.0';
+    const MAX_DATA_SERVICE_VERSION_VALUE     = '3.0;NetFx';
+    const ACCEPT_HEADER_VALUE                = 'application/atom+xml,application/xml';
+    const ATOM_ENTRY_CONTENT_TYPE            = 'application/atom+xml;type=entry;charset=utf-8';
+    const ATOM_FEED_CONTENT_TYPE             = 'application/atom+xml;type=feed;charset=utf-8';
+    const JSON_FULL_METADATA_CONTENT_TYPE    = 'application/json;odata=fullmetadata';
+    const JSON_MINIMAL_METADATA_CONTENT_TYPE = 'application/json;odata=minimalmetadata';
+    const JSON_NO_METADATA_CONTENT_TYPE      = 'application/json;odata=nometadata';
+    const ACCEPT_CHARSET_VALUE               = 'utf-8';
+    const INT32_MAX                          = 2147483647;
+    const INT32_MIN                          = -2147483648;
 
     // Query parameter names
     const QP_PREFIX             = 'Prefix';
@@ -314,6 +337,17 @@ class Resources
     const QP_EMBED_DETAIL       = 'embed-detail';
     const QP_QUEUE_MESSAGE      = 'QueueMessage';
     const QP_COPY_ID            = 'copyid';
+    const QP_SHARES             = 'Shares';
+    const QP_SHARE              = 'Share';
+    const QP_NAME               = 'Name';
+    const QP_PROPERTIES         = 'Properties';
+    const QP_LAST_MODIFIED      = 'Last-Modified';
+    const QP_ETAG               = 'Etag';
+    const QP_QUOTA              = 'Quota';
+    const QP_ENTRIES            = 'Entries';
+    const QP_DIRECTORY          = 'Directory';
+    const QP_FILE               = 'File';
+    const QP_CONTENT_LENGTH     = 'Content-Length';
 
     // Query parameter values
     const QPV_REGENERATE = 'regenerate';
@@ -439,6 +473,21 @@ class Resources
     const XTAG_DEFAULT_SERVICE_VERSION      = 'DefaultServiceVersion';
     const XTAG_GEO_REPLICATION              = 'GeoReplication';
     const XTAG_LAST_SYNC_TIME               = 'LastSyncTime';
+    const XTAG_SHARE_USAGE                  = 'ShareUsage';
+
+    //JSON Tags
+    const JSON_TABLE_NAME        = 'TableName';
+    const JSON_VALUE             = 'value';
+    const JSON_ODATA_METADATA    = 'odata.metadata';
+    const JSON_ODATA_TYPE        = 'odata.type';
+    const JSON_ODATA_ID          = 'odata.id';
+    const JSON_ODATA_EDITLINK    = 'odata.editLink';
+    const JSON_ODATA_TYPE_SUFFIX = '@odata.type';
+    const JSON_ODATA_ETAG        = 'odata.etag';
+    const JSON_PARTITION_KEY     = 'PartitionKey';
+    const JSON_ROW_KEY           = 'RowKey';
+    const JSON_TIMESTAMP         = 'Timestamp';
+    const JSON_CUSTOMER_SINCE    = 'CustomerSince';
 
     // PHP URL Keys
     const PHP_URL_SCHEME   = 'scheme';
@@ -459,10 +508,12 @@ class Resources
     const STATUS_MOVED_PERMANENTLY = 301;
 
     // Resource Types
-    const RESOURCE_TYPE_BLOB      = 'Blob';
-    const RESOURCE_TYPE_CONTAINER = 'Container';
-    const RESOURCE_TYPE_QUEUE     = 'Queue';
-    const RESOURCE_TYPE_TABLE     = 'Table';
+    const RESOURCE_TYPE_BLOB      = 'b';
+    const RESOURCE_TYPE_CONTAINER = 'c';
+    const RESOURCE_TYPE_QUEUE     = 'q';
+    const RESOURCE_TYPE_TABLE     = 't';
+    const RESOURCE_TYPE_SHARE     = 's';
+    const RESOURCE_TYPE_FILE      = 'f';
 
     // Request Options String
     const ROS_LOCATION_MODE  = 'location_mode';

@@ -75,11 +75,6 @@ class ServiceRestProxyTestBase extends RestProxyTestBase
     {
         $this->propertiesChanged = false;
         $propertiesArray = array();
-        $propertiesArray['Logging']['Version'] = '1.0';
-        $propertiesArray['Logging']['Delete'] = 'false';
-        $propertiesArray['Logging']['Read'] = 'false';
-        $propertiesArray['Logging']['Write'] = 'false';
-        $propertiesArray['Logging']['RetentionPolicy']['Enabled'] = 'false';
         $propertiesArray['HourMetrics']['Version'] = '1.0';
         $propertiesArray['HourMetrics']['Enabled'] = 'false';
         $propertiesArray['HourMetrics']['IncludeAPIs'] = 'false';

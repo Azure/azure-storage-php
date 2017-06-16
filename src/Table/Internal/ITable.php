@@ -134,7 +134,7 @@ interface ITable
      *
      * @return TableModels\QueryTablesResult
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179405.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/query-tables
      */
     public function queryTables($options = null);
 
@@ -146,64 +146,64 @@ interface ITable
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179405.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/query-tables
      */
     public function queryTablesAsync($options = null);
     
     /**
      * Creates new table in the storage account
      *
-     * @param string                          $table   The name of the table.
-     * @param TableModels\TableServiceOptions $options optional parameters
+     * @param string                                $table   The name of the table.
+     * @param TableModels\TableServiceCreateOptions $options optional parameters
      *
      * @return void
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135729.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/create-table
      */
     public function createTable(
         $table,
-        TableModels\TableServiceOptions $options = null
+        TableModels\TableServiceCreateOptions $options = null
     );
 
     /**
      * Creates promise to create new table in the storage account
      *
-     * @param string                          $table   The name of the table.
-     * @param TableModels\TableServiceOptions $options The optional parameters.
+     * @param string                                $table   The name of the table.
+     * @param TableModels\TableServiceCreateOptions $options The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd135729.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/create-table
      */
     public function createTableAsync(
         $table,
-        TableModels\TableServiceOptions $options = null
+        TableModels\TableServiceCreateOptions $options = null
     );
     
     /**
      * Gets the table.
      *
-     * @param string                          $table   The The name of the table..
-     * @param TableModels\TableServiceOptions $options The optional parameters.
+     * @param string                      $table   The The name of the table..
+     * @param TableModels\GetTableOptions $options The optional parameters.
      *
      * @return TableModels\GetTableResult
      */
     public function getTable(
         $table,
-        TableModels\TableServiceOptions $options = null
+        TableModels\GetTableOptions $options = null
     );
 
     /**
      * Creates the promise to get the table.
      *
-     * @param string                          $table   The name of the table.
-     * @param TableModels\TableServiceOptions $options The optional parameters.
+     * @param string                      $table   The name of the table.
+     * @param TableModels\GetTableOptions $options The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function getTableAsync(
         $table,
-        TableModels\TableServiceOptions $options = null
+        TableModels\GetTableOptions $options = null
     );
     
     /**
@@ -246,7 +246,7 @@ interface ITable
      *
      * @return TableModels\QueryEntitiesResult
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179421.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/query-entities
      */
     public function queryEntities($table, $options = null);
 
@@ -260,42 +260,42 @@ interface ITable
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179421.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/query-entities
      */
     public function queryEntitiesAsync($table, $options = null);
     
     /**
      * Inserts new entity to the table
      *
-     * @param string                          $table   name of the table
-     * @param TableModels\Entity              $entity  table entity
-     * @param TableModels\TableServiceOptions $options optional parameters
+     * @param string                                $table   name of the table
+     * @param TableModels\Entity                    $entity  table entity
+     * @param TableModels\TableServiceCreateOptions $options optional parameters
      *
      * @return TableModels\InsertEntityResult
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179433.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/insert-entity
      */
     public function insertEntity(
         $table,
         TableModels\Entity $entity,
-        TableModels\TableServiceOptions $options = null
+        TableModels\TableServiceCreateOptions $options = null
     );
 
     /**
      * Inserts new entity to the table.
      *
-     * @param string                          $table   name of the table.
-     * @param TableModels\Entity              $entity  table entity.
-     * @param TableModels\TableServiceOptions $options optional parameters.
+     * @param string                                $table   name of the table.
+     * @param TableModels\Entity                    $entity  table entity.
+     * @param TableModels\TableServiceCreateOptions $options optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
-     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179433.aspx
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/insert-entity
      */
     public function insertEntityAsync(
         $table,
         TableModels\Entity $entity,
-        TableModels\TableServiceOptions $options = null
+        TableModels\TableServiceCreateOptions $options = null
     );
     
     /**
@@ -483,10 +483,14 @@ interface ITable
     /**
      * Gets table entity.
      *
-     * @param string                          $table        The name of the table.
-     * @param string                          $partitionKey The entity partition key.
-     * @param string                          $rowKey       The entity row key.
-     * @param TableModels\TableServiceOptions $options      The optional parameters.
+     * @param string                            $table        The name of the
+     *                                                        table.
+     * @param string                            $partitionKey The entity
+     *                                                        partition key.
+     * @param string                            $rowKey       The entity
+     *                                                        row key.
+     * @param TableModels\GetEntityOptions|null $options      The optional
+     *                                                        parameters.
      *
      * @return TableModels\GetEntityResult
      *
@@ -496,16 +500,20 @@ interface ITable
         $table,
         $partitionKey,
         $rowKey,
-        TableModels\TableServiceOptions $options = null
+        TableModels\GetEntityOptions $options = null
     );
 
     /**
      * Creates promise to get table entity.
      *
-     * @param string                          $table        The name of the table.
-     * @param string                          $partitionKey The entity partition key.
-     * @param string                          $rowKey       The entity row key.
-     * @param TableModels\TableServiceOptions $options      The optional parameters.
+     * @param string                            $table        The name of
+     *                                                        the table.
+     * @param string                            $partitionKey The entity
+     *                                                        partition key.
+     * @param string                            $rowKey       The entity
+     *                                                        row key.
+     * @param TableModels\GetEntityOptions|null $options      The optional
+     *                                                        parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -515,7 +523,7 @@ interface ITable
         $table,
         $partitionKey,
         $rowKey,
-        TableModels\TableServiceOptions $options = null
+        TableModels\GetEntityOptions $options = null
     );
     
     /**

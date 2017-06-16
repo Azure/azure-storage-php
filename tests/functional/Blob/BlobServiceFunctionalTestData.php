@@ -54,13 +54,13 @@ class BlobServiceFunctionalTestData
     public static $nonExistBlobPrefix;
     public static $testContainerNames;
     public static $testBlobNames;
-    private static $_accountName;
+    private static $accountName;
     private static $badETag = '0x123456789ABCDEF';
 
     public static function setupData($accountName)
     {
         $rint = mt_rand(0, 1000000);
-        self::$_accountName = $accountName;
+        self::$accountName = $accountName;
         self::$testUniqueId = 'qa-' . $rint . '-';
         self::$nonExistContainerPrefix = 'qa-' . ($rint . 1) . '-';
         self::$nonExistBlobPrefix = 'qa-' . ($rint . 2) . '-';
@@ -349,12 +349,12 @@ class BlobServiceFunctionalTestData
         array_push($ret, $options);
 
         $options = new ListContainersOptions();
-        $marker = '/' . self::$_accountName . '/' . self::$testContainerNames[1];
+        $marker = '/' . self::$accountName . '/' . self::$testContainerNames[1];
         $options->setMarker($marker);
         array_push($ret, $options);
 
         $options = new ListContainersOptions();
-        $marker = '/' . self::$_accountName . '/' . self::$nonExistContainerPrefix;
+        $marker = '/' . self::$accountName . '/' . self::$nonExistContainerPrefix;
         $options->setMarker($marker);
         array_push($ret, $options);
 
@@ -394,7 +394,7 @@ class BlobServiceFunctionalTestData
         array_push($ret, $options);
 
         $options = new ListContainersOptions();
-        $marker = '/' . self::$_accountName . '/' . self::$testContainerNames[1];
+        $marker = '/' . self::$accountName . '/' . self::$testContainerNames[1];
         $maxResults = 2;
         $prefix = self::$testUniqueId;
         $timeout = 60;

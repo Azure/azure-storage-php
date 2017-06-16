@@ -24,8 +24,8 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult;
-use MicrosoftAzure\Storage\Blob\Models\PageRange;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
@@ -41,8 +41,8 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 class ListPageBlobRangesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setPageRanges
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getPageRanges
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getRanges
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setRanges
      * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setContentLength
      * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getContentLength
      * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setETag
@@ -64,7 +64,7 @@ class ListPageBlobRangesResultTest extends \PHPUnit_Framework_TestCase
         
         $pageRanges = array();
         foreach ($rawPageRanges as $value) {
-            $pageRanges[] = new PageRange(
+            $pageRanges[] = new Range(
                 intval($value['Start']),
                 intval($value['End'])
             );
@@ -76,7 +76,7 @@ class ListPageBlobRangesResultTest extends \PHPUnit_Framework_TestCase
         $result = ListPageBlobRangesResult::create($headers, $bodyArray);
 
         //Assert
-        $this->assertEquals($pageRanges, $result->getPageRanges());
+        $this->assertEquals($pageRanges, $result->getRanges());
         $this->assertEquals($expectedLastModified, $result->getLastModified());
         $this->assertEquals($headers['Etag'], $result->getETag());
         $this->assertEquals($headers['x-ms-blob-content-length'], $result->getContentLength());

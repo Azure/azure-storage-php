@@ -25,7 +25,7 @@
 namespace MicrosoftAzure\Storage\Table\Internal;
 
 /**
- * Defines how to serialize and unserialize table wrapper xml
+ * Defines how to serialize and unserialize table wrapper JSON
  *
  * @ignore
  * @category  Microsoft
@@ -35,10 +35,10 @@ namespace MicrosoftAzure\Storage\Table\Internal;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-interface IAtomReaderWriter
+interface IODataReaderWriter
 {
     /**
-     * Constructs XML representation for table entry.
+     * Constructs JSON representation for table entry.
      *
      * @param string $name The name of the table.
      *
@@ -65,7 +65,7 @@ interface IAtomReaderWriter
     public function parseTableEntries($body);
     
     /**
-     * Constructs XML representation for entity.
+     * Constructs JSON representation for entity.
      *
      * @param \MicrosoftAzure\Storage\Table\Models\Entity $entity The entity instance.
      *

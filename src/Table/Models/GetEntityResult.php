@@ -24,7 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Table\Internal\IAtomReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
 
 /**
  * Holds result of calling getEntity wrapper.
@@ -65,14 +65,14 @@ class GetEntityResult
     /**
      * Create GetEntityResult object from HTTP response parts.
      *
-     * @param string            $body           The HTTP response body.
-     * @param IAtomReaderWriter $atomSerializer The atom reader and writer.
+     * @param string             $body            The HTTP response body.
+     * @param IODataReaderWriter $odataSerializer The OData reader and writer.
      *
      * @internal
      *
      * @return GetEntityResult
      */
-    public static function create($body, IAtomReaderWriter $serializer)
+    public static function create($body, IODataReaderWriter $serializer)
     {
         $result = new GetEntityResult();
         $result->setEntity($serializer->parseEntity($body));

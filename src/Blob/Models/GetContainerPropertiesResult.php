@@ -24,6 +24,7 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\MetadataTrait;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
@@ -39,82 +40,11 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class GetContainerPropertiesResult
 {
-    private $_lastModified;
-    private $_etag;
-    private $_metadata;
+    use MetadataTrait;
+
     private $_leaseStatus;
     private $_leaseState;
     private $_leaseDuration;
-    
-    /**
-     * Any operation that modifies the container or its properties or metadata
-     * updates the last modified time. Operations on blobs do not affect the last
-     * modified time of the container.
-     *
-     * @return \DateTime.
-     */
-    public function getLastModified()
-    {
-        return $this->_lastModified;
-    }
-
-    /**
-     * Sets container lastModified.
-     *
-     * @param \DateTime $lastModified value.
-     *
-     * @return void
-     */
-    protected function setLastModified(\DateTime $lastModified)
-    {
-        $this->_lastModified = $lastModified;
-    }
-    
-    /**
-     * The entity tag for the container. If the request version is 2011-08-18 or
-     * newer, the ETag value will be in quotes.
-     *
-     * @return string
-     */
-    public function getETag()
-    {
-        return $this->_etag;
-    }
-
-    /**
-     * Sets container etag.
-     *
-     * @param string $etag value.
-     *
-     * @return void
-     */
-    protected function setETag($etag)
-    {
-        $this->_etag = $etag;
-    }
-    
-    /**
-     * Gets user defined metadata.
-     *
-     * @return array
-     */
-    public function getMetadata()
-    {
-        return $this->_metadata;
-    }
-    
-    /**
-     * Sets user defined metadata. This metadata should be added without the header
-     * prefix (x-ms-meta-*).
-     *
-     * @param array $metadata user defined metadata object in array form.
-     *
-     * @return void
-     */
-    protected function setMetadata(array $metadata)
-    {
-        $this->_metadata = $metadata;
-    }
     
     /**
      * Gets blob leaseStatus.
@@ -193,19 +123,8 @@ class GetContainerPropertiesResult
      */
     public static function create(array $responseHeaders)
     {
-        $result   = new GetContainerPropertiesResult();
-        $metadata = Utilities::getMetadataArray($responseHeaders);
-        $date     = Utilities::tryGetValueInsensitive(
-            Resources::LAST_MODIFIED,
-            $responseHeaders
-        );
-        $date     = Utilities::rfc1123ToDateTime($date);
-        $result->setETag(Utilities::tryGetValueInsensitive(
-            Resources::ETAG,
-            $responseHeaders
-        ));
-        $result->setMetadata($metadata);
-        $result->setLastModified($date);
+        $result   = static::createMetadataResult($responseHeaders);
+
         $result->setLeaseStatus(Utilities::tryGetValueInsensitive(
             Resources::X_MS_LEASE_STATUS,
             $responseHeaders

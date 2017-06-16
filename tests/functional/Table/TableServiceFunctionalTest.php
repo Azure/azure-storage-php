@@ -39,8 +39,11 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Table\Models\InsertEntityResult;
 use MicrosoftAzure\Storage\Table\Models\Property;
 use MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions;
+use MicrosoftAzure\Storage\Table\Models\GetTableOptions;
+use MicrosoftAzure\Storage\Table\Models\GetEntityOptions;
 use MicrosoftAzure\Storage\Table\Models\QueryTablesOptions;
 use MicrosoftAzure\Storage\Table\Models\TableServiceOptions;
+use MicrosoftAzure\Storage\Table\Models\TableServiceCreateOptions;
 use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
@@ -384,7 +387,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testCreateTable()
     {
-        $options = new TableServiceOptions();
+        $options = new TableServiceCreateOptions();
         $this->createTableWorker($options);
     }
 
@@ -530,7 +533,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     */
     public function testGetTable()
     {
-        $options = new TableServiceOptions();
+        $options = new GetTableOptions();
         $this->getTableWorker($options);
     }
 
@@ -550,7 +553,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $ret = (is_null($options) ? $this->restProxy->getTable($table) : $this->restProxy->getTable($table, $options));
 
         if (is_null($options)) {
-            $options = new TableServiceOptions();
+            $options = new GetTableOptions();
         }
 
         $this->verifygetTableWorker($ret, $table);
@@ -574,7 +577,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $ents = TableServiceFunctionalTestData::getInterestingEntities();
         foreach ($ents as $ent) {
-            $options = new TableServiceOptions();
+            $options = new GetEntityOptions();
             $this->getEntityWorker($ent, true, $options);
         }
     }
@@ -604,7 +607,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             );
 
             if (is_null($options)) {
-                $options = new TableServiceOptions();
+                $options = new GetEntityOptions();
             }
 
             $this->assertNotNull($qer->getEntity(), 'getEntity()');
@@ -757,7 +760,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $ents = TableServiceFunctionalTestData::getInterestingEntities();
         foreach ($ents as $ent) {
-            $options = new TableServiceOptions();
+            $options = new TableServiceCreateOptions();
             $this->insertEntityWorker($ent, true, $options);
         }
     }
@@ -770,7 +773,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     {
         $ents = TableServiceFunctionalTestData::getInterestingBadEntities();
         foreach ($ents as $ent) {
-            $options = new TableServiceOptions();
+            $options = new TableServiceCreateOptions();
             try {
                 $this->insertEntityWorker($ent, true, $options);
                 $this->fail('this call should fail');
@@ -1061,7 +1064,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
                 $this->restProxy->insertEntity($table, $ent, $options));
 
             if (is_null($options)) {
-                $options = new TableServiceOptions();
+                $options = new TableServiceCreateOptions();
             }
 
             // Check that the message matches
@@ -1359,7 +1362,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             foreach (MutatePivot::values() as $mutatePivot) {
                 for ($i = 0; $i <= 1; $i++) {
                     foreach (TableServiceFunctionalTestData::getSimpleEntities(2) as $ent) {
-                        $options = ($i == 0 ? null : new TableServiceOptions());
+                        $options = ($i == 0 ? null : new TableServiceCreateOptions());
                         $this->crudWorker(OpType::INSERT_ENTITY, $concurType, $mutatePivot, $ent, $options);
                     }
                 }
@@ -1623,7 +1626,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         // Compare the entities to make sure they match.
         $this->assertEquals($ent->getPartitionKey(), $entReturned->getPartitionKey(), 'getPartitionKey');
         $this->assertEquals($ent->getRowKey(), $entReturned->getRowKey(), 'getRowKey');
-        $this->assertNotNull($entReturned->getETag(), 'getETag');
         if (!is_null($ent->getETag())) {
             $this->assertTrue(
                 $ent->getETag() != $entReturned->getETag(),
@@ -1653,10 +1655,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             }
 
             $this->assertEquals(
-                $entReturned->getProperty($pname),
-                $actualProp,
+                $entReturned->getProperty($pname)->getEdmType(),
+                $actualProp->getEdmType(),
                 'getProperty(\'' . $pname . '\')'
             );
+
             $this->assertEquals(
                 $entReturned->getPropertyValue($pname),
                 $actualProp->getValue(),

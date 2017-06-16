@@ -88,14 +88,23 @@ class ServiceOptions
     /**
      * Initialize the properties to default value.
      */
-    public function __construct()
+    public function __construct(ServiceOptions $options = null)
     {
-        $this->setNumberOfConcurrency(Resources::NUMBER_OF_CONCURRENCY);
-        $this->setLocationMode(LocationMode::PRIMARY_ONLY);
-        $this->setIsStreaming(false);
-        $this->setDecodeContent(false);
-        $this->middlewares = array();
-        $this->middlewareStack = null;
+        if ($options == null) {
+            $this->setNumberOfConcurrency(Resources::NUMBER_OF_CONCURRENCY);
+            $this->setLocationMode(LocationMode::PRIMARY_ONLY);
+            $this->setIsStreaming(false);
+            $this->setDecodeContent(false);
+            $this->middlewares = array();
+            $this->middlewareStack = null;
+        } else {
+            $this->setNumberOfConcurrency($options->getNumberOfConcurrency());
+            $this->setLocationMode($options->getLocationMode());
+            $this->setIsStreaming($options->getIsStreaming());
+            $this->setDecodeContent($options->getDecodeContent());
+            $this->middlewares = $options->getMiddlewares();
+            $this->middlewareStack = $options->getMiddlewareStack();
+        }
     }
 
     /**

@@ -24,7 +24,7 @@
 namespace MicrosoftAzure\Storage\Tests\unit\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Models\GetEntityResult;
-use MicrosoftAzure\Storage\Table\Internal\AtomReaderWriter;
+use MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
@@ -49,7 +49,7 @@ class GetEntityResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $sampleBody = TestResources::getEntitySampleBody();
-        $serializer = new AtomReaderWriter();
+        $serializer = new JsonODataReaderWriter();
 
         // Test
         $result = GetEntityResult::create($sampleBody, $serializer);

@@ -68,7 +68,9 @@ class ServiceProperties
             $result->setDefaultServiceVersion($parsedResponse[Resources::XTAG_DEFAULT_SERVICE_VERSION]);
         }
 
-        $result->setLogging(Logging::create($parsedResponse[Resources::XTAG_LOGGING]));
+        if (array_key_exists(Resources::XTAG_LOGGING, $parsedResponse)) {
+            $result->setLogging(Logging::create($parsedResponse[Resources::XTAG_LOGGING]));
+        }
         $result->setHourMetrics(Metrics::create($parsedResponse[Resources::XTAG_HOUR_METRICS]));
         if (array_key_exists(Resources::XTAG_MINUTE_METRICS, $parsedResponse)) {
             $result->setMinuteMetrics(Metrics::create($parsedResponse[Resources::XTAG_MINUTE_METRICS]));
