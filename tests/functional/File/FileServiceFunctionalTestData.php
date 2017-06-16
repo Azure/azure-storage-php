@@ -275,19 +275,6 @@ class FileServiceFunctionalTestData
         $options->setIncludeMetadata($includeMetadata);
         array_push($ret, $options);
 
-        $options = new ListSharesOptions();
-        $marker = '/' . self::$accountName . '/' . self::$testShareNames[0];
-        $maxResults = 2;
-        $prefix = self::$testUniqueId;
-        $timeout = 60;
-        $includeMetadata = true;
-        $options->setMarker($marker);
-        $options->setMaxResults($maxResults);
-        $options->setPrefix($prefix);
-        $options->setTimeout($timeout);
-        $options->setIncludeMetadata($includeMetadata);
-        array_push($ret, $options);
-
         return $ret;
     }
 
