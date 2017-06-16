@@ -180,7 +180,7 @@ class Entity
      */
     public function setPartitionKey($partitionKey)
     {
-        $this-&gt;addProperty('PartitionKey', null, $partitionKey);
+        $this-&gt;addProperty('PartitionKey', EdmType::STRING, $partitionKey);
     }
     
     /**
@@ -202,7 +202,7 @@ class Entity
      */
     public function setRowKey($rowKey)
     {
-        $this-&gt;addProperty('RowKey', null, $rowKey);
+        $this-&gt;addProperty('RowKey', EdmType::STRING, $rowKey);
     }
     
     /**
@@ -279,15 +279,17 @@ class Entity
     /**
      * Creates new entity property.
      *
-     * @param string $name    The property name.
-     * @param string $edmType The property edm type.
-     * @param mixed  $value   The property value.
+     * @param string $name     The property name.
+     * @param string $edmType  The property edm type.
+     * @param mixed  $value    The property value.
+     * @param string $rawValue The raw value of the property.
      */
-    public function addProperty($name, $edmType, $value)
+    public function addProperty($name, $edmType, $value, $rawValue = '')
     {
         $p = new Property();
         $p-&gt;setEdmType($edmType);
         $p-&gt;setValue($value);
+        $p-&gt;setRawValue($rawValue);
         $this-&gt;setProperty($name, $p);
     }
     

@@ -60,6 +60,7 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\MetadataTrait;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -76,101 +77,18 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class GetBlobMetadataResult
 {
-    private $_lastModified;
-    private $_etag;
-    private $_metadata;
-    
+    use MetadataTrait;
+
     /**
-     * Creates GetBlobMetadataResult from response headers.
+     * Creates the instance from the parsed headers.
      *
-     * @param array $headers  The HTTP response headers.
-     * @param array $metadata The blob metadata array.
+     * @param  array $parsed Parsed headers
      *
      * @return GetBlobMetadataResult
      */
-    public static function create(array $headers, array $metadata)
+    public static function create(array $parsed)
     {
-        $result = new GetBlobMetadataResult();
-        $date   = Utilities::tryGetValueInsensitive(
-            Resources::LAST_MODIFIED,
-            $headers
-        );
-        $result-&gt;setLastModified(Utilities::rfc1123ToDateTime($date));
-        $result-&gt;setETag(Utilities::tryGetValueInsensitive(
-            Resources::ETAG,
-            $headers
-        ));
-        $result-&gt;setMetadata(is_null($metadata) ? array() : $metadata);
-        
-        return $result;
-    }
-    
-    /**
-     * Gets blob lastModified.
-     *
-     * @return \DateTime.
-     */
-    public function getLastModified()
-    {
-        return $this-&gt;_lastModified;
-    }
-
-    /**
-     * Sets blob lastModified.
-     *
-     * @param \DateTime $lastModified value.
-     *
-     * @return void
-     */
-    protected function setLastModified($lastModified)
-    {
-        Validate::isDate($lastModified);
-        $this-&gt;_lastModified = $lastModified;
-    }
-
-    /**
-     * Gets blob etag.
-     *
-     * @return string
-     */
-    public function getETag()
-    {
-        return $this-&gt;_etag;
-    }
-
-    /**
-     * Sets blob etag.
-     *
-     * @param string $etag value.
-     *
-     * @return void
-     */
-    protected function setETag($etag)
-    {
-        Validate::isString($etag, 'etag');
-        $this-&gt;_etag = $etag;
-    }
-    
-    /**
-     * Gets blob metadata.
-     *
-     * @return array
-     */
-    public function getMetadata()
-    {
-        return $this-&gt;_metadata;
-    }
-
-    /**
-     * Sets blob metadata.
-     *
-     * @param array $metadata value.
-     *
-     * @return void
-     */
-    protected function setMetadata($metadata)
-    {
-        $this-&gt;_metadata = $metadata;
+        return static::createMetadataResult($parsed);
     }
 }
 </pre>
