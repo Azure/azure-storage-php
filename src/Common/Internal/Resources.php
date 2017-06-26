@@ -294,13 +294,11 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                        = '0.16.0';
-    const STORAGE_API_LATEST_VERSION         = '2015-04-05';
+    const SDK_VERSION                        = '0.17.0';
+    const STORAGE_API_LATEST_VERSION         = '2016-05-31';
     const DATA_SERVICE_VERSION_VALUE         = '3.0';
     const MAX_DATA_SERVICE_VERSION_VALUE     = '3.0;NetFx';
-    const ACCEPT_HEADER_VALUE                = 'application/atom+xml,application/xml';
-    const ATOM_ENTRY_CONTENT_TYPE            = 'application/atom+xml;type=entry;charset=utf-8';
-    const ATOM_FEED_CONTENT_TYPE             = 'application/atom+xml;type=feed;charset=utf-8';
+    const ACCEPT_HEADER_VALUE                = 'application/json';
     const JSON_FULL_METADATA_CONTENT_TYPE    = 'application/json;odata=fullmetadata';
     const JSON_MINIMAL_METADATA_CONTENT_TYPE = 'application/json;odata=minimalmetadata';
     const JSON_NO_METADATA_CONTENT_TYPE      = 'application/json;odata=nometadata';
@@ -365,7 +363,6 @@ class Resources
     const XML_CONTENT_TYPE         = 'application/xml';
     const JSON_CONTENT_TYPE        = 'application/json';
     const BINARY_FILE_TYPE         = 'application/octet-stream';
-    const XML_ATOM_CONTENT_TYPE    = 'application/atom+xml';
     const HTTP_TYPE                = 'application/http';
     const MULTIPART_MIXED_TYPE     = 'multipart/mixed';
 

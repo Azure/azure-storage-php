@@ -311,6 +311,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $ETag ? $etagObj : Resources::ASTERISK
         );
 
+        $this->addOptionalHeader(
+            $headers,
+            Resources::ACCEPT_HEADER,
+            Resources::JSON_CONTENT_TYPE
+        );
+
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
 
         $context = new HttpCallContext();
@@ -949,7 +955,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179387.aspx
      */
-    public function deleteTable($table, TableServiceOptions$options = null)
+    public function deleteTable($table, TableServiceOptions $options = null)
     {
         $this->deleteTableAsync($table, $options)->wait();
     }
@@ -1618,6 +1624,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             'acl'
         );
 
+        $this->addOptionalHeader(
+            $headers,
+            Resources::ACCEPT_HEADER,
+            Resources::XML_CONTENT_TYPE
+        );
+
         $dataSerializer = $this->dataSerializer;
         
         $promise = $this->sendAsync(
@@ -1690,6 +1702,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $queryParams,
             Resources::QP_COMP,
             'acl'
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::ACCEPT_HEADER,
+            Resources::XML_CONTENT_TYPE
         );
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);

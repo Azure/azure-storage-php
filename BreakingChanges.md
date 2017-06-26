@@ -1,3 +1,8 @@
+Tracking Breaking changes in 0.17.0
+
+Table
+* Deprecated ATOM support for Table service.
+
 Tracking Breaking changes in 0.16.0
 
 All

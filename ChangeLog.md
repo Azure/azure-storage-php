@@ -1,3 +1,11 @@
+2017.07 - version 0.17.0
+
+All
+* REST API version upgraded to 2016-05-31.
+
+Table
+* Deprecated ATOM support for Table service.
+
 2017.06 - version 0.16.0
 
 All
