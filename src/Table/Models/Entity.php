@@ -55,7 +55,7 @@ class Entity
         Validate::isArray($properties, 'entity properties');
         
         foreach ($properties as $key => $value) {
-            Validate::isString($key, 'key');
+            Validate::canCastAsString($key, 'key');
             Validate::isTrue(
                 $value instanceof Property,
                 Resources::INVALID_PROP_MSG

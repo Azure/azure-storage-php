@@ -68,7 +68,7 @@ class ListSharesOptions extends FileServiceOptions
      */
     public function setPrefix($prefix)
     {
-        Validate::isString($prefix, 'prefix');
+        Validate::canCastAsString($prefix, 'prefix');
         $this->prefix = $prefix;
     }
 
@@ -99,7 +99,7 @@ class ListSharesOptions extends FileServiceOptions
      */
     public function setMaxResults($maxResults)
     {
-        Validate::isString($maxResults, 'maxResults');
+        Validate::canCastAsString($maxResults, 'maxResults');
         $this->maxResults = $maxResults;
     }
 

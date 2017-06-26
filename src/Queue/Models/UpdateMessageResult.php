@@ -117,7 +117,7 @@ class UpdateMessageResult
      */
     protected function setPopReceipt($popReceipt)
     {
-        Validate::isString($popReceipt, 'popReceipt');
+        Validate::canCastAsString($popReceipt, 'popReceipt');
         $this->_popReceipt = $popReceipt;
     }
 }

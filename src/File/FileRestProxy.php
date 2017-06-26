@@ -122,7 +122,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         FileServiceOptions $options = null,
         $operation = null
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         Validate::isTrue(
             $operation == 'properties' || $operation == 'metadata',
             Resources::FILE_SHARE_PROPERTIES_OPERATION_INVALID
@@ -194,12 +194,12 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         FileServiceOptions $options = null,
         $operation = 'properties'
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         Validate::isTrue(
             $operation == 'properties' || $operation == 'metadata',
             Resources::FILE_SHARE_PROPERTIES_OPERATION_INVALID
         );
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
 
         $headers = array();
         if ($operation == 'properties') {
@@ -478,7 +478,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $share,
         CreateShareOptions $options = null
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         Validate::notNullOrEmpty($share, 'share');
         
         $method      = Resources::HTTP_PUT;
@@ -548,7 +548,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $share,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         Validate::notNullOrEmpty($share, 'share');
         
         $method      = Resources::HTTP_DELETE;
@@ -771,7 +771,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $share,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -868,7 +868,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         ShareACL $acl,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         Validate::notNullOrEmpty($acl, 'acl');
         
         $method      = Resources::HTTP_PUT;
@@ -942,7 +942,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
      */
     public function getShareStatsAsync($share, FileServiceOptions $options = null)
     {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1028,8 +1028,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path = '',
         ListDirectoriesAndFilesOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::notNull($share, 'share');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1129,8 +1130,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         CreateDirectoryOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
         Validate::notNullOrEmpty($path, 'path');
         
         $method      = Resources::HTTP_PUT;
@@ -1199,8 +1200,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_DELETE;
         $headers     = array();
@@ -1266,8 +1267,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1336,8 +1337,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1421,8 +1422,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         array $metadata,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_PUT;
         $postParams  = array();
@@ -1503,9 +1504,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $size,
         CreateFileOptions $options = null
     ) {
-        Validate::isString($share, 'share');
+        Validate::canCastAsString($share, 'share');
         Validate::notNullOrEmpty($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($path, 'path');
         Validate::notNullOrEmpty($path, 'path');
         Validate::isInteger($size, 'size');
 
@@ -1629,8 +1630,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_DELETE;
         $headers     = array();
@@ -1697,8 +1698,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         GetFileOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1787,8 +1788,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_HEAD;
         $headers     = array();
@@ -1860,8 +1861,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         FileProperties $properties,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $headers = array();
         
@@ -1970,8 +1971,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -2055,8 +2056,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         array $metadata,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
 
         $method      = Resources::HTTP_PUT;
         $postParams  = array();
@@ -2146,8 +2147,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Range $range,
         PutFileRangeOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
         Validate::notNullOrEmpty($path, 'path');
         Validate::notNullOrEmpty($share, 'share');
         Validate::notNull($range->getLength(), Resources::RESOURCE_RANGE_LENGTH_MUST_SET);
@@ -2344,8 +2345,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Range $range,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
         Validate::notNullOrEmpty($path, 'path');
         Validate::notNullOrEmpty($share, 'share');
 
@@ -2437,8 +2438,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Range $range = null,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
         Validate::notNullOrEmpty($path, 'path');
         Validate::notNullOrEmpty($share, 'share');
 
@@ -2565,9 +2566,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         array $metadata = array(),
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
-        Validate::isString($sourcePath, 'sourcePath');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
+        Validate::canCastAsString($sourcePath, 'sourcePath');
         Validate::notNullOrEmpty($path, 'path');
         Validate::notNullOrEmpty($share, 'share');
         Validate::notNullOrEmpty($sourcePath, 'sourcePath');
@@ -2656,9 +2657,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $copyID,
         FileServiceOptions $options = null
     ) {
-        Validate::isString($share, 'share');
-        Validate::isString($path, 'path');
-        Validate::isString($copyID, 'copyID');
+        Validate::canCastAsString($share, 'share');
+        Validate::canCastAsString($path, 'path');
+        Validate::canCastAsString($copyID, 'copyID');
         Validate::notNullOrEmpty($share, 'share');
         Validate::notNullOrEmpty($path, 'path');
         Validate::notNullOrEmpty($copyID, 'copyID');

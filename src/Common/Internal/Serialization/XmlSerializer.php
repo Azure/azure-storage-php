@@ -135,7 +135,7 @@ class XmlSerializer implements ISerializer
     public static function objectSerialize($targetObject, $rootName)
     {
         Validate::notNull($targetObject, 'targetObject');
-        Validate::isString($rootName, 'rootName');
+        Validate::canCastAsString($rootName, 'rootName');
         $xmlWriter = new \XmlWriter();
         $xmlWriter->openMemory();
         $xmlWriter->setIndent(true);

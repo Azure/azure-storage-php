@@ -112,7 +112,7 @@ class CopyFileResult
      */
     protected function setETag($etag)
     {
-        Validate::isString($etag, 'etag');
+        Validate::canCastAsString($etag, 'etag');
         $this->etag = $etag;
     }
     
@@ -135,7 +135,7 @@ class CopyFileResult
      */
     protected function setCopyID($copyID)
     {
-        Validate::isString($copyID, 'copyID');
+        Validate::canCastAsString($copyID, 'copyID');
         $this->copyID = $copyID;
     }
     
@@ -158,7 +158,7 @@ class CopyFileResult
      */
     protected function setCopyStatus($copyStatus)
     {
-        Validate::isString($copyStatus, 'copyStatus');
+        Validate::canCastAsString($copyStatus, 'copyStatus');
         $this->copyStatus = $copyStatus;
     }
 }

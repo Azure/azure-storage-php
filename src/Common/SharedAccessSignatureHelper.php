@@ -55,10 +55,10 @@ class SharedAccessSignatureHelper
      */
     public function __construct($accountName, $accountKey)
     {
-        Validate::isString($accountName, 'accountName');
+        Validate::canCastAsString($accountName, 'accountName');
         Validate::notNullOrEmpty($accountName, 'accountName');
 
-        Validate::isString($accountKey, 'accountKey');
+        Validate::canCastAsString($accountKey, 'accountKey');
         Validate::notNullOrEmpty($accountKey, 'accountKey');
 
         $this->accountName = urldecode($accountName);
@@ -119,7 +119,7 @@ class SharedAccessSignatureHelper
         $signedVersion = Resources::STORAGE_API_LATEST_VERSION;
         // check that the resource name is valid.
         Validate::notNullOrEmpty($resourceName, 'resourceName');
-        Validate::isString($resourceName, 'resourceName');
+        Validate::canCastAsString($resourceName, 'resourceName');
         // validate and sanitize signed permissions
         $signedPermissions = $this->validateAndSanitizeSignedPermissions(
             $signedPermissions,
@@ -127,19 +127,19 @@ class SharedAccessSignatureHelper
         );
         // check that expiracy is valid
         Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
-        Validate::isString($signedExpiry, 'signedExpiry');
+        Validate::canCastAsString($signedExpiry, 'signedExpiry');
         Validate::isDateString($signedExpiry, 'signedExpiry');
         // check that signed start is valid
-        Validate::isString($signedStart, 'signedStart');
+        Validate::canCastAsString($signedStart, 'signedStart');
         if (strlen($signedStart) > 0) {
             Validate::isDateString($signedStart, 'signedStart');
         }
         // check that signed IP is valid
-        Validate::isString($signedIP, 'signedIP');
+        Validate::canCastAsString($signedIP, 'signedIP');
         // validate and sanitize signed protocol
         $signedProtocol = $this->validateAndSanitizeSignedProtocol($signedProtocol);
         // check that signed identifier is valid
-        Validate::isString($signedIdentifier, 'signedIdentifier');
+        Validate::canCastAsString($signedIdentifier, 'signedIdentifier');
         Validate::isTrue(
             strlen($signedIdentifier) <= 64,
             sprintf(Resources::INVALID_STRING_LENGTH, 'signedIdentifier', 'maximum 64')
@@ -155,16 +155,16 @@ class SharedAccessSignatureHelper
         }
 
         if ($type === 'bf') {
-            Validate::isString($cacheControl, 'cacheControl');
-            Validate::isString($contentDisposition, 'contentDisposition');
-            Validate::isString($contentEncoding, 'contentEncoding');
-            Validate::isString($contentLanguage, 'contentLanguage');
-            Validate::isString($contentType, 'contentType');
+            Validate::canCastAsString($cacheControl, 'cacheControl');
+            Validate::canCastAsString($contentDisposition, 'contentDisposition');
+            Validate::canCastAsString($contentEncoding, 'contentEncoding');
+            Validate::canCastAsString($contentLanguage, 'contentLanguage');
+            Validate::canCastAsString($contentType, 'contentType');
         } elseif ($type === 't') {
-            Validate::isString($startingPartitionKey, 'startingPartitionKey');
-            Validate::isString($startingRowKey, 'startingRowKey');
-            Validate::isString($endingPartitionKey, 'endingPartitionKey');
-            Validate::isString($endingRowKey, 'endingRowKey');
+            Validate::canCastAsString($startingPartitionKey, 'startingPartitionKey');
+            Validate::canCastAsString($startingRowKey, 'startingRowKey');
+            Validate::canCastAsString($endingPartitionKey, 'endingPartitionKey');
+            Validate::canCastAsString($endingRowKey, 'endingRowKey');
         }
 
         // construct an array with the parameters to generate the shared access signature at the account level
@@ -282,7 +282,7 @@ class SharedAccessSignatureHelper
         $contentType = ""
     ) {
         // check that the resource name is valid.
-        Validate::isString($signedResource, 'signedResource');
+        Validate::canCastAsString($signedResource, 'signedResource');
         Validate::notNullOrEmpty($signedResource, 'signedResource');
         Validate::isTrue(
             $signedResource == Resources::RESOURCE_TYPE_BLOB ||
@@ -363,7 +363,7 @@ class SharedAccessSignatureHelper
         $contentType = ""
     ) {
         // check that the resource name is valid.
-        Validate::isString($signedResource, 'signedResource');
+        Validate::canCastAsString($signedResource, 'signedResource');
         Validate::notNullOrEmpty($signedResource, 'signedResource');
         Validate::isTrue(
             $signedResource == Resources::RESOURCE_TYPE_FILE ||
@@ -539,7 +539,7 @@ class SharedAccessSignatureHelper
         $signedProtocol = ""
     ) {
         // check that version is valid
-        Validate::isString($signedVersion, 'signedVersion');
+        Validate::canCastAsString($signedVersion, 'signedVersion');
         Validate::notNullOrEmpty($signedVersion, 'signedVersion');
         Validate::isDateString($signedVersion, 'signedVersion');
 
@@ -553,18 +553,18 @@ class SharedAccessSignatureHelper
         $signedPermissions = $this->validateAndSanitizeSignedPermissions($signedPermissions);
 
         // check that expiracy is valid
-        Validate::isString($signedExpiry, 'signedExpiry');
+        Validate::canCastAsString($signedExpiry, 'signedExpiry');
         Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
         Validate::isDateString($signedExpiry, 'signedExpiry');
 
         // check that signed start is valid
-        Validate::isString($signedStart, 'signedStart');
+        Validate::canCastAsString($signedStart, 'signedStart');
         if (strlen($signedStart) > 0) {
             Validate::isDateString($signedStart, 'signedStart');
         }
 
         // check that signed IP is valid
-        Validate::isString($signedIP, 'signedIP');
+        Validate::canCastAsString($signedIP, 'signedIP');
 
         // validate and sanitize signed protocol
         $signedProtocol = $this->validateAndSanitizeSignedProtocol($signedProtocol);
@@ -619,7 +619,7 @@ class SharedAccessSignatureHelper
     private function validateAndSanitizeSignedService($signedService)
     {
         // validate signed service is not null or empty
-        Validate::isString($signedService, 'signedService');
+        Validate::canCastAsString($signedService, 'signedService');
         Validate::notNullOrEmpty($signedService, 'signedService');
 
         // The signed service should only be a combination of the letters b(lob) q(ueue) t(able) or f(ile)
@@ -643,7 +643,7 @@ class SharedAccessSignatureHelper
     private function validateAndSanitizeSignedResourceType($signedResourceType)
     {
         // validate signed resource type is not null or empty
-        Validate::isString($signedResourceType, 'signedResourceType');
+        Validate::canCastAsString($signedResourceType, 'signedResourceType');
         Validate::notNullOrEmpty($signedResourceType, 'signedResourceType');
 
         // The signed resource type should only be a combination of the letters s(ervice) c(container) or o(bject)
@@ -669,7 +669,7 @@ class SharedAccessSignatureHelper
         $signedResource = ''
     ) {
         // validate signed permissions are not null or empty
-        Validate::isString($signedPermissions, 'signedPermissions');
+        Validate::canCastAsString($signedPermissions, 'signedPermissions');
         Validate::notNullOrEmpty($signedPermissions, 'signedPermissions');
 
         if ($signedResource == '') {
@@ -695,7 +695,7 @@ class SharedAccessSignatureHelper
      */
     private function validateAndSanitizeSignedProtocol($signedProtocol)
     {
-        Validate::isString($signedProtocol, 'signedProtocol');
+        Validate::canCastAsString($signedProtocol, 'signedProtocol');
         // sanitize string
         $sanitizedSignedProtocol = strtolower($signedProtocol);
         if (strlen($sanitizedSignedProtocol) > 0) {

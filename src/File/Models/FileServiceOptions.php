@@ -43,7 +43,7 @@ class FileServiceOptions extends ServiceOptions
 {
     public function setLocationMode($locationMode)
     {
-        Validate::isString($locationMode, 'locationMode');
+        Validate::canCastAsString($locationMode, 'locationMode');
         Validate::isTrue(
             $locationMode == LocationMode::PRIMARY_ONLY,
             Resources::FILE_LOCATION_IS_PRIMARY_ONLY

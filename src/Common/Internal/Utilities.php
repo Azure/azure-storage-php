@@ -635,7 +635,7 @@ class Utilities
      */
     public static function base256ToDec($number)
     {
-        Validate::isString($number, 'number');
+        Validate::canCastAsString($number, 'number');
         
         $result = 0;
         $base   = 1;
@@ -734,8 +734,8 @@ class Utilities
         }
 
         foreach ($metadata as $key => $value) {
-            Validate::isString($key, 'metadata key');
-            Validate::isString($value, 'metadata value');
+            Validate::canCastAsString($key, 'metadata key');
+            Validate::canCastAsString($value, 'metadata value');
         }
     }
 
@@ -862,7 +862,7 @@ class Utilities
     public static function calculateContentMD5($content)
     {
         Validate::notNull($content, 'content');
-        Validate::isString($content, 'content');
+        Validate::canCastAsString($content, 'content');
 
         return base64_encode(md5($content, true));
     }

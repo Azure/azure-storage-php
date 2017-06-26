@@ -127,7 +127,7 @@ class ListFileRangesResult
      */
     protected function setETag($etag)
     {
-        Validate::isString($etag, 'etag');
+        Validate::canCastAsString($etag, 'etag');
         $this->etag = $etag;
     }
     

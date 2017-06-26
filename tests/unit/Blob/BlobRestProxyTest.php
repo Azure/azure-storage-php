@@ -470,6 +470,16 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($expectedLastModified, $result->getLastModified());
         $this->assertEquals($expected, $result->getMetadata());
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage can't be NULL.
+     */
+    public function testListBlobsNull()
+    {
+        $this->restProxy->listBlobs(null);
+    }
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
@@ -757,8 +767,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
-     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
-     * @expectedExceptionMessage 412
+    * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+    * @expectedExceptionMessage 412
     */
     public function testAppendBlockConflictBecauseOfAppendPosition()
     {

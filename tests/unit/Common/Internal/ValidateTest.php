@@ -61,22 +61,22 @@ class ValidateTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Validate::isString
+     * @covers MicrosoftAzure\Storage\Common\Internal\Validate::canCastAsString
      */
     public function testIsStringWithString()
     {
-        Validate::isString('I\'m a string', 'string');
+        Validate::canCastAsString('I\'m a string', 'string');
 
         $this->assertTrue(true);
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Validate::isString
+     * @covers MicrosoftAzure\Storage\Common\Internal\Validate::canCastAsString
      */
     public function testIsStringWithNonString()
     {
         $this->setExpectedException(get_class(new InvalidArgumentTypeException('')));
-        Validate::isString(new \DateTime(), 'string');
+        Validate::canCastAsString(new \DateTime(), 'string');
     }
 
     /**

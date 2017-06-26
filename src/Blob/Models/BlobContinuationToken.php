@@ -56,7 +56,7 @@ class BlobContinuationToken extends ContinuationToken
      */
     public function setNextMarker($nextMarker)
     {
-        Validate::isString($nextMarker, 'nextMarker');
+        Validate::canCastAsString($nextMarker, 'nextMarker');
         $this->nextMarker = $nextMarker;
     }
 

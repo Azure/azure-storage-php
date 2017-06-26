@@ -60,9 +60,9 @@ class ConnectionStringParser
      */
     public static function parseConnectionString($argumentName, $connectionString)
     {
-        Validate::isString($argumentName, 'argumentName');
+        Validate::canCastAsString($argumentName, 'argumentName');
         Validate::notNullOrEmpty($argumentName, 'argumentName');
-        Validate::isString($connectionString, 'connectionString');
+        Validate::canCastAsString($connectionString, 'connectionString');
         Validate::notNullOrEmpty($connectionString, 'connectionString');
         
         $parser = new ConnectionStringParser($argumentName, $connectionString);

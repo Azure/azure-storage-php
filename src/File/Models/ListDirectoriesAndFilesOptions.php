@@ -76,7 +76,7 @@ class ListDirectoriesAndFilesOptions extends FileServiceOptions
      */
     public function setMaxResults($maxResults)
     {
-        Validate::isString($maxResults, 'maxResults');
+        Validate::canCastAsString($maxResults, 'maxResults');
         $this->maxResults = $maxResults;
     }
 }

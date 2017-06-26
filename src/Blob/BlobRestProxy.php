@@ -213,7 +213,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Models\BlobServiceOptions $options = null,
         $operation = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -408,8 +408,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Models\BlobServiceOptions $options,
         Models\AccessCondition $accessCondition = null
     ) {
-        Validate::isString($blob, 'blob');
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($container, 'container');
         
         $method      = Resources::HTTP_PUT;
@@ -496,10 +496,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         CreateBlobPagesOptions $options = null
     ) {
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
-        Validate::isString($container, 'container');
-        Validate::isString($content, 'content');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($content, 'content');
         Validate::isTrue(
             $range instanceof Range,
             sprintf(
@@ -685,7 +685,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         Models\CreateContainerOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($container, 'container');
         
         $method      = Resources::HTTP_PUT;
@@ -749,7 +749,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         Models\BlobServiceOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($container, 'container');
         
         $method      = Resources::HTTP_DELETE;
@@ -894,7 +894,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         Models\BlobServiceOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1001,7 +1001,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Models\ContainerACL $acl,
         Models\BlobServiceOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($acl, 'acl');
         
         $method      = Resources::HTTP_PUT;
@@ -1094,7 +1094,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         array $metadata,
         Models\BlobServiceOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Utilities::validateMetadata($metadata);
         
         $method      = Resources::HTTP_PUT;
@@ -1172,7 +1172,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         Models\ListBlobsOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::notNull($container, 'container');
+        Validate::canCastAsString($container, 'container');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1311,8 +1312,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $length,
         Models\CreateBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::isInteger($length, 'length');
         Validate::notNull($length, 'length');
@@ -1404,9 +1405,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\CreateBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
 
         $method      = Resources::HTTP_PUT;
@@ -1654,8 +1655,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::isTrue(
             $options == null ||
@@ -1725,8 +1726,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
 
         if (is_null($options)) {
             $options = new CreateBlobOptions();
@@ -1840,10 +1841,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($container, 'container');
 
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
 
         if (is_null($options)) {
@@ -2140,10 +2141,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlobBlockOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
-        Validate::isString($blockId, 'blockId');
+        Validate::canCastAsString($blockId, 'blockId');
         Validate::notNullOrEmpty($blockId, 'blockId');
 
         if (is_null($options)) {
@@ -2222,9 +2223,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\AppendBlockOptions $options = null
     ) {
-        Validate::isString($container, 'container');
+        Validate::canCastAsString($container, 'container');
         Validate::notNullOrEmpty($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
 
         if (is_null($options)) {
@@ -2424,8 +2425,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blockList,
         Models\CommitBlobBlocksOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::isTrue(
             $blockList instanceof BlockList || is_array($blockList),
@@ -2582,8 +2583,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\ListBlobBlocksOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method      = Resources::HTTP_GET;
@@ -2676,8 +2677,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\GetBlobPropertiesOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method      = Resources::HTTP_HEAD;
@@ -2756,8 +2757,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\GetBlobMetadataOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method      = Resources::HTTP_HEAD;
@@ -2848,8 +2849,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\ListPageBlobRangesOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method      = Resources::HTTP_GET;
@@ -2948,8 +2949,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\SetBlobPropertiesOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method      = Resources::HTTP_PUT;
@@ -3093,8 +3094,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         array $metadata,
         Models\BlobServiceOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         Utilities::validateMetadata($metadata);
         
@@ -3251,8 +3252,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\GetBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -3358,8 +3359,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\DeleteBlobOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method      = Resources::HTTP_DELETE;
@@ -3451,8 +3452,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\CreateBlobSnapshotOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
         
         $method             = Resources::HTTP_PUT;
@@ -3665,9 +3666,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $copyId,
         Models\BlobServiceOptions $options = null
     ) {
-        Validate::isString($container, 'container');
-        Validate::isString($blob, 'blob');
-        Validate::isString($copyId, 'copyId');
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
+        Validate::canCastAsString($copyId, 'copyId');
         Validate::notNullOrEmpty($container, 'container');
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::notNullOrEmpty($copyId, 'copyId');

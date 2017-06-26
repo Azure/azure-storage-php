@@ -185,12 +185,12 @@ abstract class ACLBase
         \DateTime $expiry,
         $permissions
     ) {
-        Validate::isString($id, 'id');
+        Validate::canCastAsString($id, 'id');
         if ($start != null) {
             Validate::isDate($start);
         }
         Validate::isDate($expiry);
-        Validate::isString($permissions, 'permissions');
+        Validate::canCastAsString($permissions, 'permissions');
 
         $accessPolicy = new AccessPolicy($this->getResourceType());
         $accessPolicy->setStart($start);
@@ -222,7 +222,7 @@ abstract class ACLBase
      */
     public function removeSignedIdentifier($id)
     {
-        Validate::isString($id, 'id');
+        Validate::canCastAsString($id, 'id');
         //var_dump($this->signedIdentifiers);
         for ($i = 0; $i < count($this->signedIdentifiers); ++$i) {
             if ($this->signedIdentifiers[$i]->getId() == $id) {

@@ -216,6 +216,16 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
     }
 
     /**
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage can't be NULL.
+     */
+    public function testListDirectoriesAndFilesWithNull()
+    {
+        $this->restProxy->listDirectoriesAndFiles(null);
+    }
+
+    /**
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShareAsync
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShare

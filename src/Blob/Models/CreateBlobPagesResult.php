@@ -118,7 +118,7 @@ class CreateBlobPagesResult
      */
     protected function setETag($etag)
     {
-        Validate::isString($etag, 'etag');
+        Validate::canCastAsString($etag, 'etag');
         $this->_etag = $etag;
     }
     

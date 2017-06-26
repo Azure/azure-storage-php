@@ -70,7 +70,7 @@ class ListBlobsOptions extends BlobServiceOptions
      */
     public function setPrefix($prefix)
     {
-        Validate::isString($prefix, 'prefix');
+        Validate::canCastAsString($prefix, 'prefix');
         $this->_prefix = $prefix;
     }
     
@@ -93,7 +93,7 @@ class ListBlobsOptions extends BlobServiceOptions
      */
     public function setDelimiter($delimiter)
     {
-        Validate::isString($delimiter, 'delimiter');
+        Validate::canCastAsString($delimiter, 'delimiter');
         $this->_delimiter = $delimiter;
     }
 

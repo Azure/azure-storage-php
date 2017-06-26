@@ -73,7 +73,7 @@ class AccessPolicy
      */
     public function __construct($resourceType = Resources::RESOURCE_TYPE_BLOB)
     {
-        Validate::isString($resourceType, 'resourceType');
+        Validate::canCastAsString($resourceType, 'resourceType');
         Validate::isTrue(
             $resourceType == Resources::RESOURCE_TYPE_BLOB      ||
             $resourceType == Resources::RESOURCE_TYPE_CONTAINER ||
