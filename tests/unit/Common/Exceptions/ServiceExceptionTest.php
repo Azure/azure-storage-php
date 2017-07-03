@@ -131,4 +131,22 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($e->getResponse(), $response);
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
+     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::parseErrorMessage
+     */
+    public function testNoWarningForNonXmlErrorMessage()
+    {
+        // Warnings are silenced in parseErrorMessage once they are converted to exceptions
+        \PHPUnit_Framework_Error_Warning::$enabled = false;
+
+        // Setup
+        $response = TestResources::getFailedResponseJson(210, 'test info');
+        $e = new ServiceException($response);
+
+        // Assert
+        $this->assertEquals($e->getErrorMessage(), TestResources::RESPONSE_BODY_JSON);
+    }
+
 }
