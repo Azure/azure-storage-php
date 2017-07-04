@@ -2,6 +2,7 @@
 
 All
 * REST API version upgraded to 2016-05-31.
+* Added support for anonymous read access to containers. User can now call `MicrosoftAzure\Storage\Common\ServiceBuilder::createContainerAnonymousAccess` to create service proxy to access containers/blobs without credential.
 
 Table
 * Deprecated ATOM support for Table service.

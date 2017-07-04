@@ -141,6 +141,7 @@ class Resources
     const RESOURCE_RANGE_LENGTH_MUST_SET = "The start and end/length of the range must be set.";
     const INVALID_ACCEPT_CONTENT_TYPE = "The given accept content type is not valid.";
     const ERROR_CANNOT_PARSE_XML = "Cannot parse XML, reasons: %s";
+    const INVALID_SCHEME = 'HTTP scheme can only be string \'http\' or \'https\'.';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';

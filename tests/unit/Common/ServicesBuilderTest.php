@@ -124,4 +124,33 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertInstanceOf('MicrosoftAzure\Storage\Common\ServicesBuilder', $actual);
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createContainerAnonymousAccess
+     */
+    public function testBuildForAnonymousAccess()
+    {
+        $builder = new ServicesBuilder();
+
+        $pEndpoint = sprintf(
+            '%s://%s%s',
+            Resources::HTTP_SCHEME,
+            'myaccount.',
+            Resources::BLOB_BASE_DNS_NAME
+        );
+        $sEndpoint = sprintf(
+            '%s://%s%s',
+            Resources::HTTP_SCHEME,
+            'myaccount-secondary.',
+            Resources::BLOB_BASE_DNS_NAME
+        );
+
+        $blobRestProxy = $builder->createContainerAnonymousAccess(
+            $pEndpoint,
+            $sEndpoint
+        );
+
+        $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Internal\IBlob', $blobRestProxy);
+        $this->assertEquals('myaccount', $blobRestProxy->getAccountName());
+    }
 }

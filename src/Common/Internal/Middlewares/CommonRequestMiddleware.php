@@ -57,7 +57,7 @@ class CommonRequestMiddleware extends MiddlewareBase
      * @param array       $headers              The headers to be added.
      */
     public function __construct(
-        IAuthScheme $authenticationScheme,
+        IAuthScheme $authenticationScheme = null,
         array $headers = array()
     ) {
         $this->authenticationScheme = $authenticationScheme;
@@ -104,8 +104,10 @@ class CommonRequestMiddleware extends MiddlewareBase
         if (!$result->hasHeader(Resources::X_MS_REQUEST_ID)) {
             $result = $result->withHeader(Resources::X_MS_REQUEST_ID, \uniqid());
         }
-        //Signing the request.
-        return $this->authenticationScheme->signRequest($result);
+        //Sign the request if authentication scheme is not null.
+        $request = $this->authenticationScheme == null ?
+            $request : $this->authenticationScheme->signRequest($result);
+        return $request;
     }
 
     /**
