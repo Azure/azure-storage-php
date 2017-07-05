@@ -25,8 +25,7 @@
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\File\Models\FileServiceOptions;
-use MicrosoftAzure\Storage\File\Models\FileContinuationToken;
-use MicrosoftAzure\Storage\File\Models\FileContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -41,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListSharesOptions extends FileServiceOptions
 {
-    use FileContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $prefix;
     private $maxResults;

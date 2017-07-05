@@ -27,8 +27,8 @@ namespace MicrosoftAzure\Storage\File\Models;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\File\Models\Share;
-use MicrosoftAzure\Storage\File\Models\FileContinuationToken;
-use MicrosoftAzure\Storage\File\Models\FileContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 
 /**
  * Share to hold list Share response object.
@@ -42,7 +42,7 @@ use MicrosoftAzure\Storage\File\Models\FileContinuationTokenTrait;
  */
 class ListSharesResult
 {
-    use FileContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $shares;
     private $prefix;
@@ -80,15 +80,21 @@ class ListSharesResult
             $parsedResponse,
             Resources::QP_MARKER
         ));
-        $result->setContinuationToken(
-            new FileContinuationToken(
-                Utilities::tryGetValue(
-                    $parsedResponse,
-                    Resources::QP_NEXT_MARKER
-                ),
-                $location
-            )
+
+        $nextMarker = Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_NEXT_MARKER
         );
+
+        if ($nextMarker != null) {
+            $result->setContinuationToken(
+                new MarkerContinuationToken(
+                    $nextMarker,
+                    $location
+                )
+            );
+        }
+        
         $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS

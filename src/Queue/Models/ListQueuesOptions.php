@@ -25,8 +25,7 @@
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
-use MicrosoftAzure\Storage\Queue\Models\QueueContinuationToken;
-use MicrosoftAzure\Storage\Queue\Models\QueueContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -41,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListQueuesOptions extends QueueServiceOptions
 {
-    use QueueContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $_prefix;
     private $_maxResults;

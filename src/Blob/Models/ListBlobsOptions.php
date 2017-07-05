@@ -26,8 +26,6 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
-use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
-use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
 
 /**
  * Optional parameters for listBlobs API.
@@ -41,7 +39,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
  */
 class ListBlobsOptions extends BlobServiceOptions
 {
-    use BlobContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $_prefix;
     private $_delimiter;

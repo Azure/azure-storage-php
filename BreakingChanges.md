@@ -1,7 +1,19 @@
 Tracking Breaking changes in 0.17.0
 
+All
+* Refined code logic for continuation token. Now continuation token will be null if there are no more instance to be queried/listed.
+
+Blob
+* Removed `MicrosoftAzure\Storage\Tests\unit\Blob\Models\BlobContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
+
 Table
 * Deprecated ATOM support for Table service.
+
+Queue
+* Removed `MicrosoftAzure\Storage\Tests\unit\Queue\Models\QueueContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
+
+File
+* Removed `MicrosoftAzure\Storage\Tests\unit\File\Models\FileContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
 
 Tracking Breaking changes in 0.16.0
 

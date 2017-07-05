@@ -3,9 +3,19 @@
 All
 * REST API version upgraded to 2016-05-31.
 * Added support for anonymous read access to containers. User can now call `MicrosoftAzure\Storage\Common\ServiceBuilder::createContainerAnonymousAccess` to create service proxy to access containers/blobs without credential.
+* Refined code logic for continuation token. Now continuation token will be null if there are no more instance to be queried/listed.
+
+Blob
+* Removed `MicrosoftAzure\Storage\Tests\unit\Blob\Models\BlobContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
 
 Table
 * Deprecated ATOM support for Table service.
+
+Queue
+* Removed `MicrosoftAzure\Storage\Tests\unit\Queue\Models\QueueContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
+
+File
+* Removed `MicrosoftAzure\Storage\Tests\unit\File\Models\FileContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
 
 2017.06 - version 0.16.0
 

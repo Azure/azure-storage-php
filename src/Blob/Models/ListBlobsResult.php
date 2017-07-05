@@ -24,11 +24,11 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Blob\Models\Blob;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
-use MicrosoftAzure\Storage\Blob\Models\BlobContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
 use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 /**
@@ -43,7 +43,7 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  */
 class ListBlobsResult
 {
-    use BlobContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $_blobPrefixes;
     private $_blobs;
@@ -87,15 +87,17 @@ class ListBlobsResult
             Resources::QP_MARKER
         ));
 
-        $result->setContinuationToken(
-            new BlobContinuationToken(
-                Utilities::tryGetValue(
-                    $parsed,
-                    Resources::QP_NEXT_MARKER
-                ),
-                $location
-            )
-        );
+        $nextMarker =
+            Utilities::tryGetValue($parsed, Resources::QP_NEXT_MARKER);
+
+        if ($nextMarker != null) {
+            $result->setContinuationToken(
+                new MarkerContinuationToken(
+                    $nextMarker,
+                    $location
+                )
+            );
+        }
 
         $result->setMaxResults(intval(
             Utilities::tryGetValue($parsed, Resources::QP_MAX_RESULTS, 0)
