@@ -1901,25 +1901,25 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     {
         // Values based on http://msdn.microsoft.com/en-us/library/microsoft.windowsazure.storageclient.cloudblobclient.singleblobuploadthresholdinbytes.aspx
         // Read initial value
-        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 33554432);
+        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), Resources::MB_IN_BYTES_32);
 
         // Change value
         $this->restProxy->setSingleBlobUploadThresholdInBytes(50);
         $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 50);
 
         // Test over limit
-        $this->restProxy->setSingleBlobUploadThresholdInBytes(65*1024*1024);
-        // Should be truncated to 64M
-        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 67108864);
+        $this->restProxy->setSingleBlobUploadThresholdInBytes(257*1024*1024);
+        // Should be truncated to 256MB
+        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), Resources::MB_IN_BYTES_256);
 
         // Under limit
         $this->restProxy->setSingleBlobUploadThresholdInBytes(-50);
         // value can not be less than 1, so reset to default value
-        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 33554432);
+        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), Resources::MB_IN_BYTES_32);
 
         $this->restProxy->setSingleBlobUploadThresholdInBytes(0);
         // value can not be less than 1, so reset to default value
-        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), 33554432);
+        $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), Resources::MB_IN_BYTES_32);
     }
 
    /**
@@ -1965,18 +1965,6 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // so relying on content size to be final approval
         $this->assertEquals(count($blocks), 0);
         $this->assertEquals($result->getContentLength(), strlen($content));
-    
-        // make string even larger for automagic splitting
-        // This should result in a string longer than 32M, and force the blob into 2 blocks
-        for ($i = 0; $i < 15; $i++) {
-            $content .= $content;
-        }
-        $this->restProxy->createBlockBlob($name, 'bigsplit', $content, $options);
-        $result = $this->restProxy->listBlobBlocks($name, 'bigsplit', $boptions);
-        $blocks = $result->getUnCommittedBlocks();
-        $this->assertEquals(count($blocks), 0);
-        $blocks = $result->getCommittedBlocks();
-        $this->assertEquals(count($blocks), ceil(strlen($content)/(4*1024*1024)));
     }
 
     /**
@@ -2060,7 +2048,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
      * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
      */
-    public function testPutGetLargeBlockBlob()
+    public function testPutGet2GBBlockBlob()
     {
         // Setup
         //create a temp file that is 2GB in size.
@@ -2071,6 +2059,79 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $count = 2 * 1024 / 4;
         for ($index = 0; $index < $count; ++$index) {
             fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4));
+        }
+        rewind($resource);
+        //upload the blob
+        $name = 'getblob' . $this->createSuffix();
+        $blob = 'myblob';
+        $metadata = array('m1' => 'v1', 'm2' => 'v2');
+        $contentType = 'text/plain; charset=UTF-8';
+        $this->createContainer($name);
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $options->setMetadata($metadata);
+        $this->restProxy->createBlockBlob(
+            $name,
+            $blob,
+            $resource,
+            $options
+        );
+
+        // Test
+        $result = $this->restProxy->getBlob($name, $blob);
+
+        //get the path for the file to be downloaded into.
+        $uuid = uniqid('test-file-', true);
+        $downloadPath = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $downloadResource = fopen($downloadPath, 'w');
+        //download the file
+        $content = $result->getContentStream();
+
+        while (!feof($content)) {
+            fwrite(
+                $downloadResource,
+                stream_get_contents($content, Resources::MB_IN_BYTES_4)
+            );
+        }
+
+        // Assert
+        $this->assertEquals(
+            BlobType::BLOCK_BLOB,
+            $result->getProperties()->getBlobType()
+        );
+        $this->assertEquals($metadata, $result->getMetadata());
+        $originMd5 = md5_file($path);
+        $downloadMd5 = md5_file($downloadPath);
+        $this->assertEquals($originMd5, $downloadMd5);
+
+        //clean-up.
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        fclose($downloadResource);
+        unlink($path);
+        unlink($downloadPath);
+    }
+
+    /**
+     * @group large-scale
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
+     */
+    public function testPutGet5TBBlockBlob()
+    {
+        // Initial check for the environment.
+        // Does disk have enough space.
+        $this->assertTrue(disk_free_space('.') > (2 * Resources::TB_IN_BYTES_5));
+        // Setup
+        //create a temp file that is 5TB in size.
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+        $count = 50000 * 100 / 64;
+        for ($index = 0; $index < $count; ++$index) {
+            fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_64));
         }
         rewind($resource);
         //upload the blob
@@ -2198,7 +2259,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     public function testPutGet33MBBlockBlob()
     {
         // Setup
-        //create a temp file that is 32 in size.
+        //create a temp file that is 33 in size.
         $cwd = getcwd();
         $uuid = uniqid('test-file-', true);
         $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
@@ -2265,12 +2326,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     public function testPutGet64MBBlockBlob()
     {
         // Setup
-        //create a temp file that is 32 in size.
+        //create a temp file that is 64 in size.
         $cwd = getcwd();
         $uuid = uniqid('test-file-', true);
         $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
         $resource = fopen($path, 'w+');
-        fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4));
+        fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_32));
+        fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_32));
         rewind($resource);
         //upload the blob
         $name = 'getblob' . $this->createSuffix();
@@ -2333,12 +2395,13 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     public function testPutGet65MBBlockBlob()
     {
         // Setup
-        //create a temp file that is 32 in size.
+        //create a temp file that is 65 in size.
         $cwd = getcwd();
         $uuid = uniqid('test-file-', true);
         $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
         $resource = fopen($path, 'w+');
-        fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_64));
+        fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_32));
+        fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_32));
         fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_1));
         rewind($resource);
         //upload the blob
@@ -2393,6 +2456,34 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         fclose($downloadResource);
         unlink($path);
         unlink($downloadPath);
+    }
+
+    /**
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
+     * @covers \MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
+     */
+    public function testPutGetBlockBlobWith5MBBlocks()
+    {
+        // Setup
+        $content = openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_64);
+        //upload the blob
+        $name = 'getblob' . $this->createSuffix();
+        $blob = 'myblob';
+        $this->createContainer($name);
+        $this->restProxy->setBlockSize(Resources::MB_IN_BYTES_1 * 5);
+        $this->restProxy->createBlockBlob(
+            $name,
+            $blob,
+            $content
+        );
+
+        //Get the committed blocks count.
+        $options = new ListBlobBlocksOptions();
+        $options->setIncludeCommittedBlobs(true);
+
+        $result = $this->restProxy->listBlobBlocks($name, $blob, $options);
+
+        $this->assertEquals(13, \count($result->getCommittedBlocks()));
     }
 
     /**

@@ -7,6 +7,7 @@ All
 
 Blob
 * Removed `MicrosoftAzure\Storage\Tests\unit\Blob\Models\BlobContinuationToken`, now use `MicrosoftAzure\Storage\Common\MarkerContinuationToken` instead for better code structure and reuse.
+* Added `MicrosoftAzure\Storage\Tests\unit\Blob\BlobRestProxy::blockSize` for user to control block size.
 
 Table
 * Deprecated ATOM support for Table service.

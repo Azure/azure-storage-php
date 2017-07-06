@@ -866,4 +866,14 @@ class Utilities
 
         return base64_encode(md5($content, true));
     }
+
+    /**
+     * Return if the environment is in 64 bit PHP.
+     *
+     * @return bool
+     */
+    public static function is64BitPHP()
+    {
+        return PHP_INT_SIZE == 8;
+    }
 }

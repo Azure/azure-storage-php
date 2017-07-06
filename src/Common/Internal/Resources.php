@@ -142,6 +142,7 @@ class Resources
     const INVALID_ACCEPT_CONTENT_TYPE = "The given accept content type is not valid.";
     const ERROR_CANNOT_PARSE_XML = "Cannot parse XML, reasons: %s";
     const INVALID_SCHEME = 'HTTP scheme can only be string \'http\' or \'https\'.';
+    const CONTENT_SIZE_TOO_LARGE = 'The content is too large for the selected blob type.';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
@@ -280,8 +281,13 @@ class Resources
     const MB_IN_BYTES_4       = 4194304;
     const MB_IN_BYTES_32      = 33554432;
     const MB_IN_BYTES_64      = 67108864;
+    const MB_IN_BYTES_128     = 134217728;
+    const MB_IN_BYTES_256     = 268435456;
+    const MB_IN_BYTES_100     = 104857600;
     const GB_IN_BYTES         = 1073741824;
+    const GB_IN_BYTES_200     = 214748364800;
     const MAX_BLOB_BLOCKS     = 50000;
+    const MAX_BLOCK_BLOB_SIZE = 5242880000000;
     const RETURN_CONTENT      = 'return-content';
 
     // Xml Namespaces
