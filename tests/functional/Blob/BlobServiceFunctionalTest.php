@@ -27,14 +27,23 @@ namespace MicrosoftAzure\Storage\Tests\functional\Blob;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\BlobType;
+use MicrosoftAzure\Storage\Blob\Models\BlobBlockType;
+use MicrosoftAzure\Storage\Blob\Models\Block;
+use MicrosoftAzure\Storage\Blob\Models\BlockList;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
+use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -3034,18 +3043,505 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    //    createBlockBlob
-    //    createBlobBlock
-    //    commitBlobBlocks
-    //    listBlobBlocks
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
+     */
+    public function testCreateBlockBlobNormal()
+    {
+        $attrs = BlobServiceFunctionalTestData::getCreateBlockBlobAttributes();
+        $container = BlobServiceFunctionalTestData::getContainerName();
 
-    //    createPageBlob
-    //    createBlobPages
-    //    clearBlobPages
-    //    listBlobRegions
+        foreach ($attrs as $attr) {
+            $threshold = array_key_exists('threshold', $attr)?
+                $attr['threshold'] : Resources::MB_IN_BYTES_32;
+            $size = $attr['size'];
+            $this->createBlockBlobWorker($container, $threshold, $size);
+        }
+    }
 
-    //    acquireLease
-    //    renewLease
-    //    releaseLease
-    //    breakLease
+    private function createBlockBlobWorker($container, $threshold, $size)
+    {
+        //create a temp file of size $size.
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+
+        $count = $size / Resources::MB_IN_BYTES_32;
+        for ($i = 0; $i < $count; ++$i) {
+            fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_32));
+        }
+        $remain = $size - (Resources::MB_IN_BYTES_32 * $count);
+        fwrite($resource, openssl_random_pseudo_bytes($remain));
+        rewind($resource);
+
+        //upload the blob
+        $blobName = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $metadata = array('m1' => 'v1', 'm2' => 'v2');
+        $contentType = 'text/plain; charset=UTF-8';
+        $options = new CreateBlobOptions();
+        $options->setContentType($contentType);
+        $options->setMetadata($metadata);
+        $this->restProxy->setSingleBlobUploadThresholdInBytes($threshold);
+        $this->restProxy->createBlockBlob(
+            $container,
+            $blobName,
+            $resource,
+            $options
+        );
+
+        // Test
+        $result = $this->restProxy->getBlob($container, $blobName);
+
+        //get the path for the file to be downloaded into.
+        $uuid = uniqid('test-file-', true);
+        $downloadPath = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $downloadResource = fopen($downloadPath, 'w');
+        //download the file
+        $content = $result->getContentStream();
+
+        while (!feof($content)) {
+            fwrite(
+                $downloadResource,
+                stream_get_contents($content, Resources::MB_IN_BYTES_32)
+            );
+        }
+
+        // Assert
+        $this->assertEquals(
+            BlobType::BLOCK_BLOB,
+            $result->getProperties()->getBlobType()
+        );
+        $this->assertEquals($metadata, $result->getMetadata());
+        $originMd5 = md5_file($path);
+        $downloadMd5 = md5_file($downloadPath);
+        $this->assertEquals($originMd5, $downloadMd5);
+
+        //clean-up.
+        if (is_resource($resource)) {
+            fclose($resource);
+        }
+        fclose($downloadResource);
+        unlink($path);
+        unlink($downloadPath);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlock
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlockAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::commitBlobBlocks
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::commitBlobBlocksAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocksAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesAsync
+     */
+    public function testBlockBlobBlocks()
+    {
+        //create block blob
+        $container = BlobServiceFunctionalTestData::getContainerName();
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createBlockBlob($container, $blob, '');
+
+        //create blocks
+        $blockIds = array();
+        $contents = array();
+        for ($i = 0; $i < 5; ++$i) {
+            $blockId = BlobServiceFunctionalTestData::getInterestingBlockId();
+            $content = openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4);
+            $this->restProxy->createBlobBlock($container, $blob, $blockId, $content);
+            $blockIds[] = $blockId;
+            $contents[] = $content;
+        }
+        $this->verifyBlocks($container, $blob, $blockIds, false);
+        //commit blocks 1 and 3.
+        $latest = BlobBlockType::LATEST_TYPE;
+        $committed = BlobBlockType::COMMITTED_TYPE;
+        $blockList = [
+            new Block($blockIds[1], $latest),
+            new Block($blockIds[3], $latest)
+        ];
+        $this->restProxy->commitBlobBlocks($container, $blob, $blockList);
+        //verify MD5 and uncommitted.
+        $this->verifyBlobMd5($container, $blob, $contents[1] . $contents[3]);
+        $this->verifyBlocks(
+            $container,
+            $blob,
+            [$blockIds[1], $blockIds[3]]
+        );
+
+        //update blob with blocks 3 and 4.
+        for ($i = 0; $i < 5; ++$i) {
+            $this->restProxy->createBlobBlock(
+                $container,
+                $blob,
+                $blockIds[$i],
+                $contents[$i]
+            );
+        }
+        $blockList = [
+            new Block($blockIds[3], $latest),
+            new Block($blockIds[4], $latest),
+        ];
+        $this->restProxy->commitBlobBlocks($container, $blob, $blockList);
+        //verify MD5 and uncommitted.
+        $this->verifyBlobMd5($container, $blob, $contents[3] . $contents[4]);
+        $this->verifyBlocks(
+            $container,
+            $blob,
+            [$blockIds[3], $blockIds[4]]
+        );
+
+        //commit a blob with same id with block 3
+        $this->restProxy->createBlobBlock($container, $blob, $blockIds[0], $contents[0]);
+        $content = openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4);
+        $this->restProxy->createBlobBlock($container, $blob, $blockIds[3], $content);
+        //test BlobBlockType::COMMITTED_TYPE
+        $blockList = [
+            new Block($blockIds[3], $committed),
+            new Block($blockIds[0], $latest),
+        ];
+        $this->restProxy->commitBlobBlocks($container, $blob, $blockList);
+        //verify MD5 and uncommitted.
+        $this->verifyBlobMd5($container, $blob, $contents[3] . $contents[0]);
+        $this->verifyBlocks(
+            $container,
+            $blob,
+            [$blockIds[0], $blockIds[3]]
+        );
+        //test BlobBlockType::LATEST_TYPE
+        $this->restProxy->createBlobBlock($container, $blob, $blockIds[0], $contents[0]);
+        $content = openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4);
+        $this->restProxy->createBlobBlock($container, $blob, $blockIds[3], $content);
+        $blockList = [
+            new Block($blockIds[3], $latest),
+            new Block($blockIds[0], $latest),
+        ];
+        $this->restProxy->commitBlobBlocks($container, $blob, $blockList);
+        //verify MD5 and uncommitted.
+        $this->verifyBlobMd5($container, $blob, $content . $contents[0]);
+        $this->verifyBlocks(
+            $container,
+            $blob,
+            [$blockIds[3], $blockIds[0]]
+        );
+    }
+
+    private function verifyBlobMd5($container, $blob, $content)
+    {
+        $c = stream_get_contents($this->restProxy->getBlob($container, $blob)->getContentStream());
+        $expectedMd5 = md5($content);
+        $actualMd5 = md5($c);
+        $this->assertEquals($expectedMd5, $actualMd5);
+    }
+
+    private function verifyBlocks($container, $blob, $list, $isCommitted = true)
+    {
+        $options = new ListBlobBlocksOptions();
+        if ($isCommitted) {
+            $options->setIncludeCommittedBlobs(true);
+        } else {
+            $options->setIncludeUncommittedBlobs(true);
+        }
+        $result = $this->restProxy->listBlobBlocks($container, $blob, $options);
+        $blocks = $isCommitted? $result->getCommittedBlocks() : $result->getUncommittedBlocks();
+        foreach ($list as $blockId) {
+            $this->assertTrue(array_key_exists($blockId, $blocks));
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPagesAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPages
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPagesAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRanges
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsync
+     */
+    public function testPutListClearPageRanges()
+    {
+        $rangesArray = BlobServiceFunctionalTestData::getRangesArray();
+        $container = BlobServiceFunctionalTestData::getInterestingContainerName();
+        $this->createContainer($container);
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createPageBlob($container, $blob, 2048);
+        foreach ($rangesArray as $array) {
+            $this->putListClearPageRangesWorker(
+                $container,
+                $blob,
+                $array['putRange'],
+                $array['clearRange'],
+                $array['listRange'],
+                $array['resultListRange']
+            );
+        }
+        $this->deleteContainer($container);
+    }
+
+    private function putListClearPageRangesWorker(
+        $container,
+        $blob,
+        $putRange,
+        $clearRange,
+        $listRange,
+        $resultListRange
+    ) {
+        if ($putRange != null) {
+            $length = $putRange->getLength();
+            if ($length == null) {
+                $length = 2048 - $putRange->getStart();
+            }
+            $content = \openssl_random_pseudo_bytes($length);
+            $options = new CreateBlobPagesOptions();
+            //setting the wrong md5.
+            $options->setContentMD5(Utilities::calculateContentMD5(''));
+            $message = '';
+            try {
+                $this->restProxy->createBlobPages(
+                    $container,
+                    $blob,
+                    $putRange,
+                    $content,
+                    $options
+                );
+            } catch (ServiceException $e) {
+                $message = $e->getMessage();
+            }
+            $this->assertContains('400', $message);
+            $this->assertContains(
+                'The MD5 value specified in the request did not match with the MD5 value calculated by the server.',
+                $message
+            );
+            //Ends debug code snippet
+            // Now set the correct content MD5
+            $options->setContentMD5(Utilities::calculateContentMD5($content));
+            $this->restProxy->createBlobPages(
+                $container,
+                $blob,
+                $putRange,
+                $content,
+                $options
+            );
+            $getOptions = new GetBlobOptions();
+            $getOptions->setRangeStart($putRange->getStart());
+            $getOptions->setRangeEnd($putRange->getEnd());
+            $getOptions->setComputeRangeMD5(true);
+            $result = $this->restProxy->getBlob($container, $blob, $getOptions);
+            $actualContent = stream_get_contents($result->getContentStream());
+            $actualMD5 = $result->getProperties()->getContentMD5();
+            //Validate
+            $this->assertEquals(Utilities::calculateContentMD5($content), $actualMD5);
+            $this->assertEquals($content, $actualContent);
+        }
+        if ($clearRange != null) {
+            $this->restProxy->clearBlobPages($container, $blob, $clearRange);
+        }
+        //Validate result
+        $listRangeOptions = new ListPageBlobRangesOptions();
+        if ($listRange != null) {
+            $listRangeOptions->setRangeStart($listRange->getStart());
+            $listRangeOptions->setRangeEnd($listRange->getEnd());
+        }
+        $listResult =
+            $this->restProxy->listPageBlobRanges($container, $blob, $listRangeOptions);
+        $this->assertEquals(2048, $listResult->getContentLength());
+        $resultRanges = $listResult->getRanges();
+        for ($i = 0; $i < count($resultRanges); ++$i) {
+            $this->assertEquals($resultListRange[$i], $resultRanges[$i]);
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createAppendBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlock
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::appendBlockAsync
+     */
+    public function testAppendBlob()
+    {
+        $container = BlobServiceFunctionalTestData::getInterestingContainerName();
+        $this->createContainer($container);
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createAppendBlob($container, $blob);
+
+        $setupArrays = BlobServiceFunctionalTestData::getAppendBlockSetup();
+        foreach ($setupArrays as $setupArray) {
+            $content = openssl_random_pseudo_bytes($setupArray['size']);
+            $options = $setupArray['options'];
+            $errorMsg = $setupArray['error'];
+            $message = '';
+            try {
+                $this->restProxy->appendBlock(
+                    $container,
+                    $blob,
+                    $content,
+                    $options
+                );
+            } catch (ServiceException $e) {
+                $message = $e->getMessage();
+            }
+            if ($errorMsg == '') {
+                $this->assertEquals('', $message);
+            } else {
+                $this->assertContains($errorMsg, $message);
+            }
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLeaseAsync
+     */
+    public function testLeaseContainer()
+    {
+        $container = BlobServiceFunctionalTestData::getInterestingContainerName();
+        $this->restProxy->createContainer($container);
+        $leaseId = Utilities::getGuid();
+        $result = $this->restProxy->acquireLease($container, '', $leaseId);
+        $this->assertEquals($leaseId, $result->getLeaseId());
+        $message = '';
+        try {
+            $this->restProxy->deleteContainer($container);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains('There is currently a lease on the container and no lease ID was specified in the request', $message);
+        $options = new BlobServiceOptions();
+        $options->setLeaseId($leaseId);
+        $this->restProxy->deleteContainer($container, $options);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLeaseAsync
+     */
+    public function testLeaseBlob()
+    {
+        $container = BlobServiceFunctionalTestData::getInterestingContainerName();
+        $this->restProxy->createContainer($container);
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createPageBlob($container, $blob, 1024);
+        $leaseId = Utilities::getGuid();
+        $result = $this->restProxy->acquireLease($container, $blob, $leaseId);
+        $this->assertEquals($leaseId, $result->getLeaseId());
+        $message = '';
+        try {
+            $this->restProxy->deleteBlob($container, $blob);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains('There is currently a lease on the blob and no lease ID was specified in the request.', $message);
+        $options = new DeleteBlobOptions();
+        $options->setLeaseId($leaseId);
+        $this->restProxy->deleteBlob($container, $blob, $options);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLeaseAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::renewLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::renewLeaseAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLeaseAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::changeLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::changeLeaseAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::breakLease
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::breakLeaseAsync
+     */
+    public function testLeaseOperations()
+    {
+        $container = BlobServiceFunctionalTestData::getInterestingContainerName();
+        $this->restProxy->createContainer($container);
+        //configure
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createPageBlob($container, $blob, 1024);
+        $leaseId = Utilities::getGuid();
+
+        $message = '';
+        //test acquire lease duration no in bound
+        try {
+            $this->restProxy->acquireLease($container, $blob, $leaseId, 14);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains(' The value for one of the HTTP headers is not in the correct format.', $message);
+        try {
+            $this->restProxy->acquireLease($container, $blob, $leaseId, 61);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains(' The value for one of the HTTP headers is not in the correct format.', $message);
+        $result = $this->restProxy->acquireLease($container, $blob, $leaseId, 15);
+        $this->assertEquals($leaseId, $result->getLeaseId());
+        //test lease duration expire
+        \sleep(15);
+        $this->restProxy->deleteBlob($container, $blob);
+
+        //re-configure
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createPageBlob($container, $blob, 1024);
+        $leaseId = Utilities::getGuid();
+        $this->restProxy->acquireLease($container, $blob, $leaseId);
+        //test change lease
+        $newLeaseId = Utilities::getGuid();
+        $result = $this->restProxy->changeLease($container, $blob, $leaseId, $newLeaseId);
+        $options = new DeleteBlobOptions();
+        $options->setLeaseId($newLeaseId);
+        $this->restProxy->deleteBlob($container, $blob, $options);
+
+        $result = $this->restProxy->listBlobs($container);
+        $this->assertTrue(empty($result->getBlobs()));
+
+        //test renew lease
+        //re-configure
+        $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createPageBlob($container, $blob, 1024);
+        $leaseId = Utilities::getGuid();
+        $this->restProxy->acquireLease($container, $blob, $leaseId, 15);
+        \sleep(15);
+        $this->restProxy->renewLease($container, $blob, $leaseId);
+        try {
+            $this->restProxy->deleteBlob($container, $blob);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains('There is currently a lease on the blob and no lease ID was specified in the request.', $message);
+
+        //test release lease
+        $this->restProxy->releaseLease($container, $blob, $leaseId);
+        //acquire a lease immediately after.
+        $leaseId = Utilities::getGuid();
+        $this->restProxy->acquireLease($container, $blob, $leaseId);
+        try {
+            $this->restProxy->deleteBlob($container, $blob);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains('There is currently a lease on the blob and no lease ID was specified in the request.', $message);
+
+        //test break lease
+        $result = $this->restProxy->breakLease($container, $blob, 10);
+        $leaseId = Utilities::getGuid();
+        try {
+            $this->restProxy->acquireLease($container, $blob, $leaseId);
+        } catch (ServiceException $e) {
+            $message = $e->getMessage();
+        }
+        $this->assertContains('There is currently a lease on the blob and no lease ID was specified in the request.', $message);
+        \sleep(10);
+        $this->restProxy->acquireLease($container, $blob, $leaseId);
+        $options = new DeleteBlobOptions();
+        $options->setLeaseId($leaseId);
+        $this->restProxy->deleteBlob($container, $blob, $options);
+
+        $result = $this->restProxy->listBlobs($container);
+        $this->assertTrue(empty($result->getBlobs()));
+    }
 }

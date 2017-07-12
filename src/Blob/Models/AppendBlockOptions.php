@@ -36,9 +36,9 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class AppendBlockOptions extends BlobServiceOptions
 {
-    private $_contentMD5;
-    private $_maxBlobSize;
-    private $_appendPosition;
+    private $contentMD5;
+    private $maxBlobSize;
+    private $appendPosition;
     
     /**
      * Gets block contentMD5.
@@ -47,7 +47,7 @@ class AppendBlockOptions extends BlobServiceOptions
      */
     public function getContentMD5()
     {
-        return $this->_contentMD5;
+        return $this->contentMD5;
     }
 
     /**
@@ -59,7 +59,7 @@ class AppendBlockOptions extends BlobServiceOptions
      */
     public function setContentMD5($contentMD5)
     {
-        $this->_contentMD5 = $contentMD5;
+        $this->contentMD5 = $contentMD5;
     }
     
     /**
@@ -69,7 +69,7 @@ class AppendBlockOptions extends BlobServiceOptions
      */
     public function getMaxBlobSize()
     {
-        return $this->_maxBlobSize;
+        return $this->maxBlobSize;
     }
 
     /**
@@ -81,7 +81,7 @@ class AppendBlockOptions extends BlobServiceOptions
      */
     public function setMaxBlobSize($maxBlobSize)
     {
-        $this->_maxBlobSize = $maxBlobSize;
+        $this->maxBlobSize = $maxBlobSize;
     }
     
     /**
@@ -91,7 +91,7 @@ class AppendBlockOptions extends BlobServiceOptions
      */
     public function getAppendPosition()
     {
-        return $this->_appendPosition;
+        return $this->appendPosition;
     }
 
     /**
@@ -103,6 +103,6 @@ class AppendBlockOptions extends BlobServiceOptions
      */
     public function setAppendPosition($appendPosition)
     {
-        $this->_appendPosition = $appendPosition;
+        $this->appendPosition = $appendPosition;
     }
 }
