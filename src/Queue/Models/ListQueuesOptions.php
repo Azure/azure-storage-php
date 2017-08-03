@@ -25,8 +25,7 @@
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
-use MicrosoftAzure\Storage\Queue\Models\QueueContinuationToken;
-use MicrosoftAzure\Storage\Queue\Models\QueueContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
@@ -41,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class ListQueuesOptions extends QueueServiceOptions
 {
-    use QueueContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $_prefix;
     private $_maxResults;
@@ -66,7 +65,7 @@ class ListQueuesOptions extends QueueServiceOptions
      */
     public function setPrefix($prefix)
     {
-        Validate::isString($prefix, 'prefix');
+        Validate::canCastAsString($prefix, 'prefix');
         $this->_prefix = $prefix;
     }
 
@@ -89,7 +88,7 @@ class ListQueuesOptions extends QueueServiceOptions
      */
     public function setMaxResults($maxResults)
     {
-        Validate::isString($maxResults, 'maxResults');
+        Validate::canCastAsString($maxResults, 'maxResults');
         $this->_maxResults = $maxResults;
     }
 

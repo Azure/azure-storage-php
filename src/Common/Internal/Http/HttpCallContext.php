@@ -87,7 +87,7 @@ class HttpCallContext
      */
     public function setMethod($method)
     {
-        Validate::isString($method, 'method');
+        Validate::canCastAsString($method, 'method');
         
         $this->_method = $method;
     }
@@ -165,7 +165,7 @@ class HttpCallContext
      */
     public function setUri($uri)
     {
-        Validate::isString($uri, 'uri');
+        Validate::canCastAsString($uri, 'uri');
         
         $this->_uri = $uri;
     }
@@ -189,7 +189,7 @@ class HttpCallContext
      */
     public function setPath($path)
     {
-        Validate::isString($path, 'path');
+        Validate::canCastAsString($path, 'path');
         
         $this->_path = $path;
     }
@@ -238,7 +238,7 @@ class HttpCallContext
      */
     public function setBody($body)
     {
-        Validate::isString($body, 'body');
+        Validate::canCastAsString($body, 'body');
         
         $this->_body = $body;
     }
@@ -253,8 +253,8 @@ class HttpCallContext
      */
     public function addHeader($name, $value)
     {
-        Validate::isString($name, 'name');
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($name, 'name');
+        Validate::canCastAsString($value, 'value');
         
         $this->_headers[$name] = $value;
     }
@@ -271,8 +271,8 @@ class HttpCallContext
      */
     public function addOptionalHeader($name, $value)
     {
-        Validate::isString($name, 'name');
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($name, 'name');
+        Validate::canCastAsString($value, 'value');
         
         if (!empty($value)) {
             $this->_headers[$name] = $value;
@@ -288,7 +288,7 @@ class HttpCallContext
      */
     public function removeHeader($name)
     {
-        Validate::isString($name, 'name');
+        Validate::canCastAsString($name, 'name');
         Validate::notNullOrEmpty($name, 'name');
         
         unset($this->_headers[$name]);
@@ -304,8 +304,8 @@ class HttpCallContext
      */
     public function addQueryParameter($name, $value)
     {
-        Validate::isString($name, 'name');
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($name, 'name');
+        Validate::canCastAsString($value, 'value');
         
         $this->_queryParams[$name] = $value;
     }
@@ -345,8 +345,8 @@ class HttpCallContext
      */
     public function addOptionalQueryParameter($name, $value)
     {
-        Validate::isString($name, 'name');
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($name, 'name');
+        Validate::canCastAsString($value, 'value');
         
         if (!empty($value)) {
             $this->_queryParams[$name] = $value;

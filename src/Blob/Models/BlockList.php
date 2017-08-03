@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class BlockList
 {
-    private $_entries;
+    private $entries;
     private static $xmlRootName = 'BlockList';
     
     /**
@@ -71,7 +71,7 @@ class BlockList
      */
     public function addEntry($blockId, $type)
     {
-        Validate::isString($blockId, 'blockId');
+        Validate::canCastAsString($blockId, 'blockId');
         Validate::isTrue(
             BlobBlockType::isValid($type),
             sprintf(Resources::INVALID_BTE_MSG, get_class(new BlobBlockType()))
@@ -80,7 +80,7 @@ class BlockList
         $block->setBlockId($blockId);
         $block->setType($type);
         
-        $this->_entries[] = $block;
+        $this->entries[] = $block;
     }
     
     /**
@@ -128,7 +128,7 @@ class BlockList
      */
     public function getEntry($blockId)
     {
-        foreach ($this->_entries as $value) {
+        foreach ($this->entries as $value) {
             if ($blockId == $value->getBlockId()) {
                 return $value;
             }
@@ -144,7 +144,7 @@ class BlockList
      */
     public function getEntries()
     {
-        return $this->_entries;
+        return $this->entries;
     }
     
     /**
@@ -161,7 +161,7 @@ class BlockList
         $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);
         $array      = array();
         
-        foreach ($this->_entries as $value) {
+        foreach ($this->entries as $value) {
             $array[] = array(
                 $value->getType() => $value->getBlockId()
             );

@@ -58,7 +58,7 @@ class Validate
     }
 
     /**
-     * Throws exception if the provided variable type is not string.
+     * Throws exception if the provided variable can not convert to a string.
      *
      * @param mixed  $var  The variable to check.
      * @param string $name The parameter name.
@@ -67,7 +67,7 @@ class Validate
      *
      * @return void
      */
-    public static function isString($var, $name)
+    public static function canCastAsString($var, $name)
     {
         try {
             (string)$var;
@@ -315,7 +315,7 @@ class Validate
      */
     public static function isA($objectInstance, $class, $name)
     {
-        Validate::isString($class, 'class');
+        Validate::canCastAsString($class, 'class');
         Validate::notNull($objectInstance, 'objectInstance');
         Validate::isObject($objectInstance, 'objectInstance');
 
@@ -347,7 +347,7 @@ class Validate
      */
     public static function methodExists($objectInstance, $method, $name)
     {
-        Validate::isString($method, 'method');
+        Validate::canCastAsString($method, 'method');
         Validate::notNull($objectInstance, 'objectInstance');
         Validate::isObject($objectInstance, 'objectInstance');
 
@@ -376,7 +376,7 @@ class Validate
      */
     public static function isDateString($value, $name)
     {
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($value, 'value');
 
         try {
             new \DateTime($value);

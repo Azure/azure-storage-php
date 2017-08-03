@@ -1233,7 +1233,7 @@ class TestResources
             )
         );
 
-        $sample['NextMarker'] = '';
+        $sample['NextMarker'] = 'abcdefg';
 
         return $sample;
     }

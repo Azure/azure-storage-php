@@ -56,7 +56,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 {
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServicePropertiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServicePropertiesAsync
     */
     public function testGetServicePropertiesNoOptions()
     {
@@ -84,7 +86,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServicePropertiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServicePropertiesAsync
     */
     public function testGetServiceProperties()
     {
@@ -105,6 +109,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServicePropertiesAsync
     */
     private function getServicePropertiesWorker($options)
     {
@@ -196,7 +201,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServicePropertiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServicePropertiesAsync
     */
     public function testSetServicePropertiesNoOptions()
     {
@@ -206,7 +213,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServicePropertiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServicePropertiesAsync
     */
     public function testSetServiceProperties()
     {
@@ -224,7 +233,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServicePropertiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServicePropertiesAsync
     */
     private function setServicePropertiesWorker($serviceProperties, $options)
     {
@@ -255,6 +266,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     public function testQueryTablesNoOptions()
     {
@@ -263,6 +275,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     public function testQueryTables()
     {
@@ -275,6 +288,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     private function queryTablesWorker($options)
     {
@@ -372,8 +386,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     public function testCreateTableNoOptions()
     {
@@ -382,8 +399,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     public function testCreateTable()
     {
@@ -391,11 +411,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $this->createTableWorker($options);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
-    */
     private function createTableWorker($options)
     {
         $table = TableServiceFunctionalTestData::getInterestingTableName();
@@ -437,8 +452,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     public function testDeleteTableNoOptions()
     {
@@ -447,8 +465,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     public function testDeleteTable()
     {
@@ -458,8 +479,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
     */
     private function deleteTableWorker($options)
     {
@@ -518,8 +542,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAsync
     */
     public function testGetTableNoOptions()
     {
@@ -528,8 +555,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAsync
     */
     public function testGetTable()
     {
@@ -539,8 +569,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTableAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTable
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTableAsync
     */
     private function getTableWorker($options)
     {
@@ -571,7 +604,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     */
     public function testGetEntity()
     {
@@ -584,7 +619,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     */
     private function getEntityWorker($ent, $isGood, $options)
     {
@@ -696,8 +733,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     */
     public function testDeleteEntity()
     {
@@ -712,8 +752,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     */
     private function deleteEntityWorker($ent, $useETag, $options)
     {
@@ -754,7 +797,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntity()
     {
@@ -767,7 +812,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertBadEntity()
     {
@@ -786,7 +833,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityBoolean()
     {
@@ -799,30 +848,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-//     /**
-//     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-//     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-//     */
-//     public function testInsertEntityBooleanNegative()
-//     {
-//         foreach(TableServiceFunctionalTestData::getInterestingBadBooleans() as $o)  {
-//             $ent = new Entity();
-//             $ent->setPartitionKey(TableServiceFunctionalTestData::getNewKey());
-//             $ent->setRowKey(TableServiceFunctionalTestData::getNewKey());
-//             try {
-//                 $ent->addProperty('BOOLEAN', EdmType::BOOLEAN, $o);
-//                 $this->fail('Should get an exception when trying to parse this value');
-//                 $this->insertEntityWorker($ent, false, null, $o);
-//             } catch (\Exception $e) {
-//                 $this->assertEquals(0, $e->getCode(), 'getCode');
-//                 $this->assertTrue(true, 'got expected exception');
-//             }
-//         }
-//     }
-
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityDate()
     {
@@ -837,7 +867,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityDateNegative()
     {
@@ -858,7 +890,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityDouble()
     {
@@ -873,7 +907,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityDoubleNegative()
     {
@@ -894,7 +930,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityGuid()
     {
@@ -909,7 +947,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityGuidNegative()
     {
@@ -930,7 +970,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityInt()
     {
@@ -945,7 +987,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityIntNegative()
     {
@@ -966,7 +1010,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityLong()
     {
@@ -981,7 +1027,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityLongNegative()
     {
@@ -1002,7 +1050,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityBinary()
     {
@@ -1017,7 +1067,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityBinaryNegative()
     {
@@ -1038,7 +1090,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertEntityString()
     {
@@ -1053,7 +1107,9 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     private function insertEntityWorker($ent, $isGood, $options, $specialValue = null)
     {
@@ -1102,8 +1158,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     public function testUpdateEntity()
     {
@@ -1120,8 +1179,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     private function updateEntityWorker($initialEnt, $ent, $options)
     {
@@ -1153,8 +1215,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testMergeEntity()
     {
@@ -1171,8 +1236,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     private function mergeEntityWorker($initialEnt, $ent, $options)
     {
@@ -1205,8 +1273,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertOrReplaceEntity()
     {
@@ -1233,8 +1304,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     private function insertOrReplaceEntityWorker($initialEnt, $ent, $options)
     {
@@ -1266,8 +1340,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     public function testInsertOrMergeEntity()
     {
@@ -1294,8 +1371,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntitiesAsync
     */
     private function insertOrMergeEntityWorker($initialEnt, $ent, $options)
     {
@@ -1328,11 +1408,17 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     public function testCRUDdeleteEntity()
     {
@@ -1350,11 +1436,17 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 /*
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     public function testCRUDinsertEntity()
     {
@@ -1372,11 +1464,17 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     public function testCRUDinsertOrMergeEntity()
     {
@@ -1396,11 +1494,17 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 /*
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     public function testCRUDinsertOrReplaceEntity()
     {
@@ -1420,11 +1524,17 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
     */
     public function testCRUDmergeEntity()
     {
@@ -1442,11 +1552,19 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     */
     public function testCRUDupdateEntity()
     {
@@ -1462,14 +1580,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    */
     private function crudWorker($opType, $concurType, $mutatePivot, $ent, $options)
     {
         $exptErr = $this->expectConcurrencyFailure($opType, $concurType);
@@ -1503,7 +1613,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batchAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     */
     public function testBatchPositiveFirstNoKeyMatch()
     {
@@ -1512,7 +1626,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batchAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     */
     public function testBatchPositiveFirstKeyMatchNoETag()
     {
@@ -1521,7 +1639,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batchAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     */
     public function testBatchPositiveFirstKeyMatchETagMismatch()
     {
@@ -1531,7 +1653,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batchAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     */
     public function testBatchPositiveFirstKeyMatchETagMatch()
     {
@@ -1540,7 +1666,11 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batchAsync
     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
+    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntityAsync
     */
     public function testBatchNegative()
     {
@@ -1668,10 +1798,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     private function batchPositiveOuter($firstConcurType, $seed)
     {
         // The random here is not to generate random values, but to
@@ -1738,10 +1864,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     private function batchWorker($configs, $options)
     {
         $exptErrs = array();
@@ -1840,9 +1962,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     private function verifyEntryData($table, $exptErr, $targetEnt, $opResult)
     {
         if ($opResult instanceof InsertEntityResult) {
@@ -1919,14 +2038,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    */
     private function executeCrudMethod($table, $targetEnt, $opType, $concurType, $options)
     {
         switch ($opType) {
@@ -1982,9 +2093,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     private function verifyCrudWorker($opType, $table, $initialEnt, $targetEnt, $expectedSuccess)
     {
         $entInTable = null;
@@ -2036,9 +2144,6 @@ class TableServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    */
     private function createTargetEntity($table, $initialEnt, $concurType, $mutatePivot)
     {
         $targetEnt = TableServiceFunctionalTestUtils::cloneEntity($initialEnt);
@@ -2139,6 +2244,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
      */
     public function testMiddlewares()
@@ -2191,6 +2297,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
      */
     public function testRetryFromSecondary()

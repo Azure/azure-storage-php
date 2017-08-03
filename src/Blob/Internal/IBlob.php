@@ -762,10 +762,10 @@ interface IBlob
     * block list or from the uncommitted block list, or to commit the most recently
     * uploaded version of the block, whichever list it may belong to.
     *
-    * @param string                             $container name of the container
-    * @param string                             $blob      name of the blob
-    * @param BlobModels\BlockList|array         $blockList the block list entries
-    * @param BlobModels\CommitBlobBlocksOptions $options   optional parameters
+    * @param string                                  $container name of the container
+    * @param string                                  $blob      name of the blob
+    * @param BlobModels\BlockList|BlobModels\Block[] $blockList the block list entries
+    * @param BlobModels\CommitBlobBlocksOptions      $options   optional parameters
     *
     * @return BlobModels\PutBlobResult
     *
@@ -789,11 +789,11 @@ interface IBlob
      * block list or from the uncommitted block list, or to commit the most recently
      * uploaded version of the block, whichever list it may belong to.
      *
-     * @param string                             $container The container name.
-     * @param string                             $blob      The blob name.
-     * @param BlobModels\BlockList|array         $blockList The block entries.
-     * @param BlobModels\CommitBlobBlocksOptions $options   The optional
-     *                                                      parameters.
+     * @param string                                  $container name of the container
+     * @param string                                  $blob      name of the blob
+     * @param BlobModels\BlockList|BlobModels\Block[] $blockList the block list
+     *                                                           entries
+     * @param BlobModels\CommitBlobBlocksOptions      $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *

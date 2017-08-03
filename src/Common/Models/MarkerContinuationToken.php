@@ -14,43 +14,60 @@
  *
  * PHP version 5
  *
- * @ignore
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Blob\Models;
+namespace MicrosoftAzure\Storage\Common\Models;
 
-use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
-use MicrosoftAzure\Storage\Blob\Models\BlobContinuationToken;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Models\ContinuationToken;
 
 /**
- * Trait implementing logic for Blob continuation tokens.
+ * Provides functionality and data structure for continuation token that
+ * contains next marker.
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Blob\Models
+ * @package   MicrosoftAzure\Storage\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-trait BlobContinuationTokenTrait
+class MarkerContinuationToken extends ContinuationToken
 {
-    use MarkerContinuationTokenTrait;
+    private $nextMarker;
+
+    public function __construct(
+        $nextMarker = '',
+        $location = ''
+    ) {
+        parent::__construct($location);
+        $this->setNextMarker($nextMarker);
+    }
 
     /**
-     * Creates a continuation token if current one is null.
+     * Setter for nextMarker
      *
-     * @return void
+     * @param string $nextMarker the next marker to be set.
      */
-    private function createContinuationTokenIfNotExist()
+    public function setNextMarker($nextMarker)
     {
-        if ($this->continuationToken == null) {
-            $this->continuationToken = new BlobContinuationToken();
-        }
+        Validate::canCastAsString($nextMarker, 'nextMarker');
+        $this->nextMarker = $nextMarker;
+    }
+
+    /**
+     * Getter for nextMarker
+     *
+     * @return string
+     */
+    public function getNextMarker()
+    {
+        return $this->nextMarker;
     }
 }

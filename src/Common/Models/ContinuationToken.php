@@ -55,7 +55,7 @@ class ContinuationToken
      */
     public function setLocation($location)
     {
-        Validate::isString($location, 'location');
+        Validate::canCastAsString($location, 'location');
         Validate::isTrue(
             $location == LocationMode::PRIMARY_ONLY ||
             $location == LocationMode::SECONDARY_ONLY ||

@@ -62,17 +62,21 @@ class QueryTablesResult
         
         $result->setTables($entries);
 
-        $result->setContinuationToken(
-            new TableContinuationToken(
-                Utilities::tryGetValue(
-                    $headers,
-                    Resources::X_MS_CONTINUATION_NEXTTABLENAME
-                ),
-                '',
-                '',
-                Utilities::getLocationFromHeaders($headers)
-            )
+        $nextTableName = Utilities::tryGetValue(
+            $headers,
+            Resources::X_MS_CONTINUATION_NEXTTABLENAME
         );
+
+        if ($nextTableName != null) {
+            $result->setContinuationToken(
+                new TableContinuationToken(
+                    $nextTableName,
+                    '',
+                    '',
+                    Utilities::getLocationFromHeaders($headers)
+                )
+            );
+        }
         
         return $result;
     }

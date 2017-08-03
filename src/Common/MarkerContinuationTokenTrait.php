@@ -25,7 +25,7 @@
  
 namespace MicrosoftAzure\Storage\Common;
 
-use MicrosoftAzure\Storage\Common\Models\ContinuationToken;
+use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
 
 /**
  * Trait implementing logic for continuation tokens that has nextMarker.
@@ -44,16 +44,19 @@ trait MarkerContinuationTokenTrait
     /**
      * Setter for continuationToken
      *
-     * @param ContinuationToken $continuationToken the continuation token to be set.
+     * @param MarkerContinuationToken|null $continuationToken the continuation
+     *                                                        token to be set.
      */
-    public function setContinuationToken(ContinuationToken $continuationToken)
+    public function setContinuationToken(MarkerContinuationToken $continuationToken = null)
     {
         $this->continuationToken = $continuationToken;
     }
 
     public function setMarker($marker)
     {
-        $this->createContinuationTokenIfNotExist();
+        if ($this->continuationToken == null) {
+            $this->continuationToken = new MarkerContinuationToken();
+        };
         $this->continuationToken->setNextMarker($marker);
     }
 
@@ -74,7 +77,9 @@ trait MarkerContinuationTokenTrait
      */
     public function getNextMarker()
     {
-        $this->createContinuationTokenIfNotExist();
+        if ($this->continuationToken == null) {
+            return null;
+        }
         return $this->continuationToken->getNextMarker();
     }
 
@@ -85,14 +90,17 @@ trait MarkerContinuationTokenTrait
      */
     public function getLocation()
     {
-        $this->createContinuationTokenIfNotExist();
+        if ($this->continuationToken == null) {
+            return null;
+        }
         return $this->continuationToken->getLocation();
     }
 
     public function getLocationMode()
     {
-        $this->createContinuationTokenIfNotExist();
-        if ($this->continuationToken->getLocation() == '') {
+        if ($this->continuationToken == null) {
+            return parent::getLocationMode();
+        } elseif ($this->continuationToken->getLocation() == '') {
             return parent::getLocationMode();
         } else {
             return $this->getLocation();

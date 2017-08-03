@@ -74,7 +74,7 @@ class TableContinuationToken extends ContinuationToken
      */
     public function setNextPartitionKey($nextPartitionKey)
     {
-        Validate::isString($nextPartitionKey, 'nextPartitionKey');
+        Validate::canCastAsString($nextPartitionKey, 'nextPartitionKey');
         $this->nextPartitionKey = $nextPartitionKey;
     }
     
@@ -97,7 +97,7 @@ class TableContinuationToken extends ContinuationToken
      */
     public function setNextRowKey($nextRowKey)
     {
-        Validate::isString($nextRowKey, 'nextRowKey');
+        Validate::canCastAsString($nextRowKey, 'nextRowKey');
         $this->nextRowKey = $nextRowKey;
     }
 
@@ -120,7 +120,7 @@ class TableContinuationToken extends ContinuationToken
      */
     public function setNextTableName($nextTableName)
     {
-        Validate::isString($nextTableName, 'nextTableName');
+        Validate::canCastAsString($nextTableName, 'nextTableName');
         $this->nextTableName = $nextTableName;
     }
 }

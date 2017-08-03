@@ -65,7 +65,7 @@ class ConnectionStringSource
      */
     public static function environmentSource($key)
     {
-        Validate::isString($key, 'key');
+        Validate::canCastAsString($key, 'key');
         
         return getenv($key);
     }

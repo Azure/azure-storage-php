@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class LeaseResult
 {
-    private $_leaseId;
+    private $leaseId;
     
     /**
      * Creates LeaseResult from response headers
@@ -68,7 +68,7 @@ class LeaseResult
      */
     public function getLeaseId()
     {
-        return $this->_leaseId;
+        return $this->leaseId;
     }
     
     /**
@@ -80,6 +80,6 @@ class LeaseResult
      */
     protected function setLeaseId($leaseId)
     {
-        $this->_leaseId = $leaseId;
+        $this->leaseId = $leaseId;
     }
 }

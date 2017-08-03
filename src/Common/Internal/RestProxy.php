@@ -102,8 +102,8 @@ class RestProxy
     protected function addOptionalQueryParam(array &$queryParameters, $key, $value)
     {
         Validate::isArray($queryParameters, 'queryParameters');
-        Validate::isString($key, 'key');
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($key, 'key');
+        Validate::canCastAsString($value, 'value');
                 
         if (!is_null($value) && Resources::EMPTY_STRING !== $value) {
             $queryParameters[$key] = $value;
@@ -124,8 +124,8 @@ class RestProxy
     protected function addOptionalHeader(array &$headers, $key, $value)
     {
         Validate::isArray($headers, 'headers');
-        Validate::isString($key, 'key');
-        Validate::isString($value, 'value');
+        Validate::canCastAsString($key, 'key');
+        Validate::canCastAsString($value, 'value');
                 
         if (!is_null($value) && Resources::EMPTY_STRING !== $value) {
             $headers[$key] = $value;

@@ -68,14 +68,16 @@ class QueryEntitiesResult
             Resources::X_MS_CONTINUATION_NEXTROWKEY
         );
 
-        $result->setContinuationToken(
-            new TableContinuationToken(
-                '',
-                $nextPK,
-                $nextRK,
-                Utilities::getLocationFromHeaders($headers)
-            )
-        );
+        if ($nextRK != null && $nextPK != null) {
+            $result->setContinuationToken(
+                new TableContinuationToken(
+                    '',
+                    $nextPK,
+                    $nextRK,
+                    Utilities::getLocationFromHeaders($headers)
+                )
+            );
+        }
         
         $result->setEntities($entities);
         

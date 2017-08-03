@@ -26,8 +26,8 @@ namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Queue\Models\Queue;
-use MicrosoftAzure\Storage\Queue\Models\QueueContinuationToken;
-use MicrosoftAzure\Storage\Queue\Models\QueueContinuationTokenTrait;
+use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 
 /**
@@ -42,7 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListQueuesResult
 {
-    use QueueContinuationTokenTrait;
+    use MarkerContinuationTokenTrait;
 
     private $_queues;
     private $_prefix;
@@ -80,15 +80,18 @@ class ListQueuesResult
             $parsedResponse,
             Resources::QP_MARKER
         ));
-        $result->setContinuationToken(
-            new QueueContinuationToken(
-                Utilities::tryGetValue(
-                    $parsedResponse,
-                    Resources::QP_NEXT_MARKER
-                ),
-                $location
-            )
-        );
+
+        $nextMarker = Utilities::tryGetValue($parsedResponse, Resources::QP_NEXT_MARKER);
+
+        if ($nextMarker != null) {
+            $result->setContinuationToken(
+                new MarkerContinuationToken(
+                    $nextMarker,
+                    $location
+                )
+            );
+        }
+
         $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS

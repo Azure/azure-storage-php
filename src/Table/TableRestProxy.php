@@ -288,7 +288,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $rowKey,
         DeleteEntityOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
         Validate::isTrue(!is_null($partitionKey), Resources::NULL_TABLE_KEY_MSG);
         Validate::isTrue(!is_null($rowKey), Resources::NULL_TABLE_KEY_MSG);
@@ -309,6 +309,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $headers,
             Resources::IF_MATCH,
             $ETag ? $etagObj : Resources::ASTERISK
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::ACCEPT_HEADER,
+            Resources::JSON_CONTENT_TYPE
         );
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
@@ -344,7 +350,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $useETag,
         TableServiceOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
         Validate::isTrue($entity->isValid($msg), $msg);
@@ -407,7 +413,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         Entity $entity,
         TableServiceCreateOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
         Validate::notNullOrEmpty($entity, 'entity');
         Validate::isTrue($entity->isValid($msg), $msg);
@@ -830,7 +836,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $table,
         TableServiceCreateOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
 
         $method      = Resources::HTTP_POST;
@@ -899,7 +905,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $table,
         GetTableOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
 
         $method      = Resources::HTTP_GET;
@@ -949,7 +955,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179387.aspx
      */
-    public function deleteTable($table, TableServiceOptions$options = null)
+    public function deleteTable($table, TableServiceOptions $options = null)
     {
         $this->deleteTableAsync($table, $options)->wait();
     }
@@ -968,7 +974,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $table,
         TableServiceOptions$options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
 
         $method      = Resources::HTTP_DELETE;
@@ -1027,7 +1033,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
      */
     public function queryEntitiesAsync($table, $options = null)
     {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
 
         $method      = Resources::HTTP_GET;
@@ -1442,7 +1448,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $rowKey,
         GetEntityOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($table, 'table');
         Validate::isTrue(!is_null($partitionKey), Resources::NULL_TABLE_KEY_MSG);
         Validate::isTrue(!is_null($rowKey), Resources::NULL_TABLE_KEY_MSG);
@@ -1599,7 +1605,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         $table,
         Models\TableServiceOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         
         $method      = Resources::HTTP_GET;
         $headers     = array();
@@ -1616,6 +1622,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $queryParams,
             Resources::QP_COMP,
             'acl'
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::ACCEPT_HEADER,
+            Resources::XML_CONTENT_TYPE
         );
 
         $dataSerializer = $this->dataSerializer;
@@ -1672,7 +1684,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         TableACL $acl,
         TableServiceOptions $options = null
     ) {
-        Validate::isString($table, 'table');
+        Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($acl, 'acl');
         
         $method      = Resources::HTTP_PUT;
@@ -1690,6 +1702,12 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $queryParams,
             Resources::QP_COMP,
             'acl'
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::ACCEPT_HEADER,
+            Resources::XML_CONTENT_TYPE
         );
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);

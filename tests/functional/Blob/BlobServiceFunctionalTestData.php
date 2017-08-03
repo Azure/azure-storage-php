@@ -32,6 +32,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
@@ -40,6 +41,8 @@ use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\CORS;
@@ -54,6 +57,7 @@ class BlobServiceFunctionalTestData
     public static $nonExistBlobPrefix;
     public static $testContainerNames;
     public static $testBlobNames;
+    private static $blockIdCount;
     private static $accountName;
     private static $badETag = '0x123456789ABCDEF';
 
@@ -66,6 +70,7 @@ class BlobServiceFunctionalTestData
         self::$nonExistBlobPrefix = 'qa-' . ($rint . 2) . '-';
         self::$testContainerNames = array( self::$testUniqueId . 'a1', self::$testUniqueId . 'a2', self::$testUniqueId . 'b1' );
         self::$testBlobNames = array( 'b' . self::$testUniqueId . 'a1', 'b' . self::$testUniqueId . 'a2', 'b' . self::$testUniqueId . 'b1' );
+        self::$blockIdCount = 0;
     }
 
     public static function getInterestingContainerName()
@@ -102,6 +107,14 @@ class BlobServiceFunctionalTestData
             $blobname = str_replace('\\', 'X', $blobname);
         }
         return $blobname;
+    }
+
+    public static function getInterestingBlockId()
+    {
+        //Block ID must be base64 encoded.
+        return base64_encode(
+            str_pad(self::$blockIdCount++, 6, '0', STR_PAD_LEFT)
+        );
     }
 
     public static function getSimpleMessageText()
@@ -812,11 +825,6 @@ class BlobServiceFunctionalTestData
         $options->setSnapshot('placeholder');
         array_push($ret, $options);
 
-        // TODO: Handle Lease ID
-        //        $options = new GetBlobOptions();
-        //        $options->setLeaseId('setLeaseId');
-        //        array_push($ret, $options);
-
         return $ret;
     }
 
@@ -853,11 +861,6 @@ class BlobServiceFunctionalTestData
         $options->setSnapshot('placeholder');
         array_push($ret, $options);
 
-        // TODO: Handle Lease ID
-        //        $options = new DeleteBlobOptions();
-        //        $options->setLeaseId('setLeaseId');
-        //        array_push($ret, $options);
-
         return $ret;
     }
 
@@ -885,11 +888,6 @@ class BlobServiceFunctionalTestData
         $options = new CreateBlobSnapshotOptions();
         $options->setMetadata(self::getNiceMetadata());
         array_push($ret, $options);
-
-        // TODO: Handle Lease ID
-        //        $options = new CreateBlobSnapshotOptions();
-        //        $options->setLeaseId('setLeaseId');
-        //        array_push($ret, $options);
 
         return $ret;
     }
@@ -932,15 +930,121 @@ class BlobServiceFunctionalTestData
         $options = new CopyBlobOptions();
         $options->setSourceSnapshot('placeholder');
         array_push($ret, $options);
+        
+        return $ret;
+    }
 
-        // TODO: Handle Lease ID
-        //        $options = new CopyBlobOptions();
-        //        $options->setLeaseId('setLeaseId');
-        //        array_push($ret, $options);
-        //
-        //        $options = new CopyBlobOptions();
-        //        $options->setSourceLeaseId('setSourceLeaseId');
-        //        array_push($ret, $options);
+    public static function getCreateBlockBlobAttributes()
+    {
+        $ret = array();
+        $ret[] = ['size' => Resources::MB_IN_BYTES_4];
+        $ret[] = ['size' => Resources::MB_IN_BYTES_32];
+        $ret[] = ['size' => Resources::MB_IN_BYTES_32 + Resources::MB_IN_BYTES_1];
+        $ret[] = ['size' => Resources::MB_IN_BYTES_128];
+        $ret[] = ['size' => Resources::MB_IN_BYTES_256];
+        $ret[] = [
+            'threshold' => Resources::MB_IN_BYTES_4,
+            'size' => Resources::MB_IN_BYTES_4 * 2
+        ];
+        $ret[] = [
+            'threshold' => Resources::MB_IN_BYTES_64,
+            'size' => Resources::MB_IN_BYTES_64
+        ];
+        $ret[] = [
+            'threshold' => Resources::MB_IN_BYTES_64,
+            'size' => Resources::MB_IN_BYTES_64 + Resources::MB_IN_BYTES_1
+        ];
+
+        return $ret;
+    }
+
+    public static function getRangesArray()
+    {
+        $ret = array();
+
+        $ret[] = [
+            'putRange' => new Range(0, 511),
+            'clearRange' => null,
+            'listRange' => null,
+            'resultListRange' => [new Range(0, 511)]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(1024, 1535),
+            'clearRange' => null,
+            'listRange' => null,
+            'resultListRange' => [new Range(0, 511), new Range(1024, 1535)]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(512, 1023),
+            'clearRange' => null,
+            'listRange' => null,
+            'resultListRange' => [new Range(0, 1535)]
+        ];
+
+        $ret[] = [
+            'putRange' => null,
+            'clearRange' => new Range(1024, 1535),
+            'listRange' => null,
+            'resultListRange' => [new Range(0, 1023)]
+        ];
+
+        $ret[] = [
+            'putRange' => null,
+            'clearRange' => null,
+            'listRange' => new Range(0, 511),
+            'resultListRange' => [new Range(0, 511)]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(1024, 2047),
+            'clearRange' => new Range(512, 1023),
+            'listRange' => null,
+            'resultListRange' => [new Range(0, 511), new Range(1024, 2047)]
+        ];
+
+        $ret[] = [
+            'putRange' => null,
+            'clearRange' => new Range(0, 2047),
+            'listRange' => null,
+            'resultListRange' => array()
+        ];
+
+        return $ret;
+    }
+
+    public static function getAppendBlockSetup()
+    {
+        $ret = array();
+
+        $size = Resources::MB_IN_BYTES_4;
+        $options = new AppendBlockOptions();
+        $errorMsg = '';
+        $ret[] = ['size' => $size, 'options' => $options, 'error' => $errorMsg];
+
+        $size = Resources::MB_IN_BYTES_1;
+        $options = new AppendBlockOptions();
+        $options->setContentMD5(Utilities::calculateContentMD5(''));
+        $errorMsg = 'The MD5 value specified in the request did not match with the MD5 value calculated by the server.';
+        $ret[] = ['size' => $size, 'options' => $options, 'error' => $errorMsg];
+
+        $size = Resources::MB_IN_BYTES_1;
+        $options = new AppendBlockOptions();
+        $options->setMaxBlobSize(Resources::MB_IN_BYTES_4);
+        $errorMsg = 'The max blob size condition specified was not met';
+        $ret[] = ['size' => $size, 'options' => $options, 'error' => $errorMsg];
+
+        $size = Resources::MB_IN_BYTES_1;
+        $options = new AppendBlockOptions();
+        $options->setAppendPosition(Resources::MB_IN_BYTES_1);
+        $errorMsg = 'The append position condition specified was not met.';
+        $ret[] = ['size' => $size, 'options' => $options, 'error' => $errorMsg];
+
+        $size = Resources::MB_IN_BYTES_1 + Resources::MB_IN_BYTES_4;
+        $options = new AppendBlockOptions();
+        $errorMsg = 'The request body is too large and exceeds the maximum permissible limit.';
+        $ret[] = ['size' => $size, 'options' => $options, 'error' => $errorMsg];
 
         return $ret;
     }

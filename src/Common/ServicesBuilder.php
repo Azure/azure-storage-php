@@ -283,6 +283,47 @@ class ServicesBuilder
     }
 
     /**
+     * Builds an anonymous access object with given primary and secondary
+     * service endpoint. The service endpoint should contain a scheme and a
+     * host, e.g.:
+     *     https://www.contoso.com
+     *     http://mystorageaccount.blob.core.windows.net
+     *
+     * @param  string $primaryServiceEndpoint   Primary service endpoint.
+     * @param  string $secondaryServiceEndpoint Secondary service endpoint.
+     * @param  array  $options                  Optional request options.
+     *
+     * @return \MicrosoftAzure\Storage\Blob\Internal\IBlob
+     */
+    public function createContainerAnonymousAccess(
+        $primaryServiceEndpoint,
+        $secondaryServiceEndpoint = null,
+        array $options = []
+    ) {
+        Validate::canCastAsString($primaryServiceEndpoint, '$primaryServiceEndpoint');
+        if ($secondaryServiceEndpoint != null) {
+            Validate::canCastAsString(
+                $secondaryServiceEndpoint,
+                '$secondaryServiceEndpoint'
+            );
+        }
+
+        $serializer = $this->serializer();
+
+        $blobWrapper = new BlobRestProxy(
+            $primaryServiceEndpoint,
+            $secondaryServiceEndpoint,
+            self::tryParseAccountNameFromBlobEndpointURL($primaryServiceEndpoint),
+            $serializer,
+            $options
+        );
+
+        $blobWrapper->pushMiddleware(new CommonRequestMiddleware());
+
+        return $blobWrapper;
+    }
+
+    /**
      * Builds a file service object, it accepts the following
      * options:
      *
@@ -427,5 +468,26 @@ class ServicesBuilder
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Try to parse the account anme from blob endpoint URL, return null
+     * if pattern failed to found.
+     *
+     * @param string $url The blob endpoint URL.
+     *
+     * @return string|null
+     */
+    private static function tryParseAccountNameFromBlobEndpointURL($url)
+    {
+        $pos = strpos($url, Resources::BLOB_BASE_DNS_NAME);
+
+        if ($pos == false) {
+            return null;
+        }
+
+        $slashPos = strpos($url, '//');
+
+        return substr($url, $slashPos + 2, $pos - $slashPos - 3);
     }
 }
