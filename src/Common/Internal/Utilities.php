@@ -848,7 +848,7 @@ class Utilities
      */
     public static function isDouble($value)
     {
-        return is_double($value + 0);
+        return is_numeric($value) && is_double($value + 0);
     }
 
     /**
