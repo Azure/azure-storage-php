@@ -1,0 +1,15 @@
+.buildpath
+.settings/*
+.project
+.cache.properties
+cache.properties
+composer.lock
+test-file-*
+
+/vendor/*
+/output/*
+/build/*
+/doc/*
+
+
+
