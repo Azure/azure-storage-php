@@ -1,4 +1,4 @@
-Tracking Breaking changes in 0.17.0
+Tracking Breaking changes in 1.0.0-beta.1
 
 All
 * Refined code logic for continuation token. Now continuation token will be null if there are no more instance to be queried/listed.
