@@ -1,6 +1,8 @@
-# Microsoft Azure Storage SDK for PHP
+# Microsoft Azure Storage SDK for PHP - GA Preview
 
 This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage services (blobs, tables and queues). For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](http://www.windowsazure.com/en-us/develop/php/).
+
+This project is now in GA Preview stage.
 
 [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage/v/stable)](https://packagist.org/packages/microsoft/azure-storage)
 
