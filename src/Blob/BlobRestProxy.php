@@ -46,7 +46,6 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
 use MicrosoftAzure\Storage\Blob\Models\BlobType;
 use MicrosoftAzure\Storage\Blob\Models\Block;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
@@ -68,7 +67,6 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions;
 use MicrosoftAzure\Storage\Blob\Models\BlockList;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
-use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
@@ -78,7 +76,6 @@ use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
 use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
 use MicrosoftAzure\Storage\Blob\Models\PutBlobResult;
 use Psr\Http\Message\StreamInterface;
-use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7;
 
 /**

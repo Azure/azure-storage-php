@@ -25,8 +25,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
-
 /**
  * Trait implementing logic for Table continuation tokens.
  *

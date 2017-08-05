@@ -26,8 +26,6 @@ namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
-use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
 
 /**
  * Holds results of calling queryEntities API

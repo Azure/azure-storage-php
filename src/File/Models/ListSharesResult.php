@@ -26,7 +26,6 @@ namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\File\Models\Share;
 use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
 use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 

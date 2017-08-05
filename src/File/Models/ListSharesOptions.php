@@ -24,7 +24,6 @@
  
 namespace MicrosoftAzure\Storage\File\Models;
 
-use MicrosoftAzure\Storage\File\Models\FileServiceOptions;
 use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 

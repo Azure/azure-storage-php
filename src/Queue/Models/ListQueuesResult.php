@@ -25,7 +25,6 @@
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Queue\Models\Queue;
 use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
 use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;

@@ -24,7 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\Entity;

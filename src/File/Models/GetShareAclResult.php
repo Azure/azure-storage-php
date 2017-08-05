@@ -24,8 +24,6 @@
  
 namespace MicrosoftAzure\Storage\File\Models;
 
-use MicrosoftAzure\Storage\File\Models\ShareACL;
-
 /**
  * Holds share ACL
  *

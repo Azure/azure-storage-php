@@ -24,12 +24,10 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\Blob;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
 use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
-use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 /**
  * Hold result of calliing listBlobs wrapper.

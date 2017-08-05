@@ -24,9 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter;
-
 /**
  * Holds result of getTable API.
  *

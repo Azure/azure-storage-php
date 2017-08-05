@@ -25,19 +25,14 @@
 namespace MicrosoftAzure\Storage\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase;
 use MicrosoftAzure\Storage\Common\Middlewares\MiddlewareStack;
 use MicrosoftAzure\Storage\Common\LocationMode;
-use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Promise\EachPromise;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Client;

@@ -24,8 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use Psr\Http\Message\StreamInterface;
 
 /**

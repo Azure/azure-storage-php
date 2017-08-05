@@ -24,8 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Validate;
-
 /**
  * optional parameters for CopyBlobOptions wrapper
  *
