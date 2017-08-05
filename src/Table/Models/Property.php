@@ -24,10 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Table\Models\EdmType;
-use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Tests\Unit\Table\Models\EdmTypeTest;
-
 /**
  * Represents entity property.
  *

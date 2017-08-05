@@ -24,10 +24,6 @@
 
 namespace MicrosoftAzure\Storage\Common\Middlewares;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use GuzzleHttp\Promise\RejectedPromise;
-
 /**
  * This class provides the stack that handles the logic of applying each
  * middlewares to the request or the response.

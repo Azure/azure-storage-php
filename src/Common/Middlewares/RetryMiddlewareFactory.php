@@ -26,8 +26,6 @@ namespace MicrosoftAzure\Storage\Common\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\LocationMode;
-use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware;
 use GuzzleHttp\Exception\RequestException;
 
 /**

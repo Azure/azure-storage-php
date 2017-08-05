@@ -25,9 +25,6 @@
  
 namespace MicrosoftAzure\Storage\Common\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-
 /**
  * Trait implementing common logic for metadata, last-modified and etag. The
  * code is shared for multiple REST APIs.

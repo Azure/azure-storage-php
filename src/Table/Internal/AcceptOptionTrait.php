@@ -24,7 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Table\Models\AcceptJSONContentType;
 
 /**

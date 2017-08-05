@@ -25,8 +25,6 @@
  
 namespace MicrosoftAzure\Storage\Common\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-
 /**
  * Base class for all REST services settings.
  *

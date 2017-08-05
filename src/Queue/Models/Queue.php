@@ -24,9 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Queue\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
-
 /**
  * WindowsAzure queue object.
  *

@@ -24,8 +24,6 @@
  
 namespace MicrosoftAzure\Storage\File\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Validate;
-
 /**
  * Optional parameters for putFileRange.
  *

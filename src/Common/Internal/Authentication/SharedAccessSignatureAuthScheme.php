@@ -25,7 +25,6 @@
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
 use GuzzleHttp\Psr7\Request;
-use MicrosoftAzure\Storage\Common\Internal\Authentication\IAuthScheme;
 
 /**
  * Base class for azure authentication schemes.

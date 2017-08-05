@@ -24,7 +24,6 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
-use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 

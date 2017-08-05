@@ -24,9 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Table\Models;
 
-use MicrosoftAzure\Storage\Table\Models\TableContinuationToken;
-use MicrosoftAzure\Storage\Table\Models\TableContinuationTokenTrait;
-use MicrosoftAzure\Storage\Table\Models\Query;
 use MicrosoftAzure\Storage\Table\Internal\AcceptOptionTrait;
 
 /**

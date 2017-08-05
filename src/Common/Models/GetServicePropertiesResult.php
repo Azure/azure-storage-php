@@ -24,8 +24,6 @@
 
 namespace MicrosoftAzure\Storage\Common\Models;
 
-use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-
 /**
  * Result from calling GetServiceProperties REST wrapper.
  *

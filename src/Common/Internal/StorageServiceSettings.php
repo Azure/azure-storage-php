@@ -24,9 +24,6 @@
  
 namespace MicrosoftAzure\Storage\Common\Internal;
 
-use MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-
 /**
  * Represents the settings used to sign and access a request against the storage
  * service. For more information about storage service connection strings check this
