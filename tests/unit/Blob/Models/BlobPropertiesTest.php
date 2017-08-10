@@ -64,6 +64,7 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(intval($expected['x-ms-blob-sequence-number']), $actual->getSequenceNumber());
         $this->assertEquals($expected['x-ms-blob-type'], $actual->getBlobType());
         $this->assertEquals($expected['x-ms-lease-status'], $actual->getLeaseStatus());
+        $this->assertEquals(Utilities::toBoolean($expected['x-ms-server-encrypted']), $actual->getServerEncrypted());
     }
     
     /**
@@ -298,5 +299,31 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertEquals($expected, $properties->getSequenceNumber());
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::setServerEncrypted
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::getServerEncrypted
+     */
+    public function tesSetServerEncrypted()
+    {
+        // Setup
+        $expectedTrue = true;
+        $expectedFalse = false;
+        $expectedNull = NULL;
+
+        $propertiesTrue = new BlobProperties();
+        $propertiesFalse = new BlobProperties();
+        $propertiesNull = new BlobProperties();
+
+        // Test
+        $propertiesTrue->setServerEncrypted($expectedTrue);
+        $propertiesFalse->setServerEncrypted($expectedFalse);
+        $propertiesNull->setServerEncrypted($expectedNull);
+
+        // Assert
+        $this->assertEquals($expectedTrue, $propertiesTrue->getServerEncrypted());
+        $this->assertEquals($propertiesFalse, $propertiesFalse->getServerEncrypted());
+        $this->assertEquals($propertiesNull, $propertiesNull->getServerEncrypted());
     }
 }

@@ -43,7 +43,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     private $_cacheControl;
     private $_contentDisposition;
     private $_metadata;
-    
+
     /**
      * Gets ContentType.
      *

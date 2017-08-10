@@ -195,7 +195,7 @@ trait ServiceRestTrait
     }
 
     /**
-     * Retieves statistics related to replication for the service. The operation
+     * Retrieves statistics related to replication for the service. The operation
      * will only be sent to secondary location endpoint.
      *
      * @param  ServiceOptions|null $options The options this operation sends with.

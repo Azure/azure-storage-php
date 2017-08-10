@@ -291,16 +291,23 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
      */
     public function testToBoolean()
     {
-        // Setup
-        $value = 'true';
-        $expected = true;
+        $this->assertTrue(is_bool(Utilities::toBoolean('true')));
+        $this->assertEquals(true, Utilities::toBoolean('true'));
 
-        // Test
-        $actual = Utilities::toBoolean($value);
+        $this->assertTrue(is_bool(Utilities::toBoolean('false')));
+        $this->assertEquals(false, Utilities::toBoolean('false'));
 
-        // Assert
-        $this->assertTrue(is_bool($actual));
-        $this->assertEquals($expected, $actual);
+        $this->assertTrue(is_bool(Utilities::toBoolean(null)));
+        $this->assertEquals(false, Utilities::toBoolean(null));
+
+        $this->assertTrue(is_bool(Utilities::toBoolean('true', true)));
+        $this->assertEquals(true, Utilities::toBoolean('true', true));
+
+        $this->assertTrue(is_bool(Utilities::toBoolean('false', true)));
+        $this->assertEquals(false, Utilities::toBoolean('false', true));
+
+        $this->assertTrue(is_null(Utilities::toBoolean(null, true)));
+        $this->assertEquals(null, Utilities::toBoolean(null, true));
     }
 
     /**

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -39,11 +39,12 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class AppendBlockResult
 {
-    private $_etag;
-    private $_lastModified;
-    private $_contentMD5;
-    private $_appendOffset;
-    private $_committedBlockCount;
+    private $appendOffset;
+    private $committedBlockCount;
+    private $contentMD5;
+    private $etag;
+    private $lastModified;
+    private $requestServerEncrypted;
 
     /**
      * Creates AppendBlockResult object from the response of the put block request.
@@ -57,54 +58,54 @@ class AppendBlockResult
     public static function create(array $headers)
     {
         $result = new AppendBlockResult();
-        if (Utilities::arrayKeyExistsInsensitive(
-            Resources::ETAG,
-            $headers
-        )) {
-            $result->setEtag(
-                Utilities::tryGetValueInsensitive(Resources::ETAG, $headers)
-            );
-        }
+
+        $result->setAppendOffset(
+            intval(
+                Utilities::tryGetValueInsensitive(
+                    Resources::X_MS_BLOB_APPEND_OFFSET, $headers
+                )
+            )
+        );
+
+        $result->setCommittedBlockCount(
+            intval(
+                Utilities::tryGetValueInsensitive(
+                    Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT, $headers
+                )
+            )
+        );
+
+        $result->setContentMD5(
+            Utilities::tryGetValueInsensitive(Resources::CONTENT_MD5, $headers)
+        );
+
+        $result->setEtag(
+            Utilities::tryGetValueInsensitive(Resources::ETAG, $headers)
+        );
 
         if (Utilities::arrayKeyExistsInsensitive(
             Resources::LAST_MODIFIED,
             $headers
         )) {
-            $lastModified = Utilities::tryGetValueInsensitive(Resources::LAST_MODIFIED, $headers);
+            $lastModified = Utilities::tryGetValueInsensitive(
+                Resources::LAST_MODIFIED,
+                $headers
+            );
             $lastModified = Utilities::rfc1123ToDateTime($lastModified);
 
             $result->setLastModified($lastModified);
         }
 
-        if (Utilities::arrayKeyExistsInsensitive(
-            Resources::CONTENT_MD5,
-            $headers
-        )) {
-            $result->setContentMD5(
-                Utilities::tryGetValueInsensitive(Resources::CONTENT_MD5, $headers)
-            );
-        }
+        $result->setRequestServerEncrypted(
+            Utilities::toBoolean(
+                Utilities::tryGetValueInsensitive(
+                    Resources::X_MS_REQUEST_SERVER_ENCRYPTED,
+                    $headers
+                ),
+                true
+            )
+        );
 
-        if (Utilities::arrayKeyExistsInsensitive(
-            Resources::X_MS_BLOB_APPEND_OFFSET,
-            $headers
-        )) {
-            $result->setAppendOffset(
-                intval(Utilities::tryGetValueInsensitive(Resources::X_MS_BLOB_APPEND_OFFSET, $headers))
-            );
-        }
-
-        if (Utilities::arrayKeyExistsInsensitive(
-            Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT,
-            $headers
-        )) {
-            $committedBlockCount = Utilities::tryGetValueInsensitive(
-                Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT,
-                $headers
-            );
-            $result->setCommittedBlockCount(intval($committedBlockCount));
-        }
-        
         return $result;
     }
 
@@ -116,7 +117,7 @@ class AppendBlockResult
      */
     public function getEtag()
     {
-        return $this->_etag;
+        return $this->etag;
     }
 
     /**
@@ -128,7 +129,7 @@ class AppendBlockResult
      */
     protected function setEtag($etag)
     {
-        $this->_etag = $etag;
+        $this->etag = $etag;
     }
 
     /**
@@ -138,7 +139,7 @@ class AppendBlockResult
      */
     public function getLastModified()
     {
-        return $this->_lastModified;
+        return $this->lastModified;
     }
 
     /**
@@ -150,7 +151,7 @@ class AppendBlockResult
      */
     protected function setLastModified($lastModified)
     {
-        $this->_lastModified = $lastModified;
+        $this->lastModified = $lastModified;
     }
 
     /**
@@ -160,7 +161,7 @@ class AppendBlockResult
      */
     public function getContentMD5()
     {
-        return $this->_contentMD5;
+        return $this->contentMD5;
     }
 
     /**
@@ -172,7 +173,7 @@ class AppendBlockResult
      */
     protected function setContentMD5($contentMD5)
     {
-        $this->_contentMD5 = $contentMD5;
+        $this->contentMD5 = $contentMD5;
     }
 
     /**
@@ -182,7 +183,7 @@ class AppendBlockResult
      */
     public function getAppendOffset()
     {
-        return $this->_appendOffset;
+        return $this->appendOffset;
     }
 
     /**
@@ -194,7 +195,7 @@ class AppendBlockResult
      */
     protected function setAppendOffset($appendOffset)
     {
-        $this->_appendOffset = $appendOffset;
+        $this->appendOffset = $appendOffset;
     }
 
     /**
@@ -204,7 +205,7 @@ class AppendBlockResult
      */
     public function getCommittedBlockCount()
     {
-        return $this->_committedBlockCount;
+        return $this->committedBlockCount;
     }
 
     /**
@@ -216,6 +217,28 @@ class AppendBlockResult
      */
     protected function setCommittedBlockCount($committedBlockCount)
     {
-        $this->_committedBlockCount = $committedBlockCount;
+        $this->committedBlockCount = $committedBlockCount;
+    }
+
+    /**
+     * Gets the whether the contents of the request are successfully encrypted.
+     *
+     * @return boolean
+     */
+    public function getRequestServerEncrypted()
+    {
+        return $this->requestServerEncrypted;
+    }
+
+    /**
+     * Sets the request server encryption value.
+     *
+     * @param boolean $requestServerEncrypted
+     *
+     * @return void
+     */
+    public function setRequestServerEncrypted($requestServerEncrypted)
+    {
+        $this->requestServerEncrypted = $requestServerEncrypted;
     }
 }

@@ -1398,7 +1398,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams  = array();
         $queryParams = array();
         $path        = $this->createPath($container, $blob);
-        $statusCode  = Resources::STATUS_CREATED;
         
         if (is_null($options)) {
             $options = new CreateBlobOptions();
@@ -1569,7 +1568,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string|resource|StreamInterface $content   The content of the blob.
      * @param Models\CreateBlobOptions        $options   The optional parameters.
      *
-     * @return Models\PutBlobResult
+     * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
      */
@@ -1582,7 +1581,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $body = Psr7\stream_for($content);
 
         //If the size of the stream is not seekable or larger than the single
-        //upload threashold then call concurrent upload. Otherwise call putBlob.
+        //upload threshold then call concurrent upload. Otherwise call putBlob.
         $promise = null;
         if (!Utilities::isStreamLargerThanSizeOrNotSeekable(
             $body,

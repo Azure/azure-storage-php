@@ -187,6 +187,8 @@ class Resources
     const X_MS_LEASE_BREAK_PERIOD            = 'x-ms-lease-break-period';
     const X_MS_DELETE_SNAPSHOTS              = 'x-ms-delete-snapshots';
     const X_MS_PAGE_WRITE                    = 'x-ms-page-write';
+    const X_MS_REQUEST_SERVER_ENCRYPTED      = 'x-ms-request-server-encrypted';
+    const X_MS_SERVER_ENCRYPTED              = 'x-ms-server-encrypted';
     const X_MS_SNAPSHOT                      = 'x-ms-snapshot';
     const X_MS_SOURCE_IF_MODIFIED_SINCE      = 'x-ms-source-if-modified-since';
     const X_MS_SOURCE_IF_UNMODIFIED_SINCE    = 'x-ms-source-if-unmodified-since';

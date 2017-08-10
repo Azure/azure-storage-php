@@ -55,6 +55,7 @@ class BlobProperties
     private $_leaseState;
     private $_leaseDuration;
     private $_sequenceNumber;
+    private $_serverEncrypted;
     private $_committedBlockCount;
     private $_copyState;
     
@@ -101,6 +102,9 @@ class BlobProperties
         $result->setLeaseStatus(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_STATUS));
         $result->setLeaseState(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_STATE));
         $result->setLeaseDuration(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_DURATION));
+        $result->setServerEncrypted(
+            Utilities::toBoolean(Utilities::trygetvalue($clean, Resources::X_MS_SERVER_ENCRYPTED), true)
+        );
         $result->setCommittedBlockCount(
             intval(Utilities::tryGetValue($clean, Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT))
         );
@@ -440,6 +444,28 @@ class BlobProperties
     {
         Validate::isInteger($sequenceNumber, 'sequenceNumber');
         $this->_sequenceNumber = $sequenceNumber;
+    }
+
+    /**
+     * Gets the server encryption status of the blob.
+     *
+     * @return boolean
+     */
+    public function getServerEncrypted()
+    {
+        return $this->_serverEncrypted;
+    }
+
+    /**
+     * Sets the server encryption status of the blob.
+     *
+     * @param boolean $serverEncrypted
+     *
+     * @return void
+     */
+    public function setServerEncrypted($serverEncrypted)
+    {
+        $this->_serverEncrypted = $serverEncrypted;
     }
 
     /**

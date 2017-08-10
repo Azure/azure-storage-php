@@ -323,12 +323,18 @@ class Utilities
     /**
      * Converts string into boolean value.
      *
-     * @param string $obj boolean value in string format.
+     * @param string $obj       boolean value in string format.
+     * @param bool   $skipNull  If $skipNull is set, will return NULL directly 
+     *                          when $obj is NULL.
      *
      * @return bool
      */
-    public static function toBoolean($obj)
+    public static function toBoolean($obj, $skipNull = false)
     {
+        if ($skipNull && is_null($obj)) {
+            return null;
+        }
+
         return filter_var($obj, FILTER_VALIDATE_BOOLEAN);
     }
 
@@ -347,7 +353,7 @@ class Utilities
     /**
      * Converts a given date string into \DateTime object
      *
-     * @param string $date windows azure date ins string represntation.
+     * @param string $date windows azure date ins string representation.
      *
      * @return \DateTime
      */

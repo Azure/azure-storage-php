@@ -49,6 +49,8 @@ class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getContentMD5
      * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setSequenceNumber
      * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getSequenceNumber
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setRequestServerEncrypted
+     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getRequestServerEncrypted
      */
     public function testCreate()
     {
@@ -65,5 +67,6 @@ class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected['Etag'], $actual->getETag());
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
         $this->assertEquals(intval($expected['x-ms-blob-sequence-number']), $actual->getSequenceNumber());
+        $this->assertEquals(Utilities::toBoolean($expected['x-ms-request-server-encrypted']), $actual->getRequestServerEncrypted());
     }
 }
