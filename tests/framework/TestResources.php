@@ -417,7 +417,7 @@ class TestResources
         $connectionString = getenv('AZURE_STORAGE_CONNECTION_STRING');
 
         if (empty($connectionString)) {
-            throw new \Exception('AZURE_STORAGE_CONNECTION_STRING envionment variable is missing');
+            throw new \Exception('AZURE_STORAGE_CONNECTION_STRING environment variable is missing');
         }
 
         return $connectionString;
@@ -1228,7 +1228,9 @@ class TestResources
                     'Cache-Control' => 'cachecontrol',
                     'x-ms-blob-sequence-number' => '0',
                     'x-ms-blob-type' => 'BlockBlob',
-                    'x-ms-lease-status' => 'locked'
+                    'x-ms-lease-status' => 'locked',
+                    'x-ms-server-encrypted' => 'false',
+                    'x-ms-request-server-encrypted' => 'true'
                 )
             )
         );

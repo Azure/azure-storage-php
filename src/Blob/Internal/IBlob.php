@@ -519,7 +519,7 @@ interface IBlob
      * @param string|resource|StreamInterface $content   The content of the blob.
      * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
      *
-     * @return BlobModels\PutBlobResult
+     * @return \GuzzleHttp\Promise\PromiseInterface
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
      */

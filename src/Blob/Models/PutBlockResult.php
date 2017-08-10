@@ -39,7 +39,8 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class PutBlockResult
 {
-    private $_contentMD5;
+    private $contentMD5;
+    private $requestServerEncrypted;
 
     /**
      * Creates PutBlockResult object from the response of the put block request.
@@ -53,14 +54,20 @@ class PutBlockResult
     public static function create(array $headers)
     {
         $result = new PutBlockResult();
-        if (Utilities::arrayKeyExistsInsensitive(
-            Resources::CONTENT_MD5,
-            $headers
-        )) {
-            $result->setContentMD5(
-                Utilities::tryGetValueInsensitive(Resources::CONTENT_MD5, $headers)
-            );
-        }
+
+        $result->setContentMD5(
+            Utilities::tryGetValueInsensitive(Resources::CONTENT_MD5, $headers)
+        );
+
+        $result->setRequestServerEncrypted(
+            Utilities::toBoolean(
+                Utilities::tryGetValueInsensitive(
+                    Resources::X_MS_REQUEST_SERVER_ENCRYPTED,
+                    $headers
+                ),
+                true
+            )
+        );
         
         return $result;
     }
@@ -72,7 +79,7 @@ class PutBlockResult
      */
     public function getContentMD5()
     {
-        return $this->_contentMD5;
+        return $this->contentMD5;
     }
 
     /**
@@ -84,6 +91,28 @@ class PutBlockResult
      */
     protected function setContentMD5($contentMD5)
     {
-        $this->_contentMD5 = $contentMD5;
+        $this->contentMD5 = $contentMD5;
+    }
+
+    /**
+     * Gets the whether the contents of the request are successfully encrypted.
+     *
+     * @return boolean
+     */
+    public function getRequestServerEncrypted()
+    {
+        return $this->requestServerEncrypted;
+    }
+
+    /**
+     * Sets the request server encryption value.
+     *
+     * @param boolean $requestServerEncrypted
+     *
+     * @return void
+     */
+    public function setRequestServerEncrypted($requestServerEncrypted)
+    {
+        $this->requestServerEncrypted = $requestServerEncrypted;
     }
 }
