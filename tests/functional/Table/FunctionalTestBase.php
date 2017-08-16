@@ -65,8 +65,8 @@ class FunctionalTestBase extends IntegrationTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\ServiceBus\ServiceBusRestProxy::createTable
-     * @covers MicrosoftAzure\Storage\ServiceBus\ServiceBusRestProxy::deleteTable
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
+     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
      */
     protected function clearTable($table)
     {

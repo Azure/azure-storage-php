@@ -45,7 +45,7 @@ class TableACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::create
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXml
+     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXmlArray
      */
     public function testCreateEmpty()
     {
@@ -63,7 +63,7 @@ class TableACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::create
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXml
+     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXmlArray
      */
     public function testCreateOneEntry()
     {
@@ -79,10 +79,9 @@ class TableACLTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::create
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getPublicAccess
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Table\Models\TableACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXml
+     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXmlArray
      */
     public function testCreateMultipleEntries()
     {

@@ -2839,7 +2839,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
      */
     public function testMiddlewares()
     {
@@ -2892,11 +2892,11 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::__construct
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onFulfilled
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onRejected
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::retry
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::onFulfilled
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::onRejected
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::retry
      */
     public function testRetryFromSecondary()
     {
@@ -2963,11 +2963,11 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::__construct
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onFulfilled
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::onRejected
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewares::retry
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::__construct
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::onFulfilled
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::onRejected
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddleware::retry
      */
     public function testListRetryWithSecondEndpoint()
     {

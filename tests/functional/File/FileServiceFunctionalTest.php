@@ -1411,7 +1411,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createPageFile
+     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
@@ -1430,7 +1430,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createPageFile
+     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
@@ -1656,8 +1656,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileSnapshot
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createPageFile
+     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
      */
@@ -1673,8 +1672,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileSnapshot
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createPageFile
+     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
      */
@@ -2172,7 +2170,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
 
     /**
      * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
      */
     public function testMiddlewares()
     {

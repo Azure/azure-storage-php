@@ -2245,7 +2245,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
      */
     public function testMiddlewares()
     {
@@ -2298,7 +2298,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
     /**
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
      * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTablesAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
      */
     public function testRetryFromSecondary()
     {

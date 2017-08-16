@@ -61,8 +61,8 @@ class ListSharesResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::create
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getShares
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setShares
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setMarker
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getMarker
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setMaxResults
@@ -101,8 +101,8 @@ class ListSharesResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setShares
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setPrefix
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getPrefix
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setMaxResults
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getMaxResults
      * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setAccountName

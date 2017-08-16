@@ -46,7 +46,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXml
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXmlArray
      */
     public function testCreateEmpty()
     {
@@ -67,7 +67,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXml
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXmlArray
      */
     public function testCreateOneEntry()
     {
@@ -88,7 +88,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXml
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXmlArray
      */
     public function testCreateMultipleEntries()
     {
@@ -107,8 +107,8 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::setPublicAccess
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::getPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::setPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
      */
     public function testSetPublicAccess()
     {

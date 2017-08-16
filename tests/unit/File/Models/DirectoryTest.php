@@ -41,9 +41,9 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 class DirectoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers Directory::create
-     * @covers Directory::getName
-     * @covers Directory::setName
+     * @covers MicrosoftAzure\Storage\File\Models\Directory::create
+     * @covers MicrosoftAzure\Storage\File\Models\Directory::getName
+     * @covers MicrosoftAzure\Storage\File\Models\Directory::setName
      */
     public function testCreate()
     {

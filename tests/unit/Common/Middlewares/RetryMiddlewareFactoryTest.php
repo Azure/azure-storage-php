@@ -33,7 +33,7 @@ use GuzzleHttp\Psr7\Request;
 class RetryMiddlewareFactoryTest extends ReflectionTestBase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage should be positive number
      */
@@ -48,7 +48,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage should be positive number
      */
@@ -63,7 +63,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -78,7 +78,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::create
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -93,8 +93,8 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::createRetryDecider
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::generalRetryDecider
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::createRetryDecider
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::generalRetryDecider
      */
     public function testCreateRetryDeciderWithGeneralRetryDecider()
     {
@@ -121,7 +121,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::createLinearDelayCalculator
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::createLinearDelayCalculator
      */
     public function testCreateLinearDelayCalculator()
     {
@@ -133,7 +133,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\RetryMiddlewareFactory::createExponentialDelayCalculator
+     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::createExponentialDelayCalculator
      */
     public function testCreateExponentialDelayCalculator()
     {

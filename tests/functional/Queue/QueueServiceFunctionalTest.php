@@ -1625,7 +1625,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
      */
     public function testMiddlewares()
     {
@@ -1678,7 +1678,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
     /**
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
      * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createHandlerStack
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
      */
     public function testRetryFromSecondary()
     {

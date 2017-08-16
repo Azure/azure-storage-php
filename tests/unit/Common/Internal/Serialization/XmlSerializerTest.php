@@ -43,7 +43,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::unserialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::_sxml2arr
+     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::sxml2arr
      */
     public function testUnserialize()
     {
@@ -61,7 +61,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::_arr2xml
+     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::arr2xml
      */
     public function testSerialize()
     {
@@ -81,7 +81,7 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::_arr2xml
+     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::arr2xml
      */
     public function testSerializeAttribute()
     {

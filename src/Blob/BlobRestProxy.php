@@ -417,7 +417,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return array
      */
-    private function ddOptionalRangeHeader(array $headers, $start, $end)
+    private function addOptionalRangeHeader(array $headers, $start, $end)
     {
         if (!is_null($start) || !is_null($end)) {
             $range      = $start . '-' . $end;
@@ -595,7 +595,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new CreateBlobPagesOptions();
         }
         
-        $headers = $this->ddOptionalRangeHeader(
+        $headers = $this->addOptionalRangeHeader(
             $headers,
             $range->getStart(),
             $range->getEnd()
@@ -1976,7 +1976,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             } while (Utilities::allZero($pageContent));
 
             $headers = array();
-            $headers = $this->ddOptionalRangeHeader(
+            $headers = $this->addOptionalRangeHeader(
                 $headers,
                 $start,
                 $end
@@ -2946,7 +2946,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options->getAccessConditions()
         );
         
-        $headers = $this->ddOptionalRangeHeader(
+        $headers = $this->addOptionalRangeHeader(
             $headers,
             $options->getRangeStart(),
             $options->getRangeEnd()
@@ -3348,7 +3348,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $options->getAccessConditions()
         );
-        $headers = $this->ddOptionalRangeHeader(
+        $headers = $this->addOptionalRangeHeader(
             $headers,
             $options->getRangeStart(),
             $options->getRangeEnd()

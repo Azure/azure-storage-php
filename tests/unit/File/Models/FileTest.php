@@ -41,11 +41,11 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 class FileTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers File::create
-     * @covers File::setLength
-     * @covers File::getLength
-     * @covers File::getName
-     * @covers File::setName
+     * @covers MicrosoftAzure\Storage\File\Models\File::create
+     * @covers MicrosoftAzure\Storage\File\Models\File::setLength
+     * @covers MicrosoftAzure\Storage\File\Models\File::getLength
+     * @covers MicrosoftAzure\Storage\File\Models\File::getName
+     * @covers MicrosoftAzure\Storage\File\Models\File::setName
      */
     public function testCreate()
     {

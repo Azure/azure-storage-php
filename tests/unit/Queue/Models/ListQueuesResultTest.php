@@ -59,8 +59,8 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::create
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getQueues
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setQueues
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setMarker
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getMarker
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setMaxResults
@@ -90,8 +90,8 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setQueues
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setPrefix
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getPrefix
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setMaxResults
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getMaxResults
      * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setAccountName

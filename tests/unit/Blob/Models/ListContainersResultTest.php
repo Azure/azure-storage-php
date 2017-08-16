@@ -61,8 +61,8 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
@@ -106,8 +106,8 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setPrefix
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getPrefix
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMaxResults
      * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setAccountName
