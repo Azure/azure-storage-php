@@ -1,3 +1,5 @@
+* Fixed wrong PHPUnit `@covers` tags in unit and functional test.
+
 2017.07 - version 0.17.0
 
 All

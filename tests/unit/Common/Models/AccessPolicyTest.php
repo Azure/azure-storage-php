@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Tests\framework\TestResources;
 class AccessPolicyTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getStart
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getStart
      */
     public function testGetStart()
     {
@@ -56,7 +56,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setStart
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setStart
      */
     public function testSetStart()
     {
@@ -72,7 +72,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getExpiry
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getExpiry
      */
     public function testGetExpiry()
     {
@@ -89,7 +89,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setExpiry
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setExpiry
      */
     public function testSetExpiry()
     {
@@ -105,8 +105,8 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setPermission
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setPermission
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getPermission
      */
     public function testSetPermission()
     {
@@ -128,8 +128,8 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::setPermission
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::getPermission
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setPermission
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getPermission
      */
     public function testSetPermissionNegative()
     {
@@ -156,7 +156,7 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessPolicy::toArray
+     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::toArray
      */
     public function testToArray()
     {

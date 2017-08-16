@@ -42,17 +42,17 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers ListDirectoriesAndFilesResult::create
-     * @covers ListDirectoriesAndFilesResult::setDirectories
-     * @covers ListDirectoriesAndFilesResult::getDirectories
-     * @covers ListDirectoriesAndFilesResult::setFiles
-     * @covers ListDirectoriesAndFilesResult::getFiles
-     * @covers ListDirectoriesAndFilesResult::getMaxResults
-     * @covers ListDirectoriesAndFilesResult::setMaxResults
-     * @covers ListDirectoriesAndFilesResult::getAccountName
-     * @covers ListDirectoriesAndFilesResult::setAccountName
-     * @covers ListDirectoriesAndFilesResult::setNextMarker
-     * @covers ListDirectoriesAndFilesResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::create
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setDirectories
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getDirectories
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setFiles
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getFiles
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getMaxResults
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setMaxResults
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getAccountName
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setAccountName
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getContinuationToken
      */
     public function testCreate()
     {

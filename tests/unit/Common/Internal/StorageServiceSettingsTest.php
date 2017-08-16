@@ -62,7 +62,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDevelopmentStorageAccount
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getDevelopmentStorageAccount
      */
     public function testCreateFromConnectionStringWithUseDevStore()
     {
@@ -98,7 +98,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDevelopmentStorageAccount
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getDevelopmentStorageAccount
      */
     public function testCreateFromConnectionStringWithUseDevStoreUri()
     {
@@ -135,7 +135,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDevelopmentStorageAccount
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getDevelopmentStorageAccount
      */
     public function testCreateFromConnectionStringWithInvalidUseDevStoreFail()
     {
@@ -166,7 +166,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDevelopmentStorageAccount
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getDevelopmentStorageAccount
      */
     public function testCreateFromConnectionStringWithEmptyConnectionStringFail()
     {
@@ -294,7 +294,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -303,7 +303,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithAutomatic()
     {
@@ -331,7 +331,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -340,7 +340,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithTableEndpointSpecified()
     {
@@ -370,7 +370,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -379,7 +379,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithBlobEndpointSpecified()
     {
@@ -409,7 +409,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -418,7 +418,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithQueueEndpointSpecified()
     {
@@ -448,7 +448,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -457,7 +457,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithFileEndpointSpecified()
     {
@@ -487,7 +487,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -496,7 +496,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithQueueAndBlobEndpointSpecified()
     {
@@ -526,7 +526,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -535,7 +535,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithAutomaticMissingProtocolFail()
     {
@@ -554,7 +554,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -563,7 +563,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithAutomaticMissingAccountNameFail()
     {
@@ -581,7 +581,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -590,7 +590,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithAutomaticCorruptedAccountKeyFail()
     {
@@ -609,7 +609,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::atLeastOne
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -618,7 +618,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithQueueEndpointSpecfied()
     {
@@ -645,7 +645,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::atLeastOne
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -654,7 +654,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithQueueAndBlobEndpointSpecfied()
     {
@@ -682,7 +682,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::atLeastOne
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -691,7 +691,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithQueueAndBlobAndTableEndpointSpecfied()
     {
@@ -719,7 +719,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::atLeastOne
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -728,7 +728,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringMissingServicesEndpointsFail()
     {
@@ -750,7 +750,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -759,7 +759,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithInvalidBlobEndpointUriFail()
     {
@@ -779,7 +779,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -788,7 +788,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithInvalidSettingKeyFail()
     {
@@ -823,7 +823,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createFromConnectionString
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::init
      * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_getDefaultServiceEndpoint
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::getServiceEndpoint
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::getValidator
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::optional
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::allRequired
@@ -832,7 +832,7 @@ class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::matchedSpecification
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::parseAndValidateKeys
      * @covers MicrosoftAzure\Storage\Common\Internal\ServiceSettings::noMatch
-     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::_createStorageServiceSettings
+     * @covers MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings::createStorageServiceSettings
      */
     public function testCreateFromConnectionStringWithCaseInsensitive()
     {

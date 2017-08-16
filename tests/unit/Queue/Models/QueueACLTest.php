@@ -45,7 +45,7 @@ class QueueACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::create
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::fromXml
+     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::fromXmlArray
      */
     public function testCreateEmpty()
     {
@@ -63,7 +63,7 @@ class QueueACLTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::create
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::fromXml
+     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::fromXmlArray
      */
     public function testCreateOneEntry()
     {
@@ -79,10 +79,10 @@ class QueueACLTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::getPublicAccess
+     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::setSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::getSignedIdentifiers
      * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::fromXml
+     * @covers MicrosoftAzure\Storage\Queue\Models\QueueACL::fromXmlArray
      */
     public function testCreateMultipleEntries()
     {

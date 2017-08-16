@@ -45,7 +45,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::getTable
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testGetTable()
     {
@@ -65,7 +64,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::getEntity
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testGetEntity()
     {
@@ -86,7 +84,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseTableEntries
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testParseTable()
     {
@@ -104,7 +101,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseTableEntries
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testParseTables()
     {
@@ -128,7 +124,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseEntity
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testParseEntity()
     {
@@ -157,7 +152,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
     
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseEntities
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testParseEntities()
     {
@@ -201,7 +195,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseEntity
      * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::getEntity
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::__construct
      */
     public function testVariousTypes()
     {

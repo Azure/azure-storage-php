@@ -55,8 +55,6 @@ use MicrosoftAzure\Storage\File\Models\FileBlockType;
 use MicrosoftAzure\Storage\File\Models\GetFileOptions;
 use MicrosoftAzure\Storage\File\Models\Block;
 use MicrosoftAzure\Storage\File\Models\CopyFileOptions;
-use MicrosoftAzure\Storage\File\Models\CreateFileSnapshotOptions;
-use MicrosoftAzure\Storage\File\Models\CreateFileSnapshotResult;
 use MicrosoftAzure\Storage\File\Models\FileProperties;
 
 /**

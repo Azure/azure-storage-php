@@ -389,7 +389,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerProperties
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerPropertiesAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerPropertiesImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerPropertiesAsyncImpl
      */
     public function testGetContainerProperties()
     {
@@ -409,7 +409,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerMetadata
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerMetadataAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerPropertiesImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerPropertiesAsyncImpl
      */
     public function testGetContainerMetadata()
     {
@@ -515,7 +515,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobsAsync
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::send
+     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::sendAsync
      */
     public function testListBlobsSimple()
     {
@@ -986,7 +986,6 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesResultFromResponse
      * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::create
      */
     public function testGetBlobProperties()
@@ -1009,7 +1008,6 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesAsync
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobProperties
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobPropertiesAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesResultFromResponse
      * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::create
      */
     public function testSetBlobProperties()
@@ -1034,7 +1032,6 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobProperties
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobPropertiesAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesResultFromResponse
      * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::create
      */
     public function testSetBlobPropertiesWithNoOptions()
@@ -1102,7 +1099,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addOptionalRangeHeader
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalRangeHeader
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::create
      */
     public function testGetBlob()
@@ -1159,7 +1156,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addOptionalRangeHeader
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalRangeHeader
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::create
      */
     public function testGetBlobWithRange()
@@ -1195,7 +1192,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addOptionalRangeHeader
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalRangeHeader
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::create
      */
     public function testGetBlobWithEndRange()
@@ -1230,7 +1227,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addOptionalRangeHeader
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalRangeHeader
      * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::create
      */
     public function testGetBlobGarbage()
@@ -1345,8 +1342,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLeaseAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::putLeaseAsyncImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPath
      */
     public function testAcquireLease()
     {
@@ -1370,8 +1367,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLeaseAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::putLeaseAsyncImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPath
      */
     public function testAcquireContainerLease()
     {
@@ -1398,8 +1395,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::changeLease
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::changeLeaseAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_createPath
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::putLeaseAsyncImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPath
      */
     public function testChangeLease()
     {
@@ -1425,7 +1422,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::renewLease
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::renewLeaseAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::putLeaseAsyncImpl
      */
     public function testRenewLease()
     {
@@ -1449,7 +1446,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLease
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLeaseAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::putLeaseAsyncImpl
      */
     public function testReleaseLease()
     {
@@ -1474,7 +1471,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::breakLease
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::breakLeaseAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_putLeaseImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::putLeaseAsyncImpl
      */
     public function testBreakLease()
     {
@@ -1501,8 +1498,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPagesAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_updatePageBlobPagesImpl
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addOptionalRangeHeader
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::updatePageBlobPagesAsyncImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalRangeHeader
      */
     public function testCreateBlobPages()
     {
@@ -1528,8 +1525,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPages
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPagesAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_updatePageBlobPagesImpl
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_addOptionalRangeHeader
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::updatePageBlobPagesAsyncImpl
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalRangeHeader
      */
     public function testClearBlobPages()
     {
@@ -1715,7 +1712,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocksAsync
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::_getEntries
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getEntries
      */
     public function testListBlobBlocksEmpty()
     {
@@ -1739,7 +1736,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getCopyBlobSourceName
      */
     public function testCopyBlobDifferentContainer()
     {
@@ -1819,7 +1816,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getCopyBlobSourceName
      */
     public function testCopyBlobSameContainer()
     {
@@ -1860,7 +1857,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getCopyBlobSourceName
      */
     public function testCopyBlobExistingBlob()
     {
@@ -1903,7 +1900,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlobAsync
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::_getCopyBlobSourceName
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getCopyBlobSourceName
      */
     public function testCopyBlobSnapshot()
     {
@@ -2261,7 +2258,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
 
     /**
-     * @covers  \MicrosoftAzure\Storage\Blob\BlobeRestProxy::addOptionalAccessConditionHeader
+     * @covers  \MicrosoftAzure\Storage\Blob\BlobRestProxy::addOptionalAccessConditionHeader
      */
     public function testAddOptionalAccessContitionHeader()
     {

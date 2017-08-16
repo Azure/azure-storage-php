@@ -118,7 +118,7 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::removeSignedIdenntifier
+     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::removeSignedIdentifier
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage There can be at most 5 signed identifiers
      */

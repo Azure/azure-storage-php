@@ -69,8 +69,8 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setPrefix
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getPrefix
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults
@@ -105,8 +105,8 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobPrefixes
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobs
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults
@@ -139,8 +139,8 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobPrefixes
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getBlobs
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setBlobs
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setNextMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getNextMarker
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setContinuationToken
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getContinuationToken
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::getMarker
      * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsResult::setMaxResults

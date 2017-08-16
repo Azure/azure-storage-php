@@ -42,15 +42,15 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 class GetSharePropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers GetSharePropertiesResult::create
-     * @covers GetSharePropertiesResult::setLastModified
-     * @covers GetSharePropertiesResult::getLastModified
-     * @covers GetSharePropertiesResult::setETag
-     * @covers GetSharePropertiesResult::getETag
-     * @covers GetSharePropertiesResult::setQuota
-     * @covers GetSharePropertiesResult::getQuota
-     * @covers GetSharePropertiesResult::setMetadata
-     * @covers GetSharePropertiesResult::getMetadata
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::create
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setLastModified
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getLastModified
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setETag
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getETag
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setQuota
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getQuota
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setMetadata
+     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getMetadata
      */
     public function testCreate()
     {
