@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Models\Range;
+use MicrosoftAzure\Storage\Common\Models\RangeDiff;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
@@ -1579,6 +1580,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     /**
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRanges
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsyncImpl
      * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::create
      */
     public function testListPageBlobRanges()
@@ -1602,6 +1604,61 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertNotNull($result->getETag());
         $this->assertCount(1, $result->getRanges());
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesDiff
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesDiffAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsyncImpl
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::create
+     */
+    public function testListPageBlobRangesDiff()
+    {
+        // Setup
+        $name = 'listpageblobranges' . $this->createSuffix();
+        $blob = 'myblob';
+        $length = 512 * 8;
+        $range = new Range(0, $length - 1);
+        $content = Resources::EMPTY_STRING;
+        $this->createContainer($name);
+        $this->restProxy->createPageBlob($name, $blob, $length);
+
+        // Create snapshot for original page blob
+        for ($i = 0; $i < $length; $i++) {
+            $content .= 'A';
+        }
+        $this->restProxy->createBlobPages($name, $blob, $range, $content);
+        $snapshotResult = $this->restProxy->createBlobSnapshot($name, $blob);
+
+        // Clear range 0->511
+        $clearRange = new Range(0, 511);
+        $this->restProxy->clearBlobPages($name, $blob, $clearRange);
+
+        // Update range 512->1023
+        $updateRange = new Range(512, 1023);
+        $updateContent = Resources::EMPTY_STRING;
+        for ($i = 0; $i < 512; $i++) {
+            $updateContent .= 'B';
+        }
+        $this->restProxy->createBlobPages($name, $blob, $updateRange, $updateContent);
+
+        // Clear range 1024->1535
+        $clearRange = new Range(1024, 1535);
+        $this->restProxy->clearBlobPages($name, $blob, $clearRange);
+
+        $exceptedRangesDiff = [
+            new RangeDiff(512, 1023, false),
+            new RangeDiff(0, 511, true),
+            new RangeDiff(1024, 1535, true)
+        ];
+
+        // Test
+        $result = $this->restProxy->listPageBlobRangesDiff($name, $blob, $snapshotResult->getSnapshot());
+
+        // Assert
+        $this->assertNotNull($result->getETag());
+        $this->assertCount(3, $result->getRanges());
+        $this->assertEquals($exceptedRangesDiff, $result->getRanges());
     }
     
     /**

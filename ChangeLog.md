@@ -1,5 +1,6 @@
 All
 * Fixed wrong PHPUnit `@covers` tags in unit and functional test.
+* Added `BlobRestProxy::listPageBlobRangesDiff` and `BlobRestProxy::listPageBlobRangesDiffAsync` for getting page ranges difference. Refer to https://msdn.microsoft.com/en-us/library/azure/mt736912.aspx for more detailed information.
 
 Blob
 * Following methods of `MicrosoftAzure\Storage\Blob\BlobRestProxy` now return the x-ms-request-server-encrypted response header. This header is set to true if the contents of the request have been successfully encrypted.

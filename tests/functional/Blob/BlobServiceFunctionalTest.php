@@ -46,6 +46,7 @@ use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -3264,6 +3265,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPagesAsync
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRanges
      * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsyncImpl
      */
     public function testPutListClearPageRanges()
     {
@@ -3352,6 +3354,93 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         $listResult =
             $this->restProxy->listPageBlobRanges($container, $blob, $listRangeOptions);
         $this->assertEquals(2048, $listResult->getContentLength());
+        $resultRanges = $listResult->getRanges();
+        for ($i = 0; $i < count($resultRanges); ++$i) {
+            $this->assertEquals($resultListRange[$i], $resultRanges[$i]);
+        }
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPagesAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPages
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPagesAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesDiff
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesDiffAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRangesAsyncImpl
+     */
+    public function testPutListClearPageRangesDiff()
+    {
+        $rangesArray = BlobServiceFunctionalTestData::getRangesDiffArray();
+        $container = BlobServiceFunctionalTestData::getInterestingContainerName();
+        $this->createContainer($container);
+        $length = 2048;
+
+        foreach ($rangesArray as $array) {
+            $blob = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+            $this->restProxy->createPageBlob($container, $blob, $length);
+            $content = \openssl_random_pseudo_bytes($length);
+            $this->restProxy->createBlobPages(
+                $container,
+                $blob,
+                new Range(0, $length - 1),
+                $content
+            );
+
+            $snapshot = $this->restProxy->createBlobSnapshot($container, $blob)->getSnapshot();
+
+            $this->putListClearPageRangesDiffWorker(
+                $container,
+                $blob,
+                $array['putRange'],
+                $array['clearRange'],
+                $array['listRange'],
+                $array['resultListRange'],
+                $snapshot,
+                $length
+            );
+        }
+    }
+
+    private function putListClearPageRangesDiffWorker(
+        $container,
+        $blob,
+        $putRange,
+        $clearRange,
+        $listRange,
+        $resultListRange,
+        $snapshot,
+        $length
+    ) {
+        if ($putRange != null) {
+            $rangeLength = $putRange->getLength();
+            if ($rangeLength == null) {
+                $rangeLength = $length - $putRange->getStart();
+            }
+            $content = \openssl_random_pseudo_bytes($rangeLength);
+
+            $this->restProxy->createBlobPages(
+                $container,
+                $blob,
+                $putRange,
+                $content
+            );
+        }
+        if ($clearRange != null) {
+            $this->restProxy->clearBlobPages($container, $blob, $clearRange);
+        }
+
+        //Validate result
+        $listRangeOptions = new ListPageBlobRangesOptions();
+        if ($listRange != null) {
+            $listRangeOptions->setRangeStart($listRange->getStart());
+            $listRangeOptions->setRangeEnd($listRange->getEnd());
+        }
+        $listResult =
+            $this->restProxy->listPageBlobRangesDiff($container, $blob, $snapshot, $listRangeOptions);
+        $this->assertEquals($length, $listResult->getContentLength());
         $resultRanges = $listResult->getRanges();
         for ($i = 0; $i < count($resultRanges); ++$i) {
             $this->assertEquals($resultListRange[$i], $resultRanges[$i]);

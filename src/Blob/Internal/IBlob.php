@@ -963,6 +963,63 @@ interface IBlob
     );
 
     /**
+     * Returns a list of page ranges that have been updated or cleared. 
+     *
+     * Returns a list of page ranges that have been updated or cleared since 
+     * the snapshot specified by `previousSnapshotTime`. Gets all of the page 
+     * ranges by default, or only the page ranges over a specific range of 
+     * bytes if `rangeStart` and `rangeEnd` in the `options` are specified.
+     *
+     * @param string                               $container             name of the container
+     * @param string                               $blob                  name of the blob
+     * @param string                               $previousSnapshotTime  previous snapshot time 
+     *                                                                    for comparison which
+     *                                                                    should be prior to the 
+     *                                                                    snapshot time defined
+     *                                                                    in `options`
+     * @param BlobModels\ListPageBlobRangesOptions $options               optional parameters
+     *
+     * @return BlobModels\ListPageBlobRangesDiffResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/version-2015-07-08
+     */
+    public function listPageBlobRangesDiff(
+        $container,
+        $blob,
+        $previousSnapshotTime,
+        BlobModels\ListPageBlobRangesOptions $options = null
+    );
+
+    /**
+     * Creates promise to return a list of page ranges that have been updated
+     * or cleared. 
+     *
+     * Creates promise to return a list of page ranges that have been updated
+     * or cleared since the snapshot specified by `previousSnapshotTime`. Gets
+     * all of the page ranges by default, or only the page ranges over a specific
+     * range of bytes if `rangeStart` and `rangeEnd` in the `options` are specified.
+     *
+     * @param string                               $container               name of the container
+     * @param string                               $blob                    name of the blob
+     * @param string                               $previousSnapshotTime    previous snapshot time
+     *                                                                      for comparison which
+     *                                                                      should be prior to the
+     *                                                                      snapshot time defined
+     *                                                                      in `options`
+     * @param BlobModels\ListPageBlobRangesOptions $options                 optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691973.aspx
+     */
+    public function listPageBlobRangesDiffAsync(
+        $container,
+        $blob,
+        $previousSnapshotTime,
+        BlobModels\ListPageBlobRangesOptions $options = null
+    );
+
+    /**
     * Sets system properties defined for a blob.
     *
     * @param string                              $container name of the container

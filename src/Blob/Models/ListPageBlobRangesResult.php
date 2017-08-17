@@ -66,16 +66,16 @@ class ListPageBlobRangesResult
         $blobLength    = intval($headers[Resources::X_MS_BLOB_CONTENT_LENGTH]);
         $rawRanges = array();
         
-        if (!empty($parsed['PageRange'])) {
+        if (!empty($parsed[Resources::XTAG_PAGE_RANGE])) {
             $parsed        = array_change_key_case($parsed);
-            $rawRanges = Utilities::getArray($parsed['pagerange']);
+            $rawRanges = Utilities::getArray($parsed[strtolower(RESOURCES::XTAG_PAGE_RANGE)]);
         }
         
         $pageRanges = array();
         foreach ($rawRanges as $value) {
             $pageRanges[] = new Range(
-                intval($value['Start']),
-                intval($value['End'])
+                intval($value[Resources::XTAG_RANGE_START]),
+                intval($value[Resources::XTAG_RANGE_END])
             );
         }
         $result->setRanges($pageRanges);
