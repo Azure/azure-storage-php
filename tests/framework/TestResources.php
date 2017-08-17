@@ -1346,7 +1346,19 @@ class TestResources
             0 => array('Start' => '0',        'End' => '4194303'),
             1 => array('Start' => '4194304',  'End' => '8388607'),
             2 => array('Start' => '8388608',  'End' => '12582911'),
-            3 => array('Start' => '12582911', 'End' => '13606911'),
+            3 => array('Start' => '12582912', 'End' => '13606911'),
+        ));
+    }
+
+    public static function listPageRangeDiffBodyInArray()
+    {
+        return array('PageRange' => array(
+            0 => array('Start' => '0',        'End' => '4194303'),
+            1 => array('Start' => '4194304',  'End' => '8388607'),
+            2 => array('Start' => '8388608',  'End' => '12582911'),
+            3 => array('Start' => '12582912', 'End' => '13606911'),
+        ), 'PageClear' => array(
+            0 => array('Start' => '13606912', 'End' => '17801215')
         ));
     }
 

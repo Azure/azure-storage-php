@@ -43,6 +43,7 @@ use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Models\Range;
+use MicrosoftAzure\Storage\Common\Models\RangeDiff;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\CORS;
@@ -1013,6 +1014,76 @@ class BlobServiceFunctionalTestData
 
         return $ret;
     }
+
+    public static function getRangesDiffArray()
+    {
+        $ret = array();
+
+        $ret[] = [
+            'putRange' => null,
+            'clearRange' => null,
+            'listRange' => null,
+            'resultListRange' => []
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(0, 511),
+            'clearRange' => null,
+            'listRange' => null,
+            'resultListRange' => [new RangeDiff(0, 511)]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(1024, 1535),
+            'clearRange' => null,
+            'listRange' => null,
+            'resultListRange' => [new RangeDiff(1024, 1535)]
+        ];
+
+        $ret[] = [
+            'putRange' => null,
+            'clearRange' => new Range(1024, 1535),
+            'listRange' => null,
+            'resultListRange' => [new RangeDiff(1024, 1535, true)]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(0, 1023),
+            'clearRange' => new Range(0, 511),
+            'listRange' => null,
+            'resultListRange' => [
+                new RangeDiff(512, 1023),
+                new RangeDiff(0, 511, true)
+            ]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(0, 2047),
+            'clearRange' => null,
+            'listRange' => new Range(0, 511),
+            'resultListRange' => [new RangeDiff(0, 511)]
+        ];
+
+        $ret[] = [
+            'putRange' => new Range(0, 2047),
+            'clearRange' => new Range(512, 1023),
+            'listRange' => new Range(512, 1535),
+            'resultListRange' => [
+                new RangeDiff(1024, 1535),
+                new RangeDiff(512, 1023, true)
+            ]
+        ];
+
+        $ret[] = [
+            'putRange' => null,
+            'clearRange' => new Range(0, 2047),
+            'listRange' => null,
+            'resultListRange' => [new RangeDiff(0, 2047, true)]
+        ];
+
+        return $ret;
+    }
+
 
     public static function getAppendBlockSetup()
     {

@@ -332,6 +332,7 @@ class Resources
     const QP_DELIMITER          = 'Delimiter';
     const QP_REST_TYPE          = 'restype';
     const QP_SNAPSHOT           = 'snapshot';
+    const QP_PRE_SNAPSHOT       = 'prevsnapshot';
     const QP_BLOCKID            = 'blockid';
     const QP_BLOCK_LIST_TYPE    = 'blocklisttype';
     const QP_SELECT             = '$select';
@@ -481,6 +482,10 @@ class Resources
     const XTAG_GEO_REPLICATION              = 'GeoReplication';
     const XTAG_LAST_SYNC_TIME               = 'LastSyncTime';
     const XTAG_SHARE_USAGE                  = 'ShareUsage';
+    const XTAG_PAGE_RANGE                   = 'PageRange';
+    const XTAG_CLEAR_RANGE                  = 'ClearRange';
+    const XTAG_RANGE_START                  = 'Start';
+    const XTAG_RANGE_END                    = 'End';
 
     //JSON Tags
     const JSON_TABLE_NAME        = 'TableName';

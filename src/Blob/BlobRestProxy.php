@@ -24,59 +24,60 @@
 
 namespace MicrosoftAzure\Storage\Blob;
 
-use MicrosoftAzure\Storage\Common\Internal\ServiceRestTrait;
-use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
-use MicrosoftAzure\Storage\Common\LocationMode;
-use MicrosoftAzure\Storage\Common\Models\Range;
+use GuzzleHttp\Psr7;
 use MicrosoftAzure\Storage\Blob\Internal\IBlob;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockResult;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
-use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
-use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
-use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
-use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
-use MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult;
-use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
-use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
 use MicrosoftAzure\Storage\Blob\Models\BlobType;
 use MicrosoftAzure\Storage\Blob\Models\Block;
+use MicrosoftAzure\Storage\Blob\Models\BlockList;
+use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
+use MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions;
+use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
-use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult;
-use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
-use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult;
-use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
-use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
-use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult;
-use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\GetBlobResult;
-use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\LeaseMode;
-use MicrosoftAzure\Storage\Blob\Models\LeaseResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
-use MicrosoftAzure\Storage\Blob\Models\PageWriteOption;
-use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
-use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult;
-use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
-use MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions;
-use MicrosoftAzure\Storage\Blob\Models\BlockList;
-use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
-use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult;
-use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
-use MicrosoftAzure\Storage\Blob\Models\CopyBlobResult;
-use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
-use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
+use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobResult;
+use MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult;
+use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
+use MicrosoftAzure\Storage\Blob\Models\LeaseMode;
+use MicrosoftAzure\Storage\Blob\Models\LeaseResult;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
+use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
+use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult;
+use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult;
+use MicrosoftAzure\Storage\Blob\Models\PageWriteOption;
 use MicrosoftAzure\Storage\Blob\Models\PutBlobResult;
+use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
+use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult;
+use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
+use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult;
+use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
+use MicrosoftAzure\Storage\Common\Internal\ServiceRestTrait;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\LocationMode;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use Psr\Http\Message\StreamInterface;
-use GuzzleHttp\Psr7;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for blob
@@ -2926,6 +2927,106 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $blob,
         Models\ListPageBlobRangesOptions $options = null
     ) {
+        return $this->listPageBlobRangesAsyncImpl($container, $blob, null, $options);
+    }
+
+    /**
+     * Returns a list of page ranges that have been updated or cleared. 
+     *
+     * Returns a list of page ranges that have been updated or cleared since 
+     * the snapshot specified by `previousSnapshotTime`. Gets all of the page 
+     * ranges by default, or only the page ranges over a specific range of 
+     * bytes if `rangeStart` and `rangeEnd` in the `options` are specified.
+     *
+     * @param string                           $container             name of the container
+     * @param string                           $blob                  name of the blob
+     * @param string                           $previousSnapshotTime  previous snapshot time 
+     *                                                                for comparison which
+     *                                                                should be prior to the 
+     *                                                                snapshot time defined
+     *                                                                in `options`
+     * @param Models\ListPageBlobRangesOptions $options               optional parameters
+     *
+     * @return Models\ListPageBlobRangesDiffResult
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/version-2015-07-08
+     */
+    public function listPageBlobRangesDiff(
+        $container,
+        $blob,
+        $previousSnapshotTime,
+        Models\ListPageBlobRangesOptions $options = null
+    ) {
+        return $this->listPageBlobRangesDiffAsync(
+            $container,
+            $blob,
+            $previousSnapshotTime,
+            $options
+        )->wait();
+    }
+
+    /**
+     * Creates promise to return a list of page ranges that have been updated
+     * or cleared. 
+     *
+     * Creates promise to return a list of page ranges that have been updated
+     * or cleared since the snapshot specified by `previousSnapshotTime`. Gets
+     * all of the page ranges by default, or only the page ranges over a specific
+     * range of bytes if `rangeStart` and `rangeEnd` in the `options` are specified.
+     *
+     * @param string                           $container             name of the container
+     * @param string                           $blob                  name of the blob
+     * @param string                           $previousSnapshotTime  previous snapshot time
+     *                                                                for comparison which
+     *                                                                should be prior to the
+     *                                                                snapshot time defined
+     *                                                                in `options`
+     * @param Models\ListPageBlobRangesOptions $options               optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691973.aspx
+     */
+    public function listPageBlobRangesDiffAsync(
+        $container,
+        $blob,
+        $previousSnapshotTime,
+        Models\ListPageBlobRangesOptions $options = null
+    ) {
+        return $this->listPageBlobRangesAsyncImpl(
+            $container,
+            $blob,
+            $previousSnapshotTime,
+            $options
+        );
+    }
+
+    /**
+     * Creates promise to return a list of page ranges. 
+     
+     * If `previousSnapshotTime` is specified, the response will include
+     * only the pages that differ between the target snapshot or blob and 
+     * the previous snapshot.
+     *
+     * @param string                           $container             name of the container
+     * @param string                           $blob                  name of the blob
+     * @param string                           $previousSnapshotTime  previous snapshot time 
+     *                                                                for comparison which
+     *                                                                should be prior to the 
+     *                                                                snapshot time defined
+     *                                                                in `options`
+     * @param Models\ListPageBlobRangesOptions $options               optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691973.aspx
+     */
+    private function listPageBlobRangesAsyncImpl(
+        $container,
+        $blob,
+        $previousSnapshotTime = null,
+        Models\ListPageBlobRangesOptions $options = null
+    ) {
         Validate::canCastAsString($container, 'container');
         Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
@@ -2966,7 +3067,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::QP_COMP,
             'pagelist'
         );
-        
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_PRE_SNAPSHOT,
+            $previousSnapshotTime
+        );
+
         $dataSerializer = $this->dataSerializer;
 
         return $this->sendAsync(
@@ -2978,12 +3084,19 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             Resources::STATUS_OK,
             Resources::EMPTY_STRING,
             $options
-        )->then(function ($response) use ($dataSerializer) {
+        )->then(function ($response) use ($dataSerializer, $previousSnapshotTime) {
             $parsed = $dataSerializer->unserialize($response->getBody());
-            return ListPageBlobRangesResult::create(
-                HttpFormatter::formatHeaders($response->getHeaders()),
-                $parsed
-            );
+            if (is_null($previousSnapshotTime)) {
+                return ListPageBlobRangesResult::create(
+                    HttpFormatter::formatHeaders($response->getHeaders()),
+                    $parsed
+                );
+            } else {
+                return ListPageBlobRangesDiffResult::create(
+                    HttpFormatter::formatHeaders($response->getHeaders()),
+                    $parsed
+                );
+            }
         }, null);
     }
     
