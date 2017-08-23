@@ -26,48 +26,54 @@ require_once "../vendor/autoload.php";
 use MicrosoftAzure\Storage\Table\Models\BatchOperations;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
+use MicrosoftAzure\Storage\Table\Models\Filters\Filter;
 use MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions;
 use MicrosoftAzure\Storage\Table\Models\QueryTablesOptions;
-use MicrosoftAzure\Storage\Table\Models\Filters\Filter;
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
+$connectionString = 'DefaultEndpointsProtocol=https;AccountName=browserifytest;AccountKey=AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=browserifytest;AccountKey=bzcVslAQI9EaR4R0HN78Rs4rjKotuAvCTto9rRlEcpVtVXt0gxzxv/ky4IQkX3N9xN7iAXLzYWn5Yk+5jYkBLg==';
 $tableClient = ServicesBuilder::getInstance()->createTableService($connectionString);
+
+$mytable = 'mytable';
 
 // Get and Set Table Service Properties
 tableServicePropertiesSample($tableClient);
 
 // To create a table call createTable.
-createTableSample($tableClient);
+createTableSample($tableClient, $mytable);
 
 // To add an entity to a table, create a new Entity object and pass it to TableRestProxy->insertEntity.
 // Note that when you create an entity you must specify a PartitionKey and RowKey. These are the unique
 // identifiers for an entity and are values that can be queried much faster than other entity properties.
 // The system uses PartitionKey to automatically distribute the table's entities over many storage nodes.
-insertEntitySample($tableClient);
+insertEntitySample($tableClient, $mytable);
 
 // The TableRestProxy->getEntity method allows you to retrieve a single
 // entity by querying for its PartitionKey and RowKey. In the example below,
 // the partition key 'pk' and row key '1' are passed to the getEntity method.
-getSingleEntitySample($tableClient);
+getSingleEntitySample($tableClient, $mytable);
 
 // To add mutiple entities with one call, create a BatchOperations and pass it to TableRestProxy->batch.
 // Note that all these entities must have the same PartitionKey value. BatchOperations supports to update,
 // merge, delete entities as well. You can find more details in:
 //   https://msdn.microsoft.com/library/azure/dd894038.aspx
-batchInsertEntitiesSample($tableClient);
+batchInsertEntitiesSample($tableClient, $mytable);
 
 // Entity queries are constructed using filters (for more information,
 // see Querying Tables and Entities). To retrieve all entities in partition,
 // use the filter "PartitionKey eq partition_name". The following example shows
 // how to retrieve all entities in the tasksSeattle partition by passing a
 // filter to the queryEntities method.
-queryAllEntitiesInPartition($tableClient);
+queryAllEntitiesInPartition($tableClient, $mytable);
 
 // The same pattern used in the previous example can be used to retrieve any
 // subset of entities in a partition. The subset of entities you retrieve are
@@ -75,22 +81,28 @@ queryAllEntitiesInPartition($tableClient);
 // and Entities).The following example shows how to use a filter to retrieve
 // all entities with a specific Location and a DueDate less than a specified
 // date.
-querySubsetEntitiesSample($tableClient);
+querySubsetEntitiesSample($tableClient, $mytable);
 
 // An existing entity can be updated by using the Entity->setProperty and
 // Entity->addProperty methods on the entity, and then calling
 // TableRestProxy->updateEntity. The following example retrieves an entity,
 // modifies one property, removes another property, and adds a new property.
 // Note that you can remove a property by setting its value to null.
-updateEntitySample($tableClient);
+updateEntitySample($tableClient, $mytable);
 
 // To delete an entity, pass the table name, and the entity's PartitionKey
 // and RowKey to the TableRestProxy->deleteEntity method.
-deleteEntitySample($tableClient);
+deleteEntitySample($tableClient, $mytable);
 
 // Finally, to delete a table, pass the table name to the
 // TableRestProxy->deleteTable method.
-deleteTableSample($tableClient);
+deleteTableSample($tableClient, $mytable);
+
+// Beginning with version 2015-04-05, Azure Storage supports creating a new type
+// of shared access signature (SAS) at the level of the storage account.
+// Please refer to samples/BlobSamples.php or samples/FileSamples.php for creating
+// SAS token at service level.
+createTableAccountSASSample();
 
 function listTables($tableService)
 {
@@ -147,11 +159,11 @@ function tableServicePropertiesSample($tableClient)
     echo "Service properties sample completed" . PHP_EOL;
 }
 
-function createTableSample($tableClient)
+function createTableSample($tableClient, $mytable)
 {
     try {
         // Create table.
-        $tableClient->createTable("mytable");
+        $tableClient->createTable($mytable);
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -159,7 +171,7 @@ function createTableSample($tableClient)
     }
 }
 
-function insertEntitySample($tableClient)
+function insertEntitySample($tableClient, $mytable)
 {
     $entity = new Entity();
     $entity->setPartitionKey("pk");
@@ -167,7 +179,7 @@ function insertEntitySample($tableClient)
     $entity->addProperty("PropertyName", EdmType::STRING, "Sample1");
     
     try {
-        $tableClient->insertEntity("mytable", $entity);
+        $tableClient->insertEntity($mytable, $entity);
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -175,10 +187,10 @@ function insertEntitySample($tableClient)
     }
 }
 
-function getSingleEntitySample($tableClient)
+function getSingleEntitySample($tableClient, $mytable)
 {
     try {
-        $result = $tableClient->getEntity("mytable", "pk", 1);
+        $result = $tableClient->getEntity($mytable, "pk", 1);
     } catch (ServiceException $e) {
         // Handle exception based on error codes and messages.
         // Error codes and messages are here:
@@ -193,7 +205,7 @@ function getSingleEntitySample($tableClient)
     echo $entity->getPartitionKey().":".$entity->getRowKey().":".$entity->getPropertyValue("PropertyName")."\n";
 }
 
-function batchInsertEntitiesSample($tableClient)
+function batchInsertEntitiesSample($tableClient, $mytable)
 {
     $batchOp = new BatchOperations();
     for ($i = 2; $i < 10; ++$i) {
@@ -203,7 +215,7 @@ function batchInsertEntitiesSample($tableClient)
         $entity->addProperty("PropertyName", EdmType::STRING, "Sample".$i);
         $entity->addProperty("Description", null, "Sample description.");
 
-        $batchOp->addInsertEntity("mytable", $entity);
+        $batchOp->addInsertEntity($mytable, $entity);
     }
     
     try {
@@ -215,12 +227,12 @@ function batchInsertEntitiesSample($tableClient)
     }
 }
 
-function queryAllEntitiesInPartition($tableClient)
+function queryAllEntitiesInPartition($tableClient, $mytable)
 {
     $filter = "PartitionKey eq 'pk'";
     
     try {
-        $result = $tableClient->queryEntities("mytable", $filter);
+        $result = $tableClient->queryEntities($mytable, $filter);
     } catch (ServiceException $e) {
         // Handle exception based on error codes and messages.
         // Error codes and messages are here:
@@ -237,7 +249,7 @@ function queryAllEntitiesInPartition($tableClient)
     }
 }
 
-function querySubsetEntitiesSample($tableClient)
+function querySubsetEntitiesSample($tableClient, $mytable)
 {
     $filter = Filter::applyQueryString("RowKey ne '1'");
     $options = new QueryEntitiesOptions();
@@ -246,7 +258,7 @@ function querySubsetEntitiesSample($tableClient)
     $options->addSelectField("RowKey");
     $options->setFilter($filter);
     try {
-        $result = $tableClient->queryEntities("mytable", $options);
+        $result = $tableClient->queryEntities($mytable, $options);
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -262,9 +274,9 @@ function querySubsetEntitiesSample($tableClient)
     }
 }
 
-function updateEntitySample($tableClient)
+function updateEntitySample($tableClient, $mytable)
 {
-    $result = $tableClient->getEntity("mytable", "pk", 1);
+    $result = $tableClient->getEntity($mytable, "pk", 1);
 
     $entity = $result->getEntity();
     
@@ -275,7 +287,7 @@ function updateEntitySample($tableClient)
     $entity->addProperty("Status", EdmType::STRING, "In progress"); //Added Status.
     
     try {
-        $tableClient->updateEntity("mytable", $entity);
+        $tableClient->updateEntity($mytable, $entity);
     } catch (ServiceException $e) {
         // Handle exception based on error codes and messages.
         // Error codes and messages are here:
@@ -286,11 +298,11 @@ function updateEntitySample($tableClient)
     }
 }
 
-function deleteEntitySample($tableClient)
+function deleteEntitySample($tableClient, $mytable)
 {
     try {
     // Delete entity.
-        $tableClient->deleteEntity("mytable", "pk", "2");
+        $tableClient->deleteEntity($mytable, "pk", "2");
     } catch (ServiceException $e) {
         // Handle exception based on error codes and messages.
         // Error codes and messages are here:
@@ -301,11 +313,11 @@ function deleteEntitySample($tableClient)
     }
 }
 
-function deleteTableSample($tableClient)
+function deleteTableSample($tableClient, $mytable)
 {
     try {
         // Delete table.
-        $tableClient->deleteTable("mytable");
+        $tableClient->deleteTable($mytable);
     } catch (ServiceException $e) {
         // Handle exception based on error codes and messages.
         // Error codes and messages are here:
@@ -314,6 +326,60 @@ function deleteTableSample($tableClient)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
     }
+}
+
+function createTableAccountSASSample()
+{
+    global $connectionString;
+
+    $settings = StorageServiceSettings::createFromConnectionString($connectionString);
+    $accountName = $settings->getName();
+    $accountKey = $settings->getKey();
+
+    $helper = new SharedAccessSignatureHelper(
+        $accountName,
+        $accountKey
+    );
+
+    // Refer to following link for full candidate values to construct an account level SAS
+    // https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-an-account-sas
+    $sas = $helper->generateAccountSharedAccessSignatureToken(
+        '2016-05-31',              // Signed storage service version
+        'rwdlacup',                // Read, Write, Delete, List, Add, Create, Update, Process
+        't',                       // Table
+        'sco',                     // Service, container and object level resources
+        '2020-01-01T08:30:00Z',    // A valid ISO 8601 time format
+        '2016-01-01T12:00:00Z',    // A valid ISO 8601 time format
+        '1.1.1.1-255.255.255.255', // An IP or IP ranges
+        'https,http'               // Protocol permitted for requests
+    );
+
+    $connectionStringWithSAS = Resources::TABLE_ENDPOINT_NAME .
+        '='.
+        'https://' .
+        $accountName .
+        '.' .
+        Resources::TABLE_BASE_DNS_NAME .
+        ';' .
+        Resources::SAS_TOKEN_NAME .
+        '=' .
+        $sas;
+
+    $tableClientWithSAS = ServicesBuilder::getInstance()->createTableService(
+        $connectionStringWithSAS
+    );
+
+    $newtable = 'newtable';
+
+    createTableSample($tableClientWithSAS, $newtable);
+    insertEntitySample($tableClientWithSAS, $newtable);
+    getSingleEntitySample($tableClientWithSAS, $newtable);
+    batchInsertEntitiesSample($tableClientWithSAS, $newtable);
+    queryAllEntitiesInPartition($tableClientWithSAS, $newtable);
+    querySubsetEntitiesSample($tableClientWithSAS, $newtable);
+    updateEntitySample($tableClientWithSAS, $newtable);
+    deleteEntitySample($tableClientWithSAS, $newtable);
+    deleteTableSample($tableClientWithSAS, $newtable);
 }
 
 function generateRandomString($length = 6)

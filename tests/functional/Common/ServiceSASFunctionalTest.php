@@ -115,7 +115,7 @@ class ServiceSASFunctionalTest extends SASFunctionalTestBase
             $this->assertEquals(0, \count($result->getBlobs()));
         }
         //Validate that a cross access with wrong proxy/container pair
-        //would not be successfull
+        //would not be successful
         for ($i= 0; $i < 2; ++$i) {
             $proxy = $containerProxies[$i];
             $container = $containers[1 - $i];
@@ -252,7 +252,7 @@ class ServiceSASFunctionalTest extends SASFunctionalTestBase
             $this->assertEquals(0, \count($result->getFiles()));
         }
         //Validate that a cross access with wrong proxy/share pair
-        //would not be successfull
+        //would not be successful
         for ($i= 0; $i < 2; ++$i) {
             $proxy = $shareProxies[$i];
             $share = $shares[1 - $i];

@@ -24,13 +24,15 @@ namespace MicrosoftAzure\Storage\Samples;
 
 require_once "../vendor/autoload.php";
 
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\File\Models\CreateShareOptions;
 use MicrosoftAzure\Storage\File\Models\ListSharesOptions;
 
@@ -57,6 +59,9 @@ deleteDirectory($fileClient);
 
 //Create file
 createFile($fileClient);
+
+//Generate a file download link with a generated service level SAS token
+generateFileDownloadLinkWithSAS($fileClient);
 
 //Delete file
 deleteFile($fileClient);
@@ -225,6 +230,81 @@ function createFile($fileClient)
         $error_message = $e->getMessage();
         echo $code . ": " . $error_message . PHP_EOL;
     }
+}
+
+function generateFileDownloadLinkWithSAS($fileClient)
+{
+    // Create a file
+    $shareName = 'myshare' . generateRandomString();
+    $fileName = 'myfile' . generateRandomString();
+    $content = generateRandomString(512);
+    $range = new Range(0, 511);
+    try {
+        createShareWorker($fileClient, $shareName);
+        $fileClient->createFile($shareName, $fileName, 1024);
+        $fileClient->putFileRange($shareName, $fileName, $content, $range);
+    } catch (ServiceException $e) {
+        $code = $e->getCode();
+        $error_message = $e->getMessage();
+        echo $code . ": " . $error_message . PHP_EOL;
+    }
+
+    // Create a SharedAccessSignatureHelper
+    global $connectionString;
+
+    $settings = StorageServiceSettings::createFromConnectionString($connectionString);
+    $accountName = $settings->getName();
+    $accountKey = $settings->getKey();
+
+    $helper = new SharedAccessSignatureHelper(
+        $accountName,
+        $accountKey
+    );
+
+    // Generate a file readonly SAS token
+    // Refer to following link for full candidate values to construct a service level SAS
+    // https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+    $sas = $helper->generateFileServiceSharedAccessSignatureToken(
+        Resources::RESOURCE_TYPE_FILE,
+        "$shareName/$fileName",
+        'r',                        // Read
+        '2020-01-01T08:30:00Z'      // A valid ISO 8601 format expiry time
+    );
+
+    $connectionStringWithSAS = Resources::FILE_ENDPOINT_NAME .
+        '='.
+        'https://' .
+        $accountName .
+        '.' .
+        Resources::FILE_BASE_DNS_NAME .
+        ';' .
+        Resources::SAS_TOKEN_NAME .
+        '=' .
+        $sas;
+
+    $fileClientWithSAS = ServicesBuilder::getInstance()->createFileService(
+        $connectionStringWithSAS
+    );
+
+    // Get a downloadable file URL
+    $fileUrlWithSAS = sprintf(
+        '%s%s?%s',
+        (string)$fileClientWithSAS->getPsrPrimaryUri(),
+        "$shareName/$fileName",
+        $sas
+    );
+
+    // Download the file from the URL directly
+    $downloadFileName = 'outputBySAS.txt';
+    file_put_contents($downloadFileName, fopen($fileUrlWithSAS, 'r'));
+
+    // Clean up
+    if (file_exists($downloadFileName)) {
+        unlink($downloadFileName);
+    }
+
+    // Return the temporary readonly download URL link
+    return $fileUrlWithSAS;
 }
 
 function deleteFile($fileClient)
