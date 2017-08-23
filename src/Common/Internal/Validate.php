@@ -28,7 +28,7 @@ namespace MicrosoftAzure\Storage\Common\Internal;
 use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
 
 /**
- * Validates aganist a condition and throws an exception in case of failure.
+ * Validates against a condition and throws an exception in case of failure.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal
