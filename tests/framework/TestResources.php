@@ -1492,7 +1492,7 @@ class TestResources
         }
 
         if ($signedStart == "") {
-            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedStart = (self::getRandomEarlierTime());
         }
 
         if ($signedIP == "") {
@@ -1530,7 +1530,7 @@ class TestResources
         }
 
         if ($signedStart == "") {
-            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedStart = (self::getRandomEarlierTime());
         }
 
         if ($signedIP == "") {

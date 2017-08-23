@@ -70,25 +70,25 @@ class SharedAccessSignatureHelper
      *
      * This only supports version 2015-04-05 and later.
      *
-     * @param  string $signedService        The service type of the SAS.
-     * @param  string $signedResource       Resource name to generate the
-     *                                      canonicalized resource.
-     * @param  string $resourceName         The name of the resource.
-     * @param  string $signedPermissions    Signed permissions.
-     * @param  string $signedExpiry         Signed expiry date.
-     * @param  string $signedStart          Signed start date.
-     * @param  string $signedIP             Signed IP address.
-     * @param  string $signedProtocol       Signed protocol.
-     * @param  string $signedIdentifier     Signed identifier.
-     * @param  string $cacheControl         Cache-Control header (rscc).
-     * @param  string $contentDisposition   Content-Disposition header (rscd).
-     * @param  string $contentEncoding      Content-Encoding header (rsce).
-     * @param  string $contentLanguage      Content-Language header (rscl).
-     * @param  string $contentType          Content-Type header (rsct).
-     * @param  string $startingPartitionKey Minimum partition key.
-     * @param  string $startingRowKey       Minimum row key.
-     * @param  string $endingPartitionKey   Maximum partition key.
-     * @param  string $endingRowKey         Maximum row key.
+     * @param  string           $signedService         The service type of the SAS.
+     * @param  string           $signedResource        Resource name to generate the
+     *                                                 canonicalized resource.
+     * @param  string           $resourceName          The name of the resource.
+     * @param  string           $signedPermissions     Signed permissions.
+     * @param  \Datetime|string $signedExpiry          Signed expiry date.
+     * @param  \Datetime|string $signedStart           Signed start date.
+     * @param  string           $signedIP              Signed IP address.
+     * @param  string           $signedProtocol        Signed protocol.
+     * @param  string           $signedIdentifier      Signed identifier.
+     * @param  string           $cacheControl          Cache-Control header (rscc).
+     * @param  string           $contentDisposition    Content-Disposition header (rscd).
+     * @param  string           $contentEncoding       Content-Encoding header (rsce).
+     * @param  string           $contentLanguage       Content-Language header (rscl).
+     * @param  string           $contentType           Content-Type header (rsct).
+     * @param  string           $startingPartitionKey  Minimum partition key.
+     * @param  string           $startingRowKey        Minimum row key.
+     * @param  string           $endingPartitionKey    Maximum partition key.
+     * @param  string           $endingRowKey          Maximum row key.
      *
      * @see Constructing an service SAS at
      * https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
@@ -126,10 +126,16 @@ class SharedAccessSignatureHelper
             $signedResource
         );
         // check that expiracy is valid
+        if ($signedExpiry instanceof \Datetime) {
+            $signedExpiry = $signedExpiry->format('Y-m-d\TH:i:s\Z');
+        }
         Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
         Validate::canCastAsString($signedExpiry, 'signedExpiry');
         Validate::isDateString($signedExpiry, 'signedExpiry');
         // check that signed start is valid
+        if ($signedStart instanceof \Datetime) {
+            $signedStart = $signedStart->format('Y-m-d\TH:i:s\Z');
+        }
         Validate::canCastAsString($signedStart, 'signedStart');
         if (strlen($signedStart) > 0) {
             Validate::isDateString($signedStart, 'signedStart');
@@ -240,27 +246,27 @@ class SharedAccessSignatureHelper
      *
      * This only supports version 2015-04-05 and later.
      *
-     * @param  string $signedResource     Resource name to generate the
-     *                                    canonicalized resource.
-     *                                    It can be Resources::RESOURCE_TYPE_BLOB
-     *                                    or Resources::RESOURCE_TYPE_CONTAINER.
-     * @param  string $resourceName       The name of the resource, including
-     *                                    the path of the resource. It should be
-     *                                    - {container}/{blob}: for blobs,
-     *                                    - {container}: for containers, e.g.:
-     *                                    /mymusic/music.mp3 or
-     *                                    music.mp3
-     * @param  string $signedPermissions  Signed permissions.
-     * @param  string $signedExpiry       Signed expiry date.
-     * @param  string $signedStart        Signed start date.
-     * @param  string $signedIP           Signed IP address.
-     * @param  string $signedProtocol     Signed protocol.
-     * @param  string $signedIdentifier   Signed identifier.
-     * @param  string $cacheControl       Cache-Control header (rscc).
-     * @param  string $contentDisposition Content-Disposition header (rscd).
-     * @param  string $contentEncoding    Content-Encoding header (rsce).
-     * @param  string $contentLanguage    Content-Language header (rscl).
-     * @param  string $contentType        Content-Type header (rsct).
+     * @param  string            $signedResource      Resource name to generate the
+     *                                                canonicalized resource.
+     *                                                It can be Resources::RESOURCE_TYPE_BLOB
+     *                                                or Resources::RESOURCE_TYPE_CONTAINER.
+     * @param  string            $resourceName        The name of the resource, including
+     *                                                the path of the resource. It should be
+     *                                                - {container}/{blob}: for blobs,
+     *                                                - {container}: for containers, e.g.:
+     *                                                /mymusic/music.mp3 or
+     *                                                music.mp3
+     * @param  string            $signedPermissions   Signed permissions.
+     * @param  \Datetime|string  $signedExpiry        Signed expiry date.
+     * @param  \Datetime|string  $signedStart         Signed start date.
+     * @param  string            $signedIP            Signed IP address.
+     * @param  string            $signedProtocol      Signed protocol.
+     * @param  string            $signedIdentifier    Signed identifier.
+     * @param  string            $cacheControl        Cache-Control header (rscc).
+     * @param  string            $contentDisposition  Content-Disposition header (rscd).
+     * @param  string            $contentEncoding     Content-Encoding header (rsce).
+     * @param  string            $contentLanguage     Content-Language header (rscl).
+     * @param  string            $contentType         Content-Type header (rsct).
      *
      * @see Constructing an service SAS at
      * https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
@@ -321,27 +327,27 @@ class SharedAccessSignatureHelper
      *
      * This only supports version 2015-04-05 and later.
      *
-     * @param  string $signedResource     Resource name to generate the
-     *                                    canonicalized resource.
-     *                                    It can be Resources::RESOURCE_TYPE_FILE
-     *                                    or Resources::RESOURCE_TYPE_SHARE.
-     * @param  string $resourceName       The name of the resource, including
-     *                                    the path of the resource. It should be
-     *                                    - {share}/{file}: for files,
-     *                                    - {share}: for shares, e.g.:
-     *                                    /mymusic/music.mp3 or
-     *                                    music.mp3
-     * @param  string $signedPermissions  Signed permissions.
-     * @param  string $signedExpiry       Signed expiry date.
-     * @param  string $signedStart        Signed start date.
-     * @param  string $signedIP           Signed IP address.
-     * @param  string $signedProtocol     Signed protocol.
-     * @param  string $signedIdentifier   Signed identifier.
-     * @param  string $cacheControl       Cache-Control header (rscc).
-     * @param  string $contentDisposition Content-Disposition header (rscd).
-     * @param  string $contentEncoding    Content-Encoding header (rsce).
-     * @param  string $contentLanguage    Content-Language header (rscl).
-     * @param  string $contentType        Content-Type header (rsct).
+     * @param  string           $signedResource     Resource name to generate the
+     *                                              canonicalized resource.
+     *                                              It can be Resources::RESOURCE_TYPE_FILE
+     *                                              or Resources::RESOURCE_TYPE_SHARE.
+     * @param  string           $resourceName       The name of the resource, including
+     *                                              the path of the resource. It should be
+     *                                              - {share}/{file}: for files,
+     *                                              - {share}: for shares, e.g.:
+     *                                              /mymusic/music.mp3 or
+     *                                              music.mp3
+     * @param  string           $signedPermissions  Signed permissions.
+     * @param  \Datetime|string $signedExpiry       Signed expiry date.
+     * @param  \Datetime|string $signedStart        Signed start date.
+     * @param  string           $signedIP           Signed IP address.
+     * @param  string           $signedProtocol     Signed protocol.
+     * @param  string           $signedIdentifier   Signed identifier.
+     * @param  string           $cacheControl       Cache-Control header (rscc).
+     * @param  string           $contentDisposition Content-Disposition header (rscd).
+     * @param  string           $contentEncoding    Content-Encoding header (rsce).
+     * @param  string           $contentLanguage    Content-Language header (rscl).
+     * @param  string           $contentType        Content-Type header (rsct).
      *
      * @see Constructing an service SAS at
      * https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
@@ -402,17 +408,17 @@ class SharedAccessSignatureHelper
      *
      * This only supports version 2015-04-05 and later.
      *
-     * @param  string $tableName            The name of the table.
-     * @param  string $signedPermissions    Signed permissions.
-     * @param  string $signedExpiry         Signed expiry date.
-     * @param  string $signedStart          Signed start date.
-     * @param  string $signedIP             Signed IP address.
-     * @param  string $signedProtocol       Signed protocol.
-     * @param  string $signedIdentifier     Signed identifier.
-     * @param  string $startingPartitionKey Minimum partition key.
-     * @param  string $startingRowKey       Minimum row key.
-     * @param  string $endingPartitionKey   Maximum partition key.
-     * @param  string $endingRowKey         Maximum row key.
+     * @param  string            $tableName            The name of the table.
+     * @param  string            $signedPermissions    Signed permissions.
+     * @param  \Datetime|string  $signedExpiry         Signed expiry date.
+     * @param  \Datetime|string  $signedStart          Signed start date.
+     * @param  string            $signedIP             Signed IP address.
+     * @param  string            $signedProtocol       Signed protocol.
+     * @param  string            $signedIdentifier     Signed identifier.
+     * @param  string            $startingPartitionKey Minimum partition key.
+     * @param  string            $startingRowKey       Minimum row key.
+     * @param  string            $endingPartitionKey   Maximum partition key.
+     * @param  string            $endingRowKey         Maximum row key.
      *
      * @see Constructing an service SAS at
      * https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
@@ -458,13 +464,13 @@ class SharedAccessSignatureHelper
      *
      * This only supports version 2015-04-05 and later.
      *
-     * @param  string $queueName          The name of the queue.
-     * @param  string $signedPermissions  Signed permissions.
-     * @param  string $signedExpiry       Signed expiry date.
-     * @param  string $signedStart        Signed start date.
-     * @param  string $signedIdentifier   Signed identifier.
-     * @param  string $signedIP           Signed IP address.
-     * @param  string $signedProtocol     Signed protocol.
+     * @param  string           $queueName          The name of the queue.
+     * @param  string           $signedPermissions  Signed permissions.
+     * @param  \Datetime|string $signedExpiry       Signed expiry date.
+     * @param  \Datetime|string $signedStart        Signed start date.
+     * @param  string           $signedIdentifier   Signed identifier.
+     * @param  string           $signedIP           Signed IP address.
+     * @param  string           $signedProtocol     Signed protocol.
      *
      * @see Constructing an service SAS at
      * https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
@@ -504,24 +510,24 @@ class SharedAccessSignatureHelper
     /**
      * Generates a shared access signature at the account level.
      *
-     * @param string $signedVersion         Specifies the signed version to use.
-     * @param string $signedPermissions     Specifies the signed permissions for
-     *                                      the account SAS.
-     * @param string $signedService         Specifies the signed services
-     *                                      accessible with the account SAS.
-     * @param string $signedResourceType    Specifies the signed resource types
-     *                                      that are accessible with the account
-     *                                      SAS.
-     * @param string $signedExpiry          The time at which the shared access
-     *                                      signature becomes invalid, in an ISO
-     *                                      8601 format.
-     * @param string $signedStart           The time at which the SAS becomes
-     *                                      valid, in an ISO 8601 format.
-     * @param string $signedIP              Specifies an IP address or a range
-     *                                      of IP addresses from which to accept
-     *                                      requests.
-     * @param string $signedProtocol        Specifies the protocol permitted for
-     *                                      a request made with the account SAS.
+     * @param string $signedVersion           Specifies the signed version to use.
+     * @param string $signedPermissions       Specifies the signed permissions for
+     *                                        the account SAS.
+     * @param string $signedService           Specifies the signed services
+     *                                        accessible with the account SAS.
+     * @param string $signedResourceType      Specifies the signed resource types
+     *                                        that are accessible with the account
+     *                                        SAS.
+     * @param \Datetime|string $signedExpiry  The time at which the shared access
+     *                                        signature becomes invalid, in an ISO
+     *                                        8601 format.
+     * @param \Datetime|string $signedStart   The time at which the SAS becomes
+     *                                        valid, in an ISO 8601 format.
+     * @param string $signedIP                Specifies an IP address or a range
+     *                                        of IP addresses from which to accept
+     *                                        requests.
+     * @param string $signedProtocol          Specifies the protocol permitted for
+     *                                        a request made with the account SAS.
      *
      * @see Constructing an account SAS at
      *      https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/constructing-an-account-sas
@@ -553,11 +559,17 @@ class SharedAccessSignatureHelper
         $signedPermissions = $this->validateAndSanitizeSignedPermissions($signedPermissions);
 
         // check that expiracy is valid
+        if ($signedExpiry instanceof \Datetime) {
+            $signedExpiry = $signedExpiry->format('Y-m-d\TH:i:s\Z');
+        }
         Validate::canCastAsString($signedExpiry, 'signedExpiry');
         Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
         Validate::isDateString($signedExpiry, 'signedExpiry');
 
         // check that signed start is valid
+        if ($signedStart instanceof \Datetime) {
+            $signedStart = $signedStart->format('Y-m-d\TH:i:s\Z');
+        }
         Validate::canCastAsString($signedStart, 'signedStart');
         if (strlen($signedStart) > 0) {
             Validate::isDateString($signedStart, 'signedStart');
