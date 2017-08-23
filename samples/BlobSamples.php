@@ -33,14 +33,17 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
+use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
+use MicrosoftAzure\Storage\Common\ServicesBuilder;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
 $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
@@ -68,6 +71,9 @@ uploadBlobSample($blobClient);
 // To download blob into a file, use the BlobRestProxy->getBlob method. The example below assumes
 // the blob to download has been already created.
 downloadBlobSample($blobClient);
+
+//Generate a blob download link with a generated service level SAS token
+generateBlobDownloadLinkWithSAS();
 
 // To list the blobs in a container, use the BlobRestProxy->listBlobs method with a foreach loop to loop
 // through the result. The following code outputs the name and URI of each blob in a container.
@@ -346,6 +352,63 @@ function downloadBlobSample($blobClient)
     file_put_contents("output.txt", $getBlobResult->getContentStream());
 }
 
+function generateBlobDownloadLinkWithSAS()
+{
+    global $connectionString;
+
+    $settings = StorageServiceSettings::createFromConnectionString($connectionString);
+    $accountName = $settings->getName();
+    $accountKey = $settings->getKey();
+
+    $helper = new SharedAccessSignatureHelper(
+        $accountName,
+        $accountKey
+    );
+
+    // Refer to following link for full candidate values to construct a service level SAS
+    // https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
+    $sas = $helper->generateBlobServiceSharedAccessSignatureToken(
+        Resources::RESOURCE_TYPE_BLOB,
+        'mycontainer/myblob',
+        'r',                            // Read
+        '2018-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
+        //'2016-01-01T08:30:00Z',       // A valid ISO 8601 format expiry time
+        //'0.0.0.0-255.255.255.255'
+        //'https,http'
+    );
+
+    $connectionStringWithSAS = Resources::BLOB_ENDPOINT_NAME .
+        '='.
+        'https://' .
+        $accountName .
+        '.' .
+        Resources::BLOB_BASE_DNS_NAME .
+        ';' .
+        Resources::SAS_TOKEN_NAME .
+        '=' .
+        $sas;
+
+    $blobClientWithSAS = ServicesBuilder::getInstance()->createBlobService(
+        $connectionStringWithSAS
+    );
+
+    // We can download the blob with PHP Client Library
+    // downloadBlobSample($blobClientWithSAS);
+
+    // Or generate a temporary readonly download URL link
+    $blobUrlWithSAS = sprintf(
+        '%s%s?%s',
+        (string)$blobClientWithSAS->getPsrPrimaryUri(),
+        'mycontainer/myblob',
+        $sas
+    );
+
+    file_put_contents("outputBySAS.txt", fopen($blobUrlWithSAS, 'r'));
+
+    return $blobUrlWithSAS;
+}
+
+
 function listBlobsSample($blobClient)
 {
     try {
@@ -520,6 +583,18 @@ function cleanUp($blobClient, $containerName)
             }
             if (file_exists('output.txt')) {
                 unlink('output.txt');
+            }
+            if (file_exists('outputBySAS.txt')) {
+                unlink('outputBySAS.txt');
+            }
+            if (file_exists('myblob.txt')) {
+                unlink('myblob.txt');
+            }
+            if (file_exists('PageContent.txt')) {
+                unlink('PageContent.txt');
+            }
+            if (file_exists('HelloWorldSnapshotCopy.png')) {
+                unlink('HelloWorldSnapshotCopy.png');
             }
             echo "Successfully cleaned up\n";
             return $blobClient->listContainersAsync();
