@@ -125,6 +125,5 @@ class HistoryMiddlewareTest extends ReflectionTestBase
         $middleware->clearHistory();
 
         $this->assertTrue(count($middleware->getHistory()) == 0, 'Wrong array size');
-
     }
 }

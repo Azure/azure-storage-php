@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="azure-storage-php" default="full-build">
- <!-- By default, we assume all tools to be on the $PATH 
+ <!-- By default, we assume all tools to be on the $PATH
  <property name="pdepend" value="pdepend.bat"/>
  <property name="phpcpd"  value="phpcpd.bat"/>
  <property name="phpcs"   value="phpcs.bat"/>
@@ -21,14 +21,15 @@
  <property name="phpdoc"  value="${basedir}/build/tools/phpDocumentator.phar"/>  -->
 
  <!-- Use this when the tools are managed by Composer in ${basedir}/vendor/bin -->
- <property name="pdepend" value="${basedir}/vendor/bin/pdepend.bat"/>
- <property name="phpcpd"  value="${basedir}/vendor/bin/phpcpd.bat"/>
- <property name="phpcs"   value="${basedir}/vendor/bin/phpcs.bat"/>
- <property name="phpdox"  value="${basedir}/vendor/bin/phpdox.bat"/>
- <property name="phploc"  value="${basedir}/vendor/bin/phploc.bat"/>
- <property name="phpmd"   value="${basedir}/vendor/bin/phpmd.bat"/>
- <property name="phpunit" value="${basedir}/vendor/bin/phpunit.bat"/>
- <property name="phpdoc"  value="${basedir}/vendor/bin/phpdoc.bat"/>
+ <property name="pdepend"      value="${basedir}/vendor/bin/pdepend.bat"/>
+ <property name="phpcpd"       value="${basedir}/vendor/bin/phpcpd.bat"/>
+ <property name="phpcs"        value="${basedir}/vendor/bin/phpcs.bat"/>
+ <property name="phpdox"       value="${basedir}/vendor/bin/phpdox.bat"/>
+ <property name="phploc"       value="${basedir}/vendor/bin/phploc.bat"/>
+ <property name="phpmd"        value="${basedir}/vendor/bin/phpmd.bat"/>
+ <property name="phpunit"      value="${basedir}/vendor/bin/phpunit.bat"/>
+ <property name="phpdoc"       value="${basedir}/vendor/bin/phpdoc.bat"/>
+ <property name="php-cs-fixer" value="${basedir}/vendor/bin/php-cs-fixer.bat"/>
 
  <target name="full-build"
          depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
@@ -209,6 +210,26 @@
   <property name="phpcs.done" value="true"/>
  </target>
 
+ <target name = "php-cs-fixer"
+         unless="php-cs-fixer.done"
+         description="Fix coding standard violations using php-cs-fixer and print human readable output. Intended for usage on the command line before committing.">
+    <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+        <arg value="fix" />
+        <arg value="src" />
+        <arg value="--rules=@PSR2" />
+        <arg value="--verbose" />
+        <arg value="--show-progress=estimating" />
+    </exec>
+     <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+         <arg value="fix" />
+         <arg value="tests" />
+         <arg value="--rules=@PSR2" />
+         <arg value="--verbose" />
+         <arg value="--show-progress=estimating" />
+     </exec>
+    <property name="php-cs-fixer.done" value="true"/>
+</target>
+
  <target name="phpcpd"
          unless="phpcpd.done"
          description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
@@ -241,7 +262,7 @@
    <arg path="${basedir}/phpunit.xml.dist"/>
    <arg value="--exclude-group=large-scale"/>
   </exec>
-  
+
   <property name="phpunit.done" value="true"/>
  </target>
 
@@ -280,10 +301,10 @@
    <arg path="${basedir}/phpunit.functional.xml.dist"/>
    <arg value="--exclude-group=large-scale"/>
   </exec>
-  
+
   <property name="phpunit-ft.done" value="true"/>
  </target>
- 
+
  <target name="phpdox"
          unless="phpdox.done"
          depends="phploc-ci,phpcs-ci,phpmd-ci"

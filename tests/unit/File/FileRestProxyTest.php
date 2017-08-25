@@ -489,16 +489,16 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
         }
     }
 
-     /**
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShareAsync
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShareAsync
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createFileAsync
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteFileAsync
-     */
+    /**
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShareAsync
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShare
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShareAsync
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createFile
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createFileAsync
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
+    * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteFileAsync
+    */
     public function testCreateDeleteFile()
     {
         $share = 'createdeletefile' . $this->createSuffix();

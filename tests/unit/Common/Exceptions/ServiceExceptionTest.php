@@ -148,5 +148,4 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($e->getErrorMessage(), TestResources::RESPONSE_BODY_JSON);
     }
-
 }

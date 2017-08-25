@@ -161,7 +161,7 @@ class ConnectionStringParser
         $arguments = func_get_args();
         
         // Remove first and second arguments (position and error string)
-        unset($arguments[0],  $arguments[1]);
+        unset($arguments[0], $arguments[1]);
         
         // Create a short error message.
         $errorString = vsprintf($errorString, $arguments);

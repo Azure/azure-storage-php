@@ -310,7 +310,7 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         // Setup
         $expectedTrue = true;
         $expectedFalse = false;
-        $expectedNull = NULL;
+        $expectedNull = null;
 
         $propertiesTrue = new BlobProperties();
         $propertiesFalse = new BlobProperties();

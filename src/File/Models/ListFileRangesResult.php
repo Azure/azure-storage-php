@@ -67,7 +67,7 @@ class ListFileRangesResult
         $fileLength    = intval($headers[Resources::X_MS_CONTENT_LENGTH]);
         $rawRanges = array();
         if (!empty($parsed['Range'])) {
-                $rawRanges = Utilities::getArray($parsed['Range']);
+            $rawRanges = Utilities::getArray($parsed['Range']);
         }
         
         $ranges = array();
