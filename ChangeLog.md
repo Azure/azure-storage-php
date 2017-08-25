@@ -1,8 +1,13 @@
+2017.08 - version 0.18.0
+
 All
+* Updated `SharedAccessSignatureHelper` to accept `Datetime` type as `signedExpiry` or `signedStart` parameter when generating SAS tokens.
+* Added samples under samples foder to generate account level or service level SAS tokens with `SharedAccessSignatureHelper`.
 * Fixed wrong PHPUnit `@covers` tags in unit and functional test.
-* Added `BlobRestProxy::listPageBlobRangesDiff` and `BlobRestProxy::listPageBlobRangesDiffAsync` for getting page ranges difference. Refer to https://msdn.microsoft.com/en-us/library/azure/mt736912.aspx for more detailed information.
+* Removed unused imports declarations.
 
 Blob
+* Added `BlobRestProxy::listPageBlobRangesDiff` and `BlobRestProxy::listPageBlobRangesDiffAsync` for getting page ranges difference. Refer to https://msdn.microsoft.com/en-us/library/azure/mt736912.aspx for more detailed information.
 * Following methods of `MicrosoftAzure\Storage\Blob\BlobRestProxy` now return the x-ms-request-server-encrypted response header. This header is set to true if the contents of the request have been successfully encrypted.
   - `createBlockBlob`, `createPageBlob`, `createAppendBlob`, `createBlobPages`, `createBlobBlock`, `appendBlock`, `commitBlobBlocks` and `setBlobMetadata`. 
 * Following methods of `MicrosoftAzure\Storage\Blob\BlobRestProxy` now return the x-ms-server-encrypted response header. This header is set to true if the blob data and application metadata are completely encrypted. If the blob is not encrypted, or if only parts of the blob/application metadata are encrypted, this header is set to false.
