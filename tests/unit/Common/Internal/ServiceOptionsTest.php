@@ -54,5 +54,4 @@ class ServiceOptionsTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($value, $options->getTimeout());
     }
-
 }

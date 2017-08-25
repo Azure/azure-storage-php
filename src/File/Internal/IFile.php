@@ -259,17 +259,17 @@ interface IFile
         FileModels\FileServiceOptions $options = null
     );
 
-     /**
-     * Create promise to return only user-defined metadata for the specified
-     * share.
-     *
-     * @param string                             $share   name
-     * @param FileModels\FileServiceOptions|null $options optional parameters
-     *
-     * @return \GuzzleHttp\Promise\PromiseInterface
-     *
-     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-metadata
-     */
+    /**
+    * Create promise to return only user-defined metadata for the specified
+    * share.
+    *
+    * @param string                             $share   name
+    * @param FileModels\FileServiceOptions|null $options optional parameters
+    *
+    * @return \GuzzleHttp\Promise\PromiseInterface
+    *
+    * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-metadata
+    */
     public function getShareMetadataAsync(
         $share,
         FileModels\FileServiceOptions $options = null

@@ -1458,7 +1458,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
 
     private function verifyGetSetFilePropertiesWorker($res, $properties)
     {
-
         $this->assertEquals(
             $res->getContentLength(),
             $properties->getContentLength()

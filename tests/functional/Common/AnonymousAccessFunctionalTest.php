@@ -43,7 +43,6 @@ use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
  */
 class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
 {
-
     private $containerName;
     private static $blobRestProxy;
     private static $serviceBuilder;

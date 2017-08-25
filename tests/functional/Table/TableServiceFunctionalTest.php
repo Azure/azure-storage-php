@@ -1433,21 +1433,21 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             }
         }
     }
-/*
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
-    */
+    /*
+        /**
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
+        */
     public function testCRUDinsertEntity()
     {
         foreach (ConcurType::values() as $concurType) {
@@ -1491,21 +1491,21 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             }
         }
     }
-/*
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
-    */
+    /*
+        /**
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntityAsync
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
+        * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntityAsync
+        */
     public function testCRUDinsertOrReplaceEntity()
     {
         $this->skipIfEmulated();

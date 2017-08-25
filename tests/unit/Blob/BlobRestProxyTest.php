@@ -1765,14 +1765,14 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertTrue(is_bool($commitResult->getRequestServerEncrypted()));
     }
      
-   /**
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocksAsync
-    * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::create
-    * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getContentLength
-    * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getUncommittedBlocks
-    * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getCommittedBlocks
-    */
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocksAsync
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getContentLength
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getUncommittedBlocks
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getCommittedBlocks
+     */
     public function testListBlobBlocks()
     {
         // Setup
@@ -2020,11 +2020,11 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
     }
     
-   /**
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshotAsync
-    * @covers MicrosoftAzure\Storage\Blob\Models\createBlobSnapshotResult::create
-    */
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshotAsync
+     * @covers MicrosoftAzure\Storage\Blob\Models\createBlobSnapshotResult::create
+     */
     public function testCreateBlobSnapshot()
     {
         // Setup
@@ -2102,10 +2102,10 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($this->restProxy->getSingleBlobUploadThresholdInBytes(), Resources::MB_IN_BYTES_32);
     }
 
-   /**
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-    * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlobAsync
-    **/
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlobAsync
+     **/
     public function testCreateBlobLargerThanSingleBlock()
     {
         // First step, lets set the value for automatic splitting to something very small
