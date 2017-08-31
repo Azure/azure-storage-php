@@ -40,6 +40,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
 use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
+use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
@@ -141,6 +142,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     {
         // Setup
         $prefix = $this->createPrefix();
+        $container0    = $prefix . 'listcontainerwithoptions0' . $this->createSuffix();
         $container1    = $prefix . 'listcontainerwithoptions1' . $this->createSuffix();
         $container2    = $prefix . 'listcontainerwithoptions2' . $this->createSuffix();
         $container3    = 'm' . $prefix . 'mlistcontainerwithoptions3' . $this->createSuffix();
@@ -148,7 +150,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $metadataValue = 'MetadataValue';
         $options = new CreateContainerOptions();
         $options->addMetadata($metadataName, $metadataValue);
-        parent::createContainer($container1);
+        $options->setPublicAccess(PublicAccessType::BLOBS_ONLY);
+        parent::createContainer($container0);
+        parent::createContainer($container1, new CreateContainerOptions());
         parent::createContainer($container2, $options);
         parent::createContainer($container3);
         $options = new ListContainersOptions();
@@ -160,11 +164,22 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         
         // Assert
         $containers   = $result->getContainers();
-        $metadata = $containers[1]->getMetadata();
-        $this->assertEquals(2, count($containers));
+        $metadata = $containers[2]->getMetadata();
+        $this->assertEquals(3, count($containers));
+        $this->assertTrue($this->existInContainerArray($container0, $containers));
         $this->assertTrue($this->existInContainerArray($container1, $containers));
         $this->assertTrue($this->existInContainerArray($container2, $containers));
         $this->assertEquals($metadataValue, $metadata[$metadataName]);
+
+        $this->assertEquals(PublicAccessType::CONTAINER_AND_BLOBS,
+            $containers[0]->getProperties()->getPublicAccess()
+        );
+        $this->assertEquals(PublicAccessType::NONE,
+            $containers[1]->getProperties()->getPublicAccess()
+        );
+        $this->assertEquals(PublicAccessType::BLOBS_ONLY,
+            $containers[2]->getProperties()->getPublicAccess()
+        );
     }
 
     /**
@@ -406,16 +421,29 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     public function testGetContainerProperties()
     {
         // Setup
-        $name = 'getcontainerproperties' . $this->createSuffix();
-        $this->createContainer($name);
-        
+        $containerWithContainerLevelAccess = 'getcontainerproperties' . $this->createSuffix();
+        $containerWithBlobLevelAccess = 'getcontainerproperties' . $this->createSuffix();
+        $containerWithoutPublicAccess = 'getcontainerproperties' . $this->createSuffix();
+
+        $options = new CreateContainerOptions();
+        $options->setPublicAccess(PublicAccessType::BLOBS_ONLY);
+
+        $this->createContainer($containerWithContainerLevelAccess);
+        $this->createContainer($containerWithBlobLevelAccess, $options);
+        $this->createContainer($containerWithoutPublicAccess, new CreateContainerOptions());
+
         // Test
-        $result = $this->restProxy->getContainerProperties($name);
-        
+        $resultWithContainerLevelAccess = $this->restProxy->getContainerProperties($containerWithContainerLevelAccess);
+        $resultWithBlobLevelAccess = $this->restProxy->getContainerProperties($containerWithBlobLevelAccess);
+        $resultWithoutPublicAccess = $this->restProxy->getContainerProperties($containerWithoutPublicAccess);
+
         // Assert
-        $this->assertNotNull($result->getETag());
-        $this->assertNotNull($result->getLastModified());
-        $this->assertCount(0, $result->getMetadata());
+        $this->assertEquals(PublicAccessType::CONTAINER_AND_BLOBS, $resultWithContainerLevelAccess->getPublicAccess());
+        $this->assertEquals(PublicAccessType::BLOBS_ONLY, $resultWithBlobLevelAccess->getPublicAccess());
+        $this->assertEquals(PublicAccessType::NONE, $resultWithoutPublicAccess->getPublicAccess());
+        $this->assertNotNull($resultWithContainerLevelAccess->getETag());
+        $this->assertNotNull($resultWithContainerLevelAccess->getLastModified());
+        $this->assertCount(0, $resultWithContainerLevelAccess->getMetadata());
     }
     
     /**

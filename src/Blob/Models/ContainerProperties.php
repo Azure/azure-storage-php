@@ -24,6 +24,9 @@
  
 namespace MicrosoftAzure\Storage\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+
 /**
  * Holds container properties fields
  *
@@ -36,12 +39,13 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class ContainerProperties
 {
-    private $_lastModified;
-    private $_etag;
-    private $_leaseStatus;
-    private $_leaseState;
-    private $_leaseDuration;
-    
+    private $etag;
+    private $lastModified;
+    private $leaseDuration;
+    private $leaseStatus;
+    private $leaseState;
+    private $publicAccess;
+
     /**
      * Gets container lastModified.
      *
@@ -49,7 +53,7 @@ class ContainerProperties
      */
     public function getLastModified()
     {
-        return $this->_lastModified;
+        return $this->lastModified;
     }
 
     /**
@@ -61,7 +65,7 @@ class ContainerProperties
      */
     public function setLastModified(\DateTime $lastModified)
     {
-        $this->_lastModified = $lastModified;
+        $this->lastModified = $lastModified;
     }
     
     /**
@@ -71,7 +75,7 @@ class ContainerProperties
      */
     public function getETag()
     {
-        return $this->_etag;
+        return $this->etag;
     }
 
     /**
@@ -83,7 +87,7 @@ class ContainerProperties
      */
     public function setETag($etag)
     {
-        $this->_etag = $etag;
+        $this->etag = $etag;
     }
     
     /**
@@ -93,7 +97,7 @@ class ContainerProperties
      */
     public function getLeaseStatus()
     {
-        return $this->_leaseStatus;
+        return $this->leaseStatus;
     }
 
     /**
@@ -105,7 +109,7 @@ class ContainerProperties
      */
     public function setLeaseStatus($leaseStatus)
     {
-        $this->_leaseStatus = $leaseStatus;
+        $this->leaseStatus = $leaseStatus;
     }
     
     /**
@@ -115,7 +119,7 @@ class ContainerProperties
      */
     public function getLeaseState()
     {
-        return $this->_leaseState;
+        return $this->leaseState;
     }
 
     /**
@@ -127,7 +131,7 @@ class ContainerProperties
      */
     public function setLeaseState($leaseState)
     {
-        $this->_leaseState = $leaseState;
+        $this->leaseState = $leaseState;
     }
     
     /**
@@ -137,7 +141,7 @@ class ContainerProperties
      */
     public function getLeaseDuration()
     {
-        return $this->_leaseDuration;
+        return $this->leaseDuration;
     }
 
     /**
@@ -149,6 +153,32 @@ class ContainerProperties
      */
     public function setLeaseDuration($leaseDuration)
     {
-        $this->_leaseDuration = $leaseDuration;
+        $this->leaseDuration = $leaseDuration;
+    }
+
+    /**
+     * Gets container publicAccess.
+     *
+     * @return string
+     */
+    public function getPublicAccess()
+    {
+        return $this->publicAccess;
+    }
+
+    /**
+     * Sets container publicAccess.
+     *
+     * @param string $publicAccess value.
+     *
+     * @return void
+     */
+    public function setPublicAccess($publicAccess)
+    {
+        Validate::isTrue(
+            PublicAccessType::isValid($publicAccess),
+            Resources::INVALID_BLOB_PAT_MSG
+        );
+        $this->publicAccess = $publicAccess;
     }
 }

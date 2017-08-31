@@ -6,6 +6,7 @@
 * Populate content MD5 for range gets on Blobs. The content MD5 returned for range gets on Blobs will be the value of the whole blob’s MD5 value.
 * Populate content MD5 for range gets on Files. The content MD5 returned for range gets on Files will be the value of the whole file’s MD5 value.
 * Fixed a bug that setting content MD5 cannot work when creating files.
+* The public access level of a container is now returned from the List Containers and Get Container Properties APIs.
 
 2017.08 - version 0.18.0
 
