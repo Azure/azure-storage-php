@@ -17,7 +17,7 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
@@ -28,75 +28,66 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
- * Holds results of listMessages wrapper.
+ * Holds results of CreateMessage wrapper.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Queue\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2017 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PeekMessagesResult
+class CreateMessageResult
 {
-    private $queueMessages;
-    
+    private $queueMessage;
+
     /**
-     * Creates PeekMessagesResult object from parsed XML response.
+     * Creates CreateMessageResult object from parsed XML response.
      *
      * @param array $parsedResponse XML response parsed into array.
      *
      * @internal
      *
-     * @return PeekMessagesResult
+     * @return CreateMessageResult
      */
     public static function create($parsedResponse)
     {
-        $result        = new PeekMessagesResult();
-        $queueMessages = array();
-        
-        if (!empty($parsedResponse)) {
-            $rawMessages = Utilities::getArray(
-                $parsedResponse[Resources::QP_QUEUE_MESSAGE]
+        $result = new CreateMessageResult();
+
+        if (!empty($parsedResponse) &&
+            !empty($parsedResponse[Resources::QP_QUEUE_MESSAGE])
+        ) {
+            $result->setQueueMessage(
+                QueueMessage::createFromCreateMessage(
+                    $parsedResponse[Resources::QP_QUEUE_MESSAGE]
+                )
             );
-            foreach ($rawMessages as $value) {
-                $message = QueueMessage::createFromPeekMessages($value);
-                
-                $queueMessages[] = $message;
-            }
         }
-        $result->setQueueMessages($queueMessages);
-        
+
         return $result;
     }
-    
+
     /**
-     * Gets queueMessages field.
+     * Gets queueMessage field.
      *
-     * @return QueueMessage[]
+     * @return QueueMessage
      */
-    public function getQueueMessages()
+    public function getQueueMessage()
     {
-        $clonedMessages = array();
-        
-        foreach ($this->queueMessages as $value) {
-            $clonedMessages[] = clone $value;
-        }
-        
-        return $clonedMessages;
+        return $this->queueMessage;
     }
-    
+
     /**
-     * Sets queueMessages field.
+     * Sets queueMessage field.
      *
-     * @param QueueMessage[] $queueMessages value to use.
+     * @param QueueMessage $queueMessage value to use.
      *
      * @internal
      *
      * @return void
      */
-    protected function setQueueMessages($queueMessages)
+    protected function setQueueMessage($queueMessage)
     {
-        $this->queueMessages = $queueMessages;
+        $this->queueMessage = $queueMessage;
     }
 }

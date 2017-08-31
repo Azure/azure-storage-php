@@ -1,4 +1,5 @@
 * Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix. 
+* The `BlobRestProxy::createMessage` now returns information about the message that was just added, including the pop receipt. 
 
 2017.08 - version 0.18.0
 

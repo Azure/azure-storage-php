@@ -39,12 +39,12 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class QueueMessage
 {
-    private $_messageId;
-    private $_insertionDate;
-    private $_expirationDate;
-    private $_popReceipt;
-    private $_timeNextVisible;
-    private $_dequeueCount;
+    private $messageId;
+    private $insertionDate;
+    private $expirationDate;
+    private $popReceipt;
+    private $timeNextVisible;
+    private $dequeueCount;
     private $_messageText;
     private static $xmlRootName = 'QueueMessage';
     
@@ -99,6 +99,39 @@ class QueueMessage
         
         return $msg;
     }
+
+    /**
+     * Creates QueueMessage object from parsed XML response of
+     * createMessage.
+     *
+     * @param array $parsedResponse XML response parsed into array.
+     *
+     * @internal
+     *
+     * @return QueueMessage
+     */
+    public static function createFromCreateMessage(array $parsedResponse)
+    {
+        $msg = new QueueMessage();
+        
+        $expirationDate  = $parsedResponse['ExpirationTime'];
+        $insertionDate   = $parsedResponse['InsertionTime'];
+        $timeNextVisible = $parsedResponse['TimeNextVisible'];
+
+        $date = Utilities::rfc1123ToDateTime($expirationDate);
+        $msg->setExpirationDate($date);
+
+        $date = Utilities::rfc1123ToDateTime($insertionDate);
+        $msg->setInsertionDate($date);
+
+        $date = Utilities::rfc1123ToDateTime($timeNextVisible);
+        $msg->setTimeNextVisible($date);
+
+        $msg->setMessageId($parsedResponse['MessageId']);
+        $msg->setPopReceipt($parsedResponse['PopReceipt']);
+
+        return $msg;
+    }
     
     /**
      * Gets message text field.
@@ -129,7 +162,7 @@ class QueueMessage
      */
     public function getMessageId()
     {
-        return $this->_messageId;
+        return $this->messageId;
     }
     
     /**
@@ -141,7 +174,7 @@ class QueueMessage
      */
     public function setMessageId($messageId)
     {
-        $this->_messageId = $messageId;
+        $this->messageId = $messageId;
     }
     
     /**
@@ -151,7 +184,7 @@ class QueueMessage
      */
     public function getInsertionDate()
     {
-        return $this->_insertionDate;
+        return $this->insertionDate;
     }
     
     /**
@@ -165,7 +198,7 @@ class QueueMessage
      */
     public function setInsertionDate(\DateTime $insertionDate)
     {
-        $this->_insertionDate = $insertionDate;
+        $this->insertionDate = $insertionDate;
     }
     
     /**
@@ -175,7 +208,7 @@ class QueueMessage
      */
     public function getExpirationDate()
     {
-        return $this->_expirationDate;
+        return $this->expirationDate;
     }
     
     /**
@@ -187,7 +220,7 @@ class QueueMessage
      */
     public function setExpirationDate(\DateTime $expirationDate)
     {
-        $this->_expirationDate = $expirationDate;
+        $this->expirationDate = $expirationDate;
     }
     
     /**
@@ -197,7 +230,7 @@ class QueueMessage
      */
     public function getTimeNextVisible()
     {
-        return $this->_timeNextVisible;
+        return $this->timeNextVisible;
     }
     
     /**
@@ -209,7 +242,7 @@ class QueueMessage
      */
     public function setTimeNextVisible($timeNextVisible)
     {
-        $this->_timeNextVisible = $timeNextVisible;
+        $this->timeNextVisible = $timeNextVisible;
     }
     
     /**
@@ -219,7 +252,7 @@ class QueueMessage
      */
     public function getPopReceipt()
     {
-        return $this->_popReceipt;
+        return $this->popReceipt;
     }
     
     /**
@@ -231,7 +264,7 @@ class QueueMessage
      */
     public function setPopReceipt($popReceipt)
     {
-        $this->_popReceipt = $popReceipt;
+        $this->popReceipt = $popReceipt;
     }
     
     /**
@@ -241,7 +274,7 @@ class QueueMessage
      */
     public function getDequeueCount()
     {
-        return $this->_dequeueCount;
+        return $this->dequeueCount;
     }
     
     /**
@@ -255,7 +288,7 @@ class QueueMessage
      */
     public function setDequeueCount($dequeueCount)
     {
-        $this->_dequeueCount = $dequeueCount;
+        $this->dequeueCount = $dequeueCount;
     }
     
     /**

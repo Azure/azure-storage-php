@@ -378,13 +378,28 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         $this->createQueue($name);
         
         // Test
-        $this->restProxy->createMessage($name, $expected);
+        $createResult = $this->restProxy->createMessage($name, $expected);
         
         // Assert
         $result = $this->restProxy->listMessages($name);
         $messages = $result->getQueueMessages();
         $actual = $messages[0]->getMessageText();
         $this->assertEquals($expected, $actual);
+
+        $message = $createResult->getQueueMessage();
+        $this->assertNotNull($message->getExpirationDate());
+        $this->assertNotNull($message->getInsertionDate());
+        $this->assertNotNull($message->getTimeNextVisible());
+        $this->assertNotNull($message->getMessageId());
+        $this->assertNotNull($message->getPopReceipt());
+        
+        $this->assertEquals(
+            $message->getInsertionDate(),
+            $message->getTimeNextVisible()
+        );
+        $this->assertTrue(
+            $message->getExpirationDate() > $message->getInsertionDate()
+        );
     }
     
     /**
