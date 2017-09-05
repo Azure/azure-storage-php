@@ -42,6 +42,7 @@ class ListDirectoriesAndFilesOptions extends FileServiceOptions
     use MarkerContinuationTokenTrait;
 
     private $maxResults;
+    private $prefix;
 
     /**
      * Gets max results which specifies the maximum number of directories and
@@ -74,5 +75,27 @@ class ListDirectoriesAndFilesOptions extends FileServiceOptions
     {
         Validate::canCastAsString($maxResults, 'maxResults');
         $this->maxResults = $maxResults;
+    }
+
+    /**
+     * Get the prefix.
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Set a specified prefix.
+     *
+     * @param string $prefix
+     *
+     * @return void
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
     }
 }

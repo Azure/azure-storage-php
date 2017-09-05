@@ -335,6 +335,117 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFilesAsync
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createDirectory
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createDirectoryAsync
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createFile
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createFileAsync
+     */
+    public function testListDirectoriesAndFilesWithPrefix()
+    {
+        $share = 'listdirectoriesandfileswithprefix' . $this->createSuffix();
+        $this->createShare($share);
+
+        /*
+         * share
+         * share/dir_0
+         * share/dir_1
+         * share/dir_1/file_10
+         * share/dir_1/file_11
+         * share/dir_1/dir_10
+         * share/dir_2
+         * share/folder_3
+         * share/file_0
+         * share/file_1
+         * share/doc_2
+         */
+        $dir0    = 'dir_0';
+        $dir1    = 'dir_1';
+        $file10  = "$dir1/file_10";
+        $file11  = "$dir1/file_11";
+        $dir10   = "$dir1/dir_10";
+        $dir2    = 'dir_2';
+        $folder3 = 'folder_3';
+        $file0   = 'file_0';
+        $file1   = 'file_1';
+        $doc2    = 'doc_2';
+        
+        $this->restProxy->createDirectory($share, $dir0);
+        $this->restProxy->createDirectory($share, $dir1);
+        $this->restProxy->createDirectory($share, $dir2);
+        $this->restProxy->createDirectory($share, $folder3);
+        $this->restProxy->createDirectory($share, $dir10);
+
+        $this->restProxy->createFile(
+            $share,
+            $file0,
+            Resources::MB_IN_BYTES_4
+        );
+        $this->restProxy->createFile(
+            $share,
+            $file1,
+            Resources::MB_IN_BYTES_4
+        );
+        $this->restProxy->createFile(
+            $share,
+            $doc2,
+            Resources::MB_IN_BYTES_4
+        );
+        $this->restProxy->createFile(
+            $share,
+            $file10,
+            Resources::MB_IN_BYTES_4
+        );
+        $this->restProxy->createFile(
+            $share,
+            $file11,
+            Resources::MB_IN_BYTES_4
+        );
+
+        $optionsDirPrefix = new ListDirectoriesAndFilesOptions;
+        $optionsDirPrefix->setPrefix('dir');
+
+        $optionsFilePrefix = new ListDirectoriesAndFilesOptions;
+        $optionsFilePrefix->setPrefix('file');
+
+        $resultRootDir = $this->restProxy->listDirectoriesAndFiles($share, '', $optionsDirPrefix);
+        $resultRootFile = $this->restProxy->listDirectoriesAndFiles($share, '', $optionsFilePrefix);
+        $resultDir = $this->restProxy->listDirectoriesAndFiles($share, $dir1, $optionsDirPrefix);
+        $resultFile = $this->restProxy->listDirectoriesAndFiles($share, $dir1, $optionsFilePrefix);
+
+        $validator = function ($resources, $target) {
+            $result = false;
+            foreach ($resources as $resource) {
+                if ($resource->getName() == $target) {
+                    $result = true;
+                    break;
+                }
+            }
+            return $result;
+        };
+
+        $this->assertEquals(3, count($resultRootDir->getDirectories()));
+        $this->assertEquals(2, count($resultRootFile->getFiles()));
+        $this->assertEquals(1, count($resultDir->getDirectories()));
+        $this->assertEquals(2, count($resultFile->getFiles()));
+
+        $this->assertTrue($validator($resultRootDir->getDirectories(), $dir0));
+        $this->assertTrue($validator($resultRootDir->getDirectories(), $dir1));
+        $this->assertTrue($validator($resultRootDir->getDirectories(), $dir2));
+        $this->assertTrue($validator($resultDir->getDirectories(), 'dir_10'));
+
+        $this->assertTrue($validator($resultRootFile->getFiles(), $file0));
+        $this->assertTrue($validator($resultRootFile->getFiles(), $file1));
+        $this->assertTrue($validator($resultFile->getFiles(), 'file_10'));
+        $this->assertTrue($validator($resultFile->getFiles(), 'file_11'));
+    }
+
+    /**
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteShareAsync
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShare
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createShareAsync
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFilesAsync
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createDirectory
+     * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::createDirectoryAsync
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectory
      * @covers  \MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectoryAsync
      */

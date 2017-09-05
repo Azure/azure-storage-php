@@ -1,3 +1,5 @@
+* Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix. 
+
 2017.08 - version 0.18.0
 
 All
