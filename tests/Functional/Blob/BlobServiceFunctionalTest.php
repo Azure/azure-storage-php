@@ -2146,7 +2146,11 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
         // Make sure there is something to test
         $dataSize = 512;
-        $this->restProxy->createPageBlob($container, $blob, $dataSize);
+        $createBlobOptions = new CreateBlobOptions();
+        if ($options && $options->getComputeRangeMD5()) {
+            $createBlobOptions->setContentMD5('MDAwMDAwMDA=');
+        }
+        $this->restProxy->createPageBlob($container, $blob, $dataSize, $createBlobOptions);
 
         $metadata = BlobServiceFunctionalTestData::getNiceMetadata();
         $sbmd = $this->restProxy->setBlobMetadata($container, $blob, $metadata);
@@ -2254,8 +2258,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         $this->assertEquals($rangeSize, strlen($content), '$content length and range');
 
         if ($options->getComputeRangeMD5()) {
-            // Compute the MD5 from the stream.
-            $md5 = base64_encode(md5($content, true));
+            $md5 = 'MDAwMDAwMDA=';
             $this->assertEquals(
                 $md5,
                 $res->getProperties()->getContentMD5(),
@@ -3337,10 +3340,10 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $getOptions->setComputeRangeMD5(true);
             $result = $this->restProxy->getBlob($container, $blob, $getOptions);
             $actualContent = stream_get_contents($result->getContentStream());
-            $actualMD5 = $result->getProperties()->getContentMD5();
+            $actualMD5 = $result->getProperties()->getRangeContentMD5();
             //Validate
-            $this->assertEquals(Utilities::calculateContentMD5($content), $actualMD5);
             $this->assertEquals($content, $actualContent);
+            $this->assertEquals(Utilities::calculateContentMD5($content), $actualMD5);
         }
         if ($clearRange != null) {
             $this->restProxy->clearBlobPages($container, $blob, $clearRange);

@@ -1,3 +1,9 @@
+Blob
+* Populate content MD5 for range gets on Blobs. The content MD5 returned for range gets on Blobs will be the value of the whole blob’s MD5 value.
+
+File
+* Populate content MD5 for range gets on Files. The content MD5 returned for range gets on Files will be the value of the whole file’s MD5 value.
+
 Tracking Breaking changes in 0.17.0
 
 All

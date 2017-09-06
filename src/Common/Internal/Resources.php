@@ -242,6 +242,8 @@ class Resources
     const ACCEPT_CHARSET                     = 'accept-charset';
     const USER_AGENT                         = 'User-Agent';
     const PREFER                             = 'Prefer';
+    const BLOB_CONTENT_MD5                   = 'x-ms-blob-content-md5';
+    const FILE_CONTENT_MD5                   = 'x-ms-content-md5';
 
     // Type
     const QUEUE_TYPE_NAME              = 'IQueue';

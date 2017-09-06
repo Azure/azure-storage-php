@@ -38,10 +38,10 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class GetBlobOptions extends BlobServiceOptions
 {
-    private $_snapshot;
-    private $_computeRangeMD5;
-    private $_rangeStart;
-    private $_rangeEnd;
+    private $snapshot;
+    private $computeRangeMD5;
+    private $rangeStart;
+    private $rangeEnd;
     
     /**
      * Gets blob snapshot.
@@ -50,7 +50,7 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function getSnapshot()
     {
-        return $this->_snapshot;
+        return $this->snapshot;
     }
 
     /**
@@ -62,7 +62,7 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function setSnapshot($snapshot)
     {
-        $this->_snapshot = $snapshot;
+        $this->snapshot = $snapshot;
     }
     
     /**
@@ -72,7 +72,7 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function getRangeStart()
     {
-        return $this->_rangeStart;
+        return $this->rangeStart;
     }
     
     /**
@@ -85,7 +85,7 @@ class GetBlobOptions extends BlobServiceOptions
     public function setRangeStart($rangeStart)
     {
         Validate::isInteger($rangeStart, 'rangeStart');
-        $this->_rangeStart = $rangeStart;
+        $this->rangeStart = $rangeStart;
     }
     
     /**
@@ -95,7 +95,7 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function getRangeEnd()
     {
-        return $this->_rangeEnd;
+        return $this->rangeEnd;
     }
     
     /**
@@ -108,7 +108,7 @@ class GetBlobOptions extends BlobServiceOptions
     public function setRangeEnd($rangeEnd)
     {
         Validate::isInteger($rangeEnd, 'rangeEnd');
-        $this->_rangeEnd = $rangeEnd;
+        $this->rangeEnd = $rangeEnd;
     }
     
     /**
@@ -118,9 +118,9 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function getComputeRangeMD5()
     {
-        return $this->_computeRangeMD5;
+        return $this->computeRangeMD5;
     }
-    
+
     /**
      * Sets computeRangeMD5
      *
@@ -131,6 +131,6 @@ class GetBlobOptions extends BlobServiceOptions
     public function setComputeRangeMD5($computeRangeMD5)
     {
         Validate::isBoolean($computeRangeMD5);
-        $this->_computeRangeMD5 = $computeRangeMD5;
+        $this->computeRangeMD5 = $computeRangeMD5;
     }
 }

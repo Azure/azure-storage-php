@@ -1566,7 +1566,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
 
         $this->addOptionalHeader(
             $headers,
-            Resources::CONTENT_MD5,
+            Resources::FILE_CONTENT_MD5,
             $options->getContentMD5()
         );
 
