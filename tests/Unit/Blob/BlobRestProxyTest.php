@@ -37,6 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
 use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
@@ -2017,6 +2018,133 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $destinationBlobContent =
             stream_get_contents($destinationBlob->getContentStream());
         
+        $this->assertEquals($sourceBlobContent, $destinationBlobContent);
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getCopyBlobSourceName
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobFromContent
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlobFromContentAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshotAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobsAsync
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
+     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobPropertiesAsync
+     */
+    public function testCopyBlobIncremental()
+    {
+        // Setup
+        $sourceContainerName = 'copyblobincrementalsource' . $this->createSuffix();
+        $sourceBlobName = 'sourceblob';
+        $sourceContentLength = 512 * 8;
+        $sourceBlobContent = openssl_random_pseudo_bytes($sourceContentLength);
+
+        $destinationContainerName = 'copyblobincrementaldest' . $this->createSuffix();
+        $destinationBlobName = 'destinationblob';
+
+        $this->createContainer($sourceContainerName);
+        $this->createContainer($destinationContainerName);
+
+        $this->restProxy->createPageBlobFromContent(
+            $sourceContainerName,
+            $sourceBlobName,
+            $sourceContentLength,
+            $sourceBlobContent
+        );
+
+        $sourceSnapshotResult = $this->restProxy->createBlobSnapshot(
+            $sourceContainerName,
+            $sourceBlobName
+        );
+
+        // Test
+        $options = new CopyBlobOptions();
+        $options->setSourceSnapshot($sourceSnapshotResult->getSnapshot());
+        $options->setIsIncrementalCopy(true);
+
+        $this->restProxy->copyBlob(
+            $destinationContainerName,
+            $destinationBlobName,
+            $sourceContainerName,
+            $sourceBlobName,
+            $options
+        );
+
+        // Wait 10 seconds until copying ends
+        sleep(10);
+
+        // Assert
+        $sourceBlob = $this->restProxy->getBlob($sourceContainerName, $sourceBlobName);
+
+        $options = new ListBlobsOptions();
+        $options->setIncludeSnapshots(true);
+        $listDestContainerResult = $this->restProxy->listBlobs(
+            $destinationContainerName,
+            $options
+        );
+
+        // List destination blobs, including one incremental blob and one incremental blob snapshot
+        $this->assertEquals(
+            2,
+            count($listDestContainerResult->getBlobs())
+        );
+        foreach ($listDestContainerResult->getBlobs() as $blob) {
+            $this->assertEquals(
+                true,
+                $blob->getProperties()->getIncrementalCopy()
+            );
+
+            if ($blob->getSnapshot()) {
+                $destBlobSnapshot = $blob;
+            } else {
+                $destBlob = $blob;
+            }
+        }
+
+        // Validate properties of incremental blob and snapshots
+        $destBlobProperties = $this->restProxy->getBlobProperties(
+            $destinationContainerName,
+            $destinationBlobName
+        )->getProperties();
+
+        $options = new GetBlobPropertiesOptions();
+        $options->setSnapshot($destBlobSnapshot->getSnapshot());
+        $destBlobSnapshotProperties = $this->restProxy->getBlobProperties(
+            $destinationContainerName,
+            $destinationBlobName,
+            $options
+        )->getProperties();
+
+        $this->assertTrue($destBlobProperties->getIncrementalCopy());
+        $this->assertEquals(
+            $destBlobSnapshot->getSnapshot(),
+            $destBlobProperties->getCopyDestinationSnapshot()
+        );
+
+        $this->assertTrue($destBlobSnapshotProperties->getIncrementalCopy());
+        $this->assertEquals(
+            $destBlobSnapshot->getSnapshot(),
+            $destBlobSnapshotProperties->getCopyDestinationSnapshot()
+        );
+
+        // Validate incremental blob snapshot content
+        $options = new GetBlobOptions();
+        $options->setSnapshot($destBlobProperties->getCopyDestinationSnapshot());
+        $destinationBlobSnapshot = $this->restProxy->getBlob(
+            $destinationContainerName,
+            $destinationBlobName,
+            $options
+        );
+
+        $sourceBlobContent = stream_get_contents($sourceBlob->getContentStream());
+        $destinationBlobContent =
+            stream_get_contents($destinationBlobSnapshot->getContentStream());
+
         $this->assertEquals($sourceBlobContent, $destinationBlobContent);
     }
     

@@ -113,4 +113,17 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $options->setSourceLeaseId($expected);
         $this->assertEquals($expected, $options->getSourceLeaseId());
     }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setIsIncrementalCopy
+     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getIsIncrementalCopy
+     */
+    public function testSetIsIncrementalCopy()
+    {
+        $expected = true;
+        $options = new CopyBlobOptions();
+
+        $options->setIsIncrementalCopy($expected);
+        $this->assertEquals($expected, $options->getIsIncrementalCopy());
+    }
 }

@@ -58,6 +58,8 @@ class BlobProperties
     private $_serverEncrypted;
     private $_committedBlockCount;
     private $_copyState;
+    private $copyDestinationSnapshot;
+    private $incrementalCopy;
     
     /**
      * Creates BlobProperties object from $parsed response in array representation of XML elements
@@ -78,6 +80,13 @@ class BlobProperties
         $result->setLeaseState(Utilities::tryGetValue($clean, 'leasestate'));
         $result->setLeaseDuration(Utilities::tryGetValue($clean, 'leaseduration'));
         $result->setCopyState(CopyState::createFromXml($clean));
+
+        $result->setIncrementalCopy(
+            Utilities::toBoolean(
+                Utilities::tryGetValue($clean, 'incrementalcopy'),
+                true
+            )
+        );
         
         return $result;
     }
@@ -102,13 +111,38 @@ class BlobProperties
         $result->setLeaseStatus(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_STATUS));
         $result->setLeaseState(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_STATE));
         $result->setLeaseDuration(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_DURATION));
+        $result->setCopyState(CopyState::createFromHttpHeaders($clean));
+
         $result->setServerEncrypted(
-            Utilities::toBoolean(Utilities::trygetvalue($clean, Resources::X_MS_SERVER_ENCRYPTED), true)
+            Utilities::toBoolean(
+                Utilities::tryGetValue(
+                    $clean,
+                    Resources::X_MS_SERVER_ENCRYPTED
+                ),
+                true
+            )
+        );
+        $result->setIncrementalCopy(
+            Utilities::toBoolean(
+                Utilities::tryGetValue(
+                    $clean,
+                    Resources::X_MS_INCREMENTAL_COPY
+                ),
+                true
+            )
         );
         $result->setCommittedBlockCount(
-            intval(Utilities::tryGetValue($clean, Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT))
+            intval(Utilities::tryGetValue(
+                $clean,
+                Resources::X_MS_BLOB_COMMITTED_BLOCK_COUNT
+            ))
         );
-        $result->setCopyState(CopyState::createFromHttpHeaders($clean));
+        $result->setCopyDestinationSnapshot(
+            Utilities::tryGetValue(
+                $clean,
+                Resources::X_MS_COPY_DESTINATION_SNAPSHOT
+            )
+        );
 
         return $result;
     }
@@ -510,6 +544,46 @@ class BlobProperties
     public function setCopyState($copyState)
     {
         $this->_copyState = $copyState;
+    }
+
+    /**
+     * Gets snapshot time of the last successful incremental copy snapshot for this blob.
+     *
+     * @return string
+     */
+    public function getCopyDestinationSnapshot()
+    {
+        return $this->copyDestinationSnapshot;
+    }
+
+    /**
+     * Sets snapshot time of the last successful incremental copy snapshot for this blob.
+     *
+     * @param string $copyDestinationSnapshot last successful incremental copy snapshot.
+     */
+    public function setCopyDestinationSnapshot($copyDestinationSnapshot)
+    {
+        $this->copyDestinationSnapshot = $copyDestinationSnapshot;
+    }
+
+    /**
+     * Gets whether the blob is an incremental copy blob.
+     *
+     * @return boolean
+     */
+    public function getIncrementalCopy()
+    {
+        return $this->incrementalCopy;
+    }
+
+    /**
+     * Sets whether the blob is an incremental copy blob.
+     *
+     * @param boolean $incrementalCopy whether blob is an incremental copy blob.
+     */
+    public function setIncrementalCopy($incrementalCopy)
+    {
+        $this->incrementalCopy = $incrementalCopy;
     }
 
     private function setCommonBlobProperties(array $clean)

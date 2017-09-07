@@ -133,7 +133,7 @@ abstract class ACLBase
     }
 
     /**
-     * Get the type of resource this ACL relate to.
+     * Gets the type of resource this ACL relate to.
      *
      * @internal
      *

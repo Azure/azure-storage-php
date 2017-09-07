@@ -1,12 +1,14 @@
 * Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix. 
 * The `BlobRestProxy::createMessage` now returns information about the message that was just added, including the pop receipt. 
 * Fixed wrong `XmlSerializer` in ServiceException.php.
+* Added support for Incremental Copy Page Blob. This allows efficient copying and backup of page blob snapshots.
+* Fixed a bug that `BlobRestProxy::createPageBlobFromContent` cannot work.
 
 2017.08 - version 0.18.0
 
 All
 * Updated `SharedAccessSignatureHelper` to accept `Datetime` type as `signedExpiry` or `signedStart` parameter when generating SAS tokens.
-* Added samples under samples foder to generate account level or service level SAS tokens with `SharedAccessSignatureHelper`.
+* Added samples under the samples folder to generate account level or service level SAS tokens with `SharedAccessSignatureHelper`.
 * Fixed wrong PHPUnit `@covers` tags in unit and functional test.
 * Removed unused imports declarations.
 

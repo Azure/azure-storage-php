@@ -65,6 +65,8 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected['x-ms-blob-type'], $actual->getBlobType());
         $this->assertEquals($expected['x-ms-lease-status'], $actual->getLeaseStatus());
         $this->assertEquals(Utilities::toBoolean($expected['x-ms-server-encrypted']), $actual->getServerEncrypted());
+        $this->assertEquals(Utilities::toBoolean($expected['x-ms-incremental-copy']), $actual->getIncrementalCopy());
+        $this->assertEquals($expected['x-ms-copy-destination-snapshot'], $actual->getCopyDestinationSnapshot());
     }
     
     /**
@@ -292,13 +294,46 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         // Setup
         $expected = 123;
         $properties = new BlobProperties();
-        $properties->setSequenceNumber($expected);
-        
+
         // Test
         $properties->setSequenceNumber($expected);
         
         // Assert
         $this->assertEquals($expected, $properties->getSequenceNumber());
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::setCopyDestinationSnapshot
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::getCopyDestinationSnapshot
+     */
+    public function testSetCopyDestinationSnapshot()
+    {
+        // Setup
+        $expected = '2017-09-07T06:57:06.0830478Z';
+        $properties = new BlobProperties();
+
+        // Test
+        $properties->setCopyDestinationSnapshot($expected);
+
+        // Assert
+        $this->assertEquals($expected, $properties->getCopyDestinationSnapshot());
+    }
+
+    /**
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::setIncrementalCopy
+     * @covers MicrosoftAzure\Storage\Blob\Models\BlobProperties::getIncrementalCopy
+     */
+    public function testSetIncrementalCopy()
+    {
+        // Setup
+        $expected = true;
+        $properties = new BlobProperties();
+
+        // Test
+        $properties->setIncrementalCopy($expected);
+
+        // Assert
+        $this->assertEquals($expected, $properties->getIncrementalCopy());
     }
 
     /**

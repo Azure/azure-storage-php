@@ -1242,7 +1242,9 @@ class TestResources
                     'x-ms-blob-type' => 'BlockBlob',
                     'x-ms-lease-status' => 'locked',
                     'x-ms-server-encrypted' => 'false',
-                    'x-ms-request-server-encrypted' => 'true'
+                    'x-ms-request-server-encrypted' => 'true',
+                    'x-ms-incremental-copy' => 'true',
+                    'x-ms-copy-destination-snapshot'=> '2017-09-07T06:57:06.0830478Z'
                 )
             )
         );

@@ -1661,6 +1661,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $body = Psr7\stream_for($content);
         $self = $this;
 
+        if (is_null($options)) {
+            $options = new CreateBlobOptions();
+        }
+
         $createBlobPromise = $this->createPageBlobAsync(
             $container,
             $blob,
@@ -2014,7 +2018,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         return $this->sendConcurrentAsync(
             $generator,
             Resources::STATUS_CREATED,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -3756,6 +3760,14 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         
         if (is_null($options)) {
             $options = new CopyBlobOptions();
+        }
+
+        if ($options->getIsIncrementalCopy()) {
+            $this->addOptionalQueryParam(
+                $queryParams,
+                Resources::QP_COMP,
+                'incrementalcopy'
+            );
         }
         
         $sourceBlobPath = $this->getCopyBlobSourceName(

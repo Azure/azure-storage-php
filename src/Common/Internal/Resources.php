@@ -189,6 +189,8 @@ class Resources
     const X_MS_PAGE_WRITE                    = 'x-ms-page-write';
     const X_MS_REQUEST_SERVER_ENCRYPTED      = 'x-ms-request-server-encrypted';
     const X_MS_SERVER_ENCRYPTED              = 'x-ms-server-encrypted';
+    const X_MS_INCREMENTAL_COPY              = 'x-ms-incremental-copy';
+    const X_MS_COPY_DESTINATION_SNAPSHOT     = 'x-ms-copy-destination-snapshot';
     const X_MS_SNAPSHOT                      = 'x-ms-snapshot';
     const X_MS_SOURCE_IF_MODIFIED_SINCE      = 'x-ms-source-if-modified-since';
     const X_MS_SOURCE_IF_UNMODIFIED_SINCE    = 'x-ms-source-if-unmodified-since';

@@ -36,10 +36,11 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class CopyBlobOptions extends BlobServiceOptions
 {
-    private $_sourceLeaseId;
-    private $_sourceAccessConditions;
-    private $_metadata;
-    private $_sourceSnapshot;
+    private $sourceLeaseId;
+    private $sourceAccessConditions;
+    private $metadata;
+    private $sourceSnapshot;
+    private $isIncrementalCopy;
     
     /**
      * Gets source access condition
@@ -48,7 +49,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function getSourceAccessConditions()
     {
-        return $this->_sourceAccessConditions;
+        return $this->sourceAccessConditions;
     }
     
     /**
@@ -62,9 +63,9 @@ class CopyBlobOptions extends BlobServiceOptions
     {
         if (!is_null($sourceAccessConditions) &&
             is_array($sourceAccessConditions)) {
-            $this->_sourceAccessConditions = $sourceAccessConditions;
+            $this->sourceAccessConditions = $sourceAccessConditions;
         } else {
-            $this->_sourceAccessConditions = [$sourceAccessConditions];
+            $this->sourceAccessConditions = [$sourceAccessConditions];
         }
     }
     
@@ -75,7 +76,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function getMetadata()
     {
-        return $this->_metadata;
+        return $this->metadata;
     }
 
     /**
@@ -87,7 +88,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function setMetadata(array $metadata)
     {
-        $this->_metadata = $metadata;
+        $this->metadata = $metadata;
     }
     
     /**
@@ -97,7 +98,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function getSourceSnapshot()
     {
-        return $this->_sourceSnapshot;
+        return $this->sourceSnapshot;
     }
        
     /**
@@ -109,7 +110,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function setSourceSnapshot($sourceSnapshot)
     {
-        $this->_sourceSnapshot = $sourceSnapshot;
+        $this->sourceSnapshot = $sourceSnapshot;
     }
     
     /**
@@ -119,7 +120,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function getSourceLeaseId()
     {
-        return $this->_sourceLeaseId;
+        return $this->sourceLeaseId;
     }
 
     /**
@@ -131,6 +132,28 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function setSourceLeaseId($sourceLeaseId)
     {
-        $this->_sourceLeaseId = $sourceLeaseId;
+        $this->sourceLeaseId = $sourceLeaseId;
+    }
+
+    /**
+     * Gets isIncrementalCopy.
+     *
+     * @return boolean
+     */
+    public function getIsIncrementalCopy()
+    {
+        return $this->isIncrementalCopy;
+    }
+
+    /**
+     * Sets isIncrementalCopy.
+     *
+     * @param boolean $isIncrementalCopy
+     *
+     * @return boolean
+     */
+    public function setIsIncrementalCopy($isIncrementalCopy)
+    {
+        $this->isIncrementalCopy = $isIncrementalCopy;
     }
 }
