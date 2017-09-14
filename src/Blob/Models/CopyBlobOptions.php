@@ -34,63 +34,10 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CopyBlobOptions extends BlobServiceOptions
+class CopyBlobOptions extends CopyBlobFromURLOptions
 {
-    private $sourceLeaseId;
-    private $sourceAccessConditions;
-    private $metadata;
     private $sourceSnapshot;
-    private $isIncrementalCopy;
-    
-    /**
-     * Gets source access condition
-     *
-     * @return AccessCondition[]
-     */
-    public function getSourceAccessConditions()
-    {
-        return $this->sourceAccessConditions;
-    }
-    
-    /**
-     * Sets source access condition
-     *
-     * @param array $sourceAccessCondition value to use.
-     *
-     * @return void
-     */
-    public function setSourceAccessConditions($sourceAccessConditions)
-    {
-        if (!is_null($sourceAccessConditions) &&
-            is_array($sourceAccessConditions)) {
-            $this->sourceAccessConditions = $sourceAccessConditions;
-        } else {
-            $this->sourceAccessConditions = [$sourceAccessConditions];
-        }
-    }
-    
-    /**
-     * Gets metadata.
-     *
-     * @return array
-     */
-    public function getMetadata()
-    {
-        return $this->metadata;
-    }
 
-    /**
-     * Sets metadata.
-     *
-     * @param array $metadata value.
-     *
-     * @return void
-     */
-    public function setMetadata(array $metadata)
-    {
-        $this->metadata = $metadata;
-    }
-    
     /**
      * Gets source snapshot.
      *
@@ -111,49 +58,5 @@ class CopyBlobOptions extends BlobServiceOptions
     public function setSourceSnapshot($sourceSnapshot)
     {
         $this->sourceSnapshot = $sourceSnapshot;
-    }
-    
-    /**
-     * Gets source lease ID.
-     *
-     * @return string
-     */
-    public function getSourceLeaseId()
-    {
-        return $this->sourceLeaseId;
-    }
-
-    /**
-     * Sets source lease ID.
-     *
-     * @param string $sourceLeaseId value.
-     *
-     * @return void
-     */
-    public function setSourceLeaseId($sourceLeaseId)
-    {
-        $this->sourceLeaseId = $sourceLeaseId;
-    }
-
-    /**
-     * Gets isIncrementalCopy.
-     *
-     * @return boolean
-     */
-    public function getIsIncrementalCopy()
-    {
-        return $this->isIncrementalCopy;
-    }
-
-    /**
-     * Sets isIncrementalCopy.
-     *
-     * @param boolean $isIncrementalCopy
-     *
-     * @return boolean
-     */
-    public function setIsIncrementalCopy($isIncrementalCopy)
-    {
-        $this->isIncrementalCopy = $isIncrementalCopy;
     }
 }

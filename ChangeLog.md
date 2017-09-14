@@ -16,6 +16,7 @@
 * Renamed 2 methods inside `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions`:
   - `getComputeRangeMD5()` -> `getRangeGetContentMD5()`
   - `setComputeRangeMD5()` -> `setRangeGetContentMD5()`
+* Added `CopyBlobFromURL` to support copy blob from a source URL including resources in other storage accounts.
 
 2017.08 - version 0.18.0
 

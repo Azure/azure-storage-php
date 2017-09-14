@@ -1253,7 +1253,59 @@ interface IBlob
         $sourceBlob,
         BlobModels\CopyBlobOptions $options = null
     );
-    
+
+    /**
+     * Copies from a source URL to a destination blob.
+     *
+     * @param string                            $destinationContainer name of the
+     *                                                                destination
+     *                                                                container
+     * @param string                            $destinationBlob      name of the
+     *                                                                destination
+     *                                                                blob
+     * @param string                            $sourceURL            URL of the
+     *                                                                source
+     *                                                                resource
+     * @param BlobModels\CopyBlobFromURLOptions $options              optional
+     *                                                                parameters
+     *
+     * @return BlobModels\CopyBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd894037.aspx
+     */
+    public function copyBlobFromURL(
+        $destinationContainer,
+        $destinationBlob,
+        $sourceURL,
+        BlobModels\CopyBlobFromURLOptions $options = null
+    );
+
+    /**
+     * Creates promise to copy from source URL to a destination blob.
+     *
+     * @param string                            $destinationContainer name of the
+     *                                                                destination
+     *                                                                container
+     * @param string                            $destinationBlob      name of the
+     *                                                                destination
+     *                                                                blob
+     * @param string                            $sourceURL            URL of the
+     *                                                                source
+     *                                                                resource
+     * @param BlobModels\CopyBlobFromURLOptions $options              optional
+     *                                                                parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd894037.aspx
+     */
+    public function copyBlobFromURLAsync(
+        $destinationContainer,
+        $destinationBlob,
+        $sourceURL,
+        BlobModels\CopyBlobFromURLOptions $options = null
+    );
+
     /**
      * Abort a blob copy operation
      *
