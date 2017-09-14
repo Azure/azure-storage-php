@@ -795,31 +795,29 @@ class BlobServiceFunctionalTestData
         }
 
         $options = new GetBlobOptions();
-        $options->setRangeStart(50);
-        $options->setRangeEnd(200);
+        $options->setRange(new Range(50, 200));
         array_push($ret, $options);
 
         $options = new GetBlobOptions();
-        $options->setRangeStart(50);
-        $options->setRangeEnd(200);
-        $options->setComputeRangeMD5(true);
+        $options->setRange(new Range(50, 200));
+        $options->setRangeGetContentMD5(true);
         array_push($ret, $options);
 
         $options = new GetBlobOptions();
-        $options->setRangeStart(50);
+        $options->setRange(new Range(50));
         array_push($ret, $options);
 
         $options = new GetBlobOptions();
-        $options->setComputeRangeMD5(true);
+        $options->setRangeGetContentMD5(true);
         array_push($ret, $options);
 
         $options = new GetBlobOptions();
-        $options->setRangeEnd(200);
-        $options->setComputeRangeMD5(true);
+        $options->setRange(new Range(null, 200));
+        $options->setRangeGetContentMD5(true);
         array_push($ret, $options);
 
         $options = new GetBlobOptions();
-        $options->setRangeEnd(200);
+        $options->setRange(new Range(null, 200));
         array_push($ret, $options);
 
         $options = new GetBlobOptions();

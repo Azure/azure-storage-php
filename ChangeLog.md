@@ -3,10 +3,19 @@
 * Fixed wrong `XmlSerializer` in ServiceException.php.
 * Added support for Incremental Copy Page Blob. This allows efficient copying and backup of page blob snapshots.
 * Fixed a bug that `BlobRestProxy::createPageBlobFromContent` cannot work.
-* Populate content MD5 for range gets on Blobs. The content MD5 returned for range gets on Blobs will be the value of the whole blob’s MD5 value.
-* Populate content MD5 for range gets on Files. The content MD5 returned for range gets on Files will be the value of the whole file’s MD5 value.
+* Populate content MD5 for range gets on Blobs.
+  - `MicrosoftAzure\Storage\Blob\Models\BlobProperties::getContentMD5()` will always return the value of the whole blob’s MD5 value.
+  - Added `MicrosoftAzure\Storage\Blob\Models\BlobProperties::getRangeContentMD5()` to get MD5 of a blob range.
 * Fixed a bug that setting content MD5 cannot work when creating files.
 * The public access level of a container is now returned from the List Containers and Get Container Properties APIs.
+* `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions` and `MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions` now provide `setRange()` and `getRange()` to accept a `MicrosoftAzure\Storage\Common\Models\Range` object. Following methods are removed:
+  - `setRangeStart()` 
+  - `getRangeStart()`
+  - `setRangeEnd()`
+  - `getRangeEnd()`
+* Renamed 2 methods inside `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions`:
+  - `getComputeRangeMD5()` -> `getRangeGetContentMD5()`
+  - `setComputeRangeMD5()` -> `setRangeGetContentMD5()`
 
 2017.08 - version 0.18.0
 

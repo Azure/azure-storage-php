@@ -25,6 +25,7 @@ namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
@@ -124,38 +125,19 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setRangeStart
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getRangeStart
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setRange
+     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getRange
      */
-    public function testSetRangeStart()
+    public function testSetRange()
     {
         // Setup
-        $expected = 123;
-        $prooperties = new ListPageBlobRangesOptions();
-        $prooperties->setRangeStart($expected);
+        $expected = new Range(0, 123);
+        $options = new ListPageBlobRangesOptions();
         
         // Test
-        $prooperties->setRangeStart($expected);
+        $options->setRange($expected);
         
         // Assert
-        $this->assertEquals($expected, $prooperties->getRangeStart());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setRangeEnd
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getRangeEnd
-     */
-    public function testSetRangeEnd()
-    {
-        // Setup
-        $expected = 123;
-        $prooperties = new ListPageBlobRangesOptions();
-        $prooperties->setRangeEnd($expected);
-        
-        // Test
-        $prooperties->setRangeEnd($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $prooperties->getRangeEnd());
+        $this->assertEquals($expected, $options->getRange());
     }
 }

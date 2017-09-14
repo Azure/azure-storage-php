@@ -3049,13 +3049,16 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $options->getAccessConditions()
         );
-        
-        $headers = $this->addOptionalRangeHeader(
-            $headers,
-            $options->getRangeStart(),
-            $options->getRangeEnd()
-        );
-        
+
+        $range = $options->getRange();
+        if ($range) {
+            $headers = $this->addOptionalRangeHeader(
+                $headers,
+                $range->getStart(),
+                $range->getEnd()
+            );
+        }
+
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_LEASE_ID,
@@ -3459,16 +3462,20 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new GetBlobOptions();
         }
         
-        $getMD5  = $options->getComputeRangeMD5();
+        $getMD5  = $options->getRangeGetContentMD5();
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
             $options->getAccessConditions()
         );
-        $headers = $this->addOptionalRangeHeader(
-            $headers,
-            $options->getRangeStart(),
-            $options->getRangeEnd()
-        );
+
+        $range = $options->getRange();
+        if ($range) {
+            $headers = $this->addOptionalRangeHeader(
+                $headers,
+                $range->getStart(),
+                $range->getEnd()
+            );
+        }
         
         $this->addOptionalHeader(
             $headers,

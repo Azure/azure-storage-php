@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Models\Range;
 
 /**
  * Optional parameters for getBlob wrapper
@@ -39,9 +40,8 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
 class GetBlobOptions extends BlobServiceOptions
 {
     private $snapshot;
-    private $computeRangeMD5;
-    private $rangeStart;
-    private $rangeEnd;
+    private $range;
+    private $rangeGetContentMD5;
     
     /**
      * Gets blob snapshot.
@@ -64,73 +64,49 @@ class GetBlobOptions extends BlobServiceOptions
     {
         $this->snapshot = $snapshot;
     }
-    
+
     /**
-     * Gets rangeStart
+     * Gets Blob range.
      *
-     * @return integer
+     * @return Range
      */
-    public function getRangeStart()
+    public function getRange()
     {
-        return $this->rangeStart;
-    }
-    
-    /**
-     * Sets rangeStart
-     *
-     * @param integer $rangeStart the blob lease id.
-     *
-     * @return void
-     */
-    public function setRangeStart($rangeStart)
-    {
-        Validate::isInteger($rangeStart, 'rangeStart');
-        $this->rangeStart = $rangeStart;
-    }
-    
-    /**
-     * Gets rangeEnd
-     *
-     * @return integer
-     */
-    public function getRangeEnd()
-    {
-        return $this->rangeEnd;
-    }
-    
-    /**
-     * Sets rangeEnd
-     *
-     * @param integer $rangeEnd range end value in bytes
-     *
-     * @return void
-     */
-    public function setRangeEnd($rangeEnd)
-    {
-        Validate::isInteger($rangeEnd, 'rangeEnd');
-        $this->rangeEnd = $rangeEnd;
-    }
-    
-    /**
-     * Gets computeRangeMD5
-     *
-     * @return boolean
-     */
-    public function getComputeRangeMD5()
-    {
-        return $this->computeRangeMD5;
+        return $this->range;
     }
 
     /**
-     * Sets computeRangeMD5
+     * Sets Blob range.
      *
-     * @param boolean $computeRangeMD5 value
+     * @param Range $range value.
      *
      * @return void
      */
-    public function setComputeRangeMD5($computeRangeMD5)
+    public function setRange(Range $range)
     {
-        Validate::isBoolean($computeRangeMD5);
-        $this->computeRangeMD5 = $computeRangeMD5;
+        $this->range = $range;
+    }
+
+    /**
+     * Gets rangeGetContentMD5
+     *
+     * @return boolean
+     */
+    public function getRangeGetContentMD5()
+    {
+        return $this->rangeGetContentMD5;
+    }
+
+    /**
+     * Sets rangeGetContentMD5
+     *
+     * @param boolean $rangeGetContentMD5 value
+     *
+     * @return void
+     */
+    public function setRangeGetContentMD5($rangeGetContentMD5)
+    {
+        Validate::isBoolean($rangeGetContentMD5);
+        $this->rangeGetContentMD5 = $rangeGetContentMD5;
     }
 }

@@ -23,6 +23,7 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
 
+use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
@@ -124,69 +125,50 @@ class GetBlobOptionsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::setRangeStart
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::getRangeStart
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::setRange
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::getRange
      */
-    public function testSetRangeStart()
+    public function testSetRange()
     {
         // Setup
-        $expected = 123;
-        $prooperties = new GetBlobOptions();
-        $prooperties->setRangeStart($expected);
-        
+        $expected = new Range(0, 123);
+        $options = new GetBlobOptions();
+
         // Test
-        $prooperties->setRangeStart($expected);
-        
+        $options->setRange($expected);
+
         // Assert
-        $this->assertEquals($expected, $prooperties->getRangeStart());
+        $this->assertEquals($expected, $options->getRange());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::setRangeEnd
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::getRangeEnd
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::setRangeGetContentMD5
      */
-    public function testSetRangeEnd()
-    {
-        // Setup
-        $expected = 123;
-        $prooperties = new GetBlobOptions();
-        $prooperties->setRangeEnd($expected);
-        
-        // Test
-        $prooperties->setRangeEnd($expected);
-        
-        // Assert
-        $this->assertEquals($expected, $prooperties->getRangeEnd());
-    }
-    
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::setComputeRangeMD5
-     */
-    public function testSetComputeRangeMD5()
+    public function testSetRangeGetContentMD5()
     {
         // Setup
         $options = new GetBlobOptions();
         $expected = true;
         
         // Test
-        $options->setComputeRangeMD5($expected);
+        $options->setRangeGetContentMD5($expected);
         
         // Assert
-        $this->assertEquals($expected, $options->getComputeRangeMD5());
+        $this->assertEquals($expected, $options->getRangeGetContentMD5());
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::getComputeRangeMD5
+     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobOptions::getRangeGetContentMD5
      */
-    public function testGetComputeRangeMD5()
+    public function testGetRangeGetContentMD5()
     {
         // Setup
         $options = new GetBlobOptions();
         $expected = true;
-        $options->setComputeRangeMD5($expected);
+        $options->setRangeGetContentMD5($expected);
         
         // Test
-        $actual = $options->getComputeRangeMD5();
+        $actual = $options->getRangeGetContentMD5();
         
         // Assert
         $this->assertEquals($expected, $actual);

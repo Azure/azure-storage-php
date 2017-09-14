@@ -1227,9 +1227,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         }
         $this->restProxy->createBlobPages('', $blob, $range, $contentStream);
         $options = new GetBlobOptions();
-        $options->setRangeStart(0);
-        $options->setRangeEnd(511);
-        
+        $options->setRange(new Range(0, 511));
+
         // Test
         $result = $this->restProxy->getBlob('', $blob, $options);
         
@@ -1263,8 +1262,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         }
         $this->restProxy->createBlobPages($name, $blob, $range, $contentStream);
         $options = new GetBlobOptions();
-        $options->setRangeStart(null);
-        $options->setRangeEnd(511);
+        $options->setRange(new Range(null, 511));
         
         // Test
         $result = $this->restProxy->getBlob($name, $blob, $options);

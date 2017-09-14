@@ -519,8 +519,7 @@ function pageBlobOperations($blobClient)
     );
     # List page blob ranges
     $listPageBlobRangesOptions = new ListPageBlobRangesOptions();
-    $listPageBlobRangesOptions->setRangeStart(0);
-    $listPageBlobRangesOptions->setRangeEnd(1023);
+    $listPageBlobRangesOptions->setRange(new Range(0, 1023));
     echo "List Page Blob Ranges".PHP_EOL;
     $listPageBlobRangesResult = $blobClient->listPageBlobRanges(
         $containerName,
@@ -531,8 +530,7 @@ function pageBlobOperations($blobClient)
     foreach ($listPageBlobRangesResult->getRanges() as $range) {
         echo "Range:".$range->getStart()."-".$range->getEnd().PHP_EOL;
         $getBlobOptions = new GetBlobOptions();
-        $getBlobOptions->setRangeStart($range->getStart());
-        $getBlobOptions->setRangeEnd($range->getEnd());
+        $getBlobOptions->setRange($range);
         $getBlobResult = $blobClient->getBlob($containerName, $blobName, $getBlobOptions);
         file_put_contents("PageContent.txt", $getBlobResult->getContentStream());
     }

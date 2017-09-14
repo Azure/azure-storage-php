@@ -2147,7 +2147,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         // Make sure there is something to test
         $dataSize = 512;
         $createBlobOptions = new CreateBlobOptions();
-        if ($options && $options->getComputeRangeMD5()) {
+        if ($options && $options->getRangeGetContentMD5()) {
             $createBlobOptions->setContentMD5('MDAwMDAwMDA=');
         }
         $this->restProxy->createPageBlob($container, $blob, $dataSize, $createBlobOptions);
@@ -2182,7 +2182,9 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             if (!BlobServiceFunctionalTestData::passTemporalAccessCondition($options->getAccessConditions())) {
                 $this->assertTrue(false, 'Expect failing etag access condition to throw');
             }
-            if ($options->getComputeRangeMD5() && is_null($options->getRangeStart())) {
+            if ($options->getRangeGetContentMD5() && (
+                is_null($options->getRange()) || is_null($options->getRange()->getStart())
+                )) {
                 $this->assertTrue(false, 'Expect compute range MD5 to fail if range not set');
             }
 
@@ -2220,7 +2222,9 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
                     $e->getCode(),
                     'bad etag access condition: getCode'
                 );
-            } elseif ($options->getComputeRangeMD5() && is_null($options->getRangeStart())) {
+            } elseif ($options->getRangeGetContentMD5() && (
+                is_null($options->getRange()) || is_null($options->getRange()->getStart())
+                )) {
                 $this->assertEquals(
                     TestResources::STATUS_BAD_REQUEST,
                     $e->getCode(),
@@ -2243,11 +2247,16 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         $content =  stream_get_contents($res->getContentStream());
 
         $rangeSize = $dataSize;
-        if (!is_null($options->getRangeEnd())) {
-            $rangeSize = (int) $options->getRangeEnd() + 1;
+        $range = $options->getRange();
+        if (is_null($range)) {
+            $range = new Range(null);
         }
-        if (!is_null($options->getRangeStart())) {
-            $rangeSize -= $options->getRangeStart();
+
+        if (!is_null($range->getEnd())) {
+            $rangeSize = (int) $range->getEnd() + 1;
+        }
+        if (!is_null($range->getStart())) {
+            $rangeSize -= $range->getStart();
         } else {
             // One might expect that not specifying the start would just take the
             // first $rangeEnd bytes, but instead the Azure service ignores
@@ -2257,7 +2266,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
         $this->assertEquals($rangeSize, strlen($content), '$content length and range');
 
-        if ($options->getComputeRangeMD5()) {
+        if ($options->getRangeGetContentMD5()) {
             $md5 = 'MDAwMDAwMDA=';
             $this->assertEquals(
                 $md5,
@@ -3335,9 +3344,8 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
                 $options
             );
             $getOptions = new GetBlobOptions();
-            $getOptions->setRangeStart($putRange->getStart());
-            $getOptions->setRangeEnd($putRange->getEnd());
-            $getOptions->setComputeRangeMD5(true);
+            $getOptions->setRange($putRange);
+            $getOptions->setRangeGetContentMD5(true);
             $result = $this->restProxy->getBlob($container, $blob, $getOptions);
             $actualContent = stream_get_contents($result->getContentStream());
             $actualMD5 = $result->getProperties()->getRangeContentMD5();
@@ -3350,10 +3358,8 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         }
         //Validate result
         $listRangeOptions = new ListPageBlobRangesOptions();
-        if ($listRange != null) {
-            $listRangeOptions->setRangeStart($listRange->getStart());
-            $listRangeOptions->setRangeEnd($listRange->getEnd());
-        }
+        $listRange = is_null($listRange) ? new Range(null) : $listRange;
+        $listRangeOptions->setRange($listRange);
         $listResult =
             $this->restProxy->listPageBlobRanges($container, $blob, $listRangeOptions);
         $this->assertEquals(2048, $listResult->getContentLength());
@@ -3437,10 +3443,8 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
         //Validate result
         $listRangeOptions = new ListPageBlobRangesOptions();
-        if ($listRange != null) {
-            $listRangeOptions->setRangeStart($listRange->getStart());
-            $listRangeOptions->setRangeEnd($listRange->getEnd());
-        }
+        $listRange = is_null($listRange) ? new Range(null) : $listRange;
+        $listRangeOptions->setRange($listRange);
         $listResult =
             $this->restProxy->listPageBlobRangesDiff($container, $blob, $snapshot, $listRangeOptions);
         $this->assertEquals($length, $listResult->getContentLength());
