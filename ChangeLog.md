@@ -1,22 +1,36 @@
-* Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix. 
-* The `BlobRestProxy::createMessage` now returns information about the message that was just added, including the pop receipt. 
+2017.09 - version 0.19.0
+
+ALL
 * Fixed wrong `XmlSerializer` in ServiceException.php.
+* Fixed formatting of non-UTC dates when using instances of `DateTime` to generate shared access signatures.
+* Fixed class loading errors on case-sensitive file systems when testing.
+
+Blob 
+* Added `CopyBlobFromURL` to support copy blob from a source URL including resources in other storage accounts.
 * Added support for Incremental Copy Page Blob. This allows efficient copying and backup of page blob snapshots.
 * Fixed a bug that `BlobRestProxy::createPageBlobFromContent` cannot work.
 * Populate content MD5 for range gets on Blobs.
   - `MicrosoftAzure\Storage\Blob\Models\BlobProperties::getContentMD5()` will always return the value of the whole blob’s MD5 value.
   - Added `MicrosoftAzure\Storage\Blob\Models\BlobProperties::getRangeContentMD5()` to get MD5 of a blob range.
-* Fixed a bug that setting content MD5 cannot work when creating files.
+* Renamed 2 methods inside `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions`:
+  - `getComputeRangeMD5()` -> `getRangeGetContentMD5()`
+  - `setComputeRangeMD5()` -> `setRangeGetContentMD5()`
 * The public access level of a container is now returned from the List Containers and Get Container Properties APIs.
 * `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions` and `MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions` now provide `setRange()` and `getRange()` to accept a `MicrosoftAzure\Storage\Common\Models\Range` object. Following methods are removed:
   - `setRangeStart()` 
   - `getRangeStart()`
   - `setRangeEnd()`
   - `getRangeEnd()`
-* Renamed 2 methods inside `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions`:
-  - `getComputeRangeMD5()` -> `getRangeGetContentMD5()`
-  - `setComputeRangeMD5()` -> `setRangeGetContentMD5()`
-* Added `CopyBlobFromURL` to support copy blob from a source URL including resources in other storage accounts.
+
+Queue
+* The `QueueRestProxy::createMessage` now returns information about the message that was just added, including the pop receipt.
+
+File
+* Fixed a bug that setting content MD5 cannot work when creating files.
+* Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix. 
+* Populate content MD5 for range gets on Files.
+  - `MicrosoftAzure\Storage\File\Models\FileProperties::getContentMD5()` will always return the value of the whole file’s MD5 value.
+  - Added `MicrosoftAzure\Storage\File\Models\FileProperties::getRangeContentMD5()` to get MD5 of a file range.
 
 2017.08 - version 0.18.0
 
