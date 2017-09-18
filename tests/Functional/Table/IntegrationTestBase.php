@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\functional\Table;
+namespace MicrosoftAzure\Storage\Tests\Functional\Table;
 
 use MicrosoftAzure\Storage\Tests\Framework\TableServiceRestProxyTestBase;
 

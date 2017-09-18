@@ -47,7 +47,7 @@ You can use the following commands to run tests:
 * One particular test case: ``phpunit -c phpunit.dist.xml --filter <case name>`` or ``phpunit -c phpunit.functional.dist.xml --filter <case name>``
 
 ### Testing Features
-As you develop a feature, you'll need to write tests to ensure quality. Your changes should be covered by both unit tests and functional tests. The unit tests and functional tests codes should be placed under tests/unit and tests/functional respectively. You should also run existing tests related to your change to address any unexpected breaks.
+As you develop a feature, you'll need to write tests to ensure quality. Your changes should be covered by both unit tests and functional tests. The unit tests and functional tests codes should be placed under tests/Unit and tests/Functional respectively. You should also run existing tests related to your change to address any unexpected breaks.
 
 ## Pull Requests
 

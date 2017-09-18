@@ -22,11 +22,11 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common;
+namespace MicrosoftAzure\Storage\Tests\Unit\Common;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\ServiceException;
-use MicrosoftAzure\Storage\Tests\framework\TestResources;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 

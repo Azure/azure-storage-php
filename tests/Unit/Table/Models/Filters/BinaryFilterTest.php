@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Table\Models\Filters;
+namespace MicrosoftAzure\Storage\Tests\Unit\Table\Models\Filters;
 
 use MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter;
 

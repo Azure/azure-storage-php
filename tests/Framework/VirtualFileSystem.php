@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Tests\framework;
+namespace MicrosoftAzure\Storage\Tests\Framework;
 
 use org\bovigo\vfs\vfsStream;
 use org\bovigo\vfs\vfsStreamDirectory;

@@ -22,13 +22,13 @@
  * @link      https://github.com/azure/azure-storage-php
  */
  
-namespace MicrosoftAzure\Storage\Tests\functional\Common;
+namespace MicrosoftAzure\Storage\Tests\Functional\Common;
 
-use MicrosoftAzure\Storage\Tests\framework\SASFunctionalTestBase;
+use MicrosoftAzure\Storage\Tests\Framework\SASFunctionalTestBase;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Tests\framework\TestResources;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Tests\functional\Common\SharedAccessSignatureHelperMock;
+use MicrosoftAzure\Storage\Tests\Functional\Common\SharedAccessSignatureHelperMock;
 use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
 
 /**

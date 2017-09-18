@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\File\Models;
+namespace MicrosoftAzure\Storage\Tests\Unit\File\Models;
 
 use MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult;
 use MicrosoftAzure\Storage\Common\Internal\Resources;

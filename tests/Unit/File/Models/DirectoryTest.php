@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\File\Models;
+namespace MicrosoftAzure\Storage\Tests\Unit\File\Models;
 
 use MicrosoftAzure\Storage\File\Models\Directory;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;

@@ -22,10 +22,10 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Exceptions;
+namespace MicrosoftAzure\Storage\Tests\Unit\Common\Exceptions;
 
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Tests\framework\TestResources;
+use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
  * Unit tests for class ServiceException

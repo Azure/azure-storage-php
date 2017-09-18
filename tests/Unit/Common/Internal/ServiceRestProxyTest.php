@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal;
+namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
 
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;

@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\functional\Table\Enums;
+namespace MicrosoftAzure\Storage\Tests\Functional\Table\Enums;
 
 class MutatePivot
 {

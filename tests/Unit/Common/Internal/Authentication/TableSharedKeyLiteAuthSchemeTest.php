@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Authentication;
+namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Authentication;
 
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication\TableSharedKeyLiteAuthSchemeMock;
 use MicrosoftAzure\Storage\Common\Internal\Resources;

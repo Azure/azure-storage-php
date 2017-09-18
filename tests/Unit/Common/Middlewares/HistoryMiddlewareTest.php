@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Middlewares;
+namespace MicrosoftAzure\Storage\Tests\Unit\Common\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;

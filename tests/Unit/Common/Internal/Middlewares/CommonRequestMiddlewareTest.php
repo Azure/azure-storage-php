@@ -22,7 +22,7 @@
  * @link      https://github.com/azure/azure-storage-php
  */
 
-namespace MicrosoftAzure\Storage\Tests\unit\Common\Internal\Middlewares;
+namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;

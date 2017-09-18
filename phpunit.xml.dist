@@ -8,7 +8,7 @@
          verbose="true">
   <testsuites>
     <testsuite name="azure-storage-php">
-      <directory suffix="Test.php">tests/unit</directory>
+      <directory suffix="Test.php">tests/Unit</directory>
     </testsuite>
   </testsuites>
 
