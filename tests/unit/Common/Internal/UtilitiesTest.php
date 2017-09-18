@@ -332,10 +332,10 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     public function testIsoDate()
     {
         // Test
-        $date = Utilities::isoDate();
+        $date = Utilities::isoDate(new \DateTimeImmutable('2016-02-03', new \DateTimeZone('America/Chicago')));
 
         // Assert
-        $this->assertNotNull($date);
+        $this->assertSame('2016-02-03T06:00:00Z', $date);
     }
 
     /**

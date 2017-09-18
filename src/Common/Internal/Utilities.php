@@ -368,27 +368,15 @@ class Utilities
     /**
      * Generate ISO 8601 compliant date string in UTC time zone
      *
-     * @param int $timestamp The unix timestamp to convert
-     *     (for DateTime check date_timestamp_get).
+     * @param \DateTimeInterface $date The date value to convert
      *
      * @return string
      */
-    public static function isoDate($timestamp = null)
+    public static function isoDate(\DateTimeInterface $date)
     {
-        $tz = date_default_timezone_get();
-        date_default_timezone_set('UTC');
+        $date = (clone $date)->setTimezone(new \DateTimeZone('UTC'));
 
-        if (is_null($timestamp)) {
-            $timestamp = time();
-        }
-
-        $returnValue = str_replace(
-            '+00:00',
-            '.0000000Z',
-            date('c', $timestamp)
-        );
-        date_default_timezone_set($tz);
-        return $returnValue;
+        return str_replace('+00:00', 'Z', $date->format('c'));
     }
 
     /**

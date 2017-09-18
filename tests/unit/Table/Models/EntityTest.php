@@ -122,7 +122,7 @@ class EntityTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $entity = new Entity();
-        $expected = Utilities::convertToDateTime(Utilities::isoDate());
+        $expected = new \DateTime();
         
         // Test
         $entity->setTimestamp($expected);

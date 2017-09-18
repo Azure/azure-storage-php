@@ -127,14 +127,14 @@ class SharedAccessSignatureHelper
         );
         // check that expiracy is valid
         if ($signedExpiry instanceof \Datetime) {
-            $signedExpiry = $signedExpiry->format('Y-m-d\TH:i:s\Z');
+            $signedExpiry = Utilities::isoDate($signedExpiry);
         }
         Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
         Validate::canCastAsString($signedExpiry, 'signedExpiry');
         Validate::isDateString($signedExpiry, 'signedExpiry');
         // check that signed start is valid
         if ($signedStart instanceof \Datetime) {
-            $signedStart = $signedStart->format('Y-m-d\TH:i:s\Z');
+            $signedStart = Utilities::isoDate($signedStart);
         }
         Validate::canCastAsString($signedStart, 'signedStart');
         if (strlen($signedStart) > 0) {
@@ -560,7 +560,7 @@ class SharedAccessSignatureHelper
 
         // check that expiracy is valid
         if ($signedExpiry instanceof \Datetime) {
-            $signedExpiry = $signedExpiry->format('Y-m-d\TH:i:s\Z');
+            $signedExpiry = Utilities::isoDate($signedExpiry);
         }
         Validate::canCastAsString($signedExpiry, 'signedExpiry');
         Validate::notNullOrEmpty($signedExpiry, 'signedExpiry');
@@ -568,7 +568,7 @@ class SharedAccessSignatureHelper
 
         // check that signed start is valid
         if ($signedStart instanceof \Datetime) {
-            $signedStart = $signedStart->format('Y-m-d\TH:i:s\Z');
+            $signedStart = Utilities::isoDate($signedStart);
         }
         Validate::canCastAsString($signedStart, 'signedStart');
         if (strlen($signedStart) > 0) {
