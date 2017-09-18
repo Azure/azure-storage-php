@@ -26,7 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
+use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
@@ -750,22 +750,22 @@ class BlobServiceFunctionalTestData
         $past = new \DateTime("01/01/2010");
         $future = new \DateTime("01/01/2020");
 
-        $acl = new ContainerAcl();
+        $acl = new ContainerACL();
         array_push($ret, $acl);
 
-        $acl = new ContainerAcl();
+        $acl = new ContainerACL();
         $acl->setPublicAccess(PublicAccessType::NONE);
         array_push($ret, $acl);
 
-        $acl = new ContainerAcl();
+        $acl = new ContainerACL();
         $acl->setPublicAccess(PublicAccessType::BLOBS_ONLY);
         array_push($ret, $acl);
 
-        $acl = new ContainerAcl();
+        $acl = new ContainerACL();
         $acl->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
         array_push($ret, $acl);
 
-        $acl = new ContainerAcl();
+        $acl = new ContainerACL();
         $acl->addSignedIdentifier('123', $past, $future, 'rw');
         array_push($ret, $acl);
 

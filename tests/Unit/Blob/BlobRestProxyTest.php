@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult;
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
+use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsResult;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
@@ -474,7 +474,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $expectedETag = '0x8CAFB82EFF70C46';
         $expectedLastModified = new \DateTime('Sun, 25 Sep 2011 19:42:18 GMT');
         $expectedPublicAccess = 'container';
-        $acl = ContainerAcl::create($expectedPublicAccess, $sample['SignedIdentifiers']);
+        $acl = ContainerACL::create($expectedPublicAccess, $sample['SignedIdentifiers']);
 
         // Test
         $this->restProxy->setContainerAcl($name, $acl);

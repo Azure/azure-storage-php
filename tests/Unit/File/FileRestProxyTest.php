@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\File\Models\ListSharesOptions;
 use MicrosoftAzure\Storage\File\Models\ListSharesResult;
 use MicrosoftAzure\Storage\File\Models\CreateShareOptions;
 use MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult;
-use MicrosoftAzure\Storage\File\Models\ShareAcl;
+use MicrosoftAzure\Storage\File\Models\ShareACL;
 use MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult;
 use MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions;
 use MicrosoftAzure\Storage\File\Models\ListFileBlocksOptions;

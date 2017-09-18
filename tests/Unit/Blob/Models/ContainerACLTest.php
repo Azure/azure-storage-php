@@ -23,7 +23,7 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Unit\Blob\Models;
 
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
+use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,11 +42,11 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 class ContainerACLTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXmlArray
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getSignedIdentifiers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::addSignedIdentifier
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::fromXmlArray
      */
     public function testCreateEmpty()
     {
@@ -55,7 +55,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         $expectedPublicAccess = 'container';
         
         // Test
-        $acl = ContainerAcl::create($expectedPublicAccess, $sample);
+        $acl = ContainerACL::create($expectedPublicAccess, $sample);
         
         // Assert
         $this->assertEquals($expectedPublicAccess, $acl->getPublicAccess());
@@ -63,11 +63,11 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXmlArray
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getSignedIdentifiers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::addSignedIdentifier
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::fromXmlArray
      */
     public function testCreateOneEntry()
     {
@@ -76,7 +76,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         $expectedPublicAccess = 'container';
         
         // Test
-        $acl = ContainerAcl::create($expectedPublicAccess, $sample['SignedIdentifiers']);
+        $acl = ContainerACL::create($expectedPublicAccess, $sample['SignedIdentifiers']);
         
         // Assert
         $this->assertEquals($expectedPublicAccess, $acl->getPublicAccess());
@@ -84,11 +84,11 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::fromXmlArray
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::create
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getSignedIdentifiers
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::addSignedIdentifier
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::fromXmlArray
      */
     public function testCreateMultipleEntries()
     {
@@ -97,7 +97,7 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         $expectedPublicAccess = 'container';
         
         // Test
-        $acl = ContainerAcl::create($expectedPublicAccess, $sample['SignedIdentifiers']);
+        $acl = ContainerACL::create($expectedPublicAccess, $sample['SignedIdentifiers']);
         
         // Assert
         $this->assertEquals($expectedPublicAccess, $acl->getPublicAccess());
@@ -107,14 +107,14 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::setPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerAcl::getPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::setPublicAccess
+     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
      */
     public function testSetPublicAccess()
     {
         // Setup
         $expected = 'container';
-        $acl = new ContainerAcl();
+        $acl = new ContainerACL();
         $acl->setPublicAccess($expected);
         
         // Test

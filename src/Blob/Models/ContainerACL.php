@@ -68,7 +68,7 @@ class ContainerACL extends ACLBase
             PublicAccessType::isValid($publicAccess),
             Resources::INVALID_BLOB_PAT_MSG
         );
-        $result = new ContainerAcl();
+        $result = new ContainerACL();
         $result->fromXmlArray($parsed);
         $result->setPublicAccess($publicAccess);
         
