@@ -1502,7 +1502,7 @@ class TestResources
         $signedIP = ""
     ) {
         if ($signedExpiry == "") {
-            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedExpiry = Utilities::isoDate(self::getRandomLaterTime());
         }
 
         if ($signedStart == "") {
@@ -1540,7 +1540,7 @@ class TestResources
         $contentType = ""
     ) {
         if ($signedExpiry == "") {
-            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedExpiry = Utilities::isoDate(self::getRandomLaterTime());
         }
 
         if ($signedStart == "") {
@@ -1581,11 +1581,11 @@ class TestResources
         $endingRowKey = ""
     ) {
         if ($signedExpiry == "") {
-            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedExpiry = Utilities::isoDate(self::getRandomLaterTime());
         }
 
         if ($signedStart == "") {
-            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedStart = Utilities::isoDate(self::getRandomEarlierTime());
         }
 
         if ($signedIP == "") {
@@ -1616,11 +1616,11 @@ class TestResources
         $signedIP = ""
     ) {
         if ($signedExpiry == "") {
-            $signedExpiry = (self::getRandomLaterTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedExpiry = Utilities::isoDate(self::getRandomLaterTime());
         }
 
         if ($signedStart == "") {
-            $signedStart = (self::getRandomEarlierTime()->format('Y-m-d\TH:i:s\Z'));
+            $signedStart = Utilities::isoDate(self::getRandomEarlierTime());
         }
 
         if ($signedIP == "") {
