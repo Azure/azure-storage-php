@@ -30,7 +30,7 @@ use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
+use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
@@ -234,7 +234,7 @@ function containerAcl($blobClient)
     // Set container ACL
     $past = new \DateTime("01/01/2010");
     $future = new \DateTime("01/01/2020");
-    $acl = new ContainerAcl();
+    $acl = new ContainerACL();
     $acl->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
     $acl->addSignedIdentifier('123', $past, $future, 'rw');
     $blobClient->setContainerACL($container, $acl);
