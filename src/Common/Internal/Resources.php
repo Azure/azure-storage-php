@@ -189,6 +189,8 @@ class Resources
     const X_MS_PAGE_WRITE                    = 'x-ms-page-write';
     const X_MS_REQUEST_SERVER_ENCRYPTED      = 'x-ms-request-server-encrypted';
     const X_MS_SERVER_ENCRYPTED              = 'x-ms-server-encrypted';
+    const X_MS_INCREMENTAL_COPY              = 'x-ms-incremental-copy';
+    const X_MS_COPY_DESTINATION_SNAPSHOT     = 'x-ms-copy-destination-snapshot';
     const X_MS_SNAPSHOT                      = 'x-ms-snapshot';
     const X_MS_SOURCE_IF_MODIFIED_SINCE      = 'x-ms-source-if-modified-since';
     const X_MS_SOURCE_IF_UNMODIFIED_SINCE    = 'x-ms-source-if-unmodified-since';
@@ -240,6 +242,8 @@ class Resources
     const ACCEPT_CHARSET                     = 'accept-charset';
     const USER_AGENT                         = 'User-Agent';
     const PREFER                             = 'Prefer';
+    const BLOB_CONTENT_MD5                   = 'x-ms-blob-content-md5';
+    const FILE_CONTENT_MD5                   = 'x-ms-content-md5';
 
     // Type
     const QUEUE_TYPE_NAME              = 'IQueue';
@@ -303,7 +307,7 @@ class Resources
     const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const SDK_VERSION                        = '0.18.0';
+    const SDK_VERSION                        = '0.19.0';
     const STORAGE_API_LATEST_VERSION         = '2016-05-31';
     const DATA_SERVICE_VERSION_VALUE         = '3.0';
     const MAX_DATA_SERVICE_VERSION_VALUE     = '3.0;NetFx';

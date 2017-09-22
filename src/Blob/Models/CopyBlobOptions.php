@@ -34,62 +34,10 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CopyBlobOptions extends BlobServiceOptions
+class CopyBlobOptions extends CopyBlobFromURLOptions
 {
-    private $_sourceLeaseId;
-    private $_sourceAccessConditions;
-    private $_metadata;
-    private $_sourceSnapshot;
-    
-    /**
-     * Gets source access condition
-     *
-     * @return AccessCondition[]
-     */
-    public function getSourceAccessConditions()
-    {
-        return $this->_sourceAccessConditions;
-    }
-    
-    /**
-     * Sets source access condition
-     *
-     * @param array $sourceAccessCondition value to use.
-     *
-     * @return void
-     */
-    public function setSourceAccessConditions($sourceAccessConditions)
-    {
-        if (!is_null($sourceAccessConditions) &&
-            is_array($sourceAccessConditions)) {
-            $this->_sourceAccessConditions = $sourceAccessConditions;
-        } else {
-            $this->_sourceAccessConditions = [$sourceAccessConditions];
-        }
-    }
-    
-    /**
-     * Gets metadata.
-     *
-     * @return array
-     */
-    public function getMetadata()
-    {
-        return $this->_metadata;
-    }
+    private $sourceSnapshot;
 
-    /**
-     * Sets metadata.
-     *
-     * @param array $metadata value.
-     *
-     * @return void
-     */
-    public function setMetadata(array $metadata)
-    {
-        $this->_metadata = $metadata;
-    }
-    
     /**
      * Gets source snapshot.
      *
@@ -97,7 +45,7 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function getSourceSnapshot()
     {
-        return $this->_sourceSnapshot;
+        return $this->sourceSnapshot;
     }
        
     /**
@@ -109,28 +57,6 @@ class CopyBlobOptions extends BlobServiceOptions
      */
     public function setSourceSnapshot($sourceSnapshot)
     {
-        $this->_sourceSnapshot = $sourceSnapshot;
-    }
-    
-    /**
-     * Gets source lease ID.
-     *
-     * @return string
-     */
-    public function getSourceLeaseId()
-    {
-        return $this->_sourceLeaseId;
-    }
-
-    /**
-     * Sets source lease ID.
-     *
-     * @param string $sourceLeaseId value.
-     *
-     * @return void
-     */
-    public function setSourceLeaseId($sourceLeaseId)
-    {
-        $this->_sourceLeaseId = $sourceLeaseId;
+        $this->sourceSnapshot = $sourceSnapshot;
     }
 }

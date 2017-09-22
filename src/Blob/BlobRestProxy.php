@@ -1661,6 +1661,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $body = Psr7\stream_for($content);
         $self = $this;
 
+        if (is_null($options)) {
+            $options = new CreateBlobOptions();
+        }
+
         $createBlobPromise = $this->createPageBlobAsync(
             $container,
             $blob,
@@ -2014,7 +2018,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         return $this->sendConcurrentAsync(
             $generator,
             Resources::STATUS_CREATED,
-            $options->getRequestOptions()
+            $options
         );
     }
     
@@ -3045,13 +3049,16 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             $options->getAccessConditions()
         );
-        
-        $headers = $this->addOptionalRangeHeader(
-            $headers,
-            $options->getRangeStart(),
-            $options->getRangeEnd()
-        );
-        
+
+        $range = $options->getRange();
+        if ($range) {
+            $headers = $this->addOptionalRangeHeader(
+                $headers,
+                $range->getStart(),
+                $range->getEnd()
+            );
+        }
+
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_LEASE_ID,
@@ -3455,16 +3462,20 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $options = new GetBlobOptions();
         }
         
-        $getMD5  = $options->getComputeRangeMD5();
+        $getMD5  = $options->getRangeGetContentMD5();
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
             $options->getAccessConditions()
         );
-        $headers = $this->addOptionalRangeHeader(
-            $headers,
-            $options->getRangeStart(),
-            $options->getRangeEnd()
-        );
+
+        $range = $options->getRange();
+        if ($range) {
+            $headers = $this->addOptionalRangeHeader(
+                $headers,
+                $range->getStart(),
+                $range->getEnd()
+            );
+        }
         
         $this->addOptionalHeader(
             $headers,
@@ -3745,6 +3756,82 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $sourceBlob,
         Models\CopyBlobOptions $options = null
     ) {
+        if (is_null($options)) {
+            $options = new CopyBlobOptions();
+        }
+
+        $sourceBlobPath = $this->getCopyBlobSourceName(
+            $sourceContainer,
+            $sourceBlob,
+            $options
+        );
+
+        return $this->copyBlobFromURLAsync(
+            $destinationContainer,
+            $destinationBlob,
+            $sourceBlobPath,
+            $options
+        );
+    }
+
+    /**
+     * Copies from a source URL to a destination blob.
+     *
+     * @param string                        $destinationContainer name of the
+     *                                                            destination
+     *                                                            container
+     * @param string                        $destinationBlob      name of the
+     *                                                            destination
+     *                                                            blob
+     * @param string                        $sourceURL            URL of the
+     *                                                            source
+     *                                                            resource
+     * @param Models\CopyBlobFromURLOptions $options              optional
+     *                                                            parameters
+     *
+     * @return Models\CopyBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd894037.aspx
+     */
+    public function copyBlobFromURL(
+        $destinationContainer,
+        $destinationBlob,
+        $sourceURL,
+        Models\CopyBlobFromURLOptions $options = null
+    ) {
+        return $this->copyBlobFromURLAsync(
+            $destinationContainer,
+            $destinationBlob,
+            $sourceURL,
+            $options
+        )->wait();
+    }
+
+    /**
+     * Creates promise to copy from source URL to a destination blob.
+     *
+     * @param string                        $destinationContainer name of the
+     *                                                            destination
+     *                                                            container
+     * @param string                        $destinationBlob      name of the
+     *                                                            destination
+     *                                                            blob
+     * @param string                        $sourceURL            URL of the
+     *                                                            source
+     *                                                            resource
+     * @param Models\CopyBlobFromURLOptions $options              optional
+     *                                                            parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd894037.aspx
+     */
+    public function copyBlobFromURLAsync(
+        $destinationContainer,
+        $destinationBlob,
+        $sourceURL,
+        Models\CopyBlobFromURLOptions $options = null
+    ) {
         $method              = Resources::HTTP_PUT;
         $headers             = array();
         $postParams          = array();
@@ -3753,49 +3840,51 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $destinationContainer,
             $destinationBlob
         );
-        
+
         if (is_null($options)) {
-            $options = new CopyBlobOptions();
+            $options = new CopyBlobFromURLOptions();
         }
-        
-        $sourceBlobPath = $this->getCopyBlobSourceName(
-            $sourceContainer,
-            $sourceBlob,
-            $options
-        );
-        
+
+        if ($options->getIsIncrementalCopy()) {
+            $this->addOptionalQueryParam(
+                $queryParams,
+                Resources::QP_COMP,
+                'incrementalcopy'
+            );
+        }
+
         $headers = $this->addOptionalAccessConditionHeader(
             $headers,
             $options->getAccessConditions()
         );
-        
+
         $headers = $this->addOptionalSourceAccessConditionHeader(
             $headers,
             $options->getSourceAccessConditions()
         );
-        
+
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_COPY_SOURCE,
-            $sourceBlobPath
+            $sourceURL
         );
-        
+
         $headers = $this->addMetadataHeaders($headers, $options->getMetadata());
-        
+
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_LEASE_ID,
             $options->getLeaseId()
         );
-        
+
         $this->addOptionalHeader(
             $headers,
             Resources::X_MS_SOURCE_LEASE_ID,
             $options->getSourceLeaseId()
         );
-        
+
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
-        
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -3811,7 +3900,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
         }, null);
     }
-    
+
     /**
      * Abort a blob copy operation
      *

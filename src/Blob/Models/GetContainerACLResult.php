@@ -36,10 +36,10 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class GetContainerACLResult
 {
-    private $_containerACL;
-    private $_lastModified;
+    private $containerACL;
+    private $lastModified;
 
-    private $_etag;
+    private $etag;
     
     /**
      * Parses the given array into signed identifiers
@@ -63,7 +63,7 @@ class GetContainerACLResult
         $result = new GetContainerAclResult();
         $result->setETag($etag);
         $result->setLastModified($lastModified);
-        $acl = ContainerAcl::create($publicAccess, $parsed);
+        $acl = ContainerACL::create($publicAccess, $parsed);
         $result->setContainerAcl($acl);
         
         return $result;
@@ -76,7 +76,7 @@ class GetContainerACLResult
      */
     public function getContainerAcl()
     {
-        return $this->_containerACL;
+        return $this->containerACL;
     }
     
     /**
@@ -88,7 +88,7 @@ class GetContainerACLResult
      */
     protected function setContainerAcl(ContainerACL $containerACL)
     {
-        $this->_containerACL = $containerACL;
+        $this->containerACL = $containerACL;
     }
     
     /**
@@ -98,7 +98,7 @@ class GetContainerACLResult
      */
     public function getLastModified()
     {
-        return $this->_lastModified;
+        return $this->lastModified;
     }
 
     /**
@@ -110,7 +110,7 @@ class GetContainerACLResult
      */
     protected function setLastModified(\DateTime $lastModified)
     {
-        $this->_lastModified = $lastModified;
+        $this->lastModified = $lastModified;
     }
 
     /**
@@ -120,7 +120,7 @@ class GetContainerACLResult
      */
     public function getETag()
     {
-        return $this->_etag;
+        return $this->etag;
     }
 
     /**
@@ -132,6 +132,6 @@ class GetContainerACLResult
      */
     protected function setETag($etag)
     {
-        $this->_etag = $etag;
+        $this->etag = $etag;
     }
 }

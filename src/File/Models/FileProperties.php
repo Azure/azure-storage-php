@@ -25,8 +25,8 @@
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
-use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
  * Represents file properties
@@ -56,6 +56,7 @@ class FileProperties
     private $copyProgress;
     private $copySource;
     private $copyStatus;
+    private $rangeContentMD5;
 
     /**
      * Creates FileProperties object from $parsed response in array
@@ -90,9 +91,20 @@ class FileProperties
             Utilities::tryGetValue($parsed, Resources::ETAG)
         );
 
-        $result->setContentMD5(
-            Utilities::tryGetValue($parsed, Resources::CONTENT_MD5)
-        );
+        if (Utilities::tryGetValue($parsed, Resources::CONTENT_MD5) &&
+            !Utilities::tryGetValue($parsed, Resources::CONTENT_RANGE)
+        ) {
+            $result->setContentMD5(
+                Utilities::tryGetValue($parsed, Resources::CONTENT_MD5)
+            );
+        } else {
+            $result->setContentMD5(
+                Utilities::tryGetValue($parsed, Resources::FILE_CONTENT_MD5)
+            );
+            $result->setRangeContentMD5(
+                Utilities::tryGetValue($parsed, Resources::CONTENT_MD5)
+            );
+        }
 
         $result->setContentEncoding(
             Utilities::tryGetValue($parsed, Resources::CONTENT_ENCODING)
@@ -317,7 +329,29 @@ class FileProperties
     {
         $this->contentMD5 = $contentMD5;
     }
-    
+
+    /**
+     * Gets file range contentMD5.
+     *
+     * @return string
+     */
+    public function getRangeContentMD5()
+    {
+        return $this->rangeContentMD5;
+    }
+
+    /**
+     * Sets file range contentMD5.
+     *
+     * @param string rangeContentMD5 value.
+     *
+     * @return void
+     */
+    public function setRangeContentMD5($rangeContentMD5)
+    {
+        $this->rangeContentMD5 = $rangeContentMD5;
+    }
+
     /**
      * Gets file cacheControl.
      *

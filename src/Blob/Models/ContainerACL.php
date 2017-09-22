@@ -24,9 +24,9 @@
 
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Internal\Validate;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\ACLBase;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
  * Holds container ACL members.
@@ -68,7 +68,7 @@ class ContainerACL extends ACLBase
             PublicAccessType::isValid($publicAccess),
             Resources::INVALID_BLOB_PAT_MSG
         );
-        $result = new ContainerAcl();
+        $result = new ContainerACL();
         $result->fromXmlArray($parsed);
         $result->setPublicAccess($publicAccess);
         

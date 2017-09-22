@@ -40,7 +40,6 @@ use MicrosoftAzure\Storage\Common\ServicesBuilder;
 use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$connectionString = 'DefaultEndpointsProtocol=https;AccountName=browserifytest;AccountKey=AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=browserifytest;AccountKey=bzcVslAQI9EaR4R0HN78Rs4rjKotuAvCTto9rRlEcpVtVXt0gxzxv/ky4IQkX3N9xN7iAXLzYWn5Yk+5jYkBLg==';
 $tableClient = ServicesBuilder::getInstance()->createTableService($connectionString);
 
 $mytable = 'mytable';

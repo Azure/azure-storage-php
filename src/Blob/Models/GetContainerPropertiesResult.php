@@ -25,8 +25,9 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\MetadataTrait;
-use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 
 /**
  * Holds result of getContainerProperties and getContainerMetadata
@@ -42,9 +43,10 @@ class GetContainerPropertiesResult
 {
     use MetadataTrait;
 
-    private $_leaseStatus;
-    private $_leaseState;
-    private $_leaseDuration;
+    private $leaseStatus;
+    private $leaseState;
+    private $leaseDuration;
+    private $publicAccess;
     
     /**
      * Gets blob leaseStatus.
@@ -53,7 +55,7 @@ class GetContainerPropertiesResult
      */
     public function getLeaseStatus()
     {
-        return $this->_leaseStatus;
+        return $this->leaseStatus;
     }
 
     /**
@@ -65,7 +67,7 @@ class GetContainerPropertiesResult
      */
     public function setLeaseStatus($leaseStatus)
     {
-        $this->_leaseStatus = $leaseStatus;
+        $this->leaseStatus = $leaseStatus;
     }
     
     /**
@@ -75,7 +77,7 @@ class GetContainerPropertiesResult
      */
     public function getLeaseState()
     {
-        return $this->_leaseState;
+        return $this->leaseState;
     }
 
     /**
@@ -87,7 +89,7 @@ class GetContainerPropertiesResult
      */
     public function setLeaseState($leaseState)
     {
-        $this->_leaseState = $leaseState;
+        $this->leaseState = $leaseState;
     }
     
     /**
@@ -97,7 +99,7 @@ class GetContainerPropertiesResult
      */
     public function getLeaseDuration()
     {
-        return $this->_leaseDuration;
+        return $this->leaseDuration;
     }
 
     /**
@@ -109,7 +111,33 @@ class GetContainerPropertiesResult
      */
     public function setLeaseDuration($leaseDuration)
     {
-        $this->_leaseDuration = $leaseDuration;
+        $this->leaseDuration = $leaseDuration;
+    }
+
+    /**
+     * Gets container publicAccess.
+     *
+     * @return string
+     */
+    public function getPublicAccess()
+    {
+        return $this->publicAccess;
+    }
+
+    /**
+     * Sets container publicAccess.
+     *
+     * @param string $publicAccess value.
+     *
+     * @return void
+     */
+    public function setPublicAccess($publicAccess)
+    {
+        Validate::isTrue(
+            PublicAccessType::isValid($publicAccess),
+            Resources::INVALID_BLOB_PAT_MSG
+        );
+        $this->publicAccess = $publicAccess;
     }
 
     /**
@@ -137,7 +165,11 @@ class GetContainerPropertiesResult
             Resources::X_MS_LEASE_DURATION,
             $responseHeaders
         ));
-        
+        $result->setPublicAccess(Utilities::tryGetValueInsensitive(
+            Resources::X_MS_BLOB_PUBLIC_ACCESS,
+            $responseHeaders
+        ));
+
         return $result;
     }
 }

@@ -30,7 +30,7 @@ use MicrosoftAzure\Storage\Blob\Models\ListContainersResult;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
-use MicrosoftAzure\Storage\Blob\Models\ContainerAcl;
+use MicrosoftAzure\Storage\Blob\Models\ContainerACL;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
@@ -234,7 +234,7 @@ function containerAcl($blobClient)
     // Set container ACL
     $past = new \DateTime("01/01/2010");
     $future = new \DateTime("01/01/2020");
-    $acl = new ContainerAcl();
+    $acl = new ContainerACL();
     $acl->setPublicAccess(PublicAccessType::CONTAINER_AND_BLOBS);
     $acl->addSignedIdentifier('123', $past, $future, 'rw');
     $blobClient->setContainerACL($container, $acl);
@@ -519,8 +519,7 @@ function pageBlobOperations($blobClient)
     );
     # List page blob ranges
     $listPageBlobRangesOptions = new ListPageBlobRangesOptions();
-    $listPageBlobRangesOptions->setRangeStart(0);
-    $listPageBlobRangesOptions->setRangeEnd(1023);
+    $listPageBlobRangesOptions->setRange(new Range(0, 1023));
     echo "List Page Blob Ranges".PHP_EOL;
     $listPageBlobRangesResult = $blobClient->listPageBlobRanges(
         $containerName,
@@ -531,8 +530,7 @@ function pageBlobOperations($blobClient)
     foreach ($listPageBlobRangesResult->getRanges() as $range) {
         echo "Range:".$range->getStart()."-".$range->getEnd().PHP_EOL;
         $getBlobOptions = new GetBlobOptions();
-        $getBlobOptions->setRangeStart($range->getStart());
-        $getBlobOptions->setRangeEnd($range->getEnd());
+        $getBlobOptions->setRange($range);
         $getBlobResult = $blobClient->getBlob($containerName, $blobName, $getBlobOptions);
         file_put_contents("PageContent.txt", $getBlobResult->getContentStream());
     }

@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
- * Holds public acces types for a container.
+ * Holds public access types for a container.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class PublicAccessType
 {
-    const NONE                = Resources::EMPTY_STRING;
+    const NONE                = null;
     const BLOBS_ONLY          = 'blob';
     const CONTAINER_AND_BLOBS = 'container';
     
@@ -53,6 +53,8 @@ class PublicAccessType
      */
     public static function isValid($type)
     {
+        // When $type is null, switch statement will take it
+        // equal to self::NONE (EMPTY_STRING)
         switch ($type) {
             case self::NONE:
             case self::BLOBS_ONLY:

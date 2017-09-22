@@ -1,3 +1,23 @@
+Tracking Breaking changes in 0.19.0
+
+Blob
+* Populate content MD5 for range gets on Blobs.
+  - `MicrosoftAzure\Storage\Blob\Models\BlobProperties::getContentMD5()` will always return the value of the whole blob’s MD5 value.
+  - Added `MicrosoftAzure\Storage\Blob\Models\BlobProperties::getRangeContentMD5()` to get MD5 of a blob range.
+* `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions` and `MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions` now provide `setRange()` and `getRange()` to accept a `MicrosoftAzure\Storage\Common\Models\Range` object. Following methods are removed:
+  - `setRangeStart()` 
+  - `getRangeStart()`
+  - `setRangeEnd()`
+  - `getRangeEnd()`
+* Renamed 2 methods inside `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions`:
+  - `getComputeRangeMD5()` -> `getRangeGetContentMD5()`
+  - `setComputeRangeMD5()` -> `setRangeGetContentMD5()`
+
+File
+* Populate content MD5 for range gets on Files.
+  - `MicrosoftAzure\Storage\File\Models\FileProperties::getContentMD5()` will always return the value of the whole file’s MD5 value.
+  - Added `MicrosoftAzure\Storage\File\Models\FileProperties::getRangeContentMD5()` to get MD5 of a file range.
+
 Tracking Breaking changes in 0.17.0
 
 All

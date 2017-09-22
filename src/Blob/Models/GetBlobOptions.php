@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use MicrosoftAzure\Storage\Common\Models\Range;
 
 /**
  * Optional parameters for getBlob wrapper
@@ -38,10 +39,9 @@ use MicrosoftAzure\Storage\Common\Internal\Validate;
  */
 class GetBlobOptions extends BlobServiceOptions
 {
-    private $_snapshot;
-    private $_computeRangeMD5;
-    private $_rangeStart;
-    private $_rangeEnd;
+    private $snapshot;
+    private $range;
+    private $rangeGetContentMD5;
     
     /**
      * Gets blob snapshot.
@@ -50,7 +50,7 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function getSnapshot()
     {
-        return $this->_snapshot;
+        return $this->snapshot;
     }
 
     /**
@@ -62,75 +62,51 @@ class GetBlobOptions extends BlobServiceOptions
      */
     public function setSnapshot($snapshot)
     {
-        $this->_snapshot = $snapshot;
+        $this->snapshot = $snapshot;
     }
-    
+
     /**
-     * Gets rangeStart
+     * Gets Blob range.
      *
-     * @return integer
+     * @return Range
      */
-    public function getRangeStart()
+    public function getRange()
     {
-        return $this->_rangeStart;
+        return $this->range;
     }
-    
+
     /**
-     * Sets rangeStart
+     * Sets Blob range.
      *
-     * @param integer $rangeStart the blob lease id.
+     * @param Range $range value.
      *
      * @return void
      */
-    public function setRangeStart($rangeStart)
+    public function setRange(Range $range)
     {
-        Validate::isInteger($rangeStart, 'rangeStart');
-        $this->_rangeStart = $rangeStart;
+        $this->range = $range;
     }
-    
+
     /**
-     * Gets rangeEnd
-     *
-     * @return integer
-     */
-    public function getRangeEnd()
-    {
-        return $this->_rangeEnd;
-    }
-    
-    /**
-     * Sets rangeEnd
-     *
-     * @param integer $rangeEnd range end value in bytes
-     *
-     * @return void
-     */
-    public function setRangeEnd($rangeEnd)
-    {
-        Validate::isInteger($rangeEnd, 'rangeEnd');
-        $this->_rangeEnd = $rangeEnd;
-    }
-    
-    /**
-     * Gets computeRangeMD5
+     * Gets rangeGetContentMD5
      *
      * @return boolean
      */
-    public function getComputeRangeMD5()
+    public function getRangeGetContentMD5()
     {
-        return $this->_computeRangeMD5;
+        return $this->rangeGetContentMD5;
     }
-    
+
     /**
-     * Sets computeRangeMD5
+     * Sets rangeGetContentMD5
      *
-     * @param boolean $computeRangeMD5 value
+     * @param boolean $rangeGetContentMD5 value
      *
      * @return void
      */
-    public function setComputeRangeMD5($computeRangeMD5)
+    public function setRangeGetContentMD5($rangeGetContentMD5)
     {
-        Validate::isBoolean($computeRangeMD5);
-        $this->_computeRangeMD5 = $computeRangeMD5;
+        Validate::isBoolean($rangeGetContentMD5);
+        $this->rangeGetContentMD5 = $rangeGetContentMD5;
     }
 }

@@ -43,13 +43,13 @@ class ListBlobsResult
 {
     use MarkerContinuationTokenTrait;
 
-    private $_blobPrefixes;
-    private $_blobs;
-    private $_delimiter;
-    private $_prefix;
-    private $_marker;
-    private $_maxResults;
-    private $_containerName;
+    private $blobPrefixes;
+    private $blobs;
+    private $delimiter;
+    private $prefix;
+    private $marker;
+    private $maxResults;
+    private $containerName;
 
     /**
      * Creates ListBlobsResult object from parsed XML response.
@@ -158,7 +158,7 @@ class ListBlobsResult
      */
     public function getBlobs()
     {
-        return $this->_blobs;
+        return $this->blobs;
     }
     
     /**
@@ -170,9 +170,9 @@ class ListBlobsResult
      */
     protected function setBlobs(array $blobs)
     {
-        $this->_blobs = array();
+        $this->blobs = array();
         foreach ($blobs as $blob) {
-            $this->_blobs[] = clone $blob;
+            $this->blobs[] = clone $blob;
         }
     }
     
@@ -183,7 +183,7 @@ class ListBlobsResult
      */
     public function getBlobPrefixes()
     {
-        return $this->_blobPrefixes;
+        return $this->blobPrefixes;
     }
     
     /**
@@ -195,9 +195,9 @@ class ListBlobsResult
      */
     protected function setBlobPrefixes(array $blobPrefixes)
     {
-        $this->_blobPrefixes = array();
+        $this->blobPrefixes = array();
         foreach ($blobPrefixes as $blob) {
-            $this->_blobPrefixes[] = clone $blob;
+            $this->blobPrefixes[] = clone $blob;
         }
     }
 
@@ -208,7 +208,7 @@ class ListBlobsResult
      */
     public function getPrefix()
     {
-        return $this->_prefix;
+        return $this->prefix;
     }
 
     /**
@@ -220,7 +220,7 @@ class ListBlobsResult
      */
     protected function setPrefix($prefix)
     {
-        $this->_prefix = $prefix;
+        $this->prefix = $prefix;
     }
     
     /**
@@ -230,7 +230,7 @@ class ListBlobsResult
      */
     public function getDelimiter()
     {
-        return $this->_delimiter;
+        return $this->delimiter;
     }
 
     /**
@@ -242,7 +242,7 @@ class ListBlobsResult
      */
     protected function setDelimiter($delimiter)
     {
-        $this->_delimiter = $delimiter;
+        $this->delimiter = $delimiter;
     }
 
     /**
@@ -252,7 +252,7 @@ class ListBlobsResult
      */
     public function getMarker()
     {
-        return $this->_marker;
+        return $this->marker;
     }
 
     /**
@@ -264,7 +264,7 @@ class ListBlobsResult
      */
     protected function setMarker($marker)
     {
-        $this->_marker = $marker;
+        $this->marker = $marker;
     }
 
     /**
@@ -274,7 +274,7 @@ class ListBlobsResult
      */
     public function getMaxResults()
     {
-        return $this->_maxResults;
+        return $this->maxResults;
     }
 
     /**
@@ -286,7 +286,7 @@ class ListBlobsResult
      */
     protected function setMaxResults($maxResults)
     {
-        $this->_maxResults = $maxResults;
+        $this->maxResults = $maxResults;
     }
 
     /**
@@ -296,7 +296,7 @@ class ListBlobsResult
      */
     public function getContainerName()
     {
-        return $this->_containerName;
+        return $this->containerName;
     }
 
     /**
@@ -308,6 +308,6 @@ class ListBlobsResult
      */
     protected function setContainerName($containerName)
     {
-        $this->_containerName = $containerName;
+        $this->containerName = $containerName;
     }
 }

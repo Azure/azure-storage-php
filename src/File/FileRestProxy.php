@@ -1052,12 +1052,11 @@ class FileRestProxy extends ServiceRestProxy implements IFile
             Resources::QP_COMP,
             'list'
         );
-        //Not available until 2016-05-31
-        // $this->addOptionalQueryParam(
-        //     $queryParams,
-        //     Resources::QP_PREFIX,
-        //     str_replace('\\', '/', $options->getPrefix())
-        // );
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_PREFIX,
+            $options->getPrefix()
+        );
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_MARKER,
@@ -1567,7 +1566,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
 
         $this->addOptionalHeader(
             $headers,
-            Resources::CONTENT_MD5,
+            Resources::FILE_CONTENT_MD5,
             $options->getContentMD5()
         );
 

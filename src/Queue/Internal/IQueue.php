@@ -257,7 +257,7 @@ interface IQueue
      * @param string                           $messageText The message contents.
      * @param QueueModels\CreateMessageOptions $options     The optional parameters.
      *
-     * @return void
+     * @return QueueModels\CreateMessageResult
      */
     public function createMessage(
         $queueName,
