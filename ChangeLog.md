@@ -1,3 +1,8 @@
+2017.09 - version 0.19.1
+
+ALL
+* Fixed a syntax error for PHP 5.5 and 5.6 in `MicrosoftAzure\Storage\Common\Internal::Utilities:isoDate`.
+
 2017.09 - version 0.19.0
 
 ALL
