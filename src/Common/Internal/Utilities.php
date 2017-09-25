@@ -374,7 +374,8 @@ class Utilities
      */
     public static function isoDate(\DateTimeInterface $date)
     {
-        $date = (clone $date)->setTimezone(new \DateTimeZone('UTC'));
+        $date = clone $date;
+        $date = $date->setTimezone(new \DateTimeZone('UTC'));
 
         return str_replace('+00:00', 'Z', $date->format('c'));
     }

@@ -140,8 +140,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setSourceSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getSourceSnapshot
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setSourceSnapshot
      * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getSourceSnapshot
      */
