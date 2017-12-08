@@ -24,6 +24,8 @@
  
 namespace MicrosoftAzure\Storage\Common;
 
+use MicrosoftAzure\Storage\Common\Internal\Resources;
+
 /**
  * Logger class for debugging purpose.
  *
