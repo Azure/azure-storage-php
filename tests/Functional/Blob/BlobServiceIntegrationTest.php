@@ -1715,7 +1715,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $content = 'some content2';
         $this->restProxy->createBlockBlob(self::$_test_container_for_blobs, 'test6', $content);
         $leaseId = $this->restProxy->acquireLease(self::$_test_container_for_blobs, 'test6')->getLeaseId();
-        $this->restProxy->breakLease(self::$_test_container_for_blobs, 'test6', $leaseId);
+        $this->restProxy->breakLease(self::$_test_container_for_blobs, 'test6');
         $this->restProxy->releaseLease(self::$_test_container_for_blobs, 'test6', $leaseId);
 
         // Assert

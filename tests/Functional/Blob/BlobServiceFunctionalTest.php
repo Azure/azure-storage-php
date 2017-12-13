@@ -3630,7 +3630,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         } catch (ServiceException $e) {
             $message = $e->getMessage();
         }
-        $this->assertContains('There is currently a lease on the blob and no lease ID was specified in the request.', $message);
+        $this->assertContains('There is already a lease present.', $message);
         \sleep(10);
         $this->restProxy->acquireLease($container, $blob, $leaseId);
         $options = new DeleteBlobOptions();

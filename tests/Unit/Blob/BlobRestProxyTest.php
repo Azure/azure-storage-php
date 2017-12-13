@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Blob;
 
+use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -1441,7 +1442,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertEquals($proposedLeaseId, $result->getLeaseId());
 
         // Break the lease so that the clean-up can delete the container
-        $result = $this->restProxy->breakLease($name, null, $result->getLeaseId());
+        $result = $this->restProxy->breakLease($name, null, null);
     }
     
     /**
@@ -1543,8 +1544,6 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Assert
         $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult', $result);
         $this->assertNotNull($result->getLeaseTime());
-        $result = $this->restProxy->acquireLease($name, $blob);
-        $this->assertNotNull($result->getLeaseId());
     }
     
     /**
