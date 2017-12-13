@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="azure-storage-php" default="full-build">
+
  <!-- By default, we assume all tools to be on the $PATH
  <property name="pdepend" value="pdepend.bat"/>
  <property name="phpcpd"  value="phpcpd.bat"/>
  <property name="phpcs"   value="phpcs.bat"/>
- <property name="phpdox"  value="phpdox.bat"/>
  <property name="phploc"  value="phploc.bat"/>
  <property name="phpmd"   value="phpmd.bat"/>
  <property name="phpunit" value="phpunit.bat"/>
@@ -14,7 +14,6 @@
  <property name="pdepend" value="${basedir}/build/tools/pdepend.phar"/>
  <property name="phpcpd"  value="${basedir}/build/tools/phpcpd.phar"/>
  <property name="phpcs"   value="${basedir}/build/tools/phpcs.phar"/>
- <property name="phpdox"  value="${basedir}/build/tools/phpdox.phar"/>
  <property name="phploc"  value="${basedir}/build/tools/phploc.phar"/>
  <property name="phpmd"   value="${basedir}/build/tools/phpmd.phar"/>
  <property name="phpunit" value="${basedir}/build/tools/phpunit.phar"/>
@@ -24,7 +23,6 @@
  <property name="pdepend"      value="${basedir}/vendor/bin/pdepend.bat"/>
  <property name="phpcpd"       value="${basedir}/vendor/bin/phpcpd.bat"/>
  <property name="phpcs"        value="${basedir}/vendor/bin/phpcs.bat"/>
- <property name="phpdox"       value="${basedir}/vendor/bin/phpdox.bat"/>
  <property name="phploc"       value="${basedir}/vendor/bin/phploc.bat"/>
  <property name="phpmd"        value="${basedir}/vendor/bin/phpmd.bat"/>
  <property name="phpunit"      value="${basedir}/vendor/bin/phpunit.bat"/>
@@ -32,15 +30,15 @@
  <property name="php-cs-fixer" value="${basedir}/vendor/bin/php-cs-fixer.bat"/>
 
  <target name="full-build"
-         depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis,phpunit,doc,-check-failure"
          description="Performs static analysis, runs the tests, and generates project documentation"/>
 
 <target name="full-build-large-scale"
-         depends="prepare,static-analysis,phpunit-large-scale,phpdox,-check-failure"
+         depends="prepare,static-analysis,phpunit-large-scale,doc,-check-failure"
          description="Performs static analysis, runs the tests (including large scale tests), and generates project documentation"/>
 
  <target name="full-build-parallel"
-         depends="prepare,static-analysis-parallel,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis-parallel,phpunit,doc,-check-failure"
          description="Performs static analysis (executing the tools in parallel), runs the tests, and generates project documentation"/>
 
  <target name="quick-build"
@@ -73,7 +71,7 @@
   <delete dir="${basedir}/build/coverage"/>
   <delete dir="${basedir}/build/logs"/>
   <delete dir="${basedir}/build/pdepend"/>
-  <delete dir="${basedir}/build/phpdox"/>
+  <delete dir="${basedir}/doc"/>
   <property name="clean.done" value="true"/>
  </target>
 
@@ -85,7 +83,6 @@
   <mkdir dir="${basedir}/build/coverage"/>
   <mkdir dir="${basedir}/build/logs"/>
   <mkdir dir="${basedir}/build/pdepend"/>
-  <mkdir dir="${basedir}/build/phpdox"/>
   <property name="prepare.done" value="true"/>
  </target>
 
@@ -210,7 +207,7 @@
   <property name="phpcs.done" value="true"/>
  </target>
 
- <target name = "php-cs-fixer"
+ <target name="php-cs-fixer"
          unless="php-cs-fixer.done"
          description="Fix coding standard violations using php-cs-fixer and print human readable output. Intended for usage on the command line before committing.">
     <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
@@ -256,7 +253,7 @@
  <target name="phpunit"
          unless="phpunit.done"
          depends="prepare"
-         description="Run unit tests with PHPUnit">
+         description="Run unit tests and functional tests with PHPUnit">
   <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
@@ -269,7 +266,7 @@
   <target name="phpunit-large-scale"
          unless="phpunit.done"
          depends="prepare"
-         description="Run unit tests with PHPUnit, including the large-scale tests">
+         description="Run unit tests and functional tests with PHPUnit, including the large-scale tests">
   <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
@@ -281,7 +278,7 @@
  <target name="phpunit-no-coverage"
          unless="phpunit.done"
          depends="prepare"
-         description="Run unit tests with PHPUnit (without generating code coverage reports)">
+         description="Run unit tests and functional tests with PHPUnit (without generating code coverage reports)">
   <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
@@ -292,26 +289,49 @@
   <property name="phpunit.done" value="true"/>
  </target>
 
+  <target name="phpunit-ut"
+         unless="phpunit.done"
+         depends="prepare"
+         description="Run unit tests with PHPUnit">
+  <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
+   <arg value="--configuration"/>
+   <arg path="${basedir}/phpunit.xml.dist"/>
+   <arg value="--testsuite=unit"/>
+   <arg value="--exclude-group=large-scale"/>
+  </exec>
+
+  <property name="phpunit-ut.done" value="true"/>
+ </target>
+
   <target name="phpunit-ft"
          unless="phpunit.done"
          depends="prepare"
          description="Run functional tests with PHPUnit">
   <exec executable="${phpunit}" resultproperty="result-ft.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
-   <arg path="${basedir}/phpunit.functional.xml.dist"/>
+   <arg path="${basedir}/phpunit.xml.dist"/>
+   <arg value="--testsuite=functional"/>
    <arg value="--exclude-group=large-scale"/>
   </exec>
 
   <property name="phpunit-ft.done" value="true"/>
  </target>
 
- <target name="phpdox"
-         unless="phpdox.done"
-         depends="phploc-ci,phpcs-ci,phpmd-ci"
-         description="Generate project documentation using phpDox">
-  <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox"/>
-
-  <property name="phpdox.done" value="true"/>
+ <target name="doc"
+         unless="doc.done"
+         depends="prepare"
+         description="Generate project documentation using phpDocumentator">
+   <exec executable="${phpdoc}" taskname="phpdoc">
+     <arg value="-t" />
+     <arg path="${basedir}/doc"/>
+     <arg value="-d" />
+     <arg path="${basedir}/src"/>
+     <arg value="--visibility" />
+     <arg value="public,protected" />
+     <arg value="--template" />
+     <arg value="zend" />
+   </exec>
+   <property name="doc.done" value="true"/>
  </target>
 
  <target name="-check-failure">
@@ -322,18 +342,5 @@
     </not>
    </condition>
   </fail>
- </target>
-
- <target name="doc" description="Generate project documentation using phpDocumentator">
-   <exec executable="${phpdoc}" taskname="phpdoc">
-     <arg value="-t" />
-     <arg value=".\doc" />
-     <arg value="-d" />
-     <arg value=".\src" />
-     <arg value="--visibility" />
-     <arg value="public,protected" />
-     <arg value="--template" />
-     <arg value="zend" />
-   </exec>
  </target>
 </project>

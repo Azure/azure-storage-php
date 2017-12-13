@@ -22,7 +22,6 @@
         "friendsofphp/php-cs-fixer": "@stable",
         "phploc/phploc": "~2.1",
         "phpmd/phpmd": "@stable",
-        "theseer/phpdox": "~0.8",
         "phpdocumentor/phpdocumentor": "dev-master"
     },
     "autoload": {
