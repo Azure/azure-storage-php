@@ -161,7 +161,7 @@ class ServiceOptions
      *
      * @return void
      */
-    public function setMiddlewareStack(MiddlewareStack $middlwareStack)
+    public function setMiddlewareStack(MiddlewareStack $middlewareStack)
     {
         $this->middlewareStack = $middlewareStack;
     }
