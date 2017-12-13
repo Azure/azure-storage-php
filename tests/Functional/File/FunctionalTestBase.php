@@ -31,9 +31,6 @@ class FunctionalTestBase extends IntegrationTestBase
 {
     private static $isOneTimeSetup = false;
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     */
     public function setUp()
     {
         parent::setUp();
@@ -58,9 +55,6 @@ class FunctionalTestBase extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     */
     public function tearDown()
     {
         foreach (FileServiceFunctionalTestData::$testShareNames as $name) {
@@ -69,9 +63,6 @@ class FunctionalTestBase extends IntegrationTestBase
         parent::tearDown();
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     */
     protected function safeDeleteShare($name)
     {
         try {
@@ -81,9 +72,6 @@ class FunctionalTestBase extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     */
     protected function safeCreateShare($name)
     {
         try {

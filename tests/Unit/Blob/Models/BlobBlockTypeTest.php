@@ -37,9 +37,6 @@ use MicrosoftAzure\Storage\Blob\Models\BlobBlockType;
  */
 class BlobBlockTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobBlockType
-     */
     public function testBlobBlockType()
     {
         $this->assertEquals(BlobBlockType::COMMITTED_TYPE, 'Committed');

@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class PeekMessagesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult::getQueueMessages
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult::setQueueMessages
-     */
     public function testCreate()
     {
         // Setup
@@ -82,11 +77,6 @@ class PeekMessagesResultTest extends \PHPUnit_Framework_TestCase
         );
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult::getQueueMessages
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesResult::setQueueMessages
-     */
     public function testCreateMultiple()
     {
         // Setup

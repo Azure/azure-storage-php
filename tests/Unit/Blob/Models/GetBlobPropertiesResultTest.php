@@ -39,13 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
  */
 class GetBlobPropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::getMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::setProperties
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::getProperties
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesResult::create
-     */
     public function testCreate()
     {
         // Setup

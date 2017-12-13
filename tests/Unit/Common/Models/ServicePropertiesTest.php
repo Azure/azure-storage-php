@@ -44,9 +44,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::create
-     */
     public function testCreate()
     {
         // Setup
@@ -62,9 +59,6 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($metrics, $result->getHourMetrics());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::setLogging
-     */
     public function testSetLogging()
     {
         // Setup
@@ -79,9 +73,6 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($logging, $result->getLogging());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::getLogging
-     */
     public function testGetLogging()
     {
         // Setup
@@ -97,9 +88,6 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($logging, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::setHourMetrics
-     */
     public function testSetHourMetrics()
     {
         // Setup
@@ -114,9 +102,6 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($metrics, $result->getHourMetrics());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::getHourMetrics
-     */
     public function testGetHourMetrics()
     {
         // Setup
@@ -132,9 +117,6 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($metrics, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::toArray
-     */
     public function testToArray()
     {
         // Setup
@@ -162,9 +144,6 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceProperties::toXml
-     */
     public function testToXml()
     {
         // Setup

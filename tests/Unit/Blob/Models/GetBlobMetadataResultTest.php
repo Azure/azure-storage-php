@@ -39,15 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
  */
 class GetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::getMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult::create
-     */
     public function testCreate()
     {
         // Setup

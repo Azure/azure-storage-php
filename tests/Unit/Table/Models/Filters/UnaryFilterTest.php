@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter;
  */
 class UnaryFilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter::getOperator
-     */
     public function testGetOperator()
     {
         // Setup
@@ -52,10 +48,6 @@ class UnaryFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $filter->getOperator());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter::getOperand
-     */
     public function testGetOperand()
     {
         // Setup

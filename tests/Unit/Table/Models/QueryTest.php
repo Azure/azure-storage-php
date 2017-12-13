@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class QueryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::setSelectFields
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::getSelectFields
-     */
     public function testSetSelectFields()
     {
         // Setup
@@ -57,10 +53,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $query->getSelectFields());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::setTop
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::getTop
-     */
     public function testSetTop()
     {
         // Setup
@@ -74,10 +66,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $query->getTop());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::setFilter
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::getFilter
-     */
     public function testSetFilter()
     {
         // Setup
@@ -91,10 +79,6 @@ class QueryTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $query->getFilter());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::addSelectField
-     * @covers MicrosoftAzure\Storage\Table\Models\Query::getSelectFields
-     */
     public function testAddSelectField()
     {
         // Setup

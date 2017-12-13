@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class PublicAccessTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PublicAccessType
-     */
     public function testPublicAccessType()
     {
         $this->assertEquals(PublicAccessType::BLOBS_ONLY, 'blob');

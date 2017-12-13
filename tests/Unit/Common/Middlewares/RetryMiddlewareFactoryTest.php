@@ -33,7 +33,6 @@ use GuzzleHttp\Psr7\Request;
 class RetryMiddlewareFactoryTest extends ReflectionTestBase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage should be positive number
      */
@@ -48,7 +47,6 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage should be positive number
      */
@@ -63,7 +61,6 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -78,7 +75,6 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::create
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -92,10 +88,6 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::createRetryDecider
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::generalRetryDecider
-     */
     public function testCreateRetryDeciderWithGeneralRetryDecider()
     {
         $createRetryDecider = self::getMethod('createRetryDecider', new RetryMiddlewareFactory());
@@ -120,9 +112,6 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $this->assertFalse($retryResult_6);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::createLinearDelayCalculator
-     */
     public function testCreateLinearDelayCalculator()
     {
         $creator = self::getMethod('createLinearDelayCalculator', new RetryMiddlewareFactory());
@@ -132,9 +121,6 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory::createExponentialDelayCalculator
-     */
     public function testCreateExponentialDelayCalculator()
     {
         $creator = self::getMethod('createExponentialDelayCalculator', new RetryMiddlewareFactory());

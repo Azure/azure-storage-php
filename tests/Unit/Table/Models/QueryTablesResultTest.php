@@ -38,13 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\QueryTablesResult;
  */
 class QueryTablesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::setTables
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::getTables
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::setNextTableName
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::getNextTableName
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesResult::create
-     */
     public function testCreate()
     {
         // Setup

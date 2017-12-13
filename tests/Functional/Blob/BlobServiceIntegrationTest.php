@@ -116,9 +116,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         // Do nothing here
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceProperties
-     */
     public function testGetServicePropertiesWorks()
     {
         // Act
@@ -148,10 +145,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getHourMetrics()->getVersion(), '$props->getHourMetrics()->getVersion');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getServiceProperties
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setServiceProperties
-     */
     public function testSetServicePropertiesWorks()
     {
         // Act
@@ -187,10 +180,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getHourMetrics()->getVersion(), '$props->getHourMetrics()->getVersion');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     */
     public function testCreateContainerWorks()
     {
         // Act
@@ -212,14 +201,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerACL
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerMetadata
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerProperties
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     */
     public function testCreateContainerWithMetadataWorks()
     {
         // Act
@@ -344,11 +325,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($acl, '$acl');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerMetadata
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setContainerMetadata
-     */
     public function testSetContainerMetadataWorks()
     {
         // Act
@@ -387,12 +363,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getContainerACL
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setContainerACL
-     */
     public function testSetContainerACLWorks()
     {
         // Arrange
@@ -451,9 +421,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     */
     public function testListContainersWorks()
     {
         // Act
@@ -478,9 +445,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($container0->getUrl(), '$container0->getUrl()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     */
     public function testListContainersWithPaginationWorks()
     {
         // Act
@@ -506,9 +470,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, $results2->getMaxResults(), '$results2->getMaxResults()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     */
     public function testListContainersWithPrefixWorks()
     {
         // Act
@@ -546,15 +507,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobMetadata
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
-     */
     public function testWorkingWithRootContainersWorks()
     {
         // Ensure root container exists
@@ -601,11 +553,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->restProxy->deleteContainer('$root');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
-     */
     public function testListBlobsWorks()
     {
         // Arrange
@@ -626,11 +573,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(4, count($results->getBlobs()), 'count($results->getBlobs())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
-     */
     public function testListBlobsWithPrefixWorks()
     {
         // Arrange
@@ -665,11 +607,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals('otherblob2', $blobs[1]->getName(), '$blobs[1]->getName()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
-     */
     public function testListBlobsWithOptionsWorks()
     {
         // Arrange
@@ -693,11 +630,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(4, count($results->getBlobs()), 'count($results->getBlobs())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
-     */
     public function testListBlobsWithDelimiterWorks()
     {
         // Arrange
@@ -746,9 +678,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, count($results6->getBlobPrefixes()), 'count($results6->getBlobPrefixes())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     */
     public function testCreatePageBlobWorks()
     {
         // Act
@@ -758,10 +687,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'success');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     */
     public function testCreatePageBlobWithOptionsWorks()
     {
         // Act
@@ -798,10 +723,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, $props->getSequenceNumber(), '$props->getSequenceNumber()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::clearBlobPages
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     */
     public function testClearBlobPagesWorks()
     {
         // Act
@@ -819,10 +740,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, $result->getSequenceNumber(), '$result->getSequenceNumber()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     */
     public function testCreateBlobPagesWorks()
     {
         // Act
@@ -841,11 +758,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, $result->getSequenceNumber(), '$result->getSequenceNumber()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobPages
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listPageBlobRanges
-     */
     public function testListBlobRegionsWorks()
     {
         // Act
@@ -880,10 +792,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(16384 + 511, $ranges[3]->getEnd(), '$ranges[3]->getEnd()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
-     */
     public function testListBlobBlocksOnEmptyBlobWorks()
     {
         // Act
@@ -905,11 +813,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, count($result->getUncommittedBlocks()), 'count($result->getUncommittedBlocks())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlock
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
-     */
     public function testListBlobBlocksWorks()
     {
         // Act
@@ -944,12 +847,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(195, $uncom[$keys[2]], '$uncom[$keys[2]]');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::commitBlobBlocks
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlock
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
-     */
     public function testListBlobBlocksWithOptionsWorks()
     {
         // Act
@@ -987,12 +884,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(2, count($result3->getUncommittedBlocks()), 'count($result3->getUncommittedBlocks())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::commitBlobBlocks
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlock
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
-     */
     public function testCommitBlobBlocksWorks()
     {
         // Act
@@ -1036,12 +927,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, count($result->getUncommittedBlocks()), 'count($result->getUncommittedBlocks())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::commitBlobBlocks
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlock
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobBlocks
-     */
     public function testCommitBlobBlocksWithArrayWorks()
     {
         // Act
@@ -1089,10 +974,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, count($result->getUncommittedBlocks()), 'count($result->getUncommittedBlocks())');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobBlock
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     */
     public function testCreateBlobBlockWorks()
     {
         // Act
@@ -1107,9 +988,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'success');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     */
     public function testCreateBlockBlobWorks()
     {
         // Act
@@ -1119,10 +997,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'success');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     */
     public function testCreateBlockBlobWithOptionsWorks()
     {
         // Act
@@ -1162,10 +1036,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, $props->getSequenceNumber(), '$props->getSequenceNumber()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     */
     public function testCreateBlobSnapshotWorks()
     {
         // Act
@@ -1181,11 +1051,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($snapshot->getSnapshot(), '$snapshot->getSnapshot()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlobSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     */
     public function testCreateBlobSnapshotWithOptionsWorks()
     {
         // Act
@@ -1237,10 +1102,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     */
     public function testGetBlockBlobWorks()
     {
         // Act
@@ -1281,10 +1142,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals($content, stream_get_contents($result->getContentStream()), '$result->getContentStream()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     */
     public function testGetPageBlobWorks()
     {
         // Act
@@ -1325,10 +1182,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     */
     public function testGetBlobWithIfMatchETagAccessConditionWorks()
     {
         // Act
@@ -1343,11 +1196,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     */
     public function testGetBlobWithIfNoneMatchETagAccessConditionWorks()
     {
         // Act
@@ -1371,11 +1219,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     */
     public function testGetBlobWithIfModifiedSinceAccessConditionWorks()
     {
         // Act
@@ -1400,12 +1243,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobMetadata
-     */
     public function testGetBlobWithIfNotModifiedSinceAccessConditionWorks()
     {
         // Act
@@ -1439,10 +1276,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     */
     public function testGetBlobPropertiesWorks()
     {
         // Act
@@ -1472,10 +1305,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, $props->getSequenceNumber(), '$props->getSequenceNumber()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobMetadata
-     */
     public function testGetBlobMetadataWorks()
     {
         // Act
@@ -1516,11 +1345,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getLastModified(), '$props->getLastModified()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobProperties
-     */
     public function testSetBlobPropertiesWorks()
     {
         // Act
@@ -1567,11 +1391,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(1, $props->getSequenceNumber(), '$props->getSequenceNumber()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createPageBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlobProperties
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::setBlobMetadata
-     */
     public function testSetBlobMetadataWorks()
     {
         // Act
@@ -1611,10 +1430,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     */
     public function testDeleteBlobWorks()
     {
         // Act
@@ -1627,11 +1442,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'success');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::copyBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::getBlob
-     */
     public function testCopyBlobWorks()
     {
         // Act
@@ -1666,11 +1476,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals($content, stream_get_contents($result->getContentStream()), '$result->getContentStream()');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLease
-     */
     public function testAcquireLeaseWorks()
     {
         // Act
@@ -1683,12 +1488,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($leaseId, '$leaseId');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLease
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::renewLease
-     */
     public function testRenewLeaseWorks()
     {
         // Act
@@ -1703,12 +1502,6 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($leaseId2, '$leaseId2');
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::acquireLease
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::breakLease
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createBlockBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::releaseLease
-     */
     public function testBreakLeaseWorks()
     {
         // Act
@@ -1721,10 +1514,4 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         // Assert
         $this->assertNotNull($leaseId, '$leaseId');
     }
-
-    // Extra tests from Java
-    //    public function testRetryPolicyWorks() { }
-    //    public function testRetryPolicyCompositionWorks() { }
-    //    public function testRetryPolicyThrowsOnInvalidInputStream() { }
-    //    public function testRetryPolicyCallsResetOnValidInputStream() { }
 }

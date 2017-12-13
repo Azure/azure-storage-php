@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class EntityTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getPropertyValue
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setPropertyValue
-     */
     public function testGetPropertyValue()
     {
         // Setup
@@ -62,10 +58,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($actual, $expected);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setETag
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getETag
-     */
     public function testSetETag()
     {
         // Setup
@@ -80,10 +72,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getETag());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setPartitionKey
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getPartitionKey
-     */
     public function testSetPartitionKey()
     {
         // Setup
@@ -97,10 +85,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getPartitionKey());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setRowKey
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getRowKey
-     */
     public function testSetRowKey()
     {
         // Setup
@@ -114,10 +98,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getRowKey());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setTimestamp
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getTimestamp
-     */
     public function testSetTimestamp()
     {
         // Setup
@@ -131,11 +111,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getTimestamp());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setProperties
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getProperties
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::_validateProperties
-     */
     public function testSetProperties()
     {
         // Setup
@@ -149,10 +124,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getProperties());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::getProperty
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::setProperty
-     */
     public function testSetProperty()
     {
         // Setup
@@ -167,9 +138,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getProperty($name));
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::addProperty
-     */
     public function testAddProperty()
     {
         // Setup
@@ -188,9 +156,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $entity->getProperty($name));
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::isValid
-     */
     public function testIsValid()
     {
         // Setup
@@ -205,9 +170,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::isValid
-     */
     public function testIsValidWithInvalid()
     {
         // Setup
@@ -220,9 +182,6 @@ class EntityTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Entity::isValid
-     */
     public function testIsValidWithEmptyPartitionKey()
     {
         // Setup

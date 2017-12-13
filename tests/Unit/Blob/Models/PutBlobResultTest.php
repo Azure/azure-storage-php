@@ -39,17 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\PutBlobResult;
  */
 class PutBlobResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::setRequestServerEncrypted
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlobResult::getRequestServerEncrypted
-     */
     public function testCreate()
     {
         // Setup

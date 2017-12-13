@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter;
  */
 class BinaryFilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter::getOperator
-     */
     public function testGetOperator()
     {
         // Setup
@@ -52,10 +48,6 @@ class BinaryFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $filter->getOperator());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter::getLeft
-     */
     public function testGetLeft()
     {
         // Setup
@@ -66,10 +58,6 @@ class BinaryFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $filter->getLeft());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter::getRight
-     */
     public function testGetRight()
     {
         // Setup

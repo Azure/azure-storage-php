@@ -37,11 +37,6 @@ use MicrosoftAzure\Storage\Blob\Models\LeaseResult;
  */
 class LeaseResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseResult::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseResult::getLeaseId
-     */
     public function testCreate()
     {
         // Setup

@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
  */
 class BatchOperationTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperation::setType
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperation::getType
-     */
     public function testSetType()
     {
         // Setup
@@ -57,10 +53,6 @@ class BatchOperationTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $batchOperation->getType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperation::addParameter
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperation::getParameter
-     */
     public function testAddParameter()
     {
         // Setup

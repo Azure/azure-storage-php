@@ -37,11 +37,6 @@ use MicrosoftAzure\Storage\Table\Models\UpdateEntityResult;
  */
 class UpdateEntityResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\UpdateEntityResult::setETag
-     * @covers MicrosoftAzure\Storage\Table\Models\UpdateEntityResult::getETag
-     * @covers MicrosoftAzure\Storage\Table\Models\UpdateEntityResult::create
-     */
     public function testCreate()
     {
         // Setup

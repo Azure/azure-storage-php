@@ -42,15 +42,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class ShareTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\Share::getName
-     * @covers MicrosoftAzure\Storage\File\Models\Share::setName
-     * @covers MicrosoftAzure\Storage\File\Models\Share::setMetadata
-     * @covers MicrosoftAzure\Storage\File\Models\Share::getMetadata
-     * @covers MicrosoftAzure\Storage\File\Models\Share::getProperties
-     * @covers MicrosoftAzure\Storage\File\Models\Share::setProperties
-     * @covers MicrosoftAzure\Storage\File\Models\Share::create
-     */
     public function testCreate()
     {
         $responseArray = TestResources::getInterestingShareArray();

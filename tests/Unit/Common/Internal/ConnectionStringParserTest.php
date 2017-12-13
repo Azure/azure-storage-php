@@ -64,17 +64,6 @@ class ConnectionStringParserTest extends \PHPUnit_Framework_TestCase
         ConnectionStringParser::parseConnectionString('connectionString', $value);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::parseConnectionString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_parse
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_createException
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipWhiteSpaces
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractKey
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipOperator
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractValue
-     */
     public function testKeyNames()
     {
         $this->_parseTest("a=b", "a", "b");
@@ -94,17 +83,6 @@ class ConnectionStringParserTest extends \PHPUnit_Framework_TestCase
         $this->_parseTest("a\"=b", "a\"", "b");
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::parseConnectionString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_parse
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_createException
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipWhiteSpaces
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractKey
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipOperator
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractValue
-     */
     public function testAssignments()
     {
         $this->_parseTest("a=b", "a", "b");
@@ -112,17 +90,6 @@ class ConnectionStringParserTest extends \PHPUnit_Framework_TestCase
         $this->_parseTest("a==b", "a", "=b");
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::parseConnectionString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_parse
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_createException
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipWhiteSpaces
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractKey
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipOperator
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractValue
-     */
     public function testValues()
     {
         $this->_parseTest("a=b", "a", "b");
@@ -149,17 +116,6 @@ class ConnectionStringParserTest extends \PHPUnit_Framework_TestCase
         $this->_parseTest("a=b\"", "a", "b\"");
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::parseConnectionString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_parse
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_createException
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipWhiteSpaces
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractKey
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipOperator
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractValue
-     */
     public function testSeparators()
     {
         $this->_parseTest("a=b;", "a", "b");
@@ -169,17 +125,6 @@ class ConnectionStringParserTest extends \PHPUnit_Framework_TestCase
         $this->_parseTest("a=b ; c=d", "a", "b", "c", "d");
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::parseConnectionString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::__construct
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_parse
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_createException
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipWhiteSpaces
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractKey
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractString
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_skipOperator
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser::_extractValue
-     */
     public function testInvalidInputFail()
     {
         $this->_parseTestFail(";");           // Separator without an assignment;

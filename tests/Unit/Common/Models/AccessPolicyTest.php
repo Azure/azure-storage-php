@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class AccessPolicyTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getStart
-     */
     public function testGetStart()
     {
         // Setup
@@ -55,9 +52,6 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setStart
-     */
     public function testSetStart()
     {
         // Setup
@@ -71,9 +65,6 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $accessPolicy->getStart());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getExpiry
-     */
     public function testGetExpiry()
     {
         // Setup
@@ -88,9 +79,6 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setExpiry
-     */
     public function testSetExpiry()
     {
         // Setup
@@ -104,10 +92,6 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $accessPolicy->getExpiry());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setPermission
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getPermission
-     */
     public function testSetPermission()
     {
         // Setup
@@ -127,10 +111,6 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setPermission
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getPermission
-     */
     public function testSetPermissionNegative()
     {
         // Setup
@@ -155,9 +135,6 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         }
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::toArray
-     */
     public function testToArray()
     {
         // Setup

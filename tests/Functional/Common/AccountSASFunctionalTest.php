@@ -42,10 +42,6 @@ use MicrosoftAzure\Storage\Tests\Functional\Common\SharedAccessSignatureHelperMo
  */
 class AccountSASFunctionalTest extends SASFunctionalTestBase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testAccountSASPositive()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -153,10 +149,6 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testAccountSASSSNegative()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -258,10 +250,6 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         $this->tableRestProxy->queryTables();
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testAccountSASSPNegative()
     {
         $helper = new SharedAccessSignatureHelperMock(

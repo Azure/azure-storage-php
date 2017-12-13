@@ -64,10 +64,6 @@ class FunctionalTestBase extends IntegrationTestBase
         parent::tearDownAfterClass();
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-     */
     protected function clearTable($table)
     {
         $index = array_search($table, TableServiceFunctionalTestData::$testTableNames);

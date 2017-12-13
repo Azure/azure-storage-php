@@ -40,12 +40,6 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
  */
 class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getMetadata
-     */
     public function testSetMetadata()
     {
         $copyBlobOptions = new CopyBlobOptions();
@@ -58,12 +52,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         );
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setAccessConditions
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getAccessConditions
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setAccessConditions
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getAccessConditions
-     */
     public function testSetAccessConditions()
     {
         $copyBlobOptions = new CopyBlobOptions();
@@ -76,12 +64,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         );
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setSourceAccessConditions
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getSourceAccessConditions
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setSourceAccessConditions
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getSourceAccessConditions
-     */
     public function testSetSourceAccessConditions()
     {
         $copyBlobOptions = new CopyBlobOptions();
@@ -94,12 +76,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         );
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         $expected = '0x8CAFB82EFF70C46';
@@ -109,12 +85,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setSourceLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getSourceLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setSourceLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getSourceLeaseId
-     */
     public function testSetSourceLeaseId()
     {
         $expected = '0x8CAFB82EFF70C46';
@@ -124,12 +94,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getSourceLeaseId());
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::setIsIncrementalCopy
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobFromURLOptions::getIsIncrementalCopy
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setIsIncrementalCopy
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getIsIncrementalCopy
-     */
     public function testSetIsIncrementalCopy()
     {
         $expected = true;
@@ -139,10 +103,6 @@ class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIsIncrementalCopy());
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::setSourceSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions::getSourceSnapshot
-     */
     public function testSetSourceSnapshot()
     {
         $expected = '2017-09-19T10:39:36.8401215Z';

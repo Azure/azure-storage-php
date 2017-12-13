@@ -43,11 +43,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class ACLBaseTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::setSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::fromXmlArray
-     */
     public function testSetGetSignedIdentifiers()
     {
         // Setup
@@ -65,10 +60,6 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $child->getSignedIdentifiers());
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::fromXmlArray
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::toXml
-     */
     public function testToXml()
     {
         // Setup
@@ -90,10 +81,6 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::toArray
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::fromXmlArray
-     */
     public function testToArray()
     {
         // Setup
@@ -117,8 +104,6 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Common\Internal\ACLBase::removeSignedIdentifier
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage There can be at most 5 signed identifiers
      */

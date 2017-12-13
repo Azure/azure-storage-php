@@ -42,9 +42,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::objectSerialize
-     */
     public function testObjectSerialize()
     {
         // Setup
@@ -59,9 +56,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::unserialize
-     */
     public function testUnserializeArray()
     {
         // Setup
@@ -76,9 +70,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::unserialize
-     */
     public function testUnserializeObject()
     {
         // Setup
@@ -93,9 +84,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::unserialize
-     */
     public function testUnserializeEmptyString()
     {
         // Setup
@@ -110,9 +98,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::unserialize
-     */
     public function testUnserializeInvalidString()
     {
         // Setup
@@ -127,9 +112,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::serialize
-     */
     public function testSerialize()
     {
         // Setup
@@ -144,9 +126,6 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\JsonSerializer::serialize
-     */
     public function testSerializeNull()
     {
         // Setup

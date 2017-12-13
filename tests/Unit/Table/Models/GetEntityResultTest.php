@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class GetEntityResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\GetEntityResult::setEntity
-     * @covers MicrosoftAzure\Storage\Table\Models\GetEntityResult::getEntity
-     * @covers MicrosoftAzure\Storage\Table\Models\GetEntityResult::create
-     */
     public function testCreate()
     {
         // Setup

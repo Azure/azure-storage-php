@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::setQuery
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getQuery
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::__construct
-     */
     public function testSetQuery()
     {
         // Setup
@@ -58,10 +53,6 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getQuery());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::setNextPartitionKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getNextPartitionKey
-     */
     public function testSetNextPartitionKey()
     {
         // Setup
@@ -75,10 +66,6 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getNextPartitionKey());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::setNextRowKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getNextRowKey
-     */
     public function testSetNextRowKey()
     {
         // Setup
@@ -92,10 +79,6 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getNextRowKey());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::setSelectFields
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getSelectFields
-     */
     public function testSetSelectFields()
     {
         // Setup
@@ -109,10 +92,6 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getSelectFields());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::setTop
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getTop
-     */
     public function testSetTop()
     {
         // Setup
@@ -126,10 +105,6 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getTop());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::setFilter
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getFilter
-     */
     public function testSetFilter()
     {
         // Setup
@@ -143,10 +118,6 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getFilter());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::addSelectField
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesOptions::getSelectFields
-     */
     public function testAddSelectField()
     {
         // Setup

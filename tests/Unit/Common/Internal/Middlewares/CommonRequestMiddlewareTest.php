@@ -43,10 +43,6 @@ use GuzzleHttp\Psr7\Request;
  */
 class CommonRequestMiddlewareTest extends ReflectionTestBase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware::onRequest
-     * @covers MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware::__construct
-     */
     public function testOnRequest()
     {
         // Setup

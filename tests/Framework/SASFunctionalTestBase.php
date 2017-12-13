@@ -218,9 +218,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     */
     protected function safeDeleteContainer($name)
     {
         try {
@@ -231,9 +228,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     */
     protected function safeCreateContainer($name)
     {
         try {
@@ -244,9 +238,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-     */
     protected function safeDeleteQueue($name)
     {
         try {
@@ -257,9 +248,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-     */
     protected function safeCreateQueue($name)
     {
         try {
@@ -270,9 +258,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-     */
     protected function safeDeleteTable($name)
     {
         try {
@@ -283,9 +268,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-     */
     protected function safeCreateTable($name)
     {
         try {
@@ -296,9 +278,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     */
     protected function safeDeleteShare($name)
     {
         try {
@@ -309,9 +288,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     */
     protected function safeCreateShare($name)
     {
         try {
