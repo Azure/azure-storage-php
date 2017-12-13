@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
  */
 class ServiceOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceOptions::setTimeout
-     * @covers MicrosoftAzure\Storage\Common\Models\ServiceOptions::getTimeout
-     */
     public function testSetGetTimeout()
     {
         // Setup

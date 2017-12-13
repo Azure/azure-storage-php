@@ -39,11 +39,6 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class FilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyAnd
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyAnd()
     {
         // Setup
@@ -58,10 +53,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyNot
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyConstant
-     */
     public function testApplyNot()
     {
         // Setup
@@ -74,11 +65,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($operand, $actual->getOperand());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyOr
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyOr()
     {
         // Setup
@@ -93,11 +79,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyEq
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyEq()
     {
         // Setup
@@ -112,11 +93,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyNe
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyNe()
     {
         // Setup
@@ -131,11 +107,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyGe
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyGe()
     {
         // Setup
@@ -150,11 +121,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyGt
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyGt()
     {
         // Setup
@@ -169,11 +135,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyLt
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyLt()
     {
         // Setup
@@ -188,11 +149,6 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($right, $actual->getRight());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyLe
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyPropertyName
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\Filter::applyQueryString
-     */
     public function testApplyLe()
     {
         // Setup

@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setPrefix
-     */
     public function testSetPrefix()
     {
         // Setup
@@ -54,9 +51,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getPrefix());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::getPrefix
-     */
     public function testGetPrefix()
     {
         // Setup
@@ -71,9 +65,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setDelimiter
-     */
     public function testSetDelimiter()
     {
         // Setup
@@ -87,9 +78,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getDelimiter());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::getDelimiter
-     */
     public function testGetDelimiter()
     {
         // Setup
@@ -104,9 +92,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setMarker
-     */
     public function testSetMarker()
     {
         // Setup
@@ -120,9 +105,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getNextMarker());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setMaxResults
-     */
     public function testSetMaxResults()
     {
         // Setup
@@ -136,9 +118,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getMaxResults());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::getMaxResults
-     */
     public function testGetMaxResults()
     {
         // Setup
@@ -153,9 +132,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setIncludeMetadata
-     */
     public function testSetIncludeMetadata()
     {
         // Setup
@@ -169,9 +145,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::getIncludeMetadata
-     */
     public function testGetIncludeMetadata()
     {
         // Setup
@@ -186,9 +159,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setIncludeSnapshots
-     */
     public function testSetIncludeSnapshots()
     {
         // Setup
@@ -202,9 +172,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeSnapshots());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::getIncludeSnapshots
-     */
     public function testGetIncludeSnapshots()
     {
         // Setup
@@ -219,9 +186,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::setIncludeUncommittedBlobs
-     */
     public function testSetIncludeUncommittedBlobs()
     {
         // Setup
@@ -235,9 +199,6 @@ class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeUncommittedBlobs());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions::getIncludeUncommittedBlobs
-     */
     public function testGetIncludeUncommittedBlobs()
     {
         // Setup

@@ -41,13 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::getPopReceipt
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::setPopReceipt
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::getTimeNextVisible
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::setTimeNextVisible
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::create
-     */
     public function testCreate()
     {
         // Setup

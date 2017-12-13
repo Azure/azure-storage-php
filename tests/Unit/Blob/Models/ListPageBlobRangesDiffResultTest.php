@@ -40,17 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListPageBlobRangesDiffResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::getRanges
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::setRanges
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::setContentLength
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::getContentLength
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesDiffResult::create
-     */
     public function testCreate()
     {
         // Setup

@@ -37,10 +37,6 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
  */
 class CreateBlobBlockOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions::getContentMD5
-     */
     public function testSetContentMD5()
     {
         // Setup
@@ -55,10 +51,6 @@ class CreateBlobBlockOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentMD5());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         // Setup

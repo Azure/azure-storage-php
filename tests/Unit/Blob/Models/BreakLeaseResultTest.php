@@ -37,11 +37,6 @@ use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
  */
 class BreakLeaseResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::setLeaseTime
-     * @covers MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult::getLeaseTime
-     */
     public function testCreate()
     {
         // Setup

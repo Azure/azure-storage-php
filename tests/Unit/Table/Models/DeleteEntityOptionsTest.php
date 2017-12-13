@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\ETag;
  */
 class DeleteEntityOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\DeleteEntityOptions::setETag
-     * @covers MicrosoftAzure\Storage\Table\Models\DeleteEntityOptions::getETag
-     */
     public function testSetETag()
     {
         // Setup

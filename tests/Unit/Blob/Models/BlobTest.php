@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
  */
 class BlobTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::setName
-     */
     public function testSetName()
     {
         // Setup
@@ -55,9 +52,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getName());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::getName
-     */
     public function testGetName()
     {
         // Setup
@@ -72,9 +66,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::setUrl
-     */
     public function testSetUrl()
     {
         // Setup
@@ -88,9 +79,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getUrl());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::getUrl
-     */
     public function testGetUrl()
     {
         // Setup
@@ -105,9 +93,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::setSnapshot
-     */
     public function testSetSnapshot()
     {
         // Setup
@@ -121,9 +106,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getSnapshot());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::getSnapshot
-     */
     public function testGetSnapshot()
     {
         // Setup
@@ -138,9 +120,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -154,9 +133,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup
@@ -171,9 +147,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::setProperties
-     */
     public function testSetProperties()
     {
         // Setup
@@ -187,9 +160,6 @@ class BlobTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getProperties());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Blob::getProperties
-     */
     public function testGetProperties()
     {
         // Setup

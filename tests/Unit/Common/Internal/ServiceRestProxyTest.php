@@ -46,9 +46,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::generateMetadataHeaders
-     */
     public function testConstruct()
     {
         // Setup
@@ -77,7 +74,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
      * @depends testConstruct
      */
     public function testGroupQueryValues()
@@ -94,7 +90,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
      * @depends testConstruct
      */
     public function testGroupQueryValuesWithUnorderedValues()
@@ -110,9 +105,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
-     */
     public function testGroupQueryValuesWithNulls()
     {
         // Setup
@@ -126,7 +118,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers  MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::groupQueryValues
      * @depends testConstruct
      */
     public function testGroupQueryValuesWithMix()
@@ -143,7 +134,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::addPostParameter
     * @depends testConstruct
     */
     public function testPostParameter($restRestProxy)
@@ -165,7 +155,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::generateMetadataHeaders
      * @depends testConstruct
      */
     public function testGenerateMetadataHeader($proxy)
@@ -185,7 +174,6 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::generateMetadataHeaders
      * @depends testConstruct
      */
     public function testGenerateMetadataHeaderInvalidNameFail($proxy)

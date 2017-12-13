@@ -41,15 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::getContainerAcl
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::setContainerAcl
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerACLResult::getETag
-     */
     public function testCreate()
     {
         // Setup

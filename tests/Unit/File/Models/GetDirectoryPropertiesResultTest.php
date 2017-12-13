@@ -41,15 +41,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class GetDirectoryPropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::create
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::getLastModified
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::setETag
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::getETag
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::setMetadata
-     * @covers MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult::getMetadata
-     */
     public function testCreate()
     {
         $sample = TestResources::getInterestingPropertiesArray();

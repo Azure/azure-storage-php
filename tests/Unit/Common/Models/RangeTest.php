@@ -37,11 +37,6 @@ use MicrosoftAzure\Storage\Common\Models\Range;
  */
 class RangeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::__construct
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::getStart
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::getEnd
-     */
     public function testConstruct()
     {
         // Setup
@@ -59,7 +54,6 @@ class RangeTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::setStart
      * @depends testConstruct
      */
     public function testSetStart($obj)
@@ -75,7 +69,6 @@ class RangeTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::setEnd
      * @depends testConstruct
      */
     public function testSetEnd($obj)
@@ -91,7 +84,6 @@ class RangeTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::setLength
      * @depends testConstruct
      */
     public function testSetLength($obj)
@@ -108,7 +100,6 @@ class RangeTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Range::getLength
      * @depends testConstruct
      */
     public function testGetLength($obj)

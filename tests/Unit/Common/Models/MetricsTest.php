@@ -41,9 +41,6 @@ use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
  */
 class MetricsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::create
-     */
     public function testCreate()
     {
         // Setup
@@ -59,9 +56,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['HourMetrics']['Version'], $actual->getVersion());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::getRetentionPolicy
-     */
     public function testGetRetentionPolicy()
     {
         // Setup
@@ -77,9 +71,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::setRetentionPolicy
-     */
     public function testSetRetentionPolicy()
     {
         // Setup
@@ -95,9 +86,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::getVersion
-     */
     public function testGetVersion()
     {
         // Setup
@@ -113,9 +101,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::setVersion
-     */
     public function testSetVersion()
     {
         // Setup
@@ -131,9 +116,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::getEnabled
-     */
     public function testGetEnabled()
     {
         // Setup
@@ -149,9 +131,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::setEnabled
-     */
     public function testSetEnabled()
     {
         // Setup
@@ -167,9 +146,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::getIncludeAPIs
-     */
     public function testGetIncludeAPIs()
     {
         // Setup
@@ -185,9 +161,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::setIncludeAPIs
-     */
     public function testSetIncludeAPIs()
     {
         // Setup
@@ -203,9 +176,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::toArray
-     */
     public function testToArray()
     {
         // Setup
@@ -225,9 +195,6 @@ class MetricsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Metrics::toArray
-     */
     public function testToArrayWithNotEnabled()
     {
         // Setup

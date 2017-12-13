@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class CreateMessageResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageResult::getQueueMessage
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageResult::setQueueMessage
-     */
     public function testCreate()
     {
         // Setup

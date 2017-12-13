@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::setPrefix
-     */
     public function testSetPrefix()
     {
         // Setup
@@ -55,9 +52,6 @@ class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getPrefix());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::getPrefix
-     */
     public function testGetPrefix()
     {
         // Setup
@@ -72,9 +66,6 @@ class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::setMarker
-     */
     public function testSetMarker()
     {
         // Setup
@@ -88,9 +79,6 @@ class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getNextMarker());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::setMaxResults
-     */
     public function testSetMaxResults()
     {
         // Setup
@@ -104,9 +92,6 @@ class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getMaxResults());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::getMaxResults
-     */
     public function testGetMaxResults()
     {
         // Setup
@@ -121,9 +106,6 @@ class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::setIncludeMetadata
-     */
     public function testSetIncludeMetadata()
     {
         // Setup
@@ -137,9 +119,6 @@ class ListQueuesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions::getIncludeMetadata
-     */
     public function testGetIncludeMetadata()
     {
         // Setup

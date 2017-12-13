@@ -41,12 +41,6 @@ use GuzzleHttp\Psr7\Response;
 
 class QueueServiceFunctionalTest extends FunctionalTestBase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServicePropertiesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServicePropertiesAsync
-    */
     public function testGetServicePropertiesNoOptions()
     {
         $serviceProperties = QueueServiceFunctionalTestData::getDefaultServiceProperties();
@@ -71,12 +65,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->getServicePropertiesWorker(null);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServicePropertiesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServicePropertiesAsync
-    */
     public function testGetServiceProperties()
     {
         $serviceProperties = QueueServiceFunctionalTestData::getDefaultServiceProperties();
@@ -206,12 +194,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
     }
 
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServicePropertiesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServicePropertiesAsync
-    */
     public function testSetServiceProperties()
     {
         $interestingServiceProperties = QueueServiceFunctionalTestData::getInterestingServiceProperties();
@@ -276,19 +258,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-    */
     public function testListQueuesNoOptions()
     {
         $this->listQueuesWorker(null);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-    */
     public function testListQueues()
     {
         $interestingListQueuesOptions = QueueServiceFunctionalTestData::getInterestingListQueuesOptions();
@@ -429,31 +403,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadataAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-    */
     public function testCreateQueueNoOptions()
     {
         $this->createQueueWorker(null);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadataAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-    */
     public function testCreateQueue()
     {
         $interestingCreateQueueOptions = QueueServiceFunctionalTestData::getInterestingCreateQueueOptions();
@@ -541,27 +495,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-    */
     public function testDeleteQueueNoOptions()
     {
         $this->deleteQueueWorker(null);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-    */
     public function testDeleteQueue()
     {
         $interestingTimeouts = QueueServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -636,18 +574,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadataAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadataAsync
-    */
     public function testGetQueueMetadataNoOptions()
     {
         $interestingMetadata = QueueServiceFunctionalTestData::getNiceMetadata();
@@ -656,18 +582,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadataAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadataAsync
-    */
     public function testGetQueueMetadata()
     {
         $interestingTimeouts = QueueServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -751,16 +665,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadataAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadataAsync
-    */
     public function testSetQueueMetadataNoOptions()
     {
         $interestingMetadata = QueueServiceFunctionalTestData::getInterestingMetadata();
@@ -773,16 +677,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueueAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadataAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadataAsync
-    */
     public function testSetQueueMetadata()
     {
         $interestingTimeouts = QueueServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -845,27 +739,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->deleteQueue($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testCreateMessageEmpty()
     {
         $this->createMessageWorker('', QueueServiceFunctionalTestData::getSimpleCreateMessageOptions());
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testCreateMessageUnicodeMessage()
     {
         $this->createMessageWorker(
@@ -884,14 +762,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testCreateMessageXmlMessage()
     {
         $this->createMessageWorker(
@@ -900,14 +770,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testCreateMessageWithSmallTTL()
     {
         $queue = QueueServiceFunctionalTestData::$testQueueNames;
@@ -934,14 +796,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testCreateMessage()
     {
         $interestingTimes = array( null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000 );
@@ -1045,16 +899,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::updateMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::updateMessageAsync
-    */
     public function testUpdateMessageNoOptions()
     {
         $interestingVisibilityTimes = array(
@@ -1078,16 +922,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::updateMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::updateMessageAsync
-    */
     public function testUpdateMessage()
     {
         $interestingTimes = array(null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000);
@@ -1208,31 +1042,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testDeleteMessageNoOptions()
     {
         $this->deleteMessageWorker(null);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testDeleteMessage()
     {
         $interestingTimes = array(null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000);
@@ -1289,31 +1103,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessagesAsync
-    */
     public function testListMessagesNoOptions()
     {
         $this->listMessagesWorker(new ListMessagesOptions());
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessagesAsync
-    */
     public function testListMessages()
     {
         $interestingTimes = array(null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000);
@@ -1431,31 +1225,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessagesAsync
-    */
     public function testPeekMessagesNoOptions()
     {
         $this->peekMessagesWorker(new PeekMessagesOptions());
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessagesAsync
-    */
     public function testPeekMessages()
     {
         $interestingTimes = array(null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000);
@@ -1536,27 +1310,11 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testClearMessagesNoOptions()
     {
         $this->clearMessagesWorker(null);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessagesAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessageAsync
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessagesAsync
-    */
     public function testClearMessages()
     {
         $interestingTimes = array(null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000);
@@ -1622,11 +1380,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->clearMessages($queue);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
-     */
     public function testMiddlewares()
     {
         //setup middlewares.
@@ -1675,11 +1428,6 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueuesAsync
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
-     */
     public function testRetryFromSecondary()
     {
         //setup middlewares.

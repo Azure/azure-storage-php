@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class PropertyTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Property::setEdmType
-     * @covers MicrosoftAzure\Storage\Table\Models\Property::getEdmType
-     */
     public function testSetEdmType()
     {
         // Setup
@@ -55,10 +51,6 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $pro->getEdmType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Property::setValue
-     * @covers MicrosoftAzure\Storage\Table\Models\Property::getValue
-     */
     public function testSetValue()
     {
         // Setup

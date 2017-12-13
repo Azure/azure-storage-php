@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class TableSharedKeyLiteAuthSchemeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme::__construct
-    */
     public function testConstruct()
     {
         $expected = array();
@@ -52,9 +49,6 @@ class TableSharedKeyLiteAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $mock->getIncludedHeaders());
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme::computeSignature
-    */
     public function testComputeSignatureSimple()
     {
         $httpMethod = 'GET';
@@ -72,9 +66,6 @@ class TableSharedKeyLiteAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\TableSharedKeyLiteAuthScheme::getAuthorizationHeader
-     */
     public function testGetAuthorizationHeaderSimple()
     {
         $accountName = TestResources::ACCOUNT_NAME;

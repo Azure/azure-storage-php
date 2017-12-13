@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListSharesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::create
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getShares
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setShares
-     */
     public function testCreateWithEmpty()
     {
         // Setup
@@ -57,17 +52,6 @@ class ListSharesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $actual->getShares());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::create
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getShares
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setShares
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getContinuationToken
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setMarker
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getMarker
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getMaxResults
-     */
     public function testCreateWithOneEntry()
     {
         // Setup
@@ -95,19 +79,6 @@ class ListSharesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::create
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getShares
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setShares
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setPrefix
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getPrefix
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getContinuationToken
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getMaxResults
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::setAccountName
-     * @covers MicrosoftAzure\Storage\File\Models\ListSharesResult::getAccountName
-     */
     public function testCreateWithMultipleEntries()
     {
         // Setup

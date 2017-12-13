@@ -41,9 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::setName
-     */
     public function testSetName()
     {
         // Setup
@@ -57,9 +54,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getName());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::getName
-     */
     public function testGetName()
     {
         // Setup
@@ -74,9 +68,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::setUrl
-     */
     public function testSetUrl()
     {
         // Setup
@@ -90,9 +81,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getUrl());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::getUrl
-     */
     public function testGetUrl()
     {
         // Setup
@@ -107,9 +95,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -123,9 +108,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup
@@ -140,9 +122,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::setProperties
-     */
     public function testSetProperties()
     {
         // Setup
@@ -159,9 +138,6 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getProperties());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Container::getProperties
-     */
     public function testGetProperties()
     {
         // Setup

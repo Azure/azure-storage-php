@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  */
 class BatchOperationsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testConstruct()
     {
         // Test
@@ -56,10 +52,7 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::setOperations
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     * @depends testConstruct
+                    * @depends testConstruct
      */
     public function testSetOperations($operations)
     {
@@ -75,11 +68,6 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $operations->getOperations());
     }
     
-    /**
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addInsertEntity
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testAddInsertEntity()
     {
         // Setup
@@ -94,11 +82,6 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $operations->getOperations());
     }
     
-    /**
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addUpdateEntity
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testAddUpdateEntity()
     {
         // Setup
@@ -113,11 +96,6 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $operations->getOperations());
     }
     
-    /**
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addMergeEntity
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testAddMergeEntity()
     {
         // Setup
@@ -132,11 +110,6 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $operations->getOperations());
     }
     
-    /**
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addInsertOrReplaceEntity
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testAddInsertOrReplaceEntity()
     {
         // Setup
@@ -151,11 +124,6 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $operations->getOperations());
     }
     
-    /**
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addInsertOrMergeEntity
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testAddInsertOrMergeEntity()
     {
         // Setup
@@ -170,11 +138,6 @@ class BatchOperationsTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $operations->getOperations());
     }
     
-    /**
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addDeleteEntity
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::addOperation
-     *  @covers MicrosoftAzure\Storage\Table\Models\BatchOperations::getOperations
-     */
     public function testAddDeleteEntity()
     {
         // Setup

@@ -40,9 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::create
-     */
     public function testCreate()
     {
         // Setup
@@ -58,9 +55,6 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedDays, $actual->getDays());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::getEnabled
-     */
     public function testGetEnabled()
     {
         // Setup
@@ -76,9 +70,6 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::setEnabled
-     */
     public function testSetEnabled()
     {
         // Setup
@@ -94,9 +85,6 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::getDays
-     */
     public function testGetDays()
     {
         // Setup
@@ -112,9 +100,6 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::setDays
-     */
     public function testSetDays()
     {
         // Setup
@@ -130,9 +115,6 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::toArray
-     */
     public function testToArray()
     {
         // Setup
@@ -150,9 +132,6 @@ class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RetentionPolicy::toArray
-     */
     public function testToArrayWithoutDays()
     {
         // Setup

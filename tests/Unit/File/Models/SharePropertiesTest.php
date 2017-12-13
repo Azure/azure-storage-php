@@ -41,15 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class SharePropertiesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::getETag
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::setETag
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::setQuota
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::getQuota
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::getLastModified
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::setLastModified
-     * @covers MicrosoftAzure\Storage\File\Models\ShareProperties::create
-     */
     public function testCreate()
     {
         $responseArray = TestResources::getInterestingSharePropertiesArray();

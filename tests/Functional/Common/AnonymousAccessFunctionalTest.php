@@ -71,9 +71,6 @@ class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
         parent::tearDown();
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createContainerAnonymousAccess
-     */
     public function testPublicAccessContainerAndBlob()
     {
         $acl = self::$blobRestProxy->getContainerAcl($this->containerName)->getContainerAcl();
@@ -112,7 +109,6 @@ class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createContainerAnonymousAccess
      * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage 404
      */

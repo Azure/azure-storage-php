@@ -43,11 +43,6 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  */
 class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createQueueService
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::serializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::queueAuthenticationScheme
-     */
     public function testBuildForQueue()
     {
         // Setup
@@ -60,11 +55,6 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MicrosoftAzure\Storage\Queue\Internal\IQueue', $queueRestProxy);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createBlobService
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::serializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::blobAuthenticationScheme
-     */
     public function testBuildForBlob()
     {
         // Setup
@@ -77,13 +67,6 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MicrosoftAzure\Storage\Blob\Internal\IBlob', $blobRestProxy);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createTableService
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::serializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::mimeSerializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::odataSerializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::tableAuthenticationScheme
-     */
     public function testBuildForTable()
     {
         // Setup
@@ -96,11 +79,6 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MicrosoftAzure\Storage\Table\Internal\ITable', $tableRestProxy);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createFileService
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::serializer
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::fileAuthenticationScheme
-     */
     public function testBuildForFile()
     {
         // Setup
@@ -113,9 +91,6 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MicrosoftAzure\Storage\File\Internal\IFile', $fileRestProxy);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::getInstance
-     */
     public function testGetInstance()
     {
         // Test
@@ -125,9 +100,6 @@ class ServicesBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('MicrosoftAzure\Storage\Common\ServicesBuilder', $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\ServicesBuilder::createContainerAnonymousAccess
-     */
     public function testBuildForAnonymousAccess()
     {
         $builder = new ServicesBuilder();

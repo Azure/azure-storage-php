@@ -37,11 +37,6 @@ use MicrosoftAzure\Storage\Common\Models\RangeDiff;
  */
 class RangeDiffTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RangeDiff::__construct
-     * @covers MicrosoftAzure\Storage\Common\Models\RangeDiff::getStart
-     * @covers MicrosoftAzure\Storage\Common\Models\RangeDiff::getEnd
-     */
     public function testConstruct()
     {
         // Setup
@@ -61,8 +56,6 @@ class RangeDiffTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\RangeDiff::setIsClearedPageRange
-     * @covers MicrosoftAzure\Storage\Common\Models\RangeDiff::isClearedPageRange
      * @depends testConstruct
      */
     public function testIsClearedPageRange($obj)

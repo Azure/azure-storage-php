@@ -42,9 +42,6 @@ use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 */
 class SharedAccessSignatureHelperTest extends ReflectionTestBase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    */
     public function testConstruct()
     {
         // Setup
@@ -60,9 +57,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         return $sasHelper;
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedService
-     */
     public function testValidateAndSanitizeSignedService()
     {
         // Setup
@@ -93,7 +87,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedService
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage The string should only be a combination of
      */
@@ -108,9 +101,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $validateAndSanitizeSignedService->invokeArgs($sasHelper, array($unauthorizedSignedService));
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedResourceType
-     */
     public function testValidateAndSanitizeSignedResourceType()
     {
         // Setup
@@ -142,7 +132,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedResourceType
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage The string should only be a combination of
      */
@@ -158,9 +147,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $validateAndSanitizeSignedResourceType->invokeArgs($sasHelper, array($unauthorizedSignedResourceType));
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedProtocol
-     */
     public function testValidateAndSanitizeSignedProtocol()
     {
         // Setup
@@ -185,7 +171,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedProtocol
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage is invalid
      */
@@ -204,10 +189,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testGenerateAccountSharedAccessSignatureToken()
     {
         // Setup
@@ -238,10 +219,6 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::validateAndSanitizeSignedPermissions
-    */
     public function testValidateAndSanitizeSignedPermissions()
     {
         // Setup

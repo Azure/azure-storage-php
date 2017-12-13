@@ -39,10 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
  */
 class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         // Setup
@@ -57,9 +53,6 @@ class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::getAccessConditions
-     */
     public function testGetAccessConditions()
     {
         // Setup
@@ -74,9 +67,6 @@ class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::setAccessConditions
-     */
     public function testSetAccessConditions()
     {
         // Setup
@@ -90,9 +80,6 @@ class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getAccessConditions()[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::setSnapshot
-     */
     public function testSetSnapshot()
     {
         // Setup
@@ -106,9 +93,6 @@ class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getSnapshot());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::getSnapshot
-     */
     public function testGetSnapshot()
     {
         // Setup
@@ -123,10 +107,6 @@ class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::setDeleteSnaphotsOnly
-     * @covers MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions::getDeleteSnaphotsOnly
-     */
     public function testSetDeleteSnaphotsOnly()
     {
         // Setup

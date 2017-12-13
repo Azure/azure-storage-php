@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\Filters\PropertyNameFilter;
  */
 class PropertyNameFilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\PropertyNameFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\PropertyNameFilter::getPropertyName
-     */
     public function testGetPropertyName()
     {
         // Setup

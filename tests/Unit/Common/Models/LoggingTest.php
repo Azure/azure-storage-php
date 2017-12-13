@@ -41,9 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class LoggingTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::create
-     */
     public function testCreate()
     {
         // Setup
@@ -60,9 +57,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Utilities::toBoolean($sample['Logging']['Write']), $actual->getWrite());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::getRetentionPolicy
-     */
     public function testGetRetentionPolicy()
     {
         // Setup
@@ -78,9 +72,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::setRetentionPolicy
-     */
     public function testSetRetentionPolicy()
     {
         // Setup
@@ -96,9 +87,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::getWrite
-     */
     public function testGetWrite()
     {
         // Setup
@@ -114,9 +102,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::setWrite
-     */
     public function testSetWrite()
     {
         // Setup
@@ -132,9 +117,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::getRead
-     */
     public function testGetRead()
     {
         // Setup
@@ -150,9 +132,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::setRead
-     */
     public function testSetRead()
     {
         // Setup
@@ -168,9 +147,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::getDelete
-     */
     public function testGetDelete()
     {
         // Setup
@@ -186,9 +162,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::setDelete
-     */
     public function testSetDelete()
     {
         // Setup
@@ -204,9 +177,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::getVersion
-     */
     public function testGetVersion()
     {
         // Setup
@@ -222,9 +192,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::setVersion
-     */
     public function testSetVersion()
     {
         // Setup
@@ -240,9 +207,6 @@ class LoggingTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\Logging::toArray
-     */
     public function testToArray()
     {
         // Setup

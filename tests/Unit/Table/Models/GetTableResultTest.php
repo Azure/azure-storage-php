@@ -39,11 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class GetTableResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\GetTableResult::setName
-     * @covers MicrosoftAzure\Storage\Table\Models\GetTableResult::getName
-     * @covers MicrosoftAzure\Storage\Table\Models\GetTableResult::create
-     */
     public function testCreate()
     {
         // Setup

@@ -44,9 +44,6 @@ use GuzzleHttp\Psr7;
  */
 class UtilitiesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryGetValue
-     */
     public function testTryGetValue()
     {
         // Setup
@@ -60,9 +57,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryGetValue
-     */
     public function testTryGetValueUsingDefault()
     {
         // Setup
@@ -76,9 +70,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryGetValue
-     */
     public function testTryGetValueWithNull()
     {
         // Setup
@@ -91,9 +82,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryGetKeysChainValue
-     */
     public function testTryGetKeysChainValue()
     {
         // Setup
@@ -117,9 +105,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, Utilities::tryGetKeysChainValue($array, 'a1', 'b1', 'c2'));
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::startsWith
-     */
     public function testStartsWith()
     {
         // Setup
@@ -132,9 +117,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::startsWith
-     */
     public function testStartsWithDoesNotStartWithPrefix()
     {
         // Setup
@@ -147,9 +129,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getArray
-     */
     public function testGetArray()
     {
         // Setup
@@ -161,9 +140,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getArray
-     */
     public function testGetArrayWithFlatValue()
     {
         // Setup
@@ -176,9 +152,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getArray
-     */
     public function testGetArrayWithMixtureValue()
     {
         // Setup
@@ -191,9 +164,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getArray
-     */
     public function testGetArrayWithEmptyValue()
     {
         // Setup
@@ -206,10 +176,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::unserialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::_sxml2arr
-     */
     public function testUnserialize()
     {
         // Setup
@@ -224,10 +190,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($propertiesSample, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::_arr2xml
-     */
     public function testSerialize()
     {
         // Setup
@@ -263,10 +225,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::_arr2xml
-     */
     public function testSerializeAttribute()
     {
         // Setup
@@ -286,9 +244,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::toBoolean
-     */
     public function testToBoolean()
     {
         $this->assertTrue(is_bool(Utilities::toBoolean('true')));
@@ -310,9 +265,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, Utilities::toBoolean(null, true));
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::booleanToString
-     */
     public function testBooleanToString()
     {
         // Setup
@@ -326,9 +278,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::isoDate
-     */
     public function testIsoDate()
     {
         // Test
@@ -338,9 +287,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('2016-02-03T06:00:00Z', $date);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::convertToEdmDateTime
-     */
     public function testConvertToEdmDateTime()
     {
         // Test
@@ -350,9 +296,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::convertToDateTime
-     */
     public function testConvertToDateTime()
     {
         // Setup
@@ -365,9 +308,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\DateTime', $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::convertToDateTime
-     */
     public function testConvertToDateTimeWithDate()
     {
         // Setup
@@ -380,9 +320,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($date, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::stringToStream
-     */
     public function testStringToStream()
     {
         $data = 'This is string';
@@ -395,9 +332,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(stream_get_contents($expected), stream_get_contents($actual));
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::rfc1123ToDateTime
-     */
     public function testWindowsAzureDateToDateTime()
     {
         // Setup
@@ -410,9 +344,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual->format('D, d M Y H:i:s T'));
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryAddUrlScheme
-     */
     public function testTryAddUrlSchemeWithScheme()
     {
         // Setup
@@ -425,9 +356,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($url, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryAddUrlScheme
-     */
     public function testTryAddUrlSchemeWithoutScheme()
     {
         // Setup
@@ -441,9 +369,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::startsWith
-     */
     public function testStartsWithIgnoreCase()
     {
         // Setup
@@ -457,9 +382,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::inArrayInsensitive
-     */
     public function testInArrayInsensitive()
     {
         // Setup
@@ -473,9 +395,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::inArrayInsensitive
-     */
     public function testArrayKeyExistsInsensitive()
     {
         // Setup
@@ -489,9 +408,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::tryGetValueInsensitive
-     */
     public function testTryGetValueInsensitive()
     {
         // Setup
@@ -506,9 +422,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getGuid
-     */
     public function testGetGuid()
     {
         // Test
@@ -523,9 +436,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertNotEquals($actual1, $actual2);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::endsWith
-     */
     public function testEndsWith()
     {
         // Setup
@@ -540,45 +450,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-//     /**
-//      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getEntityId
-//      */
-//     public function testGetEntityIdWithString(){
-
-//         // Setup
-//         $id = 'kjgdfg57';
-
-//         // Test
-//         $result = Utilities::GetEntityId($id, 'MicrosoftAzure\Storage\MediaServices\Models\Asset');
-
-//         //Assert
-//         $this->assertEquals($id, $result);
-//     }
-
-//     /**
-//      * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getEntityId
-//      */
-//     public function testGetEntityIdWithObject(){
-
-//         // Setup
-//         $idKey = 'Id';
-//         $optionKey = 'Options';
-//         $assetArray= array(
-//                 $idKey                  => 'kjgdfg57',
-//                 $optionKey             => Asset::OPTIONS_NONE,
-//         );
-//         $value = Asset::createFromOptions($assetArray);
-
-//         // Test
-//         $result = Utilities::GetEntityId($value,'MicrosoftAzure\Storage\MediaServices\Models\Asset');
-
-//         //Assert
-//         $this->assertEquals($assetArray[$idKey], $result);
-//     }
-
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::generateCryptoKey
-     */
     public function testGenerateCryptoKey()
     {
 
@@ -592,9 +463,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($length, strlen($result));
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
-     */
     public function testBase256ToDecF()
     {
     
@@ -609,9 +477,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
-     */
     public function testBase256ToDec0()
     {
     
@@ -627,9 +492,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
     }
     
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
-     */
     public function testBase256ToDec()
     {
     
@@ -644,9 +506,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::base256ToDec
-     */
     public function testBase256ToDecBig()
     {
     
@@ -661,9 +520,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::isStreamLargerThanSizeOrNotSeekable
-     */
     public function testIsStreamLargerThanSizeOrNotSeekable()
     {
         //prepare a file
@@ -709,9 +565,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         unlink($path);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getMetadataArray
-     */
     public function testGetMetadataArray()
     {
         // Setup
@@ -728,9 +581,6 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Utilities::getMetadataArray
-     */
     public function testGetMetadataArrayWithMsHeaders()
     {
         // Setup

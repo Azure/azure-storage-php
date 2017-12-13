@@ -41,12 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class TableACLTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::create
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXmlArray
-     */
     public function testCreateEmpty()
     {
         // Setup
@@ -59,12 +53,6 @@ class TableACLTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $acl->getSignedIdentifiers());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::create
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXmlArray
-     */
     public function testCreateOneEntry()
     {
         // Setup
@@ -77,12 +65,6 @@ class TableACLTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $acl->getSignedIdentifiers());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::create
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Table\Models\TableACL::fromXmlArray
-     */
     public function testCreateMultipleEntries()
     {
         // Setup
