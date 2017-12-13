@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Common\Internal\Authentication;
 
 use GuzzleHttp\Psr7\Request;
+use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Base class for azure authentication schemes.
@@ -49,12 +50,20 @@ class SharedAccessSignatureAuthScheme implements IAuthScheme
      *
      * @param string $sasToken shared access signature token.
      *
-     * @return
-     * MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme
      */
     public function __construct($sasToken)
     {
-        $this->sasToken  = $sasToken;
+        // Remove '?' in front of the SAS token if existing
+        $this->sasToken = str_replace('?', '', $sasToken, $i);
+
+        if ($i > 1) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    Resources::INVALID_SAS_TOKEN,
+                    $sasToken
+                )
+            );
+        }
     }
 
     /**

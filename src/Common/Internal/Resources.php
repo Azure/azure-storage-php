@@ -112,6 +112,7 @@ class Resources
     const ERROR_CONNECTION_STRING_MISSING_CHARACTER = "Missing %s character";
     const ERROR_EMPTY_SETTINGS = 'No keys were found in the connection string';
     const MISSING_LOCK_LOCATION_MSG = 'The lock location of the brokered message is missing.';
+    const INVALID_SAS_TOKEN = 'The shared access signatures (SAS) provided is not valid \'%s\'';
     const INVALID_SLOT = "The provided deployment slot '%s' is not valid. Only 'staging' and 'production' are accepted.";
     const INVALID_DEPLOYMENT_LOCATOR_MSG = 'A slot or deployment name must be provided.';
     const INVALID_CHANGE_MODE_MSG = "The change mode must be 'Auto' or 'Manual'. Use Mode class constants for that purpose.";
@@ -120,7 +121,7 @@ class Resources
     const ERROR_OAUTH_SERVICE_MISSING = 'OAuth service missing for account name \'%s\'';
     const ERROR_METHOD_NOT_FOUND = 'Method \'%s\' not found in object class \'%s\'';
     const ERROR_INVALID_DATE_STRING = 'Parameter \'%s\' is not a date formatted string \'%s\'';
-    const ERROR_TOO_LARGE_FOR_BLOCK_BLOB = 'Error: Exceeds the uppper limit of the blob.';
+    const ERROR_TOO_LARGE_FOR_BLOCK_BLOB = 'Error: Exceeds the upper limit of the blob.';
     const ERROR_RANGE_NOT_ALIGN_TO_512 = 'Error: Range of the page blob must be align to 512';
     const ERROR_FILE_COULD_NOT_BE_OPENED = 'Error: file with given path could not be opened or created.';
     const ERROR_CONTAINER_NOT_EXIST = 'The specified container does not exist';
