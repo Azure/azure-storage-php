@@ -202,7 +202,7 @@ class ServiceProperties
      */
     public function setDefaultServiceVersion($defaultServiceVersion)
     {
-        return $this->defaultServiceVersion = $defaultServiceVersion;
+        $this->defaultServiceVersion = $defaultServiceVersion;
     }
     
     /**

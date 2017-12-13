@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\File\Models;
 
+use MicrosoftAzure\Storage\File\Models\Directory;
+use MicrosoftAzure\Storage\File\Models\File;
 use MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -91,6 +93,10 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
                         count($entries[Resources::QP_DIRECTORY]),
                         count($actual->getDirectories())
                     );
+                    foreach ($actual->getDirectories() as $dir) {
+                        $this->assertInstanceOf(Directory::class, $dir);
+                        $this->assertStringStartsWith('testdirectory', $dir->getName());
+                    }
                 } else {
                     $this->assertTrue(empty($actual->getDirectories()));
                 }
@@ -99,6 +105,11 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
                         count($entries[Resources::QP_FILE]),
                         count($actual->getFiles())
                     );
+                    foreach ($actual->getFiles() as $file) {
+                        $this->assertInstanceOf(File::class, $file);
+                        $this->assertStringStartsWith('testfile', $file->getName());
+                        $this->assertGreaterThanOrEqual(0, $file->getLength());
+                    }
                 } else {
                     $this->assertTrue(empty($actual->getFiles()));
                 }

@@ -37,12 +37,13 @@ namespace MicrosoftAzure\Storage\Table\Models;
  */
 trait TableContinuationTokenTrait
 {
+    /** @var TableContinuationToken $continuationToken */
     private $continuationToken;
 
     /**
      * Setter for continuationToken
      *
-     * @param string $continuationToken the continuation token to be set.
+     * @param TableContinuationToken $continuationToken the continuation token to be set.
      */
     public function setContinuationToken($continuationToken)
     {
@@ -52,7 +53,7 @@ trait TableContinuationTokenTrait
     /**
      * Getter for continuationToken
      *
-     * @return string
+     * @return TableContinuationToken
      */
     public function getContinuationToken()
     {

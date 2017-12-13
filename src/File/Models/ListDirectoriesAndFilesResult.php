@@ -58,7 +58,7 @@ class ListDirectoriesAndFilesResult
      *
      * @internal
      *
-     * @return ListSharesResult
+     * @return ListDirectoriesAndFilesResult
      */
     public static function create(array $parsedResponse, $location = '')
     {
@@ -131,7 +131,7 @@ class ListDirectoriesAndFilesResult
                     $filesArray = [$filesArray];
                 }
                 foreach ($filesArray as $fileArray) {
-                    $files[] = Directory::create($fileArray);
+                    $files[] = File::create($fileArray);
                 }
             }
 

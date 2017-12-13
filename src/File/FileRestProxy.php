@@ -1394,7 +1394,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         array $metadata,
         FileServiceOptions $options = null
     ) {
-        return $this->setDirectoryMetadataAsync(
+        $this->setDirectoryMetadataAsync(
             $share,
             $path,
             $metadata,
