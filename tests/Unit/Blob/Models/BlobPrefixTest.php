@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class BlobPrefixTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobPrefix::setName
-     */
     public function testSetName()
     {
         // Setup
@@ -54,9 +51,6 @@ class BlobPrefixTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getName());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobPrefix::getName
-     */
     public function testGetName()
     {
         // Setup

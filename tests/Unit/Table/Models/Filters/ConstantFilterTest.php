@@ -39,10 +39,6 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class ConstantFilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\ConstantFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\ConstantFilter::getValue
-     */
     public function testGetValue()
     {
         // Setup
@@ -53,10 +49,6 @@ class ConstantFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $filter->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\ConstantFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\ConstantFilter::getEdmType
-     */
     public function testGetEdmType()
     {
         // Setup

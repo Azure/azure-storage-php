@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
  */
 class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::getId
-     */
     public function testGetId()
     {
         // Setup
@@ -55,9 +52,6 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::setId
-     */
     public function testSetId()
     {
         // Setup
@@ -71,9 +65,6 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $signedIdentifier->getId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::getAccessPolicy
-     */
     public function testGetAccessPolicy()
     {
         // Setup
@@ -91,9 +82,6 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::setAccessPolicy
-     */
     public function testSetAccessPolicy()
     {
         // Setup
@@ -113,7 +101,6 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::toArray
      * @depends testSetAccessPolicy
      */
     public function testToXml($signedIdentifier)

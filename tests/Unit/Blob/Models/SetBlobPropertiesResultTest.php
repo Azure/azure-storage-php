@@ -39,15 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class SetBlobPropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::setSequenceNumber
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::getSequenceNumber
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult::create
-     */
     public function testCreate()
     {
         // Setup

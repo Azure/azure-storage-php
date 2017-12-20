@@ -39,13 +39,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class AccessConditionTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::__construct
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getValue
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::setHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::setValue
-     */
     public function testConstruct()
     {
         // Setup
@@ -60,11 +53,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::none
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getValue
-     */
     public function testNone()
     {
         // Setup
@@ -79,11 +67,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::ifModifiedSince
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getValue
-     */
     public function testIfModifiedSince()
     {
         // Setup
@@ -98,11 +81,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::ifMatch
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getValue
-     */
     public function testIfMatch()
     {
         // Setup
@@ -117,11 +95,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::ifNoneMatch
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getValue
-     */
     public function testIfNoneMatch()
     {
         // Setup
@@ -136,11 +109,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::ifNotModifiedSince
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getHeader
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::getValue
-     */
     public function testIfNotModifiedSince()
     {
         // Setup
@@ -155,9 +123,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual->getValue());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::isValid
-     */
     public function testIsValidWithValid()
     {
         // Test
@@ -167,9 +132,6 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\AccessCondition::isValid
-     */
     public function testIsValidWithInvalid()
     {
         // Test

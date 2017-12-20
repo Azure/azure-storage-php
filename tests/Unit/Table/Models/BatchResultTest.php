@@ -42,11 +42,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class BatchResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::setEntries
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::getEntries
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchResult::create
-     */
     public function testCreate()
     {
         // Setup

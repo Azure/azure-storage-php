@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
  */
 class PeekMessagesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions::getNumberOfMessages
-     */
     public function testGetNumberOfMessages()
     {
         // Setup
@@ -55,9 +52,6 @@ class PeekMessagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions::setNumberOfMessages
-     */
     public function testSetNumberOfMessages()
     {
         // Setup

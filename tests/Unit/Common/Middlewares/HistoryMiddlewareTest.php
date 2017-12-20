@@ -42,11 +42,6 @@ use GuzzleHttp\Psr7\Request;
  */
 class HistoryMiddlewareTest extends ReflectionTestBase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::onFulfilled
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::getHistory
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::__construct
-     */
     public function testOnFulfilled()
     {
         $middleware = new HistoryMiddleware();
@@ -64,11 +59,6 @@ class HistoryMiddlewareTest extends ReflectionTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::onRejected
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::getHistory
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::__construct
-     */
     public function testOnRejected()
     {
         $middleware = new HistoryMiddleware();
@@ -92,12 +82,6 @@ class HistoryMiddlewareTest extends ReflectionTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::addHistory
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::clearHistory
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::getHistory
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\HistoryMiddleware::__construct
-     */
     public function testAddGetClearHistory()
     {
         $middleware = new HistoryMiddleware();

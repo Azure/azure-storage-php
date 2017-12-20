@@ -43,10 +43,6 @@ use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
  */
 class ServiceSASFunctionalTest extends SASFunctionalTestBase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateBlobServiceSharedAccessSignatureToken
-    */
     public function testBlobServiceSAS()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -190,10 +186,6 @@ class ServiceSASFunctionalTest extends SASFunctionalTestBase
         $blobProxy->deleteBlob($container, $blob);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateFileServiceSharedAccessSignatureToken
-    */
     public function testFileServiceSAS()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -320,10 +312,6 @@ class ServiceSASFunctionalTest extends SASFunctionalTestBase
         $fileProxy->deleteFile($share, $file);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateTableServiceSharedAccessSignatureToken
-    */
     public function testTableServiceSAS()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -455,10 +443,6 @@ class ServiceSASFunctionalTest extends SASFunctionalTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateTableServiceSharedAccessSignatureToken
-    */
     public function testQueueServiceSAS()
     {
         $helper = new SharedAccessSignatureHelperMock(

@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListMessagesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::setQueueMessages
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::getQueueMessages
-     */
     public function testCreate()
     {
         // Setup
@@ -66,11 +61,6 @@ class ListMessagesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['QueueMessage']['MessageText'], $actual[0]->getMessageText());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::getQueueMessages
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesResult::setQueueMessages
-     */
     public function testCreateMultiple()
     {
         // Setup

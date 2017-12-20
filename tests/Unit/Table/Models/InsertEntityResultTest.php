@@ -42,10 +42,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 class InsertEntityResultTest extends \PHPUnit_Framework_TestCase
 {
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\InsertEntityResult::setEntity
-     * @covers MicrosoftAzure\Storage\Table\Models\InsertEntityResult::getEntity
-     */
     public function testCreate()
     {
         // Setup

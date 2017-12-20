@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\File\Models;
 
+use MicrosoftAzure\Storage\File\Models\Directory;
+use MicrosoftAzure\Storage\File\Models\File;
 use MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -41,19 +43,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::create
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setDirectories
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getDirectories
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setFiles
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getFiles
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getMaxResults
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getAccountName
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setAccountName
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult::getContinuationToken
-     */
     public function testCreate()
     {
         // Setup
@@ -91,6 +80,10 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
                         count($entries[Resources::QP_DIRECTORY]),
                         count($actual->getDirectories())
                     );
+                    foreach ($actual->getDirectories() as $dir) {
+                        $this->assertInstanceOf(Directory::class, $dir);
+                        $this->assertStringStartsWith('testdirectory', $dir->getName());
+                    }
                 } else {
                     $this->assertTrue(empty($actual->getDirectories()));
                 }
@@ -99,6 +92,11 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
                         count($entries[Resources::QP_FILE]),
                         count($actual->getFiles())
                     );
+                    foreach ($actual->getFiles() as $file) {
+                        $this->assertInstanceOf(File::class, $file);
+                        $this->assertStringStartsWith('testfile', $file->getName());
+                        $this->assertGreaterThanOrEqual(0, $file->getLength());
+                    }
                 } else {
                     $this->assertTrue(empty($actual->getFiles()));
                 }

@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class EdmTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::processType
-     */
     public function testProcessTypeWithNull()
     {
         // Setup
@@ -53,9 +50,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::processType
-     */
     public function testProcessType()
     {
         // Setup
@@ -68,9 +62,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::unserializeQueryValue
-     */
     public function testUnserializeQueryValueWithString()
     {
         // Setup
@@ -85,9 +76,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::unserializeQueryValue
-     */
     public function testUnserializeQueryValueWithBinary()
     {
         // Setup
@@ -102,9 +90,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::unserializeQueryValue
-     */
     public function testUnserializeQueryValueWithDate()
     {
         // Setup
@@ -118,9 +103,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\DateTime', $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::unserializeQueryValue
-     */
     public function testUnserializeQueryValueWithInt()
     {
         // Setup
@@ -135,9 +117,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::unserializeQueryValue
-     */
     public function testUnserializeQueryValueWithBoolean()
     {
         // Setup
@@ -152,9 +131,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::unserializeQueryValue
-     */
     public function testUnserializeQueryValueWithInvalid()
     {
         // Assert
@@ -164,9 +140,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         EdmType::unserializeQueryValue('7amada', '1233');
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::isValid
-     */
     public function testIsValid()
     {
         // Setup
@@ -179,9 +152,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::isValid
-     */
     public function testIsValidWithInvalid()
     {
         // Setup
@@ -194,9 +164,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
-     */
     public function testValidateEdmValueWithBinary()
     {
         // Setup
@@ -211,9 +178,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
-     */
     public function testValidateEdmValueWithDouble()
     {
         // Setup
@@ -234,9 +198,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         }
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
-     */
     public function testValidateEdmValueWithDate()
     {
         // Setup
@@ -251,9 +212,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
-     */
     public function testValidateEdmValueWithInt()
     {
         // Setup
@@ -268,9 +226,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
-     */
     public function testValidateEdmValueWithBoolean()
     {
         // Setup
@@ -285,9 +240,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::validateEdmValue
-     */
     public function testValidateEdmValueWithInvalid()
     {
         // Assert
@@ -297,9 +249,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         EdmType::validateEdmValue('7amada', '1233');
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
-     */
     public function testSerializeValueWithBinary()
     {
         // Setup
@@ -314,9 +263,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
-     */
     public function testSerializeValueWithDate()
     {
         // Setup
@@ -331,9 +277,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
-     */
     public function testSerializeValueWithInt()
     {
         // Setup
@@ -348,9 +291,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
-     */
     public function testSerializeValueWithBoolean()
     {
         // Setup
@@ -365,9 +305,6 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
-     */
     public function testSerializeValueWithInvalid()
     {
         // Assert

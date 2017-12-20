@@ -41,10 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class XmlSerializerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::unserialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::sxml2arr
-     */
     public function testUnserialize()
     {
         // Setup
@@ -59,10 +55,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($propertiesSample, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::arr2xml
-     */
     public function testSerialize()
     {
         // Setup
@@ -79,10 +71,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::serialize
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::arr2xml
-     */
     public function testSerializeAttribute()
     {
         // Setup
@@ -104,9 +92,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::objectSerialize
-     */
     public function testObjectSerializeSucceess()
     {
         // Setup
@@ -123,9 +108,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::objectSerialize
-     */
     public function testObjectSerializeSucceessWithAttributes()
     {
         // Setup
@@ -143,9 +125,6 @@ class XmlSerializerTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer::objectSerialize
-     */
     public function testObjectSerializeInvalidObject()
     {
         // Setup

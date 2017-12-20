@@ -42,9 +42,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::__construct
-    */
     public function testConstruct()
     {
         $expected = array();
@@ -67,9 +64,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $mock->getIncludedHeaders());
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeSignature
-    */
     public function testComputeSignatureSimple()
     {
         $httpMethod = 'GET';
@@ -88,9 +82,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::getAuthorizationHeader
-     */
     public function testGetAuthorizationHeaderSimple()
     {
         $accountName = TestResources::ACCOUNT_NAME;
@@ -112,9 +103,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedHeaders
-    */
     public function testComputeCanonicalizedHeadersMock()
     {
         $date = TestResources::DATE1;
@@ -131,9 +119,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResource
-    */
     public function testComputeCanonicalizedResourceMockSimple()
     {
         $queryVariables = array();
@@ -148,9 +133,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResource
-    */
     public function testComputeCanonicalizedResourceMockMultipleValues()
     {
         $queryVariables = array();
@@ -173,9 +155,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResourceForTable
-    */
     public function testComputeCanonicalizedResourceForTableMock()
     {
         $queryVariables = array();
@@ -190,9 +169,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::signRequest
-     */
     public function testSignRequest()
     {
         // Setup

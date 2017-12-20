@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     */
     public function testConstruct()
     {
         // Setup
@@ -56,10 +53,6 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($response, $e->getResponse());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getErrorText
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     */
     public function testGetErrorText()
     {
         // Setup
@@ -72,11 +65,6 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test info', $actualError);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getErrorMessage
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::parseErrorMessage
-     */
     public function testGetErrorMessage()
     {
         // Setup
@@ -90,10 +78,6 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($actualErrorMessage, TestResources::ERROR_MESSAGE);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getRequestID
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     */
     public function testGetRequestID()
     {
         // Setup
@@ -104,10 +88,6 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($e->getRequestID(), TestResources::REQUEST_ID1);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getDate
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     */
     public function testGetDate()
     {
         // Setup
@@ -118,10 +98,6 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($e->getDate(), TestResources::DATE1);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::getResponse
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     */
     public function testGetResponse()
     {
         // Setup
@@ -132,10 +108,6 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($e->getResponse(), $response);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::__construct
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\ServiceException::parseErrorMessage
-     */
     public function testNoWarningForNonXmlErrorMessage()
     {
         // Warnings are silenced in parseErrorMessage once they are converted to exceptions

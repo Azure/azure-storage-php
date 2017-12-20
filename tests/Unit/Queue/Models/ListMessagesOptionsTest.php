@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
  */
 class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions::getVisibilityTimeoutInSeconds
-     */
     public function testGetVisibilityTimeoutInSeconds()
     {
         // Setup
@@ -55,9 +52,6 @@ class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions::setVisibilityTimeoutInSeconds
-     */
     public function testSetVisibilityTimeoutInSeconds()
     {
         // Setup
@@ -72,9 +66,6 @@ class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions::getNumberOfMessages
-     */
     public function testGetNumberOfMessages()
     {
         // Setup
@@ -89,9 +80,6 @@ class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions::setNumberOfMessages
-     */
     public function testSetNumberOfMessages()
     {
         // Setup

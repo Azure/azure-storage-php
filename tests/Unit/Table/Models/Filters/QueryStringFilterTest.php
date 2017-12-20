@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\Filters\QueryStringFilter;
  */
 class QueryStringFilterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\QueryStringFilter::__construct
-     * @covers MicrosoftAzure\Storage\Table\Models\Filters\QueryStringFilter::getQueryString
-     */
     public function testGetQueryString()
     {
         // Setup

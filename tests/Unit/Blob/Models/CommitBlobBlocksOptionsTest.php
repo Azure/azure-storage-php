@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  */
 class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentType
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentType
-     */
     public function testSetContentType()
     {
         // Setup
@@ -56,10 +52,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentEncoding
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentEncoding
-     */
     public function testSetContentEncoding()
     {
         // Setup
@@ -74,10 +66,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentEncoding());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentLanguage
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentLanguage
-     */
     public function testSetContentLanguage()
     {
         // Setup
@@ -92,10 +80,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentLanguage());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentMD5
-     */
     public function testSetContentMD5()
     {
         // Setup
@@ -110,10 +94,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentMD5());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setCacheControl
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getCacheControl
-     */
     public function testSetCacheControl()
     {
         // Setup
@@ -128,10 +108,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getCacheControl());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setContentDisposition
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getContentDisposition
-     */
     public function testSetContentDisposition()
     {
         // Setup
@@ -146,10 +122,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentDisposition());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         // Setup
@@ -164,9 +136,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -180,9 +149,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup
@@ -197,9 +163,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::getAccessConditions
-     */
     public function testGetAccessConditions()
     {
         // Setup
@@ -214,9 +177,6 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CommitBlobBlocksOptions::setAccessConditions
-     */
     public function testSetAccessConditions()
     {
         // Setup

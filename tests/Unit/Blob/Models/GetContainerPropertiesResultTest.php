@@ -40,15 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetContainerPropertiesResult::getMetadata
-     */
     public function testCreate()
     {
         // Setup

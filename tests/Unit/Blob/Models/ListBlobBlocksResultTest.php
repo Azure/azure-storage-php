@@ -39,21 +39,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListBlobBlocksResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::setContentType
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getContentType
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::setContentLength
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getContentLength
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::setUncommittedBlocks
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getUncommittedBlocks
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::setCommittedBlocks
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::getCommittedBlocks
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksResult::create
-     */
     public function testCreate()
     {
         // Setup

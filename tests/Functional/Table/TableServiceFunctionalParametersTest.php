@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Table\Models\Filters\Filter;
 
 class TableServiceFunctionalParametersTest extends FunctionalTestBase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
-    */
     public function testGetServicePropertiesNullOptions()
     {
         try {
@@ -58,9 +55,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
-    */
     public function testSetServicePropertiesNullOptions1()
     {
         try {
@@ -71,9 +65,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
-    */
     public function testSetServicePropertiesNullOptions2()
     {
         try {
@@ -84,18 +75,12 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
-    */
     public function testQueryTablesNullOptions()
     {
         $this->restProxy->queryTables(null);
         $this->assertTrue(true, 'Null options should be fine.');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-    */
     public function testCreateTableNullOptions()
     {
         try {
@@ -107,9 +92,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-    */
     public function testDeleteTableNullOptions()
     {
         try {
@@ -121,9 +103,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testInsertEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -133,9 +112,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->assertTrue(true, 'Null options should be fine.');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testInsertEntityEmptyPartitionKey()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -148,9 +124,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->assertTrue(true, 'Should be fine.');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testInsertEntityEmptyRowKey()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -163,9 +136,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->assertTrue(true, 'Should be fine.');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testInsertStringWithAllAsciiCharacters()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -206,9 +176,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     public function testGetEntityPartKeyNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -223,9 +190,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     public function testGetEntityRowKeyNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -240,9 +204,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     public function testGetEntityKeysNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -257,9 +218,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     public function testGetEntityTableAndKeysNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -274,9 +232,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     public function testGetEntityTableNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -291,9 +246,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    */
     public function testGetEntityKeysAndOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -308,10 +260,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testGetEntityKeysNullWithOptions()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -328,10 +276,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testGetEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -343,9 +287,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->assertTrue(true, 'Null options should be fine.');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    */
     public function testDeleteEntityPartKeyNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -360,9 +301,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    */
     public function testDeleteEntityRowKeyNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -377,9 +315,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    */
     public function testDeleteEntityKeysNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -394,9 +329,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    */
     public function testDeleteEntityTableAndKeysNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -411,9 +343,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    */
     public function testDeleteEntityTableNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -428,9 +357,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    */
     public function testDeleteEntityKeysAndOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -445,10 +371,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testDeleteEntityKeysNullWithOptions()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -465,10 +387,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testDeleteEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -480,10 +398,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testDeleteEntityTroublesomePartitionKey()
     {
         // The service does not allow the following common characters in keys:
@@ -534,10 +448,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testDeleteEntityTroublesomeRowKey()
     {
         // The service does not allow the following common characters in keys:
@@ -588,9 +498,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
-    */
     public function testMergeEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -604,9 +511,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    */
     public function testUpdateEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -620,9 +524,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
-    */
     public function testInsertOrMergeEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -639,9 +540,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    */
     public function testInsertOrReplaceEntityTableNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -656,9 +554,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    */
     public function testInsertOrReplaceEntityOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -675,9 +570,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesTableNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -692,9 +584,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesTableNullOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -709,9 +598,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesTableNullWithOptions()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];
@@ -726,9 +612,6 @@ class TableServiceFunctionalParametersTest extends FunctionalTestBase
         $this->clearTable($table);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesOptionsNull()
     {
         $table = TableServiceFunctionalTestData::$testTableNames[0];

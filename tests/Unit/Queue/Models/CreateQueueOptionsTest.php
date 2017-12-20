@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions;
  */
 class CreateQueueOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -54,9 +51,6 @@ class CreateQueueOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $queue->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup
@@ -71,9 +65,6 @@ class CreateQueueOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions::addMetadata
-     */
     public function testAddMetadata()
     {
         // Setup

@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationType;
  */
 class BatchOperationTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperationType::isValid
-     */
     public function testIsValid()
     {
         // Setup
@@ -53,9 +50,6 @@ class BatchOperationTypeTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperationType::isValid
-     */
     public function testIsValidWithInvalid()
     {
         // Setup

@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
  */
 class LoggerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Logger::log
-     * @covers MicrosoftAzure\Storage\Common\Logger::setLogFile
-     */
     public function testLogWithArray()
     {
         // Setup
@@ -60,10 +56,6 @@ class LoggerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Logger::log
-     * @covers MicrosoftAzure\Storage\Common\Logger::setLogFile
-     */
     public function testLogWithString()
     {
         // Setup

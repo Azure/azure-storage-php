@@ -43,9 +43,6 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  */
 class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::getTable
-     */
     public function testGetTable()
     {
         // Setup
@@ -62,9 +59,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
         return $actual;
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::getEntity
-     */
     public function testGetEntity()
     {
         // Setup
@@ -82,9 +76,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
         return $actual;
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseTableEntries
-     */
     public function testParseTable()
     {
         // Setup
@@ -99,9 +90,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseTableEntries
-     */
     public function testParseTables()
     {
         // Setup
@@ -122,9 +110,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual2);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseEntity
-     */
     public function testParseEntity()
     {
         // Setup
@@ -150,9 +135,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
         }
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseEntities
-     */
     public function testParseEntities()
     {
         // Setup
@@ -192,10 +174,6 @@ class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::parseEntity
-     * @covers MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter::getEntity
-     */
     public function testVariousTypes()
     {
         $serializer = new JsonODataReaderWriter();

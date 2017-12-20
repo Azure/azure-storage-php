@@ -37,9 +37,6 @@ use MicrosoftAzure\Storage\Blob\Models\BlobType;
  */
 class BlobTypeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlobType
-     */
     public function testBlobType()
     {
         $this->assertEquals(BlobType::BLOCK_BLOB, 'BlockBlob');

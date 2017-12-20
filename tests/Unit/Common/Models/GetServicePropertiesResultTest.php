@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class GetServicePropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::create
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::getValue
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServicePropertiesResult::setValue
-     */
     public function testCreate()
     {
         // Test

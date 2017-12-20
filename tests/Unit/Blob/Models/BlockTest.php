@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
  */
 class BlockTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Block::setBlockId
-     * @covers MicrosoftAzure\Storage\Blob\Models\Block::getBlockId
-     */
     public function testSetBlockId()
     {
         // Setup
@@ -55,10 +51,6 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $block->getBlockId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\Block::setType
-     * @covers MicrosoftAzure\Storage\Blob\Models\Block::getType
-     */
     public function testSetType()
     {
         // Setup

@@ -7,8 +7,11 @@
          beStrictAboutOutputDuringTests="true"
          verbose="true">
   <testsuites>
-    <testsuite name="azure-storage-php">
+    <testsuite name="unit">
       <directory suffix="Test.php">tests/Unit</directory>
+    </testsuite>
+    <testsuite name="functional">
+      <directory suffix="Test.php">tests/Functional</directory>
     </testsuite>
   </testsuites>
 

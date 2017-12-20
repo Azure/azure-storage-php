@@ -37,15 +37,6 @@ use MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult;
  */
 class QueryEntitiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::create
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setNextPartitionKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getNextPartitionKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setNextRowKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getNextRowKey
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::setEntities
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult::getEntities
-     */
     public function testCreate()
     {
         // Test

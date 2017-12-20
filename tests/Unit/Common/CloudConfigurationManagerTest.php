@@ -53,10 +53,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         $sources->setValue(array());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::getConnectionString
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::_init
-     */
     public function testGetConnectionStringFromEnvironmentVariable()
     {
         // Setup
@@ -72,9 +68,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         putenv($this->_key);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::getConnectionString
-     */
     public function testGetConnectionStringDoesNotExist()
     {
         // Test
@@ -84,10 +77,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::registerSource
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::_init
-     */
     public function testRegisterSource()
     {
         // Setup
@@ -109,10 +98,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedValue, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::registerSource
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::_init
-     */
     public function testRegisterSourceWithPrepend()
     {
         // Setup
@@ -139,10 +124,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         putenv($this->_key);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::unregisterSource
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::_init
-     */
     public function testUnRegisterSource()
     {
         // Setup
@@ -167,10 +148,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull($callback);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::registerSource
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::_init
-     */
     public function testRegisterSourceWithDefaultSource()
     {
         // Setup
@@ -190,10 +167,6 @@ class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
         putenv($expectedKey);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::unregisterSource
-     * @covers MicrosoftAzure\Storage\Common\CloudConfigurationManager::_init
-     */
     public function testUnRegisterSourceWithDefaultSource()
     {
         // Setup

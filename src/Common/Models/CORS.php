@@ -117,22 +117,22 @@ class CORS
         );
 
         // Get the values from the parsed response.
-        $allowedOrigins  = explode(
+        $allowedOrigins  = array_filter(explode(
             ',',
             $parsedResponse[Resources::XTAG_ALLOWED_ORIGINS]
-        );
-        $allowedMethods  = explode(
+        ));
+        $allowedMethods  = array_filter(explode(
             ',',
             $parsedResponse[Resources::XTAG_ALLOWED_METHODS]
-        );
-        $allowedHeaders  = explode(
+        ));
+        $allowedHeaders  = array_filter(explode(
             ',',
             $parsedResponse[Resources::XTAG_ALLOWED_HEADERS]
-        );
-        $exposedHeaders  = explode(
+        ));
+        $exposedHeaders  = array_filter(explode(
             ',',
             $parsedResponse[Resources::XTAG_EXPOSED_HEADERS]
-        );
+        ));
         $maxAgeInSeconds = intval(
             $parsedResponse[Resources::XTAG_MAX_AGE_IN_SECONDS]
         );

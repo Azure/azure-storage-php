@@ -433,8 +433,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * Get the expected status code of a given lease action.
      *
      * @param  string $leaseAction The given lease action
-     *
      * @return string
+     * @throws \Exception
      */
     private static function getStatusCodeOfLeaseAction($leaseAction)
     {
@@ -465,7 +465,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param string                    $leaseAction        Lease action string.
      * @param string                    $container          Container name.
      * @param string                    $blob               Blob to lease name.
+     * @param string                    $proposedLeaseId    Proposed lease id.
+     * @param int                       $leaseDuration      Lease duration, in seconds.
      * @param string                    $leaseId            Existing lease id.
+     * @param int                       $breakPeriod        Break period, in seconds.
      * @param string                    $expectedStatusCode Expected status code.
      * @param Models\BlobServiceOptions $options            Optional parameters.
      * @param Models\AccessCondition    $accessCondition    Access conditions.
@@ -492,7 +495,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $headers     = array();
         $queryParams = array();
         $postParams  = array();
-        $path;
 
         if (empty($blob)) {
             $path = $this->createPath($container);
@@ -4299,6 +4301,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         return $this->breakLeaseAsync(
             $container,
             $blob,
+            $breakPeriod,
             $options
         )->wait();
     }
@@ -4307,9 +4310,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * Creates promise to end the lease but ensure that another client cannot
      * acquire a new lease until the current lease period has expired.
      *
-     * @param string                    $container name of the container
-     * @param string                    $blob      name of the blob
-     * @param Models\BlobServiceOptions $options   optional parameters
+     * @param string                    $container   name of the container
+     * @param string                    $blob        name of the blob
+     * @param int                       $breakPeriod break period, in seconds
+     * @param Models\BlobServiceOptions $options     optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *

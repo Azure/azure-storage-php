@@ -39,15 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class SetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::setRequestServerEncrypted
-     * @covers MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult::getRequestServerEncrypted
-     */
     public function testCreate()
     {
         // Setup

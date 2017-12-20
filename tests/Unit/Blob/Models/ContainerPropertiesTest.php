@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Blob\Models\ContainerProperties;
  */
 class ContainerPropertiesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerProperties::getETag
-     */
     public function testGetETag()
     {
         // Setup
@@ -55,9 +52,6 @@ class ContainerPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerProperties::setETag
-     */
     public function testSetETag()
     {
         // Setup
@@ -72,9 +66,6 @@ class ContainerPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerProperties::getLastModified
-     */
     public function testGetLastModified()
     {
         // Setup
@@ -89,9 +80,6 @@ class ContainerPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerProperties::setLastModified
-     */
     public function testSetLastModified()
     {
         // Setup
