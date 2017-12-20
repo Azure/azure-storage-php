@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\Models\Container;
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
@@ -47,7 +48,7 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function setUp()
     {
         parent::setUp();
-        $blobRestProxy = $this->builder->createBlobService($this->connectionString);
+        $blobRestProxy = BlobRestProxy::createBlobService($this->connectionString);
         parent::setProxy($blobRestProxy);
         $this->_createdContainers = array();
     }

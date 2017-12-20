@@ -23,7 +23,6 @@ namespace MicrosoftAzure\Storage\Samples;
 
 require_once "../vendor/autoload.php";
 
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -31,9 +30,10 @@ use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
 use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
+use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$queueClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+$queueClient = QueueRestProxy::createQueueService($connectionString);
 
 $myqueue = 'myqueue';
 
@@ -309,7 +309,7 @@ function createQueueAccountSASSample()
         '=' .
         $sas;
 
-    $queueClientWithSAS = ServicesBuilder::getInstance()->createQueueService(
+    $queueClientWithSAS = QueueRestProxy::createQueueService(
         $connectionStringWithSAS
     );
 

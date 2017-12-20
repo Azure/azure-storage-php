@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\File;
 
+use MicrosoftAzure\Storage\File\FileRestProxy;
+use MicrosoftAzure\Storage\File\Internal\IFile;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\FileServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -72,6 +74,15 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
     private function createSuffix()
     {
         return sprintf('-%04x', mt_rand(0, 65535));
+    }
+
+    public function testBuildForFile()
+    {
+        // Test
+        $fileRestProxy = FileRestProxy::createFileService(TestResources::getWindowsAzureStorageServicesConnectionString());
+
+        // Assert
+        $this->assertInstanceOf(IFile::class, $fileRestProxy);
     }
 
     public function testSetServiceProperties()

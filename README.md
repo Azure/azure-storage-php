@@ -1,15 +1,17 @@
-# Microsoft Azure Storage SDK for PHP - GA Preview
+# Microsoft Azure Storage PHP Client Libraries
 
-This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage services (blobs, tables and queues). For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](http://www.windowsazure.com/en-us/develop/php/).
+This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage services (blobs, tables, queues and files). For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](http://www.windowsazure.com/en-us/develop/php/).
 
-This project is now in GA Preview stage.
-
-[![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage/v/stable)](https://packagist.org/packages/microsoft/azure-storage)
+* azure-storage-blob [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-blob/v/stable)](https://packagist.org/packages/microsoft/azure-storage-blob)
+* azure-storage-table [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-table/v/stable)](https://packagist.org/packages/microsoft/azure-storage-table)
+* azure-storage-queue [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-queue/v/stable)](https://packagist.org/packages/microsoft/azure-storage-queue)
+* azure-storage-file [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-file/v/stable)](https://packagist.org/packages/microsoft/azure-storage-file)
+* azure-storage-common [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-common/v/stable)](https://packagist.org/packages/microsoft/azure-storage-common)
 
 > **Note**
 > 
 > * If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
-> * If you need big file or 64-bit integer support, please install PHP 7 64-bit version.
+> * If you need big file (larger than 2GB) or 64-bit integer support, please install PHP 7 64-bit version.
 
 # Features
 
@@ -24,13 +26,16 @@ This project is now in GA Preview stage.
 * Queues
   * create, list, and delete queues, and work with queue metadata and properties
   * create, get, peek, update, delete messages
+* Files
+  * create, list, and delete file shares and directories
+  * create, delete and download files
 
 Please check details on [API reference documents](http://azure.github.io/azure-storage-php).
 
 # Getting Started
 ## Minimum Requirements
 
-* PHP 5.5 or above
+* PHP 5.6 or above
 * See [composer.json](composer.json) for dependencies
 * Required extension for PHP:
   php_fileinfo.dll
@@ -38,7 +43,7 @@ Please check details on [API reference documents](http://azure.github.io/azure-s
   php_openssl.dll
   php_xsl.dll
 
-* Recommanded extension for PHP:
+* Recommended extension for PHP:
   php_curl.dll
 
 ## Download Source Code
@@ -55,7 +60,10 @@ To get the source code from GitHub, type
 ```json
     {
       "require": {
-        "microsoft/azure-storage": "*"
+        "microsoft/azure-storage-blob": "*",
+        "microsoft/azure-storage-table": "*",
+        "microsoft/azure-storage-queue": "*",
+        "microsoft/azure-storage-file": "*"
       }
     }
 ```
@@ -75,9 +83,9 @@ There are four basic steps that have to be performed before you can make a call 
   
 * Include the namespaces you are going to use.
 
-  To create any Microsoft Azure service client you need to use the **ServicesBuilder** class:
+  To create any Microsoft Azure service client you need to use the rest proxy classes, such as **BlobRestProxy** class:
 
-    use MicrosoftAzure\Storage\Common\ServicesBuilder;
+    use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 
   To process exceptions you need:
 
@@ -88,13 +96,17 @@ There are four basic steps that have to be performed before you can make a call 
 
     DefaultEndpointsProtocol=[http|https];AccountName=[yourAccount];AccountKey=[yourKey]
 
+  Or:
+  
+    BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;SharedAccessSignature=sasToken 
 
 * Instantiate a client object - a wrapper around the available calls for the given service.
 
   ```PHP
-  $tableClient = ServicesBuilder::getInstance()->createTableService($connectionString);
-  $blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
-  $queueClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+  $blobClient = BlobRestProxy::createBlobService($connectionString);
+  $tableClient = TableRestProxy::createTableService($connectionString);
+  $queueClient = QueueRestProxy::createQueueService($connectionString);
+  $fileClient = FileRestProxy::createFileService($connectionString);
   ```
 ### Using Middlewares
 To specify the middlewares, user have to create an array with middlewares
@@ -109,7 +121,7 @@ applied to each of the API call for a rest proxy. These middlewares will always
 be invoked after the middlewares in the `$requestOptions`.
 e.g.:
 ```
-$tableClient = ServicesBuilder::getInstance()->createTableService(
+$tableClient = TableRestProxy::createTableService(
     $connectionString,
     $optionsWithMiddlewares
 );
@@ -142,11 +154,9 @@ You can find samples in the [sample folder](samples)
 
 # Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
 
-If you are using [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/) to access Azure Storage Service, we highly recommend you to migrate to this SDK for faster issue resolution and quicker feature implementation. We are working on supporting the latest service features (including SAS, CORS, append blob, file service, etc) as well as improvement on existing APIs.
+If you are using [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/) to access Azure Storage Service, we highly recommend you to migrate to this SDK for faster issue resolution and quicker feature implementation. We are working on supporting the latest service features as well as improvement on existing APIs.
 
-For now, Microsoft Azure Storage SDK for PHP v0.10.2 shares almost the same interface as the storage blobs, tables and queues APIs in Azure SDK for PHP v0.4.3. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
-
-Please note that this library is still in preview and may contain more breaking changes in upcoming releases.
+For now, Microsoft Azure Storage PHP client libraries share almost the same interface as the storage blobs, tables, queues and files APIs in Azure SDK for PHP. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
   
 # Need Help?
 
@@ -158,4 +168,3 @@ If you would like to become an active contributor to this project please follow 
 You can find more details for contributing in the [CONTRIBUTING.md](CONTRIBUTING.md).
  
 If you encounter any bugs with the library please file an issue in the [Issues](https://github.com/Azure/azure-storage-php/issues) section of the project.
-

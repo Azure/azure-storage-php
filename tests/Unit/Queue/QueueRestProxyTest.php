@@ -25,6 +25,8 @@
 namespace MicrosoftAzure\Storage\Tests\Unit\Queue;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Queue\Internal\IQueue;
+use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\QueueServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions;
@@ -53,6 +55,15 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
  */
 class QueueRestProxyTest extends QueueServiceRestProxyTestBase
 {
+    public function testBuildForQueue()
+    {
+        // Test
+        $queueRestProxy = QueueRestProxy::createQueueService(TestResources::getWindowsAzureStorageServicesConnectionString());
+
+        // Assert
+        $this->assertInstanceOf(IQueue::class, $queueRestProxy);
+    }
+
     public function testListQueuesSimple()
     {
         // Setup

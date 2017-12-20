@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Functional\File;
 
+use MicrosoftAzure\Storage\File\FileRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\File\Models\GetFileOptions;
 use MicrosoftAzure\Storage\File\Models\FileServiceOptions;
@@ -1888,7 +1889,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createFileService($this->connectionString, $restOptions);
+        $mockProxy = FileRestProxy::createFileService($this->connectionString, $restOptions);
 
         //test using mock handler.
         $options = new ListSharesOptions();

@@ -36,11 +36,11 @@ use MicrosoftAzure\Storage\Common\Models\Logging;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
 use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
+use MicrosoftAzure\Storage\Table\TableRestProxy;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$tableClient = ServicesBuilder::getInstance()->createTableService($connectionString);
+$tableClient = TableRestProxy::createTableService($connectionString);
 
 $mytable = 'mytable';
 
@@ -364,7 +364,7 @@ function createTableAccountSASSample()
         '=' .
         $sas;
 
-    $tableClientWithSAS = ServicesBuilder::getInstance()->createTableService(
+    $tableClientWithSAS = TableRestProxy::createTableService(
         $connectionStringWithSAS
     );
 

@@ -369,6 +369,51 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testTryGetSecondaryEndpointFromPrimaryEndpoint()
+    {
+        $this->assertEquals(
+            'http://account-secondary.blob.core.windows.net',
+            Utilities::tryGetSecondaryEndpointFromPrimaryEndpoint(
+                'http://account.blob.core.windows.net'
+            )
+        );
+
+        $this->assertEquals(
+            'https://account-secondary.blob.core.windows.net',
+            Utilities::tryGetSecondaryEndpointFromPrimaryEndpoint(
+                'https://account.blob.core.windows.net'
+            )
+        );
+
+        $this->assertEquals(
+            'account-secondary.blob.core.windows.net',
+            Utilities::tryGetSecondaryEndpointFromPrimaryEndpoint(
+                'account.blob.core.windows.net'
+            )
+        );
+
+        $this->assertEquals(
+            'http://account-secondary.customized',
+            Utilities::tryGetSecondaryEndpointFromPrimaryEndpoint(
+                'http://account.customized'
+            )
+        );
+
+        $this->assertEquals(
+            'http://account-secondary.blob.core.windows.net/foo/bar?a=b',
+            Utilities::tryGetSecondaryEndpointFromPrimaryEndpoint(
+                'http://account.blob.core.windows.net/foo/bar?a=b'
+            )
+        );
+
+        $this->assertEquals(
+            null,
+            Utilities::tryGetSecondaryEndpointFromPrimaryEndpoint(
+                ''
+            )
+        );
+    }
+
     public function testStartsWithIgnoreCase()
     {
         // Setup

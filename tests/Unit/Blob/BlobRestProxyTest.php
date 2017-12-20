@@ -24,6 +24,9 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Blob;
 
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use MicrosoftAzure\Storage\Blob\Internal\BlobResources;
+use MicrosoftAzure\Storage\Blob\Internal\IBlob;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
@@ -82,6 +85,32 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     private function createPrefix()
     {
         return sprintf('blob-%d', time());
+    }
+
+    public function testBuildForBlob()
+    {
+        // Test
+        $blobRestProxy = BlobRestProxy::createBlobService(TestResources::getWindowsAzureStorageServicesConnectionString());
+
+        // Assert
+        $this->assertInstanceOf(IBlob::class, $blobRestProxy);
+    }
+
+    public function testBuildForAnonymousAccess()
+    {
+        $pEndpoint = sprintf(
+            '%s://%s%s',
+            Resources::HTTP_SCHEME,
+            'myaccount.',
+            Resources::BLOB_BASE_DNS_NAME
+        );
+
+        $blobRestProxy = BlobRestProxy::createContainerAnonymousAccess(
+            $pEndpoint
+        );
+
+        $this->assertInstanceOf(IBlob::class, $blobRestProxy);
+        $this->assertEquals('myaccount', $blobRestProxy->getAccountName());
     }
     
     public function testSetServiceProperties()
@@ -302,8 +331,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
     
     /**
-            * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
-    * @expectedExceptionMessage 400
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedExceptionMessage 400
     */
     public function testCreateContainerInvalidNameFail()
     {
@@ -315,8 +344,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
     }
     
     /**
-            * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
-    * @expectedExceptionMessage 409
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedExceptionMessage 409
     */
     public function testCreateContainerAlreadyExitsFail()
     {
@@ -2009,7 +2038,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         } catch (\RuntimeException $e) {
             $errorMsg = $e->getMessage();
         }
-        $this->assertEquals($errorMsg, Resources::ERROR_RANGE_NOT_ALIGN_TO_512);
+        $this->assertEquals($errorMsg, BlobResources::ERROR_RANGE_NOT_ALIGN_TO_512);
     }
 
     public function testsaveBlobToFileWithInvalidPath()
@@ -2062,7 +2091,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             $errorMsg = $e->getMessage();
         }
 
-        $this->assertTrue(strpos($errorMsg, Resources::ERROR_BLOB_NOT_EXIST) != 0);
+        $this->assertTrue(strpos($errorMsg, BlobResources::ERROR_BLOB_NOT_EXIST) != 0);
 
         if (file_exists($downloadPath)) {
             unlink($downloadPath);
@@ -2082,7 +2111,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         } catch (\Exception $e) {
             $errorMsg = $e->getMessage();
         }
-        $this->assertTrue(strpos($errorMsg, Resources::ERROR_CONTAINER_NOT_EXIST) != 0);
+        $this->assertTrue(strpos($errorMsg, BlobResources::ERROR_CONTAINER_NOT_EXIST) != 0);
 
         if (file_exists($downloadPath)) {
             unlink($downloadPath);

@@ -52,14 +52,12 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         $primaryUri     = 'http://www.microsoft.com';
         $secondaryUri   = 'http://www.bing.com';
         $accountName    = 'myaccount';
-        $dataSerializer = new XmlSerializer();
 
         // Test
         $proxy = new ServiceRestProxy(
             $primaryUri,
             $secondaryUri,
-            $accountName,
-            $dataSerializer
+            $accountName
         );
 
         // Assert

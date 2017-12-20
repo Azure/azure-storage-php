@@ -5,12 +5,12 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Azure Storage PHP SDK",
+            "name": "Azure Storage PHP Client Library",
             "email": "dmsh@microsoft.com"
         }
     ],
     "require": {
-        "php": ">=5.5.0",
+        "php": ">=5.6.0",
 		"guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
@@ -26,7 +26,11 @@
     },
     "autoload": {
         "psr-4": {
-            "MicrosoftAzure\\Storage\\": "src/"
+            "MicrosoftAzure\\Storage\\Blob\\": "azure-storage-blob/src/Blob",
+            "MicrosoftAzure\\Storage\\Table\\": "azure-storage-table/src/Table",
+            "MicrosoftAzure\\Storage\\Queue\\": "azure-storage-queue/src/Queue",
+            "MicrosoftAzure\\Storage\\File\\": "azure-storage-file/src/File",
+            "MicrosoftAzure\\Storage\\Common\\": "azure-storage-common/src/Common"
         }
     },
     "autoload-dev": {
@@ -36,10 +40,5 @@
     },
     "archive": {
         "exclude": ["/tests"]
-    },
-	"extra": {
-	    "branch-alias": {
-		    "dev-master": "0.10.x-dev"
-		}
-	}
+    }
 }

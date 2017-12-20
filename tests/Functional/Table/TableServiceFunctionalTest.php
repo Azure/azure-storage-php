@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Functional\Table;
 
+use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Functional\Table\Enums\ConcurType;
 use MicrosoftAzure\Storage\Tests\Functional\Table\Enums\MutatePivot;
@@ -1841,7 +1842,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
+        $mockProxy = TableRestProxy::createTableService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new QueryTablesOptions();
         $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
@@ -1889,7 +1890,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createTableService($this->connectionString, $restOptions);
+        $mockProxy = TableRestProxy::createTableService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new QueryTablesOptions();
         $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);

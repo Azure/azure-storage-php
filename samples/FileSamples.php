@@ -31,13 +31,13 @@ use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\Models\Metrics;
 use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
-use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
+use MicrosoftAzure\Storage\File\FileRestProxy;
+use MicrosoftAzure\Storage\File\FileSharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\File\Models\CreateShareOptions;
 use MicrosoftAzure\Storage\File\Models\ListSharesOptions;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$fileClient = ServicesBuilder::getInstance()->createFileService($connectionString);
+$fileClient = FileRestProxy::createFileService($connectionString);
 
 //Operations for File service properties;
 setFileServiceProperties($fileClient);
@@ -256,7 +256,7 @@ function generateFileDownloadLinkWithSAS($fileClient)
     $accountName = $settings->getName();
     $accountKey = $settings->getKey();
 
-    $helper = new SharedAccessSignatureHelper(
+    $helper = new FileSharedAccessSignatureHelper(
         $accountName,
         $accountKey
     );
@@ -282,7 +282,7 @@ function generateFileDownloadLinkWithSAS($fileClient)
         '=' .
         $sas;
 
-    $fileClientWithSAS = ServicesBuilder::getInstance()->createFileService(
+    $fileClientWithSAS = FileRestProxy::createFileService(
         $connectionStringWithSAS
     );
 

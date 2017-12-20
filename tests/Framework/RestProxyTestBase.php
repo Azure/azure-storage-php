@@ -42,8 +42,7 @@ class RestProxyTestBase extends \PHPUnit_Framework_TestCase
 {
     protected $restProxy;
     protected $xmlSerializer;
-    protected $builder;
-    
+
     protected function getTestName()
     {
         return sprintf('onesdkphp%04x', mt_rand(0, 65535));
@@ -60,7 +59,6 @@ class RestProxyTestBase extends \PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->xmlSerializer = new XmlSerializer();
-        $this->builder = new ServicesBuilder();
         Logger::setLogFile('C:\log.txt');
         
         // Enable PHP asserts

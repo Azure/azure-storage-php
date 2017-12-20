@@ -50,7 +50,7 @@ class CommonRequestMiddlewareTest extends ReflectionTestBase
         $headers = self::getTestHeaderArray();
         $authScheme = new SharedKeyAuthScheme('accountname', 'accountkey');
         // Construct
-        $middleware = new CommonRequestMiddleware($authScheme, $headers);
+        $middleware = new CommonRequestMiddleware($authScheme, '2016-05-31', '', $headers);
         $onRequest = self::getMethod('onRequest', $middleware);
         $request = new Request('GET', 'http://www.bing.com');
         // Apply middleware

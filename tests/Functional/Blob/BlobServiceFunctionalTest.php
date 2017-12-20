@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
@@ -2433,7 +2434,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+        $mockProxy = BlobRestProxy::createBlobService($this->connectionString, $restOptions);
 
         //test using mock handler.
         $options = new ListContainersOptions();
@@ -2482,7 +2483,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+        $mockProxy = BlobRestProxy::createBlobService($this->connectionString, $restOptions);
 
         //test using mock handler.
         $options = new ListContainersOptions();
@@ -2536,7 +2537,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $mockResponse
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+        $mockProxy = BlobRestProxy::createBlobService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new ListContainersOptions();
         $options->setLocationMode(LocationMode::PRIMARY_THEN_SECONDARY);
@@ -2566,7 +2567,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $mockResponse
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createBlobService($this->connectionString, $restOptions);
+        $mockProxy = BlobRestProxy::createBlobService($this->connectionString, $restOptions);
         $newResult = $mockProxy->listContainers($options);
 
 

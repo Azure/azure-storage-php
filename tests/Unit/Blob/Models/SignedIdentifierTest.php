@@ -23,8 +23,8 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Models;
 
+use MicrosoftAzure\Storage\Blob\Models\BlobAccessPolicy;
 use MicrosoftAzure\Storage\Common\Models\SignedIdentifier;
-use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
 
 /**
  * Unit tests for class SignedIdentifier
@@ -69,7 +69,7 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $signedIdentifier = new SignedIdentifier();
-        $expected = new AccessPolicy();
+        $expected = new BlobAccessPolicy();
         $expected->setExpiry(new \DateTime('2009-09-29T08:49:37'));
         $expected->setPermission('rwd');
         $expected->setStart(new \DateTime('2009-09-28T08:49:37'));
@@ -86,7 +86,7 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $signedIdentifier = new SignedIdentifier();
-        $expected = new AccessPolicy();
+        $expected = new BlobAccessPolicy();
         $expected->setExpiry(new \DateTime('2009-09-29T08:49:37'));
         $expected->setPermission('rwd');
         $expected->setStart(new \DateTime('2009-09-28T08:49:37'));

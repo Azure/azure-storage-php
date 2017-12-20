@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Table;
 
+use MicrosoftAzure\Storage\Table\Internal\ITable;
 use MicrosoftAzure\Storage\Table\Internal\JsonODataReaderWriter;
 use MicrosoftAzure\Storage\Table\Internal\MimeReaderWriter;
 use MicrosoftAzure\Storage\Tests\Framework\TableServiceRestProxyTestBase;
@@ -56,6 +57,15 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class TableRestProxyTest extends TableServiceRestProxyTestBase
 {
+    public function testBuildForTable()
+    {
+        // Test
+        $tableRestProxy = TableRestProxy::createTableService(TestResources::getWindowsAzureStorageServicesConnectionString());
+
+        // Assert
+        $this->assertInstanceOf(ITable::class, $tableRestProxy);
+    }
+
     public function testSetServiceProperties()
     {
         $this->skipIfEmulated();
@@ -843,7 +853,7 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
     }
     
     /**
-                                                            * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
+     * @expectedException MicrosoftAzure\Storage\Common\Exceptions\ServiceException
      * @expectedExceptionMessage All commands in a batch must operate on same entity group.
      */
     public function testBatchWithDifferentPKFail()

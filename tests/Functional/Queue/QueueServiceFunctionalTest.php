@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Functional\Queue;
 
+use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions;
@@ -1409,7 +1410,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createQueueService($this->connectionString, $restOptions);
+        $mockProxy = QueueRestProxy::createQueueService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new ListQueuesOptions();
         $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
@@ -1457,7 +1458,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createQueueService($this->connectionString, $restOptions);
+        $mockProxy = QueueRestProxy::createQueueService($this->connectionString, $restOptions);
         //test using mock handler.
         $options = new ListQueuesOptions();
         $options->setMiddlewares([$retryMiddleware, $historyMiddleware]);
