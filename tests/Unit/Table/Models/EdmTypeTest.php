@@ -351,6 +351,40 @@ class EdmTypeTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
      */
+    public function testSerializeValueWithIntAsString()
+    {
+        // Setup
+        $type = EdmType::INT32;
+        $value = '123';
+        $expected = 123;
+        
+        // Test
+        $actual = EdmType::serializeValue($type, $value);
+
+        // Assert
+        $this->assertSame($expected, $actual);
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
+     */
+    public function testSerializeValueWithStringAsInt()
+    {
+        // Setup
+        $type = EdmType::STRING;
+        $value = 123;
+        $expected = '123';
+        
+        // Test
+        $actual = EdmType::serializeValue($type, $value);
+
+        // Assert
+        $this->assertSame($expected, $actual);
+    }
+    
+    /**
+     * @covers MicrosoftAzure\Storage\Table\Models\EdmType::serializeValue
+     */
     public function testSerializeValueWithBoolean()
     {
         // Setup

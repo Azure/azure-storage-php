@@ -170,12 +170,16 @@ class EdmType
     public static function serializeValue($type, $value)
     {
         switch ($type) {
+        case null:
+            return $value;
+
         case EdmType::INT32:
+            return intval($value);
+
         case EdmType::INT64:
         case EdmType::GUID:
         case EdmType::STRING:
-        case null:
-            return $value;
+            return strval($value);
            
         case EdmType::DOUBLE:
             return strval($value);
