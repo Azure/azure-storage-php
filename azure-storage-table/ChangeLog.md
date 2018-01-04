@@ -1,4 +1,4 @@
-2017.12 - version 1.0.0
+2018.01 - version 1.0.0
 
 * Created `TableSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateTableServiceSharedAccessSignatureToken()` into `TableSharedAccessSignatureHelper`.
 * Added static builder methods `createTableService` into `TableRestProxy`.

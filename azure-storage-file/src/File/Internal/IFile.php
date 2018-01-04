@@ -935,7 +935,8 @@ interface IFile
      * @param  string                            $path    the path of the file
      * @param  StreamInterface|resource|string   $content the content used to
      *                                                    create the file
-     * @param  FileModels\CreateFileOptions|null $options optional parameters
+     * @param  FileModels\CreateFileFromContentOptions|null
+     *                                           $options optional parameters
      *
      * @return void
      */
@@ -943,7 +944,7 @@ interface IFile
         $share,
         $path,
         $content,
-        FileModels\CreateFileOptions $options = null
+        FileModels\CreateFileFromContentOptions $options = null
     );
 
     /**
@@ -953,7 +954,8 @@ interface IFile
      * @param  string                            $path    the path of the file
      * @param  StreamInterface|resource|string   $content the content used to
      *                                                    create the file
-     * @param  FileModels\CreateFileOptions|null $options optional parameters
+     * @param  FileModels\CreateFileFromContentOptions|null
+     *                                           $options optional parameters
      *
      * @return void
      */
@@ -961,7 +963,7 @@ interface IFile
         $share,
         $path,
         $content,
-        FileModels\CreateFileOptions $options = null
+        FileModels\CreateFileFromContentOptions $options = null
     );
 
     /**

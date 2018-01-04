@@ -37,6 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
 use MicrosoftAzure\Storage\Common\LocationMode;
 use MicrosoftAzure\Storage\Common\Models\Range;
+use MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions;
 use MicrosoftAzure\Storage\File\Models\ShareACL;
 use MicrosoftAzure\Storage\File\Models\ListSharesOptions;
 use MicrosoftAzure\Storage\File\Models\ListSharesResult;
@@ -327,6 +328,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
      * @param  Range                    $range   The range in the file to be put.
      *                                           4MB length min.
      * @param  PutFileRangeOptions|null $options The optional parameters.
+     * @param  boolean                  $useTransactionalMD5
+     *                                           Optional. Whether enable transactional
+     *                                           MD5 validation during uploading.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -338,7 +342,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $path,
         $content,
         Range $range,
-        PutFileRangeOptions $options = null
+        PutFileRangeOptions $options = null,
+        $useTransactionalMD5 = false
     ) {
         $queryParams  = array();
         $headers      = array();
@@ -376,6 +381,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
             &$counter,
             $queryParams,
             $range,
+            $useTransactionalMD5,
             $selfInstance
         ) {
             $size = 0;
@@ -409,7 +415,16 @@ class FileRestProxy extends ServiceRestProxy implements IFile
                 Resources::CONTENT_LENGTH,
                 $size
             );
-    
+
+            if ($useTransactionalMD5) {
+                $contentMD5 = base64_encode(md5($chunkContent, true));
+                $this->addOptionalHeader(
+                    $headers,
+                    Resources::CONTENT_MD5,
+                    $contentMD5
+                );
+            }
+
             return $selfInstance->createRequest(
                 Resources::HTTP_PUT,
                 $headers,
@@ -2284,11 +2299,11 @@ class FileRestProxy extends ServiceRestProxy implements IFile
     /**
      * Creates a file from a provided content.
      *
-     * @param  string                          $share   the share name
-     * @param  string                          $path    the path of the file
-     * @param  StreamInterface|resource|string $content the content used to
-     *                                                  create the file
-     * @param  CreateFileOptions|null          $options optional parameters
+     * @param  string                             $share   the share name
+     * @param  string                             $path    the path of the file
+     * @param  StreamInterface|resource|string    $content the content used to
+     *                                                     create the file
+     * @param  CreateFileFromContentOptions|null  $options optional parameters
      *
      * @return void
      */
@@ -2296,7 +2311,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $share,
         $path,
         $content,
-        CreateFileOptions $options = null
+        CreateFileFromContentOptions $options = null
     ) {
         $this->createFileFromContentAsync($share, $path, $content, $options)->wait();
     }
@@ -2304,25 +2319,25 @@ class FileRestProxy extends ServiceRestProxy implements IFile
     /**
      * Creates a promise to create a file from a provided content.
      *
-     * @param  string                          $share   the share name
-     * @param  string                          $path    the path of the file
-     * @param  StreamInterface|resource|string $content the content used to
+     * @param  string                            $share   the share name
+     * @param  string                            $path    the path of the file
+     * @param  StreamInterface|resource|string   $content the content used to
      *                                                  create the file
-     * @param  CreateFileOptions|null          $options optional parameters
+     * @param  CreateFileFromContentOptions|null $options optional parameters
      *
-     * @return void
+     * @return \GuzzleHttp\Promise\PromiseInterface
      */
     public function createFileFromContentAsync(
         $share,
         $path,
         $content,
-        CreateFileOptions $options = null
+        CreateFileFromContentOptions $options = null
     ) {
         $stream = Psr7\stream_for($content);
         $size = $stream->getSize();
 
         if ($options == null) {
-            $options = new CreateFileOptions();
+            $options = new CreateFileFromContentOptions();
         }
 
         //create the file first
@@ -2331,20 +2346,23 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         //then upload the content
         $range = new Range(0, $size - 1);
         $putOptions = new PutFileRangeOptions($options);
+        $useTransactionalMD5 = $options->getUseTransactionalMD5();
         if ($size > Resources::MB_IN_BYTES_4) {
             return $promise->then(function ($response) use (
                 $share,
                 $path,
                 $stream,
                 $range,
-                $putOptions
+                $putOptions,
+                $useTransactionalMD5
             ) {
                 return $this->multiplePutRangeConcurrentAsync(
                     $share,
                     $path,
                     $stream,
                     $range,
-                    $putOptions
+                    $putOptions,
+                    $useTransactionalMD5
                 );
             }, null);
         } else {

@@ -1,6 +1,6 @@
 **Note: This changelog is deprecated starting with version 1.0.0, please refer to the ChangeLog.md in each package for future change logs.** 
 
-2017.12 - version 1.0.0
+2018.01 - version 1.0.0
 
 All
 * Split azure-storage composer package into azure-storage-blob, azure-storage-table, azure-storage-queue, azure-storage-file and azure-storage-common packages.
@@ -16,7 +16,9 @@ All
 Blob
 * Created `BlobSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateBlobServiceSharedAccessSignatureToken()` into `BlobSharedAccessSignatureHelper`.
 * Added static builder methods `createBlobService` and `createContainerAnonymousAccess` into `BlobRestProxy`.
+* Added `setUseTransactionalMD5` method for options of `BlobRestProxy::CreateBlockBlob` and `BlobRestProxy::CreatePageBlobFromContent`. Default false, enabling transactional MD5 validation will take more cpu and memory resources.
 * Removed `dataSerializer` parameter from `BlobRextProxy` constructor.
+* Fixed a bug that CopyBlobFromURLOptions not found.
 
 Table
 * Created `TableSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateTableServiceSharedAccessSignatureToken()` into `TableSharedAccessSignatureHelper`.
@@ -32,6 +34,7 @@ Queue
 File
 * Created `FileSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateFileServiceSharedAccessSignatureToken()` into `FileSharedAccessSignatureHelper`.
 * Added static builder methods `createFileService` into `FileRestProxy`.
+* Added `setUseTransactionalMD5` method for option of `FileRestProxy::CreateFileFromContent`.  Default false, enabling transactional MD5 validation will take more cpu and memory resources.
 * Removed `dataSerializer` parameter from `FileRextProxy` constructor.
 
 2017.09 - version 0.19.1

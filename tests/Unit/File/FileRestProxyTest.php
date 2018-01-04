@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\Unit\File;
 
 use MicrosoftAzure\Storage\File\FileRestProxy;
 use MicrosoftAzure\Storage\File\Internal\IFile;
+use MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\FileServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -780,9 +781,11 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
         $testfile1 = 'testfile1';
         $testfile2 = 'testfile2';
 
-        $this->restProxy->createFileFromContent($share, $testfile0, $content0);
-        $this->restProxy->createFileFromContent($share, $testfile1, $content1);
-        $this->restProxy->createFileFromContent($share, $testfile2, $content2);
+        $options = new CreateFileFromContentOptions();
+        $options->setUseTransactionalMD5(true);
+        $this->restProxy->createFileFromContent($share, $testfile0, $content0, $options);
+        $this->restProxy->createFileFromContent($share, $testfile1, $content1, $options);
+        $this->restProxy->createFileFromContent($share, $testfile2, $content2, $options);
 
         $result = $this->restProxy->getFile($share, $testfile0);
         $actual0 = \stream_get_contents($result->getContentStream());

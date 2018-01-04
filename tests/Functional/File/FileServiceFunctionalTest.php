@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\Functional\File;
 
 use MicrosoftAzure\Storage\File\FileRestProxy;
+use MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\File\Models\GetFileOptions;
 use MicrosoftAzure\Storage\File\Models\FileServiceOptions;
@@ -1315,7 +1316,8 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         // Make sure there is something to test
         $dataSize = 512;
         $content = FileServiceFunctionalTestData::getRandomBytes($dataSize);
-        $createFileOptions = new CreateFileOptions();
+        $createFileOptions = new createFileFromContentOptions();
+        $createFileOptions->setUseTransactionalMD5(true);
         if ($options && $options->getRangeGetContentMD5()) {
             $createFileOptions->setContentMD5('MDAwMDAwMDA=');
         }

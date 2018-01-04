@@ -28,6 +28,8 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources;
 use MicrosoftAzure\Storage\Blob\Internal\IBlob;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobFromContentOptions;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -844,9 +846,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $name = 'createblockblobwithplaintext' . $this->createSuffix();
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
-        
+
         // Test
         $createResult = $this->restProxy->createBlockBlob($name, 'myblob', 'Hello world', $options);
         
@@ -865,8 +867,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $name = 'createblockblobwithstream' . $this->createSuffix();
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
+        $options->setUseTransactionalMD5(true);
         $fileContents = 'Hello world, I\'m a file';
         $stream = fopen(VirtualFileSystem::newFile($fileContents), 'r');
         
@@ -978,7 +981,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $contentType = 'text/plain; charset=UTF-8';
         $contentStream = 'Hello world';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $options->setMetadata($metadata);
         $this->restProxy->createBlockBlob($name, $blob, $contentStream, $options);
@@ -1087,7 +1090,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $contentType = 'text/plain; charset=UTF-8';
         $contentStream = chr(0);
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $options->setMetadata($metadata);
         $this->restProxy->createBlockBlob($name, $blob, $contentStream, $options);
@@ -1111,7 +1114,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         
@@ -1130,7 +1133,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         $snapshot = $this->restProxy->createBlobSnapshot($name, $blob);
@@ -1156,7 +1159,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         $this->restProxy->createBlobSnapshot($name, $blob);
@@ -1182,7 +1185,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         
@@ -1201,7 +1204,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         
@@ -1223,7 +1226,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         
@@ -1244,7 +1247,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         $result = $this->restProxy->acquireLease($name, $blob);
@@ -1263,7 +1266,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         $result = $this->restProxy->acquireLease($name, $blob);
@@ -1283,7 +1286,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $blob = 'myblob';
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
         $this->restProxy->acquireLease($name, $blob);
@@ -1725,7 +1728,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Setup
         $sourceContainerName = 'copyblobincrementalsource' . $this->createSuffix();
         $sourceBlobName = 'sourceblob';
-        $sourceContentLength = 512 * 8;
+        $sourceContentLength = 1024 * 1024 * 8;
         $sourceBlobContent = openssl_random_pseudo_bytes($sourceContentLength);
 
         $destinationContainerName = 'copyblobincrementaldest' . $this->createSuffix();
@@ -1734,11 +1737,15 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($sourceContainerName);
         $this->createContainer($destinationContainerName);
 
+        $options = new CreatePageBlobFromContentOptions();
+        $options->setUseTransactionalMD5(true);
+
         $this->restProxy->createPageBlobFromContent(
             $sourceContainerName,
             $sourceBlobName,
             $sourceContentLength,
-            $sourceBlobContent
+            $sourceBlobContent,
+            $options
         );
 
         $sourceSnapshotResult = $this->restProxy->createBlobSnapshot(
@@ -1759,8 +1766,8 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
             $options
         );
 
-        // Wait 10 seconds until copying ends
-        sleep(10);
+        // Wait several seconds until copying ends
+        sleep(20);
 
         // Assert
         $sourceBlob = $this->restProxy->getBlob($sourceContainerName, $sourceBlobName);
@@ -1864,7 +1871,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($name);
         $contentType = 'text/plain; charset=UTF-8';
         $content = "";
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $this->restProxy->createBlockBlob($name, $blob, $content, $options);
     
@@ -1917,8 +1924,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         for ($i = 0; $i < 5; $i++) {
             $content .= $content;
         }
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
+        $options->setUseTransactionalMD5(true);
         $this->restProxy->createBlockBlob($name, 'little_split', $content, $options);
 
         // Block specific
@@ -1953,7 +1961,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $contentType = 'text/plain; charset=UTF-8';
         $contentStream = 'Hello world';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $options->setMetadata($metadata);
         $this->restProxy->createBlockBlob(
@@ -2052,7 +2060,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $metadata = array('m1' => 'v1', 'm2' => 'v2');
         $contentType = 'text/plain; charset=UTF-8';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $options->setMetadata($metadata);
         $this->restProxy->createBlockBlob(

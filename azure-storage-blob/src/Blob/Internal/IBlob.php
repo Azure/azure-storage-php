@@ -488,10 +488,10 @@ interface IBlob
     * existing blob is overwritten with the content of the new blob. To perform a
     * partial update of the content of a block blob, use the createBlockList method.
     *
-    * @param string                       $container name of the container
-    * @param string                       $blob      name of the blob
-    * @param string                       $content   content of the blob
-    * @param BlobModels\CreateBlobOptions $options   optional parameters
+    * @param string                            $container name of the container
+    * @param string                            $blob      name of the blob
+    * @param string                            $content   content of the blob
+    * @param BlobModels\CreateBlockBlobOptions $options   optional parameters
     *
     * @return BlobModels\CopyBlobResult
     *
@@ -501,7 +501,7 @@ interface IBlob
         $container,
         $blob,
         $content,
-        BlobModels\CreateBlobOptions $options = null
+        BlobModels\CreateBlockBlobOptions $options = null
     );
 
     /**
@@ -514,10 +514,10 @@ interface IBlob
      * partial update of the content of a block blob, use the createBlockList
      * method.
      *
-     * @param string                          $container The name of the container.
-     * @param string                          $blob      The name of the blob.
-     * @param string|resource|StreamInterface $content   The content of the blob.
-     * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
+     * @param string                             $container The name of the container.
+     * @param string                             $blob      The name of the blob.
+     * @param string|resource|StreamInterface    $content   The content of the blob.
+     * @param BlobModels\CreateBlockBlobOptions  $options   The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -527,7 +527,7 @@ interface IBlob
         $container,
         $blob,
         $content,
-        BlobModels\CreateBlobOptions $options = null
+        BlobModels\CreateBlockBlobOptions $options = null
     );
 
     /**
@@ -537,7 +537,8 @@ interface IBlob
      * @param string                          $blob      The name of the blob.
      * @param int                             $length    The length of the blob.
      * @param string|resource|StreamInterface $content   The content of the blob.
-     * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
+     * @param BlobModels\CreatePageBlobFromContentOptions
+     *                                        $options   The optional parameters.
      *
      * @return BlobModels\GetBlobPropertiesResult
      *
@@ -548,7 +549,7 @@ interface IBlob
         $blob,
         $length,
         $content,
-        BlobModels\CreateBlobOptions $options = null
+        BlobModels\CreatePageBlobFromContentOptions $options = null
     );
 
     /**
@@ -559,7 +560,8 @@ interface IBlob
      * @param string                          $blob      The name of the blob.
      * @param int                             $length    The length of the blob.
      * @param string|resource|StreamInterface $content   The content of the blob.
-     * @param BlobModels\CreateBlobOptions    $options   The optional parameters.
+     * @param BlobModels\CreatePageBlobFromContentOptions
+     *                                        $options   The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -570,7 +572,7 @@ interface IBlob
         $blob,
         $length,
         $content,
-        BlobModels\CreateBlobOptions $options = null
+        BlobModels\CreatePageBlobFromContentOptions $options = null
     );
 
     /**

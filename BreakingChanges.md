@@ -15,6 +15,7 @@ All
 
 Blob
 * Removed `dataSerializer` parameter from `BlobRextProxy` constructor.
+* Option parameter type of `BlobRestProxy::CreateBlockBlob` and `BlobRestProxy::CreatePageBlobFromContent` changed and added `setUseTransactionalMD5` method.
 
 Table
 * Removed `dataSerializer` parameter from `TableRextProxy` constructor.
@@ -25,6 +26,7 @@ Queue
 
 File
 * Removed `dataSerializer` parameter from `FileRextProxy` constructor.
+* Option parameter type of `FileRestProxy::CreateFileFromContent` changed and added `setUseTransactionalMD5` method.
 
 Tracking Breaking changes in 0.19.0
 

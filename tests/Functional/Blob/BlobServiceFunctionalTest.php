@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
@@ -2624,9 +2625,10 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         $blobName = BlobServiceFunctionalTestData::getInterestingBlobName($container);
         $metadata = array('m1' => 'v1', 'm2' => 'v2');
         $contentType = 'text/plain; charset=UTF-8';
-        $options = new CreateBlobOptions();
+        $options = new CreateBlockBlobOptions();
         $options->setContentType($contentType);
         $options->setMetadata($metadata);
+        $options->setUseTransactionalMD5(true);
         $this->restProxy->setSingleBlobUploadThresholdInBytes($threshold);
         $this->restProxy->createBlockBlob(
             $container,

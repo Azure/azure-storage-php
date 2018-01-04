@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\BlobBlockType;
@@ -1001,13 +1002,14 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
     {
         // Act
         $content = 'some $content';
-        $opts = new CreateBlobOptions();
+        $opts = new CreateBlockBlobOptions();
         $opts->setContentEncoding('UTF-8');
         $opts->setContentLanguage('en-us');
         // $opts->setContentMD5('1234');
         $opts->setContentType('text/plain');
         $opts->setCacheControl('test');
         $opts->setContentDisposition('test');
+        $opts->setUseTransactionalMD5(true);
         $this->restProxy->createBlockBlob(self::$_test_container_for_blobs, 'test2', $content, $opts);
 
         $result = $this->restProxy->getBlobProperties(self::$_test_container_for_blobs, 'test2');
@@ -1106,7 +1108,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
     {
         // Act
         $content = 'some $content';
-        $opts = new CreateBlobOptions();
+        $opts = new CreateBlockBlobOptions();
         $opts->setCacheControl('test');
         $opts->setContentDisposition('test');
         $opts->setContentEncoding('UTF-8');

@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\Functional\File;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions;
 use MicrosoftAzure\Storage\Tests\Framework\SASFunctionalTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Tests\Functional\File\FileSharedAccessSignatureHelperMock;
@@ -161,7 +162,9 @@ class FileServiceSASFunctionalTest extends SASFunctionalTestBase
         );
         $content = \openssl_random_pseudo_bytes(20);
         //rcwd can be performed.
-        $fileProxy->createFileFromContent($share, $file, $content);
+        $options = new CreateFileFromContentOptions();
+        $options->setUseTransactionalMD5(true);
+        $fileProxy->createFileFromContent($share, $file, $content, $options);
         $actual = stream_get_contents($fileProxy->getFile($share, $file)->getContentStream());
         $this->assertEquals($content, $actual);
         $fileProxy->deleteFile($share, $file);
