@@ -783,7 +783,9 @@ class Utilities
 
     /**
      * Check if all the bytes are zero.
+     *
      * @param string $content The content.
+     * @return bool
      */
     public static function allZero($content)
     {
@@ -791,7 +793,7 @@ class Utilities
 
         // If all Zero, skip this range
         for ($i = 0; $i < $size; $i++) {
-            if (ord($content[$i] != 0)) {
+            if (ord($content[$i]) != 0) {
                 return false;
             }
         }

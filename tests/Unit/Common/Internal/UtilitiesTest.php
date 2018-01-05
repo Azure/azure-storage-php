@@ -244,6 +244,19 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testAllZero()
+    {
+        $this->assertFalse(Utilities::allZero('hello'));
+
+        for ($i = 1; $i < 256; $i++) {
+            $this->assertFalse(Utilities::allZero(pack('c', $i)));
+        }
+
+        $this->assertTrue(Utilities::allZero(pack('c', 0)));
+
+        $this->assertTrue(Utilities::allZero(''));
+    }
+
     public function testToBoolean()
     {
         $this->assertTrue(is_bool(Utilities::toBoolean('true')));

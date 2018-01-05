@@ -26,6 +26,7 @@ require_once "../vendor/autoload.php";
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
+use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
@@ -370,7 +371,7 @@ function generateBlobDownloadLinkWithSAS()
         Resources::RESOURCE_TYPE_BLOB,
         'mycontainer/myblob',
         'r',                            // Read
-        '2018-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
+        '2019-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
         //'2016-01-01T08:30:00Z',       // A valid ISO 8601 format expiry time
         //'0.0.0.0-255.255.255.255'
         //'https,http'
@@ -610,7 +611,7 @@ function leaseOperations($blobClient)
     $blob = 'Blob' . generateRandomString();
     echo "Create blob " . $blob . PHP_EOL;
     $contentType = 'text/plain; charset=UTF-8';
-    $options = new CreateBlobOptions();
+    $options = new CreateBlockBlobOptions();
     $options->setContentType($contentType);
     $blobClient->createBlockBlob($container, $blob, 'Hello world', $options);
     

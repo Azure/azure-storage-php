@@ -1728,7 +1728,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Setup
         $sourceContainerName = 'copyblobincrementalsource' . $this->createSuffix();
         $sourceBlobName = 'sourceblob';
-        $sourceContentLength = 1024 * 1024 * 8;
+        $sourceContentLength = 512 * 8;
         $sourceBlobContent = openssl_random_pseudo_bytes($sourceContentLength);
 
         $destinationContainerName = 'copyblobincrementaldest' . $this->createSuffix();
