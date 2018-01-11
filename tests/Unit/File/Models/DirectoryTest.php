@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\File\Models;
 
+use MicrosoftAzure\Storage\File\Internal\FileResources;
 use MicrosoftAzure\Storage\File\Models\Directory;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -40,17 +41,12 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class DirectoryTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\Directory::create
-     * @covers MicrosoftAzure\Storage\File\Models\Directory::getName
-     * @covers MicrosoftAzure\Storage\File\Models\Directory::setName
-     */
     public function testCreate()
     {
         // Setup
         $listArray =
             TestResources::getInterestingListDirectoriesAndFilesResultArray(5, 0);
-        $samples = $listArray[Resources::QP_ENTRIES][Resources::QP_DIRECTORY];
+        $samples = $listArray[Resources::QP_ENTRIES][FileResources::QP_DIRECTORY];
         
         // Test
         $actuals = array();

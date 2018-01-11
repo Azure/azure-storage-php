@@ -24,11 +24,14 @@
  
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\StorageServiceSettings;
 use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
+use MicrosoftAzure\Storage\File\FileRestProxy;
+use MicrosoftAzure\Storage\Queue\QueueRestProxy;
+use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 
@@ -46,7 +49,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
 {
     protected $connectionString;
     protected $xmlSerializer;
-    protected $builder;
     protected $serviceSettings;
     protected $createdContainer;
     protected $createdTable;
@@ -60,7 +62,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
     public function __construct()
     {
         $this->xmlSerializer = new XmlSerializer();
-        $this->builder = new ServicesBuilder();
         $this->connectionString = TestResources::getWindowsAzureStorageServicesConnectionString();
         $this->serviceSettings =
             StorageServiceSettings::createFromConnectionString(
@@ -84,25 +85,25 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
     protected function setUpWithConnectionString($connectionString)
     {
         $this->blobRestProxy  =
-            $this->builder->createBlobService($connectionString);
+            BlobRestProxy::createBlobService($connectionString);
         $this->queueRestProxy =
-            $this->builder->createQueueService($connectionString);
+            QueueRestProxy::createQueueService($connectionString);
         $this->tableRestProxy =
-            $this->builder->createTableService($connectionString);
+            TableRestProxy::createTableService($connectionString);
         $this->fileRestProxy =
-            $this->builder->createFileService($connectionString);
+            FileRestProxy::createFileService($connectionString);
     }
 
     protected function tearDown()
     {
         $this->blobRestProxy  =
-            $this->builder->createBlobService($this->connectionString);
+            BlobRestProxy::createBlobService($this->connectionString);
         $this->queueRestProxy =
-            $this->builder->createQueueService($this->connectionString);
+            QueueRestProxy::createQueueService($this->connectionString);
         $this->tableRestProxy =
-            $this->builder->createTableService($this->connectionString);
+            TableRestProxy::createTableService($this->connectionString);
         $this->fileRestProxy =
-            $this->builder->createFileService($this->connectionString);
+            FileRestProxy::createFileService($this->connectionString);
 
         foreach ($this->createdContainer as $container) {
             $this->safeDeleteContainer($container);
@@ -176,7 +177,7 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
                                     Resources::BLOB_BASE_DNS_NAME .
                                     ';' .
                                     $connectionString;
-                return $this->builder->createBlobService($connectionString);
+                return BlobRestProxy::createBlobService($connectionString);
                 break;
             case Resources::RESOURCE_TYPE_QUEUE:
                 $connectionString = Resources::QUEUE_ENDPOINT_NAME .
@@ -187,7 +188,7 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
                                     Resources::QUEUE_BASE_DNS_NAME .
                                     ';' .
                                     $connectionString;
-                return $this->builder->createQueueService($connectionString);
+                return QueueRestProxy::createQueueService($connectionString);
                 break;
             case Resources::RESOURCE_TYPE_TABLE:
                 $connectionString = Resources::TABLE_ENDPOINT_NAME .
@@ -198,7 +199,7 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
                                     Resources::TABLE_BASE_DNS_NAME .
                                     ';' .
                                     $connectionString;
-                return $this->builder->createTableService($connectionString);
+                return TableRestProxy::createTableService($connectionString);
                 break;
             case Resources::RESOURCE_TYPE_FILE:
             case Resources::RESOURCE_TYPE_SHARE:
@@ -210,7 +211,7 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
                                     Resources::FILE_BASE_DNS_NAME .
                                     ';' .
                                     $connectionString;
-                return $this->builder->createFileService($connectionString);
+                return FileRestProxy::createFileService($connectionString);
                 break;
             default:
                 $this->assertTrue(false);// Given signed resource not valid.
@@ -218,9 +219,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     */
     protected function safeDeleteContainer($name)
     {
         try {
@@ -231,9 +229,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     */
     protected function safeCreateContainer($name)
     {
         try {
@@ -244,9 +239,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-     */
     protected function safeDeleteQueue($name)
     {
         try {
@@ -257,9 +249,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-     */
     protected function safeCreateQueue($name)
     {
         try {
@@ -270,9 +259,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-     */
     protected function safeDeleteTable($name)
     {
         try {
@@ -283,9 +269,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-     */
     protected function safeCreateTable($name)
     {
         try {
@@ -296,9 +279,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     */
     protected function safeDeleteShare($name)
     {
         try {
@@ -309,9 +289,6 @@ class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     */
     protected function safeCreateShare($name)
     {
         try {

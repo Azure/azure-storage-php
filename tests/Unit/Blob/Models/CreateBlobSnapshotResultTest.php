@@ -39,15 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
  */
 class CreateBlobSnapshotResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::getSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::setSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult::create
-     */
     public function testCreate()
     {
         // Setup

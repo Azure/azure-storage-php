@@ -23,6 +23,7 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
+use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 
 /**
@@ -42,7 +43,7 @@ class TableServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function setUp()
     {
         parent::setUp();
-        $tableRestProxy = $this->builder->createTableService($this->connectionString);
+        $tableRestProxy = TableRestProxy::createTableService($this->connectionString);
         parent::setProxy($tableRestProxy);
         $this->_createdTables = array();
     }

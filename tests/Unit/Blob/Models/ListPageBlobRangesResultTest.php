@@ -40,17 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListPageBlobRangesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getRanges
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setRanges
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setContentLength
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getContentLength
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesResult::create
-     */
     public function testCreate()
     {
         // Setup

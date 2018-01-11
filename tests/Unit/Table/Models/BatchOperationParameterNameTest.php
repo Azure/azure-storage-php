@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
  */
 class BatchOperationParameterNameTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName::isValid
-     */
     public function testIsValid()
     {
         // Setup
@@ -53,9 +50,6 @@ class BatchOperationParameterNameTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName::isValid
-     */
     public function testIsValidWithInvalid()
     {
         // Setup

@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::setPrefix
-     */
     public function testSetPrefix()
     {
         // Setup
@@ -55,9 +52,6 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getPrefix());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::getPrefix
-     */
     public function testGetPrefix()
     {
         // Setup
@@ -72,9 +66,6 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::setMarker
-     */
     public function testSetMarker()
     {
         // Setup
@@ -88,9 +79,6 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getNextMarker());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::setMaxResults
-     */
     public function testSetMaxResults()
     {
         // Setup
@@ -104,9 +92,6 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getMaxResults());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::getMaxResults
-     */
     public function testGetMaxResults()
     {
         // Setup
@@ -121,9 +106,6 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::setIncludeMetadata
-     */
     public function testSetIncludeMetadata()
     {
         // Setup
@@ -137,9 +119,6 @@ class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersOptions::getIncludeMetadata
-     */
     public function testGetIncludeMetadata()
     {
         // Setup

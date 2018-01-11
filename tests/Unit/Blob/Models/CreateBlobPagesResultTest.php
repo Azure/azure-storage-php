@@ -39,19 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
  */
 class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setSequenceNumber
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getSequenceNumber
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::setRequestServerEncrypted
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult::getRequestServerEncrypted
-     */
     public function testCreate()
     {
         // Setup

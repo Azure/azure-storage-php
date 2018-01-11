@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  */
 class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::getAccessConditions
-     */
     public function testGetAccessConditions()
     {
         // Setup
@@ -55,9 +52,6 @@ class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::setAccessConditions
-     */
     public function testSetAccessConditions()
     {
         // Setup
@@ -71,10 +65,6 @@ class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getAccessConditions()[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::getContentMD5
-     */
     public function testSetContentMD5()
     {
         // Setup
@@ -89,10 +79,6 @@ class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentMD5());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         // Setup

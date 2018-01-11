@@ -40,11 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class ListContainersResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
-     */
     public function testCreateWithEmpty()
     {
         // Setup
@@ -57,17 +52,6 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $actual->getContainers());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContinuationToken
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMarker
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMaxResults
-     */
     public function testCreateWithOneEntry()
     {
         // Setup
@@ -100,19 +84,6 @@ class ListContainersResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContainers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContainers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setPrefix
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getPrefix
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getContinuationToken
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getMaxResults
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::setAccountName
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListContainersResult::getAccountName
-     */
     public function testCreateWithMultipleEntries()
     {
         // Setup

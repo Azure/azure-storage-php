@@ -41,9 +41,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class QueueMessageTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::toXml
-     */
     public function testToXml()
     {
         // Setup
@@ -62,9 +59,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::createFromListMessages
-    */
     public function testCreateListMessages()
     {
         // Setup
@@ -84,9 +78,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['MessageText'], $actual->getMessageText());
     }
     
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::createFromPeekMessages
-    */
     public function testCreateFromPeekMessages()
     {
         // Setup
@@ -104,9 +95,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['MessageText'], $actual->getMessageText());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getMessageText
-     */
     public function testGetMessageText()
     {
         // Setup
@@ -121,9 +109,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setMessageText
-     */
     public function testSetMessageText()
     {
         // Setup
@@ -138,9 +123,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getMessageId
-     */
     public function testGetMessageId()
     {
         // Setup
@@ -155,9 +137,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setMessageId
-     */
     public function testSetMessageId()
     {
         // Setup
@@ -172,9 +151,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getInsertionDate
-     */
     public function testGetInsertionDate()
     {
         // Setup
@@ -189,9 +165,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setInsertionDate
-     */
     public function testSetInsertionDate()
     {
         // Setup
@@ -206,9 +179,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getExpirationDate
-     */
     public function testGetExpirationDate()
     {
         // Setup
@@ -223,9 +193,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setExpirationDate
-     */
     public function testSetExpirationDate()
     {
         // Setup
@@ -240,9 +207,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getPopReceipt
-     */
     public function testGetPopReceipt()
     {
         // Setup
@@ -257,9 +221,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setPopReceipt
-     */
     public function testSetPopReceipt()
     {
         // Setup
@@ -274,9 +235,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getTimeNextVisible
-     */
     public function testGetTimeNextVisible()
     {
         // Setup
@@ -291,9 +249,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setTimeNextVisible
-     */
     public function testSetTimeNextVisible()
     {
         // Setup
@@ -308,9 +263,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::getDequeueCount
-     */
     public function testGetDequeueCount()
     {
         // Setup
@@ -325,9 +277,6 @@ class QueueMessageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\QueueMessage::setDequeueCount
-     */
     public function testSetDequeueCount()
     {
         // Setup

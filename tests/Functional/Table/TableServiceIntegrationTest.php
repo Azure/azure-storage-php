@@ -156,9 +156,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         return $result;
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
-    */
     public function testGetServicePropertiesWorks()
     {
         // Arrange
@@ -190,10 +187,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getHourMetrics()->getVersion(), '$props->getHourMetrics()->getVersion');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getServiceProperties
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::setServiceProperties
-    */
     public function testSetServicePropertiesWorks()
     {
         // Arrange
@@ -231,10 +224,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getHourMetrics()->getVersion(), '$props->getHourMetrics()->getVersion');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTable
-    */
     public function testCreateTablesWorks()
     {
         // Act
@@ -252,11 +241,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($result, '$result');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::createTable
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteTable
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTable
-    */
     public function testDeleteTablesWorks()
     {
         // Act
@@ -276,9 +260,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($result, '$result');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
-    */
     public function testQueryTablesWorks()
     {
         // Act
@@ -288,9 +269,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($result, '$result');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryTables
-    */
     public function testQueryTablesWithPrefixWorks()
     {
         // Act
@@ -302,9 +280,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($result, '$result');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getTable
-    */
     public function testGetTableWorks()
     {
         // Act
@@ -314,9 +289,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($result, '$result');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testInsertEntityWorks()
     {
         // Arrange
@@ -410,10 +382,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         );
         $this->assertEquals($uuid, $result->getEntity()->getPropertyValue('test7'), 'GUIDs are the same');
     }
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    */
     public function testUpdateEntityWorks()
     {
         // Arrange
@@ -435,9 +403,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'Expect success in testUpdateEntityWorks');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrReplaceEntity
-    */
     public function testInsertOrReplaceEntityWorks()
     {
         // Arrange
@@ -469,9 +434,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertOrMergeEntity
-    */
     public function testInsertOrMergeEntityWorks()
     {
         // Arrange
@@ -503,10 +465,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::mergeEntity
-    */
     public function testMergeEntityWorks()
     {
         // Arrange
@@ -530,10 +488,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'expect no errors');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testDeleteEntityWorks()
     {
         // Arrange
@@ -559,12 +513,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'expect no errors');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testDeleteEntityTroublesomeKeyWorks()
     {
         // The service does not allow the following common characters in keys:
@@ -674,10 +622,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::deleteEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testDeleteEntityWithETagWorks()
     {
         // Arrange
@@ -706,10 +650,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'expect no errors');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::getEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testGetEntityWorks()
     {
         // Arrange
@@ -808,10 +748,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals($uuid, $result->getEntity()->getPropertyValue('test7'), 'GUIDs are the same');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesWorks()
     {
         // Arrange
@@ -875,10 +811,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesWithPaginationWorks()
     {
         // Arrange
@@ -921,10 +853,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals($numberOfEntries, $entryCount, '$entryCount');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::queryEntities
-    */
     public function testQueryEntitiesWithFilterWorks()
     {
         // Arrange
@@ -1101,9 +1029,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    */
     public function testBatchInsertWorks()
     {
         // Arrange
@@ -1131,10 +1056,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($ents[0] instanceof InsertEntityResult, '$result->getEntries()->get(0)->getClass()');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testBatchUpdateWorks()
     {
         // Arrange
@@ -1163,10 +1084,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($ents[0] instanceof UpdateEntityResult, '$result->getEntries()->get(0)->getClass()');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testBatchMergeWorks()
     {
         // Arrange
@@ -1194,9 +1111,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($ents[0] instanceof UpdateEntityResult, '$result->getEntries()->get(0)->getClass()');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    */
     public function testBatchInsertOrReplaceWorks()
     {
         $this->skipIfEmulated();
@@ -1225,9 +1139,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($ents[0] instanceof UpdateEntityResult, '$result->getEntries()->get(0)->getClass()');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    */
     public function testBatchInsertOrMergeWorks()
     {
         $this->skipIfEmulated();
@@ -1256,10 +1167,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($ents[0] instanceof UpdateEntityResult, '$result->getEntries()->get(0)->getClass()');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testBatchDeleteWorks()
     {
         // Arrange
@@ -1287,9 +1194,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(is_string($ents[0]), '$result->getEntries()[0] is string');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    */
     public function testBatchLotsOfInsertsWorks()
     {
         // Arrange
@@ -1361,10 +1265,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    */
     public function testBatchAllOperationsTogetherWorks()
     {
         // Arrange
@@ -1484,11 +1384,6 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::batch
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::insertEntity
-    * @covers MicrosoftAzure\Storage\Table\TableRestProxy::updateEntity
-    */
     public function testBatchNegativeWorks()
     {
         // Arrange

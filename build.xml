@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="azure-storage-php" default="full-build">
+
  <!-- By default, we assume all tools to be on the $PATH
  <property name="pdepend" value="pdepend.bat"/>
  <property name="phpcpd"  value="phpcpd.bat"/>
  <property name="phpcs"   value="phpcs.bat"/>
- <property name="phpdox"  value="phpdox.bat"/>
  <property name="phploc"  value="phploc.bat"/>
  <property name="phpmd"   value="phpmd.bat"/>
  <property name="phpunit" value="phpunit.bat"/>
@@ -14,7 +14,6 @@
  <property name="pdepend" value="${basedir}/build/tools/pdepend.phar"/>
  <property name="phpcpd"  value="${basedir}/build/tools/phpcpd.phar"/>
  <property name="phpcs"   value="${basedir}/build/tools/phpcs.phar"/>
- <property name="phpdox"  value="${basedir}/build/tools/phpdox.phar"/>
  <property name="phploc"  value="${basedir}/build/tools/phploc.phar"/>
  <property name="phpmd"   value="${basedir}/build/tools/phpmd.phar"/>
  <property name="phpunit" value="${basedir}/build/tools/phpunit.phar"/>
@@ -24,7 +23,6 @@
  <property name="pdepend"      value="${basedir}/vendor/bin/pdepend.bat"/>
  <property name="phpcpd"       value="${basedir}/vendor/bin/phpcpd.bat"/>
  <property name="phpcs"        value="${basedir}/vendor/bin/phpcs.bat"/>
- <property name="phpdox"       value="${basedir}/vendor/bin/phpdox.bat"/>
  <property name="phploc"       value="${basedir}/vendor/bin/phploc.bat"/>
  <property name="phpmd"        value="${basedir}/vendor/bin/phpmd.bat"/>
  <property name="phpunit"      value="${basedir}/vendor/bin/phpunit.bat"/>
@@ -32,15 +30,15 @@
  <property name="php-cs-fixer" value="${basedir}/vendor/bin/php-cs-fixer.bat"/>
 
  <target name="full-build"
-         depends="prepare,static-analysis,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis,phpunit,doc,-check-failure"
          description="Performs static analysis, runs the tests, and generates project documentation"/>
 
 <target name="full-build-large-scale"
-         depends="prepare,static-analysis,phpunit-large-scale,phpdox,-check-failure"
+         depends="prepare,static-analysis,phpunit-large-scale,doc,-check-failure"
          description="Performs static analysis, runs the tests (including large scale tests), and generates project documentation"/>
 
  <target name="full-build-parallel"
-         depends="prepare,static-analysis-parallel,phpunit,phpdox,-check-failure"
+         depends="prepare,static-analysis-parallel,phpunit,doc,-check-failure"
          description="Performs static analysis (executing the tools in parallel), runs the tests, and generates project documentation"/>
 
  <target name="quick-build"
@@ -73,7 +71,7 @@
   <delete dir="${basedir}/build/coverage"/>
   <delete dir="${basedir}/build/logs"/>
   <delete dir="${basedir}/build/pdepend"/>
-  <delete dir="${basedir}/build/phpdox"/>
+  <delete dir="${basedir}/doc"/>
   <property name="clean.done" value="true"/>
  </target>
 
@@ -85,7 +83,6 @@
   <mkdir dir="${basedir}/build/coverage"/>
   <mkdir dir="${basedir}/build/logs"/>
   <mkdir dir="${basedir}/build/pdepend"/>
-  <mkdir dir="${basedir}/build/phpdox"/>
   <property name="prepare.done" value="true"/>
  </target>
 
@@ -95,15 +92,16 @@
   <apply executable="php" taskname="lint">
    <arg value="-l" />
 
-   <fileset dir="${basedir}/src">
-    <include name="**/*.php" />
+   <fileset dir="${basedir}">
+    <include name="azure-storage-blob/src/**/*.php" />
+    <include name="azure-storage-table/src/**/*.php" />
+    <include name="azure-storage-queue/src/**/*.php" />
+    <include name="azure-storage-file/src/**/*.php" />
+    <include name="azure-storage-common/src/**/*.php" />
+    <include name="tests/**/*.php" />
     <modified />
    </fileset>
 
-   <fileset dir="${basedir}/tests">
-    <include name="**/*.php" />
-    <modified />
-   </fileset>
   </apply>
 
   <property name="lint.done" value="true"/>
@@ -114,7 +112,11 @@
          description="Measure project size using PHPLOC and print human readable output. Intended for usage on the command line.">
   <exec executable="${phploc}" taskname="phploc">
    <arg value="--count-tests" />
-   <arg path="${basedir}/src" />
+   <arg path="${basedir}/azure-storage-blob/src" />
+   <arg path="${basedir}/azure-storage-table/src" />
+   <arg path="${basedir}/azure-storage-queue/src" />
+   <arg path="${basedir}/azure-storage-file/src" />
+   <arg path="${basedir}/azure-storage-common/src" />
    <arg path="${basedir}/tests" />
   </exec>
 
@@ -131,7 +133,11 @@
    <arg path="${basedir}/build/logs/phploc.csv" />
    <arg value="--log-xml" />
    <arg path="${basedir}/build/logs/phploc.xml" />
-   <arg path="${basedir}/src" />
+   <arg path="${basedir}/azure-storage-blob/src" />
+   <arg path="${basedir}/azure-storage-table/src" />
+   <arg path="${basedir}/azure-storage-queue/src" />
+   <arg path="${basedir}/azure-storage-file/src" />
+   <arg path="${basedir}/azure-storage-common/src" />
    <arg path="${basedir}/tests" />
   </exec>
 
@@ -142,11 +148,11 @@
          unless="pdepend.done"
          depends="prepare"
          description="Calculate software metrics using PHP_Depend and log result in XML format. Intended for usage within a continuous integration environment.">
-  <exec executable="${pdepend}" taskname="pdepend">
+  <exec executable="${pdepend}" taskname="pdepend" dir="${basedir}">
    <arg value="--jdepend-xml=${basedir}/build/logs/jdepend.xml" />
    <arg value="--jdepend-chart=${basedir}/build/pdepend/dependencies.svg" />
    <arg value="--overview-pyramid=${basedir}/build/pdepend/overview-pyramid.svg" />
-   <arg path="${basedir}/src" />
+   <arg path="azure-storage-blob/src,azure-storage-table/src,azure-storage-queue/src,azure-storage-file/src,azure-storage-common/src" />
   </exec>
 
   <property name="pdepend.done" value="true"/>
@@ -155,8 +161,8 @@
  <target name="phpmd"
          unless="phpmd.done"
          description="Perform project mess detection using PHPMD and print human readable output. Intended for usage on the command line before committing.">
-  <exec executable="${phpmd}" taskname="phpmd">
-   <arg path="${basedir}/src" />
+  <exec executable="${phpmd}" taskname="phpmd" dir="${basedir}">
+   <arg path="azure-storage-blob/src,azure-storage-table/src,azure-storage-queue/src,azure-storage-file/src,azure-storage-common/src" />
    <arg value="text" />
    <arg path="${basedir}/build/phpmd.xml" />
   </exec>
@@ -168,8 +174,8 @@
          unless="phpmd.done"
          depends="prepare"
          description="Perform project mess detection using PHPMD and log result in XML format. Intended for usage within a continuous integration environment.">
-  <exec executable="${phpmd}" taskname="phpmd">
-   <arg path="${basedir}/src" />
+  <exec executable="${phpmd}" taskname="phpmd" dir="${basedir}">
+   <arg path="azure-storage-blob/src,azure-storage-table/src,azure-storage-queue/src,azure-storage-file/src,azure-storage-common/src" />
    <arg value="xml" />
    <arg path="${basedir}/build/phpmd.xml" />
    <arg value="--reportfile" />
@@ -186,7 +192,11 @@
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
-   <arg path="${basedir}/src" />
+   <arg path="${basedir}/azure-storage-blob/src" />
+   <arg path="${basedir}/azure-storage-table/src" />
+   <arg path="${basedir}/azure-storage-queue/src" />
+   <arg path="${basedir}/azure-storage-file/src" />
+   <arg path="${basedir}/azure-storage-common/src" />
    <arg path="${basedir}/tests" />
   </exec>
 
@@ -203,26 +213,58 @@
    <arg value="--standard=PSR2" />
    <arg value="--extensions=php" />
    <arg value="--ignore=autoload.php" />
-   <arg path="${basedir}/src" />
+   <arg path="${basedir}/azure-storage-blob/src" />
+   <arg path="${basedir}/azure-storage-table/src" />
+   <arg path="${basedir}/azure-storage-queue/src" />
+   <arg path="${basedir}/azure-storage-file/src" />
+   <arg path="${basedir}/azure-storage-common/src" />
    <arg path="${basedir}/tests" />
   </exec>
 
   <property name="phpcs.done" value="true"/>
  </target>
 
- <target name = "php-cs-fixer"
+ <target name="php-cs-fixer"
          unless="php-cs-fixer.done"
          description="Fix coding standard violations using php-cs-fixer and print human readable output. Intended for usage on the command line before committing.">
     <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
         <arg value="fix" />
-        <arg value="src" />
+        <arg path="${basedir}/azure-storage-blob/src" />
         <arg value="--rules=@PSR2" />
         <arg value="--verbose" />
         <arg value="--show-progress=estimating" />
     </exec>
-     <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+    <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+        <arg value="fix" />
+        <arg path="${basedir}/azure-storage-table/src" />
+        <arg value="--rules=@PSR2" />
+        <arg value="--verbose" />
+        <arg value="--show-progress=estimating" />
+    </exec>
+    <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+        <arg value="fix" />
+        <arg path="${basedir}/azure-storage-queue/src" />
+        <arg value="--rules=@PSR2" />
+        <arg value="--verbose" />
+        <arg value="--show-progress=estimating" />
+    </exec>
+    <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+        <arg value="fix" />
+        <arg path="${basedir}/azure-storage-file/src" />
+        <arg value="--rules=@PSR2" />
+        <arg value="--verbose" />
+        <arg value="--show-progress=estimating" />
+    </exec>
+    <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
+        <arg value="fix" />
+        <arg path="${basedir}/azure-storage-common/src" />
+        <arg value="--rules=@PSR2" />
+        <arg value="--verbose" />
+        <arg value="--show-progress=estimating" />
+    </exec>
+    <exec executable="${php-cs-fixer}" taskname="php-cs-fixer">
          <arg value="fix" />
-         <arg value="tests" />
+         <arg path="${basedir}/tests" />
          <arg value="--rules=@PSR2" />
          <arg value="--verbose" />
          <arg value="--show-progress=estimating" />
@@ -234,7 +276,11 @@
          unless="phpcpd.done"
          description="Find duplicate code using PHPCPD and print human readable output. Intended for usage on the command line before committing.">
   <exec executable="${phpcpd}" taskname="phpcpd">
-   <arg path="${basedir}/src" />
+   <arg path="${basedir}/azure-storage-blob/src" />
+   <arg path="${basedir}/azure-storage-table/src" />
+   <arg path="${basedir}/azure-storage-queue/src" />
+   <arg path="${basedir}/azure-storage-file/src" />
+   <arg path="${basedir}/azure-storage-common/src" />
   </exec>
 
   <property name="phpcpd.done" value="true"/>
@@ -247,7 +293,11 @@
   <exec executable="${phpcpd}" taskname="phpcpd">
    <arg value="--log-pmd" />
    <arg path="${basedir}/build/logs/pmd-cpd.xml" />
-   <arg path="${basedir}/src" />
+   <arg path="${basedir}/azure-storage-blob/src" />
+   <arg path="${basedir}/azure-storage-table/src" />
+   <arg path="${basedir}/azure-storage-queue/src" />
+   <arg path="${basedir}/azure-storage-file/src" />
+   <arg path="${basedir}/azure-storage-common/src" />
   </exec>
 
   <property name="phpcpd.done" value="true"/>
@@ -256,7 +306,7 @@
  <target name="phpunit"
          unless="phpunit.done"
          depends="prepare"
-         description="Run unit tests with PHPUnit">
+         description="Run unit tests and functional tests with PHPUnit">
   <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
@@ -269,7 +319,7 @@
   <target name="phpunit-large-scale"
          unless="phpunit.done"
          depends="prepare"
-         description="Run unit tests with PHPUnit, including the large-scale tests">
+         description="Run unit tests and functional tests with PHPUnit, including the large-scale tests">
   <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
@@ -281,7 +331,7 @@
  <target name="phpunit-no-coverage"
          unless="phpunit.done"
          depends="prepare"
-         description="Run unit tests with PHPUnit (without generating code coverage reports)">
+         description="Run unit tests and functional tests with PHPUnit (without generating code coverage reports)">
   <exec executable="${phpunit}" failonerror="true" taskname="phpunit">
    <arg value="--configuration"/>
    <arg path="${basedir}/phpunit.xml.dist"/>
@@ -292,26 +342,57 @@
   <property name="phpunit.done" value="true"/>
  </target>
 
+  <target name="phpunit-ut"
+         unless="phpunit.done"
+         depends="prepare"
+         description="Run unit tests with PHPUnit">
+  <exec executable="${phpunit}" resultproperty="result.phpunit" taskname="phpunit">
+   <arg value="--configuration"/>
+   <arg path="${basedir}/phpunit.xml.dist"/>
+   <arg value="--testsuite=unit"/>
+   <arg value="--exclude-group=large-scale"/>
+  </exec>
+
+  <property name="phpunit-ut.done" value="true"/>
+ </target>
+
   <target name="phpunit-ft"
          unless="phpunit.done"
          depends="prepare"
          description="Run functional tests with PHPUnit">
   <exec executable="${phpunit}" resultproperty="result-ft.phpunit" taskname="phpunit">
    <arg value="--configuration"/>
-   <arg path="${basedir}/phpunit.functional.xml.dist"/>
+   <arg path="${basedir}/phpunit.xml.dist"/>
+   <arg value="--testsuite=functional"/>
    <arg value="--exclude-group=large-scale"/>
   </exec>
 
   <property name="phpunit-ft.done" value="true"/>
  </target>
 
- <target name="phpdox"
-         unless="phpdox.done"
-         depends="phploc-ci,phpcs-ci,phpmd-ci"
-         description="Generate project documentation using phpDox">
-  <exec executable="${phpdox}" dir="${basedir}/build" taskname="phpdox"/>
-
-  <property name="phpdox.done" value="true"/>
+ <target name="doc"
+         unless="doc.done"
+         depends="prepare"
+         description="Generate project documentation using phpDocumentator">
+   <exec executable="${phpdoc}" taskname="phpdoc">
+     <arg value="-t" />
+     <arg path="${basedir}/doc"/>
+     <arg value="-d" />
+     <arg path="${basedir}/azure-storage-blob/src"/>
+     <arg value="-d" />
+     <arg path="${basedir}/azure-storage-table/src"/>
+     <arg value="-d" />
+     <arg path="${basedir}/azure-storage-queue/src"/>
+     <arg value="-d" />
+     <arg path="${basedir}/azure-storage-file/src"/>
+     <arg value="-d" />
+     <arg path="${basedir}/azure-storage-common/src"/>
+     <arg value="--visibility" />
+     <arg value="public,protected" />
+     <arg value="--template" />
+     <arg value="zend" />
+   </exec>
+   <property name="doc.done" value="true"/>
  </target>
 
  <target name="-check-failure">
@@ -322,18 +403,5 @@
     </not>
    </condition>
   </fail>
- </target>
-
- <target name="doc" description="Generate project documentation using phpDocumentator">
-   <exec executable="${phpdoc}" taskname="phpdoc">
-     <arg value="-t" />
-     <arg value=".\doc" />
-     <arg value="-d" />
-     <arg value=".\src" />
-     <arg value="--visibility" />
-     <arg value="public,protected" />
-     <arg value="--template" />
-     <arg value="zend" />
-   </exec>
  </target>
 </project>

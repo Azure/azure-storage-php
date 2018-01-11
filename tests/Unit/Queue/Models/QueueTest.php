@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class QueueTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::__construct
-     */
     public function testConstruct()
     {
         // Setup
@@ -56,9 +53,6 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedUrl, $queue->getUrl());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::setName
-     */
     public function testSetName()
     {
         // Setup
@@ -72,9 +66,6 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $queue->getName());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::getName
-     */
     public function testGetName()
     {
         // Setup
@@ -89,9 +80,6 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::setUrl
-     */
     public function testSetUrl()
     {
         // Setup
@@ -105,9 +93,6 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $queue->getUrl());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::getUrl
-     */
     public function testGetUrl()
     {
         // Setup
@@ -122,9 +107,6 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -138,9 +120,6 @@ class QueueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $queue->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\Queue::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup

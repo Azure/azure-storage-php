@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
  */
 class BlockListTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::addEntry
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::getEntry
-     */
     public function testAddEntry()
     {
         // Setup
@@ -59,9 +55,6 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedType, $entry->getType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::getEntries
-     */
     public function testGetEntries()
     {
         // Setup
@@ -77,10 +70,6 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $entries);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::addCommittedEntry
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::getEntry
-     */
     public function testAddCommittedEntry()
     {
         // Setup
@@ -97,10 +86,6 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedType, $entry->getType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::addUncommittedEntry
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::getEntry
-     */
     public function testAddUncommittedEntry()
     {
         // Setup
@@ -117,10 +102,6 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedType, $entry->getType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::addLatestEntry
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::getEntry
-     */
     public function testAddLatestEntry()
     {
         // Setup
@@ -137,9 +118,6 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedType, $entry->getType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::create
-     */
     public function testCreate()
     {
         // Setup
@@ -166,9 +144,6 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($block3, $b3);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\BlockList::toXml
-     */
     public function testToXml()
     {
         // Setup

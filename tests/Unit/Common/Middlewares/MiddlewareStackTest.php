@@ -40,10 +40,6 @@ class MiddlewareStackTest extends \PHPUnit_Framework_TestCase
 {
     private $count;
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareStack::push
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareStack::apply
-     */
     public function testPushAndApply()
     {
         $middlewares = $this->getInterestingMiddlewares(5);

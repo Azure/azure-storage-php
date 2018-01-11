@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  */
 class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setContentType
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getContentType
-     */
     public function testSetContentType()
     {
         // Setup
@@ -58,10 +54,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentType());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setContentEncoding
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getContentEncoding
-     */
     public function testSetContentEncoding()
     {
         // Setup
@@ -76,10 +68,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentEncoding());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setContentLanguage
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getContentLanguage
-     */
     public function testSetContentLanguage()
     {
         // Setup
@@ -94,10 +82,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentLanguage());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getContentMD5
-     */
     public function testSetContentMD5()
     {
         // Setup
@@ -112,10 +96,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentMD5());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setCacheControl
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getCacheControl
-     */
     public function testSetCacheControl()
     {
         // Setup
@@ -130,10 +110,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getCacheControl());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setContentDisposition
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getContentDisposition
-     */
     public function testSetContentDisposition()
     {
         // Setup
@@ -148,10 +124,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getContentDisposition());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         // Setup
@@ -166,10 +138,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setSequenceNumber
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getSequenceNumber
-     */
     public function testSetSequenceNumber()
     {
         // Setup
@@ -184,9 +152,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getSequenceNumber());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -200,9 +165,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup
@@ -217,9 +179,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::getAccessConditions
-     */
     public function testGetAccessConditions()
     {
         // Setup
@@ -234,9 +193,6 @@ class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions::setAccessConditions
-     */
     public function testSetAccessConditions()
     {
         // Setup

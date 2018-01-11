@@ -1,11 +1,51 @@
+**Note: This changelog is deprecated starting with version 1.0.0, please refer to the ChangeLog.md in each package for future change logs.** 
+
+2018.01 - version 1.0.0
+
+All
+* Split azure-storage composer package into azure-storage-blob, azure-storage-table, azure-storage-queue, azure-storage-file and azure-storage-common packages.
+* Removed `ServiceBuilder.php`, moved static builder methods into `BlobRestProxy`, `TableRestProxy`, `QueueRestProxy` and `FileRestProxy`.
+* Moved method `SharedAccessSignatureHelper::generateBlobServiceSharedAccessSignatureToken()` into `BlobSharedAccessSignatureHelper`.
+* Moved method `SharedAccessSignatureHelper::generateTableServiceSharedAccessSignatureToken()` into `TableSharedAccessSignatureHelper`.
+* Moved method `SharedAccessSignatureHelper::generateQueueServiceSharedAccessSignatureToken()` into `QueueSharedAccessSignatureHelper`.
+* Moved method `SharedAccessSignatureHelper::generateFileServiceSharedAccessSignatureToken()` into `FileSharedAccessSignatureHelper`.
+* `CommonMiddleWare` constructor requires storage service version as parameter now.
+* `AccessPolicy` class is now an abstract class, added children classes `BlobAccessPolicy`, `ContainerAccessPolicy`, `TableAccessPolicy`, `QueueAccessPolicy`, `FileAccessPolicy` and `ShareAccessPolicy`.
+* Fixed a bug that `Utilities::allZero()` will return true for non-zero data chunks.
+* Deprecated PHP 5.5 support.
+
+Blob
+* Created `BlobSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateBlobServiceSharedAccessSignatureToken()` into `BlobSharedAccessSignatureHelper`.
+* Added static builder methods `createBlobService` and `createContainerAnonymousAccess` into `BlobRestProxy`.
+* Added `setUseTransactionalMD5` method for options of `BlobRestProxy::CreateBlockBlob` and `BlobRestProxy::CreatePageBlobFromContent`. Default false, enabling transactional MD5 validation will take more cpu and memory resources.
+* Removed `dataSerializer` parameter from `BlobRextProxy` constructor.
+* Fixed a bug that CopyBlobFromURLOptions not found.
+
+Table
+* Created `TableSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateTableServiceSharedAccessSignatureToken()` into `TableSharedAccessSignatureHelper`.
+* Added static builder methods `createTableService` into `TableRestProxy`.
+* Removed `dataSerializer` parameter from `TableRextProxy` constructor.
+* Will change variable type according to EdmType specified when serializing table entity values.
+
+Queue
+* Created `QueueSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateQueueServiceSharedAccessSignatureToken()` into `QueueSharedAccessSignatureHelper`.
+* Added static builder methods `createQueueService` into `QueueRestProxy`.
+* Removed `dataSerializer` parameter from `QueueRextProxy` constructor.
+
+File
+* Created `FileSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateFileServiceSharedAccessSignatureToken()` into `FileSharedAccessSignatureHelper`.
+* Added static builder methods `createFileService` into `FileRestProxy`.
+* Added `setUseTransactionalMD5` method for option of `FileRestProxy::CreateFileFromContent`.  Default false, enabling transactional MD5 validation will take more cpu and memory resources.
+* Removed `dataSerializer` parameter from `FileRextProxy` constructor.
+
 2017.09 - version 0.19.1
 
-ALL
+All
 * Fixed a syntax error for PHP 5.5 and 5.6 in `MicrosoftAzure\Storage\Common\Internal::Utilities:isoDate`.
 
 2017.09 - version 0.19.0
 
-ALL
+All
 * Fixed wrong `XmlSerializer` in ServiceException.php.
 * Fixed formatting of non-UTC dates when using instances of `DateTime` to generate shared access signatures.
 * Fixed class loading errors on case-sensitive file systems when testing.

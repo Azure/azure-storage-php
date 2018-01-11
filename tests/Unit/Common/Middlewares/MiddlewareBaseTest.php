@@ -43,9 +43,6 @@ use GuzzleHttp\Client;
  */
 class MiddlewareBaseTest extends ReflectionTestBase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::__invoke
-     */
     public function testInvoke()
     {
         $middlewareBase = new MiddlewareBase();
@@ -59,7 +56,6 @@ class MiddlewareBaseTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::onRequest
      * @depends testInvoke
      */
     public function testOnRequest()
@@ -72,7 +68,6 @@ class MiddlewareBaseTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::onFulfilled
      * @depends testInvoke
      */
     public function testOnFulfilled()
@@ -87,7 +82,6 @@ class MiddlewareBaseTest extends ReflectionTestBase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Middlewares\MiddlewareBase::onRejected
      * @depends testInvoke
      */
     public function testOnRejected()

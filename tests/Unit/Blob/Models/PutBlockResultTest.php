@@ -39,13 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
  */
 class PutBlockResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::setContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::getContentMD5
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::setRequestServerEncrypted
-     * @covers MicrosoftAzure\Storage\Blob\Models\PutBlockResult::getRequestServerEncrypted
-     */
     public function testCreate()
     {
         // Setup

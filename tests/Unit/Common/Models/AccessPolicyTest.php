@@ -15,7 +15,7 @@
  * PHP version 5
  *
  * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Tests\Unit\Blob\Models
+ * @package   MicrosoftAzure\Storage\Tests\Unit\Common\Models
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
  * @copyright 2016 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
@@ -23,7 +23,6 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Models;
 
-use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
 /**
@@ -36,15 +35,15 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AccessPolicyTest extends \PHPUnit_Framework_TestCase
+abstract class AccessPolicyTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getStart
-     */
+    abstract protected function createAccessPolicy();
+    abstract protected function getResourceType();
+
     public function testGetStart()
     {
         // Setup
-        $accessPolicy = new AccessPolicy();
+        $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
         $accessPolicy->setStart($expected);
         
@@ -55,13 +54,10 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setStart
-     */
     public function testSetStart()
     {
         // Setup
-        $accessPolicy = new AccessPolicy();
+        $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
         
         // Test
@@ -71,13 +67,10 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $accessPolicy->getStart());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getExpiry
-     */
     public function testGetExpiry()
     {
         // Setup
-        $accessPolicy = new AccessPolicy();
+        $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
         $accessPolicy->setExpiry($expected);
         
@@ -88,13 +81,10 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setExpiry
-     */
     public function testSetExpiry()
     {
         // Setup
-        $accessPolicy = new AccessPolicy();
+        $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
         
         // Test
@@ -104,65 +94,48 @@ class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $accessPolicy->getExpiry());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setPermission
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getPermission
-     */
     public function testSetPermission()
     {
         // Setup
         $validPermissions = TestResources::getValidAccessPermission();
-        $resourceArray = ['b', 'c', 't', 'q', 'f', 's'];
-        foreach ($resourceArray as $resourceType) {
-            $accessPolicy = new AccessPolicy($resourceType);
+        $accessPolicy = static::createAccessPolicy();
 
-            foreach ($validPermissions[$resourceType] as $value) {
-                $expected = $value[1];
-            
-                // Test
-                $accessPolicy->setPermission($value[0]);
-                // Assert
-                $this->assertEquals($expected, $accessPolicy->getPermission());
-            }
+        foreach ($validPermissions[static::getResourceType()] as $value) {
+            $expected = $value[1];
+
+            // Test
+            $accessPolicy->setPermission($value[0]);
+            // Assert
+            $this->assertEquals($expected, $accessPolicy->getPermission());
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::setPermission
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::getPermission
-     */
     public function testSetPermissionNegative()
     {
         // Setup
         $validPermissions = TestResources::getInvalidAccessPermission();
-        $resourceArray = ['b', 'c', 't', 'q', 'f', 's'];
-        foreach ($resourceArray as $resourceType) {
-            $accessPolicy = new AccessPolicy($resourceType);
+        $accessPolicy = static::createAccessPolicy();
 
-            foreach ($validPermissions[$resourceType] as $value) {
-                // Test
-                try {
-                    $accessPolicy->setPermission($value);
-                } catch (\InvalidArgumentException $e) {
-                    $this->assertStringStartsWith(
-                        'Invalid permission provided',
-                        $e->getMessage()
-                    );
-                    continue;
-                }
-                $this->assertTrue(false);
+        foreach ($validPermissions[static::getResourceType()] as $value) {
+            // Test
+            try {
+                $accessPolicy->setPermission($value);
+            } catch (\InvalidArgumentException $e) {
+                $this->assertStringStartsWith(
+                    'Invalid permission provided',
+                    $e->getMessage()
+                );
+                continue;
             }
+            $this->assertTrue(false);
         }
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\AccessPolicy::toArray
-     */
     public function testToArray()
     {
         // Setup
-        $accessPolicy = new AccessPolicy();
-        $permission = 'rw';
+        $accessPolicy = static::createAccessPolicy();
+        $permission = 'r';
         $start = '2009-09-28T08:49:37.3942040Z';
         $expiry = '2009-10-28T08:49:37.3942040Z';
         $startDate = new \DateTime($start);

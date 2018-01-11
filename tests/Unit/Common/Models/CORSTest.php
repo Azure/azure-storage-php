@@ -41,21 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class CORSTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::create
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::__construct
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getAllowedOrigins
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setAllowedOrigins
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setAllowedMethods
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getAllowedMethods
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setAllowedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getAllowedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setExposedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getExposedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setMaxedAgeInSeconds
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getMaxedAgeInSeconds
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::toArray
-     */
     public function testCreateAndToArray()
     {
         $parsedResponse = TestResources::getCORSSingle();
@@ -66,9 +51,7 @@ class CORSTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::create
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::__construct
-     * @expectedException \UnexpectedValueException
+               * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage does not exist in the given array
      */
     public function testCreateNegative()
@@ -78,20 +61,6 @@ class CORSTest extends \PHPUnit_Framework_TestCase
         $cors = CORS::create($parsedResponse);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::__construct
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getAllowedOrigins
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setAllowedOrigins
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setAllowedMethods
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getAllowedMethods
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setAllowedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getAllowedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setExposedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getExposedHeaders
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::setMaxedAgeInSeconds
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::getMaxedAgeInSeconds
-     * @covers MicrosoftAzure\Storage\Common\Models\CORS::toArray
-     */
     public function testToArray()
     {
         $parsedResponse = TestResources::getCORSSingle();

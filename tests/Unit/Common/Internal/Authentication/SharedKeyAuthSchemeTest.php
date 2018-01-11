@@ -42,9 +42,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::__construct
-    */
     public function testConstruct()
     {
         $expected = array();
@@ -67,16 +64,13 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $mock->getIncludedHeaders());
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeSignature
-    */
     public function testComputeSignatureSimple()
     {
         $httpMethod = 'GET';
         $queryParams = array(Resources::QP_COMP => 'list');
         $url = TestResources::URI1;
         $date = TestResources::DATE1;
-        $apiVersion = Resources::STORAGE_API_LATEST_VERSION;
+        $apiVersion = "2016-05-31";
         $accountName = TestResources::ACCOUNT_NAME;
         $headers = array(Resources::X_MS_DATE => $date, Resources::X_MS_VERSION => $apiVersion);
         $expected = "GET\n\n\n\n\n\n\n\n\n\n\n\n" . Resources::X_MS_DATE . ":$date\n" . Resources::X_MS_VERSION .
@@ -88,13 +82,10 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::getAuthorizationHeader
-     */
     public function testGetAuthorizationHeaderSimple()
     {
         $accountName = TestResources::ACCOUNT_NAME;
-        $apiVersion = Resources::STORAGE_API_LATEST_VERSION;
+        $apiVersion = "2016-05-31";
         $accountKey = TestResources::KEY4;
         $url = TestResources::URI2;
         $date1 = TestResources::DATE2;
@@ -112,18 +103,15 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedHeaders
-    */
     public function testComputeCanonicalizedHeadersMock()
     {
         $date = TestResources::DATE1;
         $headers = array();
         $headers[Resources::X_MS_DATE] = $date;
-        $headers[Resources::X_MS_VERSION] = Resources::STORAGE_API_LATEST_VERSION;
+        $headers[Resources::X_MS_VERSION] = '2016-05-31';
         $expected = array();
         $expected[] = Resources::X_MS_DATE . ':' . $date;
-        $expected[] = Resources::X_MS_VERSION . ':' . Resources::STORAGE_API_LATEST_VERSION;
+        $expected[] = Resources::X_MS_VERSION . ':' . $headers[Resources::X_MS_VERSION];
         $mock = new SharedKeyAuthSchemeMock(TestResources::ACCOUNT_NAME, TestResources::KEY4);
 
         $actual = $mock->computeCanonicalizedHeadersMock($headers);
@@ -131,9 +119,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResource
-    */
     public function testComputeCanonicalizedResourceMockSimple()
     {
         $queryVariables = array();
@@ -148,9 +133,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResource
-    */
     public function testComputeCanonicalizedResourceMockMultipleValues()
     {
         $queryVariables = array();
@@ -173,9 +155,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::computeCanonicalizedResourceForTable
-    */
     public function testComputeCanonicalizedResourceForTableMock()
     {
         $queryVariables = array();
@@ -190,9 +169,6 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme::signRequest
-     */
     public function testSignRequest()
     {
         // Setup

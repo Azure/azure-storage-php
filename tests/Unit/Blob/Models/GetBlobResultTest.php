@@ -42,15 +42,6 @@ use GuzzleHttp\Psr7;
 class GetBlobResultTest extends \PHPUnit_Framework_TestCase
 {
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::getMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::setProperties
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::getProperties
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::setContentStream
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::getContentStream
-     * @covers MicrosoftAzure\Storage\Blob\Models\GetBlobResult::create
-     */
     public function testCreate()
     {
         // Setup

@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::create
-     */
     public function testCreateWithEmpty()
     {
         // Setup
@@ -55,17 +52,6 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(empty($sample['NextMarker']));
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getQueues
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setQueues
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getContinuationToken
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setMarker
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getMarker
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getMaxResults
-     */
     public function testCreateWithOneEntry()
     {
         // Setup
@@ -84,19 +70,6 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::create
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getQueues
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setQueues
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setPrefix
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getPrefix
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setContinuationToken
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getContinuationToken
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setMaxResults
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getMaxResults
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::setAccountName
-     * @covers MicrosoftAzure\Storage\Queue\Models\ListQueuesResult::getAccountName
-     */
     public function testCreateWithMultipleEntries()
     {
         // Setup

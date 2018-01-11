@@ -31,11 +31,6 @@ class FunctionalTestBase extends IntegrationTestBase
 {
     private static $isOneTimeSetup = false;
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listContainers
-     */
     public function setUp()
     {
         parent::setUp();
@@ -90,10 +85,6 @@ class FunctionalTestBase extends IntegrationTestBase
         parent::tearDownAfterClass();
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteBlob
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::listBlobs
-     */
     private function safeDeleteContainerContents($name)
     {
         $blobListResult = $this->restProxy->listBlobs($name);
@@ -106,9 +97,6 @@ class FunctionalTestBase extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::deleteContainer
-     */
     private function safeDeleteContainer($name)
     {
         try {
@@ -118,9 +106,6 @@ class FunctionalTestBase extends IntegrationTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\BlobRestProxy::createContainer
-     */
     private function safeCreateContainer($name)
     {
         try {

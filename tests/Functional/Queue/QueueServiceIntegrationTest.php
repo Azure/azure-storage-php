@@ -90,9 +90,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         self::deleteQueues(self::$createableQueuesPrefix, self::$creatableQueues);
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    */
     private function createQueues($prefix, $list)
     {
         $containers = self::listQueues($prefix);
@@ -103,9 +100,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    */
     private function deleteQueues($prefix, $list)
     {
         $containers = self::listQueues($prefix);
@@ -116,9 +110,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    */
     private function listQueues($prefix)
     {
         $result = array();
@@ -131,9 +122,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         return $result;
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceProperties
-    */
     public function testGetServicePropertiesWorks()
     {
         // Arrange
@@ -163,10 +151,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getHourMetrics()->getVersion(), '$props->getHourMetrics()->getVersion');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getServiceProperties
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setServiceProperties
-    */
     public function testSetServicePropertiesWorks()
     {
         // Arrange
@@ -202,11 +186,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($props->getHourMetrics()->getVersion(), '$props->getHourMetrics()->getVersion');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    */
     public function testCreateQueueWorks()
     {
         // Arrange
@@ -223,11 +202,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, count($result->getMetadata()), 'count($result->getMetadata');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    */
     public function testCreateQueueWithOptionsWorks()
     {
         // Arrange
@@ -250,9 +224,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals('blah', $metadata['test'], '$metadata[test]');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    */
     public function testListQueuesWorks()
     {
         // Arrange
@@ -272,9 +243,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(count(self::$testQueues) <= count($result->getQueues()), 'counts');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listQueues
-    */
     public function testListQueuesWithOptionsWorks()
     {
         // Arrange
@@ -329,12 +297,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertNotNull($queue20->getUrl(), '$queue20->getUrl');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteQueue
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::getQueueMetadata
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::setQueueMetadata
-    */
     public function testSetQueueMetadataWorks()
     {
         // Arrange
@@ -362,9 +324,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals('blah', $metadata['test'], '$metadata[\'test\']');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    */
     public function testCreateMessageWorks()
     {
         // Arrange
@@ -379,10 +338,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue(true, 'if get there, it is working');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    */
     public function testListMessagesWorks()
     {
         // Arrange
@@ -418,10 +373,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($year2010 < $entry->getTimeNextVisible(), 'diff');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    */
     public function testListMessagesWithOptionsWorks()
     {
         // Arrange
@@ -461,10 +412,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    */
     public function testPeekMessagesWorks()
     {
         // Arrange
@@ -497,10 +444,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertTrue($year2010 < $entry->getInsertionDate(), '$year2010 < $entry->getInsertionDate()');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    */
     public function testPeekMessagesWithOptionsWorks()
     {
         // Arrange
@@ -535,11 +478,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         }
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::clearMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::peekMessages
-    */
     public function testClearMessagesWorks()
     {
         // Arrange
@@ -558,11 +496,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(0, count($result->getQueueMessages()), 'count($result->getQueueMessages())');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::deleteMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    */
     public function testDeleteMessageWorks()
     {
         // Arrange
@@ -591,11 +524,6 @@ class QueueServiceIntegrationTest extends IntegrationTestBase
         $this->assertEquals(3, count($result2->getQueueMessages()), 'count($result2->getQueueMessages())');
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::createMessage
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::listMessages
-    * @covers MicrosoftAzure\Storage\Queue\QueueRestProxy::updateMessage
-    */
     public function testUpdateMessageWorks()
     {
         // Arrange

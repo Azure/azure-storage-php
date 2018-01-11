@@ -38,10 +38,6 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
  */
 class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::setSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::__construct
-     */
     public function testSetSnapshot()
     {
         // Setup
@@ -55,10 +51,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getSnapshot());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::getSnapshot
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::__construct
-     */
     public function testGetSnapshot()
     {
         // Setup
@@ -73,11 +65,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::getLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::__construct
-     */
     public function testSetLeaseId()
     {
         // Setup
@@ -92,9 +79,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::setIncludeUncommittedBlobs
-     */
     public function testSetIncludeUncommittedBlobs()
     {
         // Setup
@@ -108,9 +92,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeUncommittedBlobs());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::getIncludeUncommittedBlobs
-     */
     public function testGetIncludeUncommittedBlobs()
     {
         // Setup
@@ -125,9 +106,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::setIncludeCommittedBlobs
-     */
     public function testSetIncludeCommittedBlobs()
     {
         // Setup
@@ -141,9 +119,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getIncludeCommittedBlobs());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::getIncludeCommittedBlobs
-     */
     public function testGetIncludeCommittedBlobs()
     {
         // Setup
@@ -158,9 +133,6 @@ class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions::getBlockListType
-     */
     public function testGetBlockListType()
     {
         // Setup

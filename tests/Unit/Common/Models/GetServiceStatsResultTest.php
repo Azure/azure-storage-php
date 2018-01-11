@@ -41,11 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  */
 class GetServiceStatsResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult::create
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult::getStatus
-     * @covers MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult::getLastSyncTime
-     */
     public function testCreate()
     {
         $sample = TestResources::getServiceStatsSample();

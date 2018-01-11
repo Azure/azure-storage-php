@@ -41,10 +41,6 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  */
 class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::setNextTableName
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::getNextTableName
-     */
     public function testSetNextTableName()
     {
         // Setup
@@ -58,10 +54,6 @@ class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getNextTableName());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::setPrefix
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::getPrefix
-     */
     public function testSetPrefix()
     {
         // Setup
@@ -75,11 +67,6 @@ class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getPrefix());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::setTop
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::getTop
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::__construct
-     */
     public function testSetTop()
     {
         // Setup
@@ -93,9 +80,6 @@ class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getTop());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::getQuery
-     */
     public function testGetQuery()
     {
         // Setup
@@ -109,10 +93,6 @@ class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::setFilter
-     * @covers MicrosoftAzure\Storage\Table\Models\QueryTablesOptions::getFilter
-     */
     public function testSetFilter()
     {
         // Setup

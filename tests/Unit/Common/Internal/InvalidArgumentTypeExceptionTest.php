@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  */
 class InvalidArgumentTypeExceptionTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException::__construct
-     */
     public function testConstruct()
     {
         $e = new InvalidArgumentTypeException('string');

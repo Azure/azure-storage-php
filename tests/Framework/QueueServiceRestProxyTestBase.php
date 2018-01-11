@@ -23,6 +23,7 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
+use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
@@ -43,7 +44,7 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function setUp()
     {
         parent::setUp();
-        $queueRestProxy = $this->builder->createQueueService($this->connectionString);
+        $queueRestProxy = QueueRestProxy::createQueueService($this->connectionString);
         parent::setProxy($queueRestProxy);
         $this->_createdQueues = array();
     }

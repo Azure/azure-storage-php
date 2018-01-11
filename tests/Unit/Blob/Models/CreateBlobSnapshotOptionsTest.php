@@ -39,10 +39,6 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
  */
 class CreateBlobSnapshotOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions::setMetadata
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions::getMetadata
-     */
     public function testSetMetadata()
     {
         $createBlobSnapshotOptions = new CreateBlobSnapshotOptions();
@@ -56,10 +52,6 @@ class CreateBlobSnapshotOptionsTest extends \PHPUnit_Framework_TestCase
     }
     
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         $createBlobSnapshotOptions = new CreateBlobSnapshotOptions();

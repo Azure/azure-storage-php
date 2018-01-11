@@ -41,13 +41,6 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  */
 class ContainerACLTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::fromXmlArray
-     */
     public function testCreateEmpty()
     {
         // Setup
@@ -62,13 +55,6 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(0, $acl->getSignedIdentifiers());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::fromXmlArray
-     */
     public function testCreateOneEntry()
     {
         // Setup
@@ -83,13 +69,6 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $acl->getSignedIdentifiers());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::create
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getSignedIdentifiers
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::addSignedIdentifier
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::fromXmlArray
-     */
     public function testCreateMultipleEntries()
     {
         // Setup
@@ -106,10 +85,6 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         return $acl;
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::setPublicAccess
-     * @covers MicrosoftAzure\Storage\Blob\Models\ContainerACL::getPublicAccess
-     */
     public function testSetPublicAccess()
     {
         // Setup

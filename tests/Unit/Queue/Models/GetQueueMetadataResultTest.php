@@ -38,13 +38,6 @@ use MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult;
  */
 class GetQueueMetadataResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::__construct
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::getApproximateMessageCount
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::setApproximateMessageCount
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::getMetadata
-     * @covers MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult::setMetadata
-     */
     public function testConstruct()
     {
         // Setup

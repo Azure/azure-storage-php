@@ -25,10 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\Functional\Common;
 
 use MicrosoftAzure\Storage\Tests\Framework\SASFunctionalTestBase;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
-use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
-use MicrosoftAzure\Storage\Tests\Functional\Common\SharedAccessSignatureHelperMock;
 
 /**
  * Tests for account SAS proxy tests.
@@ -42,10 +39,6 @@ use MicrosoftAzure\Storage\Tests\Functional\Common\SharedAccessSignatureHelperMo
  */
 class AccountSASFunctionalTest extends SASFunctionalTestBase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testAccountSASPositive()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -153,10 +146,6 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         );
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testAccountSASSSNegative()
     {
         $helper = new SharedAccessSignatureHelperMock(
@@ -258,10 +247,6 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         $this->tableRestProxy->queryTables();
     }
 
-    /**
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::__construct
-    * @covers MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper::generateAccountSharedAccessSignatureToken
-    */
     public function testAccountSASSPNegative()
     {
         $helper = new SharedAccessSignatureHelperMock(

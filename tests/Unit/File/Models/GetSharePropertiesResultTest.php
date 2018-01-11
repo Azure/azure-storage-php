@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\File\Models;
 
+use MicrosoftAzure\Storage\File\Internal\FileResources;
 use MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -41,17 +42,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class GetSharePropertiesResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::create
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setLastModified
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getLastModified
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setETag
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getETag
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setQuota
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getQuota
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::setMetadata
-     * @covers MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult::getMetadata
-     */
     public function testCreate()
     {
         $sample = TestResources::getInterestingSharePropertiesWithMetadataArray();
@@ -60,7 +50,7 @@ class GetSharePropertiesResultTest extends \PHPUnit_Framework_TestCase
         $expectedLastModified = Utilities::rfc1123ToDateTime($sample[Resources::QP_LAST_MODIFIED]);
         $expectedEtag = $sample[Resources::QP_ETAG];
         $expectedMeta = Utilities::getMetadataArray($sample);
-        $expectedQuota = $sample[Resources::X_MS_SHARE_QUOTA];
+        $expectedQuota = $sample[FileResources::X_MS_SHARE_QUOTA];
 
         $this->assertEquals($expectedLastModified, $shareProperties->getLastModified());
         $this->assertEquals($expectedEtag, $shareProperties->getETag());

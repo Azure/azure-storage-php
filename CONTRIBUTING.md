@@ -3,7 +3,7 @@ If you intend to contribute to the project, please make sure you've followed the
 The Azure Storage development team uses [Eclipse for PHP Developers](http://www.eclipse.org/downloads/packages/eclipse-php-developers/mars2) so instructions will be tailored to that preference. However, any preferred IDE or other toolset should be usable.
 
 ### Install
-* PHP 5.5, 5.6 or 7.0
+* PHP 5.6 or 7.0 above
 * [Eclipse for PHP Developers](http://www.eclipse.org/downloads/packages/eclipse-php-developers/mars2)
 * [Composer](https://getcomposer.org/) for php packages and tools management.
 * [Apache Ant](http://ant.apache.org/manual/install.html) to drive build scripts.
@@ -42,9 +42,10 @@ Please make sure there's no data inside the storage account used for test. Other
 ### Running
 You can use the following commands to run tests:
 
-* All unit tests: ``ant phpunit`` or ``phpunit -c phpunit.xml.dist``
-* All functional tests: ``ant phpunit-ft`` or ``phpunit -c phpunit.functional.dist.xml``
-* One particular test case: ``phpunit -c phpunit.dist.xml --filter <case name>`` or ``phpunit -c phpunit.functional.dist.xml --filter <case name>``
+* All tests: ``ant phpunit`` or ``phpunit -c phpunit.xml.dist``
+* All unit tests: ``ant phpunit-ut``
+* All functional tests: ``ant phpunit-ft``
+* One particular test case: ``phpunit -c phpunit.dist.xml --filter <case name>``
 
 ### Testing Features
 As you develop a feature, you'll need to write tests to ensure quality. Your changes should be covered by both unit tests and functional tests. The unit tests and functional tests codes should be placed under tests/Unit and tests/Functional respectively. You should also run existing tests related to your change to address any unexpected breaks.

@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Queue\Models;
 
+use MicrosoftAzure\Storage\Queue\Internal\QueueResources;
 use MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,18 +43,14 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
 class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::getPopReceipt
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::setPopReceipt
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::getTimeNextVisible
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::setTimeNextVisible
-     * @covers MicrosoftAzure\Storage\Queue\Models\UpdateMessageResult::create
+     *
      */
     public function testCreate()
     {
         // Setup
         $sample = TestResources::getUpdateMessageResultSampleHeaders();
         $expectedDate = Utilities::rfc1123ToDateTime(
-            $sample[Resources::X_MS_TIME_NEXT_VISIBLE]
+            $sample[QueueResources::X_MS_TIME_NEXT_VISIBLE]
         );
 
         // Test
@@ -61,7 +58,7 @@ class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
         
         // Assert
         $this->assertEquals(
-            $sample[Resources::X_MS_POPRECEIPT],
+            $sample[QueueResources::X_MS_POPRECEIPT],
             $result->getPopReceipt()
         );
         $this->assertEquals($expectedDate, $result->getTimeNextVisible());

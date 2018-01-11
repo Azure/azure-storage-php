@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Tests\Functional\File;
 
+use MicrosoftAzure\Storage\File\FileRestProxy;
+use MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\File\Models\GetFileOptions;
 use MicrosoftAzure\Storage\File\Models\FileServiceOptions;
@@ -49,9 +51,6 @@ use GuzzleHttp\Client;
 
 class FileServiceFunctionalTest extends FunctionalTestBase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getServiceProperties
-     */
     public function testGetServicePropertiesNoOptions()
     {
         $serviceProperties = FileServiceFunctionalTestData::getDefaultServiceProperties();
@@ -59,9 +58,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->getServicePropertiesWorker(null);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getServiceProperties
-     */
     public function testGetServiceProperties()
     {
         $serviceProperties = FileServiceFunctionalTestData::getDefaultServiceProperties();
@@ -92,9 +88,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getServiceProperties
-     */
     private function getServicePropertiesWorker($options)
     {
         $options = (is_null($options) ? new FileServiceOptions() : $options);
@@ -160,20 +153,12 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getServiceProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setServiceProperties
-     */
     public function testSetServicePropertiesNoOptions()
     {
         $serviceProperties = FileServiceFunctionalTestData::getDefaultServiceProperties();
         $this->setServicePropertiesWorker($serviceProperties, null);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getServiceProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setServiceProperties
-     */
     public function testSetServiceProperties()
     {
         $interestingServiceProperties =
@@ -188,10 +173,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getServiceProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setServiceProperties
-     */
     private function setServicePropertiesWorker($serviceProperties, $options)
     {
         try {
@@ -234,17 +215,11 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     public function testListSharesNoOptions()
     {
         $this->listSharesWorker(null);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     public function testListShares()
     {
         $interestingListSharesOptions = FileServiceFunctionalTestData::getInterestingListSharesOptions();
@@ -253,9 +228,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     private function listSharesWorker($options)
     {
         $finished = false;
@@ -383,23 +355,11 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     public function testCreateShareNoOptions()
     {
         $this->createShareWorker(null);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     public function testCreateShare()
     {
         $interestingCreateShareOptions = FileServiceFunctionalTestData::getInterestingCreateShareOptions();
@@ -408,12 +368,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     private function createShareWorker($options)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -488,21 +442,11 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     public function testDeleteShareNoOptions()
     {
         $this->deleteShareWorker(null);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     public function testDeleteShare()
     {
         $interestingDeleteShareOptions = FileServiceFunctionalTestData::getInterestingDeleteShareOptions();
@@ -511,11 +455,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     */
     private function deleteShareWorker($options)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -589,24 +528,12 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     public function testGetShareMetadataNoOptions()
     {
         $metadata = FileServiceFunctionalTestData::getNiceMetadata();
         $this->getShareMetadataWorker(null, $metadata);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     public function testGetShareMetadata()
     {
         $interestingTimeouts = FileServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -619,12 +546,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     private function getShareMetadataWorker($options, $metadata)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -684,12 +605,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     public function testSetShareMetadataNoOptions()
     {
         $interestingMetadata = FileServiceFunctionalTestData::getInterestingMetadata();
@@ -698,12 +613,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     public function testSetShareMetadata()
     {
         $interestingSetShareMetadataOptions = FileServiceFunctionalTestData::getFileServiceOptions();
@@ -716,12 +625,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     private function setShareMetadataWorker($options, $metadata)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -772,24 +675,12 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->deleteShare($share);
     }
 
-    /**
-      * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-      * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-      * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareProperties
-      * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-      */
     public function testGetSharePropertiesNoOptions()
     {
         $metadata = FileServiceFunctionalTestData::getNiceMetadata();
         $this->getSharePropertiesWorker(null, $metadata);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     public function testGetShareProperties()
     {
         $interestingTimeouts = FileServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -801,12 +692,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata
-     */
     private function getSharePropertiesWorker($options, $metadata)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -841,21 +726,11 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->restProxy->deleteShare($share);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareACL
-     */
     public function testGetShareACLNoOptions()
     {
         $this->getShareACLWorker(null);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareACL
-     */
     public function testGetShareACL()
     {
         $interestingTimeouts = FileServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -866,11 +741,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareACL
-     */
     private function getShareACLWorker($options)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -928,13 +798,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareACL
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareACL
-     */
     public function testSetShareACLNoOptions()
     {
         $interestingACL = FileServiceFunctionalTestData::getInterestingACL();
@@ -943,13 +806,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareACL
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareACL
-     */
     public function testSetShareACL()
     {
         $interestingACL = FileServiceFunctionalTestData::getInterestingACL();
@@ -963,13 +819,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteShare
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getShareACL
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setShareACL
-     */
     private function setShareACLWorker($options, $acl)
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -1082,9 +931,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     */
     public function testListDirectoriesAndFilesNoOptions()
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -1094,9 +940,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->safeDeleteShare($share);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     */
     public function testListDirectoriesAndFiles()
     {
         $interestingListFilesOptions =
@@ -1110,9 +953,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->safeDeleteShare($share);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     */
     private function listDirectoriesAndFilesWorker($share, $options)
     {
         $finished = false;
@@ -1181,13 +1021,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testGetFileMetadataNoOptions()
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -1196,13 +1029,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->safeDeleteShare($share);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testGetFileMetadata()
     {
         $interestingTimeouts = FileServiceFunctionalTestData::getInterestingTimeoutValues();
@@ -1217,13 +1043,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     private function getFileMetadataWorker($share, $options)
     {
         $file = FileServiceFunctionalTestData::getInterestingFileName($share);
@@ -1296,13 +1115,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testSetFileMetadataNoOptions()
     {
         $interestingMetadata = FileServiceFunctionalTestData::getInterestingMetadata();
@@ -1314,13 +1126,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testSetFileMetadata()
     {
         $interestingSetFileMetadataOptions = FileServiceFunctionalTestData::getFileServiceOptions();
@@ -1336,13 +1141,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     private function setFileMetadataWorker($share, $options, $metadata)
     {
         $file = FileServiceFunctionalTestData::getInterestingFileName($share);
@@ -1410,12 +1208,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testGetSetFileProperties()
     {
         $interestingFileProperties =
@@ -1429,12 +1221,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     private function getSetFilePropertiesWorker($share, $properties)
     {
         $file = FileServiceFunctionalTestData::getInterestingFileName($share);
@@ -1504,14 +1290,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::putFileRange
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testGetFileNoOptions()
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -1520,13 +1298,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->safeDeleteShare($share);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::putFileRange
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testGetFileAllOptions()
     {
         $interestingGetFileOptions = FileServiceFunctionalTestData::getGetFileOptions();
@@ -1538,14 +1309,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::putFileRange
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     private function getFileWorker($options, $share)
     {
         $file = FileServiceFunctionalTestData::getInterestingFileName();
@@ -1553,7 +1316,8 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         // Make sure there is something to test
         $dataSize = 512;
         $content = FileServiceFunctionalTestData::getRandomBytes($dataSize);
-        $createFileOptions = new CreateFileOptions();
+        $createFileOptions = new createFileFromContentOptions();
+        $createFileOptions->setUseTransactionalMD5(true);
         if ($options && $options->getRangeGetContentMD5()) {
             $createFileOptions->setContentMD5('MDAwMDAwMDA=');
         }
@@ -1642,12 +1406,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     */
     public function testDeleteFileNoOptions()
     {
         $share = FileServiceFunctionalTestData::getInterestingShareName();
@@ -1656,11 +1414,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->safeDeleteShare($share);
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     */
     public function testDeleteFile()
     {
         $interestingDeleteFileOptions = FileServiceFunctionalTestData::getFileServiceOptions();
@@ -1672,11 +1425,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     */
     private function deleteFileWorker($options, $share)
     {
         $file = FileServiceFunctionalTestData::getInterestingFileName($share);
@@ -1721,14 +1469,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::copyFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testCopyFileNoOptions()
     {
         $sourceShares = FileServiceFunctionalTestData::$testShareNames;
@@ -1742,14 +1482,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::copyFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     public function testCopyFile()
     {
         $sourceShare = FileServiceFunctionalTestData::$testShareNames[0];
@@ -1766,14 +1498,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::copyFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata
-     */
     private function copyFileWorker($metadata, $options, $sourceShare, $destShare)
     {
         $sourceFile = FileServiceFunctionalTestData::getInterestingFileName();
@@ -1911,13 +1635,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listFileRange
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::putFileRange
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::clearFileRange
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     */
     public function testPutListClearRanges()
     {
         $rangesArray = FileServiceFunctionalTestData::getRangesArray();
@@ -1992,12 +1709,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteFile
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectory
-     */
     public function testDirectoriesLogic()
     {
         $commands = FileServiceFunctionalTestData::getDirectoriesAndFilesToCreateOrDelete();
@@ -2059,12 +1770,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setDirectoryMetadata
-     */
     public function testSetDirectoryMetadataNoOptions()
     {
         $interestingMetadata = FileServiceFunctionalTestData::getInterestingMetadata();
@@ -2076,12 +1781,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setDirectoryMetadata
-     */
     public function testSetDirectoryMetadata()
     {
         $interestingSetFileMetadataOptions = FileServiceFunctionalTestData::getFileServiceOptions();
@@ -2097,12 +1796,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         }
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::createDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectory
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryMetadata
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::setDirectoryMetadata
-     */
     private function setDirectoryMetadataWorker($share, $options, $metadata)
     {
         $dir = FileServiceFunctionalTestData::getInterestingDirectoryName();
@@ -2169,10 +1862,6 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         );
     }
 
-    /**
-     * @covers MicrosoftAzure\Storage\File\FileRestProxy::listShares
-     * @covers MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy::createMiddlewareStack
-     */
     public function testMiddlewares()
     {
         //setup middlewares.
@@ -2202,7 +1891,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
             $response
         ]);
         $restOptions = ['http' => ['handler' => $mock]];
-        $mockProxy = $this->builder->createFileService($this->connectionString, $restOptions);
+        $mockProxy = FileRestProxy::createFileService($this->connectionString, $restOptions);
 
         //test using mock handler.
         $options = new ListSharesOptions();

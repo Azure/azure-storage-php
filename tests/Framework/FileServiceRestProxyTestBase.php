@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
+use MicrosoftAzure\Storage\File\FileRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\File\Models\CreateShareOptions;
 use MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions;
@@ -49,7 +50,7 @@ class FileServiceRestProxyTestBase extends ServiceRestProxyTestBase
     public function setUp()
     {
         parent::setUp();
-        $fileRestProxy = $this->builder->createFileService($this->connectionString);
+        $fileRestProxy = FileRestProxy::createFileService($this->connectionString);
         parent::setProxy($fileRestProxy);
         $this->createdShares = array();
         $this->createdDirectories = array();

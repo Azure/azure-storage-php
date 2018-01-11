@@ -26,12 +26,8 @@ namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal\Authentication;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
-use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
-use MicrosoftAzure\Storage\Tests\Unit\Utilities;
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Authentication\SharedAccessSignatureAuthSchemeMock;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
-use MicrosoftAzure\Storage\Common\Internal\Resources;
 
 /**
  * Unit tests for SharedAccessSignatureAuthScheme class.
@@ -44,18 +40,24 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class SharedAccessSignatureAuthSchemeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme::__construct
-    */
     public function testConstruct()
     {
         $mock = new SharedAccessSignatureAuthSchemeMock(TestResources::SAS_TOKEN);
         $this->assertEquals(TestResources::SAS_TOKEN, $mock->getSasToken());
+
+        $mock = new SharedAccessSignatureAuthSchemeMock('?' . TestResources::SAS_TOKEN);
+        $this->assertEquals(TestResources::SAS_TOKEN, $mock->getSasToken());
     }
 
     /**
-    * @covers MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme::signRequest
-    */
+     * @expectedException \InvalidArgumentException
+     */
+    public function testConstructFromInvalidSASToken()
+    {
+        $mock = new SharedAccessSignatureAuthSchemeMock('?' . TestResources::SAS_TOKEN . '?foo=bar');
+        $this->assertEquals(TestResources::SAS_TOKEN, $mock->getSasToken());
+    }
+
     public function testSignRequest()
     {
         // Setup

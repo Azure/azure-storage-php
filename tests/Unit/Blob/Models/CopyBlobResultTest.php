@@ -40,13 +40,6 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  */
 class CopyBlobResultTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::getETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::setETag
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::getLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::setLastModified
-     * @covers MicrosoftAzure\Storage\Blob\Models\CopyBlobResult::create
-     */
     public function testCreate()
     {
         $expectedEtag         = "12345678";

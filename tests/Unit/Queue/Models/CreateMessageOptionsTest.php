@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions;
  */
 class CreateMessageOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions::getVisibilityTimeoutInSeconds
-     */
     public function testGetVisibilityTimeoutInSeconds()
     {
         // Setup
@@ -55,9 +52,6 @@ class CreateMessageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions::setVisibilityTimeoutInSeconds
-     */
     public function testSetVisibilityTimeoutInSeconds()
     {
         // Setup
@@ -72,9 +66,6 @@ class CreateMessageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions::getTimeToLiveInSeconds
-     */
     public function testGetTimeToLiveInSeconds()
     {
         // Setup
@@ -89,9 +80,6 @@ class CreateMessageOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Queue\Models\CreateMessageOptions::setTimeToLiveInSeconds
-     */
     public function testSetTimeToLiveInSeconds()
     {
         // Setup

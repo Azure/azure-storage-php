@@ -23,8 +23,8 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Models;
 
+use MicrosoftAzure\Storage\Blob\Models\BlobAccessPolicy;
 use MicrosoftAzure\Storage\Common\Models\SignedIdentifier;
-use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
 
 /**
  * Unit tests for class SignedIdentifier
@@ -38,9 +38,6 @@ use MicrosoftAzure\Storage\Common\Models\AccessPolicy;
  */
 class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::getId
-     */
     public function testGetId()
     {
         // Setup
@@ -55,9 +52,6 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::setId
-     */
     public function testSetId()
     {
         // Setup
@@ -71,14 +65,11 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $signedIdentifier->getId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::getAccessPolicy
-     */
     public function testGetAccessPolicy()
     {
         // Setup
         $signedIdentifier = new SignedIdentifier();
-        $expected = new AccessPolicy();
+        $expected = new BlobAccessPolicy();
         $expected->setExpiry(new \DateTime('2009-09-29T08:49:37'));
         $expected->setPermission('rwd');
         $expected->setStart(new \DateTime('2009-09-28T08:49:37'));
@@ -91,14 +82,11 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::setAccessPolicy
-     */
     public function testSetAccessPolicy()
     {
         // Setup
         $signedIdentifier = new SignedIdentifier();
-        $expected = new AccessPolicy();
+        $expected = new BlobAccessPolicy();
         $expected->setExpiry(new \DateTime('2009-09-29T08:49:37'));
         $expected->setPermission('rwd');
         $expected->setStart(new \DateTime('2009-09-28T08:49:37'));
@@ -113,7 +101,6 @@ class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * @covers MicrosoftAzure\Storage\Common\Models\SignedIdentifier::toArray
      * @depends testSetAccessPolicy
      */
     public function testToXml($signedIdentifier)

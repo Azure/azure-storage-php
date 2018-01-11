@@ -40,10 +40,6 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  */
 class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setLeaseId
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getLeaseId
-     */
     public function testSetLeaseId()
     {
         // Setup
@@ -58,9 +54,6 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $options->getLeaseId());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getAccessConditions
-     */
     public function testGetAccessConditions()
     {
         // Setup
@@ -75,9 +68,6 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setAccessConditions
-     */
     public function testSetAccessConditions()
     {
         // Setup
@@ -91,9 +81,6 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $result->getAccessConditions()[0]);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setSnapshot
-     */
     public function testSetSnapshot()
     {
         // Setup
@@ -107,9 +94,6 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $blob->getSnapshot());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getSnapshot
-     */
     public function testGetSnapshot()
     {
         // Setup
@@ -124,10 +108,6 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::setRange
-     * @covers MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions::getRange
-     */
     public function testSetRange()
     {
         // Setup

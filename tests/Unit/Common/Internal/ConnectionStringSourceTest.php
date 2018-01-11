@@ -45,9 +45,6 @@ class ConnectionStringSourceTest extends \PHPUnit_Framework_TestCase
         $property->setValue(null);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource::environmentSource
-     */
     public function testEnvironmentSource()
     {
         // Setup
@@ -65,10 +62,6 @@ class ConnectionStringSourceTest extends \PHPUnit_Framework_TestCase
         putenv($key);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource::getDefaultSources
-     * @covers MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource::_init
-     */
     public function testGetDefaultSources()
     {
         // Setup

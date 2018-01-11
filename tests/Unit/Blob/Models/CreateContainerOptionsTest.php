@@ -39,9 +39,6 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  */
 class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions::getPublicAccess
-     */
     public function testGetPublicAccess()
     {
         // Setup
@@ -56,9 +53,6 @@ class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions::setPublicAccess
-     */
     public function testSetPublicAccess()
     {
         // Setup
@@ -73,9 +67,6 @@ class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions::setPublicAccess
-     */
     public function testSetPublicAccessInvalidValueFail()
     {
         // Setup
@@ -87,9 +78,6 @@ class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
         $properties->setPublicAccess($expected);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions::setMetadata
-     */
     public function testSetMetadata()
     {
         // Setup
@@ -103,9 +91,6 @@ class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $container->getMetadata());
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions::getMetadata
-     */
     public function testGetMetadata()
     {
         // Setup
@@ -120,9 +105,6 @@ class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions::addMetadata
-     */
     public function testAddMetadata()
     {
         // Setup

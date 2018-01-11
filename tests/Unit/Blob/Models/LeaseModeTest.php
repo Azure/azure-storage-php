@@ -37,9 +37,6 @@ use MicrosoftAzure\Storage\Blob\Models\LeaseMode;
  */
 class LeaseModeTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @covers MicrosoftAzure\Storage\Blob\Models\LeaseMode
-     */
     public function testLeaseMode()
     {
         $this->assertEquals(LeaseMode::ACQUIRE_ACTION, 'acquire');

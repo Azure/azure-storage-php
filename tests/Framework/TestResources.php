@@ -24,6 +24,8 @@
 
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
+use MicrosoftAzure\Storage\File\Internal\FileResources;
+use MicrosoftAzure\Storage\Queue\Internal\QueueResources;
 use MicrosoftAzure\Storage\Table\Models\EdmType;
 use MicrosoftAzure\Storage\Table\Models\Entity;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -179,66 +181,6 @@ class TestResources
         //empty string if signed permission is invalid.
         $result = array();
         $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_BLOB,
-            'sp' => 'ddwwccaarr',
-            'expected' => 'racwd'
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_BLOB,
-            'sp' => 'racwdl',
-            'expected' => ''
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_CONTAINER,
-            'sp' => 'ldwwwwccccar',
-            'expected' => 'racwdl'
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_CONTAINER,
-            'sp' => 'raup',
-            'expected' => ''
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_QUEUE,
-            'sp' => 'puaaar',
-            'expected' => 'raup'
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_QUEUE,
-            'sp' => 'raud',
-            'expected' => ''
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_TABLE,
-            'sp' => 'duarrrr',
-            'expected' => 'raud'
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_TABLE,
-            'sp' => 'rcwd',
-            'expected' => ''
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_FILE,
-            'sp' => 'dwcrdwcr',
-            'expected' => 'rcwd'
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_FILE,
-            'sp' => 'rcwdl',
-            'expected' => ''
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_SHARE,
-            'sp' => 'ldwcrcwdl',
-            'expected' => 'rcwdl'
-        ];
-        $result[] = [
-            'sr' => Resources::RESOURCE_TYPE_SHARE,
-            'sp' => 'racwd',
-            'expected' => ''
-        ];
-        $result[] = [
             'sr' => '',//account sas
             'sp' => 'rwdlrwdlacupacup',
             'expected' => 'rwdlacup'
@@ -273,7 +215,7 @@ class TestResources
         }
         $result[Resources::QP_LAST_MODIFIED] = self::getRandomEarlierTimeInAzureFormatString();
         $result[Resources::QP_ETAG] = \uniqid();
-        $result[Resources::X_MS_SHARE_QUOTA] = \rand(1, 100);
+        $result[FileResources::X_MS_SHARE_QUOTA] = \rand(1, 100);
 
         return $result;
     }
@@ -327,9 +269,9 @@ class TestResources
         }
         if (!empty($shareArrays)) {
             if (count($shareArrays) != 1) {
-                $result[Resources::QP_SHARES][Resources::QP_SHARE] = $shareArrays;
+                $result[FileResources::QP_SHARES][FileResources::QP_SHARE] = $shareArrays;
             } else {
-                $result[Resources::QP_SHARES][Resources::QP_SHARE] = $shareArrays[0];
+                $result[FileResources::QP_SHARES][FileResources::QP_SHARE] = $shareArrays[0];
             }
         }
         $result[Resources::QP_NEXT_MARKER] = 'video';
@@ -338,6 +280,11 @@ class TestResources
         return $result;
     }
 
+    /**
+     * @param int $directoriesCount
+     * @param int $filesCount
+     * @return array
+     */
     public static function getInterestingListDirectoriesAndFilesResultArray(
         $directoriesCount = 0,
         $filesCount = 0
@@ -364,10 +311,10 @@ class TestResources
             ];
         }
         if (!empty($directoriesArray)) {
-            $result[Resources::QP_ENTRIES][Resources::QP_DIRECTORY] = $directoriesArray;
+            $result[Resources::QP_ENTRIES][FileResources::QP_DIRECTORY] = $directoriesArray;
         }
         if (!empty($filesArray)) {
-            $result[Resources::QP_ENTRIES][Resources::QP_FILE] = $filesArray;
+            $result[Resources::QP_ENTRIES][FileResources::QP_FILE] = $filesArray;
         }
         $result[Resources::QP_NEXT_MARKER] = \uniqid();
 
@@ -1379,9 +1326,9 @@ class TestResources
     public static function getUpdateMessageResultSampleHeaders()
     {
         return array(
-            Resources::X_MS_POPRECEIPT =>
+            QueueResources::X_MS_POPRECEIPT =>
                 'YzQ4Yzg1MDItYTc0Ny00OWNjLTkxYTUtZGM0MDFiZDAwYzEw',
-            Resources::X_MS_TIME_NEXT_VISIBLE =>
+            QueueResources::X_MS_TIME_NEXT_VISIBLE =>
                 'Fri, 09 Oct 2009 23:29:20 GMT'
         );
     }
@@ -1528,7 +1475,7 @@ class TestResources
         }
 
         $result = array();
-        $result['signedVersion']      = Resources::STORAGE_API_LATEST_VERSION;
+        $result['signedVersion']      = '2016-05-31';
         $result['signedPermissions']  = $signedPermissions;
         $result['signedService']      = $signedService;
         $result['signedResourceType'] = $signedResourceType;
