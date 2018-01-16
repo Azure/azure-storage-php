@@ -24,6 +24,9 @@
  
 namespace MicrosoftAzure\Storage\Tests\Functional\Common;
 
+use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
+use MicrosoftAzure\Storage\File\Models\ListSharesOptions;
+use MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions;
 use MicrosoftAzure\Storage\Tests\Framework\SASFunctionalTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 
@@ -57,10 +60,13 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         );
 
         //Validate 'rwdlc'
-        $container = TestResources::getInterestingName('con');
-        $count0 = count($this->blobRestProxy->listContainers()->getContainers());
+        $containerPrefix = TestResources::getUniqueName();
+        $listContainersOptions = new ListContainersOptions();
+        $listContainersOptions->setPrefix($containerPrefix);
+        $container = TestResources::getInterestingName($containerPrefix);
+        $count0 = count($this->blobRestProxy->listContainers($listContainersOptions)->getContainers());
         $this->safeCreateContainer($container);
-        $count1 = count($this->blobRestProxy->listContainers()->getContainers());
+        $count1 = count($this->blobRestProxy->listContainers($listContainersOptions)->getContainers());
         $this->assertEquals(
             $count0 + 1,
             $count1,
@@ -72,17 +78,20 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         $getContent = stream_get_contents($this->blobRestProxy->getBlob($container, $blob)->getContentStream());
         $this->assertEquals($content, $getContent, "Expected {$content}, got {$getContent}.");
         $this->safeDeleteContainer($container);
-        $count1 = count($this->blobRestProxy->listContainers()->getContainers());
+        $count1 = count($this->blobRestProxy->listContainers($listContainersOptions)->getContainers());
         $this->assertEquals(
             $count0,
             $count1,
             sprintf("Expected %d container(s), listed %d container(s).", $count0, $count1)
         );
 
-        $share = TestResources::getInterestingName('share');
-        $count0 = count($this->fileRestProxy->listShares()->getShares());
+        $sharePrefix = TestResources::getUniqueName();
+        $share = TestResources::getInterestingName($sharePrefix);
+        $listSharesOptions = new ListSharesOptions();
+        $listSharesOptions->setPrefix($sharePrefix);
+        $count0 = count($this->fileRestProxy->listShares($listSharesOptions)->getShares());
         $this->safeCreateShare($share);
-        $count1 = count($this->fileRestProxy->listShares()->getShares());
+        $count1 = count($this->fileRestProxy->listShares($listSharesOptions)->getShares());
         $this->assertEquals(
             $count0 + 1,
             $count1,
@@ -94,7 +103,7 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         $getContent = stream_get_contents($this->fileRestProxy->getFile($share, $file)->getContentStream());
         $this->assertEquals($content, $getContent, "Expected {$content}, got {$getContent}.");
         $this->safeDeleteShare($share);
-        $count1 = count($this->fileRestProxy->listShares()->getShares());
+        $count1 = count($this->fileRestProxy->listShares($listSharesOptions)->getShares());
         $this->assertEquals(
             $count0,
             $count1,
@@ -102,10 +111,13 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
         );
 
         //Validate 'aup'
-        $queue = TestResources::getInterestingName('queue');
-        $count0 = count($this->queueRestProxy->listQueues()->getQueues());
+        $queuePrefix = TestResources::getUniqueName('q');
+        $queue = TestResources::getInterestingName($queuePrefix);
+        $listQueuesOptions = new ListQueuesOptions();
+        $listSharesOptions->setPrefix($queuePrefix);
+        $count0 = count($this->queueRestProxy->listQueues($listQueuesOptions)->getQueues());
         $this->safeCreateQueue($queue);
-        $count1 = count($this->queueRestProxy->listQueues()->getQueues());
+        $count1 = count($this->queueRestProxy->listQueues($listQueuesOptions)->getQueues());
         $this->assertEquals(
             $count0 + 1,
             $count1,
@@ -138,7 +150,7 @@ class AccountSASFunctionalTest extends SASFunctionalTestBase
             sprintf("Expected %d messages(s), listed %d messages(s).", $count3 - 1, $count1)
         );
         $this->safeDeleteQueue($queue);
-        $count1 = count($this->queueRestProxy->listQueues()->getQueues());
+        $count1 = count($this->queueRestProxy->listQueues($listQueuesOptions)->getQueues());
         $this->assertEquals(
             $count0,
             $count1,

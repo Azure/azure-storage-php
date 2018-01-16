@@ -66,9 +66,9 @@ class BlobServiceFunctionalTestData
     {
         $rint = mt_rand(0, 1000000);
         self::$accountName = $accountName;
-        self::$testUniqueId = 'qa-' . $rint . '-';
-        self::$nonExistContainerPrefix = 'qa-' . ($rint . 1) . '-';
-        self::$nonExistBlobPrefix = 'qa-' . ($rint . 2) . '-';
+        self::$testUniqueId = TestResources::getUniqueName('qa-' . $rint . '-');
+        self::$nonExistContainerPrefix = TestResources::getUniqueName('qa-' . ($rint . 1) . '-');
+        self::$nonExistBlobPrefix = TestResources::getUniqueName('qa-' . ($rint . 2) . '-');
         self::$testContainerNames = array( self::$testUniqueId . 'a1', self::$testUniqueId . 'a2', self::$testUniqueId . 'b1' );
         self::$testBlobNames = array( 'b' . self::$testUniqueId . 'a1', 'b' . self::$testUniqueId . 'a2', 'b' . self::$testUniqueId . 'b1' );
         self::$blockIdCount = 0;

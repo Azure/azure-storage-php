@@ -116,7 +116,7 @@ class TestResources
     public static function getInterestingName($prefix)
     {
         $rint = mt_rand(0, 1000000);
-        return $prefix . $rint . 'ft';
+        return self::getUniqueName($prefix . $rint . 'ft');
     }
 
     public static function getSASInterestingUTCases()
@@ -1152,6 +1152,12 @@ class TestResources
         return $new->format(Resources::AZURE_DATE_FORMAT);
     }
 
+    public static function getUniqueName($prefix = '', $suffix = '')
+    {
+        $uniqueID = uniqid($prefix, true) . $suffix;
+        return str_replace('.', '', $uniqueID);
+    }
+
     public static function listBlobsEmpty()
     {
         $sample = array();
@@ -1611,14 +1617,14 @@ class TestResources
         $entityResult3 = UpdateEntityResult::create(
             array(Resources::ETAG => 'W/"datetime\'2017-02-16T02%3A46%3A47.89766Z\'"')
         );
-        return [
+        return array(
             'The entity was deleted successfully.',
             $entityResult1,
             $entityResult2,
             $entityResult3,
             'The entity was deleted successfully.',
             'The entity was deleted successfully.',
-        ];
+        );
     }
 
     public static function getBatchResponseBody()

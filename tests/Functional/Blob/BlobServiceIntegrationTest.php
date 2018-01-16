@@ -75,6 +75,14 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
     {
         // Setup container names array (list of container names used by
         // integration tests)
+        self::$_testContainersPrefix = TestResources::getUniqueName(
+            self::$_testContainersPrefix
+        );
+
+        self::$_createableContainersPrefix = TestResources::getUniqueName(
+            self::$_createableContainersPrefix
+        );
+
         $rint = mt_rand(0, 1000000);
         self::$_testContainers = array();
         for ($i = 0; $i < 10; $i++) {

@@ -6,30 +6,50 @@
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
          verbose="true">
-  <testsuites>
-    <testsuite name="unit">
-      <directory suffix="Test.php">tests/Unit</directory>
-    </testsuite>
-    <testsuite name="functional">
-      <directory suffix="Test.php">tests/Functional</directory>
-    </testsuite>
-  </testsuites>
+    <testsuites>
+        <testsuite name="unit">
+            <directory suffix="Test.php">tests/Unit</directory>
+        </testsuite>
+        <testsuite name="functional">
+            <directory suffix="Test.php">tests/Functional</directory>
+        </testsuite>
+        <testsuite name="common">
+            <directory suffix="Test.php">tests/Unit/Common</directory>
+            <directory suffix="Test.php">tests/Functional/Common</directory>
+        </testsuite>
+        <testsuite name="blob">
+            <directory suffix="Test.php">tests/Unit/Blob</directory>
+            <directory suffix="Test.php">tests/Functional/Blob</directory>
+        </testsuite>
+        <testsuite name="table">
+            <directory suffix="Test.php">tests/Unit/Table</directory>
+            <directory suffix="Test.php">tests/Functional/Table</directory>
+        </testsuite>
+        <testsuite name="queue">
+            <directory suffix="Test.php">tests/Unit/Queue</directory>
+            <directory suffix="Test.php">tests/Functional/Queue</directory>
+        </testsuite>
+        <testsuite name="file">
+            <directory suffix="Test.php">tests/Unit/File</directory>
+            <directory suffix="Test.php">tests/Functional/File</directory>
+        </testsuite>
+    </testsuites>
 
-  <logging>
-    <log type="coverage-html" target="build/coverage" title="azure-storage-php"
-         charset="UTF-8" yui="true" highlight="true"
-         lowUpperBound="35" highLowerBound="70"/>
-    <log type="coverage-clover" target="build/logs/clover.xml"/>
-    <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
-  </logging>
+    <logging>
+        <log type="coverage-html" target="build/coverage" title="azure-storage-php"
+             charset="UTF-8" yui="true" highlight="true"
+             lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+    </logging>
 
-  <filter>
-    <whitelist addUncoveredFilesFromWhitelist="true">
-      <directory suffix=".php">azure-storage-blob/src</directory>
-      <directory suffix=".php">azure-storage-table/src</directory>
-      <directory suffix=".php">azure-storage-queue/src</directory>
-      <directory suffix=".php">azure-storage-file/src</directory>
-      <directory suffix=".php">azure-storage-common/src</directory>
-    </whitelist>
-  </filter>
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">azure-storage-blob/src</directory>
+            <directory suffix=".php">azure-storage-table/src</directory>
+            <directory suffix=".php">azure-storage-queue/src</directory>
+            <directory suffix=".php">azure-storage-file/src</directory>
+            <directory suffix=".php">azure-storage-common/src</directory>
+        </whitelist>
+    </filter>
 </phpunit>

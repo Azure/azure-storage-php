@@ -103,13 +103,13 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
     public function testCreateTable()
     {
         // Setup
-        $name = 'createtable';
+        $name = TestResources::getUniqueName('table');
         
         // Test
         $this->createTable($name);
         
         // Assert
-        $result = $this->restProxy->queryTables();
+        $result = $this->restProxy->queryTables($name);
         $this->assertCount(1, $result->getTables());
     }
     
@@ -129,27 +129,28 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
     public function testDeleteTable()
     {
         // Setup
-        $name = 'deletetable';
+        $name = TestResources::getUniqueName('deletetable');
         $this->restProxy->createTable($name);
         
         // Test
         $this->restProxy->deleteTable($name);
         
         // Assert
-        $result = $this->restProxy->queryTables();
+        $result = $this->restProxy->queryTables($name);
         $this->assertCount(0, $result->getTables());
     }
     
     public function testQueryTablesSimple()
     {
         // Setup
-        $name1 = 'querytablessimple1';
-        $name2 = 'querytablessimple2';
+        $prefix = TestResources::getUniqueName('p');
+        $name1 = $prefix . 'querytablessimple1';
+        $name2 = $prefix . 'querytablessimple2';
         $this->createTable($name1);
         $this->createTable($name2);
         
         // Test
-        $result = $this->restProxy->queryTables();
+        $result = $this->restProxy->queryTables($prefix);
         
         // Assert
         $tables = $result->getTables();
@@ -176,7 +177,9 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
     public function testQueryTablesEmpty()
     {
         // Test
-        $result = $this->restProxy->queryTables();
+        $result = $this->restProxy->queryTables(
+            TestResources::getUniqueName()
+        );
         
         // Assert
         $tables = $result->getTables();
@@ -188,11 +191,12 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         $this->skipIfEmulated();
         
         // Setup
+        $prefix = TestResources::getUniqueName('p');
         $name1 = 'wquerytableswithprefix1';
-        $name2 = 'querytableswithprefix2';
-        $name3 = 'querytableswithprefix3';
+        $name2 = $prefix . 'querytableswithprefix2';
+        $name3 = $prefix . 'querytableswithprefix3';
         $options = new QueryTablesOptions();
-        $options->setPrefix('q');
+        $options->setPrefix($prefix);
         $this->createTable($name1);
         $this->createTable($name2);
         $this->createTable($name3);
@@ -212,10 +216,10 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         $this->skipIfEmulated();
         
         // Setup
+        $prefix = TestResources::getUniqueName('p');
         $name1 = 'wquerytableswithstringoption1';
-        $name2 = 'querytableswithstringoption2';
-        $name3 = 'querytableswithstringoption3';
-        $prefix = 'q';
+        $name2 = $prefix . 'querytableswithstringoption2';
+        $name3 = $prefix . 'querytableswithstringoption3';
         $this->createTable($name1);
         $this->createTable($name2);
         $this->createTable($name3);
@@ -235,10 +239,10 @@ class TableRestProxyTest extends TableServiceRestProxyTestBase
         $this->skipIfEmulated();
         
         // Setup
+        $prefix = TestResources::getUniqueName('p');
         $name1 = 'wquerytableswithfilteroption1';
-        $name2 = 'querytableswithfilteroption2';
-        $name3 = 'querytableswithfilteroption3';
-        $prefix = 'q';
+        $name2 = $prefix . 'querytableswithfilteroption2';
+        $name3 = $prefix . 'querytableswithfilteroption3';
         $prefixFilter = Filter::applyAnd(
             Filter::applyGe(
                 Filter::applyPropertyName('TableName'),
