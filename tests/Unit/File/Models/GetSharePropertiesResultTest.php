@@ -57,7 +57,7 @@ class GetSharePropertiesResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedQuota, $shareProperties->getQuota());
         $actualMeta = $shareProperties->getMetadata();
         foreach ($expectedMeta as $key => $value) {
-            $this->assertTrue(array_key_exists($key, $actualMeta));
+            $this->assertArrayHasKey($key, $actualMeta);
             $this->assertEquals($value, $actualMeta[$key]);
         }
     }

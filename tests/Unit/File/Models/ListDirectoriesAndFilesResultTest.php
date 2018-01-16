@@ -71,8 +71,8 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit\Framework\TestCase
             $actual = $actuals[$i];
             $entries = $sample[Resources::QP_ENTRIES];
             if (empty($entries)) {
-                $this->assertTrue(empty($actual->getDirectories()));
-                $this->assertTrue(empty($actual->getFiles()));
+                $this->assertEmpty($actual->getDirectories());
+                $this->assertEmpty($actual->getFiles());
             } else {
                 if (array_key_exists(Resources::QP_DIRECTORY, $entries)) {
                     $this->assertEquals(
@@ -84,7 +84,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit\Framework\TestCase
                         $this->assertStringStartsWith('testdirectory', $dir->getName());
                     }
                 } else {
-                    $this->assertTrue(empty($actual->getDirectories()));
+                    $this->assertEmpty($actual->getDirectories());
                 }
                 if (array_key_exists(Resources::QP_FILE, $entries)) {
                     $this->assertEquals(
@@ -97,7 +97,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit\Framework\TestCase
                         $this->assertGreaterThanOrEqual(0, $file->getLength());
                     }
                 } else {
-                    $this->assertTrue(empty($actual->getFiles()));
+                    $this->assertEmpty($actual->getFiles());
                 }
             }
             $this->assertEquals('myaccount', $actual->getAccountName());

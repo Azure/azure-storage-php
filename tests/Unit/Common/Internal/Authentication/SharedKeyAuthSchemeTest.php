@@ -98,9 +98,7 @@ class SharedKeyAuthSchemeTest extends \PHPUnit\Framework\TestCase
 
         $actual = $mock->getAuthorizationHeader($headers, $url, $queryParams, $httpMethod);
 
-        $this->assertTrue(
-            substr($actual, 0, \strlen($expected)) == $expected
-        );
+        $this->assertEquals($expected, substr($actual, 0, \strlen($expected)));
     }
 
     public function testComputeCanonicalizedHeadersMock()

@@ -49,7 +49,7 @@ class ListQueuesResultTest extends \PHPUnit\Framework\TestCase
         
         // Assert
         $this->assertCount(0, $actual->getQueues());
-        $this->assertTrue(empty($sample['NextMarker']));
+        $this->assertEmpty($sample['NextMarker']);
     }
     
     public function testCreateWithOneEntry()

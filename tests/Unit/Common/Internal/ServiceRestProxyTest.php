@@ -112,7 +112,7 @@ class ServiceRestProxyTest extends \PHPUnit\Framework\TestCase
         $actual = ServiceRestProxy::groupQueryValues($values);
 
         // Assert
-        $this->assertTrue(empty($actual));
+        $this->assertEmpty($actual);
     }
 
     /**

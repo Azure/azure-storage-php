@@ -168,8 +168,8 @@ class TableServiceFunctionalOptionsTest extends \PHPUnit\Framework\TestCase
         $options->addSelectField('baz');
         $this->assertNotNull($options->getSelectFields(), 'Add $options->getSelectFields');
         $this->assertNotNull($options->getQuery()->getSelectFields(), 'Add $options->getQuery->getSelectFields');
-        $this->assertEquals(2, count($options->getSelectFields()), 'Add $options->getSelectFields->size');
-        $this->assertEquals(2, count($options->getQuery()->getSelectFields()), 'Add $options->getQuery->getSelectFields->size');
+        $this->assertCount(2, $options->getSelectFields(), 'Add $options->getSelectFields->size');
+        $this->assertCount(2, $options->getQuery()->getSelectFields(), 'Add $options->getQuery->getSelectFields->size');
 
         $filter = Filter::applyConstant('foo', EdmType::STRING);
         $options->setFilter($filter);
@@ -194,7 +194,7 @@ class TableServiceFunctionalOptionsTest extends \PHPUnit\Framework\TestCase
         $query->addSelectField('bar');
         $query->addSelectField('baz');
         $this->assertNotNull($query->getSelectFields(), 'Add Query->getSelectFields');
-        $this->assertEquals(2, count($query->getSelectFields()), 'Add Query->getSelectFields->size');
+        $this->assertCount(2, $query->getSelectFields(), 'Add Query->getSelectFields->size');
 
         $filter = Filter::applyConstant('foo', EdmType::STRING);
         $query->setFilter($filter);
@@ -407,7 +407,7 @@ class TableServiceFunctionalOptionsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($value, $entity->getPropertyValue($name), 'Default Entity->getPropertyValue(\'' . $name . '\')');
         $this->assertEquals($edmType, $entity->getProperty($name)->getEdmType(), 'Default Entity->getProperty(\'' . $name . '\')->getEdmType');
         $this->assertEquals($value, $entity->getProperty($name)->getValue(), 'Default Entity->getProperty(\'' . $name . '\')->getValue');
-        $this->assertTrue($property != $entity->getProperty($name), 'Default Entity->getProperty(\'' . $name . '\') changed');
+        $this->assertNotEquals($entity->getProperty($name), $property, 'Default Entity->getProperty(\'' . $name . '\') changed');
 
         $entity->setProperties($properties);
         $this->assertNotNull($entity->getProperties(), 'Default Entity->getProperties');
