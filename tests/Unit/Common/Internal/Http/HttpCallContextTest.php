@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Http\HttpCallContext;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class HttpCallContextTest extends \PHPUnit_Framework_TestCase
+class HttpCallContextTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {

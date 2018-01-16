@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SetBlobPropertiesResultTest extends \PHPUnit_Framework_TestCase
+class SetBlobPropertiesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

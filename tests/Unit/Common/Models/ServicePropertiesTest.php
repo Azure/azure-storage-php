@@ -42,7 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
+class ServicePropertiesTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

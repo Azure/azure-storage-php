@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
+class CommitBlobBlocksOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetContentType()
     {

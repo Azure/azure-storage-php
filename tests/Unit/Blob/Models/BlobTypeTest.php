@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlobType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlobTypeTest extends \PHPUnit_Framework_TestCase
+class BlobTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testBlobType()
     {

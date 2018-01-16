@@ -41,7 +41,7 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class JsonODataReaderWriterTest extends \PHPUnit_Framework_TestCase
+class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetTable()
     {

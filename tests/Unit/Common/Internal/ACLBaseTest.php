@@ -41,7 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ACLBaseTest extends \PHPUnit_Framework_TestCase
+class ACLBaseTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetGetSignedIdentifiers()
     {
