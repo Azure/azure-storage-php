@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlockTest extends \PHPUnit_Framework_TestCase
+class BlockTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetBlockId()
     {

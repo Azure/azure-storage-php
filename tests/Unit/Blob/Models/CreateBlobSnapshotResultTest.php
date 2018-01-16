@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobSnapshotResultTest extends \PHPUnit_Framework_TestCase
+class CreateBlobSnapshotResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

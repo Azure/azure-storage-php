@@ -23,7 +23,7 @@
  */
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
-class ReflectionTestBase extends \PHPUnit_Framework_TestCase
+class ReflectionTestBase extends \PHPUnit\Framework\TestCase
 {
     protected static function getMethod($name, $object)
     {

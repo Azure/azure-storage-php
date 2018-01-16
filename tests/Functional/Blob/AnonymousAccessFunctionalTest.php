@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
+class AnonymousAccessFunctionalTest extends \PHPUnit\Framework\TestCase
 {
     private $containerName;
     private static $blobRestProxy;

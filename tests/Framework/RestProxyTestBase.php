@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Common\ServicesBuilder;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class RestProxyTestBase extends \PHPUnit_Framework_TestCase
+class RestProxyTestBase extends \PHPUnit\Framework\TestCase
 {
     protected $restProxy;
     protected $xmlSerializer;

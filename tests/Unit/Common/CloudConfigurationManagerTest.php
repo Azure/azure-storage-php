@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CloudConfigurationManagerTest extends \PHPUnit_Framework_TestCase
+class CloudConfigurationManagerTest extends \PHPUnit\Framework\TestCase
 {
     private $_key = 'my_connection_string';
     private $_value = 'connection string value';

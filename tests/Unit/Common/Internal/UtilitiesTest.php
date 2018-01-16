@@ -42,7 +42,7 @@ use GuzzleHttp\Psr7;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class UtilitiesTest extends \PHPUnit_Framework_TestCase
+class UtilitiesTest extends \PHPUnit\Framework\TestCase
 {
     public function testTryGetValue()
     {

@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Queue\Models\ListQueuesOptions;
 use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
 use MicrosoftAzure\Storage\Queue\Models\QueueServiceOptions;
 
-class QueueServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
+class QueueServiceFunctionalOptionsTest extends \PHPUnit\Framework\TestCase
 {
     const INT_MAX_VALUE = 2147483647;
     const INT_MIN_VALUE = -2147483648;

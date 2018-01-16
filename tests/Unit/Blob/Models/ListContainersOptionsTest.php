@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListContainersOptionsTest extends \PHPUnit_Framework_TestCase
+class ListContainersOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetPrefix()
     {

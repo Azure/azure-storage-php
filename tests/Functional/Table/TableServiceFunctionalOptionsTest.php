@@ -43,7 +43,7 @@ use MicrosoftAzure\Storage\Table\Models\Filters\PropertyNameFilter;
 use MicrosoftAzure\Storage\Table\Models\Filters\QueryStringFilter;
 use MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter;
 
-class TableServiceFunctionalOptionsTest extends \PHPUnit_Framework_TestCase
+class TableServiceFunctionalOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testCheckTableServiceOptions()
     {

@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Blob\Models\LeaseMode;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class LeaseModeTest extends \PHPUnit_Framework_TestCase
+class LeaseModeTest extends \PHPUnit\Framework\TestCase
 {
     public function testLeaseMode()
     {

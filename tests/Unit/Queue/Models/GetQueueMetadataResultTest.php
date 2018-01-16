@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetQueueMetadataResultTest extends \PHPUnit_Framework_TestCase
+class GetQueueMetadataResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {

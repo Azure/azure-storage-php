@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlockListTest extends \PHPUnit_Framework_TestCase
+class BlockListTest extends \PHPUnit\Framework\TestCase
 {
     public function testAddEntry()
     {
