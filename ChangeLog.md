@@ -190,7 +190,6 @@ Table
 Queue
 * Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
 
-
 2017.04 - version 0.14.0
 
 ALL

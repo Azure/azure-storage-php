@@ -69,5 +69,4 @@ Changes should be based on the `dev` branch. We're following [semver](http://sem
 ### Review Process
 We expect all guidelines to be met before accepting a pull request. As such, we will work with you to address issues we find by leaving comments in your code. Please understand that it may take a few iterations before the code is accepted as we maintain high standards on code quality. Once we feel comfortable with a contribution, we will validate the change and accept the pull request.
 
-
 Thank you for any contributions! Please let the team know if you have any questions or concerns about our contribution policy.

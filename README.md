@@ -53,7 +53,6 @@ To get the source code from GitHub, type
     git clone https://github.com/Azure/azure-storage-php.git
     cd ./azure-storage-php
 
-
 ## Install via Composer
 
 1. Create a file named **composer.json** in the root of your project and add the following code to it:
@@ -90,7 +89,6 @@ There are four basic steps that have to be performed before you can make a call 
   To process exceptions you need:
 
     use MicrosoftAzure\Storage\Common\ServiceException;
-
 
 * To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is:
 
@@ -150,7 +148,6 @@ cURL can't verify the validity of Microsoft certificate when trying to issue a r
 ## Code samples
 
 You can find samples in the [sample folder](samples)
-
 
 # Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
 
