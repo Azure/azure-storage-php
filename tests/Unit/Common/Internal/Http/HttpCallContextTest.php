@@ -48,9 +48,9 @@ class HttpCallContextTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($context->getMethod());
         $this->assertNull($context->getPath());
         $this->assertNull($context->getUri());
-        $this->assertTrue(is_array($context->getHeaders()));
-        $this->assertTrue(is_array($context->getQueryParameters()));
-        $this->assertTrue(is_array($context->getStatusCodes()));
+        $this->assertInternalType('array', $context->getHeaders());
+        $this->assertInternalType('array', $context->getQueryParameters());
+        $this->assertInternalType('array', $context->getStatusCodes());
 
         return $context;
     }
@@ -190,7 +190,7 @@ class HttpCallContextTest extends \PHPUnit\Framework\TestCase
         $context->removeHeader($key);
 
         // Assert
-        $this->assertFalse(array_key_exists($key, $context->getHeaders()));
+        $this->assertArrayNotHasKey($key, $context->getHeaders());
     }
 
     /**

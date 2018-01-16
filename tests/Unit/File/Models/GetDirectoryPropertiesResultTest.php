@@ -54,7 +54,7 @@ class GetDirectoryPropertiesResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedEtag, $directoryPropertiesResult->getETag());
         $actualMeta = $directoryPropertiesResult->getMetadata();
         foreach ($expectedMeta as $key => $value) {
-            $this->assertTrue(array_key_exists($key, $actualMeta));
+            $this->assertArrayHasKey($key, $actualMeta);
             $this->assertEquals($value, $actualMeta[$key]);
         }
     }
