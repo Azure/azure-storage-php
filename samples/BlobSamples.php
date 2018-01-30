@@ -28,6 +28,7 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobOptions;
@@ -47,6 +48,9 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
 $blobClient = BlobRestProxy::createBlobService($connectionString);
+
+// A temporary container created and used through this sample, and finnaly deleted
+$myContainer = 'mycontainer' . generateRandomString();
 
 // Get and Set Blob Service Properties
 setBlobServiceProperties($blobClient);
@@ -108,7 +112,8 @@ try {
 }
 
 try {
-    cleanUp($blobClient, $containerName)->wait();
+    $blobClient->deleteContainerAsync($containerName)->wait();
+    cleanUp($blobClient);
 } catch (ServiceException $e) {
     $code = $e->getCode();
     $error_message = $e->getMessage();
@@ -168,7 +173,8 @@ function createContainerSample($blobClient)
 
     try {
         // Create container.
-        $blobClient->createContainer("mycontainer", $createContainerOptions);
+        global $myContainer;
+        $blobClient->createContainer($myContainer, $createContainerOptions);
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -326,12 +332,23 @@ function blobMetadata($blobClient)
 
 function uploadBlobSample($blobClient)
 {
+    if (!file_exists("myfile.txt")) {
+        $file = fopen("myfile.txt", 'w');
+        fwrite($file, 'Hello World!');
+        fclose($file);
+    }
+
     $content = fopen("myfile.txt", "r");
     $blob_name = "myblob";
 
+    $content2 = "string content";
+    $blob_name2 = "myblob2";
+
     try {
         //Upload blob
-        $blobClient->createBlockBlob("mycontainer", $blob_name, $content);
+        global $myContainer;
+        $blobClient->createBlockBlob($myContainer, $blob_name, $content);
+        $blobClient->createBlockBlob($myContainer, $blob_name2, $content2);
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -342,7 +359,8 @@ function uploadBlobSample($blobClient)
 function downloadBlobSample($blobClient)
 {
     try {
-        $getBlobResult = $blobClient->getBlob("mycontainer", "myblob");
+        global $myContainer;
+        $getBlobResult = $blobClient->getBlob($myContainer, "myblob");
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -354,7 +372,7 @@ function downloadBlobSample($blobClient)
 
 function generateBlobDownloadLinkWithSAS()
 {
-    global $connectionString;
+    global $connectionString, $myContainer;
 
     $settings = StorageServiceSettings::createFromConnectionString($connectionString);
     $accountName = $settings->getName();
@@ -369,7 +387,7 @@ function generateBlobDownloadLinkWithSAS()
     // https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
     $sas = $helper->generateBlobServiceSharedAccessSignatureToken(
         Resources::RESOURCE_TYPE_BLOB,
-        'mycontainer/myblob',
+        "$myContainer/myblob",
         'r',                            // Read
         '2019-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
         //'2016-01-01T08:30:00Z',       // A valid ISO 8601 format expiry time
@@ -399,7 +417,7 @@ function generateBlobDownloadLinkWithSAS()
     $blobUrlWithSAS = sprintf(
         '%s%s?%s',
         (string)$blobClientWithSAS->getPsrPrimaryUri(),
-        'mycontainer/myblob',
+        "$myContainer/myblob",
         $sas
     );
 
@@ -413,12 +431,23 @@ function listBlobsSample($blobClient)
 {
     try {
         // List blobs.
-        $blob_list = $blobClient->listBlobs("mycontainer");
-        $blobs = $blob_list->getBlobs();
+        $listBlobsOptions = new ListBlobsOptions();
+        $listBlobsOptions->setPrefix("myblob");
 
-        foreach ($blobs as $blob) {
-            echo $blob->getName().": ".$blob->getUrl().PHP_EOL;
-        }
+        // Setting max result to 1 is just to demonstrate the continuation token.
+        // It is not the recommended value in a product environment.
+        $listBlobsOptions->setMaxResults(1);
+
+        do {
+            global $myContainer;
+            $blob_list = $blobClient->listBlobs($myContainer, $listBlobsOptions);
+            foreach ($blob_list->getBlobs() as $blob) {
+                echo $blob->getName().": ".$blob->getUrl().PHP_EOL;
+            }
+
+            $listBlobsOptions->setContinuationToken($blob_list->getContinuationToken());
+        } while ($blob_list->getContinuationToken());
+
     } catch (ServiceException $e) {
         $code = $e->getCode();
         $error_message = $e->getMessage();
@@ -443,7 +472,8 @@ function basicStorageBlobOperationAsync($blobClient)
     $createContainerOptions->addMetaData("key2", "value2");
 
     // Construct the container name
-    $containerName = "mycontainer" . sprintf('-%04x', mt_rand(0, 65535));
+    global $myContainer;
+    $containerName = $myContainer . sprintf('-%04x', mt_rand(0, 65535));
 
     return $blobClient->createContainerAsync(
         $containerName,
@@ -496,8 +526,10 @@ function basicStorageBlobOperationAsync($blobClient)
 
 function pageBlobOperations($blobClient)
 {
+    global $myContainer;
+
     $blobName = "HelloPageBlobWorld";
-    $containerName = 'mycontainer';
+    $containerName = $myContainer;
 
     # Create a page blob
     echo "Create Page Blob with name {$blobName}".PHP_EOL;
@@ -541,8 +573,10 @@ function pageBlobOperations($blobClient)
 
 function snapshotOperations($blobClient)
 {
+    global $myContainer;
+
     $blobName = "HelloWorld";
-    $containerName = 'mycontainer';
+    $containerName = $myContainer;
 
     # Upload file as a block blob
     echo "Uploading BlockBlob".PHP_EOL;
@@ -565,40 +599,31 @@ function snapshotOperations($blobClient)
     $blobClient->deleteBlob($containerName, $blobName, $deleteBlobOptions);
 }
 
-function cleanUp($blobClient, $containerName)
+function cleanUp($blobClient)
 {
-    return $blobClient->listContainersAsync()->then(
-        function ($listContainersResult) use ($blobClient, $containerName) {
-            $containerNames = array();
-            foreach ($listContainersResult->getContainers() as $container) {
-                $containerNames[] = $container->getName();
-            }
-            if (in_array($containerName, $containerNames)) {
-                $blobClient->deleteContainerAsync($containerName)->wait();
-            }
-            if (in_array('mycontainer', $containerNames)) {
-                $blobClient->deleteContainerAsync('mycontainer')->wait();
-            }
-            if (file_exists('output.txt')) {
-                unlink('output.txt');
-            }
-            if (file_exists('outputBySAS.txt')) {
-                unlink('outputBySAS.txt');
-            }
-            if (file_exists('myblob.txt')) {
-                unlink('myblob.txt');
-            }
-            if (file_exists('PageContent.txt')) {
-                unlink('PageContent.txt');
-            }
-            if (file_exists('HelloWorldSnapshotCopy.png')) {
-                unlink('HelloWorldSnapshotCopy.png');
-            }
-            echo "Successfully cleaned up\n";
-            return $blobClient->listContainersAsync();
-        },
-        null
-    );
+    if (file_exists('output.txt')) {
+        unlink('output.txt');
+    }
+    if (file_exists('myfile.txt')) {
+        unlink('myfile.txt');
+    }
+    if (file_exists('outputBySAS.txt')) {
+        unlink('outputBySAS.txt');
+    }
+    if (file_exists('myblob.txt')) {
+        unlink('myblob.txt');
+    }
+    if (file_exists('PageContent.txt')) {
+        unlink('PageContent.txt');
+    }
+    if (file_exists('HelloWorldSnapshotCopy.png')) {
+        unlink('HelloWorldSnapshotCopy.png');
+    }
+
+    global $myContainer;
+    $blobClient->deleteContainer($myContainer);
+
+    echo "Successfully cleaned up\n";
 }
 
 function leaseOperations($blobClient)
