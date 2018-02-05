@@ -67,15 +67,18 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     public function testListQueuesSimple()
     {
         // Setup
-        $queue1 = 'listqueuesimple1';
-        $queue2 = 'listqueuesimple2';
-        $queue3 = 'listqueuesimple3';
+        $queuePrefix = uniqid();
+        $queue1 = TestResources::getUniqueName($queuePrefix);
+        $queue2 = TestResources::getUniqueName($queuePrefix);
+        $queue3 = TestResources::getUniqueName($queuePrefix);
 
         parent::createQueue($queue1);
         parent::createQueue($queue2);
         parent::createQueue($queue3);
         
         // Test
+        $listQueuesOptions = new ListQueuesOptions();
+        $listQueuesOptions->setPrefix($queuePrefix);
         $result = $this->restProxy->listQueues();
 
         // Assert
@@ -89,9 +92,10 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     public function testListQueuesWithOptions()
     {
         // Setup
-        $queue1        = 'listqueuewithoptions1';
-        $queue2        = 'listqueuewithoptions2';
-        $queue3        = 'mlistqueuewithoptions3';
+        $prefix = TestResources::getUniqueName();
+        $queue1        = $prefix . 'listqueuewithoptions1';
+        $queue2        = $prefix . 'listqueuewithoptions2';
+        $queue3        = 'mlistqueuewithoptions3' . $prefix;
         $metadataName  = 'Mymetadataname';
         $metadataValue = 'MetadataValue';
         $options = new CreateQueueOptions();
@@ -100,7 +104,7 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         parent::createQueue($queue2, $options);
         parent::createQueue($queue3);
         $options = new ListQueuesOptions();
-        $options->setPrefix('list');
+        $options->setPrefix($prefix);
         $options->setIncludeMetadata(true);
         
         // Test
@@ -118,14 +122,16 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     public function testListQueuesWithNextMarker()
     {
         // Setup
-        $queue1 = 'listqueueswithnextmarker1';
-        $queue2 = 'listqueueswithnextmarker2';
-        $queue3 = 'listqueueswithnextmarker3';
+        $prefix = TestResources::getUniqueName();
+        $queue1 = $prefix . 'listqueueswithnextmarker1';
+        $queue2 = $prefix . 'listqueueswithnextmarker2';
+        $queue3 = $prefix . 'listqueueswithnextmarker3';
         parent::createQueue($queue1);
         parent::createQueue($queue2);
         parent::createQueue($queue3);
         $options = new ListQueuesOptions();
         $options->setMaxResults(2);
+        $options->setPrefix($prefix);
         
         // Test
         $result = $this->restProxy->listQueues($options);
@@ -177,17 +183,22 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
         
         // Assert
         $queues = $result->getQueues();
-        $this->assertTrue(empty($queues));
+        $this->assertNotNull($result);
+        $this->assertNotNull($queues);
+        $this->assertInstanceOf(ListQueuesResult::class, $result);
     }
 
     public function testListQueuesWithOneResult()
     {
         // Setup
-        $queueName = 'listqueueswithoneresult';
+        $prefix = uniqid();
+        $queueName = $prefix . 'listqueueswithoneresult';
         parent::createQueue($queueName);
         
         // Test
-        $result = $this->restProxy->listQueues();
+        $listQueuesOptions = new ListQueuesOptions();
+        $listQueuesOptions->setPrefix($prefix);
+        $result = $this->restProxy->listQueues($listQueuesOptions);
         $queues = $result->getQueues();
 
         // Assert
@@ -197,13 +208,15 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     public function testCreateQueueSimple()
     {
         // Setup
-        $queueName = 'createqueuesimple';
+        $queueName = TestResources::getUniqueName('createqueuesimple');
         
         // Test
         $this->createQueue($queueName);
         
         // Assert
-        $result = $this->restProxy->listQueues();
+        $listQueuesOptions = new ListQueuesOptions();
+        $listQueuesOptions->setPrefix($queueName);
+        $result = $this->restProxy->listQueues($listQueuesOptions);
         $queues = $result->getQueues();
         $this->assertEquals(1, count($queues));
         $this->assertEquals($queues[0]->getName(), $queueName);
@@ -212,14 +225,16 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     public function testCreateQueueWithExistingQueue()
     {
         // Setup
-        $queueName = 'createqueuewithexistingqueue';
+        $queueName = TestResources::getUniqueName('createqueuewithexistingqueue');
         $this->createQueue($queueName);
         
         // Test
         $this->createQueue($queueName);
         
         // Assert
-        $result = $this->restProxy->listQueues();
+        $listQueuesOptions = new ListQueuesOptions();
+        $listQueuesOptions->setPrefix($queueName);
+        $result = $this->restProxy->listQueues($listQueuesOptions);
         $queues = $result->getQueues();
         $this->assertEquals(1, count($queues));
         $this->assertEquals($queues[0]->getName(), $queueName);
@@ -261,14 +276,16 @@ class QueueRestProxyTest extends QueueServiceRestProxyTestBase
     public function testDeleteQueue()
     {
         // Setup
-        $queueName = 'deletequeue';
+        $queueName = TestResources::getUniqueName('deletequeue');
         $this->restProxy->createQueue($queueName);
         
         // Test
         $this->restProxy->deleteQueue($queueName);
         
         // Assert
-        $result = $this->restProxy->listQueues();
+        $listQueuesOptions = new ListQueuesOptions();
+        $listQueuesOptions->setPrefix($queueName);
+        $result = $this->restProxy->listQueues($listQueuesOptions);
         $queues = $result->getQueues();
         $this->assertTrue(empty($queues));
     }

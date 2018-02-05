@@ -67,8 +67,11 @@ class BatchResult
             $response = new \stdClass();
             
             // Split lines
-            $lines    = explode("\r\n", $parts[$i]);
-            
+            $lines = explode(
+                "\n",
+                str_replace("\r\n","\n", $parts[$i])
+            );
+
             // Version Status Reason
             $statusTokens = explode(' ', $lines[0], 3);
             $response->version = $statusTokens[0];

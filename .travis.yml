@@ -1,0 +1,15 @@
+language: php
+php:
+  - '5.6'
+  - '7.0'
+env:
+  - TEST_SUITE=common
+  - TEST_SUITE=blob
+  - TEST_SUITE=table
+  - TEST_SUITE=queue
+  - TEST_SUITE=file
+install: "composer install"
+before_script:
+- echo 'error_reporting = E_ALL & ~E_STRICT & ~E_DEPRECATED' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+- echo 'date.timezone = UTC' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+script: "./vendor/bin/phpunit --configuration phpunit.xml.dist --testsuite=$TEST_SUITE --exclude-group=large-scale"

@@ -47,9 +47,6 @@ class FunctionalTestBase extends IntegrationTestBase
         foreach ($this->restProxy->listContainers()->getContainers() as $container) {
             if ($container->getName() == '$root') {
                 $hasRoot = true;
-                $this->safeDeleteContainerContents('$root');
-            } else {
-                $this->safeDeleteContainer($container->getName());
             }
         }
 
