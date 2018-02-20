@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Internal;
 
 use MicrosoftAzure\Storage\Table\Models as TableModels;
@@ -125,7 +125,7 @@ interface ITable
      * @see https://docs.microsoft.com/en-us/rest/api/storageservices/get-table-service-stats
      */
     public function getServiceStatsAsync(ServiceOptions $options = null);
-    
+
     /**
      * Quries tables in the given storage account.
      *
@@ -149,7 +149,7 @@ interface ITable
      * @see https://docs.microsoft.com/en-us/rest/api/storageservices/query-tables
      */
     public function queryTablesAsync($options = null);
-    
+
     /**
      * Creates new table in the storage account
      *
@@ -179,7 +179,7 @@ interface ITable
         $table,
         TableModels\TableServiceCreateOptions $options = null
     );
-    
+
     /**
      * Gets the table.
      *
@@ -205,7 +205,7 @@ interface ITable
         $table,
         TableModels\GetTableOptions $options = null
     );
-    
+
     /**
      * Deletes the specified table and any data it contains.
      *
@@ -235,7 +235,7 @@ interface ITable
         $table,
         TableModels\TableServiceOptions$options = null
     );
-    
+
     /**
      * Quries entities for the given table name
      *
@@ -263,7 +263,7 @@ interface ITable
      * @see https://docs.microsoft.com/en-us/rest/api/storageservices/query-entities
      */
     public function queryEntitiesAsync($table, $options = null);
-    
+
     /**
      * Inserts new entity to the table
      *
@@ -297,7 +297,7 @@ interface ITable
         TableModels\Entity $entity,
         TableModels\TableServiceCreateOptions $options = null
     );
-    
+
     /**
      * Updates an existing entity or inserts a new entity if it does not exist in the
      * table.
@@ -315,7 +315,7 @@ interface ITable
         TableModels\Entity $entity,
         TableModels\TableServiceOptions $options = null
     );
-    
+
     /**
      * Creates promise to update an existing entity or inserts a new entity if
      * it does not exist in the table.
@@ -368,7 +368,7 @@ interface ITable
         TableModels\Entity $entity,
         TableModels\TableServiceOptions $options = null
     );
-    
+
     /**
      * Updates an existing entity in a table. The Update Entity operation replaces
      * the entire entity and can be used to remove properties.
@@ -404,7 +404,7 @@ interface ITable
         TableModels\Entity $entity,
         TableModels\TableServiceOptions $options = null
     );
-    
+
     /**
      * Updates an existing entity by updating the entity's properties. This operation
      * does not replace the existing entity, as the updateEntity operation does.
@@ -441,7 +441,7 @@ interface ITable
         TableModels\Entity $entity,
         TableModels\TableServiceOptions $options = null
     );
-    
+
     /**
      * Deletes an existing entity in a table.
      *
@@ -479,7 +479,7 @@ interface ITable
         $rowKey,
         TableModels\DeleteEntityOptions $options = null
     );
-    
+
     /**
      * Gets table entity.
      *
@@ -525,7 +525,7 @@ interface ITable
         $rowKey,
         TableModels\GetEntityOptions $options = null
     );
-    
+
     /**
      * Does batch of operations on given table service.
      *

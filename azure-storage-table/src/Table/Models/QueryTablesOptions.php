@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Internal\AcceptOptionTrait;
@@ -52,7 +52,7 @@ class QueryTablesOptions extends TableServiceOptions
         parent::__construct();
         $this->query = new Query();
     }
-    
+
     /**
      * Gets prefix
      *
@@ -62,7 +62,7 @@ class QueryTablesOptions extends TableServiceOptions
     {
         return $this->prefix;
     }
-    
+
     /**
      * Sets prefix
      *
@@ -74,7 +74,7 @@ class QueryTablesOptions extends TableServiceOptions
     {
         $this->prefix = $prefix;
     }
-    
+
     /**
      * Gets top.
      *
@@ -96,7 +96,7 @@ class QueryTablesOptions extends TableServiceOptions
     {
         $this->query->setTop($top);
     }
-    
+
     /**
      * Gets query.
      *
@@ -106,7 +106,7 @@ class QueryTablesOptions extends TableServiceOptions
     {
         return $this->query;
     }
-    
+
     /**
      * Gets filter.
      *

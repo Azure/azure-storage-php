@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 /**
@@ -38,7 +38,7 @@ class GetQueueMetadataResult
 {
     private $_approximateMessageCount;
     private $_metadata;
-    
+
     /**
      * Constructor
      *
@@ -52,7 +52,7 @@ class GetQueueMetadataResult
         $this->setApproximateMessageCount($approximateMessageCount);
         $this->setMetadata(is_null($metadata) ? array() : $metadata);
     }
-    
+
     /**
      * Gets approximate message count.
      *
@@ -62,7 +62,7 @@ class GetQueueMetadataResult
     {
         return $this->_approximateMessageCount;
     }
-    
+
     /**
      * Sets approximate message count.
      *
@@ -76,7 +76,7 @@ class GetQueueMetadataResult
     {
         $this->_approximateMessageCount = $approximateMessageCount;
     }
-    
+
     /**
      * Sets metadata.
      *
@@ -86,7 +86,7 @@ class GetQueueMetadataResult
     {
         return $this->_metadata;
     }
-    
+
     /**
      * Sets metadata.
      *

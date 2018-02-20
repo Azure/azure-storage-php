@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -43,7 +43,7 @@ class SetBlobPropertiesResult
     private $_lastModified;
     private $_etag;
     private $_sequenceNumber;
-    
+
     /**
      * Creates SetBlobPropertiesResult from response headers.
      *
@@ -69,10 +69,10 @@ class SetBlobPropertiesResult
             Resources::X_MS_BLOB_SEQUENCE_NUMBER,
             $headers
         ));
-        
+
         return $result;
     }
-    
+
     /**
      * Gets blob lastModified.
      *
@@ -118,7 +118,7 @@ class SetBlobPropertiesResult
         Validate::canCastAsString($etag, 'etag');
         $this->_etag = $etag;
     }
-    
+
     /**
      * Gets blob sequenceNumber.
      *

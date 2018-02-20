@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -60,7 +60,7 @@ class CreateBlobPagesResult
     {
         $result = new CreateBlobPagesResult();
         $clean  = array_change_key_case($headers);
-        
+
         $date = $clean[Resources::LAST_MODIFIED];
         $date = Utilities::rfc1123ToDateTime($date);
         $result->setETag($clean[Resources::ETAG]);
@@ -88,10 +88,10 @@ class CreateBlobPagesResult
                 )
             )
         );
-        
+
         return $result;
     }
-    
+
     /**
      * Gets blob lastModified.
      *
@@ -137,7 +137,7 @@ class CreateBlobPagesResult
         Validate::canCastAsString($etag, 'etag');
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets blob contentMD5.
      *

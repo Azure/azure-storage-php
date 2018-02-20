@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Queue\Internal\QueueResources as Resources;
 class PeekMessagesResult
 {
     private $queueMessages;
-    
+
     /**
      * Creates PeekMessagesResult object from parsed XML response.
      *
@@ -54,22 +54,22 @@ class PeekMessagesResult
     {
         $result        = new PeekMessagesResult();
         $queueMessages = array();
-        
+
         if (!empty($parsedResponse)) {
             $rawMessages = Utilities::getArray(
                 $parsedResponse[Resources::QP_QUEUE_MESSAGE]
             );
             foreach ($rawMessages as $value) {
                 $message = QueueMessage::createFromPeekMessages($value);
-                
+
                 $queueMessages[] = $message;
             }
         }
         $result->setQueueMessages($queueMessages);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets queueMessages field.
      *
@@ -78,14 +78,14 @@ class PeekMessagesResult
     public function getQueueMessages()
     {
         $clonedMessages = array();
-        
+
         foreach ($this->queueMessages as $value) {
             $clonedMessages[] = clone $value;
         }
-        
+
         return $clonedMessages;
     }
-    
+
     /**
      * Sets queueMessages field.
      *

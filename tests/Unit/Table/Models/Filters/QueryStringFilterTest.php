@@ -43,7 +43,7 @@ class QueryStringFilterTest extends \PHPUnit_Framework_TestCase
         // Setup
         $expected = 'x';
         $filter = new QueryStringFilter($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getQueryString());
     }

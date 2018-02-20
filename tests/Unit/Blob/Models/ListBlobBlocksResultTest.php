@@ -48,13 +48,13 @@ class ListBlobBlocksResultTest extends \PHPUnit_Framework_TestCase
         $getEntry = self::getMethod('getEntries');
         $uncommittedBlocks = $getEntry->invokeArgs(null, array($sampleBody, 'UncommittedBlocks'));
         $committedBlocks = $getEntry->invokeArgs(null, array($sampleBody, 'CommittedBlocks'));
-        
+
         // Test
         $actual = ListBlobBlocksResult::create(
             $sampleHeaders,
             $sampleBody
         );
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($sampleHeaders['Etag'], $actual->getETag());

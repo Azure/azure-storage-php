@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\MetadataTrait;
@@ -43,7 +43,7 @@ class GetSharePropertiesResult
     use MetadataTrait;
 
     private $quota;
-    
+
     /**
      * Gets file quota.
      *
@@ -65,7 +65,7 @@ class GetSharePropertiesResult
     {
         $this->quota = $quota;
     }
-    
+
     /**
      * Create an instance using the response headers from the API call.
      *
@@ -83,7 +83,7 @@ class GetSharePropertiesResult
             Resources::X_MS_SHARE_QUOTA,
             $responseHeaders
         )));
-        
+
         return $result;
     }
 }

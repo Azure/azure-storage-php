@@ -43,10 +43,10 @@ class GetQueueMetadataResultTest extends \PHPUnit_Framework_TestCase
         // Setup
         $count = 10;
         $metadata = array('key1' => 'value1', 'key2' => 'value2');
-        
+
         // Test
         $actual = new GetQueueMetadataResult($count, $metadata);
-        
+
         // Assert
         $this->assertEquals($count, $actual->getApproximateMessageCount());
         $this->assertEquals($metadata, $actual->getMetadata());

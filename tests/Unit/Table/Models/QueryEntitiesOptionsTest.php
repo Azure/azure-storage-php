@@ -45,89 +45,89 @@ class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
         // Setup
         $options = new QueryEntitiesOptions();
         $expected = new Query();
-        
+
         // Test
         $options->setQuery($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getQuery());
     }
-    
+
     public function testSetNextPartitionKey()
     {
         // Setup
         $options = new QueryEntitiesOptions();
         $expected = 'parition';
-        
+
         // Test
         $options->setNextPartitionKey($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getNextPartitionKey());
     }
-    
+
     public function testSetNextRowKey()
     {
         // Setup
         $options = new QueryEntitiesOptions();
         $expected = 'edelo';
-        
+
         // Test
         $options->setNextRowKey($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getNextRowKey());
     }
-    
+
     public function testSetSelectFields()
     {
         // Setup
         $options = new QueryEntitiesOptions();
         $expected = array('customerId', 'customerName');
-        
+
         // Test
         $options->setSelectFields($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getSelectFields());
     }
-    
+
     public function testSetTop()
     {
         // Setup
         $options = new QueryEntitiesOptions();
         $expected = 123;
-        
+
         // Test
         $options->setTop($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getTop());
     }
-    
+
     public function testSetFilter()
     {
         // Setup
         $options = new QueryEntitiesOptions();
         $expected = Filter::applyConstant('constValue', EdmType::STRING);
-        
+
         // Test
         $options->setFilter($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getFilter());
     }
-    
+
     public function testAddSelectField()
     {
         // Setup
         $options = new QueryEntitiesOptions();
         $field = 'customerId';
         $expected = array($field);
-        
+
         // Test
         $options->addSelectField($field);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getSelectFields());
     }

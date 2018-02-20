@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -69,7 +69,7 @@ class GetShareStatsResult
     {
         $this->shareUsage = $shareUsage;
     }
-    
+
     /**
      * Create an instance using the response headers from the API call.
      *
@@ -87,7 +87,7 @@ class GetShareStatsResult
             Resources::XTAG_SHARE_USAGE,
             $parsed
         )));
-        
+
         return $result;
     }
 }

@@ -44,51 +44,51 @@ class ContainerPropertiesTest extends \PHPUnit_Framework_TestCase
         $properties = new ContainerProperties();
         $expected = '0x8CACB9BD7C6B1B2';
         $properties->setETag($expected);
-        
+
         // Test
         $actual = $properties->getETag();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetETag()
     {
         // Setup
         $properties = new ContainerProperties();
         $expected = '0x8CACB9BD7C6B1B2';
-        
+
         // Test
         $properties->setETag($expected);
-        
+
         // Assert
         $actual = $properties->getETag();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetLastModified()
     {
         // Setup
         $properties = new ContainerProperties();
         $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
         $properties->setLastModified($expected);
-        
+
         // Test
         $actual = $properties->getLastModified();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetLastModified()
     {
         // Setup
         $properties = new ContainerProperties();
         $expected = new \DateTime('Fri, 09 Oct 2009 21:04:30 GMT');
-        
+
         // Test
         $properties->setLastModified($expected);
-        
+
         // Assert
         $actual = $properties->getLastModified();
         $this->assertEquals($expected, $actual);

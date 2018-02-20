@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 /**
@@ -39,7 +39,7 @@ class Query
     private $_selectFields;
     private $_filter;
     private $_top;
-    
+
     /**
      * Gets filter.
      *
@@ -61,7 +61,7 @@ class Query
     {
         $this->_filter = $filter;
     }
-    
+
     /**
      * Gets top.
      *
@@ -83,7 +83,7 @@ class Query
     {
         $this->_top = $top;
     }
-    
+
     /**
      * Adds a field to select fields.
      *
@@ -95,7 +95,7 @@ class Query
     {
         $this->_selectFields[] = $field;
     }
-    
+
     /**
      * Gets selectFields.
      *

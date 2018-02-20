@@ -62,7 +62,7 @@ class CommonRequestMiddlewareTest extends ReflectionTestBase
         }
         $requestToSign = $newRequest->withoutHeader(Resources::AUTHENTICATION);
         $signedRequest = $authScheme->signRequest($requestToSign);
-        
+
         // Assert
         $this->assertTrue(
             (array_intersect($savedHeaders, $headers) === $headers),

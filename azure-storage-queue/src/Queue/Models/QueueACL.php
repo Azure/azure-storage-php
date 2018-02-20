@@ -63,7 +63,7 @@ class QueueACL extends ACLBase
     {
         $result = new QueueACL();
         $result->fromXmlArray($parsed);
-        
+
         return $result;
     }
 

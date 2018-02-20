@@ -165,7 +165,7 @@ class RetryMiddlewareFactory
                     $response = $exception->getResponse();
                 }
             }
-            
+
             if ($type == self::GENERAL_RETRY_TYPE) {
                 return self::generalRetryDecider(
                     $response->getStatusCode(),
@@ -177,7 +177,7 @@ class RetryMiddlewareFactory
                     $isSecondary
                 );
             }
-            
+
             return true;
         };
     }

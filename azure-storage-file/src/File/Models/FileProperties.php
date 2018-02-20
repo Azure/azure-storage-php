@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\File\Internal\FileResources as Resources;
@@ -74,7 +74,7 @@ class FileProperties
         $clean  = array_change_key_case($parsed);
 
         $lastModified = Utilities::tryGetValue($parsed, Resources::LAST_MODIFIED);
-        
+
         $result->setLastModified(
             Utilities::rfc1123ToDateTime($lastModified)
         );
@@ -197,7 +197,7 @@ class FileProperties
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets file contentType.
      *
@@ -219,7 +219,7 @@ class FileProperties
     {
         $this->contentType = $contentType;
     }
-    
+
     /**
      * Gets file contentRange.
      *
@@ -241,7 +241,7 @@ class FileProperties
     {
         $this->contentRange = $contentRange;
     }
-    
+
     /**
      * Gets file contentLength.
      *
@@ -264,7 +264,7 @@ class FileProperties
         Validate::isInteger($contentLength, 'contentLength');
         $this->contentLength = (int)$contentLength;
     }
-    
+
     /**
      * Gets file contentEncoding.
      *
@@ -307,7 +307,7 @@ class FileProperties
     {
         $this->contentLanguage = $contentLanguage;
     }
-    
+
     /**
      * Gets file contentMD5.
      *
@@ -373,7 +373,7 @@ class FileProperties
     {
         $this->cacheControl = $cacheControl;
     }
-    
+
     /**
      * Gets file contentDisposition.
      *
@@ -395,7 +395,7 @@ class FileProperties
     {
         $this->contentDisposition = $contentDisposition;
     }
-    
+
     /**
      * Gets file copyCompletionTime.
      *
@@ -417,7 +417,7 @@ class FileProperties
     {
         $this->copyCompletionTime = $copyCompletionTime;
     }
-    
+
     /**
      * Gets file copyStatusDescription.
      *
@@ -439,7 +439,7 @@ class FileProperties
     {
         $this->copyStatusDescription = $copyStatusDescription;
     }
-    
+
     /**
      * Gets file lease state.
      *
@@ -461,7 +461,7 @@ class FileProperties
     {
         $this->copyID = $copyID;
     }
-    
+
     /**
      * Gets file lease duration.
      *
@@ -483,7 +483,7 @@ class FileProperties
     {
         $this->copyProgress = $copyProgress;
     }
-    
+
     /**
      * Gets file copySource.
      *

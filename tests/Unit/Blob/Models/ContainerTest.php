@@ -46,82 +46,82 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         // Setup
         $container = new Container();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $container->setName($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $container->getName());
     }
-    
+
     public function testGetName()
     {
         // Setup
         $container = new Container();
         $expected = TestResources::QUEUE1_NAME;
         $container->setName($expected);
-        
+
         // Test
         $actual = $container->getName();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetUrl()
     {
         // Setup
         $container = new Container();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $container->setUrl($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $container->getUrl());
     }
-    
+
     public function testGetUrl()
     {
         // Setup
         $container = new Container();
         $expected = TestResources::QUEUE_URI;
         $container->setUrl($expected);
-        
+
         // Test
         $actual = $container->getUrl();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetMetadata()
     {
         // Setup
         $container = new Container();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
-        
+
         // Test
         $container->setMetadata($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $container->getMetadata());
     }
-    
+
     public function testGetMetadata()
     {
         // Setup
         $container = new Container();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
         $container->setMetadata($expected);
-        
+
         // Test
         $actual = $container->getMetadata();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetProperties()
     {
         // Setup
@@ -130,14 +130,14 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $expected = new ContainerProperties();
         $expected->setETag('0x8CACB9BD7C1EEEC');
         $expected->setLastModified($date);
-        
+
         // Test
         $container->setProperties($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $container->getProperties());
     }
-    
+
     public function testGetProperties()
     {
         // Setup
@@ -147,10 +147,10 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $expected->setETag('0x8CACB9BD7C1EEEC');
         $expected->setLastModified($date);
         $container->setProperties($expected);
-        
+
         // Test
         $actual = $container->getProperties();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

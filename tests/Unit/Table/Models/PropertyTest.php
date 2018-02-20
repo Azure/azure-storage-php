@@ -43,23 +43,23 @@ class PropertyTest extends \PHPUnit_Framework_TestCase
         // Setup
         $pro = new Property();
         $expected = EdmType::BINARY;
-        
+
         // Test
         $pro->setEdmType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $pro->getEdmType());
     }
-    
+
     public function testSetValue()
     {
         // Setup
         $pro = new Property();
         $expected = 'wal3a';
-        
+
         // Test
         $pro->setValue($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $pro->getValue());
     }

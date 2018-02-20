@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\MetadataTrait;
@@ -47,7 +47,7 @@ class GetContainerPropertiesResult
     private $leaseState;
     private $leaseDuration;
     private $publicAccess;
-    
+
     /**
      * Gets blob leaseStatus.
      *
@@ -69,7 +69,7 @@ class GetContainerPropertiesResult
     {
         $this->leaseStatus = $leaseStatus;
     }
-    
+
     /**
      * Gets blob lease state.
      *
@@ -91,7 +91,7 @@ class GetContainerPropertiesResult
     {
         $this->leaseState = $leaseState;
     }
-    
+
     /**
      * Gets blob lease duration.
      *

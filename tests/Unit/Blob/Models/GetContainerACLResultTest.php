@@ -49,7 +49,7 @@ class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
         $expectedDate = new \DateTime('Sun, 25 Sep 2011 19:42:18 GMT');
         $expectedPublicAccess = 'container';
         $expectedContainerACL = ContainerACL::create($expectedPublicAccess, $sample);
-        
+
         // Test
         $result = GetContainerACLResult::create(
             $expectedPublicAccess,
@@ -57,7 +57,7 @@ class GetContainerACLResultTest extends \PHPUnit_Framework_TestCase
             $expectedDate,
             $sample
         );
-        
+
         // Assert
         $this->assertEquals($expectedContainerACL, $result->getContainerAcl());
         $this->assertEquals($expectedDate, $result->getLastModified());

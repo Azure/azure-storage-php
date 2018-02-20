@@ -56,7 +56,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
             TestResources::getInterestingListDirectoriesAndFilesResultArray(1, 1);
         $samples[] =
             TestResources::getInterestingListDirectoriesAndFilesResultArray(5, 5);
-        
+
         // Test
         $actuals = array();
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[0]);
@@ -64,7 +64,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[2]);
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[3]);
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[4]);
-        
+
         // Assert
         for ($i = 0; $i < count($samples); ++$i) {
             $sample = $samples[$i];

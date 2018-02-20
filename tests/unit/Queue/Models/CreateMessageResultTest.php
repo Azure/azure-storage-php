@@ -47,7 +47,7 @@ class CreateMessageResultTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $result = CreateMessageResult::create($sample);
-        
+
         // Assert
         $actual = $result->getQueueMessage();
         $this->assertNotNull($actual);

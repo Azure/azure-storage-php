@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Internal;
 
 use MicrosoftAzure\Storage\Table\Internal\TableResources as Resources;
@@ -52,7 +52,7 @@ class JsonODataReaderWriter implements IODataReaderWriter
     {
         return json_encode(array(Resources::JSON_TABLE_NAME => $name));
     }
-    
+
     /**
      * Parses one table entry.
      *
@@ -65,7 +65,7 @@ class JsonODataReaderWriter implements IODataReaderWriter
         $table = json_decode($body, true);
         return $table[Resources::JSON_TABLE_NAME];
     }
-    
+
     /**
      * Constructs array of tables from HTTP response body.
      *
@@ -79,14 +79,14 @@ class JsonODataReaderWriter implements IODataReaderWriter
         $result     = json_decode($body, true);
 
         $rawEntries = $result[Resources::JSON_VALUE];
-        
+
         foreach ($rawEntries as $entry) {
             $tables[] = $entry[Resources::JSON_TABLE_NAME];
         }
-        
+
         return $tables;
     }
-    
+
     /**
      * Constructs JSON representation for entity.
      *
@@ -98,11 +98,11 @@ class JsonODataReaderWriter implements IODataReaderWriter
     {
         $entityProperties = $entity->getProperties();
         $properties       = array();
-        
+
         foreach ($entityProperties as $name => $property) {
             $edmType    = $property->getEdmType();
             $edmValue   = $property->getValue();
-            
+
             if (is_null($edmValue)) {
                 // No @odata.type JSON property needed for null value
                 $properties[$name] = null;
@@ -110,7 +110,7 @@ class JsonODataReaderWriter implements IODataReaderWriter
                 if (is_null($edmType)) {
                     $edmType = EdmType::propertyType($edmValue);
                 }
-                
+
                 $value             = EdmType::serializeValue($edmType, $edmValue);
                 $properties[$name] = $value;
 
@@ -119,10 +119,10 @@ class JsonODataReaderWriter implements IODataReaderWriter
                 }
             }
         }
-        
+
         return json_encode($properties);
     }
-    
+
     /**
      * Constructs entity from HTTP response body.
      *
@@ -135,7 +135,7 @@ class JsonODataReaderWriter implements IODataReaderWriter
         $rawEntity = json_decode($body, true);
         return $this->parseOneEntity($rawEntity);
     }
-    
+
     /**
      * Constructs array of entities from HTTP response body.
      *
@@ -151,7 +151,7 @@ class JsonODataReaderWriter implements IODataReaderWriter
         foreach ($rawEntities[Resources::JSON_VALUE] as $rawEntity) {
             $entities[] = $this->parseOneEntity($rawEntity);
         }
-        
+
         return $entities;
     }
 
@@ -164,7 +164,7 @@ class JsonODataReaderWriter implements IODataReaderWriter
         if (array_key_exists(Resources::JSON_TIMESTAMP, $rawEntity)) {
             $rawTimestamp   = $rawEntity[Resources::JSON_TIMESTAMP];
             $timestamp      = EdmType::unserializeQueryValue(EdmType::DATETIME, $rawTimestamp);
-            
+
             $entity->addProperty(
                 Resources::JSON_TIMESTAMP,
                 EdmType::DATETIME,

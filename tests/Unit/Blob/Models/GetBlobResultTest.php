@@ -50,14 +50,14 @@ class GetBlobResultTest extends \PHPUnit_Framework_TestCase
         $expectedProperties = BlobProperties::createFromHttpHeaders($expected);
         $expectedMetadata = $sample['Blobs']['Blob']['Metadata'];
         $expectedBody = 'test data';
-        
+
         // Test
         $actual = GetBlobResult::create(
             $expected,
             Psr7\stream_for($expectedBody),
             $expectedMetadata
         );
-        
+
         // Assert
         $this->assertEquals($expectedProperties, $actual->getProperties());
         $this->assertEquals($expectedMetadata, $actual->getMetadata());

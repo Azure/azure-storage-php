@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -43,7 +43,7 @@ class Logging
     private $_read;
     private $_write;
     private $_retentionPolicy;
-    
+
     /**
      * Creates object from $parsedResponse.
      *
@@ -62,10 +62,10 @@ class Logging
         $result->setRetentionPolicy(
             RetentionPolicy::create($parsedResponse['RetentionPolicy'])
         );
-        
+
         return $result;
     }
-    
+
     /**
      * Gets the retention policy
      *
@@ -76,7 +76,7 @@ class Logging
     {
         return $this->_retentionPolicy;
     }
-    
+
     /**
      * Sets retention policy
      *
@@ -88,7 +88,7 @@ class Logging
     {
         $this->_retentionPolicy = $policy;
     }
-    
+
     /**
      * Gets whether all write requests should be logged.
      *
@@ -98,7 +98,7 @@ class Logging
     {
         return $this->_write;
     }
-    
+
     /**
      * Sets whether all write requests should be logged.
      *
@@ -110,7 +110,7 @@ class Logging
     {
         $this->_write = $write;
     }
-            
+
     /**
      * Gets whether all read requests should be logged.
      *
@@ -120,7 +120,7 @@ class Logging
     {
         return $this->_read;
     }
-    
+
     /**
      * Sets whether all read requests should be logged.
      *
@@ -132,7 +132,7 @@ class Logging
     {
         $this->_read = $read;
     }
-    
+
     /**
      * Gets whether all delete requests should be logged.
      *
@@ -142,7 +142,7 @@ class Logging
     {
         return $this->_delete;
     }
-    
+
     /**
      * Sets whether all delete requests should be logged.
      *
@@ -154,7 +154,7 @@ class Logging
     {
         $this->_delete = $delete;
     }
-    
+
     /**
      * Gets the version of Storage Analytics to configure
      *
@@ -164,7 +164,7 @@ class Logging
     {
         return $this->_version;
     }
-    
+
     /**
      * Sets the version of Storage Analytics to configure
      *
@@ -176,7 +176,7 @@ class Logging
     {
         $this->_version = $version;
     }
-    
+
     /**
      * Converts this object to array with XML tags
      *

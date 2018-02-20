@@ -500,7 +500,7 @@ class TestResources
             'x-ms-meta-customheader0,x-ms-meta-data0*';
         $sample['AllowedHeaders'] =
             'x-ms-meta-customheader0,x-ms-meta-target0*';
-        
+
         return $sample;
     }
 
@@ -1378,7 +1378,7 @@ class TestResources
 
         return $entity;
     }
-    
+
     public static function getExpectedTestEntity($partitionKey, $rowKey)
     {
         $entity = new Entity();
@@ -1389,7 +1389,7 @@ class TestResources
         $entity->addProperty('CustomerName', EdmType::STRING, 'John');
         $entity->addProperty('IsNew', EdmType::BOOLEAN, true);
         $entity->addProperty('JoinDate', EdmType::DATETIME, Utilities::convertToDateTime('2012-01-26T18:26:19.0000470Z'));
-    
+
         return $entity;
     }
 

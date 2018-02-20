@@ -44,120 +44,120 @@ class FilterTest extends \PHPUnit_Framework_TestCase
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyAnd($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyNot()
     {
         // Setup
         $operand = Filter::applyConstant('test', EdmType::STRING);
-        
+
         // Test
         $actual = Filter::applyNot($operand);
-        
+
         // Assert
         $this->assertEquals($operand, $actual->getOperand());
     }
-    
+
     public function testApplyOr()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyOr($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyEq()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyEq($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyNe()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyNe($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyGe()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyGe($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyGt()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyGt($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyLt()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyLt($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());
     }
-    
+
     public function testApplyLe()
     {
         // Setup
         $left = Filter::applyPropertyName('test');
         $right = Filter::applyQueryString('raw string');
-        
+
         // Test
         $actual = Filter::applyLe($left, $right);
-        
+
         // Assert
         $this->assertEquals($left, $actual->getLeft());
         $this->assertEquals($right, $actual->getRight());

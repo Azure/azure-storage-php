@@ -45,64 +45,64 @@ class GetBlobPropertiesOptionsTest extends \PHPUnit_Framework_TestCase
         $expected = '0x8CAFB82EFF70C46';
         $options = new GetBlobPropertiesOptions();
         $options->setLeaseId($expected);
-        
+
         // Test
         $options->setLeaseId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getLeaseId());
     }
-    
+
     public function testGetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new GetBlobPropertiesOptions();
         $result->setAccessConditions($expected);
-        
+
         // Test
         $actual = $result->getAccessConditions();
-        
+
         // Assert
         $this->assertEquals($expected, $actual[0]);
     }
-    
+
     public function testSetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new GetBlobPropertiesOptions();
-        
+
         // Test
         $result->setAccessConditions($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $result->getAccessConditions()[0]);
     }
-    
+
     public function testSetSnapshot()
     {
         // Setup
         $blob = new GetBlobPropertiesOptions();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $blob->setSnapshot($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $blob->getSnapshot());
     }
-    
+
     public function testGetSnapshot()
     {
         // Setup
         $blob = new GetBlobPropertiesOptions();
         $expected = TestResources::QUEUE_URI;
         $blob->setSnapshot($expected);
-        
+
         // Test
         $actual = $blob->getSnapshot();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

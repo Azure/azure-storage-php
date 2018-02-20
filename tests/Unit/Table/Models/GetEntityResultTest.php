@@ -48,7 +48,7 @@ class GetEntityResultTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $result = GetEntityResult::create($sampleBody, $serializer);
-        
+
         // Assert
         $this->assertEquals(
             $serializer->parseEntity($sampleBody),

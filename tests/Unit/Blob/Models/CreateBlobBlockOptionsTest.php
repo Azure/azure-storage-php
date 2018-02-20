@@ -43,24 +43,24 @@ class CreateBlobBlockOptionsTest extends \PHPUnit_Framework_TestCase
         $expected = '0x8CAFB82EFF70C46';
         $options = new CreateBlobBlockOptions();
         $options->setContentMD5($expected);
-        
+
         // Test
         $options->setContentMD5($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentMD5());
     }
-    
+
     public function testSetLeaseId()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CreateBlobBlockOptions();
         $options->setLeaseId($expected);
-        
+
         // Test
         $options->setLeaseId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getLeaseId());
     }

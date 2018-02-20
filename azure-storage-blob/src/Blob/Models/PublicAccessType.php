@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -41,7 +41,7 @@ class PublicAccessType
     const NONE                = null;
     const BLOBS_ONLY          = 'blob';
     const CONTAINER_AND_BLOBS = 'container';
-    
+
     /**
      * Validates the public access.
      *

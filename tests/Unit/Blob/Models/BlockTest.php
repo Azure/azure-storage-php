@@ -43,23 +43,23 @@ class BlockTest extends \PHPUnit_Framework_TestCase
         // Setup
         $block = new Block();
         $expected = '1234';
-        
+
         // Test
         $block->setBlockId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $block->getBlockId());
     }
-    
+
     public function testSetType()
     {
         // Setup
         $block = new Block();
         $expected = 'BlockType';
-        
+
         // Test
         $block->setType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $block->getType());
     }

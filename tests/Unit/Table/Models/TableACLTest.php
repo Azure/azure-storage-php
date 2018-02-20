@@ -45,37 +45,37 @@ class TableACLTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $sample = array();
-        
+
         // Test
         $acl = TableACL::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateOneEntry()
     {
         // Setup
         $sample = TestResources::getTableACLOneEntrySample();
-        
+
         // Test
         $acl = TableACL::create($sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertCount(1, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateMultipleEntries()
     {
         // Setup
         $sample = TestResources::getTableACLMultipleEntriesSample();
-        
+
         // Test
         $acl = TableACL::create($sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertCount(2, $acl->getSignedIdentifiers());
-        
+
         return $acl;
     }
 }

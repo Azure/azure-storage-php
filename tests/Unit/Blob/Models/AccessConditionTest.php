@@ -44,99 +44,99 @@ class AccessConditionTest extends \PHPUnit_Framework_TestCase
         // Setup
         $expectedHeaderType = Resources::IF_MATCH;
         $expectedValue = '0x8CAFB82EFF70C46';
-        
+
         // Test
         $actual = AccessCondition::ifMatch($expectedValue);
-        
+
         // Assert
         $this->assertEquals($expectedHeaderType, $actual->getHeader());
         $this->assertEquals($expectedValue, $actual->getValue());
     }
-    
+
     public function testNone()
     {
         // Setup
         $expectedHeader = Resources::EMPTY_STRING;
         $expectedValue = null;
-        
+
         // Test
         $actual = AccessCondition::none();
-        
+
         // Assert
         $this->assertEquals($expectedHeader, $actual->getHeader());
         $this->assertEquals($expectedValue, $actual->getValue());
     }
-    
+
     public function testIfModifiedSince()
     {
         // Setup
         $expectedHeader = Resources::IF_MODIFIED_SINCE;
         $expectedValue = new \DateTime('Sun, 25 Sep 2011 00:42:49 GMT');
-        
+
         // Test
         $actual = AccessCondition::ifModifiedSince($expectedValue);
-        
+
         // Assert
         $this->assertEquals($expectedHeader, $actual->getHeader());
         $this->assertEquals($expectedValue, $actual->getValue());
     }
-    
+
     public function testIfMatch()
     {
         // Setup
         $expectedHeader = Resources::IF_MATCH;
         $expectedValue = '0x8CAFB82EFF70C46';
-        
+
         // Test
         $actual = AccessCondition::ifMatch($expectedValue);
-        
+
         // Assert
         $this->assertEquals($expectedHeader, $actual->getHeader());
         $this->assertEquals($expectedValue, $actual->getValue());
     }
-    
+
     public function testIfNoneMatch()
     {
         // Setup
         $expectedHeader = Resources::IF_NONE_MATCH;
         $expectedValue = '0x8CAFB82EFF70C46';
-        
+
         // Test
         $actual = AccessCondition::ifNoneMatch($expectedValue);
-        
+
         // Assert
         $this->assertEquals($expectedHeader, $actual->getHeader());
         $this->assertEquals($expectedValue, $actual->getValue());
     }
-    
+
     public function testIfNotModifiedSince()
     {
         // Setup
         $expectedHeader = Resources::IF_UNMODIFIED_SINCE;
         $expectedValue = new \DateTime('Sun, 25 Sep 2011 00:42:49 GMT');
-        
+
         // Test
         $actual = AccessCondition::ifNotModifiedSince($expectedValue);
-        
+
         // Assert
         $this->assertEquals($expectedHeader, $actual->getHeader());
         $this->assertEquals($expectedValue, $actual->getValue());
     }
-    
+
     public function testIsValidWithValid()
     {
         // Test
         $actual = AccessCondition::isValid(Resources::IF_MATCH);
-        
+
         // Assert
         $this->assertTrue($actual);
     }
-    
+
     public function testIsValidWithInvalid()
     {
         // Test
         $actual = AccessCondition::isValid('1234');
-        
+
         // Assert
         $this->assertFalse($actual);
     }

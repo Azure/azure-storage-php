@@ -43,24 +43,24 @@ class BlobPrefixTest extends \PHPUnit_Framework_TestCase
         // Setup
         $blob = new BlobPrefix();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $blob->setName($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $blob->getName());
     }
-    
+
     public function testGetName()
     {
         // Setup
         $blob = new BlobPrefix();
         $expected = TestResources::QUEUE1_NAME;
         $blob->setName($expected);
-        
+
         // Test
         $actual = $blob->getName();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

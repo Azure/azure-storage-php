@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -50,7 +50,7 @@ class Block
         $this->_blockId = $blockId;
         $this->_type = $type;
     }
-    
+
     /**
      * Sets the blockId.
      *
@@ -62,7 +62,7 @@ class Block
     {
         $this->_blockId = $blockId;
     }
-    
+
     /**
      * Gets the blockId.
      *
@@ -72,7 +72,7 @@ class Block
     {
         return $this->_blockId;
     }
-    
+
     /**
      * Sets the type.
      *
@@ -84,7 +84,7 @@ class Block
     {
         $this->_type = $type;
     }
-    
+
     /**
      * Gets the type.
      *

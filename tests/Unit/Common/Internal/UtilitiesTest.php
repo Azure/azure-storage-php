@@ -520,60 +520,60 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($length, strlen($result));
     }
-    
+
     public function testBase256ToDecF()
     {
-    
+
         // Setup
         $data = pack('C*', 255, 255, 255, 255);
         $expected = 4294967295;
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testBase256ToDec0()
     {
-    
+
         // Setup
         $data = pack('C*', 0, 0, 0, 0);
         $expected = 0;
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
-    
+
+
     public function testBase256ToDec()
     {
-    
+
         // Setup
         $data = pack('C*', 34, 78, 27, 55);
         $expected = 575544119;
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testBase256ToDecBig()
     {
-    
+
         // Setup
         $data = pack('C*', 81, 35, 29, 39, 236, 104, 105, 144); //51 23 1D 27 EC 68 69 90
         $expected = '5846548798564231568';
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

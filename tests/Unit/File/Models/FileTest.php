@@ -50,7 +50,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $listArray =
             TestResources::getInterestingListDirectoriesAndFilesResultArray(0, 5);
         $samples = $listArray[Resources::QP_ENTRIES][FileResources::QP_FILE];
-        
+
         // Test
         $actuals = array();
         $actuals[] = File::create($samples[0]);
@@ -58,7 +58,7 @@ class FileTest extends \PHPUnit_Framework_TestCase
         $actuals[] = File::create($samples[2]);
         $actuals[] = File::create($samples[3]);
         $actuals[] = File::create($samples[4]);
-        
+
         // Assert
         for ($i = 0; $i < count($samples); ++$i) {
             $sample = $samples[$i];

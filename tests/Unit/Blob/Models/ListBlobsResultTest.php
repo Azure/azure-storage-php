@@ -42,24 +42,24 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $sample = TestResources::listBlobsEmpty();
-        
+
         // Test
         $actual = ListBlobsResult::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $actual->getBlobs());
         $this->assertCount(0, $actual->getBlobPrefixes());
         $this->assertEquals(0, $actual->getMaxResults());
     }
-    
+
     public function testCreateWithOneEntry()
     {
         // Setup
         $sample = TestResources::listBlobsOneEntry();
-        
+
         // Test
         $actual = ListBlobsResult::create($sample);
-        
+
         // Assert
         $this->assertCount(1, $actual->getBlobs());
         $this->assertEquals($sample['@attributes']['ContainerName'], $actual->getContainerName());
@@ -70,15 +70,15 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['Delimiter'], $actual->getDelimiter());
         $this->assertEquals($sample['Prefix'], $actual->getPrefix());
     }
-    
+
     public function testCreateWithMultipleEntries()
     {
         // Setup
         $sample = TestResources::listBlobsMultipleEntries();
-        
+
         // Test
         $actual = ListBlobsResult::create($sample);
-        
+
         // Assert
         $this->assertCount(2, $actual->getBlobs());
         $this->assertCount(2, $actual->getBlobPrefixes());
@@ -86,7 +86,7 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['Marker'], $actual->getMarker());
         $this->assertEquals(intval($sample['MaxResults']), $actual->getMaxResults());
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
-        
+
         return $actual;
     }
 
@@ -94,10 +94,10 @@ class ListBlobsResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $sample = TestResources::listBlobsOneEntry();
-        
+
         // Test
         $actual = ListBlobsResult::create($sample, 'SecondaryOnly');
-        
+
         // Assert
         $this->assertCount(1, $actual->getBlobs());
         $this->assertEquals($sample['@attributes']['ContainerName'], $actual->getContainerName());

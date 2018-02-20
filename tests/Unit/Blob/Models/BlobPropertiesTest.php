@@ -45,10 +45,10 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
-        
+
         // Test
         $actual = BlobProperties::createFromHttpHeaders($expected);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());
@@ -65,175 +65,175 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(Utilities::toBoolean($expected['x-ms-incremental-copy']), $actual->getIncrementalCopy());
         $this->assertEquals($expected['x-ms-copy-destination-snapshot'], $actual->getCopyDestinationSnapshot());
     }
-    
+
     public function testSetLastModified()
     {
         // Setup
         $expected = Utilities::rfc1123ToDateTime('Sun, 25 Sep 2011 19:42:18 GMT');
         $properties = new BlobProperties();
         $properties->setLastModified($expected);
-        
+
         // Test
         $properties->setLastModified($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getLastModified());
     }
-    
+
     public function testSetETag()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setETag($expected);
-        
+
         // Test
         $properties->setETag($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getETag());
     }
-    
+
     public function testSetContentRange()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setContentRange($expected);
-        
+
         // Test
         $properties->setContentRange($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentRange());
     }
-    
+
     public function testSetContentType()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setContentType($expected);
-        
+
         // Test
         $properties->setContentType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentType());
     }
-    
+
     public function testSetContentLength()
     {
         // Setup
         $expected = 100;
         $properties = new BlobProperties();
         $properties->setContentLength($expected);
-        
+
         // Test
         $properties->setContentLength($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentLength());
     }
-    
+
     public function testSetContentEncoding()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setContentEncoding($expected);
-        
+
         // Test
         $properties->setContentEncoding($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentEncoding());
     }
-    
+
     public function testSetContentLanguage()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setContentLanguage($expected);
-        
+
         // Test
         $properties->setContentLanguage($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentLanguage());
     }
-    
+
     public function testSetContentMD5()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setContentMD5($expected);
-        
+
         // Test
         $properties->setContentMD5($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentMD5());
     }
-    
+
     public function testSetCacheControl()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setCacheControl($expected);
-        
+
         // Test
         $properties->setCacheControl($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getCacheControl());
     }
-    
+
     public function testSetContentDisposition()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setContentDisposition($expected);
-        
+
         // Test
         $properties->setContentDisposition($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getContentDisposition());
     }
-    
+
     public function testSetBlobType()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setBlobType($expected);
-        
+
         // Test
         $properties->setBlobType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getblobType());
     }
-    
+
     public function testSetLeaseStatus()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $properties = new BlobProperties();
         $properties->setLeaseStatus($expected);
-        
+
         // Test
         $properties->setLeaseStatus($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getLeaseStatus());
     }
-    
+
     public function testSetSequenceNumber()
     {
         // Setup
@@ -242,7 +242,7 @@ class BlobPropertiesTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $properties->setSequenceNumber($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $properties->getSequenceNumber());
     }

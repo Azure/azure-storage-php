@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -42,7 +42,7 @@ class BatchOperation
 {
     private $_type;
     private $_params;
-    
+
     /**
      * Sets operation type.
      *
@@ -56,10 +56,10 @@ class BatchOperation
             BatchOperationType::isValid($type),
             Resources::INVALID_BO_TYPE_MSG
         );
-        
+
         $this->_type = $type;
     }
-    
+
     /**
      * Gets operation type.
      *
@@ -69,7 +69,7 @@ class BatchOperation
     {
         return $this->_type;
     }
-    
+
     /**
      * Adds or sets parameter for the operation.
      *
@@ -86,7 +86,7 @@ class BatchOperation
         );
         $this->_params[$name] = $value;
     }
-    
+
     /**
      * Gets parameter value and if the name doesn't exist, return null.
      *

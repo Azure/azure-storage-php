@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 class DeleteEntityOptions extends TableServiceOptions
 {
     private $_etag;
-    
+
     /**
      * Gets entity etag.
      *

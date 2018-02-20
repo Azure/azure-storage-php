@@ -43,28 +43,28 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $response = TestResources::getFailedResponse(400, 'test info');
-        
+
         // Test
         $e = new ServiceException($response);
-        
+
         // Assert
         $this->assertEquals(400, $e->getCode());
         $this->assertEquals('test info', $e->getErrorText());
         $this->assertEquals($response, $e->getResponse());
     }
-    
+
     public function testGetErrorText()
     {
         // Setup
         $response = TestResources::getFailedResponse(210, 'test info');
         $e = new ServiceException($response);
-        
+
         // Test
         $actualError = $e->getErrorText();
         // Assert
         $this->assertEquals('test info', $actualError);
     }
-    
+
     public function testGetErrorMessage()
     {
         // Setup
@@ -73,7 +73,7 @@ class ServiceExceptionTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $actualErrorMessage = $e->getErrorMessage();
-        
+
         // Assert
         $this->assertEquals($actualErrorMessage, TestResources::ERROR_MESSAGE);
     }

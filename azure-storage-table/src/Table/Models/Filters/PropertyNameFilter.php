@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\Table\Models\Filters;
 class PropertyNameFilter extends Filter
 {
     private $_propertyName;
-    
+
     /**
      * Constructor.
      *
@@ -47,7 +47,7 @@ class PropertyNameFilter extends Filter
     {
         $this->_propertyName = $propertyName;
     }
-    
+
     /**
      * Gets propertyName
      *

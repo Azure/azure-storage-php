@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -60,7 +60,7 @@ class ShareProperties
         $result->setQuota($parsedResponse[Resources::QP_QUOTA]);
         return $result;
     }
-    
+
     /**
      * Gets share lastModified.
      *
@@ -82,7 +82,7 @@ class ShareProperties
     {
         $this->lastModified = $lastModified;
     }
-    
+
     /**
      * Gets share etag.
      *
@@ -104,7 +104,7 @@ class ShareProperties
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets share quota.
      *

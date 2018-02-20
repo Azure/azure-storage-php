@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal\Http;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -51,7 +51,7 @@ class HttpCallContext
     private $_statusCodes;
     private $_body;
     private $_serviceOptions;
-    
+
     /**
      * Default constructor.
      */
@@ -67,7 +67,7 @@ class HttpCallContext
         $this->_headers        = array();
         $this->_serviceOptions = new ServiceOptions();
     }
-    
+
     /**
      * Gets method.
      *
@@ -77,7 +77,7 @@ class HttpCallContext
     {
         return $this->_method;
     }
-    
+
     /**
      * Sets method.
      *
@@ -88,10 +88,10 @@ class HttpCallContext
     public function setMethod($method)
     {
         Validate::canCastAsString($method, 'method');
-        
+
         $this->_method = $method;
     }
-    
+
     /**
      * Gets headers.
      *
@@ -101,7 +101,7 @@ class HttpCallContext
     {
         return $this->_headers;
     }
-    
+
     /**
      * Sets headers.
      *
@@ -118,7 +118,7 @@ class HttpCallContext
             $this->addHeader($key, $value);
         }
     }
-    
+
     /**
      * Gets queryParams.
      *
@@ -128,7 +128,7 @@ class HttpCallContext
     {
         return $this->_queryParams;
     }
-    
+
     /**
      * Sets queryParams.
      *
@@ -145,7 +145,7 @@ class HttpCallContext
             $this->addQueryParameter($key, $value);
         }
     }
-    
+
     /**
      * Gets uri.
      *
@@ -155,7 +155,7 @@ class HttpCallContext
     {
         return $this->_uri;
     }
-    
+
     /**
      * Sets uri.
      *
@@ -166,10 +166,10 @@ class HttpCallContext
     public function setUri($uri)
     {
         Validate::canCastAsString($uri, 'uri');
-        
+
         $this->_uri = $uri;
     }
-    
+
     /**
      * Gets path.
      *
@@ -179,7 +179,7 @@ class HttpCallContext
     {
         return $this->_path;
     }
-    
+
     /**
      * Sets path.
      *
@@ -190,10 +190,10 @@ class HttpCallContext
     public function setPath($path)
     {
         Validate::canCastAsString($path, 'path');
-        
+
         $this->_path = $path;
     }
-    
+
     /**
      * Gets statusCodes.
      *
@@ -203,7 +203,7 @@ class HttpCallContext
     {
         return $this->_statusCodes;
     }
-    
+
     /**
      * Sets statusCodes.
      *
@@ -218,7 +218,7 @@ class HttpCallContext
             $this->addStatusCode($value);
         }
     }
-    
+
     /**
      * Gets body.
      *
@@ -228,7 +228,7 @@ class HttpCallContext
     {
         return $this->_body;
     }
-    
+
     /**
      * Sets body.
      *
@@ -239,10 +239,10 @@ class HttpCallContext
     public function setBody($body)
     {
         Validate::canCastAsString($body, 'body');
-        
+
         $this->_body = $body;
     }
-    
+
     /**
      * Adds or sets header pair.
      *
@@ -255,10 +255,10 @@ class HttpCallContext
     {
         Validate::canCastAsString($name, 'name');
         Validate::canCastAsString($value, 'value');
-        
+
         $this->_headers[$name] = $value;
     }
-    
+
     /**
      * Adds or sets header pair.
      *
@@ -273,12 +273,12 @@ class HttpCallContext
     {
         Validate::canCastAsString($name, 'name');
         Validate::canCastAsString($value, 'value');
-        
+
         if (!empty($value)) {
             $this->_headers[$name] = $value;
         }
     }
-    
+
     /**
      * Removes header from the HTTP request headers.
      *
@@ -290,10 +290,10 @@ class HttpCallContext
     {
         Validate::canCastAsString($name, 'name');
         Validate::notNullOrEmpty($name, 'name');
-        
+
         unset($this->_headers[$name]);
     }
-    
+
     /**
      * Adds or sets query parameter pair.
      *
@@ -306,10 +306,10 @@ class HttpCallContext
     {
         Validate::canCastAsString($name, 'name');
         Validate::canCastAsString($value, 'value');
-        
+
         $this->_queryParams[$name] = $value;
     }
-    
+
     /**
      * Gets HTTP POST parameters.
      *
@@ -332,7 +332,7 @@ class HttpCallContext
         Validate::isArray($postParameters, 'postParameters');
         $this->_postParameters = $postParameters;
     }
-    
+
     /**
      * Adds or sets query parameter pair.
      *
@@ -347,12 +347,12 @@ class HttpCallContext
     {
         Validate::canCastAsString($name, 'name');
         Validate::canCastAsString($value, 'value');
-        
+
         if (!empty($value)) {
             $this->_queryParams[$name] = $value;
         }
     }
-    
+
     /**
      * Adds status code to the expected status codes.
      *
@@ -363,10 +363,10 @@ class HttpCallContext
     public function addStatusCode($statusCode)
     {
         Validate::isInteger($statusCode, 'statusCode');
-        
+
         $this->_statusCodes[] = $statusCode;
     }
-    
+
     /**
      * Gets header value.
      *
@@ -403,7 +403,7 @@ class HttpCallContext
     {
         $this->_serviceOptions = $serviceOptions;
     }
-    
+
     /**
      * Converts the context object to string.
      *
@@ -413,18 +413,18 @@ class HttpCallContext
     {
         $headers = Resources::EMPTY_STRING;
         $uri     = $this->_uri;
-        
+
         if ($uri[strlen($uri)-1] != '/') {
             $uri = $uri.'/';
         }
-        
+
         foreach ($this->_headers as $key => $value) {
             $headers .= "$key: $value\n";
         }
-        
+
         $str  = "$this->_method $uri$this->_path HTTP/1.1\n$headers\n";
         $str .= "$this->_body";
-        
+
         return $str;
     }
 }

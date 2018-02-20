@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -106,7 +106,7 @@ class Container
     {
         $this->_metadata = $metadata;
     }
-    
+
     /**
      * Gets container properties
      *
@@ -116,7 +116,7 @@ class Container
     {
         return $this->_properties;
     }
-    
+
     /**
      * Sets container properties
      *

@@ -43,17 +43,17 @@ class UnaryFilterTest extends \PHPUnit_Framework_TestCase
         // Setup
         $expected = 'x';
         $filter = new UnaryFilter($expected, null);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getOperator());
     }
-    
+
     public function testGetOperand()
     {
         // Setup
         $expected = null;
         $filter = new UnaryFilter(null, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getOperand());
     }

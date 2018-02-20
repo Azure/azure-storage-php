@@ -264,7 +264,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             } else {
                 $this->assertFalse($this->isEmulated(), 'Should succeed when not running in emulator');
             }
-            
+
             \sleep(10);
 
             $ret = (is_null($options) ?
@@ -717,20 +717,20 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             } else {
                 $this->restProxy->setContainerMetadata($container, $metadata, $options);
             }
-            
+
             if (is_null($options)) {
                 $options = new BlobServiceOptions();
             }
-            
+
             $this->assertFalse(
                 Utilities::startsWith($firstkey, '<'),
                 'Should get HTTP request error if the metadata is invalid'
             );
-            
+
             if (! is_null($options->getTimeout()) && $options->getTimeout() < 1) {
                 $this->assertTrue(false, 'Expect negative timeouts in $options to throw');
             }
-            
+
             // setMetadata only honors If-Modified-Since
             if (! $this->isEmulated() &&
                 !BlobServiceFunctionalTestData::passTemporalAccessCondition(
@@ -741,7 +741,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
                     Resources::IF_UNMODIFIED_SINCE)) {
                 $this->assertTrue(false, 'Expect failing access condition to throw');
             }
-            
+
             $res = $this->restProxy->getContainerMetadata($container);
             $this->verifyGetContainerMetadataWorker($res, $metadata);
         } catch (ServiceException $e) {
@@ -2415,7 +2415,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new ListContainersOptions();
         $options->setMiddlewares([$historyMiddleware]);
@@ -2464,7 +2464,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new ListContainersOptions();
         $options->setMiddlewares([$historyMiddleware]);

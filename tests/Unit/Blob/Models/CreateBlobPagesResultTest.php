@@ -45,10 +45,10 @@ class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
-        
+
         // Test
         $actual = CreateBlobPagesResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());

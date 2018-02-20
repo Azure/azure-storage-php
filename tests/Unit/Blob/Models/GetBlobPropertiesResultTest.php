@@ -46,10 +46,10 @@ class GetBlobPropertiesResultTest extends \PHPUnit_Framework_TestCase
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expectedProperties = BlobProperties::createFromHttpHeaders($expected);
         $expected['x-ms-meta-'] = $sample['Blobs']['Blob']['Metadata'];
-        
+
         // Test
         $actual = GetBlobPropertiesResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expectedProperties, $actual->getProperties());
         $this->assertEquals(array('' => $expected['x-ms-meta-']), $actual->getMetadata());

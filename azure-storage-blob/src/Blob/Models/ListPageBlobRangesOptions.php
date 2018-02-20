@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -43,7 +43,7 @@ class ListPageBlobRangesOptions extends BlobServiceOptions
     private $range;
     private $_rangeStart;
     private $_rangeEnd;
-    
+
     /**
      * Gets blob snapshot.
      *

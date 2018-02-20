@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -43,7 +43,7 @@ class CopyBlobResult
     private $_lastModified;
     private $_copyId;
     private $_copyStatus;
-    
+
     /**
      * Creates CopyBlobResult object from the response of the copy blob request.
      *
@@ -81,10 +81,10 @@ class CopyBlobResult
             );
             $result->setLastModified(Utilities::rfc1123ToDateTime($lastModified));
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Gets copy Id
      *
@@ -94,7 +94,7 @@ class CopyBlobResult
     {
         return $this->_copyId;
     }
-    
+
     /**
      * Sets copy Id
      *
@@ -108,7 +108,7 @@ class CopyBlobResult
     {
         $this->_copyId = $copyId;
     }
-    
+
     /**
      * Gets copy status
      *
@@ -118,7 +118,7 @@ class CopyBlobResult
     {
         return $this->_copyStatus;
     }
-    
+
     /**
      * Sets copy status
      *
@@ -132,7 +132,7 @@ class CopyBlobResult
     {
         $this->_copyStatus = $copystatus;
     }
-    
+
     /**
      * Gets ETag.
      *
@@ -154,7 +154,7 @@ class CopyBlobResult
     {
         $this->_etag = $etag;
     }
-    
+
     /**
      * Gets blob lastModified.
      *

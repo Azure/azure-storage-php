@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\Functional\Common;
 
 use MicrosoftAzure\Storage\Tests\Framework\SASFunctionalTestBase;

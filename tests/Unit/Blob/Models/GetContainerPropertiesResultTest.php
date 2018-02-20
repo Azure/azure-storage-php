@@ -47,10 +47,10 @@ class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
         $expectedProperties = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expectedProperties['Last-Modified']);
         $expectedProperties['x-ms-meta-'] = $sample['Blobs']['Blob']['Metadata'];
-        
+
         // Test
         $result = GetContainerPropertiesResult::create($expectedProperties);
-        
+
         // Assert
         $this->assertEquals(array('' => $expectedProperties['x-ms-meta-']), $result->getMetadata());
         $this->assertEquals($expectedDate, $result->getLastModified());

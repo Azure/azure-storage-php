@@ -646,7 +646,7 @@ class TableServiceFunctionalQueryTest extends FunctionalTestBase
             }
             $expectedData = $expectedDataTmp;
         }
-        
+
         $this->compareEntityLists($ret->getEntities(), $expectedData, $projected);
     }
 

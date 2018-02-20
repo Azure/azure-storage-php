@@ -44,10 +44,10 @@ class PutBlockResultTest extends \PHPUnit_Framework_TestCase
         // Setup
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
-        
+
         // Test
         $actual = PutBlockResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
         $this->assertEquals(Utilities::toBoolean($expected['x-ms-request-server-encrypted']), $actual->getRequestServerEncrypted());

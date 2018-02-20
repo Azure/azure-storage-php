@@ -47,7 +47,7 @@ class GetTableResultTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $result = GetTableResult::create($sampleBody, $serializer);
-        
+
         // Assert
         $this->assertEquals($serializer->parseTable($sampleBody), $result->getName());
     }

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -56,14 +56,14 @@ class Logger
         if (!empty($tip)) {
             error_log($tip . "\n", 3, self::$_filePath);
         }
-        
+
         if (is_array($var) || is_object($var)) {
             error_log(print_r($var, true), 3, self::$_filePath);
         } else {
             error_log($var . "\n", 3, self::$_filePath);
         }
     }
-    
+
     /**
      * Sets file path to use.
      *

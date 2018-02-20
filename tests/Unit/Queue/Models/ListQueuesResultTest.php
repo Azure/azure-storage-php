@@ -43,23 +43,23 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
     {
         // Setup
         $sample = TestResources::listQueuesEmpty();
-        
+
         // Test
         $actual = ListQueuesResult::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $actual->getQueues());
         $this->assertTrue(empty($sample['NextMarker']));
     }
-    
+
     public function testCreateWithOneEntry()
     {
         // Setup
         $sample = TestResources::listQueuesOneEntry();
-        
+
         // Test
         $actual = ListQueuesResult::create($sample);
-        
+
         // Assert
         $queues = $actual->getQueues();
         $this->assertCount(1, $queues);
@@ -69,15 +69,15 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['MaxResults'], $actual->getMaxResults());
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
     }
-    
+
     public function testCreateWithMultipleEntries()
     {
         // Setup
         $sample = TestResources::listQueuesMultipleEntries();
-        
+
         // Test
         $actual = ListQueuesResult::create($sample);
-        
+
         // Assert
         $queues = $actual->getQueues();
         $this->assertCount(2, $queues);
@@ -89,7 +89,7 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
         $this->assertEquals($sample['Account'], $actual->getAccountName());
         $this->assertEquals($sample['Prefix'], $actual->getPrefix());
-        
+
         return $actual;
     }
 }

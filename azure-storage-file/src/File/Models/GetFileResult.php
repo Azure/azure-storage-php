@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use Psr\Http\Message\StreamInterface;
@@ -41,7 +41,7 @@ class GetFileResult
     private $properties;
     private $metadata;
     private $contentStream;
-    
+
     /**
      * Creates GetFileResult from getFile call.
      *
@@ -62,10 +62,10 @@ class GetFileResult
         $result->setContentStream($body->detach());
         $result->setProperties(FileProperties::createFromHttpHeaders($headers));
         $result->setMetadata(is_null($metadata) ? array() : $metadata);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets file metadata.
      *
@@ -87,7 +87,7 @@ class GetFileResult
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Gets file properties.
      *
@@ -109,7 +109,7 @@ class GetFileResult
     {
         $this->properties = $properties;
     }
-    
+
     /**
      * Gets file contentStream.
      *

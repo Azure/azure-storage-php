@@ -41,7 +41,7 @@ class QueryEntitiesResultTest extends \PHPUnit_Framework_TestCase
     {
         // Test
         $result = QueryEntitiesResult::create(array(), array());
-        
+
         // Assert
         $this->assertCount(0, $result->getEntities());
         $this->assertNull($result->getNextPartitionKey());

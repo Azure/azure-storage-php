@@ -82,7 +82,7 @@ class CommonRequestMiddleware extends MiddlewareBase
     protected function onRequest(RequestInterface $request)
     {
         $result = $request;
-        
+
         //Adding headers.
         foreach ($this->headers as $key => $value) {
             $headers = $result->getHeaders();

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\Queue\Models;
 class PeekMessagesOptions extends QueueServiceOptions
 {
     private $_numberOfMessages;
-    
+
     /**
      * Gets numberOfMessages field.
      *
@@ -47,7 +47,7 @@ class PeekMessagesOptions extends QueueServiceOptions
     {
         return $this->_numberOfMessages;
     }
-    
+
     /**
      * Sets numberOfMessages field.
      *

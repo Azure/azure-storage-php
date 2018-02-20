@@ -53,7 +53,7 @@ class HttpFormatter
                 $result[strtolower($key)] = $value;
             }
         }
-        
+
         return $result;
     }
 }

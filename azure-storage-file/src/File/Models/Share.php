@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -106,7 +106,7 @@ class Share
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Gets share properties
      *
@@ -116,7 +116,7 @@ class Share
     {
         return $this->properties;
     }
-    
+
     /**
      * Sets share properties
      *
