@@ -38,76 +38,89 @@ Please check details on [API reference documents](http://azure.github.io/azure-s
 * PHP 5.6 or above
 * See [composer.json](composer.json) for dependencies
 * Required extension for PHP:
-  php_fileinfo.dll
-  php_mbstring.dll
-  php_openssl.dll
-  php_xsl.dll
+  * php_fileinfo.dll
+  * php_mbstring.dll
+  * php_openssl.dll
+  * php_xsl.dll
 
 * Recommended extension for PHP:
-  php_curl.dll
+  * php_curl.dll
 
 ## Download Source Code
 
 To get the source code from GitHub, type
 
-    git clone https://github.com/Azure/azure-storage-php.git
-    cd ./azure-storage-php
-
+```
+git clone https://github.com/Azure/azure-storage-php.git
+cd ./azure-storage-php
+```
 
 ## Install via Composer
 
 1. Create a file named **composer.json** in the root of your project and add the following code to it:
 ```json
-    {
-      "require": {
-        "microsoft/azure-storage-blob": "*",
-        "microsoft/azure-storage-table": "*",
-        "microsoft/azure-storage-queue": "*",
-        "microsoft/azure-storage-file": "*"
-      }
-    }
+{
+  "require": {
+    "microsoft/azure-storage-blob": "*",
+    "microsoft/azure-storage-table": "*",
+    "microsoft/azure-storage-queue": "*",
+    "microsoft/azure-storage-file": "*"
+  }
+}
 ```
 2. Download **[composer.phar](http://getcomposer.org/composer.phar)** in your project root.
 
 3. Open a command prompt and execute this in your project root
 
-    php composer.phar install
+```
+php composer.phar install
+```
 
 ## Usage
 
 There are four basic steps that have to be performed before you can make a call to any Microsoft Azure Storage API when using the libraries. 
 
 * First, include the autoloader script:
-    
-    require_once "vendor/autoload.php"; 
-  
+
+```php
+require_once "vendor/autoload.php"; 
+```
+
 * Include the namespaces you are going to use.
 
   To create any Microsoft Azure service client you need to use the rest proxy classes, such as **BlobRestProxy** class:
 
-    use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+```php
+use MicrosoftAzure\Storage\Blob\BlobRestProxy;
+```
 
   To process exceptions you need:
 
-    use MicrosoftAzure\Storage\Common\ServiceException;
-
+```php
+use MicrosoftAzure\Storage\Common\ServiceException;
+```
   
 * To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is: 
 
-    DefaultEndpointsProtocol=[http|https];AccountName=[yourAccount];AccountKey=[yourKey]
+```
+DefaultEndpointsProtocol=[http|https];AccountName=[yourAccount];AccountKey=[yourKey]
+```
 
-  Or:
+Or:
   
-    BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;SharedAccessSignature=sasToken 
+```
+BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;SharedAccessSignature=sasToken
+```
 
 * Instantiate a client object - a wrapper around the available calls for the given service.
 
-  ```PHP
-  $blobClient = BlobRestProxy::createBlobService($connectionString);
-  $tableClient = TableRestProxy::createTableService($connectionString);
-  $queueClient = QueueRestProxy::createQueueService($connectionString);
-  $fileClient = FileRestProxy::createFileService($connectionString);
-  ```
+```php
+$blobClient = BlobRestProxy::createBlobService($connectionString);
+$tableClient = TableRestProxy::createTableService($connectionString);
+$queueClient = QueueRestProxy::createQueueService($connectionString);
+$fileClient = FileRestProxy::createFileService($connectionString);
+```
+
 ### Using Middlewares
 To specify the middlewares, user have to create an array with middlewares
 and put it in the `$requestOptions` with key 'middlewares'. The sequence of
@@ -120,7 +133,8 @@ services' `$_options` instead when creating them if the middleware is to be
 applied to each of the API call for a rest proxy. These middlewares will always
 be invoked after the middlewares in the `$requestOptions`.
 e.g.:
-```
+
+```php
 $tableClient = TableRestProxy::createTableService(
     $connectionString,
     $optionsWithMiddlewares
@@ -143,9 +157,9 @@ cURL can't verify the validity of Microsoft certificate when trying to issue a r
 1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html).
 2. Open your php.ini file and add the following line:
 
-    ```
-    curl.cainfo = "<absolute path to cacert.pem>"
-    ```
+```ini
+curl.cainfo = "<absolute path to cacert.pem>"
+```
 
 ## Code samples
 
