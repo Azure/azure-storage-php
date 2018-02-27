@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ValidateTest extends \PHPUnit_Framework_TestCase
+class ValidateTest extends \PHPUnit\Framework\TestCase
 {
     public function testIsArrayWithArray()
     {

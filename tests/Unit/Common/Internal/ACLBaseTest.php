@@ -41,7 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ACLBaseTest extends \PHPUnit_Framework_TestCase
+class ACLBaseTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetGetSignedIdentifiers()
     {
@@ -120,14 +120,14 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
             );
         }
         
-        $this->assertEquals(5, count($acl->getSignedIdentifiers()));
+        $this->assertCount(5, $acl->getSignedIdentifiers());
 
         //remove a non-exist signed identifier.
         $acl->removeSignedIdentifier('random_signed_identifier');
-        $this->assertEquals(5, count($acl->getSignedIdentifiers()));
+        $this->assertCount(5, $acl->getSignedIdentifiers());
         //remove an exist signed identifier.
         $acl->removeSignedIdentifier('a');
-        $this->assertEquals(4, count($acl->getSignedIdentifiers()));
+        $this->assertCount(4, $acl->getSignedIdentifiers());
         //add this signed identifier back.
         $acl->addSignedIdentifier(
             $sample[0]['Id'],
@@ -135,7 +135,7 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
             $sample[0]['AccessPolicy']['Expiry'],
             $sample[0]['AccessPolicy']['Permission']
         );
-        $this->assertEquals(5, count($acl->getSignedIdentifiers()));
+        $this->assertCount(5, $acl->getSignedIdentifiers());
         //add a signed identifier with existing ID.
         $acl->addSignedIdentifier(
             $sample[0]['Id'],
@@ -143,7 +143,7 @@ class ACLBaseTest extends \PHPUnit_Framework_TestCase
             $sample[0]['AccessPolicy']['Expiry'],
             $sample[0]['AccessPolicy']['Permission']
         );
-        $this->assertEquals(5, count($acl->getSignedIdentifiers()));
+        $this->assertCount(5, $acl->getSignedIdentifiers());
         //add 6th signed identifier, expect error.
         $acl->addSignedIdentifier(
             $sample[5]['Id'],

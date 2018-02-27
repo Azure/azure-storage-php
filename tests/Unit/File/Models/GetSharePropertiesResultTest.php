@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetSharePropertiesResultTest extends \PHPUnit_Framework_TestCase
+class GetSharePropertiesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -57,7 +57,7 @@ class GetSharePropertiesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedQuota, $shareProperties->getQuota());
         $actualMeta = $shareProperties->getMetadata();
         foreach ($expectedMeta as $key => $value) {
-            $this->assertTrue(array_key_exists($key, $actualMeta));
+            $this->assertArrayHasKey($key, $actualMeta);
             $this->assertEquals($value, $actualMeta[$key]);
         }
     }

@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetDirectoryPropertiesResultTest extends \PHPUnit_Framework_TestCase
+class GetDirectoryPropertiesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -54,7 +54,7 @@ class GetDirectoryPropertiesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedEtag, $directoryPropertiesResult->getETag());
         $actualMeta = $directoryPropertiesResult->getMetadata();
         foreach ($expectedMeta as $key => $value) {
-            $this->assertTrue(array_key_exists($key, $actualMeta));
+            $this->assertArrayHasKey($key, $actualMeta);
             $this->assertEquals($value, $actualMeta[$key]);
         }
     }

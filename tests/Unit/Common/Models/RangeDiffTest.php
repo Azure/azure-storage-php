@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Models\RangeDiff;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class RangeDiffTest extends \PHPUnit_Framework_TestCase
+class RangeDiffTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {

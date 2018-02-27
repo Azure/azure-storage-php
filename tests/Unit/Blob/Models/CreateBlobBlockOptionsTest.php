@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobBlockOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobBlockOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateBlobBlockOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetContentMD5()
     {

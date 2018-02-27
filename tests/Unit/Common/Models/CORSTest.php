@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CORSTest extends \PHPUnit_Framework_TestCase
+class CORSTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateAndToArray()
     {

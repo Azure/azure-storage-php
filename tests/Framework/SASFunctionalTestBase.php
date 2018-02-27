@@ -45,7 +45,7 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SASFunctionalTestBase extends \PHPUnit_Framework_TestCase
+class SASFunctionalTestBase extends \PHPUnit\Framework\TestCase
 {
     protected $connectionString;
     protected $xmlSerializer;

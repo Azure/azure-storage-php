@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BatchResultTest extends \PHPUnit_Framework_TestCase
+class BatchResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

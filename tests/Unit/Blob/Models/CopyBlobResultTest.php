@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CopyBlobResultTest extends \PHPUnit_Framework_TestCase
+class CopyBlobResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\BlobProperties;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SetBlobPropertiesOptionsTest extends \PHPUnit_Framework_TestCase
+class SetBlobPropertiesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testconstruct()
     {

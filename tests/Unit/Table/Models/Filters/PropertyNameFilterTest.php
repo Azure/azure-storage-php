@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Table\Models\Filters\PropertyNameFilter;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PropertyNameFilterTest extends \PHPUnit_Framework_TestCase
+class PropertyNameFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetPropertyName()
     {

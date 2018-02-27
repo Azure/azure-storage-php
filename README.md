@@ -9,7 +9,7 @@ This project provides a set of PHP client libraries that make it easy to access 
 * azure-storage-common [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-common/v/stable)](https://packagist.org/packages/microsoft/azure-storage-common)
 
 > **Note**
-> 
+>
 > * If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
 > * If you need big file (larger than 2GB) or 64-bit integer support, please install PHP 7 64-bit version.
 
@@ -78,7 +78,7 @@ php composer.phar install
 
 ## Usage
 
-There are four basic steps that have to be performed before you can make a call to any Microsoft Azure Storage API when using the libraries. 
+There are four basic steps that have to be performed before you can make a call to any Microsoft Azure Storage API when using the libraries.
 
 * First, include the autoloader script:
 
@@ -165,13 +165,12 @@ curl.cainfo = "<absolute path to cacert.pem>"
 
 You can find samples in the [sample folder](samples)
 
-
 # Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
 
 If you are using [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/) to access Azure Storage Service, we highly recommend you to migrate to this SDK for faster issue resolution and quicker feature implementation. We are working on supporting the latest service features as well as improvement on existing APIs.
 
 For now, Microsoft Azure Storage PHP client libraries share almost the same interface as the storage blobs, tables, queues and files APIs in Azure SDK for PHP. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
-  
+
 # Need Help?
 
 Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](http://go.microsoft.com/fwlink/?LinkId=234489) and [github issues](https://github.com/Azure/azure-storage-php/issues) if you have trouble with the provided code.
@@ -180,5 +179,5 @@ Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](ht
 
 If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](http://azure.github.io/guidelines/).
 You can find more details for contributing in the [CONTRIBUTING.md](CONTRIBUTING.md).
- 
+
 If you encounter any bugs with the library please file an issue in the [Issues](https://github.com/Azure/azure-storage-php/issues) section of the project.

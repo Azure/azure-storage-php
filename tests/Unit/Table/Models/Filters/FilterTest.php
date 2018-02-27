@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class FilterTest extends \PHPUnit_Framework_TestCase
+class FilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testApplyAnd()
     {

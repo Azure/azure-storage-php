@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobSnapshotOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateBlobSnapshotOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetMetadata()
     {

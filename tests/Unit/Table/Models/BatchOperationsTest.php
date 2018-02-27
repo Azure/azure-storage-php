@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Table\Models\Entity;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BatchOperationsTest extends \PHPUnit_Framework_TestCase
+class BatchOperationsTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {

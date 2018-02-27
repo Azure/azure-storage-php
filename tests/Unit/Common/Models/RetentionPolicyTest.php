@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class RetentionPolicyTest extends \PHPUnit_Framework_TestCase
+class RetentionPolicyTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
