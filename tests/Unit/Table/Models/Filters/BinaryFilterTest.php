@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BinaryFilterTest extends \PHPUnit_Framework_TestCase
+class BinaryFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetOperator()
     {

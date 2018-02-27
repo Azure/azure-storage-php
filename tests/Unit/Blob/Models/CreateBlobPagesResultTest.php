@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobPagesResultTest extends \PHPUnit_Framework_TestCase
+class CreateBlobPagesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

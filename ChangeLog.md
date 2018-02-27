@@ -50,7 +50,7 @@ All
 * Fixed formatting of non-UTC dates when using instances of `DateTime` to generate shared access signatures.
 * Fixed class loading errors on case-sensitive file systems when testing.
 
-Blob 
+Blob
 * Added `CopyBlobFromURL` to support copy blob from a source URL including resources in other storage accounts.
 * Added support for Incremental Copy Page Blob. This allows efficient copying and backup of page blob snapshots.
 * Fixed a bug that `BlobRestProxy::createPageBlobFromContent` cannot work.
@@ -62,7 +62,7 @@ Blob
   - `setComputeRangeMD5()` -> `setRangeGetContentMD5()`
 * The public access level of a container is now returned from the List Containers and Get Container Properties APIs.
 * `MicrosoftAzure\Storage\Blob\Models\GetBlobOptions` and `MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions` now provide `setRange()` and `getRange()` to accept a `MicrosoftAzure\Storage\Common\Models\Range` object. Following methods are removed:
-  - `setRangeStart()` 
+  - `setRangeStart()`
   - `getRangeStart()`
   - `setRangeEnd()`
   - `getRangeEnd()`
@@ -72,7 +72,7 @@ Queue
 
 File
 * Fixed a bug that setting content MD5 cannot work when creating files.
-* Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix. 
+* Option parameter `ListDirectoriesAndFilesOptions` of `FileRestProxy::listDirectoriesAndFiles` is now able to set a prefix which limits the listing to a specified prefix.
 * Populate content MD5 for range gets on Files.
   - `MicrosoftAzure\Storage\File\Models\FileProperties::getContentMD5()` will always return the value of the whole file’s MD5 value.
   - Added `MicrosoftAzure\Storage\File\Models\FileProperties::getRangeContentMD5()` to get MD5 of a file range.
@@ -88,7 +88,7 @@ All
 Blob
 * Added `BlobRestProxy::listPageBlobRangesDiff` and `BlobRestProxy::listPageBlobRangesDiffAsync` for getting page ranges difference. Refer to https://msdn.microsoft.com/en-us/library/azure/mt736912.aspx for more detailed information.
 * Following methods of `MicrosoftAzure\Storage\Blob\BlobRestProxy` now return the x-ms-request-server-encrypted response header. This header is set to true if the contents of the request have been successfully encrypted.
-  - `createBlockBlob`, `createPageBlob`, `createAppendBlob`, `createBlobPages`, `createBlobBlock`, `appendBlock`, `commitBlobBlocks` and `setBlobMetadata`. 
+  - `createBlockBlob`, `createPageBlob`, `createAppendBlob`, `createBlobPages`, `createBlobBlock`, `appendBlock`, `commitBlobBlocks` and `setBlobMetadata`.
 * Following methods of `MicrosoftAzure\Storage\Blob\BlobRestProxy` now return the x-ms-server-encrypted response header. This header is set to true if the blob data and application metadata are completely encrypted. If the blob is not encrypted, or if only parts of the blob/application metadata are encrypted, this header is set to false.
   - `getBlob` and `getBlobProperties`.
 
@@ -175,7 +175,7 @@ Blob
 * Refactored Options class:
   - Exracted `getLeaseId`, `setLeaseId`, `getAccessConditions` and `setAccessConditions` to the base options class `BlobServiceOptions`.
   - Refactored the `CreateBlobOptions`, `CommitBlobBlocksOptions` class to remove duplicate options and standardize the content settings related properties like `ContentType`, `ContentMD5`, `ContentEncoding`, `ContentLanguage`, `CacheControl` and `ContentDisposition`.
-  
+
 * Blob service properties feature parity:
   - Added `getDefaultServiceVersion`, `setDefaultServiceVersion`, `getMinuteMetrics` and `setMinuteMetrics` to `ServiceProperties` class.
 
@@ -184,12 +184,11 @@ Blob
 * Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
 
 Table
-* Removed `MicrosoftAzure\Storage\Table\Models\BatchError`. When batch operation fails, exception is thrown immediately instead. 
+* Removed `MicrosoftAzure\Storage\Table\Models\BatchError`. When batch operation fails, exception is thrown immediately instead.
 * Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
 
 Queue
 * Added `getServiceStats` and `getServiceStatsAsync` for user to request service statistics from the server's secondary endpoint.
-
 
 2017.04 - version 0.14.0
 
@@ -304,7 +303,7 @@ Blob
     acquireLease
     ```
 * Merged `StorageAuthScheme` into `SharedKeyAuthScheme` and `TableSharedKeyLiteAuthScheme` now inherits `SharedKeyAuthScheme`. This is because Azure Storage now supports Shared Key authentication and SAS authentication so the name `StorageAuthScheme` was not representative anymore.
-* Fixed an issue where the newest Guzzle failed to validate the path passed in when `withPath()` is called.    
+* Fixed an issue where the newest Guzzle failed to validate the path passed in when `withPath()` is called.
 
 2016.11 - version 0.11.0
 

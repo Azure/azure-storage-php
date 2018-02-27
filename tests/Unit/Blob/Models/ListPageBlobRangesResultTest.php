@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListPageBlobRangesResultTest extends \PHPUnit_Framework_TestCase
+class ListPageBlobRangesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

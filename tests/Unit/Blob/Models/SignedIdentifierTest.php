@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Models\SignedIdentifier;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class SignedIdentifierTest extends \PHPUnit_Framework_TestCase
+class SignedIdentifierTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetId()
     {

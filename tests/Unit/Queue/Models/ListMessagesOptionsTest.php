@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
+class ListMessagesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetVisibilityTimeoutInSeconds()
     {

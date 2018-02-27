@@ -44,7 +44,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
+class ServiceRestProxyTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
@@ -112,7 +112,7 @@ class ServiceRestProxyTest extends \PHPUnit_Framework_TestCase
         $actual = ServiceRestProxy::groupQueryValues($values);
 
         // Assert
-        $this->assertTrue(empty($actual));
+        $this->assertEmpty($actual);
     }
 
     /**

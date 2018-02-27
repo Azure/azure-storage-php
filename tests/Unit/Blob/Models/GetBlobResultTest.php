@@ -39,7 +39,7 @@ use GuzzleHttp\Psr7;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetBlobResultTest extends \PHPUnit_Framework_TestCase
+class GetBlobResultTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testCreate()

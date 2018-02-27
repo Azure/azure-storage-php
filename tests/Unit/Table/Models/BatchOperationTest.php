@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BatchOperationTest extends \PHPUnit_Framework_TestCase
+class BatchOperationTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetType()
     {

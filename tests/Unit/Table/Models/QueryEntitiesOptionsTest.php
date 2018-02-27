@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryEntitiesOptionsTest extends \PHPUnit_Framework_TestCase
+class QueryEntitiesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetQuery()
     {

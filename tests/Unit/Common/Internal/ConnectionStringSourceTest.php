@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ConnectionStringSourceTest extends \PHPUnit_Framework_TestCase
+class ConnectionStringSourceTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

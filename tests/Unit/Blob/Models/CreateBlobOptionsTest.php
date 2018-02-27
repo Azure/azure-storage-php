@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateBlobOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetContentType()
     {

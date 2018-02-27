@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateContainerOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateContainerOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetPublicAccess()
     {

@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateQueueOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateQueueOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetMetadata()
     {

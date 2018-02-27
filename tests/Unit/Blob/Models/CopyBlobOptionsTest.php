@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
+class CopyBlobOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetMetadata()
     {

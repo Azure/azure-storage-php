@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
+class ListQueuesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateWithEmpty()
     {
@@ -49,7 +49,7 @@ class ListQueuesResultTest extends \PHPUnit_Framework_TestCase
 
         // Assert
         $this->assertCount(0, $actual->getQueues());
-        $this->assertTrue(empty($sample['NextMarker']));
+        $this->assertEmpty($sample['NextMarker']);
     }
 
     public function testCreateWithOneEntry()

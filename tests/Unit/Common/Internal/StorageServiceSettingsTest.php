@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class StorageServiceSettingsTest extends \PHPUnit_Framework_TestCase
+class StorageServiceSettingsTest extends \PHPUnit\Framework\TestCase
 {
     private $_accountName = 'mytestaccount';
 

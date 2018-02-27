@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class MetricsTest extends \PHPUnit_Framework_TestCase
+class MetricsTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
+class UpdateMessageResultTest extends \PHPUnit\Framework\TestCase
 {
     /**
      *

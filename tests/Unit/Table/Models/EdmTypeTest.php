@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class EdmTypeTest extends \PHPUnit_Framework_TestCase
+class EdmTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testProcessTypeWithNull()
     {

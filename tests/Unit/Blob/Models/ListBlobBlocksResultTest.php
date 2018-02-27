@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListBlobBlocksResultTest extends \PHPUnit_Framework_TestCase
+class ListBlobBlocksResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

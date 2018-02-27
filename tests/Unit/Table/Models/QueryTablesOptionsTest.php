@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
+class QueryTablesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetNextTableName()
     {

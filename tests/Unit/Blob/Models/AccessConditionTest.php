@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AccessConditionTest extends \PHPUnit_Framework_TestCase
+class AccessConditionTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {

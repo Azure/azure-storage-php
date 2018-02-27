@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class DeleteBlobOptionsTest extends \PHPUnit_Framework_TestCase
+class DeleteBlobOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetLeaseId()
     {

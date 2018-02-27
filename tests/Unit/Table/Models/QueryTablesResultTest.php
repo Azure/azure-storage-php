@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Table\Models\QueryTablesResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryTablesResultTest extends \PHPUnit_Framework_TestCase
+class QueryTablesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

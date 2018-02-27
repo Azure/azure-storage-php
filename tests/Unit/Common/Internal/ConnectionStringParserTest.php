@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\ConnectionStringParser;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ConnectionStringParserTest extends \PHPUnit_Framework_TestCase
+class ConnectionStringParserTest extends \PHPUnit\Framework\TestCase
 {
     private function _parseTest($connectionString)
     {

@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Table\Models\ETag;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class DeleteEntityOptionsTest extends \PHPUnit_Framework_TestCase
+class DeleteEntityOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetETag()
     {

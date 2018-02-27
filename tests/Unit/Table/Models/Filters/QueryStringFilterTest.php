@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Table\Models\Filters\QueryStringFilter;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryStringFilterTest extends \PHPUnit_Framework_TestCase
+class QueryStringFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetQueryString()
     {

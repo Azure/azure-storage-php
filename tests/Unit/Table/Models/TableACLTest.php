@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class TableACLTest extends \PHPUnit_Framework_TestCase
+class TableACLTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateEmpty()
     {

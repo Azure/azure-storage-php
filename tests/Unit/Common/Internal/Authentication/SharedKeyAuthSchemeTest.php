@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license    https://github.com/azure/azure-storage-php/LICENSE
  * @link       https://github.com/azure/azure-storage-php
  */
-class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
+class SharedKeyAuthSchemeTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
@@ -98,9 +98,7 @@ class SharedKeyAuthSchemeTest extends \PHPUnit_Framework_TestCase
 
         $actual = $mock->getAuthorizationHeader($headers, $url, $queryParams, $httpMethod);
 
-        $this->assertTrue(
-            substr($actual, 0, \strlen($expected)) == $expected
-        );
+        $this->assertEquals($expected, substr($actual, 0, \strlen($expected)));
     }
 
     public function testComputeCanonicalizedHeadersMock()

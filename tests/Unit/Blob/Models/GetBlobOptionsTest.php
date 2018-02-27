@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetBlobOptionsTest extends \PHPUnit_Framework_TestCase
+class GetBlobOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetLeaseId()
     {

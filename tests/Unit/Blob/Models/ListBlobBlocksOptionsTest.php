@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Blob\Models\ListBlobBlocksOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
+class ListBlobBlocksOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetSnapshot()
     {

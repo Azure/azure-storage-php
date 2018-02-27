@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetEntityResultTest extends \PHPUnit_Framework_TestCase
+class GetEntityResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {

@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueueMessageTest extends \PHPUnit_Framework_TestCase
+class QueueMessageTest extends \PHPUnit\Framework\TestCase
 {
     public function testToXml()
     {

@@ -42,7 +42,7 @@ use GuzzleHttp\Psr7;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class UtilitiesTest extends \PHPUnit_Framework_TestCase
+class UtilitiesTest extends \PHPUnit\Framework\TestCase
 {
     public function testTryGetValue()
     {
@@ -259,22 +259,22 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
 
     public function testToBoolean()
     {
-        $this->assertTrue(is_bool(Utilities::toBoolean('true')));
+        $this->assertInternalType('bool', Utilities::toBoolean('true'));
         $this->assertEquals(true, Utilities::toBoolean('true'));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean('false')));
+        $this->assertInternalType('bool', Utilities::toBoolean('false'));
         $this->assertEquals(false, Utilities::toBoolean('false'));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean(null)));
+        $this->assertInternalType('bool', Utilities::toBoolean(null));
         $this->assertEquals(false, Utilities::toBoolean(null));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean('true', true)));
+        $this->assertInternalType('bool', Utilities::toBoolean('true', true));
         $this->assertEquals(true, Utilities::toBoolean('true', true));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean('false', true)));
+        $this->assertInternalType('bool', Utilities::toBoolean('false', true));
         $this->assertEquals(false, Utilities::toBoolean('false', true));
 
-        $this->assertTrue(is_null(Utilities::toBoolean(null, true)));
+        $this->assertNull(Utilities::toBoolean(null, true));
         $this->assertEquals(null, Utilities::toBoolean(null, true));
     }
 

@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class LoggerTest extends \PHPUnit_Framework_TestCase
+class LoggerTest extends \PHPUnit\Framework\TestCase
 {
     public function testLogWithArray()
     {

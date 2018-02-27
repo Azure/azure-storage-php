@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Models\Range;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class RangeTest extends \PHPUnit_Framework_TestCase
+class RangeTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
