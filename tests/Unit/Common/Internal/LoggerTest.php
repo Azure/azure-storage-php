@@ -47,15 +47,15 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $tip = 'This is array';
         $expected = "$tip\nArray\n(\n)\n";
         Logger::setLogFile($virtualPath);
-        
+
         // Test
         Logger::log(array(), $tip);
-        
+
         // Assert
         $actual = file_get_contents($virtualPath);
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testLogWithString()
     {
         // Setup
@@ -63,10 +63,10 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
         $tip = 'This is string';
         $expected = "$tip\nI'm a string\n";
         Logger::setLogFile($virtualPath);
-        
+
         // Test
         Logger::log('I\'m a string', $tip);
-        
+
         // Assert
         $actual = file_get_contents($virtualPath);
         $this->assertEquals($expected, $actual);

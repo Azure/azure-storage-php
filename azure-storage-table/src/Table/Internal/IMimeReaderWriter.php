@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Internal;
 
 /**
@@ -47,7 +47,7 @@ interface IMimeReaderWriter
      * represents the MIME message.
      */
     public function encodeMimeMultipart(array $bodyPartContents);
-    
+
     /**
      * Parses given mime HTTP response body into array. Each array element
      * represents a change set result.

@@ -87,7 +87,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
             $this->getServicePropertiesWorker($options);
         }
     }
-    
+
     private function getServicePropertiesWorker($options)
     {
         $options = (is_null($options) ? new FileServiceOptions() : $options);
@@ -189,7 +189,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
             if (!is_null($options->getTimeout()) && $options->getTimeout() < 1) {
                 $this->assertTrue(false, 'Expect negative timeouts in $options to throw');
             }
-            
+
             \sleep(10);
 
             $ret = $this->restProxy->getServiceProperties($options);
@@ -645,20 +645,20 @@ class FileServiceFunctionalTest extends FunctionalTestBase
             } else {
                 $this->restProxy->setShareMetadata($share, $metadata, $options);
             }
-            
+
             if (is_null($options)) {
                 $options = new FileServiceOptions();
             }
-            
+
             $this->assertFalse(
                 Utilities::startsWith($firstkey, '<'),
                 'Should get HTTP request error if the metadata is invalid'
             );
-            
+
             if (! is_null($options->getTimeout()) && $options->getTimeout() < 1) {
                 $this->assertTrue(false, 'Expect negative timeouts in $options to throw');
             }
-            
+
             $res = $this->restProxy->getShareMetadata($share);
             $this->verifyGetShareMetadataWorker($res, $metadata);
         } catch (ServiceException $e) {
@@ -1871,7 +1871,7 @@ class FileServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new ListSharesOptions();
         $options->setMiddlewares([$historyMiddleware]);

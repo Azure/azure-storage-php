@@ -41,7 +41,7 @@ class InvalidArgumentTypeExceptionTest extends \PHPUnit\Framework\TestCase
     public function testConstruct()
     {
         $e = new InvalidArgumentTypeException('string');
-        
+
         $this->assertTrue(isset($e));
     }
 }

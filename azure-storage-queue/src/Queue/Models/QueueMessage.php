@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -47,7 +47,7 @@ class QueueMessage
     private $dequeueCount;
     private $_messageText;
     private static $xmlRootName = 'QueueMessage';
-    
+
     /**
      * Creates QueueMessage object from parsed XML response of
      * ListMessages.
@@ -61,15 +61,15 @@ class QueueMessage
     public static function createFromListMessages(array $parsedResponse)
     {
         $timeNextVisible = $parsedResponse['TimeNextVisible'];
-        
+
         $msg  = self::createFromPeekMessages($parsedResponse);
         $date = Utilities::rfc1123ToDateTime($timeNextVisible);
         $msg->setTimeNextVisible($date);
         $msg->setPopReceipt($parsedResponse['PopReceipt']);
-        
+
         return $msg;
     }
-    
+
     /**
      * Creates QueueMessage object from parsed XML response of
      * PeekMessages.
@@ -85,18 +85,18 @@ class QueueMessage
         $msg            = new QueueMessage();
         $expirationDate = $parsedResponse['ExpirationTime'];
         $insertionDate  = $parsedResponse['InsertionTime'];
-        
+
         $msg->setDequeueCount(intval($parsedResponse['DequeueCount']));
-        
+
         $date = Utilities::rfc1123ToDateTime($expirationDate);
         $msg->setExpirationDate($date);
-        
+
         $date = Utilities::rfc1123ToDateTime($insertionDate);
         $msg->setInsertionDate($date);
-        
+
         $msg->setMessageId($parsedResponse['MessageId']);
         $msg->setMessageText($parsedResponse['MessageText']);
-        
+
         return $msg;
     }
 
@@ -113,7 +113,7 @@ class QueueMessage
     public static function createFromCreateMessage(array $parsedResponse)
     {
         $msg = new QueueMessage();
-        
+
         $expirationDate  = $parsedResponse['ExpirationTime'];
         $insertionDate   = $parsedResponse['InsertionTime'];
         $timeNextVisible = $parsedResponse['TimeNextVisible'];
@@ -132,7 +132,7 @@ class QueueMessage
 
         return $msg;
     }
-    
+
     /**
      * Gets message text field.
      *
@@ -142,7 +142,7 @@ class QueueMessage
     {
         return $this->_messageText;
     }
-    
+
     /**
      * Sets message text field.
      *
@@ -154,7 +154,7 @@ class QueueMessage
     {
         $this->_messageText = $messageText;
     }
-    
+
     /**
      * Gets messageId field.
      *
@@ -164,7 +164,7 @@ class QueueMessage
     {
         return $this->messageId;
     }
-    
+
     /**
      * Sets messageId field.
      *
@@ -176,7 +176,7 @@ class QueueMessage
     {
         $this->messageId = $messageId;
     }
-    
+
     /**
      * Gets insertionDate field.
      *
@@ -186,7 +186,7 @@ class QueueMessage
     {
         return $this->insertionDate;
     }
-    
+
     /**
      * Sets insertionDate field.
      *
@@ -200,7 +200,7 @@ class QueueMessage
     {
         $this->insertionDate = $insertionDate;
     }
-    
+
     /**
      * Gets expirationDate field.
      *
@@ -210,7 +210,7 @@ class QueueMessage
     {
         return $this->expirationDate;
     }
-    
+
     /**
      * Sets expirationDate field.
      *
@@ -222,7 +222,7 @@ class QueueMessage
     {
         $this->expirationDate = $expirationDate;
     }
-    
+
     /**
      * Gets timeNextVisible field.
      *
@@ -232,7 +232,7 @@ class QueueMessage
     {
         return $this->timeNextVisible;
     }
-    
+
     /**
      * Sets timeNextVisible field.
      *
@@ -244,7 +244,7 @@ class QueueMessage
     {
         $this->timeNextVisible = $timeNextVisible;
     }
-    
+
     /**
      * Gets popReceipt field.
      *
@@ -254,7 +254,7 @@ class QueueMessage
     {
         return $this->popReceipt;
     }
-    
+
     /**
      * Sets popReceipt field.
      *
@@ -266,7 +266,7 @@ class QueueMessage
     {
         $this->popReceipt = $popReceipt;
     }
-    
+
     /**
      * Gets dequeueCount field.
      *
@@ -276,7 +276,7 @@ class QueueMessage
     {
         return $this->dequeueCount;
     }
-    
+
     /**
      * Sets dequeueCount field.
      *
@@ -290,7 +290,7 @@ class QueueMessage
     {
         $this->dequeueCount = $dequeueCount;
     }
-    
+
     /**
      * Converts this current object to XML representation.
      *
@@ -304,7 +304,7 @@ class QueueMessage
     {
         $array      = array('MessageText' => $this->_messageText);
         $properties = array(XmlSerializer::ROOT_NAME => self::$xmlRootName);
-        
+
         return $xmlSerializer->serialize($array, $properties);
     }
 }

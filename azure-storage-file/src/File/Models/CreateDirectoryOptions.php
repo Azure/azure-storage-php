@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\File\Models;
 class CreateDirectoryOptions extends FileServiceOptions
 {
     private $metadata;
-    
+
     /**
      * Gets user defined metadata.
      *
@@ -47,7 +47,7 @@ class CreateDirectoryOptions extends FileServiceOptions
     {
         return $this->metadata;
     }
-    
+
     /**
      * Sets user defined metadata. This metadata should be added without the header
      * prefix (x-ms-meta-*).
@@ -60,7 +60,7 @@ class CreateDirectoryOptions extends FileServiceOptions
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Adds new metadata element. This element should be added without the header
      * prefix (x-ms-meta-*).

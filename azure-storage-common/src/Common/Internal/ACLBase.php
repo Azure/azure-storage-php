@@ -74,11 +74,11 @@ abstract class ACLBase
     public function toArray()
     {
         $array = array();
-        
+
         foreach ($this->getSignedIdentifiers() as $value) {
             $array[] = $value->toArray();
         }
-        
+
         return $array;
     }
 
@@ -97,7 +97,7 @@ abstract class ACLBase
             XmlSerializer::DEFAULT_TAG => Resources::XTAG_SIGNED_IDENTIFIER,
             XmlSerializer::ROOT_NAME   => Resources::XTAG_SIGNED_IDENTIFIERS
         );
-        
+
         return $serializer->serialize($this->toArray(), $properties);
     }
 
@@ -204,7 +204,7 @@ abstract class ACLBase
         $signedIdentifier = new SignedIdentifier();
         $signedIdentifier->setId($id);
         $signedIdentifier->setAccessPolicy($accessPolicy);
-        
+
         // Remove the signed identifier with the same ID.
         $this->removeSignedIdentifier($id);
 

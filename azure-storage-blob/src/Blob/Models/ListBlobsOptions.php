@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -71,7 +71,7 @@ class ListBlobsOptions extends BlobServiceOptions
         Validate::canCastAsString($prefix, 'prefix');
         $this->_prefix = $prefix;
     }
-    
+
     /**
      * Gets delimiter.
      *
@@ -140,7 +140,7 @@ class ListBlobsOptions extends BlobServiceOptions
         Validate::isBoolean($includeMetadata);
         $this->_includeMetadata = $includeMetadata;
     }
-    
+
     /**
      * Indicates if snapshots is included or not.
      *
@@ -163,7 +163,7 @@ class ListBlobsOptions extends BlobServiceOptions
         Validate::isBoolean($includeSnapshots);
         $this->_includeSnapshots = $includeSnapshots;
     }
-    
+
     /**
      * Indicates if uncommittedBlobs is included or not.
      *
@@ -186,7 +186,7 @@ class ListBlobsOptions extends BlobServiceOptions
         Validate::isBoolean($includeUncommittedBlobs);
         $this->_includeUncommittedBlobs = $includeUncommittedBlobs;
     }
-    
+
     /**
      * Indicates if copy is included or not.
      *

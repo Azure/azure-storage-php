@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -78,7 +78,7 @@ class UpdateMessageResult
     {
         return $this->_timeNextVisible;
     }
-    
+
     /**
      * Sets timeNextVisible field.
      *
@@ -92,10 +92,10 @@ class UpdateMessageResult
     protected function setTimeNextVisible(\DateTime $timeNextVisible)
     {
         Validate::isDate($timeNextVisible);
-        
+
         $this->_timeNextVisible = $timeNextVisible;
     }
-    
+
     /**
      * Gets popReceipt field.
      *
@@ -105,7 +105,7 @@ class UpdateMessageResult
     {
         return $this->_popReceipt;
     }
-    
+
     /**
      * Sets popReceipt field.
      *

@@ -53,7 +53,7 @@ class InsertEntityResultTest extends \PHPUnit\Framework\TestCase
             $sampleHeaders,
             Resources::ETAG
         ));
-        
+
         // Test
         $result = InsertEntityResult::create(
             $sampleBody,

@@ -239,7 +239,7 @@ class ServiceRestProxy extends RestProxy
                 throw $reason;
             }
         ]);
-        
+
         return $eachPromise->promise();
     }
 
@@ -271,7 +271,7 @@ class ServiceRestProxy extends RestProxy
         } else {
             $uri = $this->psrPrimaryUri;
         }
-        
+
         //Append the path, not replacing it.
         if ($path != null) {
             $exPath = $uri->getPath();
@@ -486,7 +486,7 @@ class ServiceRestProxy extends RestProxy
             throw new ServiceException($response);
         }
     }
-    
+
     /**
      * Adds HTTP POST parameter to the specified
      *

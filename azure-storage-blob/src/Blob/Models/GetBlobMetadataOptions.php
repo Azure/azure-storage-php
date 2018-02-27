@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\Blob\Models;
 class GetBlobMetadataOptions extends BlobServiceOptions
 {
     private $_snapshot;
-    
+
     /**
      * Gets blob snapshot.
      *

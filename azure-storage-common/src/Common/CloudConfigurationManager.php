@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,14 +42,14 @@ class CloudConfigurationManager
 {
     private static $_isInitialized = false;
     private static $_sources;
-    
+
     /**
      * Restrict users from creating instances from this class
      */
     private function __construct()
     {
     }
-    
+
     /**
      * Initializes the connection string source providers.
      *
@@ -59,17 +59,17 @@ class CloudConfigurationManager
     {
         if (!self::$_isInitialized) {
             self::$_sources = array();
-            
+
             // Get list of default connection string sources.
             $default = ConnectionStringSource::getDefaultSources();
             foreach ($default as $name => $provider) {
                 self::$_sources[$name] = $provider;
             }
-            
+
             self::$_isInitialized = true;
         }
     }
-    
+
     /**
      * Gets a connection string from all available sources.
      *
@@ -80,21 +80,21 @@ class CloudConfigurationManager
     public static function getConnectionString($key)
     {
         Validate::canCastAsString($key, 'key');
-        
+
         self::_init();
         $value = null;
-        
+
         foreach (self::$_sources as $source) {
             $value = call_user_func_array($source, array($key));
-            
+
             if (!empty($value)) {
                 break;
             }
         }
-        
+
         return $value;
     }
-    
+
     /**
      * Registers a new connection string source provider. If the source to get
      * registered is a default source, only the name of the source is required.
@@ -111,15 +111,15 @@ class CloudConfigurationManager
     {
         Validate::canCastAsString($name, 'name');
         Validate::notNullOrEmpty($name, 'name');
-        
+
         self::_init();
         $default = ConnectionStringSource::getDefaultSources();
-        
+
         // Try to get callback if the user is trying to register a default source.
         $provider = Utilities::tryGetValue($default, $name, $provider);
-        
+
         Validate::notNullOrEmpty($provider, 'callback');
-        
+
         if ($prepend) {
             self::$_sources = array_merge(
                 array($name => $provider),
@@ -129,7 +129,7 @@ class CloudConfigurationManager
             self::$_sources[$name] = $provider;
         }
     }
-    
+
     /**
      * Unregisters a connection string source.
      *
@@ -141,15 +141,15 @@ class CloudConfigurationManager
     {
         Validate::canCastAsString($name, 'name');
         Validate::notNullOrEmpty($name, 'name');
-        
+
         self::_init();
-        
+
         $sourceCallback = Utilities::tryGetValue(self::$_sources, $name);
-        
+
         if (!is_null($sourceCallback)) {
             unset(self::$_sources[$name]);
         }
-        
+
         return $sourceCallback;
     }
 }

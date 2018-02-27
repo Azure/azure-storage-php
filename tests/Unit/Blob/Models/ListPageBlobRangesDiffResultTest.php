@@ -55,7 +55,7 @@ class ListPageBlobRangesDiffResultTest extends \PHPUnit\Framework\TestCase
         if (!empty($bodyArray['ClearRange'])) {
             $rawClearRanges = Utilities::getArray($bodyArray['ClearRange']);
         }
-        
+
         $pageRanges = array();
 
         foreach ($rawPageRanges as $value) {

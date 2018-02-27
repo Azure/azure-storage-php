@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -44,9 +44,9 @@ class ServiceProperties
     private $minuteMetrics;
     private $corses;
     private $defaultServiceVersion;
-    
+
     private static $xmlRootName = 'StorageServiceProperties';
-    
+
     /**
      * Creates ServiceProperties object from parsed XML response.
      *
@@ -86,7 +86,7 @@ class ServiceProperties
                     $corses[] = CORS::create($cors);
                 }
             }
-            
+
             $result->setCorses($corses);
         } else {
             $result->setCorses(array());
@@ -94,7 +94,7 @@ class ServiceProperties
 
         return $result;
     }
-    
+
     /**
      * Gets logging element.
      *
@@ -104,7 +104,7 @@ class ServiceProperties
     {
         return $this->logging;
     }
-    
+
     /**
      * Sets logging element.
      *
@@ -116,7 +116,7 @@ class ServiceProperties
     {
         $this->logging = clone $logging;
     }
-    
+
     /**
      * Gets hour metrics element.
      *
@@ -126,7 +126,7 @@ class ServiceProperties
     {
         return $this->hourMetrics;
     }
-    
+
     /**
      * Sets hour metrics element.
      *
@@ -138,7 +138,7 @@ class ServiceProperties
     {
         $this->hourMetrics = clone $hourMetrics;
     }
-    
+
     /**
      * Gets minute metrics element.
      *
@@ -148,7 +148,7 @@ class ServiceProperties
     {
         return $this->minuteMetrics;
     }
-    
+
     /**
      * Sets minute metrics element.
      *
@@ -170,7 +170,7 @@ class ServiceProperties
     {
         return $this->corses;
     }
-    
+
     /**
      * Sets corses element.
      *
@@ -204,7 +204,7 @@ class ServiceProperties
     {
         $this->defaultServiceVersion = $defaultServiceVersion;
     }
-    
+
     /**
      * Converts this object to array with XML tags
      *
@@ -259,10 +259,10 @@ class ServiceProperties
                 $corsesArray[] = [Resources::XTAG_CORS_RULE => $cors->toArray()];
             }
         }
-        
+
         return $corsesArray;
     }
-    
+
     /**
      * Converts this current object to XML representation.
      *

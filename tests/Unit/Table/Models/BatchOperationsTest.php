@@ -44,13 +44,13 @@ class BatchOperationsTest extends \PHPUnit\Framework\TestCase
     {
         // Test
         $operations = new BatchOperations();
-        
+
         // Assert
         $this->assertCount(0, $operations->getOperations());
-        
+
         return $operations;
     }
-    
+
     /**
                     * @depends testConstruct
      */
@@ -60,84 +60,84 @@ class BatchOperationsTest extends \PHPUnit\Framework\TestCase
         $operation = new BatchOperation();
         $expected = array($operation);
         $operations->addOperation($operation);
-        
+
         // Test
         $operations->setOperations($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $operations->getOperations());
     }
-    
+
     public function testAddInsertEntity()
     {
         // Setup
         $table = 'mytable';
         $entity = new Entity();
         $operations = new BatchOperations();
-        
+
         // Test
         $operations->addInsertEntity($table, $entity);
-        
+
         // Assert
         $this->assertCount(1, $operations->getOperations());
     }
-    
+
     public function testAddUpdateEntity()
     {
         // Setup
         $table = 'mytable';
         $entity = new Entity();
         $operations = new BatchOperations();
-        
+
         // Test
         $operations->addUpdateEntity($table, $entity);
-        
+
         // Assert
         $this->assertCount(1, $operations->getOperations());
     }
-    
+
     public function testAddMergeEntity()
     {
         // Setup
         $table = 'mytable';
         $entity = new Entity();
         $operations = new BatchOperations();
-        
+
         // Test
         $operations->addMergeEntity($table, $entity);
-        
+
         // Assert
         $this->assertCount(1, $operations->getOperations());
     }
-    
+
     public function testAddInsertOrReplaceEntity()
     {
         // Setup
         $table = 'mytable';
         $entity = new Entity();
         $operations = new BatchOperations();
-        
+
         // Test
         $operations->addInsertOrReplaceEntity($table, $entity);
-        
+
         // Assert
         $this->assertCount(1, $operations->getOperations());
     }
-    
+
     public function testAddInsertOrMergeEntity()
     {
         // Setup
         $table = 'mytable';
         $entity = new Entity();
         $operations = new BatchOperations();
-        
+
         // Test
         $operations->addInsertOrMergeEntity($table, $entity);
-        
+
         // Assert
         $this->assertCount(1, $operations->getOperations());
     }
-    
+
     public function testAddDeleteEntity()
     {
         // Setup
@@ -146,10 +146,10 @@ class BatchOperationsTest extends \PHPUnit\Framework\TestCase
         $rowKey= '456';
         $etag = 'W/datetime:2009';
         $operations = new BatchOperations();
-        
+
         // Test
         $operations->addDeleteEntity($table, $partitionKey, $rowKey, $etag);
-        
+
         // Assert
         $this->assertCount(1, $operations->getOperations());
     }

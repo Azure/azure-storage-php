@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Internal\TableResources as Resources;
@@ -45,7 +45,7 @@ use GuzzleHttp\Psr7\Response;
 class BatchResult
 {
     private $_entries;
-    
+
     /**
      * Creates a array of responses from the batch response body.
      *
@@ -62,19 +62,19 @@ class BatchResult
         // include change sets response body. We may need to undo this action in
         // case that batch response body has useful info.
         $count = count($parts);
-        
+
         for ($i = 0; $i < $count; $i++) {
             $response = new \stdClass();
-            
+
             // Split lines
             $lines    = explode("\r\n", $parts[$i]);
-            
+
             // Version Status Reason
             $statusTokens = explode(' ', $lines[0], 3);
             $response->version = $statusTokens[0];
             $response->statusCode = $statusTokens[1];
             $response->reason = $statusTokens[2];
-            
+
             $headers = array();
             $j       = 1;
             do {
@@ -87,10 +87,10 @@ class BatchResult
             $response->body = implode("\r\n", array_slice($lines, $j));
             $responses[] = $response;
         }
-        
+
         return $responses;
     }
-    
+
     /**
      * Compares between two responses by Content-ID header.
      *
@@ -105,7 +105,7 @@ class BatchResult
         $h2 = array_change_key_case($r2->headers);
         $c1 = Utilities::tryGetValue($h1, Resources::CONTENT_ID, 0);
         $c2 = Utilities::tryGetValue($h2, Resources::CONTENT_ID, 0);
-        
+
         return intval($c1) >= intval($c2);
     }
 
@@ -134,10 +134,10 @@ class BatchResult
         $callbackName = __CLASS__ . '::_compareUsingContentId';
         $count        = count($responses);
         $entries      = array();
-        
+
         // Sort $responses based on Content-ID so they match order of $operations.
         uasort($responses, $callbackName);
-        
+
         for ($i = 0; $i < $count; $i++) {
             $context   = $contexts[$i];
             $response  = $responses[$i];
@@ -157,7 +157,7 @@ class BatchResult
                 ),
                 $context->getStatusCodes()
             );
-        
+
             switch ($type) {
                 case BatchOperationType::INSERT_ENTITY_OPERATION:
                     $entries[] = InsertEntityResult::create(
@@ -179,12 +179,12 @@ class BatchResult
                     throw new \InvalidArgumentException();
             }
         }
-        
+
         $result->setEntries($entries);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets batch call result entries.
      *
@@ -194,7 +194,7 @@ class BatchResult
     {
         return $this->_entries;
     }
-    
+
     /**
      * Sets batch call result entries.
      *

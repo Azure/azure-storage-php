@@ -44,27 +44,27 @@ class SignedIdentifierTest extends \PHPUnit\Framework\TestCase
         $signedIdentifier = new SignedIdentifier();
         $expected = 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
         $signedIdentifier->setId($expected);
-        
+
         // Test
         $actual = $signedIdentifier->getId();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetId()
     {
         // Setup
         $signedIdentifier = new SignedIdentifier();
         $expected = 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
-        
+
         // Test
         $signedIdentifier->setId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $signedIdentifier->getId());
     }
-    
+
     public function testGetAccessPolicy()
     {
         // Setup
@@ -74,14 +74,14 @@ class SignedIdentifierTest extends \PHPUnit\Framework\TestCase
         $expected->setPermission('rwd');
         $expected->setStart(new \DateTime('2009-09-28T08:49:37'));
         $signedIdentifier->setAccessPolicy($expected);
-        
+
         // Test
         $actual = $signedIdentifier->getAccessPolicy();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetAccessPolicy()
     {
         // Setup
@@ -90,16 +90,16 @@ class SignedIdentifierTest extends \PHPUnit\Framework\TestCase
         $expected->setExpiry(new \DateTime('2009-09-29T08:49:37'));
         $expected->setPermission('rwd');
         $expected->setStart(new \DateTime('2009-09-28T08:49:37'));
-        
+
         // Test
         $signedIdentifier->setAccessPolicy($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $signedIdentifier->getAccessPolicy());
-        
+
         return $signedIdentifier;
     }
-    
+
     /**
      * @depends testSetAccessPolicy
      */
@@ -108,10 +108,10 @@ class SignedIdentifierTest extends \PHPUnit\Framework\TestCase
         // Setup
         $id = 'MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=';
         $signedIdentifier->setId($id);
-        
+
         // Test
         $array = $signedIdentifier->toArray();
-        
+
         // Assert
         $this->assertEquals($id, $array['SignedIdentifier']['Id']);
         $this->assertArrayHasKey('AccessPolicy', $array['SignedIdentifier']);

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
@@ -97,11 +97,11 @@ class ListQueuesResult
         ));
         $queues      = array();
         $rawQueues            = array();
-        
+
         if (!empty($parsedResponse['Queues'])) {
             $rawQueues = Utilities::getArray($parsedResponse['Queues']['Queue']);
         }
-        
+
         foreach ($rawQueues as $value) {
             $queue    = new Queue($value['Name'], $serviceEndpoint . $value['Name']);
             $metadata = Utilities::tryGetValue($value, Resources::QP_METADATA);
@@ -121,7 +121,7 @@ class ListQueuesResult
     {
         return $this->_queues;
     }
-    
+
     /**
      * Sets queues.
      *

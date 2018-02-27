@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 /**
@@ -42,7 +42,7 @@ class BatchOperationType
     const MERGE_ENTITY_OPERATION          = 'MergeEntityOperation';
     const INSERT_REPLACE_ENTITY_OPERATION = 'InsertOrReplaceEntityOperation';
     const INSERT_MERGE_ENTITY_OPERATION   = 'InsertOrMergeEntityOperation';
-    
+
     /**
      * Validates if $type is already defined.
      *

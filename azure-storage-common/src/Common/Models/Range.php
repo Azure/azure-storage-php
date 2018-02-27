@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 /**
@@ -52,7 +52,7 @@ class Range
         $this->start = $start;
         $this->end   = $end;
     }
-    
+
     /**
      * Sets resource start range
      *
@@ -64,7 +64,7 @@ class Range
     {
         $this->start = $start;
     }
-    
+
     /**
      * Gets resource start range
      *
@@ -74,7 +74,7 @@ class Range
     {
         return $this->start;
     }
-    
+
     /**
      * Sets resource end range
      *
@@ -86,7 +86,7 @@ class Range
     {
         $this->end = $end;
     }
-    
+
     /**
      * Gets resource end range
      *
@@ -96,7 +96,7 @@ class Range
     {
         return $this->end;
     }
-    
+
     /**
      * Gets resource range length
      *
@@ -110,7 +110,7 @@ class Range
             return null;
         }
     }
-    
+
     /**
      * Sets resource range length
      *

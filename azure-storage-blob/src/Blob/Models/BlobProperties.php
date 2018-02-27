@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -75,7 +75,7 @@ class BlobProperties
     {
         $result = new BlobProperties();
         $clean  = array_change_key_case($parsed);
-        
+
         $result->setCommonBlobProperties($clean);
         $result->setLeaseStatus(Utilities::tryGetValue($clean, 'leasestatus'));
         $result->setLeaseState(Utilities::tryGetValue($clean, 'leasestate'));
@@ -88,7 +88,7 @@ class BlobProperties
                 true
             )
         );
-        
+
         return $result;
     }
 
@@ -107,7 +107,7 @@ class BlobProperties
         $clean  = array_change_key_case($parsed);
 
         $result->setCommonBlobProperties($clean);
-        
+
         $result->setBlobType(Utilities::tryGetValue($clean, Resources::X_MS_BLOB_TYPE));
         $result->setLeaseStatus(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_STATUS));
         $result->setLeaseState(Utilities::tryGetValue($clean, Resources::X_MS_LEASE_STATE));
@@ -192,7 +192,7 @@ class BlobProperties
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets blob contentType.
      *
@@ -214,7 +214,7 @@ class BlobProperties
     {
         $this->contentType = $contentType;
     }
-    
+
     /**
      * Gets blob contentRange.
      *
@@ -236,7 +236,7 @@ class BlobProperties
     {
         $this->contentRange = $contentRange;
     }
-    
+
     /**
      * Gets blob contentLength.
      *
@@ -259,7 +259,7 @@ class BlobProperties
         Validate::isInteger($contentLength, 'contentLength');
         $this->contentLength = $contentLength;
     }
-    
+
     /**
      * Gets blob contentEncoding.
      *
@@ -281,7 +281,7 @@ class BlobProperties
     {
         $this->contentEncoding = $contentEncoding;
     }
-    
+
     /**
      * Gets blob contentLanguage.
      *
@@ -303,7 +303,7 @@ class BlobProperties
     {
         $this->contentLanguage = $contentLanguage;
     }
-    
+
     /**
      * Gets blob contentMD5.
      *
@@ -369,7 +369,7 @@ class BlobProperties
     {
         $this->cacheControl = $cacheControl;
     }
-    
+
     /**
      * Gets blob contentDisposition.
      *
@@ -391,7 +391,7 @@ class BlobProperties
     {
         $this->contentDisposition = $contentDisposition;
     }
-    
+
     /**
      * Gets blob blobType.
      *
@@ -413,7 +413,7 @@ class BlobProperties
     {
         $this->blobType = $blobType;
     }
-    
+
     /**
      * Gets blob leaseStatus.
      *
@@ -435,7 +435,7 @@ class BlobProperties
     {
         $this->leaseStatus = $leaseStatus;
     }
-    
+
     /**
      * Gets blob lease state.
      *
@@ -457,7 +457,7 @@ class BlobProperties
     {
         $this->leaseState = $leaseState;
     }
-    
+
     /**
      * Gets blob lease duration.
      *
@@ -479,7 +479,7 @@ class BlobProperties
     {
         $this->leaseDuration = $leaseDuration;
     }
-    
+
     /**
      * Gets blob sequenceNumber.
      *

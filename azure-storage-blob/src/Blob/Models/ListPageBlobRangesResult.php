@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -45,7 +45,7 @@ class ListPageBlobRangesResult
     private $_etag;
     private $_contentLength;
     private $_pageRanges;
-    
+
     /**
      * Creates BlobProperties object from $parsed response in array representation
      *
@@ -60,17 +60,17 @@ class ListPageBlobRangesResult
     {
         $result  = new ListPageBlobRangesResult();
         $headers = array_change_key_case($headers);
-        
+
         $date          = $headers[Resources::LAST_MODIFIED];
         $date          = Utilities::rfc1123ToDateTime($date);
         $blobLength    = intval($headers[Resources::X_MS_BLOB_CONTENT_LENGTH]);
         $rawRanges = array();
-        
+
         if (!empty($parsed[Resources::XTAG_PAGE_RANGE])) {
             $parsed        = array_change_key_case($parsed);
             $rawRanges = Utilities::getArray($parsed[strtolower(RESOURCES::XTAG_PAGE_RANGE)]);
         }
-        
+
         $pageRanges = array();
         foreach ($rawRanges as $value) {
             $pageRanges[] = new Range(
@@ -82,10 +82,10 @@ class ListPageBlobRangesResult
         $result->setContentLength($blobLength);
         $result->setETag($headers[Resources::ETAG]);
         $result->setLastModified($date);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets blob lastModified.
      *
@@ -131,7 +131,7 @@ class ListPageBlobRangesResult
         Validate::canCastAsString($etag, 'etag');
         $this->_etag = $etag;
     }
-    
+
     /**
      * Gets blob contentLength.
      *
@@ -154,7 +154,7 @@ class ListPageBlobRangesResult
         Validate::isInteger($contentLength, 'contentLength');
         $this->_contentLength = $contentLength;
     }
-    
+
     /**
      * Gets page ranges
      *
@@ -164,7 +164,7 @@ class ListPageBlobRangesResult
     {
         return $this->_pageRanges;
     }
-    
+
     /**
      * Sets page ranges
      *

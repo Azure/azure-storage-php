@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,7 +42,7 @@ class QueryTablesResult
     use TableContinuationTokenTrait;
 
     private $_tables;
-    
+
     /**
      * Creates new QueryTablesResult object
      *
@@ -57,7 +57,7 @@ class QueryTablesResult
     {
         $result  = new QueryTablesResult();
         $headers = array_change_key_case($headers);
-        
+
         $result->setTables($entries);
 
         $nextTableName = Utilities::tryGetValue(
@@ -75,10 +75,10 @@ class QueryTablesResult
                 )
             );
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Gets tables
      *
@@ -88,7 +88,7 @@ class QueryTablesResult
     {
         return $this->_tables;
     }
-    
+
     /**
      * Sets tables
      *

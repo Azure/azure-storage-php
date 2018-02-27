@@ -43,10 +43,10 @@ class ServiceOptionsTest extends \PHPUnit\Framework\TestCase
         // Setup
         $options = new ServiceOptions();
         $value = 10;
-        
+
         // Test
         $options->setTimeout($value);
-        
+
         // Assert
         $this->assertEquals($value, $options->getTimeout());
     }

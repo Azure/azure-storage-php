@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\Common\Models;
 class GetServicePropertiesResult
 {
     private $_serviceProperties;
-    
+
     /**
      * Creates object from $parsedResponse.
      *
@@ -50,10 +50,10 @@ class GetServicePropertiesResult
     {
         $result = new GetServicePropertiesResult();
         $result->setValue(ServiceProperties::create($parsedResponse));
-        
+
         return $result;
     }
-    
+
     /**
      * Gets service properties object.
      *
@@ -63,7 +63,7 @@ class GetServicePropertiesResult
     {
         return $this->_serviceProperties;
     }
-    
+
     /**
      * Sets service properties object.
      *

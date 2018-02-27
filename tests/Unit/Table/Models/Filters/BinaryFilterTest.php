@@ -43,27 +43,27 @@ class BinaryFilterTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expected = 'x';
         $filter = new BinaryFilter(null, $expected, null);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getOperator());
     }
-    
+
     public function testGetLeft()
     {
         // Setup
         $expected = null;
         $filter = new BinaryFilter($expected, null, null);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getLeft());
     }
-    
+
     public function testGetRight()
     {
         // Setup
         $expected = null;
         $filter = new BinaryFilter(null, null, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getRight());
     }

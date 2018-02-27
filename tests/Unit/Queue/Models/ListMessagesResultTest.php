@@ -44,11 +44,11 @@ class ListMessagesResultTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $sample = TestResources::listMessagesSample();
-        
-        
+
+
         // Test
         $result = ListMessagesResult::create($sample);
-        
+
         // Assert
         $actual = $result->getQueueMessages();
         $this->assertCount(1, $actual);
@@ -60,15 +60,15 @@ class ListMessagesResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(intval($sample['QueueMessage']['DequeueCount']), $actual[0]->getDequeueCount());
         $this->assertEquals($sample['QueueMessage']['MessageText'], $actual[0]->getMessageText());
     }
-    
+
     public function testCreateMultiple()
     {
         // Setup
         $sample = TestResources::listMessagesMultipleMessagesSample();
-        
+
         // Test
         $result = ListMessagesResult::create($sample);
-        
+
         // Assert
         $actual = $result->getQueueMessages();
         $this->assertCount(2, $actual);
@@ -79,7 +79,7 @@ class ListMessagesResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][0]['TimeNextVisible']), $actual[0]->getTimeNextVisible());
         $this->assertEquals(intval($sample['QueueMessage'][0]['DequeueCount']), $actual[0]->getDequeueCount());
         $this->assertEquals($sample['QueueMessage'][0]['MessageText'], $actual[0]->getMessageText());
-        
+
         $this->assertEquals($sample['QueueMessage'][1]['MessageId'], $actual[1]->getMessageId());
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][1]['InsertionTime']), $actual[1]->getInsertionDate());
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][1]['ExpirationTime']), $actual[1]->getExpirationDate());

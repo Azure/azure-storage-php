@@ -45,10 +45,10 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
-        
+
         // Test
         $actual = Logging::create($sample['Logging']);
-        
+
         // Assert
         $this->assertEquals(Utilities::toBoolean($sample['Logging']['Delete']), $actual->getDelete());
         $this->assertEquals(Utilities::toBoolean($sample['Logging']['Read']), $actual->getRead());
@@ -56,7 +56,7 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($sample['Logging']['Version'], $actual->getVersion());
         $this->assertEquals(Utilities::toBoolean($sample['Logging']['Write']), $actual->getWrite());
     }
-    
+
     public function testGetRetentionPolicy()
     {
         // Setup
@@ -64,29 +64,29 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $logging = new Logging();
         $expected = RetentionPolicy::create($sample['Logging']['RetentionPolicy']);
         $logging->setRetentionPolicy($expected);
-        
+
         // Test
         $actual = $logging->getRetentionPolicy();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetRetentionPolicy()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $logging = new Logging();
         $expected = RetentionPolicy::create($sample['Logging']['RetentionPolicy']);
-        
+
         // Test
         $logging->setRetentionPolicy($expected);
-        
+
         // Assert
         $actual = $logging->getRetentionPolicy();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetWrite()
     {
         // Setup
@@ -94,29 +94,29 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $logging = new Logging();
         $expected = Utilities::toBoolean($sample['Logging']['Write']);
         $logging->setWrite($expected);
-        
+
         // Test
         $actual = $logging->getWrite();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetWrite()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $logging = new Logging();
         $expected = Utilities::toBoolean($sample['Logging']['Write']);
-        
+
         // Test
         $logging->setWrite($expected);
-        
+
         // Assert
         $actual = $logging->getWrite();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetRead()
     {
         // Setup
@@ -124,29 +124,29 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $logging = new Logging();
         $expected = Utilities::toBoolean($sample['Logging']['Read']);
         $logging->setRead($expected);
-        
+
         // Test
         $actual = $logging->getRead();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetRead()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $logging = new Logging();
         $expected = Utilities::toBoolean($sample['Logging']['Read']);
-        
+
         // Test
         $logging->setRead($expected);
-        
+
         // Assert
         $actual = $logging->getRead();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetDelete()
     {
         // Setup
@@ -154,29 +154,29 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $logging = new Logging();
         $expected = Utilities::toBoolean($sample['Logging']['Delete']);
         $logging->setDelete($expected);
-        
+
         // Test
         $actual = $logging->getDelete();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetDelete()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $logging = new Logging();
         $expected = Utilities::toBoolean($sample['Logging']['Delete']);
-        
+
         // Test
         $logging->setDelete($expected);
-        
+
         // Assert
         $actual = $logging->getDelete();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetVersion()
     {
         // Setup
@@ -184,29 +184,29 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
         $logging = new Logging();
         $expected = $sample['Logging']['Version'];
         $logging->setVersion($expected);
-        
+
         // Test
         $actual = $logging->getVersion();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetVersion()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $logging = new Logging();
         $expected = $sample['Logging']['Version'];
-        
+
         // Test
         $logging->setVersion($expected);
-        
+
         // Assert
         $actual = $logging->getVersion();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testToArray()
     {
         // Setup
@@ -219,10 +219,10 @@ class LoggingTest extends \PHPUnit\Framework\TestCase
             'Write'           => $sample['Logging']['Write'],
             'RetentionPolicy' => $logging->getRetentionPolicy()->toArray()
         );
-        
+
         // Test
         $actual = $logging->toArray();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

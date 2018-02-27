@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -108,13 +108,13 @@ class ListBlobsResult
         $blobPrefixes    = array();
         $rawBlobs        = array();
         $rawBlobPrefixes = array();
-        
+
         if (is_array($parsed['Blobs'])
             && array_key_exists('Blob', $parsed['Blobs'])
         ) {
             $rawBlobs = Utilities::getArray($parsed['Blobs']['Blob']);
         }
-        
+
         foreach ($rawBlobs as $value) {
             $blob = new Blob();
             $blob->setName($value['Name']);
@@ -128,29 +128,29 @@ class ListBlobsResult
             $blob->setMetadata(
                 Utilities::tryGetValue($value, Resources::QP_METADATA, array())
             );
-            
+
             $blobs[] = $blob;
         }
-        
+
         if (is_array($parsed['Blobs'])
             && array_key_exists('BlobPrefix', $parsed['Blobs'])
         ) {
             $rawBlobPrefixes = Utilities::getArray($parsed['Blobs']['BlobPrefix']);
         }
-        
+
         foreach ($rawBlobPrefixes as $value) {
             $blobPrefix = new BlobPrefix();
             $blobPrefix->setName($value['Name']);
-            
+
             $blobPrefixes[] = $blobPrefix;
         }
 
         $result->setBlobs($blobs);
         $result->setBlobPrefixes($blobPrefixes);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets blobs.
      *
@@ -160,7 +160,7 @@ class ListBlobsResult
     {
         return $this->blobs;
     }
-    
+
     /**
      * Sets blobs.
      *
@@ -175,7 +175,7 @@ class ListBlobsResult
             $this->blobs[] = clone $blob;
         }
     }
-    
+
     /**
      * Gets blobPrefixes.
      *
@@ -185,7 +185,7 @@ class ListBlobsResult
     {
         return $this->blobPrefixes;
     }
-    
+
     /**
      * Sets blobPrefixes.
      *
@@ -222,7 +222,7 @@ class ListBlobsResult
     {
         $this->prefix = $prefix;
     }
-    
+
     /**
      * Gets prefix.
      *

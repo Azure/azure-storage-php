@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -91,19 +91,19 @@ class ListContainersResult
                 )
             );
         }
-        
+
         $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS
         ));
         $containers   = array();
         $rawContainer = array();
-        
+
         if (!empty($parsedResponse['Containers'])) {
             $containersArray = $parsedResponse['Containers']['Container'];
             $rawContainer    = Utilities::getArray($containersArray);
         }
-        
+
         foreach ($rawContainer as $value) {
             $container = new Container();
             $container->setName($value['Name']);
@@ -116,7 +116,7 @@ class ListContainersResult
             $date       = Utilities::rfc1123ToDateTime($date);
             $properties->setLastModified($date);
             $properties->setETag($value['Properties']['Etag']);
-            
+
             if (array_key_exists('LeaseStatus', $value['Properties'])) {
                 $properties->setLeaseStatus($value['Properties']['LeaseStatus']);
             }
@@ -150,7 +150,7 @@ class ListContainersResult
             $this->containers[] = clone $container;
         }
     }
-    
+
     /**
      * Gets containers.
      *

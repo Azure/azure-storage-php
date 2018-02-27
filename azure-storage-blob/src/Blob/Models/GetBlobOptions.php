@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -42,7 +42,7 @@ class GetBlobOptions extends BlobServiceOptions
     private $snapshot;
     private $range;
     private $rangeGetContentMD5;
-    
+
     /**
      * Gets blob snapshot.
      *

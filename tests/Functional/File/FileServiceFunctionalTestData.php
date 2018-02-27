@@ -215,7 +215,7 @@ class FileServiceFunctionalTestData
             $sp = new ServiceProperties();
             $sp->setHourMetrics($m);
             $sp->setCorses(array($c0, $c1));
-            
+
             array_push($ret, $sp);
         }
 

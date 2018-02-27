@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Exceptions;
 
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -43,7 +43,7 @@ class ServiceException extends \LogicException
     private $response;
     private $errorText;
     private $errorMessage;
-    
+
     /**
      * Constructor
      *
@@ -108,7 +108,7 @@ class ServiceException extends \LogicException
         }
         return $errorMessage;
     }
-    
+
     /**
      * Gets error text.
      *
@@ -118,7 +118,7 @@ class ServiceException extends \LogicException
     {
         return $this->errorText;
     }
-    
+
     /**
      * Gets detailed error message.
      *

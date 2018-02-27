@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -40,7 +40,7 @@ class CopyBlobFromURLOptions extends BlobServiceOptions
     private $sourceAccessConditions;
     private $metadata;
     private $isIncrementalCopy;
-    
+
     /**
      * Gets source access condition
      *
@@ -50,7 +50,7 @@ class CopyBlobFromURLOptions extends BlobServiceOptions
     {
         return $this->sourceAccessConditions;
     }
-    
+
     /**
      * Sets source access condition
      *
@@ -67,7 +67,7 @@ class CopyBlobFromURLOptions extends BlobServiceOptions
             $this->sourceAccessConditions = [$sourceAccessConditions];
         }
     }
-    
+
     /**
      * Gets metadata.
      *

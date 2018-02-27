@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -50,7 +50,7 @@ class EdmType
     const INT32    = 'Edm.Int32';
     const INT64    = 'Edm.Int64';
     const STRING   = 'Edm.String';
-    
+
     public static function propertyType($value)
     {
         if (is_int($value)) {
@@ -99,10 +99,10 @@ class EdmType
     {
         $type = empty($type) ? self::STRING : $type;
         Validate::isTrue(self::isValid($type), Resources::INVALID_EDM_MSG);
-        
+
         return $type;
     }
-    
+
     /**
      * Validates that the value associated with the EDM type is valid.
      *
@@ -136,7 +136,7 @@ class EdmType
             case EdmType::DOUBLE:
                 $condition = 'is_double or is_string';
                 return is_double($value) || is_int($value) || is_string($value);
-                
+
             case EdmType::INT32:
                 $condition = 'is_int or is_string';
                 return is_int($value) || is_string($value);
@@ -154,7 +154,7 @@ class EdmType
             }
         }
     }
-    
+
     /**
      * Serializes EDM value into proper value for sending it to Windows Azure.
      *
@@ -180,13 +180,13 @@ class EdmType
         case EdmType::GUID:
         case EdmType::STRING:
             return strval($value);
-           
+
         case EdmType::DOUBLE:
             return strval($value);
-         
+
         case EdmType::BINARY:
             return base64_encode($value);
-            
+
         case EdmType::DATETIME:
             return Utilities::convertToEdmDateTime($value);
 
@@ -197,7 +197,7 @@ class EdmType
             throw new \InvalidArgumentException();
         }
     }
-    
+
     /**
      * Serializes EDM value into proper value to be used in query.
      *
@@ -226,7 +226,7 @@ class EdmType
         case EdmType::DOUBLE:
         case EdmType::INT32:
             return $value;
-            
+
         case EdmType::INT64:
             return $value . 'L';
 
@@ -242,7 +242,7 @@ class EdmType
             throw new \InvalidArgumentException();
         }
     }
-    
+
     /**
      * Converts the value into its proper type.
      *
@@ -280,7 +280,7 @@ class EdmType
 
             case self::DOUBLE:
                 return doubleval($value);
-                
+
             case self::INT32:
                 return intval($value);
 
@@ -289,7 +289,7 @@ class EdmType
             }
         }
     }
-    
+
     /**
      * Check if the $type belongs to valid header types.
      *
@@ -313,12 +313,12 @@ class EdmType
         case $type == null:
             // NULL also is treated as EdmType::STRING
             return true;
-        
+
         default:
             return false;
-                
+
         }
     }
-    
+
     // @codingStandardsIgnoreEnd
 }

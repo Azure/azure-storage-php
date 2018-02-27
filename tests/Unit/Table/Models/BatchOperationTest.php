@@ -45,24 +45,24 @@ class BatchOperationTest extends \PHPUnit\Framework\TestCase
         // Setup
         $batchOperation = new BatchOperation();
         $expected = BatchOperationType::DELETE_ENTITY_OPERATION;
-        
+
         // Test
         $batchOperation->setType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $batchOperation->getType());
     }
-    
+
     public function testAddParameter()
     {
         // Setup
         $batchOperation = new BatchOperation();
         $expected = 'param zeta';
         $name = BatchOperationParameterName::BP_ENTITY;
-        
+
         // Test
         $batchOperation->addParameter($name, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $batchOperation->getParameter($name));
     }

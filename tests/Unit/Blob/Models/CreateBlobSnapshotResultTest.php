@@ -46,10 +46,10 @@ class CreateBlobSnapshotResultTest extends \PHPUnit\Framework\TestCase
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expected['x-ms-snapshot'] = $sample['Blobs']['Blob']['Snapshot'];
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
-        
+
         // Test
         $actual = CreateBlobSnapshotResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());

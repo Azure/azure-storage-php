@@ -42,10 +42,10 @@ class BreakLeaseResultTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expected = '10';
         $headers = array('x-ms-lease-time' => $expected);
-        
+
         // Test
         $result = BreakLeaseResult::create($headers);
-        
+
         // Assert
         $this->assertEquals($expected, $result->getLeaseTime());
     }

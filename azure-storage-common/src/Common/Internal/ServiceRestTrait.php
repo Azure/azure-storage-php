@@ -22,7 +22,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\LocationMode;
@@ -78,11 +78,11 @@ trait ServiceRestTrait
         $queryParams = array();
         $postParams  = array();
         $path        = Resources::EMPTY_STRING;
-        
+
         if (is_null($options)) {
             $options = new ServiceOptions();
         }
-        
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_REST_TYPE,
@@ -95,7 +95,7 @@ trait ServiceRestTrait
         );
 
         $dataSerializer = $this->dataSerializer;
-        
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -152,18 +152,18 @@ trait ServiceRestTrait
             $serviceProperties instanceof ServiceProperties,
             Resources::INVALID_SVC_PROP_MSG
         );
-                
+
         $method      = Resources::HTTP_PUT;
         $headers     = array();
         $queryParams = array();
         $postParams  = array();
         $path        = Resources::EMPTY_STRING;
         $body        = $serviceProperties->toXml($this->dataSerializer);
-        
+
         if (is_null($options)) {
             $options = new ServiceOptions();
         }
-    
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_REST_TYPE,
@@ -181,7 +181,7 @@ trait ServiceRestTrait
         );
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
-        
+
         return $this->sendAsync(
             $method,
             $headers,
@@ -222,11 +222,11 @@ trait ServiceRestTrait
         $queryParams = array();
         $postParams  = array();
         $path        = Resources::EMPTY_STRING;
-        
+
         if (is_null($options)) {
             $options = new ServiceOptions();
         }
-        
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_REST_TYPE,
@@ -239,7 +239,7 @@ trait ServiceRestTrait
         );
 
         $dataSerializer = $this->dataSerializer;
-        
+
         $options->setLocationMode(LocationMode::SECONDARY_ONLY);
 
         return $this->sendAsync(

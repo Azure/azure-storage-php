@@ -44,17 +44,17 @@ class ConstantFilterTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expected = 'x';
         $filter = new ConstantFilter(null, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getValue());
     }
-    
+
     public function testGetEdmType()
     {
         // Setup
         $expected = EdmType::BINARY;
         $filter = new ConstantFilter($expected, '1234');
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getEdmType());
     }

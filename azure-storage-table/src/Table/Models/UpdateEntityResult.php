@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Table\Internal\TableResources as Resources;
 class UpdateEntityResult
 {
     private $_etag;
-    
+
     /**
      * Creates UpdateEntityResult from HTTP response headers.
      *
@@ -56,10 +56,10 @@ class UpdateEntityResult
         $result->setETag(
             Utilities::tryGetValueInsensitive(Resources::ETAG, $headers)
         );
-        
+
         return $result;
     }
-    
+
     /**
      * Gets entity etag.
      *

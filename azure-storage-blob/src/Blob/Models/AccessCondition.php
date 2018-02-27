@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -57,7 +57,7 @@ class AccessCondition
         $this->setHeader($headerType);
         $this->setValue($value);
     }
-    
+
     /**
      * Specifies that no access condition is set.
      *
@@ -67,7 +67,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::EMPTY_STRING, null);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the resource's ETag value matches the specified ETag value.
@@ -89,7 +89,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::IF_MATCH, $etag);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the resource has been modified since the specified time.
@@ -116,7 +116,7 @@ class AccessCondition
             $lastModified
         );
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the resource's ETag value does not match the specified ETag value.
@@ -138,7 +138,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::IF_NONE_MATCH, $etag);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the resource has not been modified since the specified time.
@@ -165,7 +165,7 @@ class AccessCondition
             $lastModified
         );
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the operation would cause the blob to exceed that limit or if the append
@@ -187,7 +187,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::MAX_APPEND_POSITION, $appendPosition);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the operation would cause the blob to exceed that limit or if the blob size
@@ -211,7 +211,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::MAX_BLOB_SIZE, $maxBlobSize);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the blob’s sequence number is less than the specified value.
@@ -233,7 +233,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::SEQUENCE_NUMBER_LESS_THAN, $sequenceNumber);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the blob’s sequence number is equal to the specified value.
@@ -255,7 +255,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::SEQUENCE_NUMBER_EQUAL, $sequenceNumber);
     }
-    
+
     /**
      * Returns an access condition such that an operation will be performed only if
      * the blob’s sequence number is less than or equal to the specified value.
@@ -277,7 +277,7 @@ class AccessCondition
     {
         return new AccessCondition(Resources::SEQUENCE_NUMBER_LESS_THAN_OR_EQUAL, $sequenceNumber);
     }
-    
+
     /**
      * Sets header type
      *
@@ -289,10 +289,10 @@ class AccessCondition
     {
         $valid = AccessCondition::isValid($headerType);
         Validate::isTrue($valid, Resources::INVALID_HT_MSG);
-        
+
         $this->_header = $headerType;
     }
-    
+
     /**
      * Gets header type
      *
@@ -302,7 +302,7 @@ class AccessCondition
     {
         return $this->_header;
     }
-    
+
     /**
      * Sets the header value
      *
@@ -314,7 +314,7 @@ class AccessCondition
     {
         $this->_value = $value;
     }
-    
+
     /**
      * Gets the header value
      *
@@ -324,7 +324,7 @@ class AccessCondition
     {
         return $this->_value;
     }
-    
+
     /**
      * Check if the $headerType belongs to valid header types
      *

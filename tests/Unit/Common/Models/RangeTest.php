@@ -42,17 +42,17 @@ class RangeTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expectedStart = 0;
         $expectedEnd = 512;
-        
+
         // Test
         $actual = new Range($expectedStart, $expectedEnd);
-        
+
         // Assert
         $this->assertEquals($expectedStart, $actual->getStart());
         $this->assertEquals($expectedEnd, $actual->getEnd());
-     
+
         return $actual;
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -60,14 +60,14 @@ class RangeTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $expected = 10;
-        
+
         // Test
         $obj->setStart($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $obj->getStart());
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -75,14 +75,14 @@ class RangeTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $expected = 10;
-        
+
         // Test
         $obj->setEnd($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $obj->getEnd());
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -91,14 +91,14 @@ class RangeTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expected = 10;
         $start = $obj->getStart();
-        
+
         // Test
         $obj->setLength($expected);
-        
+
         // Assert
         $this->assertEquals($start + $expected - 1, $obj->getEnd());
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -107,10 +107,10 @@ class RangeTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expected = 10;
         $obj->setLength($expected);
-        
+
         // Test
         $actual = $obj->getLength();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

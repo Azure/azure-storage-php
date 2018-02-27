@@ -42,22 +42,22 @@ class BatchOperationTypeTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $name = BatchOperationType::DELETE_ENTITY_OPERATION;
-        
+
         // Test
         $actual = BatchOperationType::isValid($name);
-        
+
         // Assert
         $this->assertTrue($actual);
     }
-    
+
     public function testIsValidWithInvalid()
     {
         // Setup
         $name = 'zeta el senen';
-        
+
         // Test
         $actual = BatchOperationType::isValid($name);
-        
+
         // Assert
         $this->assertFalse($actual);
     }

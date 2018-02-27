@@ -49,10 +49,10 @@ class GetBlobMetadataResultTest extends \PHPUnit\Framework\TestCase
         $expectedProperties['x-ms-meta-test1'] = 'test1';
         $expectedProperties['x-ms-meta-test2'] = 'test2';
         $expectedProperties['x-ms-meta-test3'] = 'test3';
-        
+
         // Test
         $actual = GetBlobMetadataResult::create($expectedProperties);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expectedProperties['Etag'], $actual->getETag());

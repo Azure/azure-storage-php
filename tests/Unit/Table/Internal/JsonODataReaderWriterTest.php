@@ -52,13 +52,13 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
 
         // Test
         $actual = $serializer->getTable($tablename);
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
-        
+
         return $actual;
     }
-    
+
     public function testGetEntity()
     {
         // Setup
@@ -66,13 +66,13 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
         $entity = TestResources::getTestEntity('123', '456');
         $entity->addProperty('Cost', EdmType::DOUBLE, 12.45);
         $expected = TestResources::ENTITY_JSON_STRING;
-        
+
         // Test
         $actual = $serializer->getEntity($entity);
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
-        
+
         return $actual;
     }
 
@@ -82,14 +82,14 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
         $serializer = new JsonODataReaderWriter();
         $expected = 'mytable';
         $tableJSON = TestResources::getTableEntryMinimalMetaResult();
-        
+
         // Test
         $actual = $serializer->parseTable($tableJSON);
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testParseTables()
     {
         // Setup
@@ -98,12 +98,12 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
         $tableJSON0 = TestResources::getTableEntriesMinimalMetaResult();
         $tableJSON1 = TestResources::getTableEntriesNoMetaResult();
         $tableJSON2 = TestResources::getTableEntriesFullMetaResult();
-        
+
         // Test
         $actual0 = $serializer->parseTableEntries($tableJSON0);
         $actual1 = $serializer->parseTableEntries($tableJSON1);
         $actual2 = $serializer->parseTableEntries($tableJSON2);
-        
+
         // Assert
         $this->assertEquals($expected, $actual0);
         $this->assertEquals($expected, $actual1);
@@ -116,10 +116,10 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
         $serializer = new JsonODataReaderWriter();
         $expected = TestResources::getExpectedTestEntity('123', '456');
         $json = TestResources::getEntityMinimalMetaResult('123', '456');
-        
+
         // Test
         $actual = $serializer->parseEntity($json);
-        
+
         // Assert
         $expectedProperties = $expected->getProperties();
         $actualProperties = $actual->getProperties();
@@ -134,7 +134,7 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
             );
         }
     }
-    
+
     public function testParseEntities()
     {
         // Setup
@@ -153,10 +153,10 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
         $e3->setTimestamp(Utilities::convertToDateTime('2012-05-17T00:59:32.7533014Z'));
         $expected = array($e1, $e2, $e3);
         $entitiesJSON = TestResources::getEntitiesMinimalMetaResult();
-        
+
         // Test
         $actual = $serializer->parseEntities($entitiesJSON);
-        
+
         // Assert
         for ($i = 0; $i < 3; ++$i) {
             $expectedProperties = $expected[$i]->getProperties();

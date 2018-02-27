@@ -42,22 +42,22 @@ class BatchOperationParameterNameTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $name = BatchOperationParameterName::BP_ETAG;
-        
+
         // Test
         $actual = BatchOperationParameterName::isValid($name);
-        
+
         // Assert
         $this->assertTrue($actual);
     }
-    
+
     public function testIsValidWithInvalid()
     {
         // Setup
         $name = 'zeta el senen';
-        
+
         // Test
         $actual = BatchOperationParameterName::isValid($name);
-        
+
         // Assert
         $this->assertFalse($actual);
     }

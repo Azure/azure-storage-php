@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -93,19 +93,19 @@ class ListSharesResult
                 )
             );
         }
-        
+
         $result->setMaxResults(Utilities::tryGetValue(
             $parsedResponse,
             Resources::QP_MAX_RESULTS
         ));
         $shares = array();
         $shareArrays = array();
-        
+
         if (!empty($parsedResponse[Resources::QP_SHARES])) {
             $array = $parsedResponse[Resources::QP_SHARES][Resources::QP_SHARE];
             $shareArrays    = Utilities::getArray($array);
         }
-        
+
         foreach ($shareArrays as $shareArray) {
             $shares[] = Share::create($shareArray);
         }
@@ -128,7 +128,7 @@ class ListSharesResult
             $this->shares[] = clone $share;
         }
     }
-    
+
     /**
      * Gets shares.
      *

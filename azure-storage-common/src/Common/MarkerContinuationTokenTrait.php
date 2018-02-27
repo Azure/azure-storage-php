@@ -22,7 +22,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common;
 
 use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;

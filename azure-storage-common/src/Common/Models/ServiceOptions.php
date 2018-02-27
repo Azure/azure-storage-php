@@ -78,7 +78,7 @@ class ServiceOptions
      * @internal
      */
     protected $decodeContent;
-    
+
     /**
      * The timeout of the operation
      * @internal
@@ -289,7 +289,7 @@ class ServiceOptions
 
         return $result;
     }
-    
+
     /**
      * Validate if the given middleware is of callable or IMiddleware.
      *

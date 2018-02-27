@@ -46,77 +46,77 @@ class ListPageBlobRangesOptionsTest extends \PHPUnit\Framework\TestCase
         $expected = '0x8CAFB82EFF70C46';
         $options = new ListPageBlobRangesOptions();
         $options->setLeaseId($expected);
-        
+
         // Test
         $options->setLeaseId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getLeaseId());
     }
-    
+
     public function testGetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new ListPageBlobRangesOptions();
         $result->setAccessConditions($expected);
-        
+
         // Test
         $actual = $result->getAccessConditions();
-        
+
         // Assert
         $this->assertEquals($expected, $actual[0]);
     }
-    
+
     public function testSetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new ListPageBlobRangesOptions();
-        
+
         // Test
         $result->setAccessConditions($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $result->getAccessConditions()[0]);
     }
-    
+
     public function testSetSnapshot()
     {
         // Setup
         $blob = new ListPageBlobRangesOptions();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $blob->setSnapshot($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $blob->getSnapshot());
     }
-    
+
     public function testGetSnapshot()
     {
         // Setup
         $blob = new ListPageBlobRangesOptions();
         $expected = TestResources::QUEUE_URI;
         $blob->setSnapshot($expected);
-        
+
         // Test
         $actual = $blob->getSnapshot();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetRange()
     {
         // Setup
         $expected = new Range(0, 123);
         $options = new ListPageBlobRangesOptions();
-        
+
         // Test
         $options->setRange($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getRange());
     }

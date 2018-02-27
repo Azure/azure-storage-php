@@ -43,105 +43,105 @@ class ListBlobBlocksOptionsTest extends \PHPUnit\Framework\TestCase
         // Setup
         $blob = new ListBlobBlocksOptions();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $blob->setSnapshot($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $blob->getSnapshot());
     }
-    
+
     public function testGetSnapshot()
     {
         // Setup
         $blob = new ListBlobBlocksOptions();
         $expected = TestResources::QUEUE_URI;
         $blob->setSnapshot($expected);
-        
+
         // Test
         $actual = $blob->getSnapshot();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetLeaseId()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new ListBlobBlocksOptions();
         $options->setLeaseId($expected);
-        
+
         // Test
         $options->setLeaseId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getLeaseId());
     }
-    
+
     public function testSetIncludeUncommittedBlobs()
     {
         // Setup
         $options = new ListBlobBlocksOptions();
         $expected = true;
-        
+
         // Test
         $options->setIncludeUncommittedBlobs($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getIncludeUncommittedBlobs());
     }
-    
+
     public function testGetIncludeUncommittedBlobs()
     {
         // Setup
         $options = new ListBlobBlocksOptions();
         $expected = true;
         $options->setIncludeUncommittedBlobs($expected);
-        
+
         // Test
         $actual = $options->getIncludeUncommittedBlobs();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetIncludeCommittedBlobs()
     {
         // Setup
         $options = new ListBlobBlocksOptions();
         $expected = true;
-        
+
         // Test
         $options->setIncludeCommittedBlobs($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getIncludeCommittedBlobs());
     }
-    
+
     public function testGetIncludeCommittedBlobs()
     {
         // Setup
         $options = new ListBlobBlocksOptions();
         $expected = true;
         $options->setIncludeCommittedBlobs($expected);
-        
+
         // Test
         $actual = $options->getIncludeCommittedBlobs();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetBlockListType()
     {
         // Setup
         $options = new ListBlobBlocksOptions();
         $expected = 'all';
-        
+
         // Test
         $actual = $options->getBlockListType();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

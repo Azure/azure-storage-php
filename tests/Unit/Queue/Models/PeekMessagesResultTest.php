@@ -47,24 +47,24 @@ class PeekMessagesResultTest extends \PHPUnit\Framework\TestCase
 
         // Test
         $result = PeekMessagesResult::create($sample);
-        
+
         // Assert
         $actual = $result->getQueueMessages();
         $this->assertCount(1, $actual);
         $this->assertEquals(
-            $sample['QueueMessage']['MessageId'], 
+            $sample['QueueMessage']['MessageId'],
             $actual[0]->getMessageId()
         );
         $this->assertEquals(
             Utilities::rfc1123ToDateTime(
                 $sample['QueueMessage']['InsertionTime']
-            ), 
+            ),
             $actual[0]->getInsertionDate()
         );
         $this->assertEquals(
             Utilities::rfc1123ToDateTime(
                 $sample['QueueMessage']['ExpirationTime']
-            ), 
+            ),
             $actual[0]->getExpirationDate()
         );
         $this->assertEquals(
@@ -76,15 +76,15 @@ class PeekMessagesResultTest extends \PHPUnit\Framework\TestCase
             $actual[0]->getMessageText()
         );
     }
-    
+
     public function testCreateMultiple()
     {
         // Setup
         $sample = TestResources::listMessagesMultipleMessagesSample();
-        
+
         // Test
         $result = PeekMessagesResult::create($sample);
-        
+
         // Assert
         $actual = $result->getQueueMessages();
         $this->assertCount(2, $actual);
@@ -93,7 +93,7 @@ class PeekMessagesResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][0]['ExpirationTime']), $actual[0]->getExpirationDate());
         $this->assertEquals(intval($sample['QueueMessage'][0]['DequeueCount']), $actual[0]->getDequeueCount());
         $this->assertEquals($sample['QueueMessage'][0]['MessageText'], $actual[0]->getMessageText());
-        
+
         $this->assertEquals($sample['QueueMessage'][1]['MessageId'], $actual[1]->getMessageId());
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][1]['InsertionTime']), $actual[1]->getInsertionDate());
         $this->assertEquals(Utilities::rfc1123ToDateTime($sample['QueueMessage'][1]['ExpirationTime']), $actual[1]->getExpirationDate());

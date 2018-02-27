@@ -46,15 +46,15 @@ class RetentionPolicyTest extends \PHPUnit\Framework\TestCase
         $sample = TestResources::getServicePropertiesSample();
         $expectedEnabled = Utilities::toBoolean($sample['Logging']['RetentionPolicy']['Enabled']);
         $expectedDays = intval($sample['Logging']['RetentionPolicy']['Days']);
-        
+
         // Test
         $actual = RetentionPolicy::create($sample['Logging']['RetentionPolicy']);
-        
+
         // Assert
         $this->assertEquals($expectedEnabled, $actual->getEnabled());
         $this->assertEquals($expectedDays, $actual->getDays());
     }
-    
+
     public function testGetEnabled()
     {
         // Setup
@@ -62,29 +62,29 @@ class RetentionPolicyTest extends \PHPUnit\Framework\TestCase
         $retentionPolicy = new RetentionPolicy();
         $expected = Utilities::toBoolean($sample['Logging']['RetentionPolicy']['Enabled']);
         $retentionPolicy->setEnabled($expected);
-        
+
         // Test
         $actual = $retentionPolicy->getEnabled();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetEnabled()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $retentionPolicy = new RetentionPolicy();
         $expected = Utilities::toBoolean($sample['Logging']['RetentionPolicy']['Enabled']);
-        
+
         // Test
         $retentionPolicy->setEnabled($expected);
-        
+
         // Assert
         $actual = $retentionPolicy->getEnabled();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetDays()
     {
         // Setup
@@ -92,29 +92,29 @@ class RetentionPolicyTest extends \PHPUnit\Framework\TestCase
         $retentionPolicy = new RetentionPolicy();
         $expected = intval($sample['Logging']['RetentionPolicy']['Days']);
         $retentionPolicy->setDays($expected);
-        
+
         // Test
         $actual = $retentionPolicy->getDays();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetDays()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $retentionPolicy = new RetentionPolicy();
         $expected = intval($sample['Logging']['RetentionPolicy']['Days']);
-        
+
         // Test
         $retentionPolicy->setDays($expected);
-        
+
         // Assert
         $actual = $retentionPolicy->getDays();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testToArray()
     {
         // Setup
@@ -124,14 +124,14 @@ class RetentionPolicyTest extends \PHPUnit\Framework\TestCase
             'Enabled' => $sample['Logging']['RetentionPolicy']['Enabled'],
             'Days'    => $sample['Logging']['RetentionPolicy']['Days']
         );
-        
+
         // Test
         $actual = $retentionPolicy->toArray();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testToArrayWithoutDays()
     {
         // Setup
@@ -139,10 +139,10 @@ class RetentionPolicyTest extends \PHPUnit\Framework\TestCase
         $retentionPolicy = RetentionPolicy::create($sample['Logging']['RetentionPolicy']);
         $expected = array('Enabled' => $sample['Logging']['RetentionPolicy']['Enabled']);
         $retentionPolicy->setDays(null);
-        
+
         // Test
         $actual = $retentionPolicy->toArray();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

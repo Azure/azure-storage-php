@@ -45,10 +45,10 @@ class PutBlobResultTest extends \PHPUnit\Framework\TestCase
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
-        
+
         // Test
         $actual = PutBlobResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());

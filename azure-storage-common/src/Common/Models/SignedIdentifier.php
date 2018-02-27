@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
@@ -40,7 +40,7 @@ class SignedIdentifier
 {
     private $id;
     private $accessPolicy;
-    
+
     /**
      * Constructor
      *
@@ -74,7 +74,7 @@ class SignedIdentifier
     {
         $this->id = $id;
     }
-    
+
     /**
      * Gets accessPolicy.
      *
@@ -96,7 +96,7 @@ class SignedIdentifier
     {
         $this->accessPolicy = $accessPolicy;
     }
-    
+
     /**
      * Converts this current object to XML representation.
      *
@@ -112,7 +112,7 @@ class SignedIdentifier
         $accessPolicyArray[Resources::XTAG_ACCESS_POLICY] =
             $this->getAccessPolicy()->toArray();
         $array[Resources::XTAG_SIGNED_IDENTIFIER] = $accessPolicyArray;
-        
+
         return $array;
     }
 }

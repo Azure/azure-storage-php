@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Queue\Models;
 
 /**
@@ -38,7 +38,7 @@ class ListMessagesOptions extends QueueServiceOptions
 {
     private $_numberOfMessages;
     private $_visibilityTimeoutInSeconds;
-    
+
     /**
      * Gets visibilityTimeoutInSeconds field.
      *
@@ -48,7 +48,7 @@ class ListMessagesOptions extends QueueServiceOptions
     {
         return $this->_visibilityTimeoutInSeconds;
     }
-    
+
     /**
      * Sets visibilityTimeoutInSeconds field.
      *
@@ -60,7 +60,7 @@ class ListMessagesOptions extends QueueServiceOptions
     {
         $this->_visibilityTimeoutInSeconds = $visibilityTimeoutInSeconds;
     }
-    
+
     /**
      * Gets numberOfMessages field.
      *
@@ -70,7 +70,7 @@ class ListMessagesOptions extends QueueServiceOptions
     {
         return $this->_numberOfMessages;
     }
-    
+
     /**
      * Sets numberOfMessages field.
      *

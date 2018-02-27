@@ -106,7 +106,7 @@ createTableAccountSASSample();
 function listTables($tableService)
 {
     $tablePrefix = "table".generateRandomString();
-      
+
     echo "Create multiple tables with prefix {$tablePrefix}".PHP_EOL;
     for ($i = 1; $i <= 5; $i++) {
         $tableService->createTable($tablePrefix.(string)$i);
@@ -134,14 +134,14 @@ function tableServicePropertiesSample($tableClient)
     $retentionPolicy = new RetentionPolicy();
     $retentionPolicy->setEnabled(true);
     $retentionPolicy->setDays(10);
-    
+
     $logging = new Logging();
     $logging->setRetentionPolicy($retentionPolicy);
     $logging->setVersion('1.0');
     $logging->setDelete(true);
     $logging->setRead(true);
     $logging->setWrite(true);
-    
+
     $metrics = new Metrics();
     $metrics->setRetentionPolicy($retentionPolicy);
     $metrics->setVersion('1.0');
@@ -151,7 +151,7 @@ function tableServicePropertiesSample($tableClient)
     $serviceProperties->setLogging($logging);
     $serviceProperties->setHourMetrics($metrics);
     $tableClient->setServiceProperties($serviceProperties);
-    
+
     // revert back to original properties
     echo "Revert back to original service properties" . PHP_EOL;
     $tableClient->setServiceProperties($originalProperties->getValue());
@@ -176,7 +176,7 @@ function insertEntitySample($tableClient, $mytable)
     $entity->setPartitionKey("pk");
     $entity->setRowKey("1");
     $entity->addProperty("PropertyName", EdmType::STRING, "Sample1");
-    
+
     try {
         $tableClient->insertEntity($mytable, $entity);
     } catch (ServiceException $e) {
@@ -198,9 +198,9 @@ function getSingleEntitySample($tableClient, $mytable)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
     }
-    
+
     $entity = $result->getEntity();
-    
+
     echo $entity->getPartitionKey().":".$entity->getRowKey().":".$entity->getPropertyValue("PropertyName")."\n";
 }
 
@@ -216,7 +216,7 @@ function batchInsertEntitiesSample($tableClient, $mytable)
 
         $batchOp->addInsertEntity($mytable, $entity);
     }
-    
+
     try {
         $tableClient->batch($batchOp);
     } catch (ServiceException $e) {
@@ -229,7 +229,7 @@ function batchInsertEntitiesSample($tableClient, $mytable)
 function queryAllEntitiesInPartition($tableClient, $mytable)
 {
     $filter = "PartitionKey eq 'pk'";
-    
+
     try {
         $result = $tableClient->queryEntities($mytable, $filter);
     } catch (ServiceException $e) {
@@ -240,9 +240,9 @@ function queryAllEntitiesInPartition($tableClient, $mytable)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
     }
-    
+
     $entities = $result->getEntities();
-    
+
     foreach ($entities as $entity) {
         echo $entity->getPartitionKey().":".$entity->getRowKey()."<br />"."\n";
     }
@@ -263,9 +263,9 @@ function querySubsetEntitiesSample($tableClient, $mytable)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;
     }
-    
+
     $entities = $result->getEntities();
-    
+
     foreach ($entities as $entity) {
         echo $entity->getPartitionKey().":".$entity->getRowKey().PHP_EOL;
         $description = $entity->getProperty("Description")->getValue();
@@ -278,13 +278,13 @@ function updateEntitySample($tableClient, $mytable)
     $result = $tableClient->getEntity($mytable, "pk", 1);
 
     $entity = $result->getEntity();
-    
+
     $entity->setPropertyValue("DueDate", new \DateTime()); //Modified DueDate.
-    
+
     $entity->setPropertyValue("Location", null); //Removed Location.
-    
+
     $entity->addProperty("Status", EdmType::STRING, "In progress"); //Added Status.
-    
+
     try {
         $tableClient->updateEntity($mytable, $entity);
     } catch (ServiceException $e) {

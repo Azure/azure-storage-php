@@ -47,7 +47,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $listArray =
             TestResources::getInterestingListDirectoriesAndFilesResultArray(5, 0);
         $samples = $listArray[Resources::QP_ENTRIES][FileResources::QP_DIRECTORY];
-        
+
         // Test
         $actuals = array();
         $actuals[] = Directory::create($samples[0]);
@@ -55,7 +55,7 @@ class DirectoryTest extends \PHPUnit\Framework\TestCase
         $actuals[] = Directory::create($samples[2]);
         $actuals[] = Directory::create($samples[3]);
         $actuals[] = Directory::create($samples[4]);
-        
+
         // Assert
         for ($i = 0; $i < count($samples); ++$i) {
             $sample = $samples[$i];

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -67,7 +67,7 @@ class ContainerProperties
     {
         $this->lastModified = $lastModified;
     }
-    
+
     /**
      * Gets container etag.
      *
@@ -89,7 +89,7 @@ class ContainerProperties
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets blob leaseStatus.
      *
@@ -111,7 +111,7 @@ class ContainerProperties
     {
         $this->leaseStatus = $leaseStatus;
     }
-    
+
     /**
      * Gets blob lease state.
      *
@@ -133,7 +133,7 @@ class ContainerProperties
     {
         $this->leaseState = $leaseState;
     }
-    
+
     /**
      * Gets blob lease duration.
      *

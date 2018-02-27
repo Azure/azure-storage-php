@@ -50,7 +50,7 @@ class ListPageBlobRangesResultTest extends \PHPUnit\Framework\TestCase
         if (!empty($bodyArray['PageRange'])) {
             $rawPageRanges = Utilities::getArray($bodyArray['PageRange']);
         }
-        
+
         $pageRanges = array();
         foreach ($rawPageRanges as $value) {
             $pageRanges[] = new Range(

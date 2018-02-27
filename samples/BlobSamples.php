@@ -64,7 +64,7 @@ containerMetadata($blobClient);
 containerAcl($blobClient);
 
 // To upload a file as a blob, use the BlobRestProxy->createBlockBlob method. This operation will
-// create the blob if it doesn't exist, or overwrite it if it does. The code example below assumes 
+// create the blob if it doesn't exist, or overwrite it if it does. The code example below assumes
 // that the container has already been created and uses fopen to open the file as a stream.
 uploadBlobSample($blobClient);
 
@@ -125,14 +125,14 @@ function setBlobServiceProperties($blobClient)
     $retentionPolicy = new RetentionPolicy();
     $retentionPolicy->setEnabled(true);
     $retentionPolicy->setDays(10);
-    
+
     $logging = new Logging();
     $logging->setRetentionPolicy($retentionPolicy);
     $logging->setVersion('1.0');
     $logging->setDelete(true);
     $logging->setRead(true);
     $logging->setWrite(true);
-    
+
     $metrics = new Metrics();
     $metrics->setRetentionPolicy($retentionPolicy);
     $metrics->setVersion('1.0');
@@ -142,7 +142,7 @@ function setBlobServiceProperties($blobClient)
     $serviceProperties->setLogging($logging);
     $serviceProperties->setHourMetrics($metrics);
     $blobClient->setServiceProperties($serviceProperties);
-    
+
     // revert back to original properties
     echo "Revert back to original service properties" . PHP_EOL;
     $blobClient->setServiceProperties($originalProperties->getValue());
@@ -179,7 +179,7 @@ function createContainerSample($blobClient)
 function containerProperties($blobClient)
 {
     $containerName = "mycontainer" . generateRandomString();
-    
+
     echo "Create container " . $containerName . PHP_EOL;
     // Create container options object.
     $createContainerOptions = new CreateContainerOptions();
@@ -206,7 +206,7 @@ function containerProperties($blobClient)
 function containerMetadata($blobClient)
 {
     $containerName = "mycontainer" . generateRandomString();
-    
+
     echo "Create container " . $containerName . PHP_EOL;
     // Create container options object.
     $createContainerOptions = new CreateContainerOptions();
@@ -275,7 +275,7 @@ function blobProperties($blobClient)
     // Get blob properties
     echo "Get blob properties" . PHP_EOL;
     $result = $blobClient->getBlobProperties($container, $blob);
-   
+
     $props = $result->getProperties();
     echo 'Cache control: ' . $props->getCacheControl() . PHP_EOL;
     echo 'Content encoding: ' . $props->getContentEncoding() . PHP_EOL;
@@ -313,7 +313,7 @@ function blobMetadata($blobClient)
     // Get blob metadata
     echo "Get blob metadata" . PHP_EOL;
     $result = $blobClient->getBlobMetadata($container, $blob);
-    
+
     $retMetadata = $result->getMetadata();
     foreach ($retMetadata as $key => $value) {
         echo $key . ': ' . $value . PHP_EOL;
@@ -328,7 +328,7 @@ function uploadBlobSample($blobClient)
 {
     $content = fopen("myfile.txt", "r");
     $blob_name = "myblob";
-    
+
     try {
         //Upload blob
         $blobClient->createBlockBlob("mycontainer", $blob_name, $content);
@@ -348,7 +348,7 @@ function downloadBlobSample($blobClient)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;
     }
-    
+
     file_put_contents("output.txt", $getBlobResult->getContentStream());
 }
 
@@ -415,7 +415,7 @@ function listBlobsSample($blobClient)
         // List blobs.
         $blob_list = $blobClient->listBlobs("mycontainer");
         $blobs = $blob_list->getBlobs();
-    
+
         foreach ($blobs as $blob) {
             echo $blob->getName().": ".$blob->getUrl().PHP_EOL;
         }
@@ -498,13 +498,13 @@ function pageBlobOperations($blobClient)
 {
     $blobName = "HelloPageBlobWorld";
     $containerName = 'mycontainer';
-      
+
     # Create a page blob
     echo "Create Page Blob with name {$blobName}".PHP_EOL;
     $blobClient->createPageBlob($containerName, $blobName, 2560);
     # Create pages in a page blob
     echo "Create pages in a page blob".PHP_EOL;
-    
+
     $blobClient->createBlobPages(
         $containerName,
         $blobName,
@@ -526,7 +526,7 @@ function pageBlobOperations($blobClient)
         $blobName,
         $listPageBlobRangesOptions
     );
-    
+
     foreach ($listPageBlobRangesResult->getRanges() as $range) {
         echo "Range:".$range->getStart()."-".$range->getEnd().PHP_EOL;
         $getBlobOptions = new GetBlobOptions();
@@ -546,7 +546,7 @@ function snapshotOperations($blobClient)
 
     # Upload file as a block blob
     echo "Uploading BlockBlob".PHP_EOL;
-      
+
     $content = 'test content hello hello world';
     $blobClient->createBlockBlob($containerName, $blobName, $content);
     # Create a snapshot
@@ -614,7 +614,7 @@ function leaseOperations($blobClient)
     $options = new CreateBlockBlobOptions();
     $options->setContentType($contentType);
     $blobClient->createBlockBlob($container, $blob, 'Hello world', $options);
-    
+
     // Acquire lease
     $result = $blobClient->acquireLease($container, $blob);
     try {

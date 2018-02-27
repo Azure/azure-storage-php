@@ -44,22 +44,22 @@ class ListContainersResultTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $sample = TestResources::listContainersEmpty();
-        
+
         // Test
         $actual = ListContainersResult::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $actual->getContainers());
     }
-    
+
     public function testCreateWithOneEntry()
     {
         // Setup
         $sample = TestResources::listContainersOneEntry();
-        
+
         // Test
         $actual = ListContainersResult::create($sample);
-        
+
         // Assert
         $containers = $actual->getContainers();
         $this->assertCount(1, $containers);
@@ -83,15 +83,15 @@ class ListContainersResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($sample['MaxResults'], $actual->getMaxResults());
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
     }
-    
+
     public function testCreateWithMultipleEntries()
     {
         // Setup
         $sample = TestResources::listContainersMultipleEntries();
-        
+
         // Test
         $actual = ListContainersResult::create($sample);
-        
+
         // Assert
         $containers = $actual->getContainers();
         $this->assertCount(2, $containers);
@@ -130,7 +130,7 @@ class ListContainersResultTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
         $this->assertEquals($sample['Prefix'], $actual->getPrefix());
         $this->assertEquals($sample['account'], $actual->getAccountName());
-        
+
         return $actual;
     }
 }

@@ -51,9 +51,9 @@ addMessageToQueueSample($queueClient, $myqueue);
 peekNextMessageSample($queueClient, $myqueue);
 
 // Your code removes a message from a queue in two steps. First, you call QueueRestProxy->listMessages,
-// which makes the message invisible to any other code reading from the queue. By default, this message 
+// which makes the message invisible to any other code reading from the queue. By default, this message
 // will stay invisible for 30 seconds (if the message is not deleted in this time period, it will become
-// visible on the queue again). To finish removing the message from the queue, you must call 
+// visible on the queue again). To finish removing the message from the queue, you must call
 // QueueRestProxy->deleteMessage.
 dequeueNextMessageSample($queueClient, $myqueue);
 
@@ -88,7 +88,7 @@ function createQueueSample($queueClient, $queueName)
     $createQueueOptions = new CreateQueueOptions();
     $createQueueOptions->addMetaData("key1", "value1");
     $createQueueOptions->addMetaData("key2", "value2");
-    
+
     try {
         // Create queue.
         $queueClient->createQueue($queueName, $createQueueOptions);
@@ -118,7 +118,7 @@ function peekNextMessageSample($queueClient, $queueName)
     // OPTIONAL: Set peek message options.
     $message_options = new PeekMessagesOptions();
     $message_options->setNumberOfMessages(1); // Default value is 1.
-    
+
     try {
         $peekMessagesResult = $queueClient->peekMessages($queueName, $message_options);
     } catch (ServiceException $e) {
@@ -126,9 +126,9 @@ function peekNextMessageSample($queueClient, $queueName)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message.PHP_EOL;
     }
-    
+
     $messages = $peekMessagesResult->getQueueMessages();
-    
+
     // View messages.
     $messageCount = count($messages);
     if ($messageCount <= 0) {
@@ -151,13 +151,13 @@ function dequeueNextMessageSample($queueClient, $queueName)
     $listMessagesResult = $queueClient->listMessages($queueName);
     $messages = $listMessagesResult->getQueueMessages();
     $message = $messages[0];
-    
+
     // Process message
-    
+
     // Get message Id and pop receipt.
     $messageId = $message->getMessageId();
     $popReceipt = $message->getPopReceipt();
-    
+
     try {
         // Delete message.
         $queueClient->deleteMessage($queueName, $messageId, $popReceipt);
@@ -174,15 +174,15 @@ function updateMessageSample($queueClient, $queueName)
     $listMessagesResult = $queueClient->listMessages($queueName);
     $messages = $listMessagesResult->getQueueMessages();
     $message = $messages[0];
-    
+
     // Define new message properties.
     $new_message_text = "New message text.";
     $new_visibility_timeout = 5; // Measured in seconds.
-    
+
     // Get message ID and pop receipt.
     $messageId = $message->getMessageId();
     $popReceipt = $message->getPopReceipt();
-    
+
     try {
         // Update message.
         $queueClient->updateMessage(
@@ -208,7 +208,7 @@ function dequeuingMessagesOptionsSample($queueClient, $queueName)
     $message_options = new ListMessagesOptions();
     $message_options->setVisibilityTimeoutInSeconds(300);
     $message_options->setNumberOfMessages(16);
-    
+
     // Get messages.
     try {
         $listMessagesResult = $queueClient->listMessages(
@@ -216,16 +216,16 @@ function dequeuingMessagesOptionsSample($queueClient, $queueName)
             $message_options
         );
         $messages = $listMessagesResult->getQueueMessages();
-    
+
         foreach ($messages as $message) {
             /* ---------------------
                 Process message.
             --------------------- */
-    
+
             // Get message Id and pop receipt.
             $messageId = $message->getMessageId();
             $popReceipt = $message->getPopReceipt();
-    
+
             // Delete message.
             $queueClient->deleteMessage($queueName, $messageId, $popReceipt);
         }
@@ -253,7 +253,7 @@ function getQueueLengthSample($queueClient, $queueName)
         $error_message = $e->getMessage();
         echo $code.": ".$error_message."<br />";
     }
-    
+
     echo $approx_msg_count;
 }
 

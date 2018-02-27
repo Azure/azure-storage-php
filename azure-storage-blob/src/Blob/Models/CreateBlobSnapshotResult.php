@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
@@ -42,7 +42,7 @@ class CreateBlobSnapshotResult
     private $_snapshot;
     private $_etag;
     private $_lastModified;
-    
+
     /**
      * Creates CreateBlobSnapshotResult object from the response of the
      * create Blob snapshot request.
@@ -57,20 +57,20 @@ class CreateBlobSnapshotResult
     {
         $result                 = new CreateBlobSnapshotResult();
         $headerWithLowerCaseKey = array_change_key_case($headers);
-        
+
         $result->setETag($headerWithLowerCaseKey[Resources::ETAG]);
-        
+
         $result->setLastModified(
             Utilities::rfc1123ToDateTime(
                 $headerWithLowerCaseKey[Resources::LAST_MODIFIED]
             )
         );
-        
+
         $result->setSnapshot($headerWithLowerCaseKey[Resources::X_MS_SNAPSHOT]);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets snapshot.
      *
@@ -80,7 +80,7 @@ class CreateBlobSnapshotResult
     {
         return $this->_snapshot;
     }
-    
+
     /**
      * Sets snapshot.
      *
@@ -92,7 +92,7 @@ class CreateBlobSnapshotResult
     {
         $this->_snapshot = $snapshot;
     }
-    
+
     /**
      * Gets ETag.
      *
@@ -114,7 +114,7 @@ class CreateBlobSnapshotResult
     {
         $this->_etag = $etag;
     }
-    
+
     /**
      * Gets blob lastModified.
      *

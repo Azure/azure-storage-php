@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\MetadataTrait;
@@ -41,7 +41,7 @@ class GetBlobPropertiesResult
     use MetadataTrait;
 
     private $_properties;
-    
+
     /**
      * Gets blob properties.
      *
@@ -78,7 +78,7 @@ class GetBlobPropertiesResult
         $result = static::createMetadataResult($headers);
 
         $result->setProperties(BlobProperties::createFromHttpHeaders($headers));
-        
+
         return $result;
     }
 }

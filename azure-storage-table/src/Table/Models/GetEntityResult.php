@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
 class GetEntityResult
 {
     private $_entity;
-    
+
     /**
      * Gets table entity.
      *
@@ -49,7 +49,7 @@ class GetEntityResult
     {
         return $this->_entity;
     }
-    
+
     /**
      * Sets table entity.
      *

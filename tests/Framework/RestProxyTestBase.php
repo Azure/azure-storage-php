@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
 use MicrosoftAzure\Storage\Common\Logger;
@@ -47,7 +47,7 @@ class RestProxyTestBase extends \PHPUnit\Framework\TestCase
     {
         return sprintf('onesdkphp%04x', mt_rand(0, 65535));
     }
-    
+
     public static function assertHandler($file, $line, $code)
     {
         echo "Assertion Failed:\n
@@ -55,28 +55,28 @@ class RestProxyTestBase extends \PHPUnit\Framework\TestCase
             Line '$line'\n
             Code '$code'\n";
     }
-    
+
     public function __construct()
     {
         $this->xmlSerializer = new XmlSerializer();
         Logger::setLogFile('C:\log.txt');
-        
+
         // Enable PHP asserts
         assert_options(ASSERT_ACTIVE, 1);
         assert_options(ASSERT_WARNING, 0);
         assert_options(ASSERT_QUIET_EVAL, 1);
         assert_options(ASSERT_CALLBACK, 'MicrosoftAzure\Storage\Tests\Framework\RestProxyTestBase::assertHandler');
     }
-    
+
     public function setProxy($serviceRestProxy)
     {
         $this->restProxy = $serviceRestProxy;
     }
-    
+
     protected function onNotSuccessfulTest(\Exception $e)
     {
         parent::onNotSuccessfulTest($e);
-        
+
         $this->tearDown();
         throw $e;
     }

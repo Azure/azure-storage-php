@@ -1390,7 +1390,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new ListQueuesOptions();
         $options->setMiddlewares([$historyMiddleware]);
@@ -1438,7 +1438,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new ListQueuesOptions();
         $options->setMiddlewares([$historyMiddleware]);

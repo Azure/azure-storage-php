@@ -45,37 +45,37 @@ class QueueACLTest extends \PHPUnit\Framework\TestCase
     {
         // Setup
         $sample = array();
-        
+
         // Test
         $acl = QueueACL::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateOneEntry()
     {
         // Setup
         $sample = TestResources::getQueueACLOneEntrySample();
-        
+
         // Test
         $acl = QueueACL::create($sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertCount(1, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateMultipleEntries()
     {
         // Setup
         $sample = TestResources::getQueueACLMultipleEntriesSample();
-        
+
         // Test
         $acl = QueueACL::create($sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertCount(2, $acl->getSignedIdentifiers());
-        
+
         return $acl;
     }
 }

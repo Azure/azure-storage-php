@@ -55,7 +55,7 @@ class UpdateMessageResultTest extends \PHPUnit\Framework\TestCase
 
         // Test
         $result = UpdateMessageResult::create($sample);
-        
+
         // Assert
         $this->assertEquals(
             $sample[QueueResources::X_MS_POPRECEIPT],

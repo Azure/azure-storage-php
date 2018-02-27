@@ -55,7 +55,7 @@ class ACLBaseTest extends \PHPUnit\Framework\TestCase
 
         // Test
         $child->setSignedIdentifiers($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $child->getSignedIdentifiers());
     }
@@ -68,7 +68,7 @@ class ACLBaseTest extends \PHPUnit\Framework\TestCase
         $expected->fromXmlArray($sample['SignedIdentifiers']);
 
         $xmlSerializer = new XmlSerializer();
-        
+
         // Test
         $xml = $expected->toXml($xmlSerializer);
 
@@ -91,7 +91,7 @@ class ACLBaseTest extends \PHPUnit\Framework\TestCase
 
         // Test
         $actual = $acl->toArray();
-        
+
         // Assert
         $this->assertEquals(
             $expected['SignedIdentifier'][0],
@@ -119,7 +119,7 @@ class ACLBaseTest extends \PHPUnit\Framework\TestCase
                 $sample[$i]['AccessPolicy']['Permission']
             );
         }
-        
+
         $this->assertCount(5, $acl->getSignedIdentifiers());
 
         //remove a non-exist signed identifier.

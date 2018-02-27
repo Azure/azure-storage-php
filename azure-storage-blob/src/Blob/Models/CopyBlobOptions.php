@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -47,7 +47,7 @@ class CopyBlobOptions extends CopyBlobFromURLOptions
     {
         return $this->sourceSnapshot;
     }
-       
+
     /**
      * Sets source snapshot.
      *

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -40,7 +40,7 @@ class CreateShareOptions extends FileServiceOptions
 {
     private $quota;
     private $metadata;
-    
+
     /**
      * Gets share quota.
      *
@@ -50,7 +50,7 @@ class CreateShareOptions extends FileServiceOptions
     {
         return $this->quota;
     }
-    
+
     /**
      * Specifies the maximum size of the share, in gigabytes.
      * Must be greater than 0, and less than or equal to 5TB (5120)
@@ -64,7 +64,7 @@ class CreateShareOptions extends FileServiceOptions
         Validate::isInteger($quota, 'quota');
         $this->quota = $quota;
     }
-    
+
     /**
      * Gets user defined metadata.
      *
@@ -74,7 +74,7 @@ class CreateShareOptions extends FileServiceOptions
     {
         return $this->metadata;
     }
-    
+
     /**
      * Sets user defined metadata. This metadata should be added without the header
      * prefix (x-ms-meta-*).
@@ -87,7 +87,7 @@ class CreateShareOptions extends FileServiceOptions
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Adds new metadata element. This element should be added without the header
      * prefix (x-ms-meta-*).

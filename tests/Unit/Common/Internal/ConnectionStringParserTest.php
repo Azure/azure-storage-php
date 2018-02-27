@@ -47,23 +47,23 @@ class ConnectionStringParserTest extends \PHPUnit\Framework\TestCase
         for ($i = 1; $i < $count; $i += 2) {
             $expected[$arguments[$i]] = $arguments[$i + 1];
         }
-        
+
         // Test
         $actual = ConnectionStringParser::parseConnectionString('connectionString', $connectionString);
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     private function _parseTestFail($value)
     {
         // Setup
         $this->setExpectedException('\RuntimeException');
-        
+
         // Test
         ConnectionStringParser::parseConnectionString('connectionString', $value);
     }
-    
+
     public function testKeyNames()
     {
         $this->_parseTest("a=b", "a", "b");
@@ -82,14 +82,14 @@ class ConnectionStringParserTest extends \PHPUnit\Framework\TestCase
         $this->_parseTest("a'=b", "a'", "b");
         $this->_parseTest("a\"=b", "a\"", "b");
     }
-    
+
     public function testAssignments()
     {
         $this->_parseTest("a=b", "a", "b");
         $this->_parseTest("a = b", "a", "b");
         $this->_parseTest("a==b", "a", "=b");
     }
-    
+
     public function testValues()
     {
         $this->_parseTest("a=b", "a", "b");
@@ -115,7 +115,7 @@ class ConnectionStringParserTest extends \PHPUnit\Framework\TestCase
         $this->_parseTest("a=b'", "a", "b'");
         $this->_parseTest("a=b\"", "a", "b\"");
     }
-    
+
     public function testSeparators()
     {
         $this->_parseTest("a=b;", "a", "b");
@@ -124,7 +124,7 @@ class ConnectionStringParserTest extends \PHPUnit\Framework\TestCase
         $this->_parseTest("a=b;c=d;", "a", "b", "c", "d");
         $this->_parseTest("a=b ; c=d", "a", "b", "c", "d");
     }
-    
+
     public function testInvalidInputFail()
     {
         $this->_parseTestFail(";");           // Separator without an assignment;

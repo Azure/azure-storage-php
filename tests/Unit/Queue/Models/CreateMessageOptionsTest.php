@@ -44,51 +44,51 @@ class CreateMessageOptionsTest extends \PHPUnit\Framework\TestCase
         $createMessageOptions = new CreateMessageOptions();
         $expected = 1000;
         $createMessageOptions->setVisibilityTimeoutInSeconds($expected);
-        
+
         // Test
         $actual = $createMessageOptions->getVisibilityTimeoutInSeconds();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetVisibilityTimeoutInSeconds()
     {
         // Setup
         $createMessageOptions = new CreateMessageOptions();
         $expected = 1000;
-        
+
         // Test
         $createMessageOptions->setVisibilityTimeoutInSeconds($expected);
-        
+
         // Assert
         $actual = $createMessageOptions->getVisibilityTimeoutInSeconds();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetTimeToLiveInSeconds()
     {
         // Setup
         $createMessageOptions = new CreateMessageOptions();
         $expected = 20;
         $createMessageOptions->setTimeToLiveInSeconds($expected);
-        
+
         // Test
         $actual = $createMessageOptions->getTimeToLiveInSeconds();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetTimeToLiveInSeconds()
     {
         // Setup
         $createMessageOptions = new CreateMessageOptions();
         $expected = 20;
-        
+
         // Test
         $createMessageOptions->setTimeToLiveInSeconds($expected);
-        
+
         // Assert
         $actual = $createMessageOptions->getTimeToLiveInSeconds();
         $this->assertEquals($expected, $actual);

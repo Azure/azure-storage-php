@@ -78,7 +78,7 @@ class Utilities
 
         return $url;
     }
-    
+
     /**
      * Parse storage account name from an endpoint url.
      *
@@ -89,7 +89,7 @@ class Utilities
     public static function tryParseAccountNameFromUrl($url)
     {
         $host = parse_url($url, PHP_URL_HOST);
-        
+
         // first token of the url host is account name
         return explode('.', $host)[0];
     }
@@ -124,7 +124,7 @@ class Utilities
         }
         return null;
     }
-    
+
     /**
      * tries to get nested array with index name $key from $array.
      *
@@ -355,7 +355,7 @@ class Utilities
      * Converts string into boolean value.
      *
      * @param string $obj       boolean value in string format.
-     * @param bool   $skipNull  If $skipNull is set, will return NULL directly 
+     * @param bool   $skipNull  If $skipNull is set, will return NULL directly
      *                          when $obj is NULL.
      *
      * @return bool
@@ -651,7 +651,7 @@ class Utilities
     {
         return openssl_random_pseudo_bytes($length);
     }
-    
+
     /**
      * Convert base 256 number to decimal number.
      *
@@ -662,14 +662,14 @@ class Utilities
     public static function base256ToDec($number)
     {
         Validate::canCastAsString($number, 'number');
-        
+
         $result = 0;
         $base   = 1;
         for ($i = strlen($number) - 1; $i >= 0; $i--) {
             $result = bcadd($result, bcmul(ord($number[$i]), $base));
             $base   = bcmul($base, 256);
         }
-    
+
         return $result;
     }
 

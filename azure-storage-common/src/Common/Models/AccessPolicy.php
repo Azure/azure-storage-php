@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -97,7 +97,7 @@ abstract class AccessPolicy
         }
         $this->start = $start;
     }
-    
+
     /**
      * Gets expiry.
      *
@@ -120,7 +120,7 @@ abstract class AccessPolicy
         Validate::isDate($expiry);
         $this->expiry = $expiry;
     }
-    
+
     /**
      * Gets permission.
      *
@@ -193,7 +193,7 @@ abstract class AccessPolicy
 
         return $result;
     }
-    
+
     /**
      * Converts this current object to XML representation.
      *
@@ -204,7 +204,7 @@ abstract class AccessPolicy
     public function toArray()
     {
         $array = array();
-        
+
         if ($this->getStart() != null) {
             $array[Resources::XTAG_SIGNED_START] =
                 Utilities::convertToEdmDateTime($this->getStart());
@@ -212,7 +212,7 @@ abstract class AccessPolicy
         $array[Resources::XTAG_SIGNED_EXPIRY]     =
             Utilities::convertToEdmDateTime($this->getExpiry());
         $array[Resources::XTAG_SIGNED_PERMISSION] = $this->getPermission();
-        
+
         return $array;
     }
 }

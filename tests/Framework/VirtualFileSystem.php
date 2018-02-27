@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\Framework;
 
 use org\bovigo\vfs\vfsStream;
@@ -47,13 +47,13 @@ class VirtualFileSystem
 
         vfsStreamWrapper::register();
         vfsStreamWrapper::setRoot(new vfsStreamDirectory($root));
-        
+
         $file = vfsStream::newFile($fileName);
         $file->setContent($contents);
-        
+
         vfsStreamWrapper::getRoot()->addChild($file);
         $virtualPath = vfsStream::url($root . '/' . $fileName);
-        
+
         return $virtualPath;
     }
 }

@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
 {
     private $_createdQueues;
-    
+
     public function setUp()
     {
         parent::setUp();
@@ -48,18 +48,18 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
         parent::setProxy($queueRestProxy);
         $this->_createdQueues = array();
     }
-    
+
     public function createQueue($queueName, $options = null)
     {
         $this->restProxy->createQueue($queueName, $options);
         $this->_createdQueues[] = $queueName;
     }
-    
+
     public function deleteQueue($queueName, $options = null)
     {
         $this->restProxy->deleteQueue($queueName, $options);
     }
-    
+
     public function safeDeleteQueue($queueName)
     {
         try {
@@ -72,11 +72,11 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
             };
         }
     }
-    
+
     protected function tearDown()
     {
         parent::tearDown();
-        
+
         foreach ($this->_createdQueues as $value) {
             $this->safeDeleteQueue($value);
         }
