@@ -108,6 +108,10 @@ class ServiceRestProxy extends RestProxy
             $options['proxy'] = $proxy;
         }
 
+        if (!empty($options['verify'])) {
+            $verify = $options['verify'];
+        }
+
         return (new \GuzzleHttp\Client(
             array_merge(
                 $options,

@@ -133,12 +133,20 @@ To use proxies during HTTP requests, set system variable `HTTP_PROXY` and the pr
 ### Error: Unable to get local issuer certificate
 cURL can't verify the validity of Microsoft certificate when trying to issue a request call to Azure Storage Services. You must configure cURL to use a certificate when issuing https requests by the following steps:
 
-1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html).
-2. Open your php.ini file and add the following line:
+1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html). 
 
-```ini
-curl.cainfo = "<absolute path to cacert.pem>"
-```
+2. Then either:
+	* Open your php.ini file and add the following line:
+		```ini
+		curl.cainfo = "<absolute path to cacert.pem>"
+		```
+		OR
+    * Point to the cacert in the options when creating the Proxy.
+		```php
+		//example of creating the FileRestProxy
+		$options["http"] = ["verify" => <absolute path to cacert.pem>];
+		TableRestProxy::createTableService($connectionString, $options);
+		```
 
 ## Code samples
 
