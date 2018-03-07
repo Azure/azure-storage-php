@@ -136,17 +136,16 @@ cURL can't verify the validity of Microsoft certificate when trying to issue a r
 1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html). 
 
 2. Then either:
-	* Open your php.ini file and add the following line:
-		```ini
-		curl.cainfo = "<absolute path to cacert.pem>"
-		```
-		OR
+    * Open your php.ini file and add the following line:
+        ```ini
+        curl.cainfo = "<absolute path to cacert.pem>"
+        ```
+        OR
     * Point to the cacert in the options when creating the Proxy.
-		```php
-		//example of creating the FileRestProxy
-		$options["http"] = ["verify" => <absolute path to cacert.pem>];
-		BlobRestProxy::createBlobService($connectionString, $options);
-		```
+        ```php
+        $options["http"] = ["verify" => "<absolute path to cacert.pem>"];
+        BlobRestProxy::createBlobService($connectionString, $options);
+        ```
 
 ## Code samples
 
