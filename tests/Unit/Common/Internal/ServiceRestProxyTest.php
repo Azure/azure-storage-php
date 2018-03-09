@@ -24,6 +24,7 @@
 
 namespace MicrosoftAzure\Storage\Tests\Unit\Common\Internal;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -49,15 +50,17 @@ class ServiceRestProxyTest extends \PHPUnit\Framework\TestCase
     public function testConstruct()
     {
         // Setup
-        $primaryUri     = 'http://www.microsoft.com';
-        $secondaryUri   = 'http://www.bing.com';
-        $accountName    = 'myaccount';
+        $primaryUri       = 'http://www.microsoft.com';
+        $secondaryUri     = 'http://www.bing.com';
+        $accountName      = 'myaccount';
+        $options['https'] = ['verify' => __DIR__ . "/TestFiles/cacert.pem"];
 
         // Test
         $proxy = new ServiceRestProxy(
             $primaryUri,
             $secondaryUri,
-            $accountName
+            $accountName,
+            $options
         );
 
         // Assert
@@ -68,7 +71,31 @@ class ServiceRestProxyTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($primaryUri . '/', (string)($proxy->getPsrPrimaryUri()));
         $this->assertEquals($secondaryUri . '/', (string)($proxy->getPsrSecondaryUri()));
 
+
         return $proxy;
+    }
+
+    public function testSettingVerifyOptions()
+    {
+        // Setup
+        $primaryUri       = 'http://www.microsoft.com';
+        $secondaryUri     = 'http://www.bing.com';
+        $accountName      = 'myaccount';
+        $options['http'] = ['verify' => __DIR__ . "/TestFiles/cacert.pem"];
+
+        // Test
+        $proxy = new ServiceRestProxy(
+            $primaryUri,
+            $secondaryUri,
+            $accountName,
+            $options
+        );
+
+        $ref = new \ReflectionProperty(ServiceRestProxy::class, "client");
+        $ref->setAccessible(true);
+        /** @var Client $client */
+        $client = $ref->getValue($proxy);
+        self::assertSame($options['http']['verify'], $client->getConfig('verify'));
     }
 
     /**
