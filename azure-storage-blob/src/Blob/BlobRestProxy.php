@@ -384,11 +384,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
 
         if ($exPath != '') {
             //Remove the duplicated slash in the path.
-            if ($encodedBlob[0] == '/') {
-                $encodedBlob = $exPath . substr($encodedBlob, 1);
-            } else {
-                $encodedBlob = $exPath . $encodedBlob;
-            }
+            $encodedBlob = str_replace('//', '/', $exPath . $encodedBlob);
         }
 
         return (string) $uri->withPath($encodedBlob);
