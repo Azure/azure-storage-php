@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
 
 /**
@@ -58,7 +58,7 @@ interface ISerializer
      */
     public function serialize(array $array, array $properties = null);
 
-    
+
     /**
      * Unserializes given serialized string.
      *

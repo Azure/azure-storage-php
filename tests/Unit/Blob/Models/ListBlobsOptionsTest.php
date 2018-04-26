@@ -36,179 +36,179 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListBlobsOptionsTest extends \PHPUnit_Framework_TestCase
+class ListBlobsOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetPrefix()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 'myprefix';
-        
+
         // Test
         $options->setPrefix($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getPrefix());
     }
-    
+
     public function testGetPrefix()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 'myprefix';
         $options->setPrefix($expected);
-        
+
         // Test
         $actual = $options->getPrefix();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetDelimiter()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 'mydelimiter';
-        
+
         // Test
         $options->setDelimiter($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getDelimiter());
     }
-    
+
     public function testGetDelimiter()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 'mydelimiter';
         $options->setDelimiter($expected);
-        
+
         // Test
         $actual = $options->getDelimiter();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetMarker()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 'mymarker';
-        
+
         // Test
         $options->setMarker($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getNextMarker());
     }
-    
+
     public function testSetMaxResults()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 3;
-        
+
         // Test
         $options->setMaxResults($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getMaxResults());
     }
-    
+
     public function testGetMaxResults()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = 3;
         $options->setMaxResults($expected);
-        
+
         // Test
         $actual = $options->getMaxResults();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetIncludeMetadata()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = true;
-        
+
         // Test
         $options->setIncludeMetadata($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getIncludeMetadata());
     }
-    
+
     public function testGetIncludeMetadata()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = true;
         $options->setIncludeMetadata($expected);
-        
+
         // Test
         $actual = $options->getIncludeMetadata();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetIncludeSnapshots()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = true;
-        
+
         // Test
         $options->setIncludeSnapshots($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getIncludeSnapshots());
     }
-    
+
     public function testGetIncludeSnapshots()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = true;
         $options->setIncludeSnapshots($expected);
-        
+
         // Test
         $actual = $options->getIncludeSnapshots();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetIncludeUncommittedBlobs()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = true;
-        
+
         // Test
         $options->setIncludeUncommittedBlobs($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getIncludeUncommittedBlobs());
     }
-    
+
     public function testGetIncludeUncommittedBlobs()
     {
         // Setup
         $options = new ListBlobsOptions();
         $expected = true;
         $options->setIncludeUncommittedBlobs($expected);
-        
+
         // Test
         $actual = $options->getIncludeUncommittedBlobs();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

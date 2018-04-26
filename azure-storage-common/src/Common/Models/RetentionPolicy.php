@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -40,7 +40,7 @@ class RetentionPolicy
 {
     private $_enabled;
     private $_days;
-    
+
     /**
      * Creates object from $parsedResponse.
      *
@@ -57,10 +57,10 @@ class RetentionPolicy
         if ($result->getEnabled()) {
             $result->setDays(intval($parsedResponse['Days']));
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Gets enabled.
      *
@@ -70,7 +70,7 @@ class RetentionPolicy
     {
         return $this->_enabled;
     }
-    
+
     /**
      * Sets enabled.
      *
@@ -82,7 +82,7 @@ class RetentionPolicy
     {
         $this->_enabled = $enabled;
     }
-    
+
     /**
      * Gets days field.
      *
@@ -92,7 +92,7 @@ class RetentionPolicy
     {
         return $this->_days;
     }
-    
+
     /**
      * Sets days field.
      *
@@ -104,7 +104,7 @@ class RetentionPolicy
     {
         $this->_days = $days;
     }
-    
+
     /**
      * Converts this object to array with XML tags
      *
@@ -118,7 +118,7 @@ class RetentionPolicy
         if (isset($this->_days)) {
             $array['Days'] = strval($this->_days);
         }
-        
+
         return $array;
     }
 }

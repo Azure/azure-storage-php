@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -38,7 +38,7 @@ class CreateBlobBlockOptions extends BlobServiceOptions
 {
     private $_contentMD5;
     private $_numberOfConcurrency;
-    
+
     /**
      * Gets blob contentMD5.
      *

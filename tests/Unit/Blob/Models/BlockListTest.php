@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Blob\Models\Block;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlockListTest extends \PHPUnit_Framework_TestCase
+class BlockListTest extends \PHPUnit\Framework\TestCase
 {
     public function testAddEntry()
     {
@@ -46,15 +46,15 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $expectedId = '1234';
         $expectedType = BlobBlockType::COMMITTED_TYPE;
         $blockList = new BlockList();
-        
+
         // Test
         $blockList->addEntry($expectedId, $expectedType);
-        
+
         // Assert
         $entry = $blockList->getEntry($expectedId);
         $this->assertEquals($expectedType, $entry->getType());
     }
-    
+
     public function testGetEntries()
     {
         // Setup
@@ -62,62 +62,62 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $expectedType = BlobBlockType::COMMITTED_TYPE;
         $blockList = new BlockList();
         $blockList->addEntry($expectedId, $expectedType);
-        
+
         // Test
         $entries = $blockList->getEntries();
-        
+
         // Assert
         $this->assertCount(1, $entries);
     }
-    
+
     public function testAddCommittedEntry()
     {
         // Setup
         $expectedId = '1234';
         $expectedType = BlobBlockType::COMMITTED_TYPE;
         $blockList = new BlockList();
-        
+
         // Test
         $blockList->addCommittedEntry($expectedId, $expectedType);
-        
+
         // Assert
         $entry = $blockList->getEntry($expectedId);
         $this->assertEquals($expectedId, $entry->getBlockId());
         $this->assertEquals($expectedType, $entry->getType());
     }
-    
+
     public function testAddUncommittedEntry()
     {
         // Setup
         $expectedId = '1234';
         $expectedType = BlobBlockType::UNCOMMITTED_TYPE;
         $blockList = new BlockList();
-        
+
         // Test
         $blockList->addUncommittedEntry($expectedId, $expectedType);
-        
+
         // Assert
         $entry = $blockList->getEntry($expectedId);
         $this->assertEquals($expectedId, $entry->getBlockId());
         $this->assertEquals($expectedType, $entry->getType());
     }
-    
+
     public function testAddLatestEntry()
     {
         // Setup
         $expectedId = '1234';
         $expectedType = BlobBlockType::LATEST_TYPE;
         $blockList = new BlockList();
-        
+
         // Test
         $blockList->addLatestEntry($expectedId, $expectedType);
-        
+
         // Assert
         $entry = $blockList->getEntry($expectedId);
         $this->assertEquals($expectedId, $entry->getBlockId());
         $this->assertEquals($expectedType, $entry->getType());
     }
-    
+
     public function testCreate()
     {
         // Setup
@@ -130,10 +130,10 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $block3 = new Block();
         $block3->setBlockId('333');
         $block3->setType(BlobBlockType::LATEST_TYPE);
-        
+
         // Test
         $blockList = BlockList::create(array($block1, $block2, $block3));
-        
+
         // Assert
         $this->assertCount(3, $blockList->getEntries());
         $b1 = $blockList->getEntry($block1->getBlockId());
@@ -143,7 +143,7 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($block2, $b2);
         $this->assertEquals($block3, $b3);
     }
-    
+
     public function testToXml()
     {
         // Setup
@@ -165,10 +165,10 @@ class BlockListTest extends \PHPUnit_Framework_TestCase
                     ' <Latest>MTIzNQ==</Latest>' . "\n" .
                     ' <Uncommitted>MTI0MA==</Uncommitted>' . "\n" .
                     '</BlockList>' . "\n";
-        
+
         // Test
         $actual = $blockList->toXml(new XmlSerializer());
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

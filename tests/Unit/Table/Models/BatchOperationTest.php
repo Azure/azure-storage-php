@@ -38,31 +38,31 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BatchOperationTest extends \PHPUnit_Framework_TestCase
+class BatchOperationTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetType()
     {
         // Setup
         $batchOperation = new BatchOperation();
         $expected = BatchOperationType::DELETE_ENTITY_OPERATION;
-        
+
         // Test
         $batchOperation->setType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $batchOperation->getType());
     }
-    
+
     public function testAddParameter()
     {
         // Setup
         $batchOperation = new BatchOperation();
         $expected = 'param zeta';
         $name = BatchOperationParameterName::BP_ENTITY;
-        
+
         // Test
         $batchOperation->addParameter($name, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $batchOperation->getParameter($name));
     }

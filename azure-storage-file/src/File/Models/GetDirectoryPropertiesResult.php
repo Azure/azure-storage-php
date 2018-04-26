@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,7 +42,7 @@ class GetDirectoryPropertiesResult
     private $lastModified;
     private $etag;
     private $metadata;
-    
+
     /**
      * Any operation that modifies the share or its properties or metadata
      * updates the last modified time. Operations on files do not affect the
@@ -66,7 +66,7 @@ class GetDirectoryPropertiesResult
     {
         $this->lastModified = $lastModified;
     }
-    
+
     /**
      * The entity tag for the share. If the request version is 2011-08-18 or
      * newer, the ETag value will be in quotes.
@@ -89,7 +89,7 @@ class GetDirectoryPropertiesResult
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets user defined metadata.
      *
@@ -99,7 +99,7 @@ class GetDirectoryPropertiesResult
     {
         return $this->metadata;
     }
-    
+
     /**
      * Sets user defined metadata. This metadata should be added without the
      * header prefix (x-ms-meta-*).
@@ -112,7 +112,7 @@ class GetDirectoryPropertiesResult
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Create an instance using the response headers from the API call.
      *
@@ -137,7 +137,7 @@ class GetDirectoryPropertiesResult
         ));
         $result->setMetadata($metadata);
         $result->setLastModified($date);
-        
+
         return $result;
     }
 }

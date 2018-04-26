@@ -42,7 +42,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
+class ServicePropertiesTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -50,29 +50,29 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $sample = TestResources::getServicePropertiesSample();
         $logging = Logging::create($sample['Logging']);
         $metrics = Metrics::create($sample['HourMetrics']);
-        
+
         // Test
         $result = ServiceProperties::create($sample);
-        
+
         // Assert
         $this->assertEquals($logging, $result->getLogging());
         $this->assertEquals($metrics, $result->getHourMetrics());
     }
-    
+
     public function testSetLogging()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $logging = Logging::create($sample['Logging']);
         $result = new ServiceProperties();
-        
+
         // Test
         $result->setLogging($logging);
-        
+
         // Assert
         $this->assertEquals($logging, $result->getLogging());
     }
-    
+
     public function testGetLogging()
     {
         // Setup
@@ -80,28 +80,28 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $logging = Logging::create($sample['Logging']);
         $result = new ServiceProperties();
         $result->setLogging($logging);
-        
+
         // Test
         $actual = $result->getLogging($logging);
-        
+
         // Assert
         $this->assertEquals($logging, $actual);
     }
-    
+
     public function testSetHourMetrics()
     {
         // Setup
         $sample = TestResources::getServicePropertiesSample();
         $metrics = Metrics::create($sample['HourMetrics']);
         $result = new ServiceProperties();
-        
+
         // Test
         $result->setHourMetrics($metrics);
-        
+
         // Assert
         $this->assertEquals($metrics, $result->getHourMetrics());
     }
-    
+
     public function testGetHourMetrics()
     {
         // Setup
@@ -109,14 +109,14 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
         $metrics = Metrics::create($sample['HourMetrics']);
         $result = new ServiceProperties();
         $result->setHourMetrics($metrics);
-        
+
         // Test
         $actual = $result->getHourMetrics($metrics);
-        
+
         // Assert
         $this->assertEquals($metrics, $actual);
     }
-    
+
     public function testToArray()
     {
         // Setup
@@ -129,30 +129,30 @@ class ServicePropertiesTest extends \PHPUnit_Framework_TestCase
                 $corsesArray[] = ['CorsRule' => $cors->toArray()];
             }
         }
-        
+
         $expected = array(
             'Logging' => $properties->getLogging()->toArray(),
             'HourMetrics' => $properties->getHourMetrics()->toArray(),
             'MinuteMetrics' => $properties->getMinuteMetrics()->toArray(),
             'Cors' => !empty($corsesArray) ? $corsesArray : null
         );
-        
+
         // Test
         $actual = $properties->toArray();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testToXml()
     {
         // Setup
         $properties = ServiceProperties::create(TestResources::getServicePropertiesSample());
         $xmlSerializer = new XmlSerializer();
-        
+
         // Test
         $actual = $properties->toXml($xmlSerializer);
-        
+
         // Assert
         $actualParsed = Utilities::unserialize($actual);
         $actualProperties = GetServicePropertiesResult::create($actualParsed);

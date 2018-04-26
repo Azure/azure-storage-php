@@ -36,24 +36,24 @@ use MicrosoftAzure\Storage\Table\Models\Filters\UnaryFilter;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class UnaryFilterTest extends \PHPUnit_Framework_TestCase
+class UnaryFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetOperator()
     {
         // Setup
         $expected = 'x';
         $filter = new UnaryFilter($expected, null);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getOperator());
     }
-    
+
     public function testGetOperand()
     {
         // Setup
         $expected = null;
         $filter = new UnaryFilter(null, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getOperand());
     }

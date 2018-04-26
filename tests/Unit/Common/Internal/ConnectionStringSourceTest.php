@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\ConnectionStringSource;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ConnectionStringSourceTest extends \PHPUnit_Framework_TestCase
+class ConnectionStringSourceTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {
@@ -44,32 +44,32 @@ class ConnectionStringSourceTest extends \PHPUnit_Framework_TestCase
         $property->setAccessible(true);
         $property->setValue(null);
     }
-    
+
     public function testEnvironmentSource()
     {
         // Setup
         $key = 'key';
         $value = 'value';
         putenv("$key=$value");
-        
+
         // Test
         $actual = ConnectionStringSource::environmentSource($key);
-        
+
         // Assert
         $this->assertEquals($value, $actual);
-        
+
         // Clean
         putenv($key);
     }
-    
+
     public function testGetDefaultSources()
     {
         // Setup
         $expectedKeys = array(ConnectionStringSource::ENVIRONMENT_SOURCE);
-        
+
         // Test
         $actual = ConnectionStringSource::getDefaultSources();
-        
+
         // Assert
         $keys = array_keys($actual);
         $this->assertEquals(count($expectedKeys), count($keys));

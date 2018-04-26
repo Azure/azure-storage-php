@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 use MicrosoftAzure\Storage\Table\Models\EdmType;
@@ -40,7 +40,7 @@ class ConstantFilter extends Filter
 {
     private $_value;
     private $_edmType;
-    
+
     /**
      * Constructor.
      *
@@ -62,7 +62,7 @@ class ConstantFilter extends Filter
     {
         return $this->_value;
     }
-    
+
     /**
      * Gets the type of the constant.
      *

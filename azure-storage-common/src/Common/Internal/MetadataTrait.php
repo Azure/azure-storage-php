@@ -22,7 +22,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal;
 
 /**
@@ -41,7 +41,7 @@ trait MetadataTrait
     private $lastModified;
     private $etag;
     private $metadata;
-    
+
     /**
      * Any operation that modifies the share or its properties or metadata
      * updates the last modified time. Operations on files do not affect the
@@ -65,7 +65,7 @@ trait MetadataTrait
     {
         $this->lastModified = $lastModified;
     }
-    
+
     /**
      * The entity tag for the share. If the request version is 2011-08-18 or
      * newer, the ETag value will be in quotes.
@@ -88,7 +88,7 @@ trait MetadataTrait
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets user defined metadata.
      *
@@ -98,7 +98,7 @@ trait MetadataTrait
     {
         return $this->metadata;
     }
-    
+
     /**
      * Sets user defined metadata. This metadata should be added without the
      * header prefix (x-ms-meta-*).
@@ -111,7 +111,7 @@ trait MetadataTrait
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Create an instance using the response headers from the API call.
      *
@@ -136,7 +136,7 @@ trait MetadataTrait
         ));
         $result->setMetadata($metadata);
         $result->setLastModified($date);
-        
+
         return $result;
     }
 }

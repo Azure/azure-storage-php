@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Queue\Models\PeekMessagesOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PeekMessagesOptionsTest extends \PHPUnit_Framework_TestCase
+class PeekMessagesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetNumberOfMessages()
     {
@@ -44,23 +44,23 @@ class PeekMessagesOptionsTest extends \PHPUnit_Framework_TestCase
         $peekMessagesOptions = new PeekMessagesOptions();
         $expected = 10;
         $peekMessagesOptions->setNumberOfMessages($expected);
-        
+
         // Test
         $actual = $peekMessagesOptions->getNumberOfMessages();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetNumberOfMessages()
     {
         // Setup
         $peekMessagesOptions = new PeekMessagesOptions();
         $expected = 10;
-        
+
         // Test
         $peekMessagesOptions->setNumberOfMessages($expected);
-        
+
         // Assert
         $actual = $peekMessagesOptions->getNumberOfMessages();
         $this->assertEquals($expected, $actual);

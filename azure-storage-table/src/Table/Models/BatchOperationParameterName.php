@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 /**
@@ -41,7 +41,7 @@ class BatchOperationParameterName
     const BP_PARTITION_KEY = 'PartitionKey';
     const BP_ROW_KEY       = 'RowKey';
     const BP_ETAG          = 'etag';
-    
+
     /**
      * Validates if $paramName is already defined.
      *

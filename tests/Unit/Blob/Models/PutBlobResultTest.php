@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\PutBlobResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PutBlobResultTest extends \PHPUnit_Framework_TestCase
+class PutBlobResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -45,10 +45,10 @@ class PutBlobResultTest extends \PHPUnit_Framework_TestCase
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
-        
+
         // Test
         $actual = PutBlobResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());

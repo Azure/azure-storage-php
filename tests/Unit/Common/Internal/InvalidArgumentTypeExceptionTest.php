@@ -36,12 +36,12 @@ use MicrosoftAzure\Storage\Common\Exceptions\InvalidArgumentTypeException;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class InvalidArgumentTypeExceptionTest extends \PHPUnit_Framework_TestCase
+class InvalidArgumentTypeExceptionTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
         $e = new InvalidArgumentTypeException('string');
-        
+
         $this->assertTrue(isset($e));
     }
 }

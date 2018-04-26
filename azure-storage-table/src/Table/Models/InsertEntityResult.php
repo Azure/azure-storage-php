@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -41,7 +41,7 @@ use MicrosoftAzure\Storage\Table\Internal\IODataReaderWriter;
 class InsertEntityResult
 {
     private $entity;
-    
+
     /**
      * Create InsertEntityResult object from HTTP response parts.
      *
@@ -59,10 +59,10 @@ class InsertEntityResult
         $entity = $odataSerializer->parseEntity($body);
         $entity->setETag(Utilities::tryGetValue($headers, Resources::ETAG));
         $result->setEntity($entity);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets table entity.
      *
@@ -72,7 +72,7 @@ class InsertEntityResult
     {
         return $this->entity;
     }
-    
+
     /**
      * Sets table entity.
      *

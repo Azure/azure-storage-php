@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PublicAccessTypeTest extends \PHPUnit_Framework_TestCase
+class PublicAccessTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testPublicAccessType()
     {

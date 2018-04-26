@@ -39,49 +39,49 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ContainerACLTest extends \PHPUnit_Framework_TestCase
+class ContainerACLTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateEmpty()
     {
         // Setup
         $sample = array();
         $expectedPublicAccess = 'container';
-        
+
         // Test
         $acl = ContainerACL::create($expectedPublicAccess, $sample);
-        
+
         // Assert
         $this->assertEquals($expectedPublicAccess, $acl->getPublicAccess());
         $this->assertCount(0, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateOneEntry()
     {
         // Setup
         $sample = TestResources::getContainerAclOneEntrySample();
         $expectedPublicAccess = 'container';
-        
+
         // Test
         $acl = ContainerACL::create($expectedPublicAccess, $sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertEquals($expectedPublicAccess, $acl->getPublicAccess());
         $this->assertCount(1, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateMultipleEntries()
     {
         // Setup
         $sample = TestResources::getContainerAclMultipleEntriesSample();
         $expectedPublicAccess = 'container';
-        
+
         // Test
         $acl = ContainerACL::create($expectedPublicAccess, $sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertEquals($expectedPublicAccess, $acl->getPublicAccess());
         $this->assertCount(2, $acl->getSignedIdentifiers());
-        
+
         return $acl;
     }
 
@@ -91,10 +91,10 @@ class ContainerACLTest extends \PHPUnit_Framework_TestCase
         $expected = 'container';
         $acl = new ContainerACL();
         $acl->setPublicAccess($expected);
-        
+
         // Test
         $acl->setPublicAccess($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $acl->getPublicAccess());
     }

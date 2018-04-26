@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 /**
@@ -49,7 +49,7 @@ class Filter
         $filter = new BinaryFilter($left, 'and', $right);
         return $filter;
     }
-   
+
     /**
      * Applies not operation on $operand
      *

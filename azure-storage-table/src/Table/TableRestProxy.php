@@ -170,7 +170,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             $authScheme,
             Resources::STORAGE_API_LATEST_VERSION,
             Resources::TABLE_SDK_VERSION,
-            $headers            
+            $headers
         );
         $tableWrapper->pushMiddleware($commonRequestMiddleware);
 
@@ -208,7 +208,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                     );
                     $context = $this->getOperationContext($table, $entity, $type);
                     break;
-    
+
                 case BatchOperationType::DELETE_ENTITY_OPERATION:
                     $table        = $operation->getParameter(
                         BatchOperationParameterName::BP_TABLE
@@ -231,7 +231,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                         $options
                     );
                     break;
-    
+
                 default:
                     throw new \InvalidArgumentException();
             }
@@ -258,7 +258,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         switch ($type) {
             case BatchOperationType::INSERT_ENTITY_OPERATION:
                 return $this->constructInsertEntityContext($table, $entity, null);
-    
+
             case BatchOperationType::UPDATE_ENTITY_OPERATION:
                 return $this->constructPutOrMergeEntityContext(
                     $table,
@@ -267,7 +267,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                     true,
                     null
                 );
-    
+
             case BatchOperationType::MERGE_ENTITY_OPERATION:
                 return $this->constructPutOrMergeEntityContext(
                     $table,
@@ -276,7 +276,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                     true,
                     null
                 );
-    
+
             case BatchOperationType::INSERT_REPLACE_ENTITY_OPERATION:
                 return $this->constructPutOrMergeEntityContext(
                     $table,
@@ -285,7 +285,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                     false,
                     null
                 );
-    
+
             case BatchOperationType::INSERT_MERGE_ENTITY_OPERATION:
                 return $this->constructPutOrMergeEntityContext(
                     $table,
@@ -294,7 +294,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                     false,
                     null
                 );
-    
+
             default:
                 throw new \InvalidArgumentException();
         }
@@ -343,10 +343,10 @@ class TableRestProxy extends ServiceRestProxy implements ITable
                         strlen($body)
                     );
                     break;
-    
+
                 case BatchOperationType::DELETE_ENTITY_OPERATION:
                     break;
-    
+
                 default:
                     throw new \InvalidArgumentException();
             }
@@ -533,7 +533,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             Resources::PREFER,
             $options->getDoesReturnContent() ? Resources::RETURN_CONTENT : null
         );
-        
+
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
         $context->setBody($body);
         $context->setHeaders($headers);
@@ -1691,18 +1691,18 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         Models\TableServiceOptions $options = null
     ) {
         Validate::canCastAsString($table, 'table');
-        
+
         $method      = Resources::HTTP_GET;
         $headers     = array();
         $postParams  = array();
         $queryParams = array();
         $statusCode  = Resources::STATUS_OK;
         $path        = $table;
-        
+
         if (is_null($options)) {
             $options = new TableServiceOptions();
         }
-        
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_COMP,
@@ -1716,7 +1716,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         );
 
         $dataSerializer = $this->dataSerializer;
-        
+
         $promise = $this->sendAsync(
             $method,
             $headers,
@@ -1733,7 +1733,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
             return TableACL::create($parsed);
         }, null);
     }
-    
+
     /**
      * Sets the ACL.
      *
@@ -1771,18 +1771,18 @@ class TableRestProxy extends ServiceRestProxy implements ITable
     ) {
         Validate::canCastAsString($table, 'table');
         Validate::notNullOrEmpty($acl, 'acl');
-        
+
         $method      = Resources::HTTP_PUT;
         $headers     = array();
         $postParams  = array();
         $queryParams = array();
         $body        = $acl->toXml($this->dataSerializer);
         $path        = $table;
-        
+
         if (is_null($options)) {
             $options = new TableServiceOptions();
         }
-        
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_COMP,
@@ -1796,7 +1796,7 @@ class TableRestProxy extends ServiceRestProxy implements ITable
         );
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
-        
+
         return $this->sendAsync(
             $method,
             $headers,

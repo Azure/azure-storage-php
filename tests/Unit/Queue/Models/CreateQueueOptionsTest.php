@@ -36,35 +36,35 @@ use MicrosoftAzure\Storage\Queue\Models\CreateQueueOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateQueueOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateQueueOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetMetadata()
     {
         // Setup
         $queue = new CreateQueueOptions();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
-        
+
         // Test
         $queue->setMetadata($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $queue->getMetadata());
     }
-    
+
     public function testGetMetadata()
     {
         // Setup
         $queue = new CreateQueueOptions();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
         $queue->setMetadata($expected);
-        
+
         // Test
         $actual = $queue->getMetadata();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testAddMetadata()
     {
         // Setup
@@ -72,10 +72,10 @@ class CreateQueueOptionsTest extends \PHPUnit_Framework_TestCase
         $key = 'key1';
         $value = 'value1';
         $expected = array($key => $value);
-        
+
         // Test
         $queue->addMetadata($key, $value);
-        
+
         // Assert
         $this->assertEquals($expected, $queue->getMetadata());
     }

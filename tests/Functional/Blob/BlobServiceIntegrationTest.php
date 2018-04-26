@@ -110,13 +110,13 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         }
         parent::tearDownAfterClass();
     }
-    
+
     protected function tearDown()
     {
         // tearDown of parent will delete the container created in setUp
         // Do nothing here
     }
-    
+
     public function testGetServicePropertiesWorks()
     {
         // Act
@@ -1016,7 +1016,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
 
         // Assert
         $expectedMD5 = base64_encode(md5($content, true));
-        
+
         $this->assertNotNull($result, '$result');
 
         $this->assertNotNull($result->getMetadata(), '$result->getMetadata()');
@@ -1121,7 +1121,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
 
         // Assert
         $expectedMD5 = base64_encode(md5($content, true));
-        
+
         $this->assertNotNull($result, '$result');
 
         $this->assertNotNull($result->getMetadata(), '$result->getMetadata()');
@@ -1460,7 +1460,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
 
         // Assert
         $expectedMD5 = base64_encode(md5($content, true));
-        
+
         $this->assertNotNull($result, '$result');
 
         $this->assertNotNull($result->getMetadata(), '$result->getMetadata()');

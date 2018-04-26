@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,7 +42,7 @@ class Metrics
     private $_enabled;
     private $_includeAPIs;
     private $_retentionPolicy;
-    
+
     /**
      * Creates object from $parsedResponse.
      *
@@ -64,10 +64,10 @@ class Metrics
         $result->setRetentionPolicy(
             RetentionPolicy::create($parsedResponse['RetentionPolicy'])
         );
-        
+
         return $result;
     }
-    
+
     /**
      * Gets retention policy
      *
@@ -78,7 +78,7 @@ class Metrics
     {
         return $this->_retentionPolicy;
     }
-    
+
     /**
      * Sets retention policy
      *
@@ -90,7 +90,7 @@ class Metrics
     {
         $this->_retentionPolicy = $policy;
     }
-    
+
     /**
      * Gets include APIs.
      *
@@ -100,7 +100,7 @@ class Metrics
     {
         return $this->_includeAPIs;
     }
-    
+
     /**
      * Sets include APIs.
      *
@@ -112,7 +112,7 @@ class Metrics
     {
         $this->_includeAPIs = $includeAPIs;
     }
-    
+
     /**
      * Gets enabled.
      *
@@ -122,7 +122,7 @@ class Metrics
     {
         return $this->_enabled;
     }
-    
+
     /**
      * Sets enabled.
      *
@@ -134,7 +134,7 @@ class Metrics
     {
         $this->_enabled = $enabled;
     }
-    
+
     /**
      * Gets version
      *
@@ -144,7 +144,7 @@ class Metrics
     {
         return $this->_version;
     }
-    
+
     /**
      * Sets version
      *
@@ -156,7 +156,7 @@ class Metrics
     {
         $this->_version = $version;
     }
-    
+
     /**
      * Converts this object to array with XML tags
      *
@@ -175,7 +175,7 @@ class Metrics
         $array['RetentionPolicy'] = !empty($this->_retentionPolicy)
             ? $this->_retentionPolicy->toArray()
             : null;
-        
+
         return $array;
     }
 }

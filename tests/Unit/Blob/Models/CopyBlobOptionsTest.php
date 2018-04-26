@@ -38,58 +38,58 @@ use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CopyBlobOptionsTest extends \PHPUnit_Framework_TestCase
+class CopyBlobOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetMetadata()
     {
         $copyBlobOptions = new CopyBlobOptions();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
         $copyBlobOptions->setMetadata($expected);
-        
+
         $this->assertEquals(
             $expected,
             $copyBlobOptions->getMetadata()
         );
     }
-    
+
     public function testSetAccessConditions()
     {
         $copyBlobOptions = new CopyBlobOptions();
         $expected = AccessCondition::ifMatch("12345");
         $copyBlobOptions->setAccessConditions($expected);
-        
+
         $this->assertEquals(
             $expected,
             $copyBlobOptions->getAccessConditions()[0]
         );
     }
-    
+
     public function testSetSourceAccessConditions()
     {
         $copyBlobOptions = new CopyBlobOptions();
         $expected = AccessCondition::IfMatch("x");
         $copyBlobOptions->setSourceAccessConditions($expected);
-        
+
         $this->assertEquals(
             $expected,
             $copyBlobOptions->getSourceAccessConditions()[0]
         );
     }
-    
+
     public function testSetLeaseId()
     {
         $expected = '0x8CAFB82EFF70C46';
         $options = new CopyBlobOptions();
-        
+
         $options->setLeaseId($expected);
         $this->assertEquals($expected, $options->getLeaseId());
     }
-    
+
     public function testSetSourceLeaseId()
     {
         $expected = '0x8CAFB82EFF70C46';
         $options = new CopyBlobOptions();
-        
+
         $options->setSourceLeaseId($expected);
         $this->assertEquals($expected, $options->getSourceLeaseId());
     }

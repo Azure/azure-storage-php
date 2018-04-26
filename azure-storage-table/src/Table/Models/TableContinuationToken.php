@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -77,7 +77,7 @@ class TableContinuationToken extends ContinuationToken
         Validate::canCastAsString($nextPartitionKey, 'nextPartitionKey');
         $this->nextPartitionKey = $nextPartitionKey;
     }
-    
+
     /**
      * Gets entity next row key.
      *
@@ -110,7 +110,7 @@ class TableContinuationToken extends ContinuationToken
     {
         return $this->nextTableName;
     }
-    
+
     /**
      * Sets nextTableName
      *

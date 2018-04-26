@@ -36,17 +36,17 @@ use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ServiceOptionsTest extends \PHPUnit_Framework_TestCase
+class ServiceOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetGetTimeout()
     {
         // Setup
         $options = new ServiceOptions();
         $value = 10;
-        
+
         // Test
         $options->setTimeout($value);
-        
+
         // Assert
         $this->assertEquals($value, $options->getTimeout());
     }

@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 class ListMessagesResult
 {
     private $_queueMessages;
-    
+
     /**
      * Creates ListMessagesResult object from parsed XML response.
      *
@@ -53,20 +53,20 @@ class ListMessagesResult
     {
         $result        = new ListMessagesResult();
         $queueMessages = array();
-        
+
         if (!empty($parsedResponse)) {
             $rawMessages = Utilities::getArray($parsedResponse['QueueMessage']);
             foreach ($rawMessages as $value) {
                 $message = QueueMessage::createFromListMessages($value);
-                
+
                 $queueMessages[] = $message;
             }
         }
         $result->setQueueMessages($queueMessages);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets queueMessages field.
      *
@@ -76,7 +76,7 @@ class ListMessagesResult
     {
         return $this->_queueMessages;
     }
-    
+
     /**
      * Sets queueMessages field.
      *
@@ -89,7 +89,7 @@ class ListMessagesResult
     protected function setQueueMessages($queueMessages)
     {
         $this->_queueMessages = array();
-        
+
         foreach ($queueMessages as $value) {
             $this->_queueMessages[] = clone $value;
         }

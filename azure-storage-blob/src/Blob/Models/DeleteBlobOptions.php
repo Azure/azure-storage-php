@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -40,7 +40,7 @@ class DeleteBlobOptions extends BlobServiceOptions
 {
     private $_snapshot;
     private $_deleteSnaphotsOnly;
-    
+
     /**
      * Gets blob snapshot.
      *
@@ -62,7 +62,7 @@ class DeleteBlobOptions extends BlobServiceOptions
     {
         $this->_snapshot = $snapshot;
     }
-    
+
     /**
      * Gets blob deleteSnaphotsOnly.
      *

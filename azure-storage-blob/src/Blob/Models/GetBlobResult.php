@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use Psr\Http\Message\StreamInterface;
@@ -41,7 +41,7 @@ class GetBlobResult
     private $properties;
     private $metadata;
     private $contentStream;
-    
+
     /**
      * Creates GetBlobResult from getBlob call.
      *
@@ -62,10 +62,10 @@ class GetBlobResult
         $result->setContentStream($body->detach());
         $result->setProperties(BlobProperties::createFromHttpHeaders($headers));
         $result->setMetadata(is_null($metadata) ? array() : $metadata);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets blob metadata.
      *
@@ -87,7 +87,7 @@ class GetBlobResult
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Gets blob properties.
      *
@@ -109,7 +109,7 @@ class GetBlobResult
     {
         $this->properties = $properties;
     }
-    
+
     /**
      * Gets blob contentStream.
      *

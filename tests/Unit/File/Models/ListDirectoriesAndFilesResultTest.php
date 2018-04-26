@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
+class ListDirectoriesAndFilesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -56,7 +56,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
             TestResources::getInterestingListDirectoriesAndFilesResultArray(1, 1);
         $samples[] =
             TestResources::getInterestingListDirectoriesAndFilesResultArray(5, 5);
-        
+
         // Test
         $actuals = array();
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[0]);
@@ -64,15 +64,15 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[2]);
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[3]);
         $actuals[] = ListDirectoriesAndFilesResult::create($samples[4]);
-        
+
         // Assert
         for ($i = 0; $i < count($samples); ++$i) {
             $sample = $samples[$i];
             $actual = $actuals[$i];
             $entries = $sample[Resources::QP_ENTRIES];
             if (empty($entries)) {
-                $this->assertTrue(empty($actual->getDirectories()));
-                $this->assertTrue(empty($actual->getFiles()));
+                $this->assertEmpty($actual->getDirectories());
+                $this->assertEmpty($actual->getFiles());
             } else {
                 if (array_key_exists(Resources::QP_DIRECTORY, $entries)) {
                     $this->assertEquals(
@@ -84,7 +84,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
                         $this->assertStringStartsWith('testdirectory', $dir->getName());
                     }
                 } else {
-                    $this->assertTrue(empty($actual->getDirectories()));
+                    $this->assertEmpty($actual->getDirectories());
                 }
                 if (array_key_exists(Resources::QP_FILE, $entries)) {
                     $this->assertEquals(
@@ -97,7 +97,7 @@ class ListDirectoriesAndFilesResultTest extends \PHPUnit_Framework_TestCase
                         $this->assertGreaterThanOrEqual(0, $file->getLength());
                     }
                 } else {
-                    $this->assertTrue(empty($actual->getFiles()));
+                    $this->assertEmpty($actual->getFiles());
                 }
             }
             $this->assertEquals('myaccount', $actual->getAccountName());

@@ -216,7 +216,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             $this->assertFalse($this->isEmulated(), 'Should succeed when not running in emulator');
 
             \sleep(10);
-            
+
             $ret = (is_null($options) ?
                 $this->restProxy->getServiceProperties() :
                 $this->restProxy->getServiceProperties($options)
@@ -1822,7 +1822,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new QueryTablesOptions();
         $options->setMiddlewares([$historyMiddleware]);
@@ -1870,7 +1870,7 @@ class TableServiceFunctionalTest extends FunctionalTestBase
             3,
             1
         );
-        
+
         //setup options for the first try.
         $options = new QueryTablesOptions();
         $options->setMiddlewares([$historyMiddleware]);

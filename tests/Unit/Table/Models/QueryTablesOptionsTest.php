@@ -39,69 +39,69 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryTablesOptionsTest extends \PHPUnit_Framework_TestCase
+class QueryTablesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetNextTableName()
     {
         // Setup
         $options = new QueryTablesOptions();
         $expected = 'table';
-        
+
         // Test
         $options->setNextTableName($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getNextTableName());
     }
-    
+
     public function testSetPrefix()
     {
         // Setup
         $options = new QueryTablesOptions();
         $expected = 'prefix';
-        
+
         // Test
         $options->setPrefix($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getPrefix());
     }
-    
+
     public function testSetTop()
     {
         // Setup
         $options = new QueryTablesOptions();
         $expected = 123;
-        
+
         // Test
         $options->setTop($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getTop());
     }
-    
+
     public function testGetQuery()
     {
         // Setup
         $options = new QueryTablesOptions();
         $expected = new Query();
-        
+
         // Test
         $actual = $options->getQuery();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetFilter()
     {
         // Setup
         $options = new QueryTablesOptions();
         $expected = Filter::applyConstant('constValue', EdmType::STRING);
-        
+
         // Test
         $options->setFilter($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getFilter());
     }

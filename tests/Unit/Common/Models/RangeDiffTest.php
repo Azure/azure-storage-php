@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Common\Models\RangeDiff;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class RangeDiffTest extends \PHPUnit_Framework_TestCase
+class RangeDiffTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
@@ -43,10 +43,10 @@ class RangeDiffTest extends \PHPUnit_Framework_TestCase
         $expectedStart = 0;
         $expectedEnd = 512;
         $expectedIsClearedPageRange = false;
-        
+
         // Test
         $actual = new RangeDiff($expectedStart, $expectedEnd, $expectedIsClearedPageRange);
-        
+
         // Assert
         $this->assertEquals($expectedStart, $actual->getStart());
         $this->assertEquals($expectedEnd, $actual->getEnd());

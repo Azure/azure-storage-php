@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateMessageResultTest extends \PHPUnit_Framework_TestCase
+class CreateMessageResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -47,7 +47,7 @@ class CreateMessageResultTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $result = CreateMessageResult::create($sample);
-        
+
         // Assert
         $actual = $result->getQueueMessage();
         $this->assertNotNull($actual);

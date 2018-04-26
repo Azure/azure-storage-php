@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobSnapshotResultTest extends \PHPUnit_Framework_TestCase
+class CreateBlobSnapshotResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -46,10 +46,10 @@ class CreateBlobSnapshotResultTest extends \PHPUnit_Framework_TestCase
         $expected = $sample['Blobs']['Blob']['Properties'];
         $expected['x-ms-snapshot'] = $sample['Blobs']['Blob']['Snapshot'];
         $expectedDate = Utilities::rfc1123ToDateTime($expected['Last-Modified']);
-        
+
         // Test
         $actual = CreateBlobSnapshotResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expected['Etag'], $actual->getETag());

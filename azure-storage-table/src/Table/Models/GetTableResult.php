@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\Table\Models;
 class GetTableResult
 {
     private $_name;
-    
+
     /**
      * Creates GetTableResult from HTTP response body.
      *
@@ -53,10 +53,10 @@ class GetTableResult
         $result = new GetTableResult();
         $name = $odataSerializer->parseTable($body);
         $result->setName($name);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets the name.
      *
@@ -66,7 +66,7 @@ class GetTableResult
     {
         return $this->_name;
     }
-    
+
     /**
      * Sets the name.
      *

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Internal;
 
 use MicrosoftAzure\Storage\Blob\Models as BlobModels;
@@ -714,7 +714,7 @@ interface IBlob
         $content,
         BlobModels\CreateBlobBlockOptions $options = null
     );
-    
+
     /**
      * Commits a new block of data to the end of an existing append blob.
      *
@@ -965,18 +965,18 @@ interface IBlob
     );
 
     /**
-     * Returns a list of page ranges that have been updated or cleared. 
+     * Returns a list of page ranges that have been updated or cleared.
      *
-     * Returns a list of page ranges that have been updated or cleared since 
-     * the snapshot specified by `previousSnapshotTime`. Gets all of the page 
-     * ranges by default, or only the page ranges over a specific range of 
+     * Returns a list of page ranges that have been updated or cleared since
+     * the snapshot specified by `previousSnapshotTime`. Gets all of the page
+     * ranges by default, or only the page ranges over a specific range of
      * bytes if `rangeStart` and `rangeEnd` in the `options` are specified.
      *
      * @param string                               $container             name of the container
      * @param string                               $blob                  name of the blob
-     * @param string                               $previousSnapshotTime  previous snapshot time 
+     * @param string                               $previousSnapshotTime  previous snapshot time
      *                                                                    for comparison which
-     *                                                                    should be prior to the 
+     *                                                                    should be prior to the
      *                                                                    snapshot time defined
      *                                                                    in `options`
      * @param BlobModels\ListPageBlobRangesOptions $options               optional parameters
@@ -994,7 +994,7 @@ interface IBlob
 
     /**
      * Creates promise to return a list of page ranges that have been updated
-     * or cleared. 
+     * or cleared.
      *
      * Creates promise to return a list of page ranges that have been updated
      * or cleared since the snapshot specified by `previousSnapshotTime`. Gets
@@ -1393,7 +1393,7 @@ interface IBlob
         $leaseDuration = null,
         BlobModels\BlobServiceOptions $options = null
     );
-    
+
     /**
      * change an existing lease
      *

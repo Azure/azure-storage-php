@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -46,7 +46,7 @@ class ListBlobBlocksResult
     private $contentLength;
     private $committedBlocks;
     private $uncommittedBlocks;
-    
+
     /**
      * Gets block entries from parsed response
      *
@@ -58,25 +58,25 @@ class ListBlobBlocksResult
     private static function getEntries(array $parsed, $type)
     {
         $entries = array();
-        
+
         if (is_array($parsed)) {
             $rawEntries = array();
-         
+
             if (array_key_exists($type, $parsed)
                 &&     is_array($parsed[$type])
                 &&     !empty($parsed[$type])
             ) {
                 $rawEntries = Utilities::getArray($parsed[$type]['Block']);
             }
-            
+
             foreach ($rawEntries as $value) {
                 $entries[$value['Name']] = $value['Size'];
             }
         }
-        
+
         return $entries;
     }
-    
+
     /**
      * Creates ListBlobBlocksResult from given response headers and parsed body
      *
@@ -91,7 +91,7 @@ class ListBlobBlocksResult
     {
         $result = new ListBlobBlocksResult();
         $clean  = array_change_key_case($headers);
-        
+
         $result->setETag(Utilities::tryGetValue($clean, Resources::ETAG));
         $date = Utilities::tryGetValue($clean, Resources::LAST_MODIFIED);
         if (!is_null($date)) {
@@ -106,16 +106,16 @@ class ListBlobBlocksResult
         $result->setContentType(
             Utilities::tryGetValue($clean, Resources::CONTENT_TYPE)
         );
-        
+
         $result->uncommittedBlocks = self::getEntries(
             $parsed,
             'UncommittedBlocks'
         );
         $result->committedBlocks   = self::getEntries($parsed, 'CommittedBlocks');
-        
+
         return $result;
     }
-    
+
     /**
      * Gets blob lastModified.
      *
@@ -160,7 +160,7 @@ class ListBlobBlocksResult
     {
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets blob contentType.
      *
@@ -182,7 +182,7 @@ class ListBlobBlocksResult
     {
         $this->contentType = $contentType;
     }
-    
+
     /**
      * Gets blob contentLength.
      *
@@ -205,7 +205,7 @@ class ListBlobBlocksResult
         Validate::isInteger($contentLength, 'contentLength');
         $this->contentLength = $contentLength;
     }
-    
+
     /**
      * Gets uncommitted blocks
      *
@@ -215,7 +215,7 @@ class ListBlobBlocksResult
     {
         return $this->uncommittedBlocks;
     }
-    
+
     /**
      * Sets uncommitted blocks
      *
@@ -227,7 +227,7 @@ class ListBlobBlocksResult
     {
         $this->uncommittedBlocks = $uncommittedBlocks;
     }
-    
+
     /**
      * Gets committed blocks
      *
@@ -237,7 +237,7 @@ class ListBlobBlocksResult
     {
         return $this->committedBlocks;
     }
-    
+
     /**
      * Sets committed blocks
      *

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,7 +42,7 @@ class Entity
 {
     private $_etag;
     private $_properties;
-    
+
     /**
      * Validates if properties is valid or not.
      *
@@ -53,7 +53,7 @@ class Entity
     private function _validateProperties($properties)
     {
         Validate::isArray($properties, 'entity properties');
-        
+
         foreach ($properties as $key => $value) {
             Validate::canCastAsString($key, 'key');
             Validate::isTrue(
@@ -70,7 +70,7 @@ class Entity
             );
         }
     }
-    
+
     /**
      * Gets property value and if the property name is not found return null.
      *
@@ -83,7 +83,7 @@ class Entity
         $p = Utilities::tryGetValue($this->_properties, $name);
         return is_null($p) ? null : $p->getValue();
     }
-    
+
     /**
      * Sets property value.
      *
@@ -102,7 +102,7 @@ class Entity
             $p->setValue($value);
         }
     }
-    
+
     /**
      * Gets entity etag.
      *
@@ -124,7 +124,7 @@ class Entity
     {
         $this->_etag = $etag;
     }
-    
+
     /**
      * Gets entity PartitionKey.
      *
@@ -146,7 +146,7 @@ class Entity
     {
         $this->addProperty('PartitionKey', EdmType::STRING, $partitionKey);
     }
-    
+
     /**
      * Gets entity RowKey.
      *
@@ -168,7 +168,7 @@ class Entity
     {
         $this->addProperty('RowKey', EdmType::STRING, $rowKey);
     }
-    
+
     /**
      * Gets entity Timestamp.
      *
@@ -190,7 +190,7 @@ class Entity
     {
         $this->addProperty('Timestamp', EdmType::DATETIME, $timestamp);
     }
-    
+
     /**
      * Gets the entity properties array.
      *
@@ -200,7 +200,7 @@ class Entity
     {
         return $this->_properties;
     }
-    
+
     /**
      * Sets the entity properties array.
      *
@@ -213,7 +213,7 @@ class Entity
         $this->_validateProperties($properties);
         $this->_properties = $properties;
     }
-    
+
     /**
      * Gets property object from the entity properties.
      *
@@ -225,7 +225,7 @@ class Entity
     {
         return Utilities::tryGetValue($this->_properties, $name);
     }
-    
+
     /**
      * Sets entity property.
      *
@@ -239,7 +239,7 @@ class Entity
         Validate::isTrue($property instanceof Property, Resources::INVALID_PROP_MSG);
         $this->_properties[$name] = $property;
     }
-    
+
     /**
      * Creates new entity property.
      *
@@ -256,7 +256,7 @@ class Entity
         $p->setRawValue($rawValue);
         $this->setProperty($name, $p);
     }
-    
+
     /**
      * Checks if the entity object is valid or not.
      * Valid means the partition and row key exists for this entity along with the

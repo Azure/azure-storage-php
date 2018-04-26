@@ -109,7 +109,7 @@ class SharedAccessSignatureHelper
 
         // validate and sanitize signed resource type
         $signedResourceType = $this->validateAndSanitizeSignedResourceType($signedResourceType);
-        
+
         // validate and sanitize signed permissions
         $signedPermissions = $this->validateAndSanitizeSignedPermissions($signedPermissions);
 
@@ -153,7 +153,7 @@ class SharedAccessSignatureHelper
 
         // decode the account key from base64
         $decodedAccountKey = base64_decode($this->accountKey);
-        
+
         // create the signature with hmac sha256
         $signature = hash_hmac("sha256", $stringToSign, $decodedAccountKey, true);
 

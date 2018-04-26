@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -54,7 +54,7 @@ class ListPageBlobRangesDiffResult extends ListPageBlobRangesResult
     {
         $result  = new ListPageBlobRangesDiffResult();
         $headers = array_change_key_case($headers);
-        
+
         $date          = $headers[Resources::LAST_MODIFIED];
         $date          = Utilities::rfc1123ToDateTime($date);
         $blobLength    = intval($headers[Resources::X_MS_BLOB_CONTENT_LENGTH]);
@@ -73,7 +73,7 @@ class ListPageBlobRangesDiffResult extends ListPageBlobRangesResult
         if (!empty($parsed[strtolower(Resources::XTAG_PAGE_RANGE)])) {
             $rawRanges = Utilities::getArray($parsed[strtolower(Resources::XTAG_PAGE_RANGE)]);
         }
-        
+
         $pageRanges = array();
         foreach ($rawRanges as $value) {
             $pageRanges[] = new RangeDiff(

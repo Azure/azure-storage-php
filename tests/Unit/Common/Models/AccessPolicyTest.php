@@ -35,7 +35,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-abstract class AccessPolicyTest extends \PHPUnit_Framework_TestCase
+abstract class AccessPolicyTest extends \PHPUnit\Framework\TestCase
 {
     abstract protected function createAccessPolicy();
     abstract protected function getResourceType();
@@ -46,54 +46,54 @@ abstract class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
         $accessPolicy->setStart($expected);
-        
+
         // Test
         $actual = $accessPolicy->getStart();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetStart()
     {
         // Setup
         $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
-        
+
         // Test
         $accessPolicy->setStart($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $accessPolicy->getStart());
     }
-    
+
     public function testGetExpiry()
     {
         // Setup
         $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
         $accessPolicy->setExpiry($expected);
-        
+
         // Test
         $actual = $accessPolicy->getExpiry();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetExpiry()
     {
         // Setup
         $accessPolicy = static::createAccessPolicy();
         $expected = new \DateTime('2009-09-28T08:49:37');
-        
+
         // Test
         $accessPolicy->setExpiry($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $accessPolicy->getExpiry());
     }
-    
+
     public function testSetPermission()
     {
         // Setup
@@ -130,7 +130,7 @@ abstract class AccessPolicyTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue(false);
         }
     }
-    
+
     public function testToArray()
     {
         // Setup
@@ -143,10 +143,10 @@ abstract class AccessPolicyTest extends \PHPUnit_Framework_TestCase
         $accessPolicy->setPermission($permission);
         $accessPolicy->setStart($startDate);
         $accessPolicy->setExpiry($expiryDate);
-        
+
         // Test
         $actual = $accessPolicy->toArray();
-        
+
         // Assert
         $this->assertEquals($permission, $actual['Permission']);
         $this->assertEquals($start, urldecode($actual['Start']));

@@ -42,7 +42,7 @@ use GuzzleHttp\Psr7;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class UtilitiesTest extends \PHPUnit_Framework_TestCase
+class UtilitiesTest extends \PHPUnit\Framework\TestCase
 {
     public function testTryGetValue()
     {
@@ -259,22 +259,22 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
 
     public function testToBoolean()
     {
-        $this->assertTrue(is_bool(Utilities::toBoolean('true')));
+        $this->assertInternalType('bool', Utilities::toBoolean('true'));
         $this->assertEquals(true, Utilities::toBoolean('true'));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean('false')));
+        $this->assertInternalType('bool', Utilities::toBoolean('false'));
         $this->assertEquals(false, Utilities::toBoolean('false'));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean(null)));
+        $this->assertInternalType('bool', Utilities::toBoolean(null));
         $this->assertEquals(false, Utilities::toBoolean(null));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean('true', true)));
+        $this->assertInternalType('bool', Utilities::toBoolean('true', true));
         $this->assertEquals(true, Utilities::toBoolean('true', true));
 
-        $this->assertTrue(is_bool(Utilities::toBoolean('false', true)));
+        $this->assertInternalType('bool', Utilities::toBoolean('false', true));
         $this->assertEquals(false, Utilities::toBoolean('false', true));
 
-        $this->assertTrue(is_null(Utilities::toBoolean(null, true)));
+        $this->assertNull(Utilities::toBoolean(null, true));
         $this->assertEquals(null, Utilities::toBoolean(null, true));
     }
 
@@ -520,60 +520,60 @@ class UtilitiesTest extends \PHPUnit_Framework_TestCase
         // Assert
         $this->assertEquals($length, strlen($result));
     }
-    
+
     public function testBase256ToDecF()
     {
-    
+
         // Setup
         $data = pack('C*', 255, 255, 255, 255);
         $expected = 4294967295;
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testBase256ToDec0()
     {
-    
+
         // Setup
         $data = pack('C*', 0, 0, 0, 0);
         $expected = 0;
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
-    
+
+
     public function testBase256ToDec()
     {
-    
+
         // Setup
         $data = pack('C*', 34, 78, 27, 55);
         $expected = 575544119;
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testBase256ToDecBig()
     {
-    
+
         // Setup
         $data = pack('C*', 81, 35, 29, 39, 236, 104, 105, 144); //51 23 1D 27 EC 68 69 90
         $expected = '5846548798564231568';
-    
+
         // Test
         $actual = Utilities::base256ToDec($data);
-    
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

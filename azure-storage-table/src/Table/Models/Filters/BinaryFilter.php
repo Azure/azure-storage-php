@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 /**
@@ -39,7 +39,7 @@ class BinaryFilter extends Filter
     private $_operator;
     private $_left;
     private $_right;
-    
+
     /**
      * Constructor.
      *
@@ -53,7 +53,7 @@ class BinaryFilter extends Filter
         $this->_operator = $operator;
         $this->_right    = $right;
     }
-    
+
     /**
      * Gets operator
      *

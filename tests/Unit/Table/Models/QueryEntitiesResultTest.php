@@ -35,13 +35,13 @@ use MicrosoftAzure\Storage\Table\Models\QueryEntitiesResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryEntitiesResultTest extends \PHPUnit_Framework_TestCase
+class QueryEntitiesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         // Test
         $result = QueryEntitiesResult::create(array(), array());
-        
+
         // Assert
         $this->assertCount(0, $result->getEntities());
         $this->assertNull($result->getNextPartitionKey());

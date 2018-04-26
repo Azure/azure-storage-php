@@ -44,7 +44,7 @@ use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
 {
     protected $_createdContainers;
-    
+
     public function setUp()
     {
         parent::setUp();

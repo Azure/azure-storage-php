@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
+class CommitBlobBlocksOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetContentType()
     {
@@ -44,148 +44,148 @@ class CommitBlobBlocksOptionsTest extends \PHPUnit_Framework_TestCase
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setContentType($expected);
-        
+
         // Test
         $options->setContentType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentType());
     }
-    
+
     public function testSetContentEncoding()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setContentEncoding($expected);
-        
+
         // Test
         $options->setContentEncoding($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentEncoding());
     }
-    
+
     public function testSetContentLanguage()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setContentLanguage($expected);
-        
+
         // Test
         $options->setContentLanguage($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentLanguage());
     }
-    
+
     public function testSetContentMD5()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setContentMD5($expected);
-        
+
         // Test
         $options->setContentMD5($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentMD5());
     }
-    
+
     public function testSetCacheControl()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setCacheControl($expected);
-        
+
         // Test
         $options->setCacheControl($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getCacheControl());
     }
-    
+
     public function testSetContentDisposition()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setContentDisposition($expected);
-        
+
         // Test
         $options->setContentDisposition($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentDisposition());
     }
-    
+
     public function testSetLeaseId()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CommitBlobBlocksOptions();
         $options->setLeaseId($expected);
-        
+
         // Test
         $options->setLeaseId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getLeaseId());
     }
-    
+
     public function testSetMetadata()
     {
         // Setup
         $container = new CommitBlobBlocksOptions();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
-        
+
         // Test
         $container->setMetadata($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $container->getMetadata());
     }
-    
+
     public function testGetMetadata()
     {
         // Setup
         $container = new CommitBlobBlocksOptions();
         $expected = array('key1' => 'value1', 'key2' => 'value2');
         $container->setMetadata($expected);
-        
+
         // Test
         $actual = $container->getMetadata();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new CommitBlobBlocksOptions();
         $result->setAccessConditions($expected);
-        
+
         // Test
         $actual = $result->getAccessConditions();
-        
+
         // Assert
         $this->assertEquals($expected, $actual[0]);
     }
-    
+
     public function testSetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $result = new CommitBlobBlocksOptions();
-        
+
         // Test
         $result->setAccessConditions($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $result->getAccessConditions()[0]);
     }

@@ -69,14 +69,14 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $authorizedSignedService[] = "fqTb";
         $authorizedSignedService[] = "ffqq";
         $authorizedSignedService[] = "BbbB";
-        
+
         $expected = array();
         $expected[] = "bqtf";
         $expected[] = "bqtf";
         $expected[] = "bqtf";
         $expected[] = "qf";
         $expected[] = "b";
-        
+
         for ($i = 0; $i < count($authorizedSignedService); $i++) {
             // Test
             $actual = $validateAndSanitizeSignedService->invokeArgs($sasHelper, array($authorizedSignedService[$i]));
@@ -112,13 +112,13 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $authorizedSignedResourceType[] = "Ocs";
         $authorizedSignedResourceType[] = "OOsCc";
         $authorizedSignedResourceType[] = "OOOoo";
-        
+
         $expected = array();
         $expected[] = "sco";
         $expected[] = "sco";
         $expected[] = "sco";
         $expected[] = "o";
-        
+
         for ($i = 0; $i < count($authorizedSignedResourceType); $i++) {
             // Test
             $actual = $validateAndSanitizeSignedResourceType->invokeArgs(
@@ -156,11 +156,11 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $authorizedSignedProtocol = array();
         $authorizedSignedProtocol[] = "hTTpS";
         $authorizedSignedProtocol[] = "httpS,hTtp";
-        
+
         $expected = array();
         $expected[] = "https";
         $expected[] = "https,http";
-        
+
         for ($i = 0; $i < count($authorizedSignedProtocol); $i++) {
             // Test
             $actual = $validateAndSanitizeSignedProtocol->invokeArgs($sasHelper, array($authorizedSignedProtocol[$i]));
@@ -179,7 +179,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         // Setup
         $sasHelper = $this->testConstruct();
         $validateAndSanitizeSignedProtocol = self::getMethod('validateAndSanitizeSignedProtocol', $sasHelper);
-        
+
         $unauthorizedSignedProtocol = "htTp";
 
         // Test: should throw an InvalidArgumentException
@@ -200,7 +200,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
 
         // create the test cases
         $testCases = TestResources::getSASInterestingUTCases();
-        
+
         foreach ($testCases as $testCase) {
             // test
             $actualSignature = $sasHelper->generateAccountSharedAccessSignatureToken(

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -47,7 +47,7 @@ class CreateBlobOptions extends BlobServiceOptions
     private $_metadata;
     private $_sequenceNumber;
     private $_numberOfConcurrency;
-    
+
     /**
      * Gets blob contentType.
      *
@@ -69,7 +69,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_contentType = $contentType;
     }
-    
+
     /**
      * Gets contentEncoding.
      *
@@ -91,7 +91,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_contentEncoding = $contentEncoding;
     }
-    
+
     /**
      * Gets contentLanguage.
      *
@@ -113,7 +113,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_contentLanguage = $contentLanguage;
     }
-    
+
     /**
      * Gets contentMD5.
      *
@@ -135,7 +135,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_contentMD5 = $contentMD5;
     }
-    
+
     /**
      * Gets cacheControl.
      *
@@ -145,7 +145,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         return $this->_cacheControl;
     }
-    
+
     /**
      * Sets cacheControl.
      *
@@ -157,7 +157,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_cacheControl = $cacheControl;
     }
-    
+
     /**
      * Gets content disposition.
      *
@@ -167,7 +167,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         return $this->_contentDisposition;
     }
-    
+
     /**
      * Sets content disposition.
      *
@@ -179,7 +179,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_contentDisposition = $contentDisposition;
     }
-    
+
     /**
      * Gets blob metadata.
      *
@@ -201,7 +201,7 @@ class CreateBlobOptions extends BlobServiceOptions
     {
         $this->_metadata = $metadata;
     }
-    
+
     /**
      * Gets blob sequenceNumber.
      *

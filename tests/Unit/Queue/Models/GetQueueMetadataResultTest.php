@@ -36,17 +36,17 @@ use MicrosoftAzure\Storage\Queue\Models\GetQueueMetadataResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetQueueMetadataResultTest extends \PHPUnit_Framework_TestCase
+class GetQueueMetadataResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
         // Setup
         $count = 10;
         $metadata = array('key1' => 'value1', 'key2' => 'value2');
-        
+
         // Test
         $actual = new GetQueueMetadataResult($count, $metadata);
-        
+
         // Assert
         $this->assertEquals($count, $actual->getApproximateMessageCount());
         $this->assertEquals($metadata, $actual->getMetadata());

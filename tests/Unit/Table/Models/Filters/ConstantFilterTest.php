@@ -37,24 +37,24 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ConstantFilterTest extends \PHPUnit_Framework_TestCase
+class ConstantFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetValue()
     {
         // Setup
         $expected = 'x';
         $filter = new ConstantFilter(null, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getValue());
     }
-    
+
     public function testGetEdmType()
     {
         // Setup
         $expected = EdmType::BINARY;
         $filter = new ConstantFilter($expected, '1234');
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getEdmType());
     }

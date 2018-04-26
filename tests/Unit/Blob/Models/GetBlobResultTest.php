@@ -39,7 +39,7 @@ use GuzzleHttp\Psr7;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetBlobResultTest extends \PHPUnit_Framework_TestCase
+class GetBlobResultTest extends \PHPUnit\Framework\TestCase
 {
 
     public function testCreate()
@@ -50,14 +50,14 @@ class GetBlobResultTest extends \PHPUnit_Framework_TestCase
         $expectedProperties = BlobProperties::createFromHttpHeaders($expected);
         $expectedMetadata = $sample['Blobs']['Blob']['Metadata'];
         $expectedBody = 'test data';
-        
+
         // Test
         $actual = GetBlobResult::create(
             $expected,
             Psr7\stream_for($expectedBody),
             $expectedMetadata
         );
-        
+
         // Assert
         $this->assertEquals($expectedProperties, $actual->getProperties());
         $this->assertEquals($expectedMetadata, $actual->getMetadata());

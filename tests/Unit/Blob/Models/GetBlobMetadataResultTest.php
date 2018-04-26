@@ -37,7 +37,7 @@ use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
+class GetBlobMetadataResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -49,10 +49,10 @@ class GetBlobMetadataResultTest extends \PHPUnit_Framework_TestCase
         $expectedProperties['x-ms-meta-test1'] = 'test1';
         $expectedProperties['x-ms-meta-test2'] = 'test2';
         $expectedProperties['x-ms-meta-test3'] = 'test3';
-        
+
         // Test
         $actual = GetBlobMetadataResult::create($expectedProperties);
-        
+
         // Assert
         $this->assertEquals($expectedDate, $actual->getLastModified());
         $this->assertEquals($expectedProperties['Etag'], $actual->getETag());

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\Mock\Table\Internal\Authentication;
 
 use MicrosoftAzure\Storage\Table\Internal\Authentication\TableSharedKeyLiteAuthScheme;
@@ -41,7 +41,7 @@ class TableSharedKeyLiteAuthSchemeMock extends TableSharedKeyLiteAuthScheme
     {
         return $this->includedHeaders;
     }
-  
+
     public function computeSignatureMock($headers, $url, $queryParams, $httpMethod)
     {
         return parent::computeSignature($headers, $url, $queryParams, $httpMethod);

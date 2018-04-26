@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
+class UpdateMessageResultTest extends \PHPUnit\Framework\TestCase
 {
     /**
      *
@@ -55,7 +55,7 @@ class UpdateMessageResultTest extends \PHPUnit_Framework_TestCase
 
         // Test
         $result = UpdateMessageResult::create($sample);
-        
+
         // Assert
         $this->assertEquals(
             $sample[QueueResources::X_MS_POPRECEIPT],

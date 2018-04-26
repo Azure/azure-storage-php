@@ -71,7 +71,7 @@ class ContainerACL extends ACLBase
         $result = new ContainerACL();
         $result->fromXmlArray($parsed);
         $result->setPublicAccess($publicAccess);
-        
+
         return $result;
     }
 

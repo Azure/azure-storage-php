@@ -22,7 +22,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal;
 
 use MicrosoftAzure\Storage\Common\Internal\IMiddleware;
@@ -43,12 +43,12 @@ class RestProxy
      * @var array
      */
     private $middlewares;
-    
+
     /**
      * @var Serialization\ISerializer
      */
     protected $dataSerializer;
-    
+
     /**
      * Initializes new RestProxy object.
      *
@@ -61,7 +61,7 @@ class RestProxy
         //For logging the request and responses.
         // $this->middlewares[] = new HistoryMiddleware('.\\messages.log');
     }
-    
+
     /**
      * Gets middlewares that will be handling the request and response.
      *
@@ -84,7 +84,7 @@ class RestProxy
     {
         $this->middlewares[] = $middleware;
     }
-    
+
     /**
      * Adds optional query parameter.
      *
@@ -101,12 +101,12 @@ class RestProxy
         Validate::isArray($queryParameters, 'queryParameters');
         Validate::canCastAsString($key, 'key');
         Validate::canCastAsString($value, 'value');
-                
+
         if (!is_null($value) && Resources::EMPTY_STRING !== $value) {
             $queryParameters[$key] = $value;
         }
     }
-    
+
     /**
      * Adds optional header.
      *
@@ -123,7 +123,7 @@ class RestProxy
         Validate::isArray($headers, 'headers');
         Validate::canCastAsString($key, 'key');
         Validate::canCastAsString($value, 'value');
-                
+
         if (!is_null($value) && Resources::EMPTY_STRING !== $value) {
             $headers[$key] = $value;
         }

@@ -1,3 +1,13 @@
+2018.04 - version 1.1.0
+
+* Private method BlobRestProxy::getBlobUrl now preserves primary URI path when exists.
+* MD files are modified for better readability and formatting.
+* CACERT can now be set when creating RestProxies using `$options` parameter.
+* Added a sample in `BlobSamples.php` to list all blobs with certain prefix. This is a recommended implementation of using continuation token to list all the blobs.
+* Removed unnecessary trailing spaces.
+* Assertions are re-factored in test cases.
+* Now the test framework uses `PHPUnit\Framework\TestCase` instead of `PHPUnit_Framework_TestCase`.
+
 2018.01 - version 1.0.0
 
 * Created `BlobSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateBlobServiceSharedAccessSignatureToken()` into `BlobSharedAccessSignatureHelper`.

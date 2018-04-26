@@ -38,57 +38,57 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueryTest extends \PHPUnit_Framework_TestCase
+class QueryTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetSelectFields()
     {
         // Setup
         $query = new Query();
         $expected = array('customerId', 'customerName');
-        
+
         // Test
         $query->setSelectFields($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $query->getSelectFields());
     }
-    
+
     public function testSetTop()
     {
         // Setup
         $query = new Query();
         $expected = 123;
-        
+
         // Test
         $query->setTop($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $query->getTop());
     }
-    
+
     public function testSetFilter()
     {
         // Setup
         $query = new Query();
         $expected = Filter::applyConstant('constValue', EdmType::STRING);
-        
+
         // Test
         $query->setFilter($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $query->getFilter());
     }
-    
+
     public function testAddSelectField()
     {
         // Setup
         $query = new Query();
         $field = 'customerId';
         $expected = array($field);
-        
+
         // Test
         $query->addSelectField($field);
-        
+
         // Assert
         $this->assertEquals($expected, $query->getSelectFields());
     }

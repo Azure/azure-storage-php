@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 /**
@@ -37,7 +37,7 @@ namespace MicrosoftAzure\Storage\File\Models;
 class PutFileRangeOptions extends FileServiceOptions
 {
     private $contentMD5;
-    
+
     /**
      * Gets contentMD5.
      *

@@ -35,17 +35,17 @@ use MicrosoftAzure\Storage\Blob\Models\LeaseResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class LeaseResultTest extends \PHPUnit_Framework_TestCase
+class LeaseResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $headers = array('x-ms-lease-id' => $expected);
-        
+
         // Test
         $result = LeaseResult::create($headers);
-        
+
         // Assert
         $this->assertEquals($expected, $result->getLeaseId());
     }

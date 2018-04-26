@@ -36,31 +36,31 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BlobPrefixTest extends \PHPUnit_Framework_TestCase
+class BlobPrefixTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetName()
     {
         // Setup
         $blob = new BlobPrefix();
         $expected = TestResources::QUEUE1_NAME;
-        
+
         // Test
         $blob->setName($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $blob->getName());
     }
-    
+
     public function testGetName()
     {
         // Setup
         $blob = new BlobPrefix();
         $expected = TestResources::QUEUE1_NAME;
         $blob->setName($expected);
-        
+
         // Test
         $actual = $blob->getName();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }

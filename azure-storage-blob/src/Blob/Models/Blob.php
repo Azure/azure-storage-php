@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -62,7 +62,7 @@ class Blob
     {
         $this->_name = $name;
     }
-    
+
     /**
      * Gets blob snapshot.
      *
@@ -128,7 +128,7 @@ class Blob
     {
         $this->_metadata = $metadata;
     }
-    
+
     /**
      * Gets blob properties.
      *

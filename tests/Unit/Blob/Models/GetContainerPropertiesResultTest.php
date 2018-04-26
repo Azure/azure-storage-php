@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
+class GetContainerPropertiesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -47,10 +47,10 @@ class GetContainerPropertiesResultTest extends \PHPUnit_Framework_TestCase
         $expectedProperties = $sample['Blobs']['Blob']['Properties'];
         $expectedDate = Utilities::rfc1123ToDateTime($expectedProperties['Last-Modified']);
         $expectedProperties['x-ms-meta-'] = $sample['Blobs']['Blob']['Metadata'];
-        
+
         // Test
         $result = GetContainerPropertiesResult::create($expectedProperties);
-        
+
         // Assert
         $this->assertEquals(array('' => $expectedProperties['x-ms-meta-']), $result->getMetadata());
         $this->assertEquals($expectedDate, $result->getLastModified());

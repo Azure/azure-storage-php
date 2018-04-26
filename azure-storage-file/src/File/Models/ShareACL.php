@@ -63,7 +63,7 @@ class ShareACL extends ACLBase
     {
         $result = new ShareACL();
         $result->fromXmlArray($parsed);
-        
+
         return $result;
     }
 

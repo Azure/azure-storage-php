@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
+class CreateBlobPagesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetAccessConditions()
     {
@@ -44,51 +44,51 @@ class CreateBlobPagesOptionsTest extends \PHPUnit_Framework_TestCase
         $expected = AccessCondition::none();
         $options = new CreateBlobPagesOptions();
         $options->setAccessConditions($expected);
-        
+
         // Test
         $actual = $options->getAccessConditions();
-        
+
         // Assert
         $this->assertEquals($expected, $actual[0]);
     }
-    
+
     public function testSetAccessConditions()
     {
         // Setup
         $expected = AccessCondition::none();
         $options = new CreateBlobPagesOptions();
-        
+
         // Test
         $options->setAccessConditions($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getAccessConditions()[0]);
     }
-    
+
     public function testSetContentMD5()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CreateBlobPagesOptions();
         $options->setContentMD5($expected);
-        
+
         // Test
         $options->setContentMD5($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getContentMD5());
     }
-    
+
     public function testSetLeaseId()
     {
         // Setup
         $expected = '0x8CAFB82EFF70C46';
         $options = new CreateBlobPagesOptions();
         $options->setLeaseId($expected);
-        
+
         // Test
         $options->setLeaseId($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $options->getLeaseId());
     }

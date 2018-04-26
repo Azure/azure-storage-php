@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Middlewares\MiddlewareStack;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class MiddlewareStackTest extends \PHPUnit_Framework_TestCase
+class MiddlewareStackTest extends \PHPUnit\Framework\TestCase
 {
     private $count;
 

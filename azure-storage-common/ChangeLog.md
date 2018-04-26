@@ -1,3 +1,11 @@
+2018.04 - version 1.1.0
+
+* MD files are modified for better readability and formatting.
+* CACERT can now be set when creating RestProxies using `$options` parameter.
+* Removed unnecessary trailing spaces.
+* Assertions are re-factored in test cases.
+* Now the test framework uses `PHPUnit\Framework\TestCase` instead of `PHPUnit_Framework_TestCase`.
+
 2018.01 - version 1.0.0
 
 * Removed `ServiceBuilder.php`, moved static builder methods into `BlobRestProxy`, `TableRestProxy`, `QueueRestProxy` and `FileRestProxy`.

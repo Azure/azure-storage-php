@@ -40,7 +40,7 @@ use MicrosoftAzure\Storage\Common\Internal\Resources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class JsonSerializerTest extends \PHPUnit_Framework_TestCase
+class JsonSerializerTest extends \PHPUnit\Framework\TestCase
 {
     public function testObjectSerialize()
     {

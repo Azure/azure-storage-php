@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Queue\Models\ListMessagesOptions;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
+class ListMessagesOptionsTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetVisibilityTimeoutInSeconds()
     {
@@ -44,51 +44,51 @@ class ListMessagesOptionsTest extends \PHPUnit_Framework_TestCase
         $listMessagesOptions = new ListMessagesOptions();
         $expected = 1000;
         $listMessagesOptions->setVisibilityTimeoutInSeconds($expected);
-        
+
         // Test
         $actual = $listMessagesOptions->getVisibilityTimeoutInSeconds();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetVisibilityTimeoutInSeconds()
     {
         // Setup
         $listMessagesOptions = new ListMessagesOptions();
         $expected = 1000;
-        
+
         // Test
         $listMessagesOptions->setVisibilityTimeoutInSeconds($expected);
-        
+
         // Assert
         $actual = $listMessagesOptions->getVisibilityTimeoutInSeconds();
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testGetNumberOfMessages()
     {
         // Setup
         $listMessagesOptions = new ListMessagesOptions();
         $expected = 10;
         $listMessagesOptions->setNumberOfMessages($expected);
-        
+
         // Test
         $actual = $listMessagesOptions->getNumberOfMessages();
-        
+
         // Assert
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testSetNumberOfMessages()
     {
         // Setup
         $listMessagesOptions = new ListMessagesOptions();
         $expected = 10;
-        
+
         // Test
         $listMessagesOptions->setNumberOfMessages($expected);
-        
+
         // Assert
         $actual = $listMessagesOptions->getNumberOfMessages();
         $this->assertEquals($expected, $actual);

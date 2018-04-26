@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -44,7 +44,7 @@ class CopyFileResult
     private $etag;
     private $copyID;
     private $copyStatus;
-    
+
     /**
      * Creates CopyFileResult object from parsed response header.
      *
@@ -58,7 +58,7 @@ class CopyFileResult
     {
         $result  = new CopyFileResult();
         $headers = array_change_key_case($headers);
-        
+
         $date          = $headers[Resources::LAST_MODIFIED];
         $date          = Utilities::rfc1123ToDateTime($date);
 
@@ -66,10 +66,10 @@ class CopyFileResult
         $result->setCopyID($headers[Resources::X_MS_COPY_ID]);
         $result->setETag($headers[Resources::ETAG]);
         $result->setLastModified($date);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets file lastModified.
      *
@@ -115,7 +115,7 @@ class CopyFileResult
         Validate::canCastAsString($etag, 'etag');
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets file copyID.
      *
@@ -138,7 +138,7 @@ class CopyFileResult
         Validate::canCastAsString($copyID, 'copyID');
         $this->copyID = $copyID;
     }
-    
+
     /**
      * Gets copyStatus
      *
@@ -148,7 +148,7 @@ class CopyFileResult
     {
         return $this->copyStatus;
     }
-    
+
     /**
      * Sets copyStatus
      *

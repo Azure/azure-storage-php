@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -42,7 +42,7 @@ class QueryEntitiesResult
     use TableContinuationTokenTrait;
 
     private $_entities;
-    
+
     /**
      * Creates new QueryEntitiesResult instance.
      *
@@ -76,12 +76,12 @@ class QueryEntitiesResult
                 )
             );
         }
-        
+
         $result->setEntities($entities);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets entities.
      *
@@ -91,7 +91,7 @@ class QueryEntitiesResult
     {
         return $this->_entities;
     }
-    
+
     /**
      * Sets entities.
      *

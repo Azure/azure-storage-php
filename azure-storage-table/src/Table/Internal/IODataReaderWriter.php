@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Internal;
 
 /**
@@ -45,7 +45,7 @@ interface IODataReaderWriter
      * @return string
      */
     public function getTable($name);
-    
+
     /**
      * Parses one table entry.
      *
@@ -54,7 +54,7 @@ interface IODataReaderWriter
      * @return string
      */
     public function parseTable($body);
-    
+
     /**
      * Constructs array of tables from HTTP response body.
      *
@@ -63,7 +63,7 @@ interface IODataReaderWriter
      * @return array
      */
     public function parseTableEntries($body);
-    
+
     /**
      * Constructs JSON representation for entity.
      *
@@ -72,7 +72,7 @@ interface IODataReaderWriter
      * @return string
      */
     public function getEntity(\MicrosoftAzure\Storage\Table\Models\Entity $entity);
-    
+
     /**
      * Constructs entity from HTTP response body.
      *
@@ -81,7 +81,7 @@ interface IODataReaderWriter
      * @return \MicrosoftAzure\Storage\Table\Models\Entity
      */
     public function parseEntity($body);
-    
+
     /**
      * Constructs array of entities from HTTP response body.
      *

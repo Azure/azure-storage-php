@@ -63,7 +63,7 @@ class TableACL extends ACLBase
     {
         $result = new TableACL();
         $result->fromXmlArray($parsed);
-        
+
         return $result;
     }
 

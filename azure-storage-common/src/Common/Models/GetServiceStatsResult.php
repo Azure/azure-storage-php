@@ -41,7 +41,7 @@ class GetServiceStatsResult
 {
     private $status;
     private $lastSyncTime;
-    
+
     /**
      * Creates object from $parsedResponse.
      *
@@ -76,7 +76,7 @@ class GetServiceStatsResult
 
         return $result;
     }
-    
+
     /**
      * Gets status of the result.
      *
@@ -86,7 +86,7 @@ class GetServiceStatsResult
     {
         return $this->status;
     }
-    
+
     /**
      * Gets the last sync time.
      * @return \DateTime
@@ -105,7 +105,7 @@ class GetServiceStatsResult
     {
         $this->status = $status;
     }
-    
+
     /**
      * Sets the last sync time.
      *

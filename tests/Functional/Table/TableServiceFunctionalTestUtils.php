@@ -278,7 +278,7 @@ class TableServiceFunctionalTestUtils
         } elseif ($filter instanceof BinaryFilter) {
             $left = self::filterInterperter($filter->getLeft(), $obj);
             $right = self::filterInterperter($filter->getRight(), $obj);
-            
+
             $ret = null;
             if ($filter->getOperator() == ('and')) {
                 $ret = self::nullPropAnd($left, $right);

@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 /**
@@ -40,7 +40,7 @@ class QueryStringFilter extends Filter
      * @var string
      */
     private $_queryString;
-    
+
     /**
      * Constructor.
      *

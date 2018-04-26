@@ -108,6 +108,10 @@ class ServiceRestProxy extends RestProxy
             $options['proxy'] = $proxy;
         }
 
+        if (!empty($options['verify'])) {
+            $verify = $options['verify'];
+        }
+
         return (new \GuzzleHttp\Client(
             array_merge(
                 $options,
@@ -239,7 +243,7 @@ class ServiceRestProxy extends RestProxy
                 throw $reason;
             }
         ]);
-        
+
         return $eachPromise->promise();
     }
 
@@ -271,7 +275,7 @@ class ServiceRestProxy extends RestProxy
         } else {
             $uri = $this->psrPrimaryUri;
         }
-        
+
         //Append the path, not replacing it.
         if ($path != null) {
             $exPath = $uri->getPath();
@@ -486,7 +490,7 @@ class ServiceRestProxy extends RestProxy
             throw new ServiceException($response);
         }
     }
-    
+
     /**
      * Adds HTTP POST parameter to the specified
      *

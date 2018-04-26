@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -45,7 +45,7 @@ class ListFileRangesResult
     private $etag;
     private $contentLength;
     private $ranges;
-    
+
     /**
      * Creates ListFileRangesResult object from $parsed response and
      * $headers in array representation
@@ -61,7 +61,7 @@ class ListFileRangesResult
     {
         $result  = new ListFileRangesResult();
         $headers = array_change_key_case($headers);
-        
+
         $date          = $headers[Resources::LAST_MODIFIED];
         $date          = Utilities::rfc1123ToDateTime($date);
         $fileLength    = intval($headers[Resources::X_MS_CONTENT_LENGTH]);
@@ -69,7 +69,7 @@ class ListFileRangesResult
         if (!empty($parsed['Range'])) {
             $rawRanges = Utilities::getArray($parsed['Range']);
         }
-        
+
         $ranges = array();
         foreach ($rawRanges as $value) {
             $ranges[] = new Range(
@@ -81,10 +81,10 @@ class ListFileRangesResult
         $result->setContentLength($fileLength);
         $result->setETag($headers[Resources::ETAG]);
         $result->setLastModified($date);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets file lastModified.
      *
@@ -130,7 +130,7 @@ class ListFileRangesResult
         Validate::canCastAsString($etag, 'etag');
         $this->etag = $etag;
     }
-    
+
     /**
      * Gets file contentLength.
      *
@@ -153,7 +153,7 @@ class ListFileRangesResult
         Validate::isInteger($contentLength, 'contentLength');
         $this->contentLength = $contentLength;
     }
-    
+
     /**
      * Gets ranges
      *
@@ -163,7 +163,7 @@ class ListFileRangesResult
     {
         return $this->ranges;
     }
-    
+
     /**
      * Sets ranges
      *

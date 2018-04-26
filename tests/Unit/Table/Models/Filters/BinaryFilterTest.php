@@ -36,34 +36,34 @@ use MicrosoftAzure\Storage\Table\Models\Filters\BinaryFilter;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BinaryFilterTest extends \PHPUnit_Framework_TestCase
+class BinaryFilterTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetOperator()
     {
         // Setup
         $expected = 'x';
         $filter = new BinaryFilter(null, $expected, null);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getOperator());
     }
-    
+
     public function testGetLeft()
     {
         // Setup
         $expected = null;
         $filter = new BinaryFilter($expected, null, null);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getLeft());
     }
-    
+
     public function testGetRight()
     {
         // Setup
         $expected = null;
         $filter = new BinaryFilter(null, null, $expected);
-        
+
         // Assert
         $this->assertEquals($expected, $filter->getRight());
     }

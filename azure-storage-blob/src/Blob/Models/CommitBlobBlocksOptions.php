@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -65,7 +65,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_contentType = $contentType;
     }
-    
+
     /**
      * Gets ContentEncoding.
      *
@@ -87,7 +87,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_contentEncoding = $contentEncoding;
     }
-    
+
     /**
      * Gets ContentLanguage.
      *
@@ -109,7 +109,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_contentLanguage = $contentLanguage;
     }
-    
+
     /**
      * Gets ContentMD5.
      *
@@ -131,7 +131,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_contentMD5 = $contentMD5;
     }
-    
+
     /**
      * Gets cache control.
      *
@@ -141,7 +141,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         return $this->_cacheControl;
     }
-    
+
     /**
      * Sets cacheControl.
      *
@@ -153,7 +153,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_cacheControl = $cacheControl;
     }
-    
+
     /**
      * Gets content disposition.
      *
@@ -163,7 +163,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         return $this->_contentDisposition;
     }
-    
+
     /**
      * Sets contentDisposition.
      *
@@ -175,7 +175,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
     {
         $this->_contentDisposition = $contentDisposition;
     }
-    
+
     /**
      * Gets blob metadata.
      *

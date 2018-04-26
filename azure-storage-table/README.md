@@ -5,7 +5,7 @@ This project provides a PHP client library that makes it easy to access Microsof
 [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-table/v/stable)](https://packagist.org/packages/microsoft/azure-storage-table)
 
 > **Note**
-> 
+>
 > * This [repository](https://github.com/azure/azure-storage-table-php) is currently used for releasing only, please go to [azure-storage-php](https://github.com/azure/azure-storage-php) for submitting issues or contribution.
 > * If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
 > * If you need big file (larger than 2GB) or 64-bit integer support, please install PHP 7 64-bit version.
@@ -25,70 +25,82 @@ Please check details on [API reference documents](http://azure.github.io/azure-s
 * PHP 5.6 or above
 * See [composer.json](composer.json) for dependencies
 * Required extension for PHP:
-  php_fileinfo.dll
-  php_mbstring.dll
-  php_openssl.dll
-  php_xsl.dll
+  * php_fileinfo.dll
+  * php_mbstring.dll
+  * php_openssl.dll
+  * php_xsl.dll
 
 * Recommended extension for PHP:
-  php_curl.dll
+  * php_curl.dll
 
 ## Download Source Code
 
 To get the source code from GitHub, type
 
-    git clone https://github.com/Azure/azure-storage-php.git
-    cd ./azure-storage-php
-
+```
+git clone https://github.com/Azure/azure-storage-php.git
+cd ./azure-storage-php
+```
 
 ## Install via Composer
 
 1. Create a file named **composer.json** in the root of your project and add the following code to it:
 ```json
-    {
-      "require": {
-        "microsoft/azure-storage-table": "*"
-      }
-    }
+{
+  "require": {
+    "microsoft/azure-storage-table": "*"
+  }
+}
 ```
 2. Download **[composer.phar](http://getcomposer.org/composer.phar)** in your project root.
 
 3. Open a command prompt and execute this in your project root
 
-    php composer.phar install
+```
+php composer.phar install
+```
 
 ## Usage
 
-There are four basic steps that have to be performed before you can make a call to any Microsoft Azure Storage API when using the libraries. 
+There are four basic steps that have to be performed before you can make a call to any Microsoft Azure Storage API when using the libraries.
 
 * First, include the autoloader script:
-    
-    require_once "vendor/autoload.php"; 
-  
+
+```php
+require_once "vendor/autoload.php";
+```
+
 * Include the namespaces you are going to use.
 
   To create any Microsoft Azure service client you need to use the rest proxy classes, such as **TableRestProxy** class:
 
-    use MicrosoftAzure\Storage\Table\TableRestProxy;
+```php
+use MicrosoftAzure\Storage\Table\TableRestProxy;
+```
 
   To process exceptions you need:
 
-    use MicrosoftAzure\Storage\Common\ServiceException;
+```php
+use MicrosoftAzure\Storage\Common\ServiceException;
+```
 
-  
-* To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is: 
+* To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is:
 
-    DefaultEndpointsProtocol=[http|https];AccountName=[yourAccount];AccountKey=[yourKey]
+```
+DefaultEndpointsProtocol=[http|https];AccountName=[yourAccount];AccountKey=[yourKey]
+```
 
   or:
-  
-    TableEndpoint=[myTableEndpoint];SharedAccessSignature=[sasToken] 
+
+```
+TableEndpoint=[myTableEndpoint];SharedAccessSignature=[sasToken]
+```
 
 * Instantiate a client object - a wrapper around the available calls for the given service.
 
-  ```PHP
-  $tableClient = TableRestProxy::createTableService($connectionString);
-  ```
+```php
+$tableClient = TableRestProxy::createTableService($connectionString);
+```
 ### Using Middlewares
 To specify the middlewares, user have to create an array with middlewares
 and put it in the `$requestOptions` with key 'middlewares'. The sequence of
@@ -101,7 +113,7 @@ services' `$_options` instead when creating them if the middleware is to be
 applied to each of the API call for a rest proxy. These middlewares will always
 be invoked after the middlewares in the `$requestOptions`.
 e.g.:
-```
+```php
 $tableClient = TableRestProxy::createTableService(
     $connectionString,
     $optionsWithMiddlewares
@@ -121,12 +133,19 @@ To use proxies during HTTP requests, set system variable `HTTP_PROXY` and the pr
 ### Error: Unable to get local issuer certificate
 cURL can't verify the validity of Microsoft certificate when trying to issue a request call to Azure Storage Services. You must configure cURL to use a certificate when issuing https requests by the following steps:
 
-1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html).
-2. Open your php.ini file and add the following line:
+1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html). 
 
-    ```
-    curl.cainfo = "<absolute path to cacert.pem>"
-    ```
+2. Then either:
+    * Open your php.ini file and add the following line:
+        ```ini
+        curl.cainfo = "<absolute path to cacert.pem>"
+        ```
+        OR
+    * Point to the cacert in the options when creating the Proxy.
+        ```php
+        $options["http"] = ["verify" => "<absolute path to cacert.pem>"];
+        TableRestProxy::createTableService($connectionString, $options);
+        ```
 
 ## Code samples
 
@@ -138,7 +157,7 @@ You can find samples in the [sample folder](samples)
 If you are using [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/) to access Azure Storage Service, we highly recommend you to migrate to this SDK for faster issue resolution and quicker feature implementation. We are working on supporting the latest service features as well as improvement on existing APIs.
 
 For now, Microsoft Azure Storage PHP client libraries share almost the same interface as the storage blobs, tables, queues and files APIs in Azure SDK for PHP. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
-  
+
 # Need Help?
 
 Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](http://go.microsoft.com/fwlink/?LinkId=234489) and [github issues](https://github.com/Azure/azure-storage-php/issues) if you have trouble with the provided code.
@@ -147,5 +166,5 @@ Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](ht
 
 If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](http://azure.github.io/guidelines/).
 You can find more details for contributing in the [CONTRIBUTING.md](CONTRIBUTING.md).
- 
+
 If you encounter any bugs with the library please file an issue in the [Issues](https://github.com/Azure/azure-storage-php/issues) section of the project.

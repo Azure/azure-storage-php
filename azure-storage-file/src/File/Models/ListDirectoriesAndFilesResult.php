@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\File\Internal\FileResources as Resources;
@@ -125,7 +125,7 @@ class ListDirectoriesAndFilesResult
                     $directories[] = Directory::create($directoryArray);
                 }
             }
-            
+
             if ($filesArray != null) {
                 if (array_key_exists(Resources::QP_NAME, $filesArray)) {
                     $filesArray = [$filesArray];
@@ -156,7 +156,7 @@ class ListDirectoriesAndFilesResult
             $this->directories[] = clone $directory;
         }
     }
-    
+
     /**
      * Gets directories.
      *
@@ -181,7 +181,7 @@ class ListDirectoriesAndFilesResult
             $this->files[] = clone $file;
         }
     }
-    
+
     /**
      * Gets files.
      *

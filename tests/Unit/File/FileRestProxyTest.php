@@ -89,16 +89,16 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
     public function testSetServiceProperties()
     {
         $this->skipIfEmulated();
-        
+
         // Setup
         $expected = ServiceProperties::create(TestResources::setFileServicePropertiesSample());
-        
+
         // Test
         $this->setServiceProperties($expected);
         //Add 30s interval to wait for setting to take effect.
         \sleep(30);
         $actual = $this->restProxy->getServiceProperties();
-        
+
         // Assert
         $this->assertEquals($expected->toXml($this->xmlSerializer), $actual->getValue()->toXml($this->xmlSerializer));
     }
@@ -167,7 +167,7 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
 
         // Test
         $this->restProxy->setShareAcl($share, $acl);
-        
+
         // Assert
         $actual = $this->restProxy->getShareAcl($share);
         $this->assertEquals($acl->getSignedIdentifiers(), $actual->getShareAcl()->getSignedIdentifiers());
@@ -311,7 +311,7 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
         $file0   = 'file_0';
         $file1   = 'file_1';
         $doc2    = 'doc_2';
-        
+
         $this->restProxy->createDirectory($share, $dir0);
         $this->restProxy->createDirectory($share, $dir1);
         $this->restProxy->createDirectory($share, $dir2);
@@ -715,7 +715,7 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
         $range = new Range(0, Resources::MB_IN_BYTES_4 - 1);
 
         $this->restProxy->putFileRange($share, $fileName, $content, $range);
-        
+
         $source = sprintf(
             '%s%s/%s',
             (string)$this->restProxy->getPsrPrimaryUri(),

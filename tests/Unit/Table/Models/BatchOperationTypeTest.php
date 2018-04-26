@@ -36,28 +36,28 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BatchOperationTypeTest extends \PHPUnit_Framework_TestCase
+class BatchOperationTypeTest extends \PHPUnit\Framework\TestCase
 {
     public function testIsValid()
     {
         // Setup
         $name = BatchOperationType::DELETE_ENTITY_OPERATION;
-        
+
         // Test
         $actual = BatchOperationType::isValid($name);
-        
+
         // Assert
         $this->assertTrue($actual);
     }
-    
+
     public function testIsValidWithInvalid()
     {
         // Setup
         $name = 'zeta el senen';
-        
+
         // Test
         $actual = BatchOperationType::isValid($name);
-        
+
         // Assert
         $this->assertFalse($actual);
     }

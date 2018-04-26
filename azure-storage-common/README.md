@@ -5,5 +5,5 @@ This project provides a set of common PHP code shared by Azure Storage Blob, Tab
 [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-common/v/stable)](https://packagist.org/packages/microsoft/azure-storage-common)
 
 > **Note**
-> 
+>
 > * This [repository](https://github.com/azure/azure-storage-common-php) is currently used for releasing only, please go to [azure-storage-php](https://github.com/azure/azure-storage-php) for submitting issues or contribution.

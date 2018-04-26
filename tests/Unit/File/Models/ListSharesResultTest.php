@@ -38,28 +38,28 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListSharesResultTest extends \PHPUnit_Framework_TestCase
+class ListSharesResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateWithEmpty()
     {
         // Setup
         $sample = TestResources::getInterestingListShareResultArray();
-        
+
         // Test
         $actual = ListSharesResult::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $actual->getShares());
     }
-    
+
     public function testCreateWithOneEntry()
     {
         // Setup
         $sample = TestResources::getInterestingListShareResultArray(1);
-        
+
         // Test
         $actual = ListSharesResult::create($sample);
-        
+
         // Assert
         $shares = $actual->getShares();
         $this->assertCount(1, $shares);
@@ -78,15 +78,15 @@ class ListSharesResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($sample['MaxResults'], $actual->getMaxResults());
         $this->assertEquals($sample['NextMarker'], $actual->getNextMarker());
     }
-    
+
     public function testCreateWithMultipleEntries()
     {
         // Setup
         $sample = TestResources::getInterestingListShareResultArray(5);
-        
+
         // Test
         $actual = ListSharesResult::create($sample);
-        
+
         // Assert
         $shares = $actual->getShares();
         $this->assertCount(5, $shares);

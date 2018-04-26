@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -39,7 +39,7 @@ class AppendBlockOptions extends BlobServiceOptions
     private $contentMD5;
     private $maxBlobSize;
     private $appendPosition;
-    
+
     /**
      * Gets block contentMD5.
      *
@@ -61,7 +61,7 @@ class AppendBlockOptions extends BlobServiceOptions
     {
         $this->contentMD5 = $contentMD5;
     }
-    
+
     /**
      * Gets the max length in bytes allowed for the append blob to grow to.
      *
@@ -83,7 +83,7 @@ class AppendBlockOptions extends BlobServiceOptions
     {
         $this->maxBlobSize = $maxBlobSize;
     }
-    
+
     /**
      * Gets append blob appendPosition.
      *

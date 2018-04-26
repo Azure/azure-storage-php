@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal\Serialization;
 
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
@@ -44,7 +44,7 @@ class XmlSerializer implements ISerializer
     const STANDALONE  = 'standalone';
     const ROOT_NAME   = 'rootName';
     const DEFAULT_TAG = 'defaultTag';
-    
+
     /**
      * Converts a SimpleXML object to an Array recursively
      * ensuring all sub-elements are arrays as well.
@@ -66,7 +66,7 @@ class XmlSerializer implements ISerializer
 
         return $arr;
     }
-    
+
     /**
      * Takes an array and produces XML based on it.
      *
@@ -92,9 +92,9 @@ class XmlSerializer implements ISerializer
                         $xmlw->startElement($defaultTag);
                     }
                 }
-                
+
                 $this->arr2xml($xmlw, $value);
-                
+
                 if (!is_int($key)) {
                     $xmlw->endElement();
                 }
@@ -145,7 +145,7 @@ class XmlSerializer implements ISerializer
             $targetObject,
             $methodArray
         );
-         
+
         $xmlWriter->startElement($rootName);
         if (!is_null($attributes)) {
             foreach (array_keys($attributes) as $attributeKey) {
@@ -211,7 +211,7 @@ class XmlSerializer implements ISerializer
         $xmlw->openMemory();
         $xmlw->setIndent(true);
         $xmlw->startDocument($xmlVersion, $xmlEncoding, $standalone);
-        
+
         if (is_null($docNamespace)) {
             $xmlw->startElement($rootName);
         } else {
@@ -220,7 +220,7 @@ class XmlSerializer implements ISerializer
                 break;
             }
         }
-        
+
         unset($array[Resources::XTAG_NAMESPACE]);
         self::arr2xml($xmlw, $array, $defaultTag);
 
@@ -228,7 +228,7 @@ class XmlSerializer implements ISerializer
 
         return $xmlw->outputMemory(true);
     }
-    
+
     /**
      * Unserializes given serialized string.
      *

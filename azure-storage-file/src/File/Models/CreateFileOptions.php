@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 use MicrosoftAzure\Storage\Common\Internal\Validate;
@@ -46,7 +46,7 @@ class CreateFileOptions extends FileServiceOptions
     private $contentDisposition;
     private $metadata;
     private $contentLength;
-    
+
     /**
      * Gets File contentType.
      *
@@ -68,7 +68,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->contentType = $contentType;
     }
-    
+
     /**
      * Gets contentEncoding.
      *
@@ -90,7 +90,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->contentEncoding = $contentEncoding;
     }
-    
+
     /**
      * Gets contentLanguage.
      *
@@ -112,7 +112,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->contentLanguage = $contentLanguage;
     }
-    
+
     /**
      * Gets contentMD5.
      *
@@ -134,7 +134,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->contentMD5 = $contentMD5;
     }
-    
+
     /**
      * Gets cacheControl.
      *
@@ -144,7 +144,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         return $this->cacheControl;
     }
-    
+
     /**
      * Sets cacheControl.
      *
@@ -156,7 +156,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->cacheControl = $cacheControl;
     }
-    
+
     /**
      * Gets content disposition.
      *
@@ -166,7 +166,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         return $this->contentDisposition;
     }
-    
+
     /**
      * Sets content disposition.
      *
@@ -178,7 +178,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->contentDisposition = $contentDisposition;
     }
-    
+
     /**
      * Gets File metadata.
      *
@@ -200,7 +200,7 @@ class CreateFileOptions extends FileServiceOptions
     {
         $this->metadata = $metadata;
     }
-    
+
     /**
      * Gets File contentLength.
      *

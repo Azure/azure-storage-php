@@ -35,17 +35,17 @@ use MicrosoftAzure\Storage\Blob\Models\BreakLeaseResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BreakLeaseResultTest extends \PHPUnit_Framework_TestCase
+class BreakLeaseResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         // Setup
         $expected = '10';
         $headers = array('x-ms-lease-time' => $expected);
-        
+
         // Test
         $result = BreakLeaseResult::create($headers);
-        
+
         // Assert
         $this->assertEquals($expected, $result->getLeaseTime());
     }

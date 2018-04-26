@@ -37,17 +37,17 @@ use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PutBlockResultTest extends \PHPUnit_Framework_TestCase
+class PutBlockResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
         // Setup
         $sample = TestResources::listBlobsOneEntry();
         $expected = $sample['Blobs']['Blob']['Properties'];
-        
+
         // Test
         $actual = PutBlockResult::create($expected);
-        
+
         // Assert
         $this->assertEquals($expected['Content-MD5'], $actual->getContentMD5());
         $this->assertEquals(Utilities::toBoolean($expected['x-ms-request-server-encrypted']), $actual->getRequestServerEncrypted());

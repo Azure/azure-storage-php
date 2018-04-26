@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\File\Models;
 
 /**
@@ -39,7 +39,7 @@ class GetShareACLResult
     private $shareACL;
     private $lastModified;
     private $etag;
-    
+
     /**
      * Parses the given array into signed identifiers
      *
@@ -65,7 +65,7 @@ class GetShareACLResult
 
         return $result;
     }
-    
+
     /**
      * Gets share ACL
      *
@@ -75,7 +75,7 @@ class GetShareACLResult
     {
         return $this->shareACL;
     }
-    
+
     /**
      * Sets share ACL
      *
@@ -87,7 +87,7 @@ class GetShareACLResult
     {
         $this->shareACL = $shareACL;
     }
-    
+
     /**
      * Gets share lastModified.
      *

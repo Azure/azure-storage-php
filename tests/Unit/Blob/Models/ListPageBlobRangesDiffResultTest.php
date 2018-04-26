@@ -38,7 +38,7 @@ use MicrosoftAzure\Storage\Tests\Framework\TestResources;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ListPageBlobRangesDiffResultTest extends \PHPUnit_Framework_TestCase
+class ListPageBlobRangesDiffResultTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
@@ -55,7 +55,7 @@ class ListPageBlobRangesDiffResultTest extends \PHPUnit_Framework_TestCase
         if (!empty($bodyArray['ClearRange'])) {
             $rawClearRanges = Utilities::getArray($bodyArray['ClearRange']);
         }
-        
+
         $pageRanges = array();
 
         foreach ($rawPageRanges as $value) {

@@ -90,7 +90,7 @@ function setFileServiceProperties($fileClient)
     $retentionPolicy = new RetentionPolicy();
     $retentionPolicy->setEnabled(true);
     $retentionPolicy->setDays(10);
-    
+
     $metrics = new Metrics();
     $metrics->setRetentionPolicy($retentionPolicy);
     $metrics->setVersion('1.0');

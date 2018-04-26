@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models\Filters;
 
 /**
@@ -38,7 +38,7 @@ class UnaryFilter extends Filter
 {
     private $_operator;
     private $_operand;
-    
+
     /**
      * Constructor.
      *
@@ -50,7 +50,7 @@ class UnaryFilter extends Filter
         $this->_operand  = $operand;
         $this->_operator = $operator;
     }
-    
+
     /**
      * Gets operator
      *

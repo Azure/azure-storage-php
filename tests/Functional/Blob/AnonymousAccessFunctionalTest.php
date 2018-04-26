@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
+class AnonymousAccessFunctionalTest extends \PHPUnit\Framework\TestCase
 {
     private $containerName;
     private static $blobRestProxy;
@@ -85,15 +85,15 @@ class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
 
         $result = $proxy->listBlobs($this->containerName);
 
-        $this->assertEquals(0, count($result->getBlobs()));
+        $this->assertCount(0, $result->getBlobs());
 
         $blob = TestResources::getInterestingName('b');
         self::$blobRestProxy->createPageBlob($this->containerName, $blob, 512);
         $result = $proxy->listBlobs($this->containerName);
-        $this->assertEquals(1, count($result->getBlobs()));
+        $this->assertCount(1, $result->getBlobs());
         self::$blobRestProxy->deleteBlob($this->containerName, $blob);
         $result = $proxy->listBlobs($this->containerName);
-        $this->assertEquals(0, count($result->getBlobs()));
+        $this->assertCount(0, $result->getBlobs());
     }
 
     /**
@@ -122,16 +122,16 @@ class AnonymousAccessFunctionalTest extends \PHPUnit_Framework_TestCase
         );
 
         $result = self::$blobRestProxy->listBlobs($this->containerName);
-        $this->assertEquals(0, count($result->getBlobs()));
+        $this->assertCount(0, $result->getBlobs());
         $blob = TestResources::getInterestingName('b');
         self::$blobRestProxy->createBlockBlob($this->containerName, $blob, 'test content');
         $result = self::$blobRestProxy->listBlobs($this->containerName);
-        $this->assertEquals(1, count($result->getBlobs()));
+        $this->assertCount(1, $result->getBlobs());
         $content = stream_get_contents($proxy->getBlob($this->containerName, $blob)->getContentStream());
         $this->assertEquals('test content', $content);
         self::$blobRestProxy->deleteBlob($this->containerName, $blob);
         $result = self::$blobRestProxy->listBlobs($this->containerName);
-        $this->assertEquals(0, count($result->getBlobs()));
+        $this->assertCount(0, $result->getBlobs());
         //The following line will generate ServiceException with 404.
         $result = $proxy->listBlobs($this->containerName);
     }

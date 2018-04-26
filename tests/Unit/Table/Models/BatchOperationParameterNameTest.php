@@ -36,28 +36,28 @@ use MicrosoftAzure\Storage\Table\Models\BatchOperationParameterName;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class BatchOperationParameterNameTest extends \PHPUnit_Framework_TestCase
+class BatchOperationParameterNameTest extends \PHPUnit\Framework\TestCase
 {
     public function testIsValid()
     {
         // Setup
         $name = BatchOperationParameterName::BP_ETAG;
-        
+
         // Test
         $actual = BatchOperationParameterName::isValid($name);
-        
+
         // Assert
         $this->assertTrue($actual);
     }
-    
+
     public function testIsValidWithInvalid()
     {
         // Setup
         $name = 'zeta el senen';
-        
+
         // Test
         $actual = BatchOperationParameterName::isValid($name);
-        
+
         // Assert
         $this->assertFalse($actual);
     }

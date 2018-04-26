@@ -39,43 +39,43 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class QueueACLTest extends \PHPUnit_Framework_TestCase
+class QueueACLTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreateEmpty()
     {
         // Setup
         $sample = array();
-        
+
         // Test
         $acl = QueueACL::create($sample);
-        
+
         // Assert
         $this->assertCount(0, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateOneEntry()
     {
         // Setup
         $sample = TestResources::getQueueACLOneEntrySample();
-        
+
         // Test
         $acl = QueueACL::create($sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertCount(1, $acl->getSignedIdentifiers());
     }
-    
+
     public function testCreateMultipleEntries()
     {
         // Setup
         $sample = TestResources::getQueueACLMultipleEntriesSample();
-        
+
         // Test
         $acl = QueueACL::create($sample['SignedIdentifiers']);
-        
+
         // Assert
         $this->assertCount(2, $acl->getSignedIdentifiers());
-        
+
         return $acl;
     }
 }

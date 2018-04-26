@@ -39,7 +39,7 @@ use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 class TableServiceRestProxyTestBase extends ServiceRestProxyTestBase
 {
     protected $_createdTables;
-    
+
     public function setUp()
     {
         parent::setUp();
@@ -53,7 +53,7 @@ class TableServiceRestProxyTestBase extends ServiceRestProxyTestBase
         $this->restProxy->createTable($tableName, $options);
         $this->_createdTables[] = $tableName;
     }
-    
+
     public function deleteTable($tableName)
     {
         if (($key = array_search($tableName, $this->_createdTables)) !== false) {
@@ -61,7 +61,7 @@ class TableServiceRestProxyTestBase extends ServiceRestProxyTestBase
         }
         $this->restProxy->deleteTable($tableName);
     }
-    
+
     public function safeDeleteTable($tableName)
     {
         try {
@@ -75,7 +75,7 @@ class TableServiceRestProxyTestBase extends ServiceRestProxyTestBase
     protected function tearDown()
     {
         parent::tearDown();
-        
+
         foreach ($this->_createdTables as $value) {
             $this->safeDeleteTable($value);
         }

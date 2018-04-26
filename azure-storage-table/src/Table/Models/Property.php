@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Table\Models;
 
 /**
@@ -39,7 +39,7 @@ class Property
     private $edmType;
     private $value;
     private $rawValue;
-    
+
     /**
      * Gets the type of the property.
      *
@@ -49,7 +49,7 @@ class Property
     {
         return $this->edmType;
     }
-    
+
     /**
      * Sets the value of the property.
      *
@@ -62,7 +62,7 @@ class Property
         EdmType::isValid($edmType);
         $this->edmType = $edmType;
     }
-    
+
     /**
      * Gets the value of the property.
      *
@@ -72,7 +72,7 @@ class Property
     {
         return $this->value;
     }
-    
+
     /**
      * Sets the property value.
      *
@@ -94,7 +94,7 @@ class Property
     {
         return $this->rawValue;
     }
-    
+
     /**
      * Sets the raw property value.
      *

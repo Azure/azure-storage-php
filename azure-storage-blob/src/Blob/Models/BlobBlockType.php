@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -39,7 +39,7 @@ class BlobBlockType
     const COMMITTED_TYPE   = 'Committed';
     const UNCOMMITTED_TYPE = 'Uncommitted';
     const LATEST_TYPE      = 'Latest';
-    
+
     /**
      * Validates the provided type.
      *
@@ -56,7 +56,7 @@ class BlobBlockType
             case self::LATEST_TYPE:
             case self::UNCOMMITTED_TYPE:
                 return true;
-        
+
             default:
                 return false;
         }

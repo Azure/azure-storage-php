@@ -36,30 +36,30 @@ use MicrosoftAzure\Storage\Table\Models\EdmType;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class PropertyTest extends \PHPUnit_Framework_TestCase
+class PropertyTest extends \PHPUnit\Framework\TestCase
 {
     public function testSetEdmType()
     {
         // Setup
         $pro = new Property();
         $expected = EdmType::BINARY;
-        
+
         // Test
         $pro->setEdmType($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $pro->getEdmType());
     }
-    
+
     public function testSetValue()
     {
         // Setup
         $pro = new Property();
         $expected = 'wal3a';
-        
+
         // Test
         $pro->setValue($expected);
-        
+
         // Assert
         $this->assertEquals($expected, $pro->getValue());
     }

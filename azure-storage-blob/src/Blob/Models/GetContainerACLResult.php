@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Blob\Models;
 
 /**
@@ -40,7 +40,7 @@ class GetContainerACLResult
     private $lastModified;
 
     private $etag;
-    
+
     /**
      * Parses the given array into signed identifiers
      *
@@ -65,10 +65,10 @@ class GetContainerACLResult
         $result->setLastModified($lastModified);
         $acl = ContainerACL::create($publicAccess, $parsed);
         $result->setContainerAcl($acl);
-        
+
         return $result;
     }
-    
+
     /**
      * Gets container ACL
      *
@@ -78,7 +78,7 @@ class GetContainerACLResult
     {
         return $this->containerACL;
     }
-    
+
     /**
      * Sets container ACL
      *
@@ -90,7 +90,7 @@ class GetContainerACLResult
     {
         $this->containerACL = $containerACL;
     }
-    
+
     /**
      * Gets container lastModified.
      *

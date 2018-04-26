@@ -21,7 +21,7 @@
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
- 
+
 namespace MicrosoftAzure\Storage\Common\Internal;
 
 /**
@@ -40,7 +40,7 @@ class ConnectionStringSource
     private static $_defaultSources;
     private static $_isInitialized;
     const ENVIRONMENT_SOURCE = 'environment_source';
-    
+
     /**
      * Initializes the default sources.
      *
@@ -55,7 +55,7 @@ class ConnectionStringSource
             self::$_isInitialized  = true;
         }
     }
-    
+
     /**
      * Gets a connection string value from the system environment.
      *
@@ -66,10 +66,10 @@ class ConnectionStringSource
     public static function environmentSource($key)
     {
         Validate::canCastAsString($key, 'key');
-        
+
         return getenv($key);
     }
-    
+
     /**
      * Gets list of default sources.
      *

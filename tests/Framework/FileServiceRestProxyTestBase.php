@@ -46,7 +46,7 @@ class FileServiceRestProxyTestBase extends ServiceRestProxyTestBase
 {
     protected $createdShares;
     protected $createdDirectories;
-    
+
     public function setUp()
     {
         parent::setUp();
