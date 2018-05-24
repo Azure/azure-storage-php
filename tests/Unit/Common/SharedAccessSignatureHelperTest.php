@@ -260,4 +260,35 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
             }
         }
     }
+
+    public function testGenerateCanonicalResource()
+    {
+        // Setup
+        $sasHelper = $this->testConstruct();
+        $validateAndSanitizeSignedService = self::getMethod('generateCanonicalResource', $sasHelper);
+        
+        $resourceNames = array();
+        $resourceNames[] = "filename";
+        $resourceNames[] = "/filename";
+        $resourceNames[] = "/filename/";
+        $resourceNames[] = "folder/filename";
+        $resourceNames[] = "/folder/filename";
+        $resourceNames[] = "/folder/filename/";
+
+        $expected = array();
+        $expected[] = "/blob/test/filename";
+        $expected[] = "/blob/test/filename";
+        $expected[] = "/blob/test/filename/";
+        $expected[] = "/blob/test/folder/filename";
+        $expected[] = "/blob/test/folder/filename";
+        $expected[] = "/blob/test/folder/filename/";
+
+        for ($i = 0; $i < count($resourceNames); $i++) {
+            // Test
+            $actual = $validateAndSanitizeSignedService->invokeArgs($sasHelper, array('test', Resources::RESOURCE_TYPE_BLOB, $resourceNames[$i]));
+
+            // Assert
+            $this->assertEquals($expected[$i], $actual);
+        }
+    }
 }
