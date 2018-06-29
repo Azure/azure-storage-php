@@ -376,7 +376,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *
      * @return string
      */
-    private function getBlobUrl($container, $blob)
+    public function getBlobUrl($container, $blob)
     {
         $encodedBlob = $this->createPath($container, $blob);
         $uri = $this->getPsrPrimaryUri();
