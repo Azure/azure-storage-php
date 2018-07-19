@@ -45,6 +45,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
@@ -71,6 +72,7 @@ use MicrosoftAzure\Storage\Blob\Models\PutBlockResult;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobMetadataResult;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult;
+use MicrosoftAzure\Storage\Blob\Models\SetBlobTierOptions;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
@@ -1338,6 +1340,82 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     }
 
     /**
+     * Sets blob tier on the blob.
+     *
+     * @param string                    $container name
+     * @param string                    $blob      name of the blob
+     * @param Models\SetBlobTierOptions $options   optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/set-blob-tier
+     */
+    public function setBlobTier(
+        $container,
+        $blob,
+        Models\SetBlobTierOptions $options = null
+    ) {
+        $this->setBlobTierAsync($container, $blob, $options)->wait();
+    }
+
+    /**
+     * Sets blob tier on the blob.
+     *
+     * @param string                    $container name
+     * @param string                    $blob      name of the blob
+     * @param Models\SetBlobTierOptions $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/set-blob-tier
+     */
+    public function setBlobTierAsync(
+        $container,
+        $blob,
+        Models\SetBlobTierOptions $options = null
+    )
+    {
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
+        Validate::notNullOrEmpty($blob, 'blob');
+
+        $method      = Resources::HTTP_PUT;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $path        = $this->createPath($container, $blob);
+
+        if (is_null($options)) {
+            $options = new SetBlobTierOptions();
+        }
+
+        $this->addOptionalQueryParam(
+            $queryParams,
+            Resources::QP_COMP,
+            'tier'
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_ACCESS_TIER,
+            $options->getAccessTier()
+        );
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            array(Resources::STATUS_OK, Resources::STATUS_ACCEPTED),
+            Resources::EMPTY_STRING,
+            $options
+        );
+    }
+
+    /**
      * Lists all of the blobs in the given container.
      *
      * @param string                  $container The container name.
@@ -1462,7 +1540,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *                                            The page blob size must be
      *                                            aligned to a 512-byte
      *                                            boundary.
-     * @param Models\CreateBlobOptions $options   The optional parameters.
+     * @param Models\CreatePageBlobOptions $options   The optional parameters.
      *
      * @return Models\PutBlobResult
      *
@@ -1472,7 +1550,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         $blob,
         $length,
-        Models\CreateBlobOptions $options = null
+        Models\CreatePageBlobOptions $options = null
     ) {
         return $this->createPageBlobAsync(
             $container,
@@ -1494,7 +1572,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      *                                            The page blob size must be
      *                                            aligned to a 512-byte
      *                                            boundary.
-     * @param Models\CreateBlobOptions $options   The optional parameters.
+     * @param Models\CreatePageBlobOptions $options   The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1504,7 +1582,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         $blob,
         $length,
-        Models\CreateBlobOptions $options = null
+        Models\CreatePageBlobOptions $options = null
     ) {
         Validate::canCastAsString($container, 'container');
         Validate::canCastAsString($blob, 'blob');
@@ -1519,7 +1597,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $path        = $this->createPath($container, $blob);
 
         if (is_null($options)) {
-            $options = new CreateBlobOptions();
+            $options = new CreatePageBlobOptions();
         }
 
         $this->addOptionalHeader(
@@ -1536,6 +1614,11 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             Resources::X_MS_BLOB_SEQUENCE_NUMBER,
             $options->getSequenceNumber()
+        );
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_ACCESS_TIER,
+            $options->getAccessTier()
         );
         $headers = $this->addCreateBlobOptionalHeaders($options, $headers);
 
@@ -3521,7 +3604,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      * @param Models\GetBlobOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
-     *
+     * @throws \Exception
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179440.aspx
      */
     public function saveBlobToFileAsync(
@@ -4022,6 +4105,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $headers,
             Resources::X_MS_SOURCE_LEASE_ID,
             $options->getSourceLeaseId()
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_ACCESS_TIER,
+            $options->getAccessTier()
         );
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);

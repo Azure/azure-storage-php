@@ -77,7 +77,7 @@ class RetryMiddlewareFactory
     public static function create(
         $type = self::GENERAL_RETRY_TYPE,
         $numberOfRetries = Resources::DEFAULT_NUMBER_OF_RETRIES,
-        $interval = Resources::DEAFULT_RETRY_INTERVAL,
+        $interval = Resources::DEFAULT_RETRY_INTERVAL,
         $accumulationMethod = self::LINEAR_INTERVAL_ACCUMULATION,
         $retryConnect = false
     ) {

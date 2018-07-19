@@ -24,10 +24,10 @@
 
 namespace MicrosoftAzure\Storage\Blob\Models;
 
-use MicrosoftAzure\Storage\Common\Models\TransactionalMD5Trait;
+use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 
 /**
- * Optional parameters for createPageBlobFromContent.
+ * Optional parameters for SetBlobTier.
  *
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Blob\Models
@@ -36,7 +36,7 @@ use MicrosoftAzure\Storage\Common\Models\TransactionalMD5Trait;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class CreatePageBlobFromContentOptions extends CreatePageBlobOptions
+class SetBlobTierOptions extends ServiceOptions
 {
-    use TransactionalMD5Trait;
+    use AccessTierTrait;
 }

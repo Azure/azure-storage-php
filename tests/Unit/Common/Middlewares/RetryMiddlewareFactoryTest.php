@@ -42,7 +42,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $stack = RetryMiddlewareFactory::create(
             RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
             -1,
-            Resources::DEAFULT_RETRY_INTERVAL,
+            Resources::DEFAULT_RETRY_INTERVAL,
             RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION
         );
     }
@@ -70,7 +70,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $stack = RetryMiddlewareFactory::create(
             'string that does not make sense',
             Resources::DEFAULT_NUMBER_OF_RETRIES,
-            Resources::DEAFULT_RETRY_INTERVAL,
+            Resources::DEFAULT_RETRY_INTERVAL,
             RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION
         );
     }
@@ -84,7 +84,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $stack = RetryMiddlewareFactory::create(
             RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
             Resources::DEFAULT_NUMBER_OF_RETRIES,
-            Resources::DEAFULT_RETRY_INTERVAL,
+            Resources::DEFAULT_RETRY_INTERVAL,
             'string that does not make sense'
         );
     }

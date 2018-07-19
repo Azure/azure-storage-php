@@ -1,3 +1,7 @@
+2018.08 - version 1.1.1
+
+* Fixed a bug in documents that `getMessageId` method should return string instead of integer.
+
 2018.04 - version 1.1.0
 
 * MD files are modified for better readability and formatting.

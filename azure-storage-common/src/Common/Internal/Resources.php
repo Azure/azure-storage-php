@@ -227,10 +227,10 @@ class Resources
     const RETURN_CONTENT      = 'return-content';
     const NUMBER_OF_CONCURRENCY = 25;//Guzzle's default value
     const DEFAULT_NUMBER_OF_RETRIES = 3;
-    const DEAFULT_RETRY_INTERVAL = 1000;//Milliseconds
+    const DEFAULT_RETRY_INTERVAL = 1000;//Milliseconds
 
     // Header values
-    const COMMON_SDK_VERSION                 = '1.1.0';
+    const COMMON_SDK_VERSION                 = '1.2.0';
     const INT32_MAX                          = 2147483647;
     const INT32_MIN                          = -2147483648;
 

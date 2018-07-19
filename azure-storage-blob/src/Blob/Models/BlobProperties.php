@@ -61,6 +61,10 @@ class BlobProperties
     private $copyDestinationSnapshot;
     private $incrementalCopy;
     private $rangeContentMD5;
+    private $accessTier;
+    private $accessTierInferred;
+    private $accessTierChangeTime;
+    private $archiveStatus;
 
     /**
      * Creates BlobProperties object from $parsed response in array representation of XML elements
@@ -87,6 +91,27 @@ class BlobProperties
                 Utilities::tryGetValue($clean, 'incrementalcopy'),
                 true
             )
+        );
+
+        $result->setAccessTier((
+            Utilities::tryGetValue($clean, 'accesstier')
+        ));
+
+        $result->setAccessTierInferred(
+            Utilities::toBoolean(
+                Utilities::tryGetValue($clean, 'accesstierinferred'),
+                true
+            )
+        );
+
+        $date = Utilities::tryGetValue($clean, 'accesstierchangetime');
+        if (!is_null($date)) {
+            $date = Utilities::rfc1123ToDateTime($date);
+            $result->setAccessTierChangeTime($date);
+        }
+
+        $result->setArchiveStatus(
+            Utilities::tryGetValue($clean, 'archivestatus')
         );
 
         return $result;
@@ -143,6 +168,27 @@ class BlobProperties
                 $clean,
                 Resources::X_MS_COPY_DESTINATION_SNAPSHOT
             )
+        );
+
+        $result->setAccessTier((
+            Utilities::tryGetValue($clean, Resources::X_MS_ACCESS_TIER)
+        ));
+
+        $result->setAccessTierInferred(
+            Utilities::toBoolean(
+                Utilities::tryGetValue($clean, Resources::X_MS_ACCESS_TIER_INFERRED),
+                true
+            )
+        );
+
+        $date = Utilities::tryGetValue($clean, Resources::X_MS_ACCESS_TIER_CHANGE_TIME);
+        if (!is_null($date)) {
+            $date = Utilities::rfc1123ToDateTime($date);
+            $result->setAccessTierChangeTime($date);
+        }
+
+        $result->setArchiveStatus(
+            Utilities::tryGetValue($clean, Resources::X_MS_ARCHIVE_STATUS)
         );
 
         return $result;
@@ -280,6 +326,96 @@ class BlobProperties
     public function setContentEncoding($contentEncoding)
     {
         $this->contentEncoding = $contentEncoding;
+    }
+
+    /**
+     * Gets blob access tier.
+     *
+     * @return string
+     */
+    public function getAccessTier()
+    {
+        return $this->accessTier;
+    }
+
+    /**
+     * Sets blob access tier.
+     *
+     * @param string $accessTier value.
+     *
+     * @return void
+     */
+    public function setAccessTier($accessTier)
+    {
+        $this->accessTier = $accessTier;
+    }
+
+    /**
+     * Gets blob archive status.
+     *
+     * @return string
+     */
+    public function getArchiveStatus()
+    {
+        return $this->archiveStatus;
+    }
+
+    /**
+     * Sets blob archive status.
+     *
+     * @param string $archiveStatus value.
+     *
+     * @return void
+     */
+    public function setArchiveStatus($archiveStatus)
+    {
+        $this->archiveStatus = $archiveStatus;
+    }
+
+    /**
+     * Gets blob access inferred.
+     *
+     * @return boolean
+     */
+    public function getAccessTierInferred()
+    {
+        return $this->accessTierInferred;
+    }
+
+    /**
+     * Sets blob access tier inferred.
+     *
+     * @param boolean $accessTierInferred value.
+     *
+     * @return void
+     */
+    public function setAccessTierInferred($accessTierInferred)
+    {
+        Validate::isBoolean($accessTierInferred);
+        $this->accessTierInferred = $accessTierInferred;
+    }
+
+    /**
+     * Gets blob access tier change time.
+     *
+     * @return \DateTime
+     */
+    public function getAccessTierChangeTime()
+    {
+        return $this->accessTierChangeTime;
+    }
+
+    /**
+     * Sets blob access tier change time.
+     *
+     * @param \DateTime $accessTierChangeTime value.
+     *
+     * @return void
+     */
+    public function setAccessTierChangeTime(\DateTime $accessTierChangeTime)
+    {
+        Validate::isDate($accessTierChangeTime);
+        $this->accessTierChangeTime = $accessTierChangeTime;
     }
 
     /**

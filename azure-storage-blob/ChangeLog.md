@@ -1,3 +1,10 @@
+2018.08 - version 1.2.0
+
+* Updated Azure Storage API version from 2016-05-31 to 2017-04-17.
+* Added method `setBlobTier` method in `BlobRestProxy` to set blob tiers.
+* Added support setting or getting blob tiers related properties when creating blobs, listing blobs, getting blob properties and copying blobs.
+* Set the `getBlobUrl()` method in `BlobRestProxy` visibility to public.
+
 2018.04 - version 1.1.0
 
 * Private method BlobRestProxy::getBlobUrl now preserves primary URI path when exists.
@@ -12,7 +19,7 @@
 
 * Created `BlobSharedAccessSignatureHelper` and moved method `SharedAccessSignatureHelper::generateBlobServiceSharedAccessSignatureToken()` into `BlobSharedAccessSignatureHelper`.
 * Added static builder methods `createBlobService` and `createContainerAnonymousAccess` into `BlobRestProxy`.
-* Removed `dataSerializer` parameter from `BlobRextProxy` constructor.
+* Removed `dataSerializer` parameter from `BlobRestProxy` constructor.
 * Added `setUseTransactionalMD5` method for options of `BlobRestProxy::CreateBlockBlob` and `BlobRestProxy::CreatePageBlobFromContent`. Default false, enabling transactional MD5 validation will take more cpu and memory resources.
 * Fixed a bug that CopyBlobFromURLOptions not found.
 * Deprecated PHP 5.5 support.

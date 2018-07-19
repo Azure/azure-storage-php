@@ -36,6 +36,8 @@ namespace MicrosoftAzure\Storage\Blob\Models;
  */
 class CopyBlobFromURLOptions extends BlobServiceOptions
 {
+    use AccessTierTrait;
+
     private $sourceLeaseId;
     private $sourceAccessConditions;
     private $metadata;
