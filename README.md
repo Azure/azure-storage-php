@@ -97,7 +97,7 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
   To process exceptions you need:
 
 ```php
-use MicrosoftAzure\Storage\Common\ServiceException;
+use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 ```
   
 * To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is: 
