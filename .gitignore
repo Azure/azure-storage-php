@@ -5,11 +5,10 @@
 cache.properties
 composer.lock
 test-file-*
-
+.idea/*
 /vendor/*
 /output/*
 /build/*
 /doc/*
-
-
-
+deploy
+.php_cs.cache
