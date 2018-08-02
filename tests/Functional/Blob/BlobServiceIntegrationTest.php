@@ -25,6 +25,7 @@
 namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\BlobBlockType;
@@ -691,7 +692,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
     public function testCreatePageBlobWithOptionsWorks()
     {
         // Act
-        $opts = new CreateBlobOptions();
+        $opts = new CreatePageBlobOptions();
         $opts->setContentLanguage('en-us');
         // opts->setContentMD5('1234');
         $opts->setContentType('text/plain');
@@ -1147,7 +1148,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
     public function testGetPageBlobWorks()
     {
         // Act
-        $opts = new CreateBlobOptions();
+        $opts = new CreatePageBlobOptions();
         $opts->setCacheControl('test');
         $opts->setContentDisposition('test');
         $opts->setContentEncoding('UTF-8');
@@ -1312,7 +1313,7 @@ class BlobServiceIntegrationTest extends IntegrationTestBase
         // Act
         $container = self::$_test_container_for_blobs;
         $blob = 'test';
-        $opts = new CreateBlobOptions();
+        $opts = new CreatePageBlobOptions();
         $metadata = $opts->getMetadata();
         $metadata['test'] = 'bar';
         $metadata['blah'] = 'bleah';

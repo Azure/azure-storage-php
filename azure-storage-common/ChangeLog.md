@@ -1,3 +1,9 @@
+2018.08 - version 1.2.0
+
+* Fixed a bug `generateCanonicalResource` returns an empty string if `$resource` starts with "/".
+* Supported optional middleware retry on connection failures.
+* Fixed a typo of `DEAFULT_RETRY_INTERVAL`.
+
 2018.04 - version 1.1.0
 
 * MD files are modified for better readability and formatting.

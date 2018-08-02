@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Common\Middlewares;
 
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Common\Internal\Validate;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 
 /**
@@ -68,6 +69,7 @@ class RetryMiddlewareFactory
      *                                     Possible value can be
      *                                     self::LINEAR_INTERVAL_ACCUMULATION or
      *                                     self::EXPONENTIAL_INTERVAL_ACCUMULATION
+     * @param  bool   $retryConnect        Whether to retry on connection failures.
      * @return RetryMiddleware             A RetryMiddleware object that contains
      *                                     the logic of how the request should be
      *                                     handled after a response.
@@ -75,8 +77,9 @@ class RetryMiddlewareFactory
     public static function create(
         $type = self::GENERAL_RETRY_TYPE,
         $numberOfRetries = Resources::DEFAULT_NUMBER_OF_RETRIES,
-        $interval = Resources::DEAFULT_RETRY_INTERVAL,
-        $accumulationMethod = self::LINEAR_INTERVAL_ACCUMULATION
+        $interval = Resources::DEFAULT_RETRY_INTERVAL,
+        $accumulationMethod = self::LINEAR_INTERVAL_ACCUMULATION,
+        $retryConnect = false
     ) {
         //Validate the input parameters
         //type
@@ -113,6 +116,8 @@ class RetryMiddlewareFactory
                 'accumulationMethod'
             )
         );
+        //retryConnect
+        Validate::isBoolean($retryConnect);
 
         //Get the interval calculator according to the type of the
         //accumulation method.
@@ -123,7 +128,7 @@ class RetryMiddlewareFactory
 
         //Get the retry decider according to the type of the retry and
         //the number of retries.
-        $retryDecider = self::createRetryDecider($type, $numberOfRetries);
+        $retryDecider = self::createRetryDecider($type, $numberOfRetries, $retryConnect);
 
         //construct the retry middle ware.
         return new RetryMiddleware($intervalCalculator, $retryDecider);
@@ -134,13 +139,14 @@ class RetryMiddlewareFactory
      * that accepts the number of retries, the request, the response and the
      * exception, and return the decision for a retry.
      *
-     * @param  string $type       The type of the retry handler.
-     * @param  int    $maxRetries The maximum number of retries to be done.
+     * @param  string $type         The type of the retry handler.
+     * @param  int    $maxRetries   The maximum number of retries to be done.
+     * @param  bool   $retryConnect Whether to retry on connection failures.
      *
      * @return callable     The callable that will return if the request should
      *                      be retried.
      */
-    protected static function createRetryDecider($type, $maxRetries)
+    protected static function createRetryDecider($type, $maxRetries, $retryConnect)
     {
         return function (
             $retries,
@@ -150,17 +156,19 @@ class RetryMiddlewareFactory
             $isSecondary = false
         ) use (
             $type,
-            $maxRetries
+            $maxRetries,
+            $retryConnect
         ) {
             //Exceeds the retry limit. No retry.
             if ($retries >= $maxRetries) {
                 return false;
             }
 
-            //Not retriable error, won't retry.
             if (!$response) {
                 if (!$exception || !($exception instanceof RequestException)) {
                     return false;
+                } elseif ($exception instanceof ConnectException) {
+                    return $retryConnect;
                 } else {
                     $response = $exception->getResponse();
                 }

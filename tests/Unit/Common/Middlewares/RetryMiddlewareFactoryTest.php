@@ -27,6 +27,7 @@ namespace MicrosoftAzure\Storage\Tests\Unit\Common\Middlewares;
 use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 
@@ -41,7 +42,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $stack = RetryMiddlewareFactory::create(
             RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
             -1,
-            Resources::DEAFULT_RETRY_INTERVAL,
+            Resources::DEFAULT_RETRY_INTERVAL,
             RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION
         );
     }
@@ -69,7 +70,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $stack = RetryMiddlewareFactory::create(
             'string that does not make sense',
             Resources::DEFAULT_NUMBER_OF_RETRIES,
-            Resources::DEAFULT_RETRY_INTERVAL,
+            Resources::DEFAULT_RETRY_INTERVAL,
             RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION
         );
     }
@@ -83,7 +84,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $stack = RetryMiddlewareFactory::create(
             RetryMiddlewareFactory::GENERAL_RETRY_TYPE,
             Resources::DEFAULT_NUMBER_OF_RETRIES,
-            Resources::DEAFULT_RETRY_INTERVAL,
+            Resources::DEFAULT_RETRY_INTERVAL,
             'string that does not make sense'
         );
     }
@@ -93,7 +94,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $createRetryDecider = self::getMethod('createRetryDecider', new RetryMiddlewareFactory());
         $generalDecider = $createRetryDecider->invokeArgs(
             null,
-            array(RetryMiddlewareFactory::GENERAL_RETRY_TYPE, 3)
+            array(RetryMiddlewareFactory::GENERAL_RETRY_TYPE, 3, false)
         );
         $request = new Request('PUT', '127.0.0.1');
         $retryResult_1 = $generalDecider(1, $request, new Response(408));//retry
@@ -102,6 +103,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $retryResult_4 = $generalDecider(1, $request, new Response(200));//no-retry
         $retryResult_5 = $generalDecider(1, $request, new Response(503));//retry
         $retryResult_6 = $generalDecider(4, $request, new Response(503));//no-retry
+        $retryResult_7 = $generalDecider(1, $request, null, new ConnectException('message', $request));//no-retry
 
         //assert
         $this->assertTrue($retryResult_1);
@@ -110,6 +112,19 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $this->assertFalse($retryResult_4);
         $this->assertTrue($retryResult_5);
         $this->assertFalse($retryResult_6);
+        $this->assertFalse($retryResult_7);
+    }
+
+    public function testCreateRetryDeciderWithConnectionRetries()
+    {
+        $createRetryDecider = self::getMethod('createRetryDecider', new RetryMiddlewareFactory());
+        $generalDecider = $createRetryDecider->invokeArgs(
+            null,
+            array(RetryMiddlewareFactory::GENERAL_RETRY_TYPE, 3, true)
+        );
+        $request = new Request('PUT', '127.0.0.1');
+        $retryResult = $generalDecider(1, $request, null, new ConnectException('message', $request));
+        $this->assertTrue($retryResult);
     }
 
     public function testCreateLinearDelayCalculator()

@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Blob\Internal\IBlob;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobFromContentOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobOptions;
 use MicrosoftAzure\Storage\Tests\Framework\VirtualFileSystem;
 use MicrosoftAzure\Storage\Tests\Framework\BlobServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
@@ -807,7 +808,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->createContainer($name);
         $metadata = array('Name1' => 'Value1', 'Name2' => 'Value2');
         $contentType = Resources::BINARY_FILE_TYPE;
-        $options = new CreateBlobOptions();
+        $options = new CreatePageBlobOptions();
         $options->setMetadata($metadata);
         $options->setContentType($contentType);
 
@@ -943,7 +944,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $metadata = array('m1' => 'v1', 'm2' => 'v2');
         $blob = 'myblob';
         $this->createContainer($name);
-        $options = new CreateBlobOptions();
+        $options = new CreatePageBlobOptions();
         $options->setMetadata($metadata);
         $this->restProxy->createPageBlob($name, $blob, 512, $options);
 

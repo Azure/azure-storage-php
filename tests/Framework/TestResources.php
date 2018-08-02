@@ -370,6 +370,28 @@ class TestResources
         return $connectionString;
     }
 
+    public static function getWindowsAzureStorageServicesPremiumConnectionString()
+    {
+        $connectionString = getenv('AZURE_STORAGE_CONNECTION_STRING_PREMIUM_ACCOUNT');
+
+        if (empty($connectionString)) {
+            throw new \Exception('AZURE_STORAGE_CONNECTION_STRING_PREMIUM_ACCOUNT environment variable is missing');
+        }
+
+        return $connectionString;
+    }
+
+    public static function getWindowsAzureStorageServicesBlobAccountConnectionString()
+    {
+        $connectionString = getenv('AZURE_STORAGE_CONNECTION_STRING_BLOB_ACCOUNT');
+
+        if (empty($connectionString)) {
+            throw new \Exception('AZURE_STORAGE_CONNECTION_STRING_BLOB_ACCOUNT environment variable is missing');
+        }
+
+        return $connectionString;
+    }
+
     public static function getEmulatorStorageServicesConnectionString()
     {
         $developmentStorageConnectionString = 'UseDevelopmentStorage=true';

@@ -41,8 +41,8 @@ class BlobResources extends Resources
 {
     // @codingStandardsIgnoreStart
 
-    const BLOB_SDK_VERSION = '1.1.0';
-    const STORAGE_API_LATEST_VERSION = '2016-05-31';
+    const BLOB_SDK_VERSION = '1.2.0';
+    const STORAGE_API_LATEST_VERSION = '2017-04-17';
 
     // Error messages
     const INVALID_BTE_MSG = "The blob block type must exist in %s";
@@ -83,6 +83,10 @@ class BlobResources extends Resources
     const X_MS_SERVER_ENCRYPTED = 'x-ms-server-encrypted';
     const X_MS_INCREMENTAL_COPY = 'x-ms-incremental-copy';
     const X_MS_COPY_DESTINATION_SNAPSHOT = 'x-ms-copy-destination-snapshot';
+    const X_MS_ACCESS_TIER = 'x-ms-access-tier';
+    const X_MS_ACCESS_TIER_INFERRED = 'x-ms-access-tier-inferred';
+    const X_MS_ACCESS_TIER_CHANGE_TIME = 'x-ms-access-tier-change-time';
+    const X_MS_ARCHIVE_STATUS = 'x-ms-archive-status';
     const MAX_BLOB_SIZE = 'x-ms-blob-condition-maxsize';
     const MAX_APPEND_POSITION = 'x-ms-blob-condition-appendpos';
     const SEQUENCE_NUMBER_LESS_THAN_OR_EQUAL = 'x-ms-if-sequence-number-le';

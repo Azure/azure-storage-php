@@ -158,7 +158,7 @@ class QueueMessage
     /**
      * Gets messageId field.
      *
-     * @return integer
+     * @return string
      */
     public function getMessageId()
     {

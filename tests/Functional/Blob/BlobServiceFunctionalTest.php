@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\Functional\Blob;
 
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobOptions;
 use MicrosoftAzure\Storage\Tests\Framework\TestResources;
 use MicrosoftAzure\Storage\Blob\Models\BlobServiceOptions;
 use MicrosoftAzure\Storage\Blob\Models\CopyBlobOptions;
@@ -1799,7 +1800,7 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
 
         // Make sure there is something to test
         $dataSize = 512;
-        $createBlobOptions = new CreateBlobOptions();
+        $createBlobOptions = new CreatePageBlobOptions();
         if ($options && $options->getRangeGetContentMD5()) {
             $createBlobOptions->setContentMD5('MDAwMDAwMDA=');
         }

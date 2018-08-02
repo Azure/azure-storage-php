@@ -324,7 +324,7 @@ class SharedAccessSignatureHelper
         );
         $serviceName = $serviceMap[$service];
         if (Utilities::startsWith($resource, '/')) {
-            $resource = substr(1, strlen($resource) - 1);
+            $resource = substr($resource, 1);
         }
         return sprintf('/%s/%s/%s', $serviceName, $accountName, $resource);
     }

@@ -27,7 +27,6 @@ namespace MicrosoftAzure\Storage\Blob\Internal;
 use MicrosoftAzure\Storage\Blob\Models as BlobModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
-use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
 use MicrosoftAzure\Storage\Common\Models\Range;
 
 /**
@@ -406,7 +405,7 @@ interface IBlob
     * @param int                          $length    specifies the maximum size
     * for the page blob, up to 1 TB. The page blob size must be aligned to
     * a 512-byte boundary.
-    * @param BlobModels\CreateBlobOptions $options   optional parameters
+    * @param BlobModels\CreatePageBlobOptions $options   optional parameters
     *
     * @return BlobModels\CopyBlobResult
     *
@@ -416,7 +415,7 @@ interface IBlob
         $container,
         $blob,
         $length,
-        BlobModels\CreateBlobOptions $options = null
+        BlobModels\CreatePageBlobOptions $options = null
     );
 
     /**
@@ -431,7 +430,7 @@ interface IBlob
      *                                                1 TB. The page blob size
      *                                                must be aligned to a
      *                                                512-byte boundary.
-     * @param BlobModels\CreateBlobOptions $options   The optional parameters.
+     * @param BlobModels\CreatePageBlobOptions $options   The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -441,7 +440,7 @@ interface IBlob
         $container,
         $blob,
         $length,
-        BlobModels\CreateBlobOptions $options = null
+        BlobModels\CreatePageBlobOptions $options = null
     );
 
     /**
@@ -450,9 +449,9 @@ interface IBlob
      *
      * @param string                   $container The container name.
      * @param string                   $blob      The blob name.
-     * @param Models\CreateBlobOptions $options   The optional parameters.
+     * @param BlobModels\CreateBlobOptions $options   The optional parameters.
      *
-     * @return Models\PutBlobResult
+     * @return BlobModels\PutBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
      */
@@ -469,7 +468,7 @@ interface IBlob
      *
      * @param string                   $container The container name.
      * @param string                   $blob      The blob name.
-     * @param Models\CreateBlobOptions $options   The optional parameters.
+     * @param BlobModels\CreateBlobOptions $options   The optional parameters.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -721,9 +720,9 @@ interface IBlob
      * @param string                          $container name of the container
      * @param string                          $blob      name of the blob
      * @param resource|string|StreamInterface $content   the blob block contents
-     * @param Models\AppendBlockOptions       $options   optional parameters
+     * @param BlobModels\AppendBlockOptions   $options   optional parameters
      *
-     * @return Models\AppendBlockResult
+     * @return BlobModels\AppendBlockResult
      *
      * @see https://docs.microsoft.com/en-us/rest/api/storageservices/fileservices/append-block
      */
@@ -740,7 +739,7 @@ interface IBlob
      * @param string                          $container name of the container
      * @param string                          $blob      name of the blob
      * @param resource|string|StreamInterface $content   the blob block contents
-     * @param Models\AppendBlockOptions       $options   optional parameters
+     * @param BlobModels\AppendBlockOptions   $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
@@ -1019,6 +1018,40 @@ interface IBlob
         $blob,
         $previousSnapshotTime,
         BlobModels\ListPageBlobRangesOptions $options = null
+    );
+
+    /**
+     * Sets blob tier on the blob.
+     *
+     * @param string                        $container name
+     * @param string                        $blob      name of the blob
+     * @param BlobModels\SetBlobTierOptions $options   optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/set-blob-tier
+     */
+    public function setBlobTier(
+        $container,
+        $blob,
+        BlobModels\SetBlobTierOptions $options = null
+    );
+
+    /**
+     * Sets blob tier on the blob.
+     *
+     * @param string                        $container name
+     * @param string                        $blob      name of the blob
+     * @param BlobModels\SetBlobTierOptions $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/set-blob-tier
+     */
+    public function setBlobTierAsync(
+        $container,
+        $blob,
+        BlobModels\SetBlobTierOptions $options = null
     );
 
     /**
@@ -1356,9 +1389,9 @@ interface IBlob
      * @param int                        $leaseDuration     the lease duration. A non-infinite
      *                                                      lease can be between 15 and 60 seconds.
      *                                                      Default is never to expire.
-     * @param Models\BlobServiceOptions  $options           optional parameters
+     * @param BlobModels\BlobServiceOptions  $options       optional parameters
      *
-     * @return Models\LeaseResult
+     * @return BlobModels\LeaseResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/ee691972.aspx
      */
@@ -1380,7 +1413,7 @@ interface IBlob
      * @param int                        $leaseDuration     the lease duration. A non-infinite
      *                                                      lease can be between 15 and 60 seconds.
      *                                                      Default is never to expire.
-     * @param Models\BlobServiceOptions  $options           optional parameters
+     * @param BlobModels\BlobServiceOptions  $options       optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      *
