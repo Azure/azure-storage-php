@@ -154,26 +154,20 @@ class FileRestProxy extends ServiceRestProxy implements IFile
     private function createPath($share, $directory = '')
     {
         if (empty($directory)) {
-            if (!empty($share)) {
-                return $share;
-            } else {
-                return '/' . $share;
-            }
-        } else {
-            $encodedFile = urlencode($directory);
-            // Unencode the forward slashes to match what the server expects.
-            $encodedFile = str_replace('%2F', '/', $encodedFile);
-            // Unencode the backward slashes to match what the server expects.
-            $encodedFile = str_replace('%5C', '/', $encodedFile);
-            // Re-encode the spaces (encoded as space) to the % encoding.
-            $encodedFile = str_replace('+', '%20', $encodedFile);
-            // Empty share means accessing default share
-            if (empty($share)) {
-                return $encodedFile;
-            } else {
-                return '/' . $share . '/' . $encodedFile;
-            }
+            return empty($share) ? '/' : $share;
         }
+        $encodedFile = urlencode($directory);
+        // Unencode the forward slashes to match what the server expects.
+        $encodedFile = str_replace('%2F', '/', $encodedFile);
+        // Unencode the backward slashes to match what the server expects.
+        $encodedFile = str_replace('%5C', '/', $encodedFile);
+        // Re-encode the spaces (encoded as space) to the % encoding.
+        $encodedFile = str_replace('+', '%20', $encodedFile);
+        // Empty share means accessing default share
+        if (empty($share)) {
+            return $encodedFile;
+        }
+        return '/' . $share . '/' . $encodedFile;
     }
 
     /**
