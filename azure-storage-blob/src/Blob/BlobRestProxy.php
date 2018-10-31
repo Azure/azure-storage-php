@@ -556,7 +556,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      */
     private static function getStatusCodeOfLeaseAction($leaseAction)
     {
-        $statusCode = Resources::EMPTY_STRING;
         switch ($leaseAction) {
             case LeaseMode::ACQUIRE_ACTION:
                 $statusCode = Resources::STATUS_CREATED;
@@ -885,7 +884,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::notNullOrEmpty($container, 'container');
 
         $method      = Resources::HTTP_PUT;
-        $headers     = array();
         $postParams  = array();
         $queryParams = array(Resources::QP_REST_TYPE => 'container');
         $path        = $this->createPath($container);
@@ -1097,7 +1095,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams  = array();
         $queryParams = array();
         $path        = $this->createPath($container);
-        $statusCode  = Resources::STATUS_OK;
 
         if (is_null($options)) {
             $options = new BlobServiceOptions();
@@ -1691,7 +1688,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams  = array();
         $queryParams = array();
         $path        = $this->createPath($container, $blob);
-        $statusCode  = Resources::STATUS_CREATED;
 
         if (is_null($options)) {
             $options = new CreateBlobOptions();
@@ -2462,7 +2458,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams     = array();
         $queryParams    = $this->createBlobBlockQueryParams($options, $blockId);
         $path           = $this->createPath($container, $blob);
-        $statusCode     = Resources::STATUS_CREATED;
         $contentStream  = Psr7\stream_for($content);
         $body           = $contentStream->getContents();
 
@@ -2543,7 +2538,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams     = array();
         $queryParams    = array();
         $path           = $this->createPath($container, $blob);
-        $statusCode     = Resources::STATUS_CREATED;
 
         $contentStream  = Psr7\stream_for($content);
         $length         = $contentStream->getSize();
@@ -2744,7 +2738,6 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
 
         $method      = Resources::HTTP_PUT;
-        $headers     = array();
         $postParams  = array();
         $queryParams = array();
         $path        = $this->createPath($container, $blob);
