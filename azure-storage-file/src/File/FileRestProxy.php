@@ -567,7 +567,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Validate::notNullOrEmpty($share, 'share');
 
         $method      = Resources::HTTP_PUT;
-        $headers     = array();
         $postParams  = array();
         $queryParams = array(Resources::QP_REST_TYPE => 'share');
         $path        = $this->createPath($share);
@@ -863,7 +862,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $postParams  = array();
         $queryParams = array();
         $path        = $this->createPath($share);
-        $statusCode  = Resources::STATUS_OK;
 
         if (is_null($options)) {
             $options = new FileServiceOptions();
@@ -1219,7 +1217,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Validate::notNullOrEmpty($path, 'path');
 
         $method      = Resources::HTTP_PUT;
-        $headers     = array();
         $postParams  = array();
         $queryParams = array(Resources::QP_REST_TYPE => 'directory');
         $path        = $this->createPath($share, $path);
@@ -1595,7 +1592,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Validate::isInteger($size, 'size');
 
         $method      = Resources::HTTP_PUT;
-        $headers     = array();
         $postParams  = array();
         $queryParams = array();
         $path        = $this->createPath($share, $path);
@@ -2661,7 +2657,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Validate::notNullOrEmpty($sourcePath, 'sourcePath');
 
         $method      = Resources::HTTP_PUT;
-        $headers     = array();
         $queryParams = array();
         $postParams  = array();
         $path        = $this->createPath($share, $path);
