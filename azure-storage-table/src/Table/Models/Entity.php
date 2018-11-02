@@ -219,7 +219,7 @@ class Entity
      *
      * @param string $name The property name.
      *
-     * @return Property
+     * @return Property|null
      */
     public function getProperty($name)
     {
