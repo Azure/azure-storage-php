@@ -63,7 +63,7 @@ trait TableContinuationTokenTrait
     /**
      * Gets for location for previous request.
      *
-     * @return string
+     * @return string|null
      */
     public function getLocation()
     {
@@ -87,7 +87,7 @@ trait TableContinuationTokenTrait
     /**
      * Gets nextTableName
      *
-     * @return string
+     * @return string|null
      */
     public function getNextTableName()
     {
@@ -100,7 +100,7 @@ trait TableContinuationTokenTrait
     /**
      * Gets entity next partition key.
      *
-     * @return string
+     * @return string|null
      */
     public function getNextPartitionKey()
     {
@@ -113,7 +113,7 @@ trait TableContinuationTokenTrait
     /**
      * Gets entity next row key.
      *
-     * @return string
+     * @return string|null
      */
     public function getNextRowKey()
     {
