@@ -90,7 +90,7 @@ class BlobSharedAccessSignatureHelper extends SharedAccessSignatureHelper
         $signedPermissions,
         $signedExpiry,
         $signedStart = "",
-        $signedIP = "",
+        $signedIP = null,
         $signedProtocol = "",
         $signedIdentifier = "",
         $cacheControl = "",
@@ -203,7 +203,9 @@ class BlobSharedAccessSignatureHelper extends SharedAccessSignatureHelper
         $sas .= $buildOptQueryStr($signedStart, '&st=');
         $sas .= '&se=' . $signedExpiry;
         $sas .= '&sp=' . $signedPermissions;
-        $sas .= $buildOptQueryStr($signedIP, '&sip=');
+        if($signedIP){
+            $sas .= $buildOptQueryStr($signedIP, '&sip=');
+        }
         $sas .= $buildOptQueryStr($signedProtocol, '&spr=');
         $sas .= $buildOptQueryStr($signedIdentifier, '&si=');
         $sas .= '&sig=' . $sig;
