@@ -113,7 +113,7 @@ class GetBlobResult
     /**
      * Gets blob contentStream.
      *
-     * @return \resource
+     * @return resource
      */
     public function getContentStream()
     {
@@ -123,7 +123,7 @@ class GetBlobResult
     /**
      * Sets blob contentStream.
      *
-     * @param \resource $contentStream The stream handle.
+     * @param resource $contentStream The stream handle.
      *
      * @return void
      */
