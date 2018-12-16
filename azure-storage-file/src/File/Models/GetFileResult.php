@@ -113,7 +113,7 @@ class GetFileResult
     /**
      * Gets file contentStream.
      *
-     * @return \resource
+     * @return resource
      */
     public function getContentStream()
     {
@@ -123,7 +123,7 @@ class GetFileResult
     /**
      * Sets file contentStream.
      *
-     * @param \resource $contentStream The stream handle.
+     * @param resource $contentStream The stream handle.
      *
      * @return void
      */
