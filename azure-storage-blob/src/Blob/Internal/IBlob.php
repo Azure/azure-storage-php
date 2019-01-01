@@ -489,7 +489,7 @@ interface IBlob
     *
     * @param string                            $container name of the container
     * @param string                            $blob      name of the blob
-    * @param string                            $content   content of the blob
+    * @param string|resource|StreamInterface   $content   content of the blob
     * @param BlobModels\CreateBlockBlobOptions $options   optional parameters
     *
     * @return BlobModels\CopyBlobResult
