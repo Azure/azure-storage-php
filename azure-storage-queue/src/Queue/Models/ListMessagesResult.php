@@ -80,13 +80,13 @@ class ListMessagesResult
     /**
      * Sets queueMessages field.
      *
-     * @param integer $queueMessages value to use.
+     * @param array $queueMessages value to use.
      *
      * @internal
      *
      * @return void
      */
-    protected function setQueueMessages($queueMessages)
+    protected function setQueueMessages(array $queueMessages)
     {
         $this->_queueMessages = array();
 
