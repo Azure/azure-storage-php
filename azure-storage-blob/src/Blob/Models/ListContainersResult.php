@@ -115,7 +115,7 @@ class ListContainersResult
             $date       = $value['Properties']['Last-Modified'];
             $date       = Utilities::rfc1123ToDateTime($date);
             $properties->setLastModified($date);
-            $properties->setETag($value['Properties']['Etag']);
+            $properties->setETag(Utilities::tryGetValueInsensitive(Resources::ETAG, $value['Properties']));
 
             if (array_key_exists('LeaseStatus', $value['Properties'])) {
                 $properties->setLeaseStatus($value['Properties']['LeaseStatus']);
