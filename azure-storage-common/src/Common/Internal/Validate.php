@@ -249,6 +249,40 @@ class Validate
     }
 
     /**
+     * Creates an anonymous function that checks if the given hostname is valid or not.
+     *
+     * @return callable
+     */
+    public static function getIsValidHostname()
+    {
+        return function ($hostname) {
+            return Validate::isValidHostname($hostname);
+        };
+    }
+
+    /**
+     * Throws an exception if the string is not of a valid hostname.
+     *
+     * @param string $hostname String to check.
+     *
+     * @throws \InvalidArgumentException
+     *
+     * @return boolean
+     */
+    public static function isValidHostname($hostname)
+    {
+        $isValid = filter_var($hostname, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+
+        if ($isValid) {
+            return true;
+        } else {
+            throw new \RuntimeException(
+                sprintf(Resources::INVALID_CONFIG_HOSTNAME, $hostname)
+            );
+        }
+    }
+
+    /**
      * Creates a anonymous function that check if the given uri is valid or not.
      *
      * @return callable

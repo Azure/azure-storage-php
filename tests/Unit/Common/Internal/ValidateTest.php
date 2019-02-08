@@ -249,13 +249,58 @@ class ValidateTest extends \PHPUnit\Framework\TestCase
         // Assert
     }
 
+    public function testGetValidateHostname()
+    {
+        // Test
+        $function = Validate::getIsValidHostname();
+
+        // Assert
+        $this->assertInternalType('callable', $function);
+    }
+
+    public function testIsValidHostnamePass()
+    {
+        // Setup
+        $value = 'test.com';
+
+        // Test
+        $result = Validate::isValidHostname($value);
+
+        // Assert
+        $this->assertTrue($result);
+    }
+
+    public function testIsValidHostnameNull()
+    {
+        // Setup
+        $this->setExpectedException(get_class(new \RuntimeException('')));
+        $value = null;
+
+        // Test
+        $result = Validate::isValidHostname($value);
+
+        // Assert
+    }
+
+    public function testIsValidHostnameInvalid()
+    {
+        // Setup
+        $this->setExpectedException(get_class(new \RuntimeException('')));
+        $value = '.test';
+
+        // Test
+        $result = Validate::isValidHostname($value);
+
+        // Assert
+    }
+
     public function testGetValidateUri()
     {
         // Test
         $function = Validate::getIsValidUri();
 
         // Assert
-        $this->assertInternalType('object', $function);
+        $this->assertInternalType('callable', $function);
     }
 
     public function testIsValidUriPass()

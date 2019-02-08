@@ -51,12 +51,18 @@ class Resources
     const TABLE_ENDPOINT_NAME = 'TableEndpoint';
     const FILE_ENDPOINT_NAME = 'FileEndpoint';
     const SHARED_ACCESS_SIGNATURE_NAME = 'SharedAccessSignature';
+    const ENDPOINT_SUFFIX_NAME = 'EndpointSuffix';
+    const DEFAULT_ENDPOINT_SUFFIX = 'core.windows.net';
     const DEV_STORE_NAME = 'devstoreaccount1';
     const DEV_STORE_KEY = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
     const BLOB_BASE_DNS_NAME = 'blob.core.windows.net';
+    const BLOB_DNS_PREFIX = 'blob.';
     const QUEUE_BASE_DNS_NAME = 'queue.core.windows.net';
+    const QUEUE_DNS_PREFIX = 'queue.';
     const TABLE_BASE_DNS_NAME = 'table.core.windows.net';
+    const TABLE_DNS_PREFIX = 'table.';
     const FILE_BASE_DNS_NAME = 'file.core.windows.net';
+    const FILE_DNS_PREFIX = 'file.';
     const DEV_STORE_CONNECTION_STRING = 'BlobEndpoint=127.0.0.1:10000;QueueEndpoint=127.0.0.1:10001;TableEndpoint=127.0.0.1:10002;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
     const SUBSCRIPTION_ID_NAME = 'SubscriptionID';
     const CERTIFICATE_PATH_NAME = 'CertificatePath';
@@ -83,6 +89,7 @@ class Resources
     const INVALID_CREATE_SERVICE_OPTIONS_MSG = 'Must provide valid location or affinity group.';
     const INVALID_UPDATE_SERVICE_OPTIONS_MSG = 'Must provide either description or label.';
     const INVALID_CONFIG_MSG = 'Config object must be of type Configuration';
+    const INVALID_CONFIG_HOSTNAME = "The provided hostname '%s' is invalid.";
     const INVALID_CONFIG_URI = "The provided URI '%s' is invalid. It has to pass the check 'filter_var(<user_uri>, FILTER_VALIDATE_URL)'.";
     const INVALID_CONFIG_VALUE = "The provided config value '%s' does not belong to the valid values subset:\n%s";
     const INVALID_ACCOUNT_KEY_FORMAT = "The provided account key '%s' is not a valid base64 string. It has to pass the check 'base64_decode(<user_account_key>, true)'.";
