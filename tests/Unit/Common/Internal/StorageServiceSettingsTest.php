@@ -454,6 +454,24 @@ class StorageServiceSettingsTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedTableEndpoint, $actual->getTableEndpointUri());
     }
 
+    public function testCreateFromConnectionStringWithEndpointSuffixSpecfied()
+    {
+        // Setup
+        $protocol = 'https';
+        $expectedName = $this->_accountName;
+        $expectedKey = TestResources::KEY4;
+        $expectedBlobEndpoint = "$protocol://$expectedName.blob.core.chinacloudapi.cn";
+        $expectedFileSecondaryEndpoint = "$protocol://$expectedName-secondary.file.core.chinacloudapi.cn";
+        $connectionString  = "DefaultEndpointsProtocol=$protocol;AccountName=$expectedName;AccountKey=$expectedKey;EndpointSuffix=core.chinacloudapi.cn";
+
+        // Test
+        $actual = StorageServiceSettings::createFromConnectionString($connectionString);
+
+        // Assert
+        $this->assertEquals($expectedBlobEndpoint, $actual->getBlobEndpointUri());
+        $this->assertEquals($expectedFileSecondaryEndpoint, $actual->getFileSecondaryEndpointUri());
+    }
+
     public function testCreateFromConnectionStringMissingServicesEndpointsFail()
     {
         // Setup

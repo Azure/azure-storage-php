@@ -62,6 +62,7 @@ class StorageServiceSettings extends ServiceSettings
     private static $queueEndpointSetting;
     private static $tableEndpointSetting;
     private static $fileEndpointSetting;
+    private static $endpointSuffixSetting;
 
     /**
      * If initialized or not
@@ -137,6 +138,11 @@ class StorageServiceSettings extends ServiceSettings
             Validate::getIsValidUri()
         );
 
+        self::$endpointSuffixSetting = self::settingWithFunc(
+            Resources::ENDPOINT_SUFFIX_NAME,
+            Validate::getIsValidHostname()
+        );
+
         self::$validSettingKeys[] = Resources::USE_DEVELOPMENT_STORAGE_NAME;
         self::$validSettingKeys[] = Resources::DEVELOPMENT_STORAGE_PROXY_URI_NAME;
         self::$validSettingKeys[] = Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME;
@@ -147,6 +153,7 @@ class StorageServiceSettings extends ServiceSettings
         self::$validSettingKeys[] = Resources::QUEUE_ENDPOINT_NAME;
         self::$validSettingKeys[] = Resources::TABLE_ENDPOINT_NAME;
         self::$validSettingKeys[] = Resources::FILE_ENDPOINT_NAME;
+        self::$validSettingKeys[] = Resources::ENDPOINT_SUFFIX_NAME;
     }
 
     /**
@@ -249,7 +256,8 @@ class StorageServiceSettings extends ServiceSettings
      *
      * @param string $scheme      The scheme of the service end point.
      * @param string $accountName The account name of the service.
-     * @param string $dns         The service DNS.
+     * @param string $dnsPrefix   The service DNS prefix.
+     * @param string $dnsSuffix   The service DNS suffix.
      * @param bool   $isSecondary If generating secondary endpoint.
      *
      * @return string
@@ -257,17 +265,21 @@ class StorageServiceSettings extends ServiceSettings
     private static function getServiceEndpoint(
         $scheme,
         $accountName,
-        $dns,
+        $dnsPrefix,
+        $dnsSuffix = null,
         $isSecondary = false
     ) {
         if ($isSecondary) {
             $accountName .= Resources::SECONDARY_STRING;
         }
+        if ($dnsSuffix === null) {
+            $dnsSuffix = Resources::DEFAULT_ENDPOINT_SUFFIX;
+        }
         return sprintf(
             Resources::SERVICE_URI_FORMAT,
             $scheme,
             $accountName,
-            $dns
+            $dnsPrefix.$dnsSuffix
         );
     }
 
@@ -383,16 +395,21 @@ class StorageServiceSettings extends ServiceSettings
                 self::$blobEndpointSetting,
                 self::$queueEndpointSetting,
                 self::$tableEndpointSetting,
-                self::$fileEndpointSetting
+                self::$fileEndpointSetting,
+                self::$endpointSuffixSetting
             )
         );
         if ($matchedSpecs) {
-            $scheme      = Utilities::tryGetValueInsensitive(
+            $scheme         = Utilities::tryGetValueInsensitive(
                 Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME,
                 $tokenizedSettings
             );
-            $accountName = Utilities::tryGetValueInsensitive(
+            $accountName    = Utilities::tryGetValueInsensitive(
                 Resources::ACCOUNT_NAME_NAME,
+                $tokenizedSettings
+            );
+            $endpointSuffix = Utilities::tryGetValueInsensitive(
+                Resources::ENDPOINT_SUFFIX_NAME,
                 $tokenizedSettings
             );
             return self::createStorageServiceSettings(
@@ -400,45 +417,53 @@ class StorageServiceSettings extends ServiceSettings
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::BLOB_BASE_DNS_NAME
+                    Resources::BLOB_DNS_PREFIX,
+                    $endpointSuffix
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::QUEUE_BASE_DNS_NAME
+                    Resources::QUEUE_DNS_PREFIX,
+                    $endpointSuffix
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::TABLE_BASE_DNS_NAME
+                    Resources::TABLE_DNS_PREFIX,
+                    $endpointSuffix
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::FILE_BASE_DNS_NAME
+                    Resources::FILE_DNS_PREFIX,
+                    $endpointSuffix
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::BLOB_BASE_DNS_NAME,
+                    Resources::BLOB_DNS_PREFIX,
+                    $endpointSuffix,
                     true
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::QUEUE_BASE_DNS_NAME,
+                    Resources::QUEUE_DNS_PREFIX,
+                    $endpointSuffix,
                     true
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::TABLE_BASE_DNS_NAME,
+                    Resources::TABLE_DNS_PREFIX,
+                    $endpointSuffix,
                     true
                 ),
                 self::getServiceEndpoint(
                     $scheme,
                     $accountName,
-                    Resources::FILE_BASE_DNS_NAME,
+                    Resources::FILE_DNS_PREFIX,
+                    $endpointSuffix,
                     true
                 )
             );
