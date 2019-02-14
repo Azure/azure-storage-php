@@ -271,7 +271,12 @@ class Validate
      */
     public static function isValidHostname($hostname)
     {
-        $isValid = filter_var($hostname, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+        if (defined('FILTER_VALIDATE_DOMAIN')) {
+            $isValid = filter_var($hostname, FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME);
+        } else {
+            // (less accurate) fallback for PHP < 7.0
+            $isValid = preg_match('/^[a-z0-9_-]+(\.[a-z0-9_-]+)*$/i', $hostname);
+        }
 
         if ($isValid) {
             return true;
