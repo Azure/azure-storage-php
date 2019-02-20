@@ -155,7 +155,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 $settings->getSasToken()
             );
         } elseif ($settings->useMSIAuth()) {
-            $authScheme = new MSIAuthScheme("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ii1zeE1KTUxDSURXTVRQdlp5SjZ0eC1DRHh3MCIsImtpZCI6Ii1zeE1KTUxDSURXTVRQdlp5SjZ0eC1DRHh3MCJ9.eyJhdWQiOiJodHRwczovL3N0b3JhZ2UuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0Ny8iLCJpYXQiOjE1NTA2OTA4MjcsIm5iZiI6MTU1MDY5MDgyNywiZXhwIjoxNTUwNzE5OTI3LCJhaW8iOiI0MkpnWU5EbXVmREc1S203MHdGSFozY1RueUpMQUE9PSIsImFwcGlkIjoiMjIwZjVmOGYtZjc3NC00NGRlLTgzMmYtZjRmYzkwNWVlZjU3IiwiYXBwaWRhY3IiOiIyIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3LyIsIm9pZCI6ImM0MDk2NzhmLTYzY2YtNGE4NS1iNjZkLTQ3YjcxNzI5OGQwMiIsInN1YiI6ImM0MDk2NzhmLTYzY2YtNGE4NS1iNjZkLTQ3YjcxNzI5OGQwMiIsInRpZCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsInV0aSI6IjNsM0phb3lCVWtxOG52LTBrWVlpQUEiLCJ2ZXIiOiIxLjAiLCJ4bXNfbWlyaWQiOiIvc3Vic2NyaXB0aW9ucy9hMTVjMzJhOS05MGY2LTRjMjktODczYS01YTAwZjhjMzg5MjQvcmVzb3VyY2Vncm91cHMvT255eC9wcm92aWRlcnMvTWljcm9zb2Z0LkNvbXB1dGUvdmlydHVhbE1hY2hpbmVzL09ueXgifQ.VPDA7Vs6B-VM87CLk5-6XN4P1hRU2ai9qP0JC3jw3q0rehqXHxCu0hI7Gzg-hc1yc_6NVuChc951RZFrhPA8ANS-DhhjjCLvBDcxgza68OTdC4pXLm7nv7OVc18UvLksSWqO0svulnYdKUy6MQI6JtUtV9qAz0L72aLMKdWL2Sjx1bo-2wBpBV5a7da32-MwdhquActv2xuiNrChilyfrwcz5pOv30xZ7aK1az1I5SFQngWZzzhzVqfKJE_hTxwIATpgBrF7UrlVkGnVOM-Rd6gJHp-rUCMyXvcGlb9iTIJ8dPVcquUq93I0F1M7y3rQT_Z6pBMpILvlbBdrWggjzw"); 
+            $authScheme = new MSIAuthScheme(); 
         } else {
              $authScheme = new SharedKeyAuthScheme(
                 $settings->getName(),
