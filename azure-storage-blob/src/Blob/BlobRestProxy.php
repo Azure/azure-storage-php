@@ -347,7 +347,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
      */
     private function createPath($container, $blob = '')
     {
-        if (empty($blob)) {
+        if (empty($blob) && ($blob != '0')) {
             return empty($container) ? '/' : $container;
         }
         $encodedBlob = urlencode($blob);

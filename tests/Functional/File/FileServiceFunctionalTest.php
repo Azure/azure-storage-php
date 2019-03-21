@@ -1655,6 +1655,17 @@ class FileServiceFunctionalTest extends FunctionalTestBase
         $this->safeDeleteShare($share);
     }
 
+    public function testCreateFileWithNameIsZero()
+    {
+        $share = FileServiceFunctionalTestData::getInterestingShareName();
+        $this->safeCreateShare($share);
+        $file = '0';
+        $this->restProxy->createFile($share, $file, 2048);
+        $res = $this->restProxy->getFileProperties($share, $file);
+        $this->assertEquals(2048, $res->getContentLength());
+        $this->safeDeleteShare($share);
+    }
+
     private function putListClearRangesWorker(
         $share,
         $file,

@@ -153,7 +153,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
      */
     private function createPath($share, $directory = '')
     {
-        if (empty($directory)) {
+        if (empty($directory) && ($directory != '0')) {
             return empty($share) ? '/' : $share;
         }
         $encodedFile = urlencode($directory);

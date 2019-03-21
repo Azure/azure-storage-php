@@ -117,6 +117,7 @@ class ValidateTest extends \PHPUnit\Framework\TestCase
     public function testNotNullOrEmptyWithNonEmpty()
     {
         Validate::notNullOrEmpty(1234, 'not null');
+        Validate::notNullOrEmpty('0', 'not null');
 
         $this->assertTrue(true);
     }
