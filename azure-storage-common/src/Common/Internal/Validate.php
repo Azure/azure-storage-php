@@ -101,7 +101,7 @@ class Validate
      */
     public static function notNullOrEmpty($var, $name)
     {
-        if (is_null($var) || empty($var)) {
+        if (is_null($var) || (empty($var) && $var != '0')) {
             throw new \InvalidArgumentException(
                 sprintf(Resources::NULL_OR_EMPTY_MSG, $name)
             );
