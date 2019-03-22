@@ -255,7 +255,7 @@ interface ITable
      *
      * @param string                                                   $table   The name of
      * the table.
-     * @param Models\QueryEntitiesOptions|string|Models\Filters\Filter $options Coule be
+     * @param TableModels\QueryEntitiesOptions|string|Models\Filters\Filter $options Coule be
      * optional parameters, query string or filter to apply.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
