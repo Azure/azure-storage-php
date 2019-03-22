@@ -141,7 +141,7 @@ interface ITable
     /**
      * Creates promise to query the tables in the given storage account.
      *
-     * @param TableModels\QueryTablesOptions|string|Models\Filters\Filter $options
+     * @param TableModels\QueryTablesOptions|string|TableModels\Filters\Filter $options
      * Could be optional parameters, table prefix or filter to apply.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
