@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Queue\Internal;
 use MicrosoftAzure\Storage\Queue\Models as QueueModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
-use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
+use MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for queue service

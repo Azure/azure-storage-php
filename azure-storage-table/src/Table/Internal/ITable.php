@@ -27,7 +27,7 @@ namespace MicrosoftAzure\Storage\Table\Internal;
 use MicrosoftAzure\Storage\Table\Models as TableModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
-use MicrosoftAzure\Storage\Common\Models\GetServiceStats;
+use MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Table service.
@@ -141,7 +141,7 @@ interface ITable
     /**
      * Creates promise to query the tables in the given storage account.
      *
-     * @param TableModels\QueryTablesOptions|string|Models\Filters\Filter $options
+     * @param TableModels\QueryTablesOptions|string|TableModels\Filters\Filter $options
      * Could be optional parameters, table prefix or filter to apply.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
@@ -255,7 +255,7 @@ interface ITable
      *
      * @param string                                                   $table   The name of
      * the table.
-     * @param Models\QueryEntitiesOptions|string|Models\Filters\Filter $options Coule be
+     * @param TableModels\QueryEntitiesOptions|string|TableModels\Filters\Filter $options Coule be
      * optional parameters, query string or filter to apply.
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
