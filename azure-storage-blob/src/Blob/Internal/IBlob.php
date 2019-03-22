@@ -492,7 +492,7 @@ interface IBlob
     * @param string                            $content   content of the blob
     * @param BlobModels\CreateBlockBlobOptions $options   optional parameters
     *
-    * @return BlobModels\CopyBlobResult
+    * @return BlobModels\PutBlobResult
     *
     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179451.aspx
     */
