@@ -154,8 +154,13 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $authScheme = new SharedAccessSignatureAuthScheme(
                 $settings->getSasToken()
             );
+<<<<<<< HEAD
         } elseif ($settings->useOAuthAuth()) {
             $authScheme = new OAuthAuthScheme("");
+=======
+        } elseif ($settings->useMSIAuth()) {
+            $authScheme = new MSIAuthScheme(); 
+>>>>>>> 76d7060ce0cac28e10e8ebc37ce05ef056af9bcf
         } else {
             $authScheme = new SharedKeyAuthScheme(
                 $settings->getName(),
