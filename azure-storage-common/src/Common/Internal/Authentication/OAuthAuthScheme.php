@@ -17,7 +17,7 @@
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2019 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
@@ -37,13 +37,17 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
  * @category  Microsoft
  * @package   MicrosoftAzure\Storage\Common\Internal\Authentication
  * @author    Azure Storage PHP SDK <dmsh@microsoft.com>
- * @copyright 2016 Microsoft Corporation
+ * @copyright 2019 Microsoft Corporation
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class MSIAuthScheme implements IAuthScheme
+class OAuthAuthScheme implements IAuthScheme
 {
 
+    /**
+     * The Bearer Token used
+     */
+    protected $bearerToken;
     /**
      * The included headers
      */
@@ -60,10 +64,12 @@ class MSIAuthScheme implements IAuthScheme
      *
      * @param string $bearerToken
      * 
-     * @return MSIAuthScheme
+     * @return OAuthAuthScheme
      */
-    public function __construct()
+    
+    public function __construct($bearerToken)
     {
+        $this->bearerToken  = $bearerToken;
 
         $this->includedHeaders   = array();
         $this->includedHeaders[] = Resources::CONTENT_ENCODING;
@@ -91,21 +97,8 @@ class MSIAuthScheme implements IAuthScheme
      */
     public function getAuthorizationHeader()
     {
-
-        $msiEndPoint = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01&resource=https%3A%2F%2Fstorage.azure.com%2F";
-        $opts = [
-            "http" => [
-                "method" => "GET",
-                "header" => "Metadata:true\r\n"
-            ]
-        ];
-
-        $context = stream_context_create($opts);
-        $response = file_get_contents($msiEndPoint, false, $context);
-        $response = json_decode($response);
-
-      
-        return "Bearer " . $response->access_token;
+        return $this->bearerToken;
+        
     }
 
     /**

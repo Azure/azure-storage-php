@@ -50,7 +50,7 @@ class StorageServiceSettings extends ServiceSettings
     private $queueSecondaryEndpointUri;
     private $tableSecondaryEndpointUri;
     private $fileSecondaryEndpointUri;
-    private $useMSIAuth;
+    private $useOAuthAuth;
 
 
     private static $devStoreAccount;
@@ -64,7 +64,7 @@ class StorageServiceSettings extends ServiceSettings
     private static $queueEndpointSetting;
     private static $tableEndpointSetting;
     private static $fileEndpointSetting;
-    private static $useMSIAuthSetting;
+    private static $useOAuthAuthSetting;
     /**
      * If initialized or not
      * @internal
@@ -118,7 +118,7 @@ class StorageServiceSettings extends ServiceSettings
         );
 
         self::$sasTokenSetting = self::setting(Resources::SAS_TOKEN_NAME);
-        self::$useMSIAuthSetting = self::setting(Resources::USE_MSI);
+        self::$useOAuthAuthSetting = self::setting(Resources::USE_OAUTH);
 
         self::$blobEndpointSetting = self::settingWithFunc(
             Resources::BLOB_ENDPOINT_NAME,
@@ -150,7 +150,7 @@ class StorageServiceSettings extends ServiceSettings
         self::$validSettingKeys[] = Resources::QUEUE_ENDPOINT_NAME;
         self::$validSettingKeys[] = Resources::TABLE_ENDPOINT_NAME;
         self::$validSettingKeys[] = Resources::FILE_ENDPOINT_NAME;
-        self::$validSettingKeys[] = Resources::USE_MSI;
+        self::$validSettingKeys[] = Resources::USE_OAUTH;
     }
 
     /**
@@ -188,7 +188,7 @@ class StorageServiceSettings extends ServiceSettings
         $tableSecondaryEndpointUri = null,
         $fileSecondaryEndpointUri = null,
         $sas = null,
-        $useMSIAuth = null
+        $useOAuthAuth = null
     ) {
         $this->name                      = $name;
         $this->key                       = $key;
@@ -201,7 +201,7 @@ class StorageServiceSettings extends ServiceSettings
         $this->queueSecondaryEndpointUri = $queueSecondaryEndpointUri;
         $this->tableSecondaryEndpointUri = $tableSecondaryEndpointUri;
         $this->fileSecondaryEndpointUri  = $fileSecondaryEndpointUri;
-        $this->useMSIAuth                = $useMSIAuth;
+        $this->useOAuthAuth                = $useOAuthAuth;
     }
 
     /**
@@ -335,8 +335,8 @@ class StorageServiceSettings extends ServiceSettings
             Resources::SAS_TOKEN_NAME,
             $settings
         );
-        $useMSIAuth         = Utilities::tryGetValueInsensitive(
-            Resources::USE_MSI,
+        $useOAuthAuth         = Utilities::tryGetValueInsensitive(
+            Resources::USE_OAUTH,
             $settings
         );
 
@@ -352,7 +352,7 @@ class StorageServiceSettings extends ServiceSettings
             $tableSecondaryEndpointUri,
             $fileSecondaryEndpointUri,
             $sasToken,
-            $useMSIAuth
+            $useOAuthAuth
         );
     }
 
@@ -491,7 +491,7 @@ class StorageServiceSettings extends ServiceSettings
         }
 
 
-         // Explicit case for MSI auth
+         // Explicit case for OAuth auth
          $matchedSpecs = self::matchedSpecification(
             $tokenizedSettings,
             self::atLeastOne(
@@ -501,7 +501,7 @@ class StorageServiceSettings extends ServiceSettings
                 self::$fileEndpointSetting
             ),
             self::allRequired(
-                self::$useMSIAuthSetting
+                self::$useOAuthAuthSetting
             )
         );
         if ($matchedSpecs) {
@@ -531,9 +531,9 @@ class StorageServiceSettings extends ServiceSettings
         return $this->key;
     }
 
-    public function useMSIAuth() {
+    public function useOAuthAuth() {
 
-        return $this->useMSIAuth;
+        return $this->useOAuthAuth;
     }
 
     /**

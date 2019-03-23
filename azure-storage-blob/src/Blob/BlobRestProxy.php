@@ -75,7 +75,7 @@ use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobTierOptions;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
-use MicrosoftAzure\Storage\Common\Internal\Authentication\MSIAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\OAuthAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -154,10 +154,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $authScheme = new SharedAccessSignatureAuthScheme(
                 $settings->getSasToken()
             );
-        } elseif ($settings->useMSIAuth()) {
-            $authScheme = new MSIAuthScheme("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6Ii1zeE1KTUxDSURXTVRQdlp5SjZ0eC1DRHh3MCIsImtpZCI6Ii1zeE1KTUxDSURXTVRQdlp5SjZ0eC1DRHh3MCJ9.eyJhdWQiOiJodHRwczovL3N0b3JhZ2UuYXp1cmUuY29tLyIsImlzcyI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0Ny8iLCJpYXQiOjE1NTA2OTA4MjcsIm5iZiI6MTU1MDY5MDgyNywiZXhwIjoxNTUwNzE5OTI3LCJhaW8iOiI0MkpnWU5EbXVmREc1S203MHdGSFozY1RueUpMQUE9PSIsImFwcGlkIjoiMjIwZjVmOGYtZjc3NC00NGRlLTgzMmYtZjRmYzkwNWVlZjU3IiwiYXBwaWRhY3IiOiIyIiwiaWRwIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvNzJmOTg4YmYtODZmMS00MWFmLTkxYWItMmQ3Y2QwMTFkYjQ3LyIsIm9pZCI6ImM0MDk2NzhmLTYzY2YtNGE4NS1iNjZkLTQ3YjcxNzI5OGQwMiIsInN1YiI6ImM0MDk2NzhmLTYzY2YtNGE4NS1iNjZkLTQ3YjcxNzI5OGQwMiIsInRpZCI6IjcyZjk4OGJmLTg2ZjEtNDFhZi05MWFiLTJkN2NkMDExZGI0NyIsInV0aSI6IjNsM0phb3lCVWtxOG52LTBrWVlpQUEiLCJ2ZXIiOiIxLjAiLCJ4bXNfbWlyaWQiOiIvc3Vic2NyaXB0aW9ucy9hMTVjMzJhOS05MGY2LTRjMjktODczYS01YTAwZjhjMzg5MjQvcmVzb3VyY2Vncm91cHMvT255eC9wcm92aWRlcnMvTWljcm9zb2Z0LkNvbXB1dGUvdmlydHVhbE1hY2hpbmVzL09ueXgifQ.VPDA7Vs6B-VM87CLk5-6XN4P1hRU2ai9qP0JC3jw3q0rehqXHxCu0hI7Gzg-hc1yc_6NVuChc951RZFrhPA8ANS-DhhjjCLvBDcxgza68OTdC4pXLm7nv7OVc18UvLksSWqO0svulnYdKUy6MQI6JtUtV9qAz0L72aLMKdWL2Sjx1bo-2wBpBV5a7da32-MwdhquActv2xuiNrChilyfrwcz5pOv30xZ7aK1az1I5SFQngWZzzhzVqfKJE_hTxwIATpgBrF7UrlVkGnVOM-Rd6gJHp-rUCMyXvcGlb9iTIJ8dPVcquUq93I0F1M7y3rQT_Z6pBMpILvlbBdrWggjzw"); 
+        } elseif ($settings->useOAuthAuth()) {
+            $authScheme = new OAuthAuthScheme("");
         } else {
-             $authScheme = new SharedKeyAuthScheme(
+            $authScheme = new SharedKeyAuthScheme(
                 $settings->getName(),
                 $settings->getKey()
             );
@@ -251,6 +251,26 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         //If block size is larger than singleBlobUploadThresholdInBytes, honor
         //threshold.
         $this->blockSize = $val > $this->blockSize ? $this->blockSize : $val;
+    }
+
+    /**
+     * Set the bearer token for use with OAuth authentication
+     *
+     * @param string $val the token to be included in the authorization header.
+     *
+     * @return void
+     */
+    public function setBearerToken($val)
+    {
+        if (preg_match("/Bearer\s((.*)\.(.*)\.(.*))/", $val, $matches)) {
+            $authScheme = new OAuthAuthScheme($val);
+            $commonRequestMiddleware = new CommonRequestMiddleware(
+                $authScheme,
+                Resources::STORAGE_API_LATEST_VERSION,
+                Resources::BLOB_SDK_VERSION
+            );
+            $this->pushMiddleware($commonRequestMiddleware);
+        }
     }
 
     /**
@@ -392,7 +412,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $encodedBlob = str_replace('//', '/', $exPath . $encodedBlob);
         }
 
-        return (string) $uri->withPath($encodedBlob);
+        return (string)$uri->withPath($encodedBlob);
     }
 
     /**
@@ -1376,8 +1396,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $container,
         $blob,
         Models\SetBlobTierOptions $options = null
-    )
-    {
+    ) {
         Validate::canCastAsString($container, 'container');
         Validate::canCastAsString($blob, 'blob');
         Validate::notNullOrEmpty($blob, 'blob');
@@ -1945,7 +1964,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         Validate::notNullOrEmpty($blob, 'blob');
         Validate::isTrue(
             $options == null ||
-            $options instanceof CreateBlobOptions,
+                $options instanceof CreateBlobOptions,
             sprintf(
                 Resources::INVALID_PARAM_MSG,
                 'options',
@@ -4315,8 +4334,8 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $blob,
             $proposedLeaseId,
             $leaseDuration,
-            null /* leaseId */,
-            null /* breakPeriod */,
+            null,
+            null,
             self::getStatusCodeOfLeaseAction(LeaseMode::ACQUIRE_ACTION),
             $options,
             $options->getAccessConditions()
@@ -4381,9 +4400,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             $container,
             $blob,
             $proposedLeaseId,
-            null /* leaseDuration */,
+            null,
             $leaseId,
-            null /* breakPeriod */,
+            null,
             self::getStatusCodeOfLeaseAction(LeaseMode::RENEW_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {
@@ -4441,10 +4460,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             LeaseMode::RENEW_ACTION,
             $container,
             $blob,
-            null /* proposedLeaseId */,
-            null /* leaseDuration */,
+            null,
+            null,
             $leaseId,
-            null /* breakPeriod */,
+            null,
             self::getStatusCodeOfLeaseAction(LeaseMode::RENEW_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         )->then(function ($response) {
@@ -4499,10 +4518,10 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             LeaseMode::RELEASE_ACTION,
             $container,
             $blob,
-            null /* proposedLeaseId */,
-            null /* leaseDuration */,
+            null,
+            null,
             $leaseId,
-            null /* breakPeriod */,
+            null,
             self::getStatusCodeOfLeaseAction(LeaseMode::RELEASE_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
         );
@@ -4560,9 +4579,9 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             LeaseMode::BREAK_ACTION,
             $container,
             $blob,
-            null /* proposedLeaseId */,
-            null /* leaseDuration */,
-            null /* leaseId */,
+            null,
+            null,
+            null,
             $breakPeriod,
             self::getStatusCodeOfLeaseAction(LeaseMode::BREAK_ACTION),
             is_null($options) ? new BlobServiceOptions() : $options
