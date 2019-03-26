@@ -1,3 +1,6 @@
+2019.03 - version 1.2.0
+* Documentation refinement.
+
 2018.08 - version 1.1.1
 
 * Fixed a bug in documents that `getMessageId` method should return string instead of integer.

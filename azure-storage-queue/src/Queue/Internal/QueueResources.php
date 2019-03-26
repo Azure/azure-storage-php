@@ -41,7 +41,7 @@ class QueueResources extends Resources
 {
     // @codingStandardsIgnoreStart
 
-    const QUEUE_SDK_VERSION = '1.1.1';
+    const QUEUE_SDK_VERSION = '1.2.0';
     const STORAGE_API_LATEST_VERSION = '2016-05-31';
 
     // Error messages
