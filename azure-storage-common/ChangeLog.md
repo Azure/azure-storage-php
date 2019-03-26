@@ -1,3 +1,6 @@
+2019.03 - version 1.3.0
+* Documentation refinement.
+
 2018.08 - version 1.2.0
 
 * Fixed a bug `generateCanonicalResource` returns an empty string if `$resource` starts with "/".

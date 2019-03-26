@@ -41,7 +41,7 @@ class BlobResources extends Resources
 {
     // @codingStandardsIgnoreStart
 
-    const BLOB_SDK_VERSION = '1.2.0';
+    const BLOB_SDK_VERSION = '1.3.0';
     const STORAGE_API_LATEST_VERSION = '2017-04-17';
 
     // Error messages

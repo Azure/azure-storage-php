@@ -1,3 +1,7 @@
+2019.03 - version 1.2.0
+* Fixed a bug where file name '0' cannot be created.
+* Documentation refinement.
+
 2018.04 - version 1.1.0
 
 * MD files are modified for better readability and formatting.
