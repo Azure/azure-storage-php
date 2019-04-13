@@ -42,7 +42,7 @@ class QueueResources extends Resources
     // @codingStandardsIgnoreStart
 
     const QUEUE_SDK_VERSION = '1.2.0';
-    const STORAGE_API_LATEST_VERSION = '2016-05-31';
+    const STORAGE_API_LATEST_VERSION = '2017-11-09';
 
     // Error messages
     const INVALID_RECEIVE_MODE_MSG = 'The receive message option is in neither RECEIVE_AND_DELETE nor PEEK_LOCK mode.';

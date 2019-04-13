@@ -131,6 +131,7 @@ class Resources
     const INVALID_ACCEPT_CONTENT_TYPE = "The given accept content type is not valid.";
     const ERROR_CANNOT_PARSE_XML = "Cannot parse XML, reasons: %s";
     const INVALID_SCHEME = 'HTTP scheme can only be string \'http\' or \'https\'.';
+    const AAD_TOKEN_MUST_START_WITH_BEARER = 'AAD token is invalid, please make sure that it has format \'Bearer ################\'';
 
     // HTTP Headers
     const X_MS_HEADER_PREFIX                 = 'x-ms-';
@@ -235,6 +236,7 @@ class Resources
     const NUMBER_OF_CONCURRENCY = 25;//Guzzle's default value
     const DEFAULT_NUMBER_OF_RETRIES = 3;
     const DEFAULT_RETRY_INTERVAL = 1000;//Milliseconds
+    const BEARER = 'Bearer ';
 
     // Header values
     const COMMON_SDK_VERSION                 = '1.3.0';

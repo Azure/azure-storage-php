@@ -101,6 +101,10 @@ BlobEndpoint=[myBlobEndpoint];SharedAccessSignature=[sasToken]
 ```php
 $blobClient = BlobRestProxy::createBlobService($connectionString);
 ```
+Or for token authentication:
+```php
+$blobClient = BlobRestProxy::createBlobServiceWithTokenCredential($token, $connectionString);
+```
 ### Using Middlewares
 To specify the middlewares, user have to create an array with middlewares
 and put it in the `$requestOptions` with key 'middlewares'. The sequence of

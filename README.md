@@ -112,6 +112,13 @@ Or:
 BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;SharedAccessSignature=sasToken
 ```
 
+Or if AAD authentication is used:
+
+```
+BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;AccountName=[yourAccount]
+```
+Note that account name is required.
+
 * Instantiate a client object - a wrapper around the available calls for the given service.
 
 ```php
@@ -120,6 +127,13 @@ $tableClient = TableRestProxy::createTableService($connectionString);
 $queueClient = QueueRestProxy::createQueueService($connectionString);
 $fileClient = FileRestProxy::createFileService($connectionString);
 ```
+
+Or for AAD authentication:
+```php
+$blobClient = BlobRestProxy::createBlobServiceWithTokenCredential($token, $connectionString);
+$queueClient = QueueRestProxy::createQueueServiceWithTokenCredential($token, $connectionString);
+```
+Note that Blob and Queue service supports AAD authentication.
 
 ### Using Middlewares
 To specify the middlewares, user have to create an array with middlewares

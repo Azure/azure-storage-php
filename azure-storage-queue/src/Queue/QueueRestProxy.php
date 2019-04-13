@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Queue;
 
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\TokenAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -120,6 +121,66 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
                 $settings->getKey()
             );
         }
+
+        // Adding common request middleware
+        $commonRequestMiddleware = new CommonRequestMiddleware(
+            $authScheme,
+            Resources::STORAGE_API_LATEST_VERSION,
+            Resources::QUEUE_SDK_VERSION
+        );
+        $queueWrapper->pushMiddleware($commonRequestMiddleware);
+
+        return $queueWrapper;
+    }
+
+    /**
+     * Builds a queue service object, it accepts the following
+     * options:
+     *
+     * - http: (array) the underlying guzzle options. refer to
+     *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
+     *   `callable` that follows the Guzzle middleware implementation convention
+     *
+     * Please refer to
+     * https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad
+     * for authenticate access to Azure blobs and queues using Azure Active Directory.
+     *
+     * @param string $token            The bearer token passed as reference.
+     * @param string $connectionString The configuration connection string.
+     * @param array  $options          Array of options to pass to the service
+     *
+     * @return QueueRestProxy
+     */
+    public static function createQueueServiceWithTokenCredential(
+        &$token,
+        $connectionString,
+        array $options = []
+    ) {
+        $settings = StorageServiceSettings::createFromConnectionStringForTokenCredential(
+            $connectionString
+        );
+
+        $primaryUri = Utilities::tryAddUrlScheme(
+            $settings->getQueueEndpointUri()
+        );
+
+        $secondaryUri = Utilities::tryAddUrlScheme(
+            $settings->getQueueSecondaryEndpointUri()
+        );
+
+        $queueWrapper = new QueueRestProxy(
+            $primaryUri,
+            $secondaryUri,
+            $settings->getName(),
+            $options
+        );
+
+        // Getting authentication scheme
+        $authScheme = new TokenAuthScheme(
+            $token
+        );
 
         // Adding common request middleware
         $commonRequestMiddleware = new CommonRequestMiddleware(
