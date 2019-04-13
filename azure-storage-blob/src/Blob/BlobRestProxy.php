@@ -75,6 +75,7 @@ use MicrosoftAzure\Storage\Blob\Models\SetBlobPropertiesResult;
 use MicrosoftAzure\Storage\Blob\Models\SetBlobTierOptions;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedAccessSignatureAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Authentication\SharedKeyAuthScheme;
+use MicrosoftAzure\Storage\Common\Internal\Authentication\TokenAuthScheme;
 use MicrosoftAzure\Storage\Common\Internal\Http\HttpFormatter;
 use MicrosoftAzure\Storage\Common\Internal\Middlewares\CommonRequestMiddleware;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -159,6 +160,66 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 $settings->getKey()
             );
         }
+
+        // Adding common request middleware
+        $commonRequestMiddleware = new CommonRequestMiddleware(
+            $authScheme,
+            Resources::STORAGE_API_LATEST_VERSION,
+            Resources::BLOB_SDK_VERSION
+        );
+        $blobWrapper->pushMiddleware($commonRequestMiddleware);
+
+        return $blobWrapper;
+    }
+
+    /**
+     * Builds a blob service object, it accepts the following
+     * options:
+     *
+     * - http: (array) the underlying guzzle options. refer to
+     *   http://docs.guzzlephp.org/en/latest/request-options.html for detailed available options
+     * - middlewares: (mixed) the middleware should be either an instance of a sub-class that
+     *   implements {@see MicrosoftAzure\Storage\Common\Middlewares\IMiddleware}, or a
+     *   `callable` that follows the Guzzle middleware implementation convention
+     *
+     * Please refer to
+     * https://docs.microsoft.com/en-us/azure/storage/common/storage-auth-aad
+     * for authenticate access to Azure blobs and queues using Azure Active Directory.
+     *
+     * @param string $token            The bearer token passed as reference.
+     * @param string $connectionString The configuration connection string.
+     * @param array  $options          Array of options to pass to the service
+     *
+     * @return BlobRestProxy
+     */
+    public static function createBlobServiceWithTokenCredential(
+        &$token,
+        $connectionString,
+        array $options = []
+    ) {
+        $settings = StorageServiceSettings::createFromConnectionStringForTokenCredential(
+            $connectionString
+        );
+
+        $primaryUri = Utilities::tryAddUrlScheme(
+            $settings->getBlobEndpointUri()
+        );
+
+        $secondaryUri = Utilities::tryAddUrlScheme(
+            $settings->getBlobSecondaryEndpointUri()
+        );
+
+        $blobWrapper = new BlobRestProxy(
+            $primaryUri,
+            $secondaryUri,
+            $settings->getName(),
+            $options
+        );
+
+        // Getting authentication scheme
+        $authScheme = new TokenAuthScheme(
+            $token
+        );
 
         // Adding common request middleware
         $commonRequestMiddleware = new CommonRequestMiddleware(

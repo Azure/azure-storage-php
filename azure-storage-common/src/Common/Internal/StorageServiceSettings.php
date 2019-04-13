@@ -508,6 +508,90 @@ class StorageServiceSettings extends ServiceSettings
     }
 
     /**
+     * Creates a StorageServiceSettings object from the given connection string.
+     * Note this is only for AAD connection string, it should at least contain
+     * the account name.
+     *
+     * @param string $connectionString The storage settings connection string.
+     *
+     * @return StorageServiceSettings
+     */
+    public static function createFromConnectionStringForTokenCredential($connectionString)
+    {
+        // Explicit case for AAD token, Connection string could only have account
+        // name.
+        $tokenizedSettings = self::parseAndValidateKeys($connectionString);
+
+        $scheme         = Utilities::tryGetValueInsensitive(
+            Resources::DEFAULT_ENDPOINTS_PROTOCOL_NAME,
+            $tokenizedSettings
+        );
+        $accountName    = Utilities::tryGetValueInsensitive(
+            Resources::ACCOUNT_NAME_NAME,
+            $tokenizedSettings
+        );
+        $endpointSuffix = Utilities::tryGetValueInsensitive(
+            Resources::ENDPOINT_SUFFIX_NAME,
+            $tokenizedSettings
+        );
+        return self::createStorageServiceSettings(
+            $tokenizedSettings,
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::BLOB_DNS_PREFIX,
+                $endpointSuffix
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::QUEUE_DNS_PREFIX,
+                $endpointSuffix
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::TABLE_DNS_PREFIX,
+                $endpointSuffix
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::FILE_DNS_PREFIX,
+                $endpointSuffix
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::BLOB_DNS_PREFIX,
+                $endpointSuffix,
+                true
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::QUEUE_DNS_PREFIX,
+                $endpointSuffix,
+                true
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::TABLE_DNS_PREFIX,
+                $endpointSuffix,
+                true
+            ),
+            self::getServiceEndpoint(
+                $scheme,
+                $accountName,
+                Resources::FILE_DNS_PREFIX,
+                $endpointSuffix,
+                true
+            )
+        );
+    }
+
+    /**
      * Gets storage service name.
      *
      * @return string

@@ -58,6 +58,7 @@ class TestResources
     const VALUE2        = 'value2';
     const VALUE3        = 'value3';
     const ACCOUNT_NAME  = 'myaccount';
+    const TOKEN_CS      = 'DefaultEndpointsProtocol=https;AccountName=' . TestResources::ACCOUNT_NAME . ';';
     const SAS_TOKEN     = 'st=2016-12-01T19%3A43%3A00Z&se=2016-12-02T19%3A43%3A00Z&sp=rwdl&sv=2015-12-11&sr=c&sig=aGVsbG8gd29ybGQ%3D';
     const QUEUE_URI     = '.queue.core.windows.net';
     const URI1          = "http://myaccount.queue.core.windows.net/myqueue";

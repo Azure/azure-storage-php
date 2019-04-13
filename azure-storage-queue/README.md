@@ -100,6 +100,10 @@ QueueEndpoint=[myQueueEndpoint];SharedAccessSignature=[sasToken]
 ```php
 $queueClient = QueueRestProxy::createQueueService($connectionString);
 ```
+Or for AAD authentication:
+```php
+$queueClient = QueueRestProxy::createQueueServiceWithTokenCredential($token, $connectionString);
+```
 ### Using Middlewares
 To specify the middlewares, user have to create an array with middlewares
 and put it in the `$requestOptions` with key 'middlewares'. The sequence of

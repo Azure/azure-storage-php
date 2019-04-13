@@ -40,4 +40,12 @@ class ReflectionTestBase extends \PHPUnit\Framework\TestCase
         $reflection_property->setAccessible(true);
         $reflection_property->setValue($object, $value);
     }
+
+    protected static function getProperty($name, $object)
+    {
+        $reflection = new \ReflectionClass($object);
+        $reflection_property = $reflection->getProperty($name);
+        $reflection_property->setAccessible(true);
+        return $reflection_property;
+    }
 }
