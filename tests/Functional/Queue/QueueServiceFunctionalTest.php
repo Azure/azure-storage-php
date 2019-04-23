@@ -799,7 +799,7 @@ class QueueServiceFunctionalTest extends FunctionalTestBase
 
     public function testCreateMessage()
     {
-        $interestingTimes = array( null, -1, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000 );
+        $interestingTimes = array( null, -2, 0, QueueServiceFunctionalTestData::INTERESTING_TTL, 1000 );
         foreach ($interestingTimes as $timeToLiveInSeconds) {
             foreach ($interestingTimes as $visibilityTimeoutInSeconds) {
                 $timeout = null;

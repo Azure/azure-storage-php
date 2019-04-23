@@ -67,8 +67,7 @@ class BatchResult
             $response = new \stdClass();
 
             // Split lines
-            $lines    = explode("\r\n", $parts[$i]);
-
+            $lines    = preg_split("/\\r\\n|\\r|\\n/", $parts[$i]);
             // Version Status Reason
             $statusTokens = explode(' ', $lines[0], 3);
             $response->version = $statusTokens[0];
@@ -84,7 +83,7 @@ class BatchResult
                     isset($headerTokens[1]) ? trim($headerTokens[1]) : null;
             } while (Resources::EMPTY_STRING != $headerLine);
             $response->headers = $headers;
-            $response->body = implode("\r\n", array_slice($lines, $j));
+            $response->body = implode(PHP_EOL, array_slice($lines, $j));
             $responses[] = $response;
         }
 
@@ -134,7 +133,6 @@ class BatchResult
         $callbackName = __CLASS__ . '::_compareUsingContentId';
         $count        = count($responses);
         $entries      = array();
-
         // Sort $responses based on Content-ID so they match order of $operations.
         uasort($responses, $callbackName);
 

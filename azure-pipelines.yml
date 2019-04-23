@@ -1,0 +1,45 @@
+# PHP
+# Test and package your PHP project.
+# Add steps that run tests, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/php
+
+pr:
+- master
+- dev
+
+pool:
+  vmImage: 'Ubuntu-16.04'
+
+variables:
+  phpVersion: 7.0
+
+steps:
+- script: |
+    sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+    sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+    sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+    sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+    sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+    php -version
+  displayName: 'Use PHP version $(phpVersion)'
+
+- script: composer install --no-interaction --prefer-dist
+  displayName: 'composer install'
+
+- script: php clean_up.php
+  env: { AZURE_STORAGE_CONNECTION_STRING: $(AZURE_STORAGE_CONNECTION_STRING),
+         AZURE_STORAGE_CONNECTION_STRING_BLOB_ACCOUNT: $(AZURE_STORAGE_CONNECTION_STRING_BLOB_ACCOUNT),
+         AZURE_STORAGE_CONNECTION_STRING_PREMIUM_ACCOUNT: $(AZURE_STORAGE_CONNECTION_STRING_PREMIUM_ACCOUNT)}
+  displayName: 'clean up test environment'
+
+
+- task: Ant@1
+  inputs:
+    antBuildFile: 'build.linux.xml'
+    options: 
+    targets: 'full-build-parallel'
+    publishJUnitResults: false
+  env: { AZURE_STORAGE_CONNECTION_STRING: $(AZURE_STORAGE_CONNECTION_STRING),
+         AZURE_STORAGE_CONNECTION_STRING_BLOB_ACCOUNT: $(AZURE_STORAGE_CONNECTION_STRING_BLOB_ACCOUNT),
+         AZURE_STORAGE_CONNECTION_STRING_PREMIUM_ACCOUNT: $(AZURE_STORAGE_CONNECTION_STRING_PREMIUM_ACCOUNT)}
+
