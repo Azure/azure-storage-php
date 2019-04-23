@@ -2073,7 +2073,7 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         // Test
         //get the path for the file to be downloaded into.
         $uuid = uniqid('test-file-', true);
-        $downloadPath = 'Zasdf:\\\\\\\\Invalid.PATH'.$uuid.'.txt';
+        $downloadPath = '\0/0@$%@!Zasdf:\\\\\\\\Invalid.PATH'.$uuid.'.txt';
         error_reporting(E_ALL ^ E_WARNING);
         try {
             $result = $this->restProxy->saveBlobToFile($downloadPath, $name, $blob);
