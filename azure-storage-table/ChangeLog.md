@@ -1,3 +1,6 @@
+2019.04 - version 1.1.1
+* Resolved some issues on Linux platform.
+
 2018.04 - version 1.1.0
 
 * MD files are modified for better readability and formatting.
