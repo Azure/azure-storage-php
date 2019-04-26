@@ -1,3 +1,6 @@
+2019.04 - version 1.2.1
+* Resolved some issues on Linux platform.
+
 2019.03 - version 1.2.0
 * Fixed a bug where file name '0' cannot be created.
 * Documentation refinement.

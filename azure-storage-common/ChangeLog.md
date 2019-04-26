@@ -1,3 +1,7 @@
+2019.04 - version 1.4.0
+* Added support for OAuth authentication.
+* Resolved some issues on Linux platform.
+
 2019.03 - version 1.3.0
 * Documentation refinement.
 

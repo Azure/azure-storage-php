@@ -41,7 +41,7 @@ class FileResources extends Resources
 {
     // @codingStandardsIgnoreStart
 
-    const FILE_SDK_VERSION = '1.2.0';
+    const FILE_SDK_VERSION = '1.2.1';
     const STORAGE_API_LATEST_VERSION = '2016-05-31';
 
     // Error messages
