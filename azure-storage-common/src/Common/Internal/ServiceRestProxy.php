@@ -108,7 +108,7 @@ class ServiceRestProxy extends RestProxy
             $options['proxy'] = $proxy;
         }
 
-        if (!empty($options['verify'])) {
+        if (isset($options['verify'])) {
             $verify = $options['verify'];
         }
 
