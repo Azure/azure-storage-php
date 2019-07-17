@@ -76,12 +76,12 @@ class BatchResult
 
             $headers = array();
             $j       = 1;
-            do {
+            while (Resources::EMPTY_STRING != $lines[$j]) {
                 $headerLine = $lines[$j++];
                 $headerTokens = explode(':', $headerLine);
                 $headers[trim($headerTokens[0])] =
                     isset($headerTokens[1]) ? trim($headerTokens[1]) : null;
-            } while (Resources::EMPTY_STRING != $headerLine);
+            }
             $response->headers = $headers;
             $response->body = implode(PHP_EOL, array_slice($lines, $j));
             $responses[] = $response;
