@@ -183,6 +183,150 @@ class BlobServiceSASFunctionalTest extends SASFunctionalTestBase
         $blobProxy->deleteBlob($container, $blob);
     }
 
+    public function testBlobServiceSASNonUTF8Char()
+    {
+        $helper = new BlobSharedAccessSignatureHelperMock(
+            $this->serviceSettings->getName(),
+            $this->serviceSettings->getKey()
+        );
+
+        //setup the proxies for creating containers
+        $this->setUpWithConnectionString($this->connectionString);
+
+        $containerProxies = array();
+        $containers = array();
+        $containers[] = TestResources::getInterestingName('con');
+        $this->safeCreateContainer($containers[0]);
+        $containers[] = TestResources::getInterestingName('con');
+        $this->safeCreateContainer($containers[1]);
+
+        //Full permission for container0
+        $containerProxies[] = $this->createProxyWithBlobSASfromArray(
+            $helper,
+            TestResources::getInterestingBlobOrFileSASTestCase(
+                'racwdl',
+                Resources::RESOURCE_TYPE_CONTAINER,
+                $containers[0]
+            )
+        );
+        //Full permission for container1
+        $containerProxies[] = $this->createProxyWithBlobSASfromArray(
+            $helper,
+            TestResources::getInterestingBlobOrFileSASTestCase(
+                'racwdl',
+                Resources::RESOURCE_TYPE_CONTAINER,
+                $containers[1]
+            )
+        );
+
+        //Validate the permission for each of the proxy/container pair
+        for ($i = 0; $i < 2; ++$i) {
+            $proxy = $containerProxies[$i];
+            $container = $containers[$i];
+            //c
+            $blobPrefix = "eñe20!";
+            $blob0 = TestResources::getInterestingName($blobPrefix);
+            $proxy->createAppendBlob($container, $blob0);
+            //l
+            $result = $proxy->listBlobs($container);
+            $this->assertEquals($blob0, $result->getBlobs()[0]->getName());
+            //a
+            $content = \openssl_random_pseudo_bytes(1024);
+            $proxy->appendBlock($container, $blob0, $content);
+            //w
+            $blob1 = TestResources::getInterestingName($blobPrefix);
+            $proxy->createBlockBlob($container, $blob1, $content);
+            //r
+            $actualContent = \stream_get_contents(
+                $proxy->getBlob($container, $blob0)->getContentStream()
+            );
+            $this->assertEquals($content, $actualContent);
+            $actualContent = \stream_get_contents(
+                $proxy->getBlob($container, $blob1)->getContentStream()
+            );
+            $this->assertEquals($content, $actualContent);
+            //d
+            $proxy->deleteBlob($container, $blob0);
+            $proxy->deleteBlob($container, $blob1);
+            $result = $proxy->listBlobs($container);
+            $this->assertEquals(0, \count($result->getBlobs()));
+        }
+        //Validate that a cross access with wrong proxy/container pair
+        //would not be successful
+        for ($i= 0; $i < 2; ++$i) {
+            $proxy = $containerProxies[$i];
+            $container = $containers[1 - $i];
+            $blob0 = TestResources::getInterestingName($blobPrefix);
+            //c
+            $this->validateServiceExceptionErrorMessage(
+                'Server failed to authenticate the request.',
+                function () use ($proxy, $container, $blob0) {
+                    $proxy->createAppendBlob($container, $blob0);
+                }
+            );
+            //l
+            $this->validateServiceExceptionErrorMessage(
+                'Server failed to authenticate the request.',
+                function () use ($proxy, $container) {
+                    $proxy->listBlobs($container);
+                }
+            );
+            //w
+            $this->validateServiceExceptionErrorMessage(
+                'Server failed to authenticate the request.',
+                function () use ($proxy, $container) {
+                    $proxy->createBlockBlob($container, 'myblob', 'testcontent');
+                }
+            );
+        }
+
+        //No list permission
+        $containerProxy = $this->createProxyWithBlobSASfromArray(
+            $helper,
+            TestResources::getInterestingBlobOrFileSASTestCase(
+                'racwd',
+                Resources::RESOURCE_TYPE_CONTAINER,
+                $containers[0]
+            )
+        );
+        $container = $containers[0];
+        //l
+        $this->validateServiceExceptionErrorMessage(
+            'Server failed to authenticate the request.',
+            function () use ($proxy, $container) {
+                $proxy->listBlobs($container);
+            }
+        );
+        //can c and d
+        $blob0 = TestResources::getInterestingName($blobPrefix);
+        $containerProxy->createAppendBlob($container, $blob0);
+        $containerProxy->deleteBlob($container, $blob0);
+
+        //blob permission
+        $blob = TestResources::getInterestingName($blobPrefix);
+        $blobProxy = $this->createProxyWithBlobSASfromArray(
+            $helper,
+            TestResources::getInterestingBlobOrFileSASTestCase(
+                'racwd',
+                Resources::RESOURCE_TYPE_BLOB,
+                $container . '/' . $blob
+            )
+        );
+        //l cannot be performed
+        $this->validateServiceExceptionErrorMessage(
+            'The specified signed resource is not allowed for the this resource level',
+            function () use ($blobProxy, $container) {
+                $blobProxy->listBlobs($container);
+            }
+        );
+        $content = \openssl_random_pseudo_bytes(20);
+        //rcwd can be performed.
+        $blobProxy->createBlockBlob($container, $blob, $content);
+        $actual = stream_get_contents($blobProxy->getBlob($container, $blob)->getContentStream());
+        $this->assertEquals($content, $actual);
+        $blobProxy->deleteBlob($container, $blob);
+    }
+
     private function createProxyWithBlobSASfromArray($helper, $testCase)
     {
         $sas = $helper->generateBlobServiceSharedAccessSignatureToken(

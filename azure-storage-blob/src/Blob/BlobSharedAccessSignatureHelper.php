@@ -180,7 +180,7 @@ class BlobSharedAccessSignatureHelper extends SharedAccessSignatureHelper
         $parameters[] = $contentType;
 
         // implode the parameters into a string
-        $stringToSign = utf8_encode(implode("\n", $parameters));
+        $stringToSign = implode("\n", $parameters);
         // decode the account key from base64
         $decodedAccountKey = base64_decode($this->accountKey);
         // create the signature with hmac sha256

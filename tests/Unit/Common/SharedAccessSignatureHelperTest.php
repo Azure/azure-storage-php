@@ -274,6 +274,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $resourceNames[] = "folder/filename";
         $resourceNames[] = "/folder/filename";
         $resourceNames[] = "/folder/filename/";
+        $resourceNames[] = "/folder/eñe20!.pdf/";
 
         $expected = array();
         $expected[] = "/blob/test/filename";
@@ -282,6 +283,7 @@ class SharedAccessSignatureHelperTest extends ReflectionTestBase
         $expected[] = "/blob/test/folder/filename";
         $expected[] = "/blob/test/folder/filename";
         $expected[] = "/blob/test/folder/filename/";
+        $expected[] = "/blob/test/folder/eñe20!.pdf/";
 
         for ($i = 0; $i < count($resourceNames); $i++) {
             // Test
