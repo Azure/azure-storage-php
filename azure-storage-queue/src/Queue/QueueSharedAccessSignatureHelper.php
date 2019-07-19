@@ -133,7 +133,7 @@ class QueueSharedAccessSignatureHelper extends SharedAccessSignatureHelper
         $parameters[] = Resources::STORAGE_API_LATEST_VERSION;
 
         // implode the parameters into a string
-        $stringToSign = utf8_encode(implode("\n", $parameters));
+        $stringToSign = implode("\n", $parameters);
         // decode the account key from base64
         $decodedAccountKey = base64_decode($this->accountKey);
         // create the signature with hmac sha256

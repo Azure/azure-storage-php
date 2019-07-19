@@ -326,6 +326,6 @@ class SharedAccessSignatureHelper
         if (Utilities::startsWith($resource, '/')) {
             $resource = substr($resource, 1);
         }
-        return sprintf('/%s/%s/%s', $serviceName, $accountName, $resource);
+        return urldecode(sprintf('/%s/%s/%s', $serviceName, $accountName, $resource));
     }
 }
