@@ -562,6 +562,41 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         $this->assertCount(0, $result->getBlobPrefixes());
     }
 
+    public function testListBlobsIncludeDeleted()
+    {
+        // Setup
+        $name  = 'listblobswithdeleted' . $this->createSuffix();
+        $blob1 = 'blob1';
+        $blob2 = 'blob2';
+        $blob3 = 'blob3';
+        $blob4 = 'blob4';
+        $length = 512;
+        $options = new ListBlobsOptions();
+        $options->setIncludeDeleted(true);
+        $options->setMaxResults(10);
+
+        $this->createContainer($name);
+        $this->restProxy->createPageBlob($name, $blob1, $length);
+        $this->restProxy->createPageBlob($name, $blob2, $length);
+        $this->restProxy->createPageBlob($name, $blob3, $length);
+        $this->restProxy->createPageBlob($name, $blob4, $length);
+
+        // List blobs
+        $result = $this->restProxy->listBlobs($name, $options);
+
+        // Assert
+        $this->assertCount(4, $result->getBlobs());
+        
+        // Delete blob
+        $this->restProxy->deleteBlob($name, $blob4);
+
+        // List blobs
+        $result = $this->restProxy->listBlobs($name, $options);
+
+        // Assert
+        $this->assertCount(4, $result->getBlobs());
+    }
+
     public function testListBlobsWithOptionsWithDelimiter()
     {
         $this->skipIfEmulated();
