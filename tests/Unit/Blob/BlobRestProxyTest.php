@@ -1143,6 +1143,32 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
         );
     }
 
+    public function testUndeleteBlob()
+    {
+        // Setup
+        $name = 'undeleteblob' . $this->createSuffix();
+        $blob = 'myblob';
+        $contentType = 'text/plain; charset=UTF-8';
+        $this->createContainer($name);
+        $options = new CreateBlockBlobOptions();
+        $options->setContentType($contentType);
+        $this->restProxy->createBlockBlob($name, $blob, 'Hello world', $options);
+
+        // Delete blob
+        $this->restProxy->deleteBlob($name, $blob);
+
+        // Assert
+        $result = $this->restProxy->listBlobs($name);
+        $this->assertCount(0, $result->getBlobs());
+        
+        // Undelete blob
+        $this->restProxy->undeleteBlob($name, $blob);
+
+        // Assert
+        $result = $this->restProxy->listBlobs($name);
+        $this->assertCount(1, $result->getBlobs());
+    }
+
     public function testDeleteBlob()
     {
         // Setup
