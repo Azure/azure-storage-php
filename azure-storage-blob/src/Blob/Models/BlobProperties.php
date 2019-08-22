@@ -41,6 +41,7 @@ use MicrosoftAzure\Storage\Common\Internal\Utilities;
 class BlobProperties
 {
     private $lastModified;
+    private $creationTime;
     private $etag;
     private $contentType;
     private $contentLength;
@@ -65,6 +66,8 @@ class BlobProperties
     private $accessTierInferred;
     private $accessTierChangeTime;
     private $archiveStatus;
+    private $deletedTime;
+    private $remainingRetentionDays;
 
     /**
      * Creates BlobProperties object from $parsed response in array representation of XML elements
@@ -104,15 +107,32 @@ class BlobProperties
             )
         );
 
-        $date = Utilities::tryGetValue($clean, 'accesstierchangetime');
-        if (!is_null($date)) {
-            $date = Utilities::rfc1123ToDateTime($date);
-            $result->setAccessTierChangeTime($date);
+        $accesstierchangetime = Utilities::tryGetValue($clean, 'accesstierchangetime');
+        if (!is_null($accesstierchangetime)) {
+            $accesstierchangetime = Utilities::rfc1123ToDateTime($accesstierchangetime);
+            $result->setAccessTierChangeTime($accesstierchangetime);
         }
 
         $result->setArchiveStatus(
             Utilities::tryGetValue($clean, 'archivestatus')
         );
+
+        $deletedtime = Utilities::tryGetValue($clean, 'deletedtime');
+        if (!is_null($deletedtime)) {
+            $deletedtime = Utilities::rfc1123ToDateTime($deletedtime);
+            $result->setDeletedTime($deletedtime);
+        }
+
+        $remainingretentiondays = Utilities::tryGetValue($clean, 'remainingretentiondays');
+        if (!is_null($remainingretentiondays)) {
+            $result->setRemainingRetentionDays((int) $remainingretentiondays);
+        }
+        
+        $creationtime = Utilities::tryGetValue($clean, 'creation-time');
+        if (!is_null($creationtime)) {
+            $creationtime = Utilities::rfc1123ToDateTime($creationtime);
+            $result->setCreationTime($creationtime);
+        }
 
         return $result;
     }
@@ -215,6 +235,29 @@ class BlobProperties
     {
         Validate::isDate($lastModified);
         $this->lastModified = $lastModified;
+    }
+
+    /**
+     * Gets blob creationTime.
+     *
+     * @return \DateTime
+     */
+    public function getCreationTime()
+    {
+        return $this->creationTime;
+    }
+
+    /**
+     * Sets blob creationTime.
+     *
+     * @param \DateTime $creationTime value.
+     *
+     * @return void
+     */
+    public function setCreationTime(\DateTime $creationTime)
+    {
+        Validate::isDate($creationTime);
+        $this->creationTime = $creationTime;
     }
 
     /**
@@ -371,7 +414,52 @@ class BlobProperties
     {
         $this->archiveStatus = $archiveStatus;
     }
+    
+    /**
+     * Gets blob deleted time.
+     *
+     * @return string
+     */
+    public function getDeletedTime()
+    {
+        return $this->deletedTime;
+    }
+    
+    /**
+     * Sets blob deleted time.
+     *
+     * @param \DateTime $deletedTime value.
+     *
+     * @return void
+     */
+    public function setDeletedTime(\DateTime $deletedTime)
+    {
+        $this->deletedTime = $deletedTime;
+    }
+    
+    /**
+     * Gets blob remaining retention days.
+     *
+     * @return integer
+     */
+    public function getRemainingRetentionDays()
+    {
+        return $this->remainingRetentionDays;
+    }
 
+    /**
+     * Sets blob remaining retention days.
+     *
+     * @param integer $remainingRetentionDays value.
+     *
+     * @return void
+     */
+    public function setRemainingRetentionDays($remainingRetentionDays)
+    {
+        $this->remainingRetentionDays = $remainingRetentionDays;
+    }
+
+    
     /**
      * Gets blob access inferred.
      *
