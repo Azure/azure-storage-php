@@ -46,6 +46,7 @@ use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobSnapshotResult;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreatePageBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\UndeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataResult;
@@ -3791,6 +3792,84 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         });
     }
     
+    /**
+     * Undeletes a blob.
+     *
+     * @param string                      $container name of the container
+     * @param string                      $blob      name of the blob
+     * @param Models\UndeleteBlobOptions  $options   optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/undelete-blob
+     */
+    public function undeleteBlob(
+        $container,
+        $blob,
+        Models\UndeleteBlobOptions $options = null
+    ) {
+        $this->undeleteBlobAsync($container, $blob, $options)->wait();
+    }
+    
+    /**
+     * Undeletes a blob.
+     *
+     * @param string                      $container name of the container
+     * @param string                      $blob      name of the blob
+     * @param Models\UndeleteBlobOptions  $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/undelete-blob
+     */
+    public function undeleteBlobAsync(
+        $container,
+        $blob,
+        Models\UndeleteBlobOptions $options = null
+    ) {
+        Validate::canCastAsString($container, 'container');
+        Validate::canCastAsString($blob, 'blob');
+        Validate::notNullOrEmpty($blob, 'blob');
+
+        $method      = Resources::HTTP_PUT;
+        $headers     = array();
+        $postParams  = array();
+        $queryParams = array();
+        $path        = $this->createPath($container, $blob);
+
+        if (is_null($options)) {
+            $options = new UndeleteBlobOptions();
+        }
+
+        $leaseId = $options->getLeaseId();
+
+        $headers = $this->addOptionalAccessConditionHeader(
+            $headers,
+            $options->getAccessConditions()
+        );
+
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_LEASE_ID,
+            $leaseId
+        );
+
+        $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'undelete');
+
+        $options->setLocationMode(LocationMode::PRIMARY_ONLY);
+
+        return $this->sendAsync(
+            $method,
+            $headers,
+            $queryParams,
+            $postParams,
+            $path,
+            Resources::STATUS_OK,
+            Resources::EMPTY_STRING,
+            $options
+        );
+    }
+
     /**
      * Deletes a blob or blob snapshot.
      *
