@@ -48,6 +48,7 @@ class ListBlobsOptions extends BlobServiceOptions
     private $_includeSnapshots;
     private $_includeUncommittedBlobs;
     private $_includeCopy;
+    private $_includeDeleted;
 
     /**
      * Gets prefix.
@@ -208,5 +209,28 @@ class ListBlobsOptions extends BlobServiceOptions
     {
         Validate::isBoolean($includeCopy);
         $this->_includeCopy = $includeCopy;
+    }
+
+    /**
+     * Indicates if deleted is included or not.
+     *
+     * @return boolean
+     */
+    public function getIncludeDeleted()
+    {
+        return $this->_includeDeleted;
+    }
+
+    /**
+     * Sets the include deleted flag.
+     *
+     * @param bool $includeDeleted value.
+     *
+     * @return void
+     */
+    public function setIncludeDeleted($includeDeleted)
+    {
+        Validate::isBoolean($includeDeleted);
+        $this->_includeDeleted = $includeDeleted;
     }
 }

@@ -1544,13 +1544,15 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $includeSnapshots        = $options->getIncludeSnapshots();
         $includeUncommittedBlobs = $options->getIncludeUncommittedBlobs();
         $includecopy             = $options->getIncludeCopy();
+        $includeDeleted          = $options->getIncludeDeleted();
 
         $includeValue = static::groupQueryValues(
             array(
                 $includeMetadata ? 'metadata' : null,
                 $includeSnapshots ? 'snapshots' : null,
                 $includeUncommittedBlobs ? 'uncommittedblobs' : null,
-                $includecopy ? 'copy' : null
+                $includecopy ? 'copy' : null,
+                $includeDeleted ? 'deleted' : null,
             )
         );
 
@@ -3788,7 +3790,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
         });
     }
-
+    
     /**
      * Deletes a blob or blob snapshot.
      *
