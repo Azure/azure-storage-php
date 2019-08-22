@@ -212,4 +212,31 @@ class ListBlobsOptionsTest extends \PHPUnit\Framework\TestCase
         // Assert
         $this->assertEquals($expected, $actual);
     }
+
+    public function testSetIncludeDeleted()
+    {
+        // Setup
+        $options = new ListBlobsOptions();
+        $expected = true;
+
+        // Test
+        $options->setIncludeDeleted($expected);
+
+        // Assert
+        $this->assertEquals($expected, $options->setIncludeDeleted());
+    }
+
+    public function testGetIncludeDeleted()
+    {
+        // Setup
+        $options = new ListBlobsOptions();
+        $expected = true;
+        $options->setIncludeDeleted($expected);
+
+        // Test
+        $actual = $options->getIncludeDeleted();
+
+        // Assert
+        $this->assertEquals($expected, $actual);
+    }
 }

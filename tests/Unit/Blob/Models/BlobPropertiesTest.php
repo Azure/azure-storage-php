@@ -71,13 +71,25 @@ class BlobPropertiesTest extends \PHPUnit\Framework\TestCase
         // Setup
         $expected = Utilities::rfc1123ToDateTime('Sun, 25 Sep 2011 19:42:18 GMT');
         $properties = new BlobProperties();
-        $properties->setLastModified($expected);
 
         // Test
         $properties->setLastModified($expected);
 
         // Assert
         $this->assertEquals($expected, $properties->getLastModified());
+    }
+
+    public function testSetCreationTime()
+    {
+        // Setup
+        $expected = Utilities::rfc1123ToDateTime('Sun, 25 Sep 2011 19:42:18 GMT');
+        $properties = new BlobProperties();
+
+        // Test
+        $properties->setCreationTime($expected);
+
+        // Assert
+        $this->assertEquals($expected, $properties->getCreationTime());
     }
 
     public function testSetETag()
@@ -273,7 +285,7 @@ class BlobPropertiesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expected, $properties->getIncrementalCopy());
     }
 
-    public function tesSetServerEncrypted()
+    public function testSetServerEncrypted()
     {
         // Setup
         $expectedTrue = true;
@@ -293,5 +305,31 @@ class BlobPropertiesTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($expectedTrue, $propertiesTrue->getServerEncrypted());
         $this->assertEquals($propertiesFalse, $propertiesFalse->getServerEncrypted());
         $this->assertEquals($propertiesNull, $propertiesNull->getServerEncrypted());
+    }
+
+    public function testSetDeletedTime()
+    {
+        // Setup
+        $expected = Utilities::rfc1123ToDateTime('Sun, 25 Sep 2011 19:42:18 GMT');
+        $properties = new BlobProperties();
+
+        // Test
+        $properties->setDeletedTime($expected);
+
+        // Assert
+        $this->assertEquals($expected, $properties->getDeletedTime());
+    }
+
+    public function testSetRemainingRetentionDays()
+    {
+        // Setup
+        $expected = 8;
+        $properties = new BlobProperties();
+
+        // Test
+        $properties->setRemainingRetentionDays($expected);
+
+        // Assert
+        $this->assertEquals($expected, $properties->getRemainingRetentionDays());
     }
 }
