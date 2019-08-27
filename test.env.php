@@ -1,3 +1,0 @@
-<?php
-
-echo getenv("AZURE_STORAGE_CONNECTION_STRING");
