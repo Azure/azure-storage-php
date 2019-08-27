@@ -26,10 +26,10 @@
   <filter>
     <whitelist addUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">azure-storage-blob/src</directory>
-<!--      <directory suffix=".php">azure-storage-table/src</directory>
+      <directory suffix=".php">azure-storage-table/src</directory>
       <directory suffix=".php">azure-storage-queue/src</directory>
       <directory suffix=".php">azure-storage-file/src</directory>
-      <directory suffix=".php">azure-storage-common/src</directory>-->
+      <directory suffix=".php">azure-storage-common/src</directory>
     </whitelist>
   </filter>
 </phpunit>
