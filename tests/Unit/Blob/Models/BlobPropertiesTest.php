@@ -303,8 +303,8 @@ class BlobPropertiesTest extends \PHPUnit\Framework\TestCase
 
         // Assert
         $this->assertEquals($expectedTrue, $propertiesTrue->getServerEncrypted());
-        $this->assertEquals($propertiesFalse, $propertiesFalse->getServerEncrypted());
-        $this->assertEquals($propertiesNull, $propertiesNull->getServerEncrypted());
+        $this->assertEquals($expectedFalse, $propertiesFalse->getServerEncrypted());
+        $this->assertEquals($expectedNull, $propertiesNull->getServerEncrypted());
     }
 
     public function testSetDeletedTime()
