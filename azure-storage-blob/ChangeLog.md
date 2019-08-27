@@ -1,8 +1,15 @@
+2019.08 - version 1.5.0
+
+* Added support to include deleted in blob list.
+* Added support to undelete a blob.
+
 2019.04 - version 1.4.0
+
 * Added support for OAuth authentication.
 * Resolved some issues on Linux platform.
 
 2019.03 - version 1.3.0
+
 * Fixed a bug where blob name '0' cannot be created.
 * Documentation refinement.
 * `ListContainer` now can have ETag more robustly fetched from response header.
