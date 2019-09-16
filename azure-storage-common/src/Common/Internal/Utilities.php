@@ -25,7 +25,7 @@
 
 namespace MicrosoftAzure\Storage\Common\Internal;
 
-use GuzzleHttp\Psr7\Stream;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Utilities for the project
@@ -677,17 +677,17 @@ class Utilities
      * To evaluate if the stream is larger than a certain size. To restore
      * the stream, it has to be seekable, so will return true if the stream
      * is not seekable.
-     * @param  Stream          $stream The stream to be evaluated.
+     * @param  StreamInterface $stream The stream to be evaluated.
      * @param  int             $size   The size if the string is larger than.
      *
      * @return boolean         true if the stream is larger than the given size.
      */
-    public static function isStreamLargerThanSizeOrNotSeekable(Stream $stream, $size)
+    public static function isStreamLargerThanSizeOrNotSeekable(StreamInterface $stream, $size)
     {
         Validate::isInteger($size, 'size');
         Validate::isTrue(
-            $stream instanceof Stream,
-            sprintf(Resources::INVALID_PARAM_MSG, 'stream', 'Guzzle\Stream')
+            $stream instanceof StreamInterface,
+            sprintf(Resources::INVALID_PARAM_MSG, 'stream', 'Psr\Http\Message\StreamInterface')
         );
         $result = true;
         if ($stream->isSeekable()) {
