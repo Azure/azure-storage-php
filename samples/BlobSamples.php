@@ -27,6 +27,7 @@ require_once "../vendor/autoload.php";
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
+use MicrosoftAzure\Storage\Common\ServicesBuilder;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
@@ -47,9 +48,9 @@ use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$blobClient = BlobRestProxy::createBlobService($connectionString);
+$blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
 
-// A temporary container created and used through this sample, and finnaly deleted
+// A temporary container created and used through this sample, and finally deleted
 $myContainer = 'mycontainer' . generateRandomString();
 
 // Get and Set Blob Service Properties
