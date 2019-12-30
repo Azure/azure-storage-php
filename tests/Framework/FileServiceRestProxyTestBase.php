@@ -31,6 +31,7 @@ use MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions;
 use MicrosoftAzure\Storage\File\Models\ListSharesOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
 use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 
 /**
  * TestBase class for each unit test class.
@@ -51,6 +52,7 @@ class FileServiceRestProxyTestBase extends ServiceRestProxyTestBase
     {
         parent::setUp();
         $fileRestProxy = FileRestProxy::createFileService($this->connectionString);
+        $fileRestProxy->pushMiddleware(RetryMiddlewareFactory::create());
         parent::setProxy($fileRestProxy);
         $this->createdShares = array();
         $this->createdDirectories = array();

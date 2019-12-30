@@ -25,6 +25,7 @@ namespace MicrosoftAzure\Storage\Tests\Framework;
 
 use MicrosoftAzure\Storage\Table\TableRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 
 /**
  * TestBase class for each unit test class.
@@ -44,6 +45,7 @@ class TableServiceRestProxyTestBase extends ServiceRestProxyTestBase
     {
         parent::setUp();
         $tableRestProxy = TableRestProxy::createTableService($this->connectionString);
+        $tableRestProxy->pushMiddleware(RetryMiddlewareFactory::create());
         parent::setProxy($tableRestProxy);
         $this->_createdTables = array();
     }

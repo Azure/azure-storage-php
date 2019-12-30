@@ -26,6 +26,7 @@ namespace MicrosoftAzure\Storage\Tests\Framework;
 use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 
 /**
  * TestBase class for each unit test class.
@@ -45,6 +46,7 @@ class QueueServiceRestProxyTestBase extends ServiceRestProxyTestBase
     {
         parent::setUp();
         $queueRestProxy = QueueRestProxy::createQueueService($this->connectionString);
+        $queueRestProxy->pushMiddleware(RetryMiddlewareFactory::create());
         parent::setProxy($queueRestProxy);
         $this->_createdQueues = array();
     }
