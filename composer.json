@@ -22,7 +22,7 @@
         "friendsofphp/php-cs-fixer": "@stable",
         "phploc/phploc": "~2.1",
         "phpmd/phpmd": "@stable",
-        "phpdocumentor/phpdocumentor": "dev-master"
+        "phpdocumentor/phpdocumentor": "@stable"
     },
     "autoload": {
         "psr-4": {

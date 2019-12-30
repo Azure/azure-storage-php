@@ -2355,7 +2355,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
                     $useTransactionalMD5
                 );
             }, null);
-        } else {
+        } elseif ($size > 0) {
             return $promise->then(function ($response) use (
                 $share,
                 $path,
@@ -2371,6 +2371,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
                     $putOptions
                 );
             }, null);
+        } else {
+            return $promise;
         }
     }
 

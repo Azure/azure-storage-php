@@ -776,16 +776,19 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
         $content1 .= openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4);
         $content1 = str_pad($content1, Resources::MB_IN_BYTES_4 * 4, "\0", STR_PAD_RIGHT);
         $content2 = openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_4 * 4);
+        $content3 = "";
 
         $testfile0 = 'testfile0';
         $testfile1 = 'testfile1';
         $testfile2 = 'testfile2';
+        $testfile3 = 'testfile3';
 
         $options = new CreateFileFromContentOptions();
         $options->setUseTransactionalMD5(true);
         $this->restProxy->createFileFromContent($share, $testfile0, $content0, $options);
         $this->restProxy->createFileFromContent($share, $testfile1, $content1, $options);
         $this->restProxy->createFileFromContent($share, $testfile2, $content2, $options);
+        $this->restProxy->createFileFromContent($share, $testfile3, $content3, $options);
 
         $result = $this->restProxy->getFile($share, $testfile0);
         $actual0 = \stream_get_contents($result->getContentStream());
@@ -793,9 +796,11 @@ class FileRestProxyTest extends FileServiceRestProxyTestBase
         $actual1 = \stream_get_contents($result->getContentStream());
         $result = $this->restProxy->getFile($share, $testfile2);
         $actual2 = \stream_get_contents($result->getContentStream());
+        $result = $this->restProxy->getFile($share, $testfile3);
 
         $this->assertTrue($content0 == $actual0);
         $this->assertTrue($content1 == $actual1);
         $this->assertTrue($content2 == $actual2);
+        $this->assertTrue($result->getProperties()->getContentLength() == 0);
     }
 }
