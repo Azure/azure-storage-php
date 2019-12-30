@@ -30,6 +30,7 @@ use MicrosoftAzure\Storage\Tests\Framework\ServiceRestProxyTestBase;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListContainersOptions;
 use MicrosoftAzure\Storage\Common\Exceptions\ServiceException;
+use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 
 /**
  * TestBase class for each unit test class.
@@ -49,6 +50,7 @@ class BlobServiceRestProxyTestBase extends ServiceRestProxyTestBase
     {
         parent::setUp();
         $blobRestProxy = BlobRestProxy::createBlobService($this->connectionString);
+        $blobRestProxy->pushMiddleware(RetryMiddlewareFactory::create());
         parent::setProxy($blobRestProxy);
         $this->_createdContainers = array();
     }
