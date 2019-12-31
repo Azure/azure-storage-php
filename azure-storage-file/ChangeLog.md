@@ -1,3 +1,6 @@
+2020.01 - version 1.2.2
+* Fixed `createFileFromContent` authentication failure when uploading some local file stream types. 
+
 2019.04 - version 1.2.1
 * Resolved some issues on Linux platform.
 
