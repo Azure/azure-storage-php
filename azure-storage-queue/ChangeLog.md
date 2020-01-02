@@ -1,3 +1,6 @@
+2020.01 - version 1.3.1
+* Fixed the issue in SAS token where special characters were not correctly encoded.
+
 2019.04 - version 1.3.0
 * Added support for OAuth authentication.
 * Resolved some issues on Linux platform.

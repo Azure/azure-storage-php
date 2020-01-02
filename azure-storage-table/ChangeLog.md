@@ -1,3 +1,8 @@
+2020.01 - version 1.1.2
+* Fixed the issue in SAS token where special characters were not correctly encoded.
+* Empty lines no longer treated as headers in Batch operation.
+
+
 2019.04 - version 1.1.1
 * Resolved some issues on Linux platform.
 

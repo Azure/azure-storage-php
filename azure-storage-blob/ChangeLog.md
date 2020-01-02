@@ -1,7 +1,9 @@
-2019.08 - version 1.5.0
+2020.01 - version 1.5.0
 
 * Added support to include deleted in blob list.
 * Added support to undelete a blob.
+* Fixed the issue in SAS token where special characters were not correctly encoded.
+* Samples no longer uses ‘BlobRestProxy’ directly, instead, ‘ServicesBuilder’ is used.
 
 2019.04 - version 1.4.0
 
