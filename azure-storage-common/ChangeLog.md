@@ -1,3 +1,6 @@
+2020.01 - version 1.4.1
+* Changed to perform override existence instead of value check for ‘$options[‘verify’]’ in ‘ServiceRestProxy’.
+
 2019.04 - version 1.4.0
 * Added support for OAuth authentication.
 * Resolved some issues on Linux platform.

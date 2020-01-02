@@ -1,5 +1,7 @@
 2020.01 - version 1.2.2
+* Fixed the issue in SAS token where special characters were not correctly encoded.
 * Fixed `createFileFromContent` authentication failure when uploading some local file stream types. 
+* Fixed `createFileFromContent` fail to upload from empty content issue.
 
 2019.04 - version 1.2.1
 * Resolved some issues on Linux platform.
