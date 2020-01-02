@@ -34,7 +34,258 @@
         />
     </head>
     <body>
-        <pre class="brush: php"></pre>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use MicrosoftAzure\Storage\Blob\Internal\BlobResources as Resources;
+use MicrosoftAzure\Storage\Common\Internal\Utilities;
+use MicrosoftAzure\Storage\Common\Models\MarkerContinuationToken;
+use MicrosoftAzure\Storage\Common\MarkerContinuationTokenTrait;
+
+/**
+ * Container to hold list container response object.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class ListContainersResult
+{
+    use MarkerContinuationTokenTrait;
+
+    private $containers;
+    private $prefix;
+    private $marker;
+    private $maxResults;
+    private $accountName;
+
+    /**
+     * Creates ListBlobResult object from parsed XML response.
+     *
+     * @param array  $parsedResponse XML response parsed into array.
+     * @param string $location       Contains the location for the previous
+     *                               request.
+     *
+     * @internal
+     *
+     * @return ListContainersResult
+     */
+    public static function create(array $parsedResponse, $location = '')
+    {
+        $result               = new ListContainersResult();
+        $serviceEndpoint      = Utilities::tryGetKeysChainValue(
+            $parsedResponse,
+            Resources::XTAG_ATTRIBUTES,
+            Resources::XTAG_SERVICE_ENDPOINT
+        );
+        $result-&gt;setAccountName(Utilities::tryParseAccountNameFromUrl(
+            $serviceEndpoint
+        ));
+        $result-&gt;setPrefix(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_PREFIX
+        ));
+        $result-&gt;setMarker(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_MARKER
+        ));
+
+        $nextMarker =
+            Utilities::tryGetValue($parsedResponse, Resources::QP_NEXT_MARKER);
+
+        if ($nextMarker != null) {
+            $result-&gt;setContinuationToken(
+                new MarkerContinuationToken(
+                    $nextMarker,
+                    $location
+                )
+            );
+        }
+
+        $result-&gt;setMaxResults(Utilities::tryGetValue(
+            $parsedResponse,
+            Resources::QP_MAX_RESULTS
+        ));
+        $containers   = array();
+        $rawContainer = array();
+
+        if (!empty($parsedResponse['Containers'])) {
+            $containersArray = $parsedResponse['Containers']['Container'];
+            $rawContainer    = Utilities::getArray($containersArray);
+        }
+
+        foreach ($rawContainer as $value) {
+            $container = new Container();
+            $container-&gt;setName($value['Name']);
+            $container-&gt;setUrl($serviceEndpoint . $value['Name']);
+            $container-&gt;setMetadata(
+                Utilities::tryGetValue($value, Resources::QP_METADATA, array())
+            );
+            $properties = new ContainerProperties();
+            $date       = $value['Properties']['Last-Modified'];
+            $date       = Utilities::rfc1123ToDateTime($date);
+            $properties-&gt;setLastModified($date);
+            $properties-&gt;setETag(Utilities::tryGetValueInsensitive(Resources::ETAG, $value['Properties']));
+
+            if (array_key_exists('LeaseStatus', $value['Properties'])) {
+                $properties-&gt;setLeaseStatus($value['Properties']['LeaseStatus']);
+            }
+            if (array_key_exists('LeaseState', $value['Properties'])) {
+                $properties-&gt;setLeaseStatus($value['Properties']['LeaseState']);
+            }
+            if (array_key_exists('LeaseDuration', $value['Properties'])) {
+                $properties-&gt;setLeaseStatus($value['Properties']['LeaseDuration']);
+            }
+            if (array_key_exists('PublicAccess', $value['Properties'])) {
+                $properties-&gt;setPublicAccess($value['Properties']['PublicAccess']);
+            }
+            $container-&gt;setProperties($properties);
+            $containers[] = $container;
+        }
+        $result-&gt;setContainers($containers);
+        return $result;
+    }
+
+    /**
+     * Sets containers.
+     *
+     * @param array $containers list of containers.
+     *
+     * @return void
+     */
+    protected function setContainers(array $containers)
+    {
+        $this-&gt;containers = array();
+        foreach ($containers as $container) {
+            $this-&gt;containers[] = clone $container;
+        }
+    }
+
+    /**
+     * Gets containers.
+     *
+     * @return Container[]
+     */
+    public function getContainers()
+    {
+        return $this-&gt;containers;
+    }
+
+    /**
+     * Gets prefix.
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this-&gt;prefix;
+    }
+
+    /**
+     * Sets prefix.
+     *
+     * @param string $prefix value.
+     *
+     * @return void
+     */
+    protected function setPrefix($prefix)
+    {
+        $this-&gt;prefix = $prefix;
+    }
+
+    /**
+     * Gets marker.
+     *
+     * @return string
+     */
+    public function getMarker()
+    {
+        return $this-&gt;marker;
+    }
+
+    /**
+     * Sets marker.
+     *
+     * @param string $marker value.
+     *
+     * @return void
+     */
+    protected function setMarker($marker)
+    {
+        $this-&gt;marker = $marker;
+    }
+
+    /**
+     * Gets max results.
+     *
+     * @return string
+     */
+    public function getMaxResults()
+    {
+        return $this-&gt;maxResults;
+    }
+
+    /**
+     * Sets max results.
+     *
+     * @param string $maxResults value.
+     *
+     * @return void
+     */
+    protected function setMaxResults($maxResults)
+    {
+        $this-&gt;maxResults = $maxResults;
+    }
+
+    /**
+     * Gets account name.
+     *
+     * @return string
+     */
+    public function getAccountName()
+    {
+        return $this-&gt;accountName;
+    }
+
+    /**
+     * Sets account name.
+     *
+     * @param string $accountName value.
+     *
+     * @return void
+     */
+    protected function setAccountName($accountName)
+    {
+        $this-&gt;accountName = $accountName;
+    }
+}
+</pre>
         <script type="text/javascript">
              SyntaxHighlighter.all();
              jQuery('.gutter div').each(function(key, data){

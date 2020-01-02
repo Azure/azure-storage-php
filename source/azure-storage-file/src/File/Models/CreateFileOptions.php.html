@@ -34,7 +34,233 @@
         />
     </head>
     <body>
-        <pre class="brush: php"></pre>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\File\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2017 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+
+namespace MicrosoftAzure\Storage\File\Models;
+
+use MicrosoftAzure\Storage\Common\Internal\Validate;
+
+/**
+ * Optional parameters for createFile.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\File\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2017 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class CreateFileOptions extends FileServiceOptions
+{
+    private $contentType;
+    private $contentEncoding;
+    private $contentLanguage;
+    private $contentMD5;
+    private $cacheControl;
+    private $contentDisposition;
+    private $metadata;
+    private $contentLength;
+
+    /**
+     * Gets File contentType.
+     *
+     * @return string
+     */
+    public function getContentType()
+    {
+        return $this-&gt;contentType;
+    }
+
+    /**
+     * Sets File contentType.
+     *
+     * @param string $contentType value.
+     *
+     * @return void
+     */
+    public function setContentType($contentType)
+    {
+        $this-&gt;contentType = $contentType;
+    }
+
+    /**
+     * Gets contentEncoding.
+     *
+     * @return string
+     */
+    public function getContentEncoding()
+    {
+        return $this-&gt;contentEncoding;
+    }
+
+    /**
+     * Sets contentEncoding.
+     *
+     * @param string $contentEncoding value.
+     *
+     * @return void
+     */
+    public function setContentEncoding($contentEncoding)
+    {
+        $this-&gt;contentEncoding = $contentEncoding;
+    }
+
+    /**
+     * Gets contentLanguage.
+     *
+     * @return string
+     */
+    public function getContentLanguage()
+    {
+        return $this-&gt;contentLanguage;
+    }
+
+    /**
+     * Sets contentLanguage.
+     *
+     * @param string $contentLanguage value.
+     *
+     * @return void
+     */
+    public function setContentLanguage($contentLanguage)
+    {
+        $this-&gt;contentLanguage = $contentLanguage;
+    }
+
+    /**
+     * Gets contentMD5.
+     *
+     * @return string
+     */
+    public function getContentMD5()
+    {
+        return $this-&gt;contentMD5;
+    }
+
+    /**
+     * Sets contentMD5.
+     *
+     * @param string $contentMD5 value.
+     *
+     * @return void
+     */
+    public function setContentMD5($contentMD5)
+    {
+        $this-&gt;contentMD5 = $contentMD5;
+    }
+
+    /**
+     * Gets cacheControl.
+     *
+     * @return string
+     */
+    public function getCacheControl()
+    {
+        return $this-&gt;cacheControl;
+    }
+
+    /**
+     * Sets cacheControl.
+     *
+     * @param string $cacheControl value to use.
+     *
+     * @return void
+     */
+    public function setCacheControl($cacheControl)
+    {
+        $this-&gt;cacheControl = $cacheControl;
+    }
+
+    /**
+     * Gets content disposition.
+     *
+     * @return string
+     */
+    public function getContentDisposition()
+    {
+        return $this-&gt;contentDisposition;
+    }
+
+    /**
+     * Sets content disposition.
+     *
+     * @param string $contentDisposition value to use.
+     *
+     * @return void
+     */
+    public function setContentDisposition($contentDisposition)
+    {
+        $this-&gt;contentDisposition = $contentDisposition;
+    }
+
+    /**
+     * Gets File metadata.
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return $this-&gt;metadata;
+    }
+
+    /**
+     * Sets File metadata.
+     *
+     * @param array $metadata value.
+     *
+     * @return void
+     */
+    public function setMetadata(array $metadata)
+    {
+        $this-&gt;metadata = $metadata;
+    }
+
+    /**
+     * Gets File contentLength.
+     *
+     * @return int
+     */
+    public function getContentLength()
+    {
+        return $this-&gt;contentLength;
+    }
+
+    /**
+     * Sets File contentLength.
+     *
+     * @param int $contentLength value.
+     *
+     * @return void
+     */
+    public function setContentLength($contentLength)
+    {
+        Validate::isInteger($contentLength, 'contentLength');
+        $this-&gt;contentLength = $contentLength;
+    }
+}
+</pre>
         <script type="text/javascript">
              SyntaxHighlighter.all();
              jQuery('.gutter div').each(function(key, data){
