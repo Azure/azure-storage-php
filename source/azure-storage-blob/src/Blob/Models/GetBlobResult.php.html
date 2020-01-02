@@ -34,7 +34,141 @@
         />
     </head>
     <body>
-        <pre class="brush: php"></pre>
+        <pre class="brush: php">&lt;?php
+
+/**
+ * LICENSE: The MIT License (the &quot;License&quot;)
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * https://github.com/azure/azure-storage-php/LICENSE
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * PHP version 5
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+
+namespace MicrosoftAzure\Storage\Blob\Models;
+
+use Psr\Http\Message\StreamInterface;
+
+/**
+ * Holds result of GetBlob API.
+ *
+ * @category  Microsoft
+ * @package   MicrosoftAzure\Storage\Blob\Models
+ * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
+ * @copyright 2016 Microsoft Corporation
+ * @license   https://github.com/azure/azure-storage-php/LICENSE
+ * @link      https://github.com/azure/azure-storage-php
+ */
+class GetBlobResult
+{
+    private $properties;
+    private $metadata;
+    private $contentStream;
+
+    /**
+     * Creates GetBlobResult from getBlob call.
+     *
+     * @param array           $headers  The HTTP response headers.
+     * @param StreamInterface $body     The response body.
+     * @param array           $metadata The blob metadata.
+     *
+     * @internal
+     *
+     * @return GetBlobResult
+     */
+    public static function create(
+        array $headers,
+        StreamInterface $body,
+        array $metadata
+    ) {
+        $result = new GetBlobResult();
+        $result-&gt;setContentStream($body-&gt;detach());
+        $result-&gt;setProperties(BlobProperties::createFromHttpHeaders($headers));
+        $result-&gt;setMetadata(is_null($metadata) ? array() : $metadata);
+
+        return $result;
+    }
+
+    /**
+     * Gets blob metadata.
+     *
+     * @return array
+     */
+    public function getMetadata()
+    {
+        return $this-&gt;metadata;
+    }
+
+    /**
+     * Sets blob metadata.
+     *
+     * @param array $metadata value.
+     *
+     * @return void
+     */
+    protected function setMetadata(array $metadata)
+    {
+        $this-&gt;metadata = $metadata;
+    }
+
+    /**
+     * Gets blob properties.
+     *
+     * @return BlobProperties
+     */
+    public function getProperties()
+    {
+        return $this-&gt;properties;
+    }
+
+    /**
+     * Sets blob properties.
+     *
+     * @param BlobProperties $properties value.
+     *
+     * @return void
+     */
+    protected function setProperties(BlobProperties $properties)
+    {
+        $this-&gt;properties = $properties;
+    }
+
+    /**
+     * Gets blob contentStream.
+     *
+     * @return resource
+     */
+    public function getContentStream()
+    {
+        return $this-&gt;contentStream;
+    }
+
+    /**
+     * Sets blob contentStream.
+     *
+     * @param resource $contentStream The stream handle.
+     *
+     * @return void
+     */
+    protected function setContentStream($contentStream)
+    {
+        $this-&gt;contentStream = $contentStream;
+    }
+}
+</pre>
         <script type="text/javascript">
              SyntaxHighlighter.all();
              jQuery('.gutter div').each(function(key, data){
