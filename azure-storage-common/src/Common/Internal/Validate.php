@@ -180,7 +180,7 @@ class Validate
     }
 
     /**
-     * Throws exception if the provided $date is not of type \DateTime
+     * Throws exception if the provided $date doesn't implement \DateTimeInterface
      *
      * @param mixed $date variable to check against.
      *
@@ -190,8 +190,8 @@ class Validate
      */
     public static function isDate($date)
     {
-        if (gettype($date) != 'object' || get_class($date) != 'DateTime') {
-            throw new InvalidArgumentTypeException('DateTime');
+        if (gettype($date) != 'object' || !($date instanceof \DateTimeInterface)) {
+            throw new InvalidArgumentTypeException('DateTimeInterface');
         }
     }
 

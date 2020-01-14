@@ -198,11 +198,25 @@ class EdmTypeTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testValidateEdmValueWithDate()
+    public function testValidateEdmValueWithDateTime()
     {
         // Setup
         $type = EdmType::DATETIME;
         $value = new \DateTime();
+        $expected = true;
+
+        // Test
+        $actual = EdmType::validateEdmValue($type, $value);
+
+        // Assert
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testValidateEdmValueWithDateTimeImmutable()
+    {
+        // Setup
+        $type = EdmType::DATETIME;
+        $value = new \DateTimeImmutable();
         $expected = true;
 
         // Test
