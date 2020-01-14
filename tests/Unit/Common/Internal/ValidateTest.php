@@ -100,9 +100,17 @@ class ValidateTest extends \PHPUnit\Framework\TestCase
         Validate::isTrue(false, Resources::EMPTY_STRING);
     }
 
-    public function testIsDateWithDate()
+    public function testIsDateWithDateTime()
     {
         $date = Utilities::rfc1123ToDateTime('Fri, 09 Oct 2009 21:04:30 GMT');
+        Validate::isDate($date);
+
+        $this->assertTrue(true);
+    }
+
+    public function testIsDateWithDateTimeImmutable()
+    {
+        $date = new \DateTimeImmutable();
         Validate::isDate($date);
 
         $this->assertTrue(true);
