@@ -120,6 +120,11 @@ class ServiceRestProxy extends RestProxy
                         "allow_redirects" => true,
                         "exceptions" => true,
                         "decode_content" => true,
+                        "config" => [
+                            "curl" => [
+                                CURLOPT_SSLVERSION => CURL_SSLVERSION_TLSv1_2
+                            ]
+                        ]
                     ),
                     'cookies' => true,
                     'verify' => $verify,
