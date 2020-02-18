@@ -237,11 +237,13 @@ class RetryMiddlewareFactory
      * Decide if the given status code indicate the request should be retried.
      * This is for append blob.
      *
-     * @param  int $statusCode status code of the previous request.
+     * @param  int  $statusCode  Status code of the previous request.
+     * @param  bool $isSecondary Whether the request is sent to secondary endpoint.
+     * @param  bool $retryAuth   Whether to retry on authentication failures.
      *
      * @return bool            true if the request should be retried.
      */
-    protected static function appendBlobRetryDecider($statusCode)
+    protected static function appendBlobRetryDecider($statusCode, $isSecondary, $retryAuth)
     {
         //The retry logic is different for append blob.
         //First it will need to record the former status code if it is
@@ -249,7 +251,7 @@ class RetryMiddlewareFactory
         //needs to be retried. Currently this is not implemented so will
         //only adapt to the general retry decider.
         //TODO: add logic for append blob's retry when implemented.
-        $retry = self::generalRetryDecider($statusCode);
+        $retry = self::generalRetryDecider($statusCode, $isSecondary, $retryAuth);
         return $retry;
     }
 
