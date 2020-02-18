@@ -70,6 +70,7 @@ class RetryMiddlewareFactory
      *                                     self::LINEAR_INTERVAL_ACCUMULATION or
      *                                     self::EXPONENTIAL_INTERVAL_ACCUMULATION
      * @param  bool   $retryConnect        Whether to retry on connection failures.
+     * @param  bool   $retryAuth           Whether to retry on authentication failures.
      * @return RetryMiddleware             A RetryMiddleware object that contains
      *                                     the logic of how the request should be
      *                                     handled after a response.
@@ -79,7 +80,8 @@ class RetryMiddlewareFactory
         $numberOfRetries = Resources::DEFAULT_NUMBER_OF_RETRIES,
         $interval = Resources::DEFAULT_RETRY_INTERVAL,
         $accumulationMethod = self::LINEAR_INTERVAL_ACCUMULATION,
-        $retryConnect = false
+        $retryConnect = false,
+        $retryAuth = false
     ) {
         //Validate the input parameters
         //type
@@ -118,6 +120,8 @@ class RetryMiddlewareFactory
         );
         //retryConnect
         Validate::isBoolean($retryConnect);
+        //retryAuth
+        Validate::isBoolean($retryAuth);
 
         //Get the interval calculator according to the type of the
         //accumulation method.
@@ -128,7 +132,12 @@ class RetryMiddlewareFactory
 
         //Get the retry decider according to the type of the retry and
         //the number of retries.
-        $retryDecider = self::createRetryDecider($type, $numberOfRetries, $retryConnect);
+        $retryDecider = self::createRetryDecider(
+            $type,
+            $numberOfRetries,
+            $retryConnect,
+            $retryAuth
+        );
 
         //construct the retry middle ware.
         return new RetryMiddleware($intervalCalculator, $retryDecider);
@@ -142,12 +151,17 @@ class RetryMiddlewareFactory
      * @param  string $type         The type of the retry handler.
      * @param  int    $maxRetries   The maximum number of retries to be done.
      * @param  bool   $retryConnect Whether to retry on connection failures.
+     * @param  bool   $retryAuth    Whether to retry on authentication failures.
      *
      * @return callable     The callable that will return if the request should
      *                      be retried.
      */
-    protected static function createRetryDecider($type, $maxRetries, $retryConnect)
-    {
+    protected static function createRetryDecider(
+        $type,
+        $maxRetries,
+        $retryConnect,
+        $retryAuth
+    ) {
         return function (
             $retries,
             $request,
@@ -157,7 +171,8 @@ class RetryMiddlewareFactory
         ) use (
             $type,
             $maxRetries,
-            $retryConnect
+            $retryConnect,
+            $retryAuth
         ) {
             //Exceeds the retry limit. No retry.
             if ($retries >= $maxRetries) {
@@ -177,12 +192,14 @@ class RetryMiddlewareFactory
             if ($type == self::GENERAL_RETRY_TYPE) {
                 return self::generalRetryDecider(
                     $response->getStatusCode(),
-                    $isSecondary
+                    $isSecondary,
+                    $retryAuth
                 );
             } else {
                 return self::appendBlobRetryDecider(
                     $response->getStatusCode(),
-                    $isSecondary
+                    $isSecondary,
+                    $retryAuth
                 );
             }
 
@@ -193,14 +210,18 @@ class RetryMiddlewareFactory
     /**
      * Decide if the given status code indicate the request should be retried.
      *
-     * @param  int $statusCode status code of the previous request.
+     * @param  int  $statusCode  Status code of the previous request.
+     * @param  bool $isSecondary Whether the request is sent to secondary endpoint.
+     * @param  bool $retryAuth   Whether to retry on authentication failures.
      *
      * @return bool            true if the request should be retried.
      */
-    protected static function generalRetryDecider($statusCode, $isSecondary)
+    protected static function generalRetryDecider($statusCode, $isSecondary, $retryAuth)
     {
         $retry = false;
-        if ($statusCode == 408) {
+        if ($statusCode == 403 && $retryAuth) {
+            $retry = true;
+        } elseif ($statusCode == 408) {
             $retry = true;
         } elseif ($statusCode >= 500) {
             if ($statusCode != 501 && $statusCode != 505) {
