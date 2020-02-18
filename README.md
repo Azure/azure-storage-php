@@ -161,6 +161,45 @@ implements `MicrosoftAzure\Storage\Common\Internal\IMiddleware`, or a
 
 User can create self-defined middleware that inherits from `MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase`.
 
+### Retrying failures
+You can use bundled middlewares to retry requests in case they fail for some reason. First you create the middleware:
+```php
+$retryMiddleware = RetryMiddlewareFactory::create(
+    RetryMiddlewareFactory::GENERAL_RETRY_TYPE,  // Specifies the retry logic
+    3,  // Number of retries
+    1000,  // Interval
+    RetryMiddlewareFactory::EXPONENTIAL_INTERVAL_ACCUMULATION,  // How to increase the wait interval
+    true,  // Whether to retry connection failures too, default false
+    true  // Whether to retry authentication failures too, default false
+);
+```
+
+Then you add the middleware when creating the service as explained above:
+```php
+$optionsWithMiddlewares = [
+    'middlewares' = [
+        $retryMiddleware
+    ],
+];
+$tableClient = TableRestProxy::createTableService(
+    $connectionString,
+    $optionsWithMiddlewares
+);
+```
+
+Or by pushing it to the existing service:
+```php
+$tableClient->pushMiddleware($retryMiddleware);
+```
+
+#### Retry types
+- `RetryMiddlewareFactory::GENERAL_RETRY_TYPE` - General type of logic that handles retry
+- `RetryMiddlewareFactory::APPEND_BLOB_RETRY_TYPE` - For the append blob retry only, currently the same as the general type
+
+#### Interval accumulations
+- `RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION` - The interval will be increased linearly, the *nth* retry will have a wait time equal to *n * interval*
+- `RetryMiddlewareFactory::EXPONENTIAL_INTERVAL_ACCUMULATION` - The interval will be increased exponentially, the *nth* retry will have a wait time equal to *pow(2, n) * interval*
+
 ### Using proxies
 To use proxies during HTTP requests, set system variable `HTTP_PROXY` and the proxy will be used.
 
