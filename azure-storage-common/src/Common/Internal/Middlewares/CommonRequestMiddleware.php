@@ -105,9 +105,9 @@ class CommonRequestMiddleware extends MiddlewareBase
         $date = gmdate(Resources::AZURE_DATE_FORMAT, time());
         $result = $result->withHeader(Resources::DATE, $date);
 
-        //Adding request-ID if not specified by the user.
-        if (!$result->hasHeader(Resources::X_MS_REQUEST_ID)) {
-            $result = $result->withHeader(Resources::X_MS_REQUEST_ID, \uniqid());
+        //Adding client request-ID if not specified by the user.
+        if (!$result->hasHeader(Resources::X_MS_CLIENT_REQUEST_ID)) {
+            $result = $result->withHeader(Resources::X_MS_CLIENT_REQUEST_ID, \uniqid());
         }
         //Sign the request if authentication scheme is not null.
         $request = $this->authenticationScheme == null ?

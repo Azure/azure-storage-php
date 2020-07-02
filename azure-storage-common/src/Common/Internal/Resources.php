@@ -158,6 +158,7 @@ class Resources
     const X_MS_CONTINUATION_NEXTPARTITIONKEY = 'x-ms-continuation-nextpartitionkey';
     const X_MS_CONTINUATION_NEXTROWKEY       = 'x-ms-continuation-nextrowkey';
     const X_MS_REQUEST_ID                    = 'x-ms-request-id';
+    const X_MS_CLIENT_REQUEST_ID             = 'x-ms-client-request-id';
     const X_MS_CONTINUATION_LOCATION_MODE    = 'x-ms-continuation-location-mode';
     const X_MS_TYPE                          = 'x-ms-type';
     const X_MS_CONTENT_LENGTH                = 'x-ms-content-length';
