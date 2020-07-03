@@ -246,10 +246,10 @@ class Resources
 
     // Query parameter names
     const QP_ENTRIES            = 'Entries';
-    const QP_PREFIX             = 'Prefix';
-    const QP_MAX_RESULTS        = 'MaxResults';
+    const QP_PREFIX             = 'prefix';
+    const QP_MAX_RESULTS        = 'maxresults';
     const QP_METADATA           = 'Metadata';
-    const QP_MARKER             = 'Marker';
+    const QP_MARKER             = 'marker';
     const QP_NEXT_MARKER        = 'NextMarker';
     const QP_COMP               = 'comp';
     const QP_INCLUDE            = 'include';
