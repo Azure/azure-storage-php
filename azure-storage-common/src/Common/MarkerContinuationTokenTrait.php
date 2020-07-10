@@ -63,7 +63,7 @@ trait MarkerContinuationTokenTrait
     /**
      * Getter for continuationToken
      *
-     * @return ContinuationToken
+     * @return MarkerContinuationToken
      */
     public function getContinuationToken()
     {
