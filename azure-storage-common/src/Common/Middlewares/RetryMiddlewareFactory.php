@@ -171,6 +171,9 @@ class RetryMiddlewareFactory
                     return $retryConnect;
                 } else {
                     $response = $exception->getResponse();
+                    if (!$response) {
+                        return true;
+                    }
                 }
             }
 
