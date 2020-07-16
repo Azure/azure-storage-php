@@ -123,12 +123,12 @@ class RetryMiddlewareFactory
         //accumulation method.
         $intervalCalculator =
             $accumulationMethod == self::LINEAR_INTERVAL_ACCUMULATION ?
-            self::createLinearDelayCalculator($interval) :
-            self::createExponentialDelayCalculator($interval);
+            static::createLinearDelayCalculator($interval) :
+            static::createExponentialDelayCalculator($interval);
 
         //Get the retry decider according to the type of the retry and
         //the number of retries.
-        $retryDecider = self::createRetryDecider($type, $numberOfRetries, $retryConnect);
+        $retryDecider = static::createRetryDecider($type, $numberOfRetries, $retryConnect);
 
         //construct the retry middle ware.
         return new RetryMiddleware($intervalCalculator, $retryDecider);
@@ -178,12 +178,12 @@ class RetryMiddlewareFactory
             }
 
             if ($type == self::GENERAL_RETRY_TYPE) {
-                return self::generalRetryDecider(
+                return static::generalRetryDecider(
                     $response->getStatusCode(),
                     $isSecondary
                 );
             } else {
-                return self::appendBlobRetryDecider(
+                return static::appendBlobRetryDecider(
                     $response->getStatusCode(),
                     $isSecondary
                 );
@@ -233,7 +233,7 @@ class RetryMiddlewareFactory
         //needs to be retried. Currently this is not implemented so will
         //only adapt to the general retry decider.
         //TODO: add logic for append blob's retry when implemented.
-        $retry = self::generalRetryDecider($statusCode, $isSecondary);
+        $retry = static::generalRetryDecider($statusCode, $isSecondary);
         return $retry;
     }
 
