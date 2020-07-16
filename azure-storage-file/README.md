@@ -148,7 +148,7 @@ cURL can't verify the validity of Microsoft certificate when trying to issue a r
 
 ## Code samples
 
-You can find samples in the [sample folder](samples)
+You can find samples in the [samples folder](https://github.com/Azure/azure-storage-php/tree/master/samples).
 
 
 # Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
