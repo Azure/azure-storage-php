@@ -1064,25 +1064,13 @@ class FileServiceFunctionalTest extends FunctionalTestBase
                 $options = new FileServiceOptions();
             }
 
-            if (!is_null($options->getTimeout()) && $options->getTimeout() < 1) {
+            if (!is_null($options->getTimeout()) && ($options->getTimeout() < 1 || $options->getTimeout() == 2147483647)) {
                 $this->assertTrue(false, 'Expect negative timeouts in $options to throw');
             }
             $this->verifyGetFileMetadataWorker($res, $properties);
         } catch (ServiceException $e) {
-            if (!is_null($options->getTimeout()) && $options->getTimeout() < 1) {
+            if (!is_null($options->getTimeout()) && ($options->getTimeout() < 1 || $options->getTimeout() == 2147483647)) {
                 $this->assertEquals(TestResources::STATUS_INTERNAL_SERVER_ERROR, $e->getCode(), 'bad timeout: getCode');
-            } elseif (!FileServiceFunctionalTestData::passTemporalAccessCondition($options->getAccessConditions())) {
-                $this->assertEquals(
-                    TestResources::STATUS_PRECONDITION_FAILED,
-                    $e->getCode(),
-                    'bad temporal access condition: getCode'
-                );
-            } elseif (!FileServiceFunctionalTestData::passETagAccessCondition($options->getAccessConditions())) {
-                $this->assertEquals(
-                    TestResources::STATUS_PRECONDITION_FAILED,
-                    $e->getCode(),
-                    'bad etag access condition: getCode'
-                );
             } else {
                 throw $e;
             }

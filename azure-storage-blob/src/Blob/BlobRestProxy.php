@@ -864,17 +864,17 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_PREFIX,
+            Resources::QP_PREFIX_LOWERCASE,
             $options->getPrefix()
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MARKER,
+            Resources::QP_MARKER_LOWERCASE,
             $options->getNextMarker()
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MAX_RESULTS,
+            Resources::QP_MAX_RESULTS_LOWERCASE,
             $options->getMaxResults()
         );
         $isInclude = $options->getIncludeMetadata();
@@ -1522,12 +1522,12 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_PREFIX,
+            Resources::QP_PREFIX_LOWERCASE,
             str_replace('\\', '/', $options->getPrefix())
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MARKER,
+            Resources::QP_MARKER_LOWERCASE,
             $options->getNextMarker()
         );
         $this->addOptionalQueryParam(
@@ -1537,7 +1537,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MAX_RESULTS,
+            Resources::QP_MAX_RESULTS_LOWERCASE,
             $options->getMaxResults()
         );
 
