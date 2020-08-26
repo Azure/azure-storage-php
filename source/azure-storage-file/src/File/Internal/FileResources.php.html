@@ -34,78 +34,7 @@
         />
     </head>
     <body>
-        <pre class="brush: php">&lt;?php
-
-/**
- * LICENSE: The MIT License (the &quot;License&quot;)
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * https://github.com/azure/azure-storage-php/LICENSE
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * PHP version 5
- *
- * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
- * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
- * @copyright 2016 Microsoft Corporation
- * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @link      https://github.com/azure/azure-storage-php
- */
-
-namespace MicrosoftAzure\Storage\File\Internal;
-
-use MicrosoftAzure\Storage\Common\Internal\Resources;
-
-/**
- * Project resources.
- *
- * @ignore
- * @category  Microsoft
- * @package   MicrosoftAzure\Storage\Common\Internal
- * @author    Azure Storage PHP SDK &lt;dmsh@microsoft.com&gt;
- * @copyright 2017 Microsoft Corporation
- * @license   https://github.com/azure/azure-storage-php/LICENSE
- * @link      https://github.com/azure/azure-storage-php
- */
-class FileResources extends Resources
-{
-    // @codingStandardsIgnoreStart
-
-    const FILE_SDK_VERSION = '1.2.2';
-    const STORAGE_API_LATEST_VERSION = '2016-05-31';
-
-    // Error messages
-    const FILE_LOCATION_IS_PRIMARY_ONLY = &quot;Can only specify PRIMARY_ONLY for file service's location mode.&quot;;
-    const FILE_SHARE_PROPERTIES_OPERATION_INVALID = &quot;The operation is invalid. Can only be 'metadata' or 'properties'.&quot;;
-
-    // Headers
-    const X_MS_SHARE_QUOTA = 'x-ms-share-quota';
-    const FILE_CONTENT_MD5 = 'x-ms-content-md5';
-
-    // Query parameters
-    const QP_SHARES = 'Shares';
-    const QP_SHARE = 'Share';
-    const QP_DIRECTORY = 'Directory';
-    const QP_FILE = 'File';
-
-    // Common used XML tags
-    const XTAG_SHARE_USAGE = 'ShareUsage';
-
-    // Resource permissions
-    const ACCESS_PERMISSIONS = [
-        Resources::RESOURCE_TYPE_FILE =&gt; ['r', 'c', 'w', 'd'],
-        Resources::RESOURCE_TYPE_SHARE =&gt; ['r', 'c', 'w', 'd', 'l']
-    ];
-
-    // @codingStandardsIgnoreEnd
-}
-</pre>
+        <pre class="brush: php"></pre>
         <script type="text/javascript">
              SyntaxHighlighter.all();
              jQuery('.gutter div').each(function(key, data){
