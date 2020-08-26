@@ -268,7 +268,7 @@ function generateFileDownloadLinkWithSAS($fileClient)
         Resources::RESOURCE_TYPE_FILE,
         "$shareName/$fileName",
         'r',                        // Read
-        '2020-01-01T08:30:00Z'      // A valid ISO 8601 format expiry time
+        '2030-01-01T08:30:00Z'      // A valid ISO 8601 format expiry time
     );
 
     $connectionStringWithSAS = Resources::FILE_ENDPOINT_NAME .

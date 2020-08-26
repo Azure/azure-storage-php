@@ -212,6 +212,8 @@ class TableServiceIntegrationTest extends IntegrationTestBase
         $props->getLogging()->setRead(true);
         $this->restProxy->setServiceProperties($props);
 
+        \sleep(30);
+
         $props = $this->restProxy->getServiceProperties()->getValue();
 
         // Assert

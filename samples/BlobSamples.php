@@ -27,7 +27,6 @@ require_once "../vendor/autoload.php";
 use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Blob\BlobSharedAccessSignatureHelper;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlockBlobOptions;
-use MicrosoftAzure\Storage\Common\ServicesBuilder;
 use MicrosoftAzure\Storage\Blob\Models\CreateContainerOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListBlobsOptions;
 use MicrosoftAzure\Storage\Blob\Models\PublicAccessType;
@@ -48,7 +47,7 @@ use MicrosoftAzure\Storage\Common\Models\RetentionPolicy;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 
 $connectionString = 'DefaultEndpointsProtocol=https;AccountName=<yourAccount>;AccountKey=<yourKey>';
-$blobClient = ServicesBuilder::getInstance()->createBlobService($connectionString);
+$blobClient = BlobRestProxy::createBlobService($connectionString);
 
 // A temporary container created and used through this sample, and finally deleted
 $myContainer = 'mycontainer' . generateRandomString();
@@ -390,7 +389,7 @@ function generateBlobDownloadLinkWithSAS()
         Resources::RESOURCE_TYPE_BLOB,
         "$myContainer/myblob",
         'r',                            // Read
-        '2019-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
+        '2030-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
         //'2016-01-01T08:30:00Z',       // A valid ISO 8601 format expiry time
         //'0.0.0.0-255.255.255.255'
         //'https,http'
