@@ -1145,6 +1145,9 @@ class BlobRestProxyTest extends BlobServiceRestProxyTestBase
 
     public function testUndeleteBlob()
     {
+        // If this test case fails, please ensure that soft delete is enabled
+        // for this storage account!
+
         // Setup
         $name = 'undeleteblob' . $this->createSuffix();
         $blob = 'myblob';

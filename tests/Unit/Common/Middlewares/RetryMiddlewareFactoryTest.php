@@ -28,6 +28,7 @@ use MicrosoftAzure\Storage\Common\Middlewares\RetryMiddlewareFactory;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
 use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Request;
 
@@ -104,6 +105,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $retryResult_5 = $generalDecider(1, $request, new Response(503));//retry
         $retryResult_6 = $generalDecider(4, $request, new Response(503));//no-retry
         $retryResult_7 = $generalDecider(1, $request, null, new ConnectException('message', $request));//no-retry
+        $retryResult_8 = $generalDecider(1, $request, null, new RequestException('message', $request));//retry
 
         //assert
         $this->assertTrue($retryResult_1);
@@ -113,6 +115,7 @@ class RetryMiddlewareFactoryTest extends ReflectionTestBase
         $this->assertTrue($retryResult_5);
         $this->assertFalse($retryResult_6);
         $this->assertFalse($retryResult_7);
+        $this->assertTrue($retryResult_8);
     }
 
     public function testCreateRetryDeciderWithConnectionRetries()

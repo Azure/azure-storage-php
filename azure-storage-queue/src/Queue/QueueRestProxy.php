@@ -231,12 +231,12 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
         $marker     = $options->getNextMarker();
 
         $this->addOptionalQueryParam($queryParams, Resources::QP_COMP, 'list');
-        $this->addOptionalQueryParam($queryParams, Resources::QP_PREFIX, $prefix);
-        $this->addOptionalQueryParam($queryParams, Resources::QP_MARKER, $marker);
+        $this->addOptionalQueryParam($queryParams, Resources::QP_PREFIX_LOWERCASE, $prefix);
+        $this->addOptionalQueryParam($queryParams, Resources::QP_MARKER_LOWERCASE, $marker);
         $this->addOptionalQueryParam($queryParams, Resources::QP_INCLUDE, $include);
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MAX_RESULTS,
+            Resources::QP_MAX_RESULTS_LOWERCASE,
             $maxResults
         );
 

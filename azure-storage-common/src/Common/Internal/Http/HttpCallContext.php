@@ -414,7 +414,9 @@ class HttpCallContext
         $headers = Resources::EMPTY_STRING;
         $uri     = $this->_uri;
 
-        if ($uri[strlen($uri)-1] != '/') {
+        if ($uri === null) {
+            $uri = '/';
+        } elseif ($uri[strlen($uri)-1] != '/') {
             $uri = $uri.'/';
         }
 

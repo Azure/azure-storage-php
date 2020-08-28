@@ -1,3 +1,6 @@
+2020.08 - version 1.5.1
+* Lower case query parameter names.
+
 2020.01 - version 1.5.0
 
 * Added support to include deleted in blob list.

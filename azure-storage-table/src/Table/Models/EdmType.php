@@ -142,8 +142,8 @@ class EdmType
                 return is_int($value) || is_string($value);
 
             case EdmType::DATETIME:
-                $condition = 'instanceof \DateTime';
-                return $value instanceof \DateTime;
+                $condition = 'instanceof \DateTimeInterface';
+                return $value instanceof \DateTimeInterface;
 
             case EdmType::BOOLEAN:
                 $condition = 'is_bool';

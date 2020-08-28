@@ -1,3 +1,13 @@
+2020.08 - version 1.5.0
+* Resolved TLS 1.2 issue and some test issues.
+* Check $uri null type before array/string access.
+* Accept DateTimeImmutable as EdmType input.
+* Added client-request-id to requests.
+* Updated getContinuationToken return type.
+* Call static methods using `static::` not `self::`.
+* Added $isSecondary parameter for appendBlobRetryDecider.
+* Retry on no response from server after a successful connection
+
 2020.01 - version 1.4.1
 * Changed to perform override existence instead of value check for ‘$options[‘verify’]’ in ‘ServiceRestProxy’.
 

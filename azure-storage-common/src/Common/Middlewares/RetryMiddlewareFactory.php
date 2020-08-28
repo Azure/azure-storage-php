@@ -123,12 +123,12 @@ class RetryMiddlewareFactory
         //accumulation method.
         $intervalCalculator =
             $accumulationMethod == self::LINEAR_INTERVAL_ACCUMULATION ?
-            self::createLinearDelayCalculator($interval) :
-            self::createExponentialDelayCalculator($interval);
+            static::createLinearDelayCalculator($interval) :
+            static::createExponentialDelayCalculator($interval);
 
         //Get the retry decider according to the type of the retry and
         //the number of retries.
-        $retryDecider = self::createRetryDecider($type, $numberOfRetries, $retryConnect);
+        $retryDecider = static::createRetryDecider($type, $numberOfRetries, $retryConnect);
 
         //construct the retry middle ware.
         return new RetryMiddleware($intervalCalculator, $retryDecider);
@@ -171,16 +171,19 @@ class RetryMiddlewareFactory
                     return $retryConnect;
                 } else {
                     $response = $exception->getResponse();
+                    if (!$response) {
+                        return true;
+                    }
                 }
             }
 
             if ($type == self::GENERAL_RETRY_TYPE) {
-                return self::generalRetryDecider(
+                return static::generalRetryDecider(
                     $response->getStatusCode(),
                     $isSecondary
                 );
             } else {
-                return self::appendBlobRetryDecider(
+                return static::appendBlobRetryDecider(
                     $response->getStatusCode(),
                     $isSecondary
                 );
@@ -193,7 +196,8 @@ class RetryMiddlewareFactory
     /**
      * Decide if the given status code indicate the request should be retried.
      *
-     * @param  int $statusCode status code of the previous request.
+     * @param  int  $statusCode  Status code of the previous request.
+     * @param  bool $isSecondary Whether the request is sent to secondary endpoint.
      *
      * @return bool            true if the request should be retried.
      */
@@ -216,11 +220,12 @@ class RetryMiddlewareFactory
      * Decide if the given status code indicate the request should be retried.
      * This is for append blob.
      *
-     * @param  int $statusCode status code of the previous request.
+     * @param  int  $statusCode  Status code of the previous request.
+     * @param  bool $isSecondary Whether the request is sent to secondary endpoint.
      *
      * @return bool            true if the request should be retried.
      */
-    protected static function appendBlobRetryDecider($statusCode)
+    protected static function appendBlobRetryDecider($statusCode, $isSecondary)
     {
         //The retry logic is different for append blob.
         //First it will need to record the former status code if it is
@@ -228,7 +233,7 @@ class RetryMiddlewareFactory
         //needs to be retried. Currently this is not implemented so will
         //only adapt to the general retry decider.
         //TODO: add logic for append blob's retry when implemented.
-        $retry = self::generalRetryDecider($statusCode);
+        $retry = static::generalRetryDecider($statusCode, $isSecondary);
         return $retry;
     }
 

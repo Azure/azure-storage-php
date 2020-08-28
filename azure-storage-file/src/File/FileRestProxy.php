@@ -488,17 +488,17 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_PREFIX,
+            Resources::QP_PREFIX_LOWERCASE,
             $options->getPrefix()
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MARKER,
+            Resources::QP_MARKER_LOWERCASE,
             $options->getNextMarker()
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MAX_RESULTS,
+            Resources::QP_MAX_RESULTS_LOWERCASE,
             $options->getMaxResults()
         );
         $isInclude = $options->getIncludeMetadata();
@@ -1134,17 +1134,17 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_PREFIX,
+            Resources::QP_PREFIX_LOWERCASE,
             $options->getPrefix()
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MARKER,
+            Resources::QP_MARKER_LOWERCASE,
             $options->getNextMarker()
         );
         $this->addOptionalQueryParam(
             $queryParams,
-            Resources::QP_MAX_RESULTS,
+            Resources::QP_MAX_RESULTS_LOWERCASE,
             $options->getMaxResults()
         );
 

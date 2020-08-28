@@ -1,3 +1,6 @@
+2020.08 - version 1.2.3
+* Lower case query parameter names.
+
 2020.01 - version 1.2.2
 * Fixed the issue in SAS token where special characters were not correctly encoded.
 * Fixed `createFileFromContent` authentication failure when uploading some local file stream types. 

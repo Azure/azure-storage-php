@@ -685,7 +685,7 @@ class TestResources
         $sample['Logging']['RetentionPolicy']['Days'] = '10';
         $sample['HourMetrics']['Version'] = '1.0';
         $sample['HourMetrics']['Enabled'] = 'true';
-        $sample['HourMetrics']['IncludeAPIs'] = 'false';
+        $sample['HourMetrics']['IncludeAPIs'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Enabled'] = 'true';
         $sample['HourMetrics']['RetentionPolicy']['Days'] = '10';
         $sample['MinuteMetrics']['Version'] = '1.0';

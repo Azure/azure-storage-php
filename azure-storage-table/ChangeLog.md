@@ -1,3 +1,6 @@
+2020.08 - version 1.1.3
+* Lower case query parameter names.
+
 2020.01 - version 1.1.2
 * Fixed the issue in SAS token where special characters were not correctly encoded.
 * Empty lines no longer treated as headers in Batch operation.

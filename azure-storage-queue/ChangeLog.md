@@ -1,3 +1,6 @@
+2020.08 - version 1.3.2
+* Lower case query parameter names.
+
 2020.01 - version 1.3.1
 * Fixed the issue in SAS token where special characters were not correctly encoded.
 

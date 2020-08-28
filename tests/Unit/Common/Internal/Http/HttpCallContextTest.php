@@ -48,6 +48,7 @@ class HttpCallContextTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($context->getMethod());
         $this->assertNull($context->getPath());
         $this->assertNull($context->getUri());
+        $this->assertInternalType('string', $context->__toString());
         $this->assertInternalType('array', $context->getHeaders());
         $this->assertInternalType('array', $context->getQueryParameters());
         $this->assertInternalType('array', $context->getStatusCodes());

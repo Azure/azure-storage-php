@@ -158,6 +158,7 @@ class Resources
     const X_MS_CONTINUATION_NEXTPARTITIONKEY = 'x-ms-continuation-nextpartitionkey';
     const X_MS_CONTINUATION_NEXTROWKEY       = 'x-ms-continuation-nextrowkey';
     const X_MS_REQUEST_ID                    = 'x-ms-request-id';
+    const X_MS_CLIENT_REQUEST_ID             = 'x-ms-client-request-id';
     const X_MS_CONTINUATION_LOCATION_MODE    = 'x-ms-continuation-location-mode';
     const X_MS_TYPE                          = 'x-ms-type';
     const X_MS_CONTENT_LENGTH                = 'x-ms-content-length';
@@ -239,16 +240,19 @@ class Resources
     const BEARER = 'Bearer ';
 
     // Header values
-    const COMMON_SDK_VERSION                 = '1.4.1';
+    const COMMON_SDK_VERSION                 = '1.5.0';
     const INT32_MAX                          = 2147483647;
     const INT32_MIN                          = -2147483648;
 
     // Query parameter names
     const QP_ENTRIES            = 'Entries';
     const QP_PREFIX             = 'Prefix';
+    const QP_PREFIX_LOWERCASE   = 'prefix';
     const QP_MAX_RESULTS        = 'MaxResults';
-    const QP_METADATA           = 'Metadata';
+    const QP_MAX_RESULTS_LOWERCASE = 'maxresults';
     const QP_MARKER             = 'Marker';
+    const QP_MARKER_LOWERCASE   = 'marker';
+    const QP_METADATA           = 'Metadata';
     const QP_NEXT_MARKER        = 'NextMarker';
     const QP_COMP               = 'comp';
     const QP_INCLUDE            = 'include';
