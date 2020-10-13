@@ -229,6 +229,20 @@ class ServiceRestProxyTest extends ReflectionTestBase
     /**
      * @depends testConstruct
      */
+    public function testOnRejectedWithString($proxy)
+    {
+        // Setup
+        $message = 'test message';
+        $this->setExpectedException(\RuntimeException::class, $message);
+        $onRejected = self::getMethod('onRejected', $proxy);
+
+        // Test
+        $onRejected->invokeArgs($proxy, array($message, 200));
+    }
+
+    /**
+     * @depends testConstruct
+     */
     public function testOnRejectedWithRequestExceptionNullResponse($proxy)
     {
         // Setup

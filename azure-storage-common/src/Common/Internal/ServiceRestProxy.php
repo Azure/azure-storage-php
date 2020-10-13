@@ -415,6 +415,9 @@ class ServiceRestProxy extends RestProxy
      */
     protected function onRejected($reason, $expected)
     {
+        if (!($reason instanceof \Exception)) {
+            throw new \RuntimeException($reason);
+        }
         if (!($reason instanceof RequestException)) {
             throw $reason;
         }
