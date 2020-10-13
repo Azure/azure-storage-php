@@ -29,8 +29,10 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use MicrosoftAzure\Storage\Common\Internal\ServiceRestProxy;
 use MicrosoftAzure\Storage\Common\Internal\Resources;
+use MicrosoftAzure\Storage\Tests\Framework\ReflectionTestBase;
 use MicrosoftAzure\Storage\Tests\Mock\Common\Internal\Filters\SimpleFilterMock;
 use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
@@ -45,7 +47,7 @@ use MicrosoftAzure\Storage\Common\Internal\Serialization\XmlSerializer;
  * @license   https://github.com/azure/azure-storage-php/LICENSE
  * @link      https://github.com/azure/azure-storage-php
  */
-class ServiceRestProxyTest extends \PHPUnit\Framework\TestCase
+class ServiceRestProxyTest extends ReflectionTestBase
 {
     public function testConstruct()
     {
@@ -209,5 +211,70 @@ class ServiceRestProxyTest extends \PHPUnit\Framework\TestCase
 
         // Test
         $proxy->generateMetadataHeaders($metadata);
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testOnRejectedWithException($proxy)
+    {
+        // Setup
+        $this->setExpectedException(\Exception::class);
+        $onRejected = self::getMethod('onRejected', $proxy);
+
+        // Test
+        $onRejected->invokeArgs($proxy, array(new \Exception('test message'), 200));
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testOnRejectedWithRequestExceptionNullResponse($proxy)
+    {
+        // Setup
+        $this->setExpectedException(RequestException::class);
+        $onRejected = self::getMethod('onRejected', $proxy);
+
+        $request = new Request('GET', 'http://www.bing.com');
+        $reason = new RequestException('test message', $request);
+
+        // Test
+        $onRejected->invokeArgs($proxy, array($reason, 200));
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testOnRejectedWithRequestExceptionUnexpectedResponse($proxy)
+    {
+        // Setup
+        $this->setExpectedException(\MicrosoftAzure\Storage\Common\Exceptions\ServiceException::class);
+        $onRejected = self::getMethod('onRejected', $proxy);
+
+        $request = new Request('GET', 'http://www.bing.com');
+        $response = new Response(408, ['test_header' => 'test_header_value']);
+        $reason = new RequestException('test message', $request, $response);
+
+        // Test
+        $onRejected->invokeArgs($proxy, array($reason, 200));
+    }
+
+    /**
+     * @depends testConstruct
+     */
+    public function testOnRejectedWithRequestExceptionExpectedResponse($proxy)
+    {
+        // Setup
+        $onRejected = self::getMethod('onRejected', $proxy);
+
+        $request = new Request('GET', 'http://www.bing.com');
+        $response = new Response(200, ['test_header' => 'test_header_value']);
+        $reason = new RequestException('test message', $request, $response);
+
+        // Test
+        $actual = $onRejected->invokeArgs($proxy, array($reason, 200));
+
+        // Assert
+        $this->assertSame($response, $actual);
     }
 }

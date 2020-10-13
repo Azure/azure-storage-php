@@ -402,22 +402,33 @@ class ServiceRestProxy extends RestProxy
                 );
             },
             function ($reason) use ($expected) {
-                if (!($reason instanceof RequestException)) {
-                    throw $reason;
-                }
-                $response = $reason->getResponse();
-                if ($response != null) {
-                    self::throwIfError(
-                        $response,
-                        $expected
-                    );
-                } else {
-                    //if could not get response but promise rejected, throw reason.
-                    throw $reason;
-                }
-                return $response;
+                return $this->onRejected($reason, $expected);
             }
         );
+    }
+
+    /**
+     * @param  string|\Exception $reason   Rejection reason.
+     * @param  array|int         $expected Expected Status Codes.
+     *
+     * @return ResponseInterface
+     */
+    protected function onRejected($reason, $expected)
+    {
+        if (!($reason instanceof RequestException)) {
+            throw $reason;
+        }
+        $response = $reason->getResponse();
+        if ($response != null) {
+            self::throwIfError(
+                $response,
+                $expected
+            );
+        } else {
+            //if could not get response but promise rejected, throw reason.
+            throw $reason;
+        }
+        return $response;
     }
 
     /**
