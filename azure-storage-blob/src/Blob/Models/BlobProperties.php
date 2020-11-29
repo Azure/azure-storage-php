@@ -866,7 +866,7 @@ class BlobProperties
             Utilities::tryGetValue($clean, Resources::CONTENT_LANGUAGE)
         );
         $this->setContentType(
-            Utilities::tryGetValue($clean, Resources::CONTENT_TYPE)
+            Utilities::tryGetValue($clean, Resources::CONTENT_TYPE_LOWER_CASE)
         );
 
         if (Utilities::tryGetValue($clean, Resources::CONTENT_MD5) &&
