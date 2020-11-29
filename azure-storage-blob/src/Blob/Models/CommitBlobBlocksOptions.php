@@ -217,6 +217,7 @@ class CommitBlobBlocksOptions extends BlobServiceOptions
         $result->setContentDisposition($options->getContentDisposition());
         $result->setMetadata($options->getMetadata());
         $result->setLeaseId($options->getLeaseId());
+        $result->setAccessConditions($options->getAccessConditions());
 
         return $result;
     }
