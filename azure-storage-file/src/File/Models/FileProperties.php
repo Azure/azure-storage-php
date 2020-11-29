@@ -84,7 +84,7 @@ class FileProperties
         );
 
         $result->setContentType(
-            Utilities::tryGetValue($parsed, Resources::CONTENT_TYPE)
+            Utilities::tryGetValue($parsed, Resources::CONTENT_TYPE_LOWER_CASE)
         );
 
         $result->setETag(

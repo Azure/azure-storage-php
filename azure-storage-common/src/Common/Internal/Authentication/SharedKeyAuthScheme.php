@@ -115,7 +115,7 @@ class SharedKeyAuthScheme implements IAuthScheme
         $stringToSign[] = strtoupper($httpMethod);
 
         foreach ($this->includedHeaders as $header) {
-            $stringToSign[] = Utilities::tryGetValue($headers, $header);
+            $stringToSign[] = Utilities::tryGetValueInsensitive($header, $headers);
         }
 
         if (count($canonicalizedHeaders) > 0) {

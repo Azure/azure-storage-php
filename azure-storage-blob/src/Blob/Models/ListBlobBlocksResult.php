@@ -104,7 +104,7 @@ class ListBlobBlocksResult
             )
         );
         $result->setContentType(
-            Utilities::tryGetValue($clean, Resources::CONTENT_TYPE)
+            Utilities::tryGetValue($clean, Resources::CONTENT_TYPE_LOWER_CASE)
         );
 
         $result->uncommittedBlocks = self::getEntries(
