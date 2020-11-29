@@ -41,6 +41,7 @@ use MicrosoftAzure\Storage\Blob\Models\DeleteBlobOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobMetadataOptions;
 use MicrosoftAzure\Storage\Blob\Models\ListPageBlobRangesOptions;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobOptions;
+use MicrosoftAzure\Storage\Blob\Models\AccessCondition;
 use MicrosoftAzure\Storage\Blob\Models\GetBlobPropertiesOptions;
 use MicrosoftAzure\Storage\Blob\Models\AppendBlockOptions;
 use MicrosoftAzure\Storage\Blob\Models\CreateBlobPagesOptions;
@@ -2604,6 +2605,43 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             $size = $attr['size'];
             $this->createBlockBlobWorker($container, $threshold, $size);
         }
+    }
+
+    public function testCreateBlockBlobMultipleWithAccessCondition()
+    {
+        // create a block blob.
+        $container = BlobServiceFunctionalTestData::getContainerName();
+        $blobName = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $this->restProxy->createBlockBlob($container, $blobName, "TEST_CONTENT");
+        // create a temp file of size $size.
+        $cwd = getcwd();
+        $uuid = uniqid('test-file-', true);
+        $path = $cwd.DIRECTORY_SEPARATOR.$uuid.'.txt';
+        $resource = fopen($path, 'w+');
+
+        for ($i = 0; $i < 2; ++$i) {
+            fwrite($resource, openssl_random_pseudo_bytes(Resources::MB_IN_BYTES_32));
+        }
+        rewind($resource);
+
+        //upload the blob
+        $blobName = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        $options = new CreateBlockBlobOptions();
+        $options->setAccessConditions(AccessCondition::ifNoneMatch('*'));
+        $this->restProxy->setSingleBlobUploadThresholdInBytes(Resources::MB_IN_BYTES_32);
+        $code = '';
+        try {
+            $this->restProxy->createBlockBlob(
+                $container,
+                $blobName,
+                $resource,
+                $options
+            );
+        }
+        catch (ServiceException $e) {
+            $message = $e->getCode();
+        }
+        $this->assertEquals(TestResources::STATUS_PRECONDITION_FAILED, $code);
     }
 
     private function createBlockBlobWorker($container, $threshold, $size)
