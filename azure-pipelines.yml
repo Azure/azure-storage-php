@@ -15,7 +15,7 @@ jobs:
     vmImage: 'Ubuntu-16.04'
 
   variables:
-    phpVersion: 7.4
+    phpVersion: 7.2
 
   steps:
   - script: |
