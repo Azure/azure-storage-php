@@ -2624,12 +2624,12 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
         }
         rewind($resource);
 
-        //upload the blob
-        $blobName = BlobServiceFunctionalTestData::getInterestingBlobName($container);
+        //upload the blob again.
         $options = new CreateBlockBlobOptions();
         $options->setAccessConditions(AccessCondition::ifNoneMatch('*'));
         $this->restProxy->setSingleBlobUploadThresholdInBytes(Resources::MB_IN_BYTES_32);
         $code = '';
+        $message = '';
         try {
             $this->restProxy->createBlockBlob(
                 $container,
@@ -2639,9 +2639,12 @@ class BlobServiceFunctionalTest extends FunctionalTestBase
             );
         }
         catch (ServiceException $e) {
-            $message = $e->getCode();
+            $code = $e->getCode();
+            $message = $e->getMessage();
         }
-        $this->assertEquals(TestResources::STATUS_PRECONDITION_FAILED, $code);
+        $this->assertEquals(TestResources::STATUS_CONFLICT, $code);
+        $this->assertContains("The specified blob already exists", $message);
+        unlink($path);
     }
 
     private function createBlockBlobWorker($container, $threshold, $size)
