@@ -1,3 +1,7 @@
+2020.12 - version 1.5.2
+* Resolved an issue where access condition does not work for large block blob uploads.
+* Guzzle version is no updated to support both 6.x and 7.x.
+
 2020.08 - version 1.5.1
 * Lower case query parameter names.
 
