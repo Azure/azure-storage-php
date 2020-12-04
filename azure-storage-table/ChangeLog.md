@@ -1,5 +1,5 @@
 2020.12 - version 1.1.4
-* Guzzle version is no updated to support both 6.x and 7.x.
+* Guzzle version is now updated to support both 6.x and 7.x.
 
 2020.08 - version 1.1.3
 * Lower case query parameter names.
