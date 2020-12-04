@@ -4853,7 +4853,7 @@ type and resource.</description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-blob\src\Blob\Internal\BlobResources.php" generated-path="azure-storage-blob.src.Blob.Internal.BlobResources.html" hash="1f11a70250141bd558de8e47eba1eb57" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-blob\src\Blob\Internal\BlobResources.php" generated-path="azure-storage-blob.src.Blob.Internal.BlobResources.html" hash="b16feed1d86d6149f193da6b7d1310ae" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -6544,7 +6544,7 @@ PHP version 5</long-description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-blob\src\Blob\Models\BlobProperties.php" generated-path="azure-storage-blob.src.Blob.Models.BlobProperties.html" hash="cdd90f95fa29c8d5159c77089d7162bc" package="MicrosoftAzure\Storage\Blob\Models">
+  <file path="azure-storage-blob\src\Blob\Models\BlobProperties.php" generated-path="azure-storage-blob.src.Blob.Models.BlobProperties.html" hash="a25ce686ccc7c9dfb4494f8a350283ea" package="MicrosoftAzure\Storage\Blob\Models">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -8245,7 +8245,7 @@ PHP version 5</long-description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-blob\src\Blob\Models\CommitBlobBlocksOptions.php" generated-path="azure-storage-blob.src.Blob.Models.CommitBlobBlocksOptions.html" hash="9f962bdde1475b88aa9d841405e51d53" package="MicrosoftAzure\Storage\Blob\Models">
+  <file path="azure-storage-blob\src\Blob\Models\CommitBlobBlocksOptions.php" generated-path="azure-storage-blob.src.Blob.Models.CommitBlobBlocksOptions.html" hash="c2fcaaa3d8d801cac1ca549ae4b455c2" package="MicrosoftAzure\Storage\Blob\Models">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -18930,7 +18930,7 @@ PHP version 5</long-description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-blob\src\Blob\Models\ListBlobBlocksResult.php" generated-path="azure-storage-blob.src.Blob.Models.ListBlobBlocksResult.html" hash="63b4aa4f42a356b0908128629f7ef6d3" package="MicrosoftAzure\Storage\Blob\Models">
+  <file path="azure-storage-blob\src\Blob\Models\ListBlobBlocksResult.php" generated-path="azure-storage-blob.src.Blob.Models.ListBlobBlocksResult.html" hash="dd65a74a0261de8e4ad23240519f87c7" package="MicrosoftAzure\Storage\Blob\Models">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -24006,7 +24006,7 @@ PHP version 5</long-description>
     <namespace-alias name="Utilities">\MicrosoftAzure\Storage\Common\Internal\Utilities</namespace-alias>
     <namespace-alias name="Resources">\MicrosoftAzure\Storage\Table\Internal\TableResources</namespace-alias>
   </file>
-  <file path="azure-storage-table\src\Table\Internal\TableResources.php" generated-path="azure-storage-table.src.Table.Internal.TableResources.html" hash="d5210d34e937d89b15d9a291c769d5f0" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-table\src\Table\Internal\TableResources.php" generated-path="azure-storage-table.src.Table.Internal.TableResources.html" hash="bab9d2927f23b4249cd9e27bd53f2fbe" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -34495,7 +34495,7 @@ PHP version 5</long-description>
     <namespace-alias name="ServiceOptions">\MicrosoftAzure\Storage\Common\Models\ServiceOptions</namespace-alias>
     <namespace-alias name="GetServiceStatsResult">\MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult</namespace-alias>
   </file>
-  <file path="azure-storage-queue\src\Queue\Internal\QueueResources.php" generated-path="azure-storage-queue.src.Queue.Internal.QueueResources.html" hash="ced3fa4faaa3f5aef4818a89fa651800" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-queue\src\Queue\Internal\QueueResources.php" generated-path="azure-storage-queue.src.Queue.Internal.QueueResources.html" hash="c4948f8958ab5e28f6f39e77c0cd5ecf" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -40092,7 +40092,7 @@ type and resource.</description>
       <error line="73" code="PPC:ERR-50014">Name of argument $signedIdentifier does not match with the DocBlock's name $signedProtocol in generateQueueServiceSharedAccessSignatureToken()</error>
     </parse_markers>
   </file>
-  <file path="azure-storage-file\src\File\FileRestProxy.php" generated-path="azure-storage-file.src.File.FileRestProxy.html" hash="04772a4842f8fb769492f2e1c5b21a13" package="MicrosoftAzure\Storage\File">
+  <file path="azure-storage-file\src\File\FileRestProxy.php" generated-path="azure-storage-file.src.File.FileRestProxy.html" hash="8f6efc9e16d54cc1ea827a3547cb509c" package="MicrosoftAzure\Storage\File">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -40217,20 +40217,20 @@ access signature (SAS Token).</long-description>
           <type>array</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="453" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="450" package="MicrosoftAzure\Storage\File">
         <name>listShares</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::listShares()</full_name>
-        <docblock line="453">
+        <docblock line="450">
           <description>Returns a list of the shares under the specified account</description>
           <long-description></long-description>
-          <tag name="param" line="453" description="&lt;p&gt;The optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListSharesOptions|null" variable="$options">
+          <tag name="param" line="450" description="&lt;p&gt;The optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListSharesOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\ListSharesOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="453" description="" type="\MicrosoftAzure\Storage\File\Models\ListSharesResult">
+          <tag name="return" line="450" description="" type="\MicrosoftAzure\Storage\File\Models\ListSharesResult">
             <type>\MicrosoftAzure\Storage\File\Models\ListSharesResult</type>
           </tag>
-          <tag name="see" line="453" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-shares"/>
+          <tag name="see" line="450" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-shares"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$options</name>
@@ -40238,20 +40238,20 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\ListSharesOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="467" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="464" package="MicrosoftAzure\Storage\File">
         <name>listSharesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::listSharesAsync()</full_name>
-        <docblock line="467">
+        <docblock line="464">
           <description>Create a promise to return a list of the shares under the specified account</description>
           <long-description></long-description>
-          <tag name="param" line="467" description="&lt;p&gt;The optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListSharesOptions|null" variable="$options">
+          <tag name="param" line="464" description="&lt;p&gt;The optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListSharesOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\ListSharesOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="467" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="464" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="467" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-shares"/>
+          <tag name="see" line="464" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-shares"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$options</name>
@@ -40259,23 +40259,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\ListSharesOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="542" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="539" package="MicrosoftAzure\Storage\File">
         <name>createShare</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createShare()</full_name>
-        <docblock line="542">
+        <docblock line="539">
           <description>Creates a new share in the given storage account.</description>
           <long-description></long-description>
-          <tag name="param" line="542" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="539" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="542" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateShareOptions|null" variable="$options">
+          <tag name="param" line="539" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateShareOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateShareOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="542" description="" type="void">
+          <tag name="return" line="539" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="542" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-share"/>
+          <tag name="see" line="539" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-share"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40288,23 +40288,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateShareOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="559" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="556" package="MicrosoftAzure\Storage\File">
         <name>createShareAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createShareAsync()</full_name>
-        <docblock line="559">
+        <docblock line="556">
           <description>Creates promise to create a new share in the given storage account.</description>
           <long-description></long-description>
-          <tag name="param" line="559" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="556" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="559" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateShareOptions|null" variable="$options">
+          <tag name="param" line="556" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateShareOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateShareOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="559" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="556" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="559" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-share"/>
+          <tag name="see" line="556" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-share"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40317,23 +40317,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateShareOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="611" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="608" package="MicrosoftAzure\Storage\File">
         <name>deleteShare</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::deleteShare()</full_name>
-        <docblock line="611">
+        <docblock line="608">
           <description>Deletes a share in the given storage account.</description>
           <long-description></long-description>
-          <tag name="param" line="611" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="608" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="611" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="608" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="611" description="" type="void">
+          <tag name="return" line="608" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="611" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-share"/>
+          <tag name="see" line="608" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-share"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40346,23 +40346,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="628" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="625" package="MicrosoftAzure\Storage\File">
         <name>deleteShareAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::deleteShareAsync()</full_name>
-        <docblock line="628">
+        <docblock line="625">
           <description>Create a promise for deleting a share.</description>
           <long-description></long-description>
-          <tag name="param" line="628" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="625" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="628" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="625" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="628" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="625" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="628" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-share"/>
+          <tag name="see" line="625" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-share"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40375,23 +40375,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="679" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="676" package="MicrosoftAzure\Storage\File">
         <name>getShareProperties</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareProperties()</full_name>
-        <docblock line="679">
+        <docblock line="676">
           <description>Returns all properties and metadata on the share.</description>
           <long-description></long-description>
-          <tag name="param" line="679" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="676" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="679" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="676" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="679" description="" type="\MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult">
+          <tag name="return" line="676" description="" type="\MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult</type>
           </tag>
-          <tag name="see" line="679" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-properties"/>
+          <tag name="see" line="676" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40404,23 +40404,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="696" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="693" package="MicrosoftAzure\Storage\File">
         <name>getSharePropertiesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getSharePropertiesAsync()</full_name>
-        <docblock line="696">
+        <docblock line="693">
           <description>Create promise to return all properties and metadata on the share.</description>
           <long-description></long-description>
-          <tag name="param" line="696" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="693" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="696" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="693" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="696" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="693" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="696" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-properties"/>
+          <tag name="see" line="693" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40433,26 +40433,26 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="714" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="711" package="MicrosoftAzure\Storage\File">
         <name>setShareProperties</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setShareProperties()</full_name>
-        <docblock line="714">
+        <docblock line="711">
           <description>Sets quota of the share.</description>
           <long-description></long-description>
-          <tag name="param" line="714" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="711" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="714" description="&lt;p&gt;quota of the share&lt;/p&gt;" type="integer" variable="$quota">
+          <tag name="param" line="711" description="&lt;p&gt;quota of the share&lt;/p&gt;" type="integer" variable="$quota">
             <type>integer</type>
           </tag>
-          <tag name="param" line="714" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="711" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="714" description="" type="void">
+          <tag name="return" line="711" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="714" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-properties"/>
+          <tag name="see" line="711" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40470,26 +40470,26 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="733" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="730" package="MicrosoftAzure\Storage\File">
         <name>setSharePropertiesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setSharePropertiesAsync()</full_name>
-        <docblock line="733">
+        <docblock line="730">
           <description>Creates promise to set quota the share.</description>
           <long-description></long-description>
-          <tag name="param" line="733" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="730" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="733" description="&lt;p&gt;quota of the share&lt;/p&gt;" type="integer" variable="$quota">
+          <tag name="param" line="730" description="&lt;p&gt;quota of the share&lt;/p&gt;" type="integer" variable="$quota">
             <type>integer</type>
           </tag>
-          <tag name="param" line="733" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="730" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="733" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="730" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="733" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-properties"/>
+          <tag name="see" line="730" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40507,23 +40507,23 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="756" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="753" package="MicrosoftAzure\Storage\File">
         <name>getShareMetadata</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadata()</full_name>
-        <docblock line="756">
+        <docblock line="753">
           <description>Returns only user-defined metadata for the specified share.</description>
           <long-description></long-description>
-          <tag name="param" line="756" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="753" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="756" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="753" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="756" description="" type="\MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult">
+          <tag name="return" line="753" description="" type="\MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetSharePropertiesResult</type>
           </tag>
-          <tag name="see" line="756" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-metadata"/>
+          <tag name="see" line="753" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40536,24 +40536,24 @@ access signature (SAS Token).</long-description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="774" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="771" package="MicrosoftAzure\Storage\File">
         <name>getShareMetadataAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareMetadataAsync()</full_name>
-        <docblock line="774">
+        <docblock line="771">
           <description>Create promise to return only user-defined metadata for the specified
 share.</description>
           <long-description></long-description>
-          <tag name="param" line="774" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="771" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="774" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="771" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="774" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="771" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="774" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-metadata"/>
+          <tag name="see" line="771" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40566,26 +40566,26 @@ share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="792" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="789" package="MicrosoftAzure\Storage\File">
         <name>setShareMetadata</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadata()</full_name>
-        <docblock line="792">
+        <docblock line="789">
           <description>Updates metadata of the share.</description>
           <long-description></long-description>
-          <tag name="param" line="792" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="789" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="792" description="&lt;p&gt;metadata key/value pair.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="789" description="&lt;p&gt;metadata key/value pair.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="792" description="&lt;p&gt;optional  parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="789" description="&lt;p&gt;optional  parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="792" description="" type="void">
+          <tag name="return" line="789" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="792" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-metadata"/>
+          <tag name="see" line="789" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40603,26 +40603,26 @@ share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="811" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="808" package="MicrosoftAzure\Storage\File">
         <name>setShareMetadataAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setShareMetadataAsync()</full_name>
-        <docblock line="811">
+        <docblock line="808">
           <description>Creates promise to update metadata headers on the share.</description>
           <long-description></long-description>
-          <tag name="param" line="811" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="808" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="811" description="&lt;p&gt;metadata key/value pair.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="808" description="&lt;p&gt;metadata key/value pair.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="811" description="&lt;p&gt;optional  parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="808" description="&lt;p&gt;optional  parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="811" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="808" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="811" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-metadata"/>
+          <tag name="see" line="808" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40640,23 +40640,23 @@ share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="834" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="831" package="MicrosoftAzure\Storage\File">
         <name>getShareAcl</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareAcl()</full_name>
-        <docblock line="834">
+        <docblock line="831">
           <description>Gets the access control list (ACL) for the share.</description>
           <long-description></long-description>
-          <tag name="param" line="834" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="831" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="834" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="831" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="834" description="" type="\MicrosoftAzure\Storage\File\Models\GetShareACLResult">
+          <tag name="return" line="831" description="" type="\MicrosoftAzure\Storage\File\Models\GetShareACLResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetShareACLResult</type>
           </tag>
-          <tag name="see" line="834" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-acl"/>
+          <tag name="see" line="831" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-acl"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40669,23 +40669,23 @@ share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="851" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="848" package="MicrosoftAzure\Storage\File">
         <name>getShareAclAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareAclAsync()</full_name>
-        <docblock line="851">
+        <docblock line="848">
           <description>Creates the promise to get the access control list (ACL) for the share.</description>
           <long-description></long-description>
-          <tag name="param" line="851" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="848" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="851" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="848" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="851" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="848" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="851" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-acl"/>
+          <tag name="see" line="848" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-acl"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40698,26 +40698,26 @@ share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="926" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="923" package="MicrosoftAzure\Storage\File">
         <name>setShareAcl</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setShareAcl()</full_name>
-        <docblock line="926">
+        <docblock line="923">
           <description>Sets the ACL and any share-level access policies for the share.</description>
           <long-description></long-description>
-          <tag name="param" line="926" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="923" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="926" description="&lt;p&gt;access control list for share&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ShareACL" variable="$acl">
+          <tag name="param" line="923" description="&lt;p&gt;access control list for share&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ShareACL" variable="$acl">
             <type>\MicrosoftAzure\Storage\File\Models\ShareACL</type>
           </tag>
-          <tag name="param" line="926" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="923" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="926" description="" type="void">
+          <tag name="return" line="923" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="926" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-acl"/>
+          <tag name="see" line="923" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-acl"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40735,27 +40735,27 @@ share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="946" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="943" package="MicrosoftAzure\Storage\File">
         <name>setShareAclAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setShareAclAsync()</full_name>
-        <docblock line="946">
+        <docblock line="943">
           <description>Creates promise to set the ACL and any share-level access policies
 for the share.</description>
           <long-description></long-description>
-          <tag name="param" line="946" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="943" description="&lt;p&gt;name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="946" description="&lt;p&gt;access control list for share&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ShareACL" variable="$acl">
+          <tag name="param" line="943" description="&lt;p&gt;access control list for share&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ShareACL" variable="$acl">
             <type>\MicrosoftAzure\Storage\File\Models\ShareACL</type>
           </tag>
-          <tag name="param" line="946" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="943" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="946" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="943" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="946" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-acl"/>
+          <tag name="see" line="943" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-share-acl"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40773,23 +40773,23 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1008" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1005" package="MicrosoftAzure\Storage\File">
         <name>getShareStats</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareStats()</full_name>
-        <docblock line="1008">
+        <docblock line="1005">
           <description>Get the statistics related to the share.</description>
           <long-description></long-description>
-          <tag name="param" line="1008" description="&lt;p&gt;The name of the share.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1005" description="&lt;p&gt;The name of the share.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1008" description="&lt;p&gt;The request options.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1005" description="&lt;p&gt;The request options.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1008" description="" type="\MicrosoftAzure\Storage\File\Models\GetShareStatsResult">
+          <tag name="return" line="1005" description="" type="\MicrosoftAzure\Storage\File\Models\GetShareStatsResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetShareStatsResult</type>
           </tag>
-          <tag name="see" line="1008" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-stats"/>
+          <tag name="see" line="1005" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-stats"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40802,23 +40802,23 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1023" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1020" package="MicrosoftAzure\Storage\File">
         <name>getShareStatsAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getShareStatsAsync()</full_name>
-        <docblock line="1023">
+        <docblock line="1020">
           <description>Get the statistics related to the share.</description>
           <long-description></long-description>
-          <tag name="param" line="1023" description="&lt;p&gt;The name of the share.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1020" description="&lt;p&gt;The name of the share.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1023" description="&lt;p&gt;The request options.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1020" description="&lt;p&gt;The request options.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1023" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1020" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1023" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-stats"/>
+          <tag name="see" line="1020" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-share-stats"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40831,26 +40831,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1085" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1082" package="MicrosoftAzure\Storage\File">
         <name>listDirectoriesAndFiles</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFiles()</full_name>
-        <docblock line="1085">
+        <docblock line="1082">
           <description>List directories and files under specified path.</description>
           <long-description></long-description>
-          <tag name="param" line="1085" description="&lt;p&gt;The share that&#10;                                                     contains all the&#10;                                                     files and directories.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1082" description="&lt;p&gt;The share that&#10;                                                     contains all the&#10;                                                     files and directories.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1085" description="&lt;p&gt;The path to be listed.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1082" description="&lt;p&gt;The path to be listed.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1085" description="&lt;p&gt;Optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions|null" variable="$options">
+          <tag name="param" line="1082" description="&lt;p&gt;Optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1085" description="" type="\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult">
+          <tag name="return" line="1082" description="" type="\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult">
             <type>\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesResult</type>
           </tag>
-          <tag name="see" line="1085" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-directories-and-files"/>
+          <tag name="see" line="1082" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-directories-and-files"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40868,26 +40868,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1106" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1103" package="MicrosoftAzure\Storage\File">
         <name>listDirectoriesAndFilesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::listDirectoriesAndFilesAsync()</full_name>
-        <docblock line="1106">
+        <docblock line="1103">
           <description>Creates promise to list directories and files under specified path.</description>
           <long-description></long-description>
-          <tag name="param" line="1106" description="&lt;p&gt;The share that&#10;                                                     contains all the&#10;                                                     files and directories.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1103" description="&lt;p&gt;The share that&#10;                                                     contains all the&#10;                                                     files and directories.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1106" description="&lt;p&gt;The path to be listed.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1103" description="&lt;p&gt;The path to be listed.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1106" description="&lt;p&gt;Optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions|null" variable="$options">
+          <tag name="param" line="1103" description="&lt;p&gt;Optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1106" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1103" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1106" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-directories-and-files"/>
+          <tag name="see" line="1103" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-directories-and-files"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40905,26 +40905,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\ListDirectoriesAndFilesOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1188" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1185" package="MicrosoftAzure\Storage\File">
         <name>createDirectory</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createDirectory()</full_name>
-        <docblock line="1188">
+        <docblock line="1185">
           <description>Creates a new directory in the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1188" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1185" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1188" description="&lt;p&gt;The path to create the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1185" description="&lt;p&gt;The path to create the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1188" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions|null" variable="$options">
+          <tag name="param" line="1185" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1188" description="" type="void">
+          <tag name="return" line="1185" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="1188" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-directory"/>
+          <tag name="see" line="1185" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-directory"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40942,26 +40942,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1207" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1204" package="MicrosoftAzure\Storage\File">
         <name>createDirectoryAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createDirectoryAsync()</full_name>
-        <docblock line="1207">
+        <docblock line="1204">
           <description>Creates a promise to create a new directory in the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1207" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1204" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1207" description="&lt;p&gt;The path to create the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1204" description="&lt;p&gt;The path to create the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1207" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions|null" variable="$options">
+          <tag name="param" line="1204" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1207" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1204" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1207" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-directory"/>
+          <tag name="see" line="1204" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-directory"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -40979,26 +40979,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateDirectoryOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1257" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1254" package="MicrosoftAzure\Storage\File">
         <name>deleteDirectory</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectory()</full_name>
-        <docblock line="1257">
+        <docblock line="1254">
           <description>Deletes a directory in the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1257" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1254" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1257" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1254" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1257" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1254" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1257" description="" type="void">
+          <tag name="return" line="1254" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="1257" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-directory"/>
+          <tag name="see" line="1254" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-directory"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41016,26 +41016,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1276" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1273" package="MicrosoftAzure\Storage\File">
         <name>deleteDirectoryAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::deleteDirectoryAsync()</full_name>
-        <docblock line="1276">
+        <docblock line="1273">
           <description>Creates a promise to delete a new directory in the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1276" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1273" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1276" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1273" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1276" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1273" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1276" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1273" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1276" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-directory"/>
+          <tag name="see" line="1273" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-directory"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41053,26 +41053,26 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1323" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1320" package="MicrosoftAzure\Storage\File">
         <name>getDirectoryProperties</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryProperties()</full_name>
-        <docblock line="1323">
+        <docblock line="1320">
           <description>Gets a directory's properties from the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1323" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1320" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1323" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1320" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1323" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1320" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1323" description="" type="\MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult">
+          <tag name="return" line="1320" description="" type="\MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetDirectoryPropertiesResult</type>
           </tag>
-          <tag name="see" line="1323" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-properties"/>
+          <tag name="see" line="1320" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41090,27 +41090,27 @@ for the share.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1343" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1340" package="MicrosoftAzure\Storage\File">
         <name>getDirectoryPropertiesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryPropertiesAsync()</full_name>
-        <docblock line="1343">
+        <docblock line="1340">
           <description>Creates promise to get a directory's properties from the given share
 and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1343" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1340" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1343" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1340" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1343" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1340" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1343" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1340" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1343" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-properties"/>
+          <tag name="see" line="1340" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41128,26 +41128,26 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1393" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1390" package="MicrosoftAzure\Storage\File">
         <name>getDirectoryMetadata</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryMetadata()</full_name>
-        <docblock line="1393">
+        <docblock line="1390">
           <description>Gets a directory's metadata from the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1393" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1390" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1393" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1390" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1393" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1390" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1393" description="" type="\MicrosoftAzure\Storage\File\Models\GetDirectoryMetadataResult">
+          <tag name="return" line="1390" description="" type="\MicrosoftAzure\Storage\File\Models\GetDirectoryMetadataResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetDirectoryMetadataResult</type>
           </tag>
-          <tag name="see" line="1393" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-metadata"/>
+          <tag name="see" line="1390" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41165,27 +41165,27 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1413" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1410" package="MicrosoftAzure\Storage\File">
         <name>getDirectoryMetadataAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getDirectoryMetadataAsync()</full_name>
-        <docblock line="1413">
+        <docblock line="1410">
           <description>Creates promise to get a directory's metadata from the given share
 and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1413" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1410" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1413" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1410" description="&lt;p&gt;The path of the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1413" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1410" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1413" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1410" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1413" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-metadata"/>
+          <tag name="see" line="1410" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-directory-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41203,29 +41203,29 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1470" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1467" package="MicrosoftAzure\Storage\File">
         <name>setDirectoryMetadata</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setDirectoryMetadata()</full_name>
-        <docblock line="1470">
+        <docblock line="1467">
           <description>Sets a directory's metadata from the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1470" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1467" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1470" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1467" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1470" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="1467" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="1470" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1467" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1470" description="" type="void">
+          <tag name="return" line="1467" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="1470" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-directory-metadata"/>
+          <tag name="see" line="1467" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-directory-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41248,30 +41248,30 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1497" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1494" package="MicrosoftAzure\Storage\File">
         <name>setDirectoryMetadataAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setDirectoryMetadataAsync()</full_name>
-        <docblock line="1497">
+        <docblock line="1494">
           <description>Creates promise to set a directory's metadata from the given share
 and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1497" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1494" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1497" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1494" description="&lt;p&gt;The path to delete the directory.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1497" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="1494" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="1497" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1494" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1497" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1494" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1497" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-directory-metadata"/>
+          <tag name="see" line="1494" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-directory-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41294,29 +41294,29 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1553" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1550" package="MicrosoftAzure\Storage\File">
         <name>createFile</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createFile()</full_name>
-        <docblock line="1553">
+        <docblock line="1550">
           <description>Create a new file.</description>
           <long-description></long-description>
-          <tag name="param" line="1553" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1550" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1553" description="&lt;p&gt;The path and name of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1550" description="&lt;p&gt;The path and name of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1553" description="&lt;p&gt;The size of the file.&lt;/p&gt;" type="integer" variable="$size">
+          <tag name="param" line="1550" description="&lt;p&gt;The size of the file.&lt;/p&gt;" type="integer" variable="$size">
             <type>integer</type>
           </tag>
-          <tag name="param" line="1553" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileOptions|null" variable="$options">
+          <tag name="param" line="1550" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateFileOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1553" description="" type="void">
+          <tag name="return" line="1550" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="1553" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-file"/>
+          <tag name="see" line="1550" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41339,29 +41339,29 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateFileOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1579" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1576" package="MicrosoftAzure\Storage\File">
         <name>createFileAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createFileAsync()</full_name>
-        <docblock line="1579">
+        <docblock line="1576">
           <description>Creates promise to create a new file.</description>
           <long-description></long-description>
-          <tag name="param" line="1579" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1576" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1579" description="&lt;p&gt;The path and name of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1576" description="&lt;p&gt;The path and name of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1579" description="&lt;p&gt;The size of the file.&lt;/p&gt;" type="integer" variable="$size">
+          <tag name="param" line="1576" description="&lt;p&gt;The size of the file.&lt;/p&gt;" type="integer" variable="$size">
             <type>integer</type>
           </tag>
-          <tag name="param" line="1579" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileOptions|null" variable="$options">
+          <tag name="param" line="1576" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateFileOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1579" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1576" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1579" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-file"/>
+          <tag name="see" line="1576" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/create-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41384,26 +41384,26 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateFileOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1686" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1683" package="MicrosoftAzure\Storage\File">
         <name>deleteFile</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::deleteFile()</full_name>
-        <docblock line="1686">
+        <docblock line="1683">
           <description>Deletes a file in the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1686" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1683" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1686" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1683" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1686" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1683" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1686" description="" type="void">
+          <tag name="return" line="1683" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="1686" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-file2"/>
+          <tag name="see" line="1683" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-file2"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41421,26 +41421,26 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1705" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1702" package="MicrosoftAzure\Storage\File">
         <name>deleteFileAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::deleteFileAsync()</full_name>
-        <docblock line="1705">
+        <docblock line="1702">
           <description>Creates a promise to delete a new file in the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1705" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1702" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1705" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1702" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1705" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1702" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1705" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1702" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1705" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-file2"/>
+          <tag name="see" line="1702" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/delete-file2"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41458,27 +41458,27 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1753" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1750" package="MicrosoftAzure\Storage\File">
         <name>getFile</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getFile()</full_name>
-        <docblock line="1753">
+        <docblock line="1750">
           <description>Reads or downloads a file from the server, including its metadata and
 properties.</description>
           <long-description></long-description>
-          <tag name="param" line="1753" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1750" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1753" description="&lt;p&gt;path of the file to be get&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1750" description="&lt;p&gt;path of the file to be get&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1753" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\GetFileOptions|null" variable="$options">
+          <tag name="param" line="1750" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\GetFileOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\GetFileOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1753" description="" type="\MicrosoftAzure\Storage\File\Models\GetFileResult">
+          <tag name="return" line="1750" description="" type="\MicrosoftAzure\Storage\File\Models\GetFileResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetFileResult</type>
           </tag>
-          <tag name="see" line="1753" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file"/>
+          <tag name="see" line="1750" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41496,27 +41496,27 @@ properties.</description>
           <type>\MicrosoftAzure\Storage\File\Models\GetFileOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1773" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1770" package="MicrosoftAzure\Storage\File">
         <name>getFileAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getFileAsync()</full_name>
-        <docblock line="1773">
+        <docblock line="1770">
           <description>Creates promise to read or download a file from the server, including its
 metadata and properties.</description>
           <long-description></long-description>
-          <tag name="param" line="1773" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1770" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1773" description="&lt;p&gt;path of the file to be get&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1770" description="&lt;p&gt;path of the file to be get&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1773" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\GetFileOptions|null" variable="$options">
+          <tag name="param" line="1770" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\GetFileOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\GetFileOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1773" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1770" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1773" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file"/>
+          <tag name="see" line="1770" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41534,26 +41534,26 @@ metadata and properties.</description>
           <type>\MicrosoftAzure\Storage\File\Models\GetFileOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1843" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1840" package="MicrosoftAzure\Storage\File">
         <name>getFileProperties</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getFileProperties()</full_name>
-        <docblock line="1843">
+        <docblock line="1840">
           <description>Gets a file's properties from the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1843" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1840" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1843" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1840" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1843" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1840" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1843" description="" type="\MicrosoftAzure\Storage\File\Models\FileProperties">
+          <tag name="return" line="1840" description="" type="\MicrosoftAzure\Storage\File\Models\FileProperties">
             <type>\MicrosoftAzure\Storage\File\Models\FileProperties</type>
           </tag>
-          <tag name="see" line="1843" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-properties"/>
+          <tag name="see" line="1840" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41571,27 +41571,27 @@ metadata and properties.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1863" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1860" package="MicrosoftAzure\Storage\File">
         <name>getFilePropertiesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getFilePropertiesAsync()</full_name>
-        <docblock line="1863">
+        <docblock line="1860">
           <description>Creates promise to get a file's properties from the given share
 and path.</description>
           <long-description></long-description>
-          <tag name="param" line="1863" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1860" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1863" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1860" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1863" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1860" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1863" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1860" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1863" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-properties"/>
+          <tag name="see" line="1860" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41609,29 +41609,29 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1914" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1911" package="MicrosoftAzure\Storage\File">
         <name>setFileProperties</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setFileProperties()</full_name>
-        <docblock line="1914">
+        <docblock line="1911">
           <description>Sets properties on the file.</description>
           <long-description></long-description>
-          <tag name="param" line="1914" description="&lt;p&gt;share name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1911" description="&lt;p&gt;share name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1914" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1911" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1914" description="&lt;p&gt;file properties.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileProperties" variable="$properties">
+          <tag name="param" line="1911" description="&lt;p&gt;file properties.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileProperties" variable="$properties">
             <type>\MicrosoftAzure\Storage\File\Models\FileProperties</type>
           </tag>
-          <tag name="param" line="1914" description="&lt;p&gt;optional     parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1911" description="&lt;p&gt;optional     parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1914" description="" type="void">
+          <tag name="return" line="1911" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="1914" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-properties"/>
+          <tag name="see" line="1911" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41654,29 +41654,29 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1935" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="1932" package="MicrosoftAzure\Storage\File">
         <name>setFilePropertiesAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setFilePropertiesAsync()</full_name>
-        <docblock line="1935">
+        <docblock line="1932">
           <description>Creates promise to set properties on the file.</description>
           <long-description></long-description>
-          <tag name="param" line="1935" description="&lt;p&gt;share name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="1932" description="&lt;p&gt;share name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="1935" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="1932" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="1935" description="&lt;p&gt;file properties.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileProperties" variable="$properties">
+          <tag name="param" line="1932" description="&lt;p&gt;file properties.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileProperties" variable="$properties">
             <type>\MicrosoftAzure\Storage\File\Models\FileProperties</type>
           </tag>
-          <tag name="param" line="1935" description="&lt;p&gt;optional     parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="1932" description="&lt;p&gt;optional     parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="1935" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="1932" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="1935" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-properties"/>
+          <tag name="see" line="1932" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-properties"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41699,26 +41699,26 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2026" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2023" package="MicrosoftAzure\Storage\File">
         <name>getFileMetadata</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadata()</full_name>
-        <docblock line="2026">
+        <docblock line="2023">
           <description>Gets a file's metadata from the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="2026" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2023" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2026" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2023" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2026" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2023" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2026" description="" type="\MicrosoftAzure\Storage\File\Models\GetFileMetadataResult">
+          <tag name="return" line="2023" description="" type="\MicrosoftAzure\Storage\File\Models\GetFileMetadataResult">
             <type>\MicrosoftAzure\Storage\File\Models\GetFileMetadataResult</type>
           </tag>
-          <tag name="see" line="2026" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-metadata"/>
+          <tag name="see" line="2023" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41736,27 +41736,27 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2046" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2043" package="MicrosoftAzure\Storage\File">
         <name>getFileMetadataAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::getFileMetadataAsync()</full_name>
-        <docblock line="2046">
+        <docblock line="2043">
           <description>Creates promise to get a file's metadata from the given share
 and path.</description>
           <long-description></long-description>
-          <tag name="param" line="2046" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2043" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2046" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2043" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2046" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2043" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2046" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2043" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="2046" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-metadata"/>
+          <tag name="see" line="2043" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/get-file-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41774,29 +41774,29 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2103" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2100" package="MicrosoftAzure\Storage\File">
         <name>setFileMetadata</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadata()</full_name>
-        <docblock line="2103">
+        <docblock line="2100">
           <description>Sets a file's metadata from the given share and path.</description>
           <long-description></long-description>
-          <tag name="param" line="2103" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2100" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2103" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2100" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2103" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="2100" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="2103" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2100" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2103" description="" type="void">
+          <tag name="return" line="2100" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="2103" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-metadata"/>
+          <tag name="see" line="2100" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41819,30 +41819,30 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2130" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2127" package="MicrosoftAzure\Storage\File">
         <name>setFileMetadataAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::setFileMetadataAsync()</full_name>
-        <docblock line="2130">
+        <docblock line="2127">
           <description>Creates promise to set a file's metadata from the given share
 and path.</description>
           <long-description></long-description>
-          <tag name="param" line="2130" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2127" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2130" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2127" description="&lt;p&gt;The path to delete the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2130" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="2127" description="&lt;p&gt;The metadata to be set.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="2130" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2127" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2130" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2127" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="2130" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-metadata"/>
+          <tag name="see" line="2127" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/set-file-metadata"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41865,34 +41865,34 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2188" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2185" package="MicrosoftAzure\Storage\File">
         <name>putFileRange</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::putFileRange()</full_name>
-        <docblock line="2188">
+        <docblock line="2185">
           <description>Writes range of bytes to a file. Range can be at most 4MB in length.</description>
           <long-description></long-description>
-          <tag name="param" line="2188" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2185" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2188" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2185" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2188" description="&lt;p&gt;The content to be uploaded.&lt;/p&gt;" type="string|resource|\Psr\Http\Message\StreamInterface" variable="$content">
+          <tag name="param" line="2185" description="&lt;p&gt;The content to be uploaded.&lt;/p&gt;" type="string|resource|\Psr\Http\Message\StreamInterface" variable="$content">
             <type>string</type>
             <type>resource</type>
             <type>\Psr\Http\Message\StreamInterface</type>
           </tag>
-          <tag name="param" line="2188" description="&lt;p&gt;The range in the file to&#10;                                                 be put.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
+          <tag name="param" line="2185" description="&lt;p&gt;The range in the file to&#10;                                                 be put.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
             <type>\MicrosoftAzure\Storage\Common\Models\Range</type>
           </tag>
-          <tag name="param" line="2188" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions|null" variable="$options">
+          <tag name="param" line="2185" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2188" description="" type="void">
+          <tag name="return" line="2185" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="2188" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
+          <tag name="see" line="2185" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41920,35 +41920,35 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2220" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2217" package="MicrosoftAzure\Storage\File">
         <name>putFileRangeAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::putFileRangeAsync()</full_name>
-        <docblock line="2220">
+        <docblock line="2217">
           <description>Creates promise to write range of bytes to a file. Range can be at most
 4MB in length.</description>
           <long-description></long-description>
-          <tag name="param" line="2220" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2217" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2220" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2217" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2220" description="&lt;p&gt;The content to be uploaded.&lt;/p&gt;" type="string|resource|\Psr\Http\Message\StreamInterface" variable="$content">
+          <tag name="param" line="2217" description="&lt;p&gt;The content to be uploaded.&lt;/p&gt;" type="string|resource|\Psr\Http\Message\StreamInterface" variable="$content">
             <type>string</type>
             <type>resource</type>
             <type>\Psr\Http\Message\StreamInterface</type>
           </tag>
-          <tag name="param" line="2220" description="&lt;p&gt;The range in the file to&#10;                                                 be put.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
+          <tag name="param" line="2217" description="&lt;p&gt;The range in the file to&#10;                                                 be put.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
             <type>\MicrosoftAzure\Storage\Common\Models\Range</type>
           </tag>
-          <tag name="param" line="2220" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions|null" variable="$options">
+          <tag name="param" line="2217" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2220" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2217" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="2220" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
+          <tag name="see" line="2217" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -41976,28 +41976,28 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\PutFileRangeOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2306" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2300" package="MicrosoftAzure\Storage\File">
         <name>createFileFromContent</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContent()</full_name>
-        <docblock line="2306">
+        <docblock line="2300">
           <description>Creates a file from a provided content.</description>
           <long-description></long-description>
-          <tag name="param" line="2306" description="&lt;p&gt;the share name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2300" description="&lt;p&gt;the share name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2306" description="&lt;p&gt;the path of the file&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2300" description="&lt;p&gt;the path of the file&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2306" description="&lt;p&gt;the content used to&#10;                                                    create the file&lt;/p&gt;" type="\Psr\Http\Message\StreamInterface|resource|string" variable="$content">
+          <tag name="param" line="2300" description="&lt;p&gt;the content used to&#10;                                                    create the file&lt;/p&gt;" type="\Psr\Http\Message\StreamInterface|resource|string" variable="$content">
             <type>\Psr\Http\Message\StreamInterface</type>
             <type>resource</type>
             <type>string</type>
           </tag>
-          <tag name="param" line="2306" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions|null" variable="$options">
+          <tag name="param" line="2300" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2306" description="" type="void">
+          <tag name="return" line="2300" description="" type="void">
             <type>void</type>
           </tag>
         </docblock>
@@ -42022,28 +42022,28 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2326" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2320" package="MicrosoftAzure\Storage\File">
         <name>createFileFromContentAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::createFileFromContentAsync()</full_name>
-        <docblock line="2326">
+        <docblock line="2320">
           <description>Creates a promise to create a file from a provided content.</description>
           <long-description></long-description>
-          <tag name="param" line="2326" description="&lt;p&gt;the share name&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2320" description="&lt;p&gt;the share name&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2326" description="&lt;p&gt;the path of the file&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2320" description="&lt;p&gt;the path of the file&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2326" description="&lt;p&gt;the content used to&#10;                                                 create the file&lt;/p&gt;" type="\Psr\Http\Message\StreamInterface|resource|string" variable="$content">
+          <tag name="param" line="2320" description="&lt;p&gt;the content used to&#10;                                                 create the file&lt;/p&gt;" type="\Psr\Http\Message\StreamInterface|resource|string" variable="$content">
             <type>\Psr\Http\Message\StreamInterface</type>
             <type>resource</type>
             <type>string</type>
           </tag>
-          <tag name="param" line="2326" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions|null" variable="$options">
+          <tag name="param" line="2320" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2326" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2320" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
         </docblock>
@@ -42068,32 +42068,32 @@ and path.</description>
           <type>\MicrosoftAzure\Storage\File\Models\CreateFileFromContentOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2401" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2395" package="MicrosoftAzure\Storage\File">
         <name>clearFileRange</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::clearFileRange()</full_name>
-        <docblock line="2401">
+        <docblock line="2395">
           <description>Clears range of bytes of a file. If the specified range is not 512-byte
 aligned, the operation will write zeros to the start or end of the range
 that is not 512-byte aligned and free the rest of the range inside that
 is 512-byte aligned.</description>
           <long-description></long-description>
-          <tag name="param" line="2401" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2395" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2401" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2395" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2401" description="&lt;p&gt;The range in the file to&#10;                                         be cleared.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
+          <tag name="param" line="2395" description="&lt;p&gt;The range in the file to&#10;                                         be cleared.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
             <type>\MicrosoftAzure\Storage\Common\Models\Range</type>
           </tag>
-          <tag name="param" line="2401" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2395" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2401" description="" type="void">
+          <tag name="return" line="2395" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="2401" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
+          <tag name="see" line="2395" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42116,32 +42116,32 @@ is 512-byte aligned.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2427" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2421" package="MicrosoftAzure\Storage\File">
         <name>clearFileRangeAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::clearFileRangeAsync()</full_name>
-        <docblock line="2427">
+        <docblock line="2421">
           <description>Creates promise to clear range of bytes of a file. If the specified range
 is not 512-byte aligned, the operation will write zeros to the start or
 end of the range that is not 512-byte aligned and free the rest of the
 range inside that is 512-byte aligned.</description>
           <long-description></long-description>
-          <tag name="param" line="2427" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2421" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2427" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2421" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2427" description="&lt;p&gt;The range in the file to&#10;                                         be cleared.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
+          <tag name="param" line="2421" description="&lt;p&gt;The range in the file to&#10;                                         be cleared.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
             <type>\MicrosoftAzure\Storage\Common\Models\Range</type>
           </tag>
-          <tag name="param" line="2427" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2421" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2427" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2421" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="2427" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
+          <tag name="see" line="2421" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/put-range"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42164,29 +42164,29 @@ range inside that is 512-byte aligned.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2497" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2491" package="MicrosoftAzure\Storage\File">
         <name>listFileRange</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::listFileRange()</full_name>
-        <docblock line="2497">
+        <docblock line="2491">
           <description>Lists range of bytes of a file.</description>
           <long-description></long-description>
-          <tag name="param" line="2497" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2491" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2497" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2491" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2497" description="&lt;p&gt;The range in the file to&#10;                                         be listed.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
+          <tag name="param" line="2491" description="&lt;p&gt;The range in the file to&#10;                                         be listed.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
             <type>\MicrosoftAzure\Storage\Common\Models\Range</type>
           </tag>
-          <tag name="param" line="2497" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2491" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2497" description="" type="\MicrosoftAzure\Storage\File\Models\ListFileRangesResult">
+          <tag name="return" line="2491" description="" type="\MicrosoftAzure\Storage\File\Models\ListFileRangesResult">
             <type>\MicrosoftAzure\Storage\File\Models\ListFileRangesResult</type>
           </tag>
-          <tag name="see" line="2497" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-ranges"/>
+          <tag name="see" line="2491" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-ranges"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42209,29 +42209,29 @@ range inside that is 512-byte aligned.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2520" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2514" package="MicrosoftAzure\Storage\File">
         <name>listFileRangeAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::listFileRangeAsync()</full_name>
-        <docblock line="2520">
+        <docblock line="2514">
           <description>Creates promise to list range of bytes of a file.</description>
           <long-description></long-description>
-          <tag name="param" line="2520" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2514" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2520" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2514" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2520" description="&lt;p&gt;The range in the file to&#10;                                         be listed.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
+          <tag name="param" line="2514" description="&lt;p&gt;The range in the file to&#10;                                         be listed.&lt;/p&gt;" type="\MicrosoftAzure\Storage\Common\Models\Range" variable="$range">
             <type>\MicrosoftAzure\Storage\Common\Models\Range</type>
           </tag>
-          <tag name="param" line="2520" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2514" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2520" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2514" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="2520" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-ranges"/>
+          <tag name="see" line="2514" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/list-ranges"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42254,10 +42254,10 @@ range inside that is 512-byte aligned.</description>
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2604" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2598" package="MicrosoftAzure\Storage\File">
         <name>copyFile</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::copyFile()</full_name>
-        <docblock line="2604">
+        <docblock line="2598">
           <description>Informs server to copy file from $sourcePath to $path.</description>
           <long-description>To copy a file to another file within the same storage account, you may
 use Shared Key to authenticate the source file. If you are copying a file
@@ -42269,26 +42269,26 @@ operation.
 Here are some examples of source object URLs:
 https://myaccount.file.core.windows.net/myshare/mydirectorypath/myfile
 https://myaccount.blob.core.windows.net/mycontainer/myblob?sastoken</long-description>
-          <tag name="param" line="2604" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2598" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2604" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2598" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2604" description="&lt;p&gt;The path of the source.&lt;/p&gt;" type="string" variable="$sourcePath">
+          <tag name="param" line="2598" description="&lt;p&gt;The path of the source.&lt;/p&gt;" type="string" variable="$sourcePath">
             <type>string</type>
           </tag>
-          <tag name="param" line="2604" description="&lt;p&gt;The metadata of the file.&#10;                                            If specified, source metadata&#10;                                            will not be copied.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="2598" description="&lt;p&gt;The metadata of the file.&#10;                                            If specified, source metadata&#10;                                            will not be copied.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="2604" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2598" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2604" description="" type="\MicrosoftAzure\Storage\File\Models\CopyFileResult">
+          <tag name="return" line="2598" description="" type="\MicrosoftAzure\Storage\File\Models\CopyFileResult">
             <type>\MicrosoftAzure\Storage\File\Models\CopyFileResult</type>
           </tag>
-          <tag name="see" line="2604" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/copy-file"/>
+          <tag name="see" line="2598" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/copy-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42316,10 +42316,10 @@ https://myaccount.blob.core.windows.net/mycontainer/myblob?sastoken</long-descri
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2647" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2641" package="MicrosoftAzure\Storage\File">
         <name>copyFileAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::copyFileAsync()</full_name>
-        <docblock line="2647">
+        <docblock line="2641">
           <description>Creates promise to inform server to copy file from $sourcePath to $path.</description>
           <long-description>To copy a file to another file within the same storage account, you may
 use Shared Key to authenticate the source file. If you are copying a file
@@ -42331,26 +42331,26 @@ operation.
 Here are some examples of source object URLs:
 https://myaccount.file.core.windows.net/myshare/mydirectorypath/myfile
 https://myaccount.blob.core.windows.net/mycontainer/myblob?sastoken</long-description>
-          <tag name="param" line="2647" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2641" description="&lt;p&gt;The share name.&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2647" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2641" description="&lt;p&gt;The path of the file.&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2647" description="&lt;p&gt;The path of the source.&lt;/p&gt;" type="string" variable="$sourcePath">
+          <tag name="param" line="2641" description="&lt;p&gt;The path of the source.&lt;/p&gt;" type="string" variable="$sourcePath">
             <type>string</type>
           </tag>
-          <tag name="param" line="2647" description="&lt;p&gt;The metadata of the file.&#10;                                            If specified, source metadata&#10;                                            will not be copied.&lt;/p&gt;" type="array" variable="$metadata">
+          <tag name="param" line="2641" description="&lt;p&gt;The metadata of the file.&#10;                                            If specified, source metadata&#10;                                            will not be copied.&lt;/p&gt;" type="array" variable="$metadata">
             <type>array</type>
           </tag>
-          <tag name="param" line="2647" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2641" description="&lt;p&gt;The optional parameters.&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2647" description="" type="\GuzzleHttp\Promise\PromiseInterface">
+          <tag name="return" line="2641" description="" type="\GuzzleHttp\Promise\PromiseInterface">
             <type>\GuzzleHttp\Promise\PromiseInterface</type>
           </tag>
-          <tag name="see" line="2647" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/copy-file"/>
+          <tag name="see" line="2641" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/copy-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42378,29 +42378,29 @@ https://myaccount.blob.core.windows.net/mycontainer/myblob?sastoken</long-descri
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2712" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2706" package="MicrosoftAzure\Storage\File">
         <name>abortCopy</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::abortCopy()</full_name>
-        <docblock line="2712">
+        <docblock line="2706">
           <description>Abort a file copy operation</description>
           <long-description></long-description>
-          <tag name="param" line="2712" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2706" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2712" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2706" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2712" description="&lt;p&gt;copy operation identifier.&lt;/p&gt;" type="string" variable="$copyID">
+          <tag name="param" line="2706" description="&lt;p&gt;copy operation identifier.&lt;/p&gt;" type="string" variable="$copyID">
             <type>string</type>
           </tag>
-          <tag name="param" line="2712" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2706" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2712" description="" type="void">
+          <tag name="return" line="2706" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="2712" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/abort-copy-file"/>
+          <tag name="see" line="2706" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/abort-copy-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -42423,29 +42423,29 @@ https://myaccount.blob.core.windows.net/mycontainer/myblob?sastoken</long-descri
           <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null</type>
         </argument>
       </method>
-      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2738" package="MicrosoftAzure\Storage\File">
+      <method final="false" abstract="false" static="false" visibility="public" namespace="MicrosoftAzure\Storage\File" line="2732" package="MicrosoftAzure\Storage\File">
         <name>abortCopyAsync</name>
         <full_name>\MicrosoftAzure\Storage\File\FileRestProxy::abortCopyAsync()</full_name>
-        <docblock line="2738">
+        <docblock line="2732">
           <description>Creates promise to abort a file copy operation</description>
           <long-description></long-description>
-          <tag name="param" line="2738" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
+          <tag name="param" line="2732" description="&lt;p&gt;name of the share&lt;/p&gt;" type="string" variable="$share">
             <type>string</type>
           </tag>
-          <tag name="param" line="2738" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
+          <tag name="param" line="2732" description="&lt;p&gt;path of the file&lt;/p&gt;" type="string" variable="$path">
             <type>string</type>
           </tag>
-          <tag name="param" line="2738" description="&lt;p&gt;copy operation identifier.&lt;/p&gt;" type="string" variable="$copyID">
+          <tag name="param" line="2732" description="&lt;p&gt;copy operation identifier.&lt;/p&gt;" type="string" variable="$copyID">
             <type>string</type>
           </tag>
-          <tag name="param" line="2738" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
+          <tag name="param" line="2732" description="&lt;p&gt;optional parameters&lt;/p&gt;" type="\MicrosoftAzure\Storage\File\Models\FileServiceOptions|null" variable="$options">
             <type>\MicrosoftAzure\Storage\File\Models\FileServiceOptions</type>
             <type>null</type>
           </tag>
-          <tag name="return" line="2738" description="" type="void">
+          <tag name="return" line="2732" description="" type="void">
             <type>void</type>
           </tag>
-          <tag name="see" line="2738" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/abort-copy-file"/>
+          <tag name="see" line="2732" description="" link="https://docs.microsoft.com/en-us/rest/api/storageservices/abort-copy-file"/>
         </docblock>
         <argument line="0" by_reference="false">
           <name>$share</name>
@@ -43630,7 +43630,7 @@ type and resource.</description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-file\src\File\Internal\FileResources.php" generated-path="azure-storage-file.src.File.Internal.FileResources.html" hash="39e372b1ab7686757a128a8bd3836421" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-file\src\File\Internal\FileResources.php" generated-path="azure-storage-file.src.File.Internal.FileResources.html" hash="d074d4b897b0fc7e03502ce55f54ab65" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -46190,7 +46190,7 @@ PHP version 5</long-description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-file\src\File\Models\FileProperties.php" generated-path="azure-storage-file.src.File.Models.FileProperties.html" hash="b8682f7f7fc8d4175f1b0d4aa6b3b6b9" package="MicrosoftAzure\Storage\File\Models">
+  <file path="azure-storage-file\src\File\Models\FileProperties.php" generated-path="azure-storage-file.src.File.Models.FileProperties.html" hash="8c409bb63d51d3f0e8150ac162621a41" package="MicrosoftAzure\Storage\File\Models">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -51376,7 +51376,7 @@ PHP version 5</long-description>
     <namespace-alias name="Request">\GuzzleHttp\Psr7\Request</namespace-alias>
     <namespace-alias name="Resources">\MicrosoftAzure\Storage\Common\Internal\Resources</namespace-alias>
   </file>
-  <file path="azure-storage-common\src\Common\Internal\Authentication\SharedKeyAuthScheme.php" generated-path="azure-storage-common.src.Common.Internal.Authentication.SharedKeyAuthScheme.html" hash="01e8335b3b6a0e99b1adbf2960c71f56" package="MicrosoftAzure\Storage\Common\Internal\Authentication">
+  <file path="azure-storage-common\src\Common\Internal\Authentication\SharedKeyAuthScheme.php" generated-path="azure-storage-common.src.Common.Internal.Authentication.SharedKeyAuthScheme.html" hash="2b0ad84924228422d69bc2ac2a702ec4" package="MicrosoftAzure\Storage\Common\Internal\Authentication">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -51545,7 +51545,7 @@ PHP version 5</long-description>
     <namespace-alias name="Resources">\MicrosoftAzure\Storage\Common\Internal\Resources</namespace-alias>
     <namespace-alias name="RequestInterface">\Psr\Http\Message\RequestInterface</namespace-alias>
   </file>
-  <file path="azure-storage-common\src\Common\Internal\Resources.php" generated-path="azure-storage-common.src.Common.Internal.Resources.html" hash="c0d64debb68cd23c38d60a634af54d0b" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-common\src\Common\Internal\Resources.php" generated-path="azure-storage-common.src.Common.Internal.Resources.html" hash="eb85abc730d16a062f21fc7c79e899ce" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -51666,7 +51666,7 @@ PHP version 5</long-description>
     <namespace-alias name="Resources">\MicrosoftAzure\Storage\Common\Internal\Resources</namespace-alias>
     <namespace-alias name="Validate">\MicrosoftAzure\Storage\Common\Internal\Validate</namespace-alias>
   </file>
-  <file path="azure-storage-common\src\Common\Internal\ServiceRestProxy.php" generated-path="azure-storage-common.src.Common.Internal.ServiceRestProxy.html" hash="9f4ffe948916fcb2d428e2d5007018a1" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-common\src\Common\Internal\ServiceRestProxy.php" generated-path="azure-storage-common.src.Common.Internal.ServiceRestProxy.html" hash="b159762710f0617cf67e1f7c131c1b31" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
