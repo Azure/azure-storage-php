@@ -1,5 +1,5 @@
 2020.12 - version 1.5.1
-* Guzzle version is no updated to support both 6.x and 7.x.
+* Guzzle version is now updated to support both 6.x and 7.x.
 
 2020.08 - version 1.5.0
 * Resolved TLS 1.2 issue and some test issues.
