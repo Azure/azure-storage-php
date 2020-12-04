@@ -1,3 +1,7 @@
+2020.12 - version 1.2.4
+* Fixed an issue where 400 is reported for some curl versions.
+* Guzzle version is no updated to support both 6.x and 7.x.
+
 2020.08 - version 1.2.3
 * Lower case query parameter names.
 
