@@ -291,7 +291,7 @@ class SharedAccessSignatureHelper
         }
 
         Validate::isTrue(
-            strlen($input) == '',
+            empty($input),
             sprintf(
                 Resources::STRING_NOT_WITH_GIVEN_COMBINATION,
                 implode(', ', $array)
