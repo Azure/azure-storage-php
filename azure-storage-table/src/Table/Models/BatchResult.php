@@ -96,16 +96,16 @@ class BatchResult
      * @param mixed $r1 The first response object.
      * @param mixed $r2 The second response object.
      *
-     * @return boolean
+     * @return integer
      */
     private static function _compareUsingContentId($r1, $r2)
     {
         $h1 = array_change_key_case($r1->headers);
         $h2 = array_change_key_case($r2->headers);
-        $c1 = Utilities::tryGetValue($h1, Resources::CONTENT_ID, 0);
-        $c2 = Utilities::tryGetValue($h2, Resources::CONTENT_ID, 0);
+        $c1 = intval(Utilities::tryGetValue($h1, Resources::CONTENT_ID, 0));
+        $c2 = intval(Utilities::tryGetValue($h2, Resources::CONTENT_ID, 0));
 
-        return intval($c1) >= intval($c2);
+        return $c1 < $c2 ? -1 : ($c1 === $c2 ? 0 : 1);
     }
 
     /**
