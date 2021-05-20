@@ -1127,6 +1127,48 @@ interface IBlob
     );
 
     /**
+     * Downloads a blob to a file, the result contains its metadata and
+     * properties. The result will not contain a stream pointing to the
+     * content of the file.
+     *
+     * @param string                $path      The path and name of the file
+     * @param string                $container name of the container
+     * @param string                $blob      name of the blob
+     * @param Models\GetBlobOptions $options   optional parameters
+     *
+     * @return Models\GetBlobResult
+     *
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179440.aspx
+     */
+    public function saveBlobToFile(
+        $path,
+        $container,
+        $blob,
+        Models\GetBlobOptions $options = null
+    );
+
+    /**
+     * Creates promise to download a blob to a file, the result contains its
+     * metadata and properties. The result will not contain a stream pointing
+     * to the content of the file.
+     *
+     * @param string                $path      The path and name of the file
+     * @param string                $container name of the container
+     * @param string                $blob      name of the blob
+     * @param Models\GetBlobOptions $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     * @throws \Exception
+     * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179440.aspx
+     */
+    public function saveBlobToFileAsync(
+        $path,
+        $container,
+        $blob,
+        Models\GetBlobOptions $options = null
+    );
+    
+    /**
     * Reads or downloads a blob from the system, including its metadata and
     * properties.
     *
