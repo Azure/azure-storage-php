@@ -161,6 +161,7 @@ class Resources
     const X_MS_CLIENT_REQUEST_ID             = 'x-ms-client-request-id';
     const X_MS_CONTINUATION_LOCATION_MODE    = 'x-ms-continuation-location-mode';
     const X_MS_TYPE                          = 'x-ms-type';
+    const X_MS_BLOB_TYPE                     = 'x-ms-blob-type';
     const X_MS_CONTENT_LENGTH                = 'x-ms-content-length';
     const X_MS_CACHE_CONTROL                 = 'x-ms-cache-control';
     const X_MS_CONTENT_TYPE                  = 'x-ms-content-type';
