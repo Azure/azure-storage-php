@@ -350,7 +350,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
 
         $this->addOptionalHeader(
             $headers,
-            Resources::X_MS_BLOB_TYPE, 'BlockBlob'
+            Resources::X_MS_BLOB_TYPE,
+            'BlockBlob'
         );
 
         $this->addOptionalQueryParam(
@@ -1598,9 +1599,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         );
 
         $this->addOptionalHeader(
-          $headers,
-          Resources::X_MS_BLOB_TYPE,
-          'BlockBlob'
+            $headers,
+            Resources::X_MS_BLOB_TYPE,
+            'BlockBlob'
         );
 
         $this->addOptionalQueryParam(
@@ -2245,9 +2246,9 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         );
 
         $this->addOptionalHeader(
-          $headers,
-          Resources::X_MS_BLOB_TYPE,
-          'BlockBlob'
+            $headers,
+            Resources::X_MS_BLOB_TYPE,
+            'BlockBlob'
         );
 
         $this->addOptionalHeader(
