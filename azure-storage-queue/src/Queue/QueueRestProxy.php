@@ -413,7 +413,7 @@ class QueueRestProxy extends ServiceRestProxy implements IQueue
             $body,
             $options
         )->then(function ($response) use ($dataSerializer) {
-            $parsed = $dataSerializer->unserialize($response->getBody());
+            $parsed = $dataSerializer->unserialize((string) $response->getBody());
             return CreateMessageResult::create($parsed);
         }, null);
     }

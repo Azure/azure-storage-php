@@ -238,6 +238,10 @@ class XmlSerializer implements ISerializer
      */
     public function unserialize($serialized)
     {
+        if (!$serialized) {
+            return [];
+        }
+
         $sxml = new \SimpleXMLElement($serialized);
 
         return $this->sxml2arr($sxml);

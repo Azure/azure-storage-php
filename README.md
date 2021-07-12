@@ -191,7 +191,11 @@ Or by pushing it to the existing service:
 $tableClient->pushMiddleware($retryMiddleware);
 ```
 
-Authentication failures and "not found" errors (HTTP codes 403 & 404) are not retried when using the bundled middleware.
+Following errors are not retried in current retry middleware:
+- Authentication failures.
+- "Resource Not Found" errors.
+- Guzzle request exceptions that does not bear an HTTP response, e.g. failed to open stream, or cURL Connection reset by peer, etc.
+*Note:* Community contribution to cover the Guzzle request exceptions are welcomed.
 
 #### Retry types
 - `RetryMiddlewareFactory::GENERAL_RETRY_TYPE` - General type of logic that handles retry
