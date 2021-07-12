@@ -90,7 +90,12 @@ class SharedAccessSignatureAuthScheme implements IAuthScheme
             $uri = \GuzzleHttp\Psr7\Uri::withQueryValue($uri, $key, $value);
         }
 
-        // replace URI
-        return $request->withUri($uri, true);
+        // add authentication header containing SAS token
+        return $request->withHeader(
+            Resources::AUTHENTICATION,
+            Resources::SAS_TOKEN_NAME .
+            ' ' .
+            $uri->getQuery()
+        );
     }
 }
