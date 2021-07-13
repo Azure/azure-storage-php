@@ -66,7 +66,9 @@ class QueryEntitiesResult
             Resources::X_MS_CONTINUATION_NEXTROWKEY
         );
 
-        if ($nextRK != null && $nextPK != null) {
+        // Note that in some instances, x-ms-continuation-NextRowKey ($nextRK) may be null.
+        // Ref: https://docs.microsoft.com/en-us/rest/api/storageservices/query-timeout-and-pagination
+        if ($nextPK != null) {
             $result->setContinuationToken(
                 new TableContinuationToken(
                     '',
