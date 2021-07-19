@@ -2226,7 +2226,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         Validate::notNullOrEmpty($path, 'path');
         Validate::notNullOrEmpty($share, 'share');
         Validate::notNull($range->getLength(), Resources::RESOURCE_RANGE_LENGTH_MUST_SET);
-        $stream = Psr7\stream_for($content);
+        $stream = Psr7\Utils::streamFor($content);
 
         $method      = Resources::HTTP_PUT;
         $headers     = array();
@@ -2323,7 +2323,7 @@ class FileRestProxy extends ServiceRestProxy implements IFile
         $content,
         CreateFileFromContentOptions $options = null
     ) {
-        $stream = Psr7\stream_for($content);
+        $stream = Psr7\Utils::streamFor($content);
         $size = $stream->getSize();
 
         if ($options == null) {
