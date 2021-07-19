@@ -89,6 +89,7 @@ use MicrosoftAzure\Storage\Common\LocationMode;
 use MicrosoftAzure\Storage\Common\Models\Range;
 use MicrosoftAzure\Storage\Common\SharedAccessSignatureHelper;
 use Psr\Http\Message\StreamInterface;
+use GuzzleHttp\Psr7\Utils;
 
 /**
  * This class constructs HTTP requests and receive HTTP responses for blob
@@ -759,7 +760,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
                 get_class(new Range(0))
             )
         );
-        $body = Psr7\stream_for($content);
+        $body = Utils::streamFor($content);
 
         $method      = Resources::HTTP_PUT;
         $headers     = array();
@@ -1834,7 +1835,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlockBlobOptions $options = null
     ) {
-        $body = Psr7\stream_for($content);
+        $body = Utils::streamFor($content);
 
         //If the size of the stream is not seekable or larger than the single
         //upload threshold then call concurrent upload. Otherwise call putBlob.
@@ -1915,7 +1916,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreatePageBlobFromContentOptions $options = null
     ) {
-        $body = Psr7\stream_for($content);
+        $body = Utils::streamFor($content);
         $self = $this;
 
         if (is_null($options)) {
@@ -2417,7 +2418,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $content,
         Models\CreateBlobPagesOptions $options = null
     ) {
-        $contentStream = Psr7\stream_for($content);
+        $contentStream = Utils::streamFor($content);
         //because the content is at most 4MB long, can retrieve all the data
         //here at once.
         $body = $contentStream->getContents();
@@ -2516,7 +2517,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $postParams     = array();
         $queryParams    = $this->createBlobBlockQueryParams($options, $blockId);
         $path           = $this->createPath($container, $blob);
-        $contentStream  = Psr7\stream_for($content);
+        $contentStream  = Utils::streamFor($content);
         $body           = $contentStream->getContents();
 
         $options->setLocationMode(LocationMode::PRIMARY_ONLY);
@@ -2597,7 +2598,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
         $queryParams    = array();
         $path           = $this->createPath($container, $blob);
 
-        $contentStream  = Psr7\stream_for($content);
+        $contentStream  = Utils::streamFor($content);
         $length         = $contentStream->getSize();
         $body           = $contentStream->getContents();
 
@@ -3791,7 +3792,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
             );
         });
     }
-    
+
     /**
      * Undeletes a blob.
      *
@@ -3810,7 +3811,7 @@ class BlobRestProxy extends ServiceRestProxy implements IBlob
     ) {
         $this->undeleteBlobAsync($container, $blob, $options)->wait();
     }
-    
+
     /**
      * Undeletes a blob.
      *

@@ -312,6 +312,9 @@ class Validate
     {
         $isValid = filter_var($uri, FILTER_VALIDATE_URL);
 
+//        debug_print_backtrace();
+//        throw new \Exception($uri);
+
         if ($isValid) {
             return true;
         } else {
