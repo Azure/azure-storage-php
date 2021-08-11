@@ -168,7 +168,7 @@ class ServiceException extends \LogicException
     /**
      * Gets the response of the failue.
      *
-     * @return string
+     * @return ResponseInterface
      */
     public function getResponse()
     {
