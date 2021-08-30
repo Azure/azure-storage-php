@@ -28,6 +28,7 @@ use MicrosoftAzure\Storage\Blob\Models as BlobModels;
 use MicrosoftAzure\Storage\Common\Models\ServiceOptions;
 use MicrosoftAzure\Storage\Common\Models\ServiceProperties;
 use MicrosoftAzure\Storage\Common\Models\Range;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * This interface has all REST APIs provided by Windows Azure for Blob service.
