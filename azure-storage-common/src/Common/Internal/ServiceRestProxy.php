@@ -297,6 +297,7 @@ class ServiceRestProxy extends RestProxy
 
         // add query parameters into headers
         if ($queryParams != null) {
+
             $queryString = http_build_query($queryParams);
             $uri = $uri->withQuery($queryString);
         }
