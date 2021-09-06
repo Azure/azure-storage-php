@@ -12,10 +12,10 @@ jobs:
   timeoutInMinutes: 120
 
   pool:
-    vmImage: 'Ubuntu-16.04'
+    vmImage: 'Ubuntu-18.04'
 
   variables:
-    phpVersion: 7.0
+    phpVersion: 7.1
 
   steps:
   - script: |
