@@ -1132,12 +1132,12 @@ interface IBlob
      * properties. The result will not contain a stream pointing to the
      * content of the file.
      *
-     * @param string                $path      The path and name of the file
-     * @param string                $container name of the container
-     * @param string                $blob      name of the blob
-     * @param Models\GetBlobOptions $options   optional parameters
+     * @param string                    $path      The path and name of the file
+     * @param string                    $container name of the container
+     * @param string                    $blob      name of the blob
+     * @param BlobModels\GetBlobOptions $options   optional parameters
      *
-     * @return Models\GetBlobResult
+     * @return BlobModels\GetBlobResult
      *
      * @see http://msdn.microsoft.com/en-us/library/windowsazure/dd179440.aspx
      */
@@ -1145,7 +1145,7 @@ interface IBlob
         $path,
         $container,
         $blob,
-        Models\GetBlobOptions $options = null
+        BlobModels\GetBlobOptions $options = null
     );
 
     /**
@@ -1153,10 +1153,10 @@ interface IBlob
      * metadata and properties. The result will not contain a stream pointing
      * to the content of the file.
      *
-     * @param string                $path      The path and name of the file
-     * @param string                $container name of the container
-     * @param string                $blob      name of the blob
-     * @param Models\GetBlobOptions $options   optional parameters
+     * @param string                    $path      The path and name of the file
+     * @param string                    $container name of the container
+     * @param string                    $blob      name of the blob
+     * @param BlobModels\GetBlobOptions $options   optional parameters
      *
      * @return \GuzzleHttp\Promise\PromiseInterface
      * @throws \Exception
@@ -1166,7 +1166,41 @@ interface IBlob
         $path,
         $container,
         $blob,
-        Models\GetBlobOptions $options = null
+        BlobModels\GetBlobOptions $options = null
+    );
+
+    /**
+     * Undeletes a blob.
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param BlobModels\UndeleteBlobOptions  $options   optional parameters
+     *
+     * @return void
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/undelete-blob
+     */
+    public function undeleteBlob(
+        $container,
+        $blob,
+        BlobModels\UndeleteBlobOptions $options = null
+    );
+    
+    /**
+     * Undeletes a blob.
+     *
+     * @param string                          $container name of the container
+     * @param string                          $blob      name of the blob
+     * @param BlobModels\UndeleteBlobOptions  $options   optional parameters
+     *
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     *
+     * @see https://docs.microsoft.com/en-us/rest/api/storageservices/undelete-blob
+     */
+    public function undeleteBlobAsync(
+        $container,
+        $blob,
+        BlobModels\UndeleteBlobOptions $options = null
     );
     
     /**
