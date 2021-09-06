@@ -202,6 +202,8 @@ class JsonODataReaderWriter implements IODataReaderWriter
             $edmType;
             if (array_key_exists($key . Resources::JSON_ODATA_TYPE_SUFFIX, $rawEntity)) {
                 $edmType = $rawEntity[$key . Resources::JSON_ODATA_TYPE_SUFFIX];
+            } elseif (in_array($key, [Resources::JSON_PARTITION_KEY, Resources::JSON_ROW_KEY], true)) {
+                $edmType = EdmType::STRING;
             } else {
                 // Guess the property type
                 $edmType = EdmType::propertyType($value);

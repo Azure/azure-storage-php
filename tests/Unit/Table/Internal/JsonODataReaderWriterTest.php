@@ -135,6 +135,28 @@ class JsonODataReaderWriterTest extends \PHPUnit\Framework\TestCase
         }
     }
 
+
+    public function testParseEntityStringKeys()
+    {
+        // Setup
+        $serializer = new JsonODataReaderWriter();
+        $expected = TestResources::getExpectedTestEntity('0e123', '123e456');
+        $json = TestResources::getEntityMinimalMetaResult('0e123', '123e456');
+
+        // Test
+        $actual = $serializer->parseEntity($json);
+
+        // Assert
+        $this->assertSame(
+            $expected->getPartitionKey(),
+            $actual->getPartitionKey()
+        );
+        $this->assertSame(
+            $expected->getRowKey(),
+            $actual->getRowKey()
+        );
+    }
+
     public function testParseEntities()
     {
         // Setup
