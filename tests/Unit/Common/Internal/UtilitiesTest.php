@@ -590,7 +590,7 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
             fwrite($resource, openssl_random_pseudo_bytes(4194304));
         }
         rewind($resource);
-        $stream = Psr7\stream_for($resource);
+        $stream = Psr7\Utils::streamFor($resource);
         $result_0 = Utilities::isStreamLargerThanSizeOrNotSeekable(
             $stream,
             4194304 * 16 - 1
@@ -602,7 +602,7 @@ class UtilitiesTest extends \PHPUnit\Framework\TestCase
         //prepare a string
         $count = 64 / 4;
         $testStr = openssl_random_pseudo_bytes(4194304 * $count);
-        $stream = Psr7\stream_for($testStr);
+        $stream = Psr7\Utils::streamFor($testStr);
         $result_2 = Utilities::isStreamLargerThanSizeOrNotSeekable(
             $stream,
             4194304 * 16 - 1
