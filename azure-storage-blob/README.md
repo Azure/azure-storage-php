@@ -1,6 +1,6 @@
 # Microsoft Azure Storage Blob PHP Client Library
 
-This project provides a PHP client library that makes it easy to access Microsoft Azure Storage blob services. For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](http://www.windowsazure.com/en-us/develop/php/).
+This project provides a PHP client library that makes it easy to access Microsoft Azure Storage blob services. For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](https://www.windowsazure.com/en-us/develop/php/).
 
 [![Latest Stable Version](https://poser.pugx.org/microsoft/azure-storage-blob/v/stable)](https://packagist.org/packages/microsoft/azure-storage-blob)
 
@@ -17,7 +17,7 @@ This project provides a PHP client library that makes it easy to access Microsof
   * create block and page blobs (from a stream or a string), work with blob blocks and pages, delete blobs
   * work with blob properties, metadata, leases, snapshot a blob
 
-Please check details on [API reference documents](http://azure.github.io/azure-storage-php).
+Please check details on [API reference documents](https://azure.github.io/azure-storage-php).
 
 # Getting Started
 ## Minimum Requirements
@@ -52,7 +52,7 @@ cd ./azure-storage-php
   }
 }
 ```
-2. Download **[composer.phar](http://getcomposer.org/composer.phar)** in your project root.
+2. Download **[composer.phar](https://getcomposer.org/composer.phar)** in your project root.
 
 3. Open a command prompt and execute this in your project root
 
@@ -137,7 +137,7 @@ To use proxies during HTTP requests, set system variable `HTTP_PROXY` and the pr
 ### Error: Unable to get local issuer certificate
 cURL can't verify the validity of Microsoft certificate when trying to issue a request call to Azure Storage Services. You must configure cURL to use a certificate when issuing https requests by the following steps:
 
-1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html). 
+1. Download the cacert.pem file from [cURL site](https://curl.haxx.se/docs/caextract.html). 
 
 2. Then either:
     * Open your php.ini file and add the following line:
@@ -164,11 +164,11 @@ For now, Microsoft Azure Storage PHP client libraries share almost the same inte
 
 # Need Help?
 
-Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](http://go.microsoft.com/fwlink/?LinkId=234489) and [github issues](https://github.com/Azure/azure-storage-php/issues) if you have trouble with the provided code.
+Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](https://go.microsoft.com/fwlink/?LinkId=234489) and [github issues](https://github.com/Azure/azure-storage-php/issues) if you have trouble with the provided code.
 
 # Contribute Code or Provide Feedback
 
-If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](http://azure.github.io/guidelines/).
+If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](https://azure.github.io/guidelines/).
 You can find more details for contributing in the [CONTRIBUTING.md](CONTRIBUTING.md).
 
 If you encounter any bugs with the library please file an issue in the [Issues](https://github.com/Azure/azure-storage-php/issues) section of the project.
