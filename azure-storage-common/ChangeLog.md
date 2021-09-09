@@ -1,4 +1,4 @@
-2020.12 - version 1.5.2
+2021.09 - version 1.5.2
 * Added support for guzzle 7.3.
 * Resolve some warnings when calling `Psr7\stream_for`, uses `Utils::streamFor` instead.
 * Added colon to non-UTC timestamps.

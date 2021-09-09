@@ -1,4 +1,4 @@
-2020.12 - version 1.2.5
+2021.09 - version 1.2.5
 * Upgraded dependency for `azure-storage-common` to version 1.5.2.
 
 2020.12 - version 1.2.4

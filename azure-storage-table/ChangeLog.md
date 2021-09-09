@@ -1,4 +1,4 @@
-2020.12 - version 1.1.5
+2021.09 - version 1.1.5
 * Upgraded dependency for `azure-storage-common` to version 1.5.2.
 * Fixed a bug where `QueryEnttitiesResult` with a null `NextRowKey` won't work.
 * Return integer from a sorting callback, not bool.
