@@ -241,7 +241,7 @@ class Resources
     const BEARER = 'Bearer ';
 
     // Header values
-    const COMMON_SDK_VERSION                 = '1.5.1';
+    const COMMON_SDK_VERSION                 = '1.5.2';
     const INT32_MAX                          = 2147483647;
     const INT32_MIN                          = -2147483648;
 
