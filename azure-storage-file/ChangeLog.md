@@ -1,3 +1,6 @@
+2021.09 - version 1.2.5
+* Upgraded dependency for `azure-storage-common` to version 1.5.2.
+
 2020.12 - version 1.2.4
 * Fixed an issue where 400 is reported for some curl versions.
 * Guzzle version is now updated to support both 6.x and 7.x.

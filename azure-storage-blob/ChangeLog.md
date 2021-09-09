@@ -1,3 +1,8 @@
+2021.09 - version 1.5.3
+* Upgraded dependency for `azure-storage-common` to version 1.5.2.
+* Resolved some interface inconsistency between `IBlob`/`BlobRestProxy`.
+* Imported `Psr\Http\Message\StreamInterface` in `IBlob`.
+
 2020.12 - version 1.5.2
 * Resolved an issue where access condition does not work for large block blob uploads.
 * Guzzle version is now updated to support both 6.x and 7.x.

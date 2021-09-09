@@ -41,7 +41,7 @@ class TableResources extends Resources
 {
     // @codingStandardsIgnoreStart
 
-    const TABLE_SDK_VERSION = '1.1.4';
+    const TABLE_SDK_VERSION = '1.1.5';
     const STORAGE_API_LATEST_VERSION = '2016-05-31';
 
     const DATA_SERVICE_VERSION_VALUE = '3.0';

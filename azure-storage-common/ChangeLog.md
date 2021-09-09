@@ -1,3 +1,12 @@
+2021.09 - version 1.5.2
+* Added support for guzzle 7.3.
+* Resolve some warnings when calling `Psr7\stream_for`, uses `Utils::streamFor` instead.
+* Added colon to non-UTC timestamps.
+* Fixed type hint for `ServiceException::getResponse()`.
+* Fixed random number range that might cause an overflow in the guid generation.
+* Added logic to convert to exception when promise is rejected with string.
+* Compares `strlen` result with an integer instead of string.
+
 2020.12 - version 1.5.1
 * Guzzle version is now updated to support both 6.x and 7.x.
 
