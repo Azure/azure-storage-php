@@ -74,7 +74,7 @@ class CopyState
 
         $copyProgress = Utilities::tryGetValue($clean, 'copyprogress');
 
-        if (strpos($copyProgress, '/') !== false) {
+        if (!is_null($copyProgress) && strpos($copyProgress, '/') !== false) {
             $parts = explode('/', $copyProgress);
             $bytesCopied = intval($parts[0]);
             $totalBytes = intval($parts[1]);
@@ -112,7 +112,7 @@ class CopyState
         $result->setSource(Utilities::tryGetValue($clean, Resources::X_MS_COPY_SOURCE));
 
         $copyProgress = Utilities::tryGetValue($clean, Resources::X_MS_COPY_PROGRESS);
-        if (strpos($copyProgress, '/') !== false) {
+        if (!is_null($copyProgress) && strpos($copyProgress, '/') !== false) {
             $parts = explode('/', $copyProgress);
             $bytesCopied = intval($parts[0]);
             $totalBytes = intval($parts[1]);
