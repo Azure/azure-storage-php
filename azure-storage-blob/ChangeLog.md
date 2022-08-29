@@ -1,3 +1,6 @@
+2022.08 - version 1.5.4
+* Check `$copyProgress` is not null before using it in `strpos`.
+
 2021.09 - version 1.5.3
 * Upgraded dependency for `azure-storage-common` to version 1.5.2.
 * Resolved some interface inconsistency between `IBlob`/`BlobRestProxy`.

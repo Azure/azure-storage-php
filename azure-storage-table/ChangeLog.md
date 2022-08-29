@@ -1,3 +1,6 @@
+2022.08 - version 1.1.6
+* Removed EOL from Content-Type header in batch API.
+
 2021.09 - version 1.1.5
 * Upgraded dependency for `azure-storage-common` to version 1.5.2.
 * Fixed a bug where `QueryEnttitiesResult` with a null `NextRowKey` won't work.
