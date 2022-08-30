@@ -1,4 +1,4 @@
-If you intend to contribute to the project, please make sure you've followed the instructions provided in the [Azure Projects Contribution Guidelines](http://azure.github.io/guidelines/).
+If you intend to contribute to the project, please make sure you've followed the instructions provided in the [Azure Projects Contribution Guidelines](https://opensource.microsoft.com/program/#program-contributing).
 ## Project Setup
 The Azure Storage development team uses [Eclipse for PHP Developers](http://www.eclipse.org/downloads/packages/eclipse-php-developers/mars2) so instructions will be tailored to that preference. However, any preferred IDE or other toolset should be usable.
 

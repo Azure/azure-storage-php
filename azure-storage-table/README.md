@@ -149,7 +149,7 @@ cURL can't verify the validity of Microsoft certificate when trying to issue a r
 
 ## Code samples
 
-You can find samples in the [sample folder](samples)
+You can find samples in the [samples folder](https://github.com/Azure/azure-storage-php/tree/master/samples)
 
 
 # Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
@@ -164,7 +164,7 @@ Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](ht
 
 # Contribute Code or Provide Feedback
 
-If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](http://azure.github.io/guidelines/).
+If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](https://opensource.microsoft.com/program/#program-contributing).
 You can find more details for contributing in the [CONTRIBUTING.md](CONTRIBUTING.md).
 
 If you encounter any bugs with the library please file an issue in the [Issues](https://github.com/Azure/azure-storage-php/issues) section of the project.
