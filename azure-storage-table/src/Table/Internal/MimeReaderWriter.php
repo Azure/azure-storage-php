@@ -73,7 +73,7 @@ class MimeReaderWriter implements IMimeReaderWriter
         $batchBody         =& $result['body'];
         $batchHeaders      =& $result['headers'];
 
-        $batchHeaders['Content-Type'] = $mimeType . "; $eof boundary=\"$batchId\"";
+        $batchHeaders['Content-Type'] = $mimeType . "; boundary=\"$batchId\"";
 
         $batchBody .= "--" . $batchId . $eof;
         $batchBody .= "Content-Type: $mimeType; boundary=\"$changeSetId\"" . $eof;
