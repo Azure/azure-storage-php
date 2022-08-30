@@ -4884,7 +4884,7 @@ type and resource.</description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-blob\src\Blob\Internal\BlobResources.php" generated-path="azure-storage-blob.src.Blob.Internal.BlobResources.html" hash="4f609202acfbf6157bf60bf1cff1f832" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-blob\src\Blob\Internal\BlobResources.php" generated-path="azure-storage-blob.src.Blob.Internal.BlobResources.html" hash="035155296ef8f680801d73b0bc49e764" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -10864,7 +10864,7 @@ PHP version 5</long-description>
       </method>
     </class>
   </file>
-  <file path="azure-storage-blob\src\Blob\Models\CopyState.php" generated-path="azure-storage-blob.src.Blob.Models.CopyState.html" hash="78671b0124b13ff24beb24a1e16705f0" package="MicrosoftAzure\Storage\Blob\Models">
+  <file path="azure-storage-blob\src\Blob\Models\CopyState.php" generated-path="azure-storage-blob.src.Blob.Models.CopyState.html" hash="4fbfaab2068d600daad993383fa1756b" package="MicrosoftAzure\Storage\Blob\Models">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -23989,7 +23989,7 @@ PHP version 5</long-description>
     <namespace-alias name="ServiceOptions">\MicrosoftAzure\Storage\Common\Models\ServiceOptions</namespace-alias>
     <namespace-alias name="GetServiceStatsResult">\MicrosoftAzure\Storage\Common\Models\GetServiceStatsResult</namespace-alias>
   </file>
-  <file path="azure-storage-table\src\Table\Internal\JsonODataReaderWriter.php" generated-path="azure-storage-table.src.Table.Internal.JsonODataReaderWriter.html" hash="5fe4f4f07a2f09f89a0b3f9ec734642d" package="MicrosoftAzure\Storage\Table\Internal">
+  <file path="azure-storage-table\src\Table\Internal\JsonODataReaderWriter.php" generated-path="azure-storage-table.src.Table.Internal.JsonODataReaderWriter.html" hash="dea72eea740a84f30c899d1e828e6d94" package="MicrosoftAzure\Storage\Table\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -24014,7 +24014,7 @@ PHP version 5</long-description>
     <namespace-alias name="EdmType">\MicrosoftAzure\Storage\Table\Models\EdmType</namespace-alias>
     <namespace-alias name="Entity">\MicrosoftAzure\Storage\Table\Models\Entity</namespace-alias>
   </file>
-  <file path="azure-storage-table\src\Table\Internal\MimeReaderWriter.php" generated-path="azure-storage-table.src.Table.Internal.MimeReaderWriter.html" hash="d710c73dddaad88962e4baf829ade0eb" package="MicrosoftAzure\Storage\Table\Internal">
+  <file path="azure-storage-table\src\Table\Internal\MimeReaderWriter.php" generated-path="azure-storage-table.src.Table.Internal.MimeReaderWriter.html" hash="706e24528a7823bc40d6e72e0305612c" package="MicrosoftAzure\Storage\Table\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
@@ -24038,7 +24038,7 @@ PHP version 5</long-description>
     <namespace-alias name="Utilities">\MicrosoftAzure\Storage\Common\Internal\Utilities</namespace-alias>
     <namespace-alias name="Resources">\MicrosoftAzure\Storage\Table\Internal\TableResources</namespace-alias>
   </file>
-  <file path="azure-storage-table\src\Table\Internal\TableResources.php" generated-path="azure-storage-table.src.Table.Internal.TableResources.html" hash="35fc78113f7bb1d088ade5f87ce7275c" package="MicrosoftAzure\Storage\Common\Internal">
+  <file path="azure-storage-table\src\Table\Internal\TableResources.php" generated-path="azure-storage-table.src.Table.Internal.TableResources.html" hash="605cb19d8ce8b68984772d588f345837" package="MicrosoftAzure\Storage\Common\Internal">
     <docblock line="0">
       <description>LICENSE: The MIT License (the "License")
 you may not use this file except in compliance with the License.</description>
