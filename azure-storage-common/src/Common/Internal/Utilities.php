@@ -603,6 +603,9 @@ class Utilities
      */
     public static function endsWith($haystack, $needle, $ignoreCase = false)
     {
+        if (null === $haystack) {
+            return '';
+        }
         if ($ignoreCase) {
             $haystack = strtolower($haystack);
             $needle   = strtolower($needle);
