@@ -1,6 +1,8 @@
-# Microsoft Azure Storage PHP Client Libraries
+# Microsoft Azure Storage PHP Client Libraries (Deprecated)
 
-This project will be in Community Support and Azure Storage team commits to validate and release every quarter, as long as there are PRs from community. Azure Storage team is unable to continue to add new features or provide bugfixes.
+This project will be in [Community Support](https://azure.github.io/azure-sdk/policies_support.html#package-lifecycle) until 17 March 2024. After this date the project and associated client libraries will be retired permanently. For more details on the retirement and alternatives to using this project, visit [Retirement notice: The Azure Storage PHP client libraries will be retired on 17 March 2024](https://aka.ms/AzStoragePHPSDKRetirement).
+
+---
 
 This project provides a set of PHP client libraries that make it easy to access Microsoft Azure Storage services (blobs, tables, queues and files). For documentation on how to host PHP applications on Microsoft Azure, please see the [Microsoft Azure PHP Developer Center](http://www.windowsazure.com/en-us/develop/php/).
 
@@ -12,10 +14,10 @@ This project provides a set of PHP client libraries that make it easy to access 
 
 > **Note**
 >
-> * If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit https://github.com/Azure/azure-sdk-for-php.
+> * If you are looking for the Service Bus, Service Runtime, Service Management or Media Services libraries, please visit [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php).
 > * If you need big file (larger than 2GB) or 64-bit integer support, please install PHP 7 64-bit version.
 
-# Features
+## Features
 
 * Blobs
   * create, list, and delete containers, work with container metadata and permissions, list blobs in container
@@ -34,7 +36,6 @@ This project provides a set of PHP client libraries that make it easy to access 
 
 Please check details on [API reference documents](http://azure.github.io/azure-storage-php).
 
-# Getting Started
 ## Minimum Requirements
 
 * PHP 5.6 or above
@@ -52,7 +53,7 @@ Please check details on [API reference documents](http://azure.github.io/azure-s
 
 To get the source code from GitHub, type
 
-```
+```shell
 git clone https://github.com/Azure/azure-storage-php.git
 cd ./azure-storage-php
 ```
@@ -60,6 +61,7 @@ cd ./azure-storage-php
 ## Install via Composer
 
 1. Create a file named **composer.json** in the root of your project and add the following code to it:
+
 ```json
 {
   "require": {
@@ -70,11 +72,12 @@ cd ./azure-storage-php
   }
 }
 ```
-2. Download **[composer.phar](http://getcomposer.org/composer.phar)** in your project root.
 
-3. Open a command prompt and execute this in your project root
+1. Download **[composer.phar](http://getcomposer.org/composer.phar)** in your project root.
 
-```
+1. Open a command prompt and execute this in your project root
+
+```shell
 php composer.phar install
 ```
 
@@ -102,23 +105,24 @@ use MicrosoftAzure\Storage\Blob\BlobRestProxy;
 use MicrosoftAzure\Storage\Common\ServiceException;
 ```
   
-* To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is: 
+* To instantiate the service client you will also need a valid [connection string](https://azure.microsoft.com/en-us/documentation/articles/storage-configure-connection-string/). The format is:
 
-```
+```json
 DefaultEndpointsProtocol=[http|https];AccountName=[yourAccount];AccountKey=[yourKey]
 ```
 
 Or:
   
-```
+```json
 BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;SharedAccessSignature=sasToken
 ```
 
 Or if AAD authentication is used:
 
-```
+```json
 BlobEndpoint=myBlobEndpoint;QueueEndpoint=myQueueEndpoint;TableEndpoint=myTableEndpoint;FileEndpoint=myFileEndpoint;AccountName=[yourAccount]
 ```
+
 Note that account name is required.
 
 * Instantiate a client object - a wrapper around the available calls for the given service.
@@ -131,13 +135,16 @@ $fileClient = FileRestProxy::createFileService($connectionString);
 ```
 
 Or for AAD authentication:
+
 ```php
 $blobClient = BlobRestProxy::createBlobServiceWithTokenCredential($token, $connectionString);
 $queueClient = QueueRestProxy::createQueueServiceWithTokenCredential($token, $connectionString);
 ```
+
 Note that Blob and Queue service supports AAD authentication.
 
 ### Using Middlewares
+
 To specify the middlewares, user have to create an array with middlewares
 and put it in the `$requestOptions` with key 'middlewares'. The sequence of
 the array will affect the sequence in which the middleware is invoked. The
@@ -163,8 +170,10 @@ implements `MicrosoftAzure\Storage\Common\Internal\IMiddleware`, or a
 
 User can create self-defined middleware that inherits from `MicrosoftAzure\Storage\Common\Internal\Middlewares\MiddlewareBase`.
 
-### Retrying failures
+## Retrying failures
+
 You can use bundled middlewares to retry requests in case they fail for some reason. First you create the middleware:
+
 ```php
 $retryMiddleware = RetryMiddlewareFactory::create(
     RetryMiddlewareFactory::GENERAL_RETRY_TYPE,  // Specifies the retry logic
@@ -176,6 +185,7 @@ $retryMiddleware = RetryMiddlewareFactory::create(
 ```
 
 Then you add the middleware when creating the service as explained above:
+
 ```php
 $optionsWithMiddlewares = [
     'middlewares' = [
@@ -189,40 +199,50 @@ $tableClient = TableRestProxy::createTableService(
 ```
 
 Or by pushing it to the existing service:
+
 ```php
 $tableClient->pushMiddleware($retryMiddleware);
 ```
 
 Following errors are not retried in current retry middleware:
-- Authentication failures.
-- "Resource Not Found" errors.
-- Guzzle request exceptions that does not bear an HTTP response, e.g. failed to open stream, or cURL Connection reset by peer, etc.
+
+* Authentication failures.
+* "Resource Not Found" errors.
+* Guzzle request exceptions that does not bear an HTTP response, e.g. failed to open stream, or cURL Connection reset by peer, etc.
 *Note:* Community contribution to cover the Guzzle request exceptions are welcomed.
 
-#### Retry types
-- `RetryMiddlewareFactory::GENERAL_RETRY_TYPE` - General type of logic that handles retry
-- `RetryMiddlewareFactory::APPEND_BLOB_RETRY_TYPE` - For the append blob retry only, currently the same as the general type
+### Retry types
 
-#### Interval accumulations
-- `RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION` - The interval will be increased linearly, the *nth* retry will have a wait time equal to *n * interval*
-- `RetryMiddlewareFactory::EXPONENTIAL_INTERVAL_ACCUMULATION` - The interval will be increased exponentially, the *nth* retry will have a wait time equal to *pow(2, n) * interval*
+* `RetryMiddlewareFactory::GENERAL_RETRY_TYPE` - General type of logic that handles retry
+* `RetryMiddlewareFactory::APPEND_BLOB_RETRY_TYPE` * For the append blob retry only, currently the same as the general type
+
+### Interval accumulations
+
+* `RetryMiddlewareFactory::LINEAR_INTERVAL_ACCUMULATION` - The interval will be increased linearly, the *nth* retry will have a wait time equal to *n \* interval*
+* `RetryMiddlewareFactory::EXPONENTIAL_INTERVAL_ACCUMULATION` - The interval will be increased exponentially, the *nth* retry will have a wait time equal to *pow(2, n) \* interval*
 
 ### Using proxies
+
 To use proxies during HTTP requests, set system variable `HTTP_PROXY` and the proxy will be used.
 
 ## Troubleshooting
+
 ### Error: Unable to get local issuer certificate
+
 cURL can't verify the validity of Microsoft certificate when trying to issue a request call to Azure Storage Services. You must configure cURL to use a certificate when issuing https requests by the following steps:
 
-1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html). 
+1. Download the cacert.pem file from [cURL site](http://curl.haxx.se/docs/caextract.html).
 
 2. Then either:
     * Open your php.ini file and add the following line:
+
         ```ini
         curl.cainfo = "<absolute path to cacert.pem>"
         ```
+
         OR
     * Point to the cacert in the options when creating the Relevant Proxy.
+
         ```php
         //example of creating the FileRestProxy
         $options["http"] = ["verify" => "<absolute path to cacert.pem>"];
@@ -233,19 +253,19 @@ cURL can't verify the validity of Microsoft certificate when trying to issue a r
 
 You can find samples in the [samples folder](https://github.com/Azure/azure-storage-php/tree/master/samples).
 
-# Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
+## Migrate from [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/)
 
 If you are using [Azure SDK for PHP](https://github.com/Azure/azure-sdk-for-php/) to access Azure Storage Service, we highly recommend you to migrate to this SDK for faster issue resolution and quicker feature implementation. We are working on supporting the latest service features as well as improvement on existing APIs.
 
 For now, Microsoft Azure Storage PHP client libraries share almost the same interface as the storage blobs, tables, queues and files APIs in Azure SDK for PHP. However, there are some minor breaking changes need to be addressed during your migration. You can find the details in [BreakingChanges.md](BreakingChanges.md).
 
-# Need Help?
+## Need Help?
 
-Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](http://go.microsoft.com/fwlink/?LinkId=234489) and [github issues](https://github.com/Azure/azure-storage-php/issues) if you have trouble with the provided code. 
+Be sure to check out the Microsoft Azure [Developer Forums on Stack Overflow](http://go.microsoft.com/fwlink/?LinkId=234489) and [github issues](https://github.com/Azure/azure-storage-php/issues) if you have trouble with the provided code.
 
 Please note this project will be in Community Support and Azure Storage team commits to validate and release every quarter, as long as there are PRs from community. Azure Storage team is unable to continue to add new features or provide bugfixes.
 
-# Contribute Code or Provide Feedback
+## Contribute Code or Provide Feedback
 
 If you would like to become an active contributor to this project please follow the instructions provided in [Azure Projects Contribution Guidelines](https://opensource.microsoft.com/program/#program-contributing).
 You can find more details for contributing in the [CONTRIBUTING.md](CONTRIBUTING.md).
