@@ -128,10 +128,16 @@ Note that account name is required.
 * Instantiate a client object - a wrapper around the available calls for the given service.
 
 ```php
-$blobClient = BlobRestProxy::createBlobService($connectionString);
-$tableClient = TableRestProxy::createTableService($connectionString);
-$queueClient = QueueRestProxy::createQueueService($connectionString);
-$fileClient = FileRestProxy::createFileService($connectionString);
+$blobClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+$tableClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+$queueClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+$fileClient = ServicesBuilder::getInstance()->createQueueService($connectionString);
+```
+
+ServiceBuilder is part of MicrosoftAzure\Storage\Common namespace so you have to add:
+
+```php
+use MicrosoftAzure\Storage\Queue\QueueRestProxy;
 ```
 
 Or for AAD authentication:
