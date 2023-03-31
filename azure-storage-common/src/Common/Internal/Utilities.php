@@ -612,7 +612,7 @@ class Utilities
             return true;
         }
 
-        return (substr($haystack, -$length) === $needle);
+        return (substr((string) $haystack, -$length) === $needle);
     }
 
     /**
