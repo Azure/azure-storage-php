@@ -348,10 +348,10 @@ class FileRestProxy extends ServiceRestProxy implements IFile
             $options = new PutFileRangeOptions();
         }
 
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_COMP,
-            'range'
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_TYPE,
+            'BlockBlob'
         );
 
         $this->addOptionalQueryParam(
@@ -398,11 +398,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
             $chunkRange = new Range($start);
             $chunkRange->setLength($size);
 
-            $selfInstance->addOptionalHeader(
-                $headers,
-                Resources::X_MS_RANGE,
-                $chunkRange->getRangeString()
-            );
 
             $this->addOptionalHeader(
                 $headers,
@@ -1603,6 +1598,12 @@ class FileRestProxy extends ServiceRestProxy implements IFile
             'file'
         );
 
+        $this->addOptionalHeader(
+            $headers,
+            Resources::X_MS_BLOB_TYPE,
+            'BlockBlob'
+        );
+
         $this->addOptionalQueryParam(
             $queryParams,
             Resources::QP_TIMEOUT,
@@ -2246,8 +2247,8 @@ class FileRestProxy extends ServiceRestProxy implements IFile
 
         $this->addOptionalHeader(
             $headers,
-            Resources::X_MS_RANGE,
-            $range->getRangeString()
+            Resources::X_MS_BLOB_TYPE,
+            'BlockBlob'
         );
 
         $this->addOptionalHeader(
@@ -2266,12 +2267,6 @@ class FileRestProxy extends ServiceRestProxy implements IFile
             $headers,
             Resources::CONTENT_MD5,
             $options->getContentMD5()
-        );
-
-        $this->addOptionalQueryParam(
-            $queryParams,
-            Resources::QP_COMP,
-            'range'
         );
 
         return $this->sendAsync(
