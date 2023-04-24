@@ -370,6 +370,15 @@ function downloadBlobSample($blobClient)
     file_put_contents("output.txt", $getBlobResult->getContentStream());
 }
 
+function generateExpiryDateTime(int $minutes):string {
+    $expiryDateTime = new \DateTime('NOW');
+    $expiryDateTime->modify($minutes . ' minutes');
+    //Return a valid ISO 8601 formatted datetime in Zulu
+    return $expiryDateTime
+        ->setTimezone(new \DateTimeZone('UTC'))
+        ->format('Y-m-d\TH:i:s\Z');
+}
+
 function generateBlobDownloadLinkWithSAS()
 {
     global $connectionString, $myContainer;
@@ -386,13 +395,13 @@ function generateBlobDownloadLinkWithSAS()
     // Refer to following link for full candidate values to construct a service level SAS
     // https://docs.microsoft.com/en-us/rest/api/storageservices/constructing-a-service-sas
     $sas = $helper->generateBlobServiceSharedAccessSignatureToken(
-        Resources::RESOURCE_TYPE_BLOB,
-        "$myContainer/myblob",
-        'r',                            // Read
-        '2030-01-01T08:30:00Z'//,       // A valid ISO 8601 format expiry time
-        //'2016-01-01T08:30:00Z',       // A valid ISO 8601 format expiry time
-        //'0.0.0.0-255.255.255.255'
-        //'https,http'
+        Resources::RESOURCE_TYPE_BLOB,  // b=Blob Resource Type
+        "$myContainer/myblob",          // ContainerName/BlobName
+        'r',                            // r=Read
+        generateExpiryDateTime(1440)//, // End DateTime
+        //'2016-01-01T08:30:00Z',       // Start DateTime, should be at least 15 minutes in the past or omitted
+        //'0.0.0.0-255.255.255.255'     // IP Range
+        //'https,http'                  // Permitted protocols
     );
 
     $connectionStringWithSAS = Resources::BLOB_ENDPOINT_NAME .
